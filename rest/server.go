@@ -388,17 +388,17 @@ func dispatchSearch[R model.Release](
 		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 	}
 
-	options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount, config.StrictSearchParameters)
+	searchParameters, options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount, config.StrictSearchParameters)
 	if err != nil {
 		return nil, err
 	}
 
-	resources, err := backend.Search(ctx, resourceType, options)
+	resources, err := backend.Search(ctx, resourceType, searchParameters, options)
 	if err != nil {
 		return nil, err
 	}
 
-	bundle, err := buildSearchBundle(resourceType, resources, options, capabilityStatement, resolveSearchParameter)
+	bundle, err := buildSearchBundle(resourceType, resources, searchParameters, options, capabilityStatement, resolveSearchParameter)
 	if err != nil {
 		return nil, err
 	}
@@ -413,12 +413,12 @@ func parseSearchOptions(
 	params url.Values,
 	tz *time.Location,
 	maxCount, defaultCount int,
-	strict bool) (search.Options, error) {
-	options, err := search.ParseOptions(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount, strict)
+	strict bool) (search.Parameters, search.Options, error) {
+	parameters, options, err := search.ParseQuery(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount, strict)
 	if err != nil {
-		return search.Options{}, searchError(err.Error())
+		return nil, search.Options{}, searchError(err.Error())
 	}
-	return options, nil
+	return parameters, options, nil
 }
 
 func returnErr(w http.ResponseWriter, format Format, err error) {

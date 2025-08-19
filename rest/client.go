@@ -281,13 +281,15 @@ func (c *client) Delete(ctx context.Context, resourceType, id string) error {
 }
 
 // Search performs a search operation for the given resource type with the specified options.
-func (c *client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error) {
+func (c *client) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+	opts := options
+
 	var u *url.URL
 
 	// If cursor is provided, use it as the complete URL (ignoring other options)
-	if options.Cursor != "" {
+	if opts.Cursor != "" {
 		var err error
-		u, err = url.Parse(string(options.Cursor))
+		u, err = url.Parse(string(opts.Cursor))
 		if err != nil {
 			return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor URL: %w", err)
 		}
@@ -296,7 +298,7 @@ func (c *client) Search(ctx context.Context, resourceType string, options search
 		u = c.baseURL.JoinPath(resourceType)
 
 		// Add query parameters from search options
-		queryString := options.QueryString()
+		queryString := search.BuildQuery(parameters, opts)
 		if queryString != "" {
 			u.RawQuery = queryString
 		}

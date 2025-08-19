@@ -22,12 +22,14 @@ func main() {
 	fmt.Printf("Read patient:\n%s\n", patient)
 
 	// Search for patients
-	result, err := client.SearchPatient(context.Background(), search.Options{
-		Parameters: search.Params{
+	result, err := client.SearchPatient(context.Background(),
+		search.Params{
 			"birthdate": search.String("ge2000-01-01"),
 		},
-		Count: 5,
-	})
+		search.Options{
+			Count: 5,
+		},
+	)
 	if err != nil {
 		log.Fatal(err)
 	}

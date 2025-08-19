@@ -16455,7 +16455,7 @@ func (w Concrete) DeleteVisionPrescription(ctx context.Context, id string) error
 	}
 	return g.Delete(ctx, "VisionPrescription", id)
 }
-func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (search.Result[r5.Account], error) {
+func (w Concrete) SearchAccount(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Account], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Account]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16464,7 +16464,7 @@ func (w Concrete) SearchAccount(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Account", options)
+	result, err := g.Search(ctx, "Account", parameters, options)
 	if err != nil {
 		return search.Result[r5.Account]{}, err
 	}
@@ -16535,7 +16535,7 @@ func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.Options) (search.Result[r5.ActivityDefinition], error) {
+func (w Concrete) SearchActivityDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ActivityDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ActivityDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16544,7 +16544,7 @@ func (w Concrete) SearchActivityDefinition(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ActivityDefinition", options)
+	result, err := g.Search(ctx, "ActivityDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ActivityDefinition]{}, err
 	}
@@ -16615,7 +16615,7 @@ func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchActorDefinition(ctx context.Context, options search.Options) (search.Result[r5.ActorDefinition], error) {
+func (w Concrete) SearchActorDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ActorDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ActorDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16624,7 +16624,7 @@ func (w Concrete) SearchActorDefinition(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ActorDefinition", options)
+	result, err := g.Search(ctx, "ActorDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ActorDefinition]{}, err
 	}
@@ -16695,7 +16695,7 @@ func (w Concrete) SearchCapabilitiesActorDefinition(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, options search.Options) (search.Result[r5.AdministrableProductDefinition], error) {
+func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AdministrableProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.AdministrableProductDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16704,7 +16704,7 @@ func (w Concrete) SearchAdministrableProductDefinition(ctx context.Context, opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "AdministrableProductDefinition", options)
+	result, err := g.Search(ctx, "AdministrableProductDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.AdministrableProductDefinition]{}, err
 	}
@@ -16775,7 +16775,7 @@ func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.C
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options) (search.Result[r5.AdverseEvent], error) {
+func (w Concrete) SearchAdverseEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AdverseEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.AdverseEvent]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16784,7 +16784,7 @@ func (w Concrete) SearchAdverseEvent(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "AdverseEvent", options)
+	result, err := g.Search(ctx, "AdverseEvent", parameters, options)
 	if err != nil {
 		return search.Result[r5.AdverseEvent]{}, err
 	}
@@ -16855,7 +16855,7 @@ func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.Options) (search.Result[r5.AllergyIntolerance], error) {
+func (w Concrete) SearchAllergyIntolerance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AllergyIntolerance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.AllergyIntolerance]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16864,7 +16864,7 @@ func (w Concrete) SearchAllergyIntolerance(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "AllergyIntolerance", options)
+	result, err := g.Search(ctx, "AllergyIntolerance", parameters, options)
 	if err != nil {
 		return search.Result[r5.AllergyIntolerance]{}, err
 	}
@@ -16935,7 +16935,7 @@ func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAppointment(ctx context.Context, options search.Options) (search.Result[r5.Appointment], error) {
+func (w Concrete) SearchAppointment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Appointment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Appointment]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -16944,7 +16944,7 @@ func (w Concrete) SearchAppointment(ctx context.Context, options search.Options)
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Appointment", options)
+	result, err := g.Search(ctx, "Appointment", parameters, options)
 	if err != nil {
 		return search.Result[r5.Appointment]{}, err
 	}
@@ -17015,7 +17015,7 @@ func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (r5.SearchC
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.Options) (search.Result[r5.AppointmentResponse], error) {
+func (w Concrete) SearchAppointmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AppointmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.AppointmentResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17024,7 +17024,7 @@ func (w Concrete) SearchAppointmentResponse(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "AppointmentResponse", options)
+	result, err := g.Search(ctx, "AppointmentResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.AppointmentResponse]{}, err
 	}
@@ -17095,7 +17095,7 @@ func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchArtifactAssessment(ctx context.Context, options search.Options) (search.Result[r5.ArtifactAssessment], error) {
+func (w Concrete) SearchArtifactAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ArtifactAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ArtifactAssessment]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17104,7 +17104,7 @@ func (w Concrete) SearchArtifactAssessment(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ArtifactAssessment", options)
+	result, err := g.Search(ctx, "ArtifactAssessment", parameters, options)
 	if err != nil {
 		return search.Result[r5.ArtifactAssessment]{}, err
 	}
@@ -17175,7 +17175,7 @@ func (w Concrete) SearchCapabilitiesArtifactAssessment(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) (search.Result[r5.AuditEvent], error) {
+func (w Concrete) SearchAuditEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AuditEvent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.AuditEvent]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17184,7 +17184,7 @@ func (w Concrete) SearchAuditEvent(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "AuditEvent", options)
+	result, err := g.Search(ctx, "AuditEvent", parameters, options)
 	if err != nil {
 		return search.Result[r5.AuditEvent]{}, err
 	}
@@ -17255,7 +17255,7 @@ func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (search.Result[r5.Basic], error) {
+func (w Concrete) SearchBasic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Basic], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Basic]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17264,7 +17264,7 @@ func (w Concrete) SearchBasic(ctx context.Context, options search.Options) (sear
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Basic", options)
+	result, err := g.Search(ctx, "Basic", parameters, options)
 	if err != nil {
 		return search.Result[r5.Basic]{}, err
 	}
@@ -17335,7 +17335,7 @@ func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (r5.SearchCapabil
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (search.Result[r5.Binary], error) {
+func (w Concrete) SearchBinary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Binary], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Binary]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17344,7 +17344,7 @@ func (w Concrete) SearchBinary(ctx context.Context, options search.Options) (sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Binary", options)
+	result, err := g.Search(ctx, "Binary", parameters, options)
 	if err != nil {
 		return search.Result[r5.Binary]{}, err
 	}
@@ -17415,7 +17415,7 @@ func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (r5.SearchCapabi
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options search.Options) (search.Result[r5.BiologicallyDerivedProduct], error) {
+func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BiologicallyDerivedProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.BiologicallyDerivedProduct]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17424,7 +17424,7 @@ func (w Concrete) SearchBiologicallyDerivedProduct(ctx context.Context, options 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "BiologicallyDerivedProduct", options)
+	result, err := g.Search(ctx, "BiologicallyDerivedProduct", parameters, options)
 	if err != nil {
 		return search.Result[r5.BiologicallyDerivedProduct]{}, err
 	}
@@ -17495,7 +17495,7 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBiologicallyDerivedProductDispense(ctx context.Context, options search.Options) (search.Result[r5.BiologicallyDerivedProductDispense], error) {
+func (w Concrete) SearchBiologicallyDerivedProductDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BiologicallyDerivedProductDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.BiologicallyDerivedProductDispense]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17504,7 +17504,7 @@ func (w Concrete) SearchBiologicallyDerivedProductDispense(ctx context.Context, 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "BiologicallyDerivedProductDispense", options)
+	result, err := g.Search(ctx, "BiologicallyDerivedProductDispense", parameters, options)
 	if err != nil {
 		return search.Result[r5.BiologicallyDerivedProductDispense]{}, err
 	}
@@ -17575,7 +17575,7 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Options) (search.Result[r5.BodyStructure], error) {
+func (w Concrete) SearchBodyStructure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BodyStructure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.BodyStructure]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17584,7 +17584,7 @@ func (w Concrete) SearchBodyStructure(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "BodyStructure", options)
+	result, err := g.Search(ctx, "BodyStructure", parameters, options)
 	if err != nil {
 		return search.Result[r5.BodyStructure]{}, err
 	}
@@ -17655,7 +17655,7 @@ func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (search.Result[r5.Bundle], error) {
+func (w Concrete) SearchBundle(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Bundle], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Bundle]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17664,7 +17664,7 @@ func (w Concrete) SearchBundle(ctx context.Context, options search.Options) (sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Bundle", options)
+	result, err := g.Search(ctx, "Bundle", parameters, options)
 	if err != nil {
 		return search.Result[r5.Bundle]{}, err
 	}
@@ -17735,7 +17735,7 @@ func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (r5.SearchCapabi
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.Options) (search.Result[r5.CapabilityStatement], error) {
+func (w Concrete) SearchCapabilityStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CapabilityStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CapabilityStatement]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17744,7 +17744,7 @@ func (w Concrete) SearchCapabilityStatement(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CapabilityStatement", options)
+	result, err := g.Search(ctx, "CapabilityStatement", parameters, options)
 	if err != nil {
 		return search.Result[r5.CapabilityStatement]{}, err
 	}
@@ -17815,7 +17815,7 @@ func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (search.Result[r5.CarePlan], error) {
+func (w Concrete) SearchCarePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CarePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CarePlan]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17824,7 +17824,7 @@ func (w Concrete) SearchCarePlan(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CarePlan", options)
+	result, err := g.Search(ctx, "CarePlan", parameters, options)
 	if err != nil {
 		return search.Result[r5.CarePlan]{}, err
 	}
@@ -17895,7 +17895,7 @@ func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (search.Result[r5.CareTeam], error) {
+func (w Concrete) SearchCareTeam(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CareTeam], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CareTeam]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17904,7 +17904,7 @@ func (w Concrete) SearchCareTeam(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CareTeam", options)
+	result, err := g.Search(ctx, "CareTeam", parameters, options)
 	if err != nil {
 		return search.Result[r5.CareTeam]{}, err
 	}
@@ -17975,7 +17975,7 @@ func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) (search.Result[r5.ChargeItem], error) {
+func (w Concrete) SearchChargeItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ChargeItem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ChargeItem]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -17984,7 +17984,7 @@ func (w Concrete) SearchChargeItem(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ChargeItem", options)
+	result, err := g.Search(ctx, "ChargeItem", parameters, options)
 	if err != nil {
 		return search.Result[r5.ChargeItem]{}, err
 	}
@@ -18055,7 +18055,7 @@ func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search.Options) (search.Result[r5.ChargeItemDefinition], error) {
+func (w Concrete) SearchChargeItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ChargeItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ChargeItemDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18064,7 +18064,7 @@ func (w Concrete) SearchChargeItemDefinition(ctx context.Context, options search
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ChargeItemDefinition", options)
+	result, err := g.Search(ctx, "ChargeItemDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ChargeItemDefinition]{}, err
 	}
@@ -18135,7 +18135,7 @@ func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (r
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (search.Result[r5.Citation], error) {
+func (w Concrete) SearchCitation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Citation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Citation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18144,7 +18144,7 @@ func (w Concrete) SearchCitation(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Citation", options)
+	result, err := g.Search(ctx, "Citation", parameters, options)
 	if err != nil {
 		return search.Result[r5.Citation]{}, err
 	}
@@ -18215,7 +18215,7 @@ func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (search.Result[r5.Claim], error) {
+func (w Concrete) SearchClaim(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Claim], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Claim]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18224,7 +18224,7 @@ func (w Concrete) SearchClaim(ctx context.Context, options search.Options) (sear
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Claim", options)
+	result, err := g.Search(ctx, "Claim", parameters, options)
 	if err != nil {
 		return search.Result[r5.Claim]{}, err
 	}
@@ -18295,7 +18295,7 @@ func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (r5.SearchCapabil
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Options) (search.Result[r5.ClaimResponse], error) {
+func (w Concrete) SearchClaimResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClaimResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ClaimResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18304,7 +18304,7 @@ func (w Concrete) SearchClaimResponse(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ClaimResponse", options)
+	result, err := g.Search(ctx, "ClaimResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.ClaimResponse]{}, err
 	}
@@ -18375,7 +18375,7 @@ func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.Options) (search.Result[r5.ClinicalImpression], error) {
+func (w Concrete) SearchClinicalImpression(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClinicalImpression], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ClinicalImpression]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18384,7 +18384,7 @@ func (w Concrete) SearchClinicalImpression(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ClinicalImpression", options)
+	result, err := g.Search(ctx, "ClinicalImpression", parameters, options)
 	if err != nil {
 		return search.Result[r5.ClinicalImpression]{}, err
 	}
@@ -18455,7 +18455,7 @@ func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options search.Options) (search.Result[r5.ClinicalUseDefinition], error) {
+func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClinicalUseDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ClinicalUseDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18464,7 +18464,7 @@ func (w Concrete) SearchClinicalUseDefinition(ctx context.Context, options searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ClinicalUseDefinition", options)
+	result, err := g.Search(ctx, "ClinicalUseDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ClinicalUseDefinition]{}, err
 	}
@@ -18535,7 +18535,7 @@ func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) (search.Result[r5.CodeSystem], error) {
+func (w Concrete) SearchCodeSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CodeSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CodeSystem]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18544,7 +18544,7 @@ func (w Concrete) SearchCodeSystem(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CodeSystem", options)
+	result, err := g.Search(ctx, "CodeSystem", parameters, options)
 	if err != nil {
 		return search.Result[r5.CodeSystem]{}, err
 	}
@@ -18615,7 +18615,7 @@ func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCommunication(ctx context.Context, options search.Options) (search.Result[r5.Communication], error) {
+func (w Concrete) SearchCommunication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Communication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Communication]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18624,7 +18624,7 @@ func (w Concrete) SearchCommunication(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Communication", options)
+	result, err := g.Search(ctx, "Communication", parameters, options)
 	if err != nil {
 		return search.Result[r5.Communication]{}, err
 	}
@@ -18695,7 +18695,7 @@ func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search.Options) (search.Result[r5.CommunicationRequest], error) {
+func (w Concrete) SearchCommunicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CommunicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CommunicationRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18704,7 +18704,7 @@ func (w Concrete) SearchCommunicationRequest(ctx context.Context, options search
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CommunicationRequest", options)
+	result, err := g.Search(ctx, "CommunicationRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.CommunicationRequest]{}, err
 	}
@@ -18775,7 +18775,7 @@ func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (r
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options search.Options) (search.Result[r5.CompartmentDefinition], error) {
+func (w Concrete) SearchCompartmentDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CompartmentDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CompartmentDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18784,7 +18784,7 @@ func (w Concrete) SearchCompartmentDefinition(ctx context.Context, options searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CompartmentDefinition", options)
+	result, err := g.Search(ctx, "CompartmentDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.CompartmentDefinition]{}, err
 	}
@@ -18855,7 +18855,7 @@ func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchComposition(ctx context.Context, options search.Options) (search.Result[r5.Composition], error) {
+func (w Concrete) SearchComposition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Composition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Composition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18864,7 +18864,7 @@ func (w Concrete) SearchComposition(ctx context.Context, options search.Options)
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Composition", options)
+	result, err := g.Search(ctx, "Composition", parameters, options)
 	if err != nil {
 		return search.Result[r5.Composition]{}, err
 	}
@@ -18935,7 +18935,7 @@ func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (r5.SearchC
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) (search.Result[r5.ConceptMap], error) {
+func (w Concrete) SearchConceptMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ConceptMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ConceptMap]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -18944,7 +18944,7 @@ func (w Concrete) SearchConceptMap(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ConceptMap", options)
+	result, err := g.Search(ctx, "ConceptMap", parameters, options)
 	if err != nil {
 		return search.Result[r5.ConceptMap]{}, err
 	}
@@ -19015,7 +19015,7 @@ func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (search.Result[r5.Condition], error) {
+func (w Concrete) SearchCondition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Condition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Condition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19024,7 +19024,7 @@ func (w Concrete) SearchCondition(ctx context.Context, options search.Options) (
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Condition", options)
+	result, err := g.Search(ctx, "Condition", parameters, options)
 	if err != nil {
 		return search.Result[r5.Condition]{}, err
 	}
@@ -19095,7 +19095,7 @@ func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (r5.SearchCap
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchConditionDefinition(ctx context.Context, options search.Options) (search.Result[r5.ConditionDefinition], error) {
+func (w Concrete) SearchConditionDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ConditionDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ConditionDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19104,7 +19104,7 @@ func (w Concrete) SearchConditionDefinition(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ConditionDefinition", options)
+	result, err := g.Search(ctx, "ConditionDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ConditionDefinition]{}, err
 	}
@@ -19175,7 +19175,7 @@ func (w Concrete) SearchCapabilitiesConditionDefinition(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (search.Result[r5.Consent], error) {
+func (w Concrete) SearchConsent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Consent], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Consent]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19184,7 +19184,7 @@ func (w Concrete) SearchConsent(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Consent", options)
+	result, err := g.Search(ctx, "Consent", parameters, options)
 	if err != nil {
 		return search.Result[r5.Consent]{}, err
 	}
@@ -19255,7 +19255,7 @@ func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchContract(ctx context.Context, options search.Options) (search.Result[r5.Contract], error) {
+func (w Concrete) SearchContract(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Contract], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Contract]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19264,7 +19264,7 @@ func (w Concrete) SearchContract(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Contract", options)
+	result, err := g.Search(ctx, "Contract", parameters, options)
 	if err != nil {
 		return search.Result[r5.Contract]{}, err
 	}
@@ -19335,7 +19335,7 @@ func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (search.Result[r5.Coverage], error) {
+func (w Concrete) SearchCoverage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Coverage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Coverage]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19344,7 +19344,7 @@ func (w Concrete) SearchCoverage(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Coverage", options)
+	result, err := g.Search(ctx, "Coverage", parameters, options)
 	if err != nil {
 		return search.Result[r5.Coverage]{}, err
 	}
@@ -19415,7 +19415,7 @@ func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options search.Options) (search.Result[r5.CoverageEligibilityRequest], error) {
+func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CoverageEligibilityRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CoverageEligibilityRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19424,7 +19424,7 @@ func (w Concrete) SearchCoverageEligibilityRequest(ctx context.Context, options 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CoverageEligibilityRequest", options)
+	result, err := g.Search(ctx, "CoverageEligibilityRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.CoverageEligibilityRequest]{}, err
 	}
@@ -19495,7 +19495,7 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options search.Options) (search.Result[r5.CoverageEligibilityResponse], error) {
+func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CoverageEligibilityResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.CoverageEligibilityResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19504,7 +19504,7 @@ func (w Concrete) SearchCoverageEligibilityResponse(ctx context.Context, options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "CoverageEligibilityResponse", options)
+	result, err := g.Search(ctx, "CoverageEligibilityResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.CoverageEligibilityResponse]{}, err
 	}
@@ -19575,7 +19575,7 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Cont
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Options) (search.Result[r5.DetectedIssue], error) {
+func (w Concrete) SearchDetectedIssue(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DetectedIssue], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DetectedIssue]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19584,7 +19584,7 @@ func (w Concrete) SearchDetectedIssue(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DetectedIssue", options)
+	result, err := g.Search(ctx, "DetectedIssue", parameters, options)
 	if err != nil {
 		return search.Result[r5.DetectedIssue]{}, err
 	}
@@ -19655,7 +19655,7 @@ func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (search.Result[r5.Device], error) {
+func (w Concrete) SearchDevice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Device], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Device]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19664,7 +19664,7 @@ func (w Concrete) SearchDevice(ctx context.Context, options search.Options) (sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Device", options)
+	result, err := g.Search(ctx, "Device", parameters, options)
 	if err != nil {
 		return search.Result[r5.Device]{}, err
 	}
@@ -19735,7 +19735,7 @@ func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (r5.SearchCapabi
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceAssociation(ctx context.Context, options search.Options) (search.Result[r5.DeviceAssociation], error) {
+func (w Concrete) SearchDeviceAssociation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceAssociation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceAssociation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19744,7 +19744,7 @@ func (w Concrete) SearchDeviceAssociation(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceAssociation", options)
+	result, err := g.Search(ctx, "DeviceAssociation", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceAssociation]{}, err
 	}
@@ -19815,7 +19815,7 @@ func (w Concrete) SearchCapabilitiesDeviceAssociation(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Options) (search.Result[r5.DeviceDefinition], error) {
+func (w Concrete) SearchDeviceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19824,7 +19824,7 @@ func (w Concrete) SearchDeviceDefinition(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceDefinition", options)
+	result, err := g.Search(ctx, "DeviceDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceDefinition]{}, err
 	}
@@ -19895,7 +19895,7 @@ func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceDispense(ctx context.Context, options search.Options) (search.Result[r5.DeviceDispense], error) {
+func (w Concrete) SearchDeviceDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceDispense]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19904,7 +19904,7 @@ func (w Concrete) SearchDeviceDispense(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceDispense", options)
+	result, err := g.Search(ctx, "DeviceDispense", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceDispense]{}, err
 	}
@@ -19975,7 +19975,7 @@ func (w Concrete) SearchCapabilitiesDeviceDispense(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options) (search.Result[r5.DeviceMetric], error) {
+func (w Concrete) SearchDeviceMetric(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceMetric], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceMetric]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -19984,7 +19984,7 @@ func (w Concrete) SearchDeviceMetric(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceMetric", options)
+	result, err := g.Search(ctx, "DeviceMetric", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceMetric]{}, err
 	}
@@ -20055,7 +20055,7 @@ func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Options) (search.Result[r5.DeviceRequest], error) {
+func (w Concrete) SearchDeviceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20064,7 +20064,7 @@ func (w Concrete) SearchDeviceRequest(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceRequest", options)
+	result, err := g.Search(ctx, "DeviceRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceRequest]{}, err
 	}
@@ -20135,7 +20135,7 @@ func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDeviceUsage(ctx context.Context, options search.Options) (search.Result[r5.DeviceUsage], error) {
+func (w Concrete) SearchDeviceUsage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceUsage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DeviceUsage]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20144,7 +20144,7 @@ func (w Concrete) SearchDeviceUsage(ctx context.Context, options search.Options)
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DeviceUsage", options)
+	result, err := g.Search(ctx, "DeviceUsage", parameters, options)
 	if err != nil {
 		return search.Result[r5.DeviceUsage]{}, err
 	}
@@ -20215,7 +20215,7 @@ func (w Concrete) SearchCapabilitiesDeviceUsage(ctx context.Context) (r5.SearchC
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Options) (search.Result[r5.DiagnosticReport], error) {
+func (w Concrete) SearchDiagnosticReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DiagnosticReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DiagnosticReport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20224,7 +20224,7 @@ func (w Concrete) SearchDiagnosticReport(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DiagnosticReport", options)
+	result, err := g.Search(ctx, "DiagnosticReport", parameters, options)
 	if err != nil {
 		return search.Result[r5.DiagnosticReport]{}, err
 	}
@@ -20295,7 +20295,7 @@ func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Options) (search.Result[r5.DocumentReference], error) {
+func (w Concrete) SearchDocumentReference(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DocumentReference], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.DocumentReference]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20304,7 +20304,7 @@ func (w Concrete) SearchDocumentReference(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "DocumentReference", options)
+	result, err := g.Search(ctx, "DocumentReference", parameters, options)
 	if err != nil {
 		return search.Result[r5.DocumentReference]{}, err
 	}
@@ -20375,7 +20375,7 @@ func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (search.Result[r5.Encounter], error) {
+func (w Concrete) SearchEncounter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Encounter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Encounter]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20384,7 +20384,7 @@ func (w Concrete) SearchEncounter(ctx context.Context, options search.Options) (
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Encounter", options)
+	result, err := g.Search(ctx, "Encounter", parameters, options)
 	if err != nil {
 		return search.Result[r5.Encounter]{}, err
 	}
@@ -20455,7 +20455,7 @@ func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (r5.SearchCap
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEncounterHistory(ctx context.Context, options search.Options) (search.Result[r5.EncounterHistory], error) {
+func (w Concrete) SearchEncounterHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EncounterHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EncounterHistory]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20464,7 +20464,7 @@ func (w Concrete) SearchEncounterHistory(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EncounterHistory", options)
+	result, err := g.Search(ctx, "EncounterHistory", parameters, options)
 	if err != nil {
 		return search.Result[r5.EncounterHistory]{}, err
 	}
@@ -20535,7 +20535,7 @@ func (w Concrete) SearchCapabilitiesEncounterHistory(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (search.Result[r5.Endpoint], error) {
+func (w Concrete) SearchEndpoint(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Endpoint], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Endpoint]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20544,7 +20544,7 @@ func (w Concrete) SearchEndpoint(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Endpoint", options)
+	result, err := g.Search(ctx, "Endpoint", parameters, options)
 	if err != nil {
 		return search.Result[r5.Endpoint]{}, err
 	}
@@ -20615,7 +20615,7 @@ func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Options) (search.Result[r5.EnrollmentRequest], error) {
+func (w Concrete) SearchEnrollmentRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EnrollmentRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EnrollmentRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20624,7 +20624,7 @@ func (w Concrete) SearchEnrollmentRequest(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EnrollmentRequest", options)
+	result, err := g.Search(ctx, "EnrollmentRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.EnrollmentRequest]{}, err
 	}
@@ -20695,7 +20695,7 @@ func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.Options) (search.Result[r5.EnrollmentResponse], error) {
+func (w Concrete) SearchEnrollmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EnrollmentResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EnrollmentResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20704,7 +20704,7 @@ func (w Concrete) SearchEnrollmentResponse(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EnrollmentResponse", options)
+	result, err := g.Search(ctx, "EnrollmentResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.EnrollmentResponse]{}, err
 	}
@@ -20775,7 +20775,7 @@ func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Options) (search.Result[r5.EpisodeOfCare], error) {
+func (w Concrete) SearchEpisodeOfCare(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EpisodeOfCare], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EpisodeOfCare]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20784,7 +20784,7 @@ func (w Concrete) SearchEpisodeOfCare(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EpisodeOfCare", options)
+	result, err := g.Search(ctx, "EpisodeOfCare", parameters, options)
 	if err != nil {
 		return search.Result[r5.EpisodeOfCare]{}, err
 	}
@@ -20855,7 +20855,7 @@ func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Options) (search.Result[r5.EventDefinition], error) {
+func (w Concrete) SearchEventDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EventDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EventDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20864,7 +20864,7 @@ func (w Concrete) SearchEventDefinition(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EventDefinition", options)
+	result, err := g.Search(ctx, "EventDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.EventDefinition]{}, err
 	}
@@ -20935,7 +20935,7 @@ func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (search.Result[r5.Evidence], error) {
+func (w Concrete) SearchEvidence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Evidence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Evidence]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -20944,7 +20944,7 @@ func (w Concrete) SearchEvidence(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Evidence", options)
+	result, err := g.Search(ctx, "Evidence", parameters, options)
 	if err != nil {
 		return search.Result[r5.Evidence]{}, err
 	}
@@ -21015,7 +21015,7 @@ func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Options) (search.Result[r5.EvidenceReport], error) {
+func (w Concrete) SearchEvidenceReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EvidenceReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EvidenceReport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21024,7 +21024,7 @@ func (w Concrete) SearchEvidenceReport(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EvidenceReport", options)
+	result, err := g.Search(ctx, "EvidenceReport", parameters, options)
 	if err != nil {
 		return search.Result[r5.EvidenceReport]{}, err
 	}
@@ -21095,7 +21095,7 @@ func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Options) (search.Result[r5.EvidenceVariable], error) {
+func (w Concrete) SearchEvidenceVariable(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EvidenceVariable], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.EvidenceVariable]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21104,7 +21104,7 @@ func (w Concrete) SearchEvidenceVariable(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "EvidenceVariable", options)
+	result, err := g.Search(ctx, "EvidenceVariable", parameters, options)
 	if err != nil {
 		return search.Result[r5.EvidenceVariable]{}, err
 	}
@@ -21175,7 +21175,7 @@ func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Options) (search.Result[r5.ExampleScenario], error) {
+func (w Concrete) SearchExampleScenario(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ExampleScenario], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ExampleScenario]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21184,7 +21184,7 @@ func (w Concrete) SearchExampleScenario(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ExampleScenario", options)
+	result, err := g.Search(ctx, "ExampleScenario", parameters, options)
 	if err != nil {
 		return search.Result[r5.ExampleScenario]{}, err
 	}
@@ -21255,7 +21255,7 @@ func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search.Options) (search.Result[r5.ExplanationOfBenefit], error) {
+func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ExplanationOfBenefit], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ExplanationOfBenefit]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21264,7 +21264,7 @@ func (w Concrete) SearchExplanationOfBenefit(ctx context.Context, options search
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ExplanationOfBenefit", options)
+	result, err := g.Search(ctx, "ExplanationOfBenefit", parameters, options)
 	if err != nil {
 		return search.Result[r5.ExplanationOfBenefit]{}, err
 	}
@@ -21335,7 +21335,7 @@ func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (r
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.Options) (search.Result[r5.FamilyMemberHistory], error) {
+func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.FamilyMemberHistory], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.FamilyMemberHistory]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21344,7 +21344,7 @@ func (w Concrete) SearchFamilyMemberHistory(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "FamilyMemberHistory", options)
+	result, err := g.Search(ctx, "FamilyMemberHistory", parameters, options)
 	if err != nil {
 		return search.Result[r5.FamilyMemberHistory]{}, err
 	}
@@ -21415,7 +21415,7 @@ func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (search.Result[r5.Flag], error) {
+func (w Concrete) SearchFlag(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Flag], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Flag]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21424,7 +21424,7 @@ func (w Concrete) SearchFlag(ctx context.Context, options search.Options) (searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Flag", options)
+	result, err := g.Search(ctx, "Flag", parameters, options)
 	if err != nil {
 		return search.Result[r5.Flag]{}, err
 	}
@@ -21495,7 +21495,7 @@ func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (r5.SearchCapabili
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchFormularyItem(ctx context.Context, options search.Options) (search.Result[r5.FormularyItem], error) {
+func (w Concrete) SearchFormularyItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.FormularyItem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.FormularyItem]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21504,7 +21504,7 @@ func (w Concrete) SearchFormularyItem(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "FormularyItem", options)
+	result, err := g.Search(ctx, "FormularyItem", parameters, options)
 	if err != nil {
 		return search.Result[r5.FormularyItem]{}, err
 	}
@@ -21575,7 +21575,7 @@ func (w Concrete) SearchCapabilitiesFormularyItem(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchGenomicStudy(ctx context.Context, options search.Options) (search.Result[r5.GenomicStudy], error) {
+func (w Concrete) SearchGenomicStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GenomicStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.GenomicStudy]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21584,7 +21584,7 @@ func (w Concrete) SearchGenomicStudy(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "GenomicStudy", options)
+	result, err := g.Search(ctx, "GenomicStudy", parameters, options)
 	if err != nil {
 		return search.Result[r5.GenomicStudy]{}, err
 	}
@@ -21655,7 +21655,7 @@ func (w Concrete) SearchCapabilitiesGenomicStudy(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (search.Result[r5.Goal], error) {
+func (w Concrete) SearchGoal(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Goal], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Goal]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21664,7 +21664,7 @@ func (w Concrete) SearchGoal(ctx context.Context, options search.Options) (searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Goal", options)
+	result, err := g.Search(ctx, "Goal", parameters, options)
 	if err != nil {
 		return search.Result[r5.Goal]{}, err
 	}
@@ -21735,7 +21735,7 @@ func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (r5.SearchCapabili
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Options) (search.Result[r5.GraphDefinition], error) {
+func (w Concrete) SearchGraphDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GraphDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.GraphDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21744,7 +21744,7 @@ func (w Concrete) SearchGraphDefinition(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "GraphDefinition", options)
+	result, err := g.Search(ctx, "GraphDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.GraphDefinition]{}, err
 	}
@@ -21815,7 +21815,7 @@ func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (search.Result[r5.Group], error) {
+func (w Concrete) SearchGroup(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Group], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Group]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21824,7 +21824,7 @@ func (w Concrete) SearchGroup(ctx context.Context, options search.Options) (sear
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Group", options)
+	result, err := g.Search(ctx, "Group", parameters, options)
 	if err != nil {
 		return search.Result[r5.Group]{}, err
 	}
@@ -21895,7 +21895,7 @@ func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (r5.SearchCapabil
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Options) (search.Result[r5.GuidanceResponse], error) {
+func (w Concrete) SearchGuidanceResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GuidanceResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.GuidanceResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21904,7 +21904,7 @@ func (w Concrete) SearchGuidanceResponse(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "GuidanceResponse", options)
+	result, err := g.Search(ctx, "GuidanceResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.GuidanceResponse]{}, err
 	}
@@ -21975,7 +21975,7 @@ func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Options) (search.Result[r5.HealthcareService], error) {
+func (w Concrete) SearchHealthcareService(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.HealthcareService], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.HealthcareService]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -21984,7 +21984,7 @@ func (w Concrete) SearchHealthcareService(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "HealthcareService", options)
+	result, err := g.Search(ctx, "HealthcareService", parameters, options)
 	if err != nil {
 		return search.Result[r5.HealthcareService]{}, err
 	}
@@ -22055,7 +22055,7 @@ func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImagingSelection(ctx context.Context, options search.Options) (search.Result[r5.ImagingSelection], error) {
+func (w Concrete) SearchImagingSelection(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImagingSelection], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ImagingSelection]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22064,7 +22064,7 @@ func (w Concrete) SearchImagingSelection(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ImagingSelection", options)
+	result, err := g.Search(ctx, "ImagingSelection", parameters, options)
 	if err != nil {
 		return search.Result[r5.ImagingSelection]{}, err
 	}
@@ -22135,7 +22135,7 @@ func (w Concrete) SearchCapabilitiesImagingSelection(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options) (search.Result[r5.ImagingStudy], error) {
+func (w Concrete) SearchImagingStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImagingStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ImagingStudy]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22144,7 +22144,7 @@ func (w Concrete) SearchImagingStudy(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ImagingStudy", options)
+	result, err := g.Search(ctx, "ImagingStudy", parameters, options)
 	if err != nil {
 		return search.Result[r5.ImagingStudy]{}, err
 	}
@@ -22215,7 +22215,7 @@ func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImmunization(ctx context.Context, options search.Options) (search.Result[r5.Immunization], error) {
+func (w Concrete) SearchImmunization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Immunization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Immunization]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22224,7 +22224,7 @@ func (w Concrete) SearchImmunization(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Immunization", options)
+	result, err := g.Search(ctx, "Immunization", parameters, options)
 	if err != nil {
 		return search.Result[r5.Immunization]{}, err
 	}
@@ -22295,7 +22295,7 @@ func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options search.Options) (search.Result[r5.ImmunizationEvaluation], error) {
+func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImmunizationEvaluation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ImmunizationEvaluation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22304,7 +22304,7 @@ func (w Concrete) SearchImmunizationEvaluation(ctx context.Context, options sear
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ImmunizationEvaluation", options)
+	result, err := g.Search(ctx, "ImmunizationEvaluation", parameters, options)
 	if err != nil {
 		return search.Result[r5.ImmunizationEvaluation]{}, err
 	}
@@ -22375,7 +22375,7 @@ func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) 
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options search.Options) (search.Result[r5.ImmunizationRecommendation], error) {
+func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImmunizationRecommendation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ImmunizationRecommendation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22384,7 +22384,7 @@ func (w Concrete) SearchImmunizationRecommendation(ctx context.Context, options 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ImmunizationRecommendation", options)
+	result, err := g.Search(ctx, "ImmunizationRecommendation", parameters, options)
 	if err != nil {
 		return search.Result[r5.ImmunizationRecommendation]{}, err
 	}
@@ -22455,7 +22455,7 @@ func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.Options) (search.Result[r5.ImplementationGuide], error) {
+func (w Concrete) SearchImplementationGuide(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImplementationGuide], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ImplementationGuide]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22464,7 +22464,7 @@ func (w Concrete) SearchImplementationGuide(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ImplementationGuide", options)
+	result, err := g.Search(ctx, "ImplementationGuide", parameters, options)
 	if err != nil {
 		return search.Result[r5.ImplementationGuide]{}, err
 	}
@@ -22535,7 +22535,7 @@ func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) (search.Result[r5.Ingredient], error) {
+func (w Concrete) SearchIngredient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Ingredient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Ingredient]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22544,7 +22544,7 @@ func (w Concrete) SearchIngredient(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Ingredient", options)
+	result, err := g.Search(ctx, "Ingredient", parameters, options)
 	if err != nil {
 		return search.Result[r5.Ingredient]{}, err
 	}
@@ -22615,7 +22615,7 @@ func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Options) (search.Result[r5.InsurancePlan], error) {
+func (w Concrete) SearchInsurancePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InsurancePlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.InsurancePlan]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22624,7 +22624,7 @@ func (w Concrete) SearchInsurancePlan(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "InsurancePlan", options)
+	result, err := g.Search(ctx, "InsurancePlan", parameters, options)
 	if err != nil {
 		return search.Result[r5.InsurancePlan]{}, err
 	}
@@ -22695,7 +22695,7 @@ func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchInventoryItem(ctx context.Context, options search.Options) (search.Result[r5.InventoryItem], error) {
+func (w Concrete) SearchInventoryItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InventoryItem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.InventoryItem]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22704,7 +22704,7 @@ func (w Concrete) SearchInventoryItem(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "InventoryItem", options)
+	result, err := g.Search(ctx, "InventoryItem", parameters, options)
 	if err != nil {
 		return search.Result[r5.InventoryItem]{}, err
 	}
@@ -22775,7 +22775,7 @@ func (w Concrete) SearchCapabilitiesInventoryItem(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchInventoryReport(ctx context.Context, options search.Options) (search.Result[r5.InventoryReport], error) {
+func (w Concrete) SearchInventoryReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InventoryReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.InventoryReport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22784,7 +22784,7 @@ func (w Concrete) SearchInventoryReport(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "InventoryReport", options)
+	result, err := g.Search(ctx, "InventoryReport", parameters, options)
 	if err != nil {
 		return search.Result[r5.InventoryReport]{}, err
 	}
@@ -22855,7 +22855,7 @@ func (w Concrete) SearchCapabilitiesInventoryReport(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (search.Result[r5.Invoice], error) {
+func (w Concrete) SearchInvoice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Invoice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Invoice]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22864,7 +22864,7 @@ func (w Concrete) SearchInvoice(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Invoice", options)
+	result, err := g.Search(ctx, "Invoice", parameters, options)
 	if err != nil {
 		return search.Result[r5.Invoice]{}, err
 	}
@@ -22935,7 +22935,7 @@ func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (search.Result[r5.Library], error) {
+func (w Concrete) SearchLibrary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Library], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Library]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -22944,7 +22944,7 @@ func (w Concrete) SearchLibrary(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Library", options)
+	result, err := g.Search(ctx, "Library", parameters, options)
 	if err != nil {
 		return search.Result[r5.Library]{}, err
 	}
@@ -23015,7 +23015,7 @@ func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (search.Result[r5.Linkage], error) {
+func (w Concrete) SearchLinkage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Linkage], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Linkage]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23024,7 +23024,7 @@ func (w Concrete) SearchLinkage(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Linkage", options)
+	result, err := g.Search(ctx, "Linkage", parameters, options)
 	if err != nil {
 		return search.Result[r5.Linkage]{}, err
 	}
@@ -23095,7 +23095,7 @@ func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchList(ctx context.Context, options search.Options) (search.Result[r5.List], error) {
+func (w Concrete) SearchList(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.List], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.List]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23104,7 +23104,7 @@ func (w Concrete) SearchList(ctx context.Context, options search.Options) (searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "List", options)
+	result, err := g.Search(ctx, "List", parameters, options)
 	if err != nil {
 		return search.Result[r5.List]{}, err
 	}
@@ -23175,7 +23175,7 @@ func (w Concrete) SearchCapabilitiesList(ctx context.Context) (r5.SearchCapabili
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (search.Result[r5.Location], error) {
+func (w Concrete) SearchLocation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Location], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Location]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23184,7 +23184,7 @@ func (w Concrete) SearchLocation(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Location", options)
+	result, err := g.Search(ctx, "Location", parameters, options)
 	if err != nil {
 		return search.Result[r5.Location]{}, err
 	}
@@ -23255,7 +23255,7 @@ func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options search.Options) (search.Result[r5.ManufacturedItemDefinition], error) {
+func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ManufacturedItemDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ManufacturedItemDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23264,7 +23264,7 @@ func (w Concrete) SearchManufacturedItemDefinition(ctx context.Context, options 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ManufacturedItemDefinition", options)
+	result, err := g.Search(ctx, "ManufacturedItemDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ManufacturedItemDefinition]{}, err
 	}
@@ -23335,7 +23335,7 @@ func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (search.Result[r5.Measure], error) {
+func (w Concrete) SearchMeasure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Measure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Measure]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23344,7 +23344,7 @@ func (w Concrete) SearchMeasure(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Measure", options)
+	result, err := g.Search(ctx, "Measure", parameters, options)
 	if err != nil {
 		return search.Result[r5.Measure]{}, err
 	}
@@ -23415,7 +23415,7 @@ func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Options) (search.Result[r5.MeasureReport], error) {
+func (w Concrete) SearchMeasureReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MeasureReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MeasureReport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23424,7 +23424,7 @@ func (w Concrete) SearchMeasureReport(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MeasureReport", options)
+	result, err := g.Search(ctx, "MeasureReport", parameters, options)
 	if err != nil {
 		return search.Result[r5.MeasureReport]{}, err
 	}
@@ -23495,7 +23495,7 @@ func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedication(ctx context.Context, options search.Options) (search.Result[r5.Medication], error) {
+func (w Concrete) SearchMedication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Medication], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Medication]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23504,7 +23504,7 @@ func (w Concrete) SearchMedication(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Medication", options)
+	result, err := g.Search(ctx, "Medication", parameters, options)
 	if err != nil {
 		return search.Result[r5.Medication]{}, err
 	}
@@ -23575,7 +23575,7 @@ func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicationAdministration(ctx context.Context, options search.Options) (search.Result[r5.MedicationAdministration], error) {
+func (w Concrete) SearchMedicationAdministration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationAdministration], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicationAdministration]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23584,7 +23584,7 @@ func (w Concrete) SearchMedicationAdministration(ctx context.Context, options se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicationAdministration", options)
+	result, err := g.Search(ctx, "MedicationAdministration", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicationAdministration]{}, err
 	}
@@ -23655,7 +23655,7 @@ func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.Options) (search.Result[r5.MedicationDispense], error) {
+func (w Concrete) SearchMedicationDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationDispense], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicationDispense]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23664,7 +23664,7 @@ func (w Concrete) SearchMedicationDispense(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicationDispense", options)
+	result, err := g.Search(ctx, "MedicationDispense", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicationDispense]{}, err
 	}
@@ -23735,7 +23735,7 @@ func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.Options) (search.Result[r5.MedicationKnowledge], error) {
+func (w Concrete) SearchMedicationKnowledge(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationKnowledge], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicationKnowledge]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23744,7 +23744,7 @@ func (w Concrete) SearchMedicationKnowledge(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicationKnowledge", options)
+	result, err := g.Search(ctx, "MedicationKnowledge", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicationKnowledge]{}, err
 	}
@@ -23815,7 +23815,7 @@ func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Options) (search.Result[r5.MedicationRequest], error) {
+func (w Concrete) SearchMedicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicationRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23824,7 +23824,7 @@ func (w Concrete) SearchMedicationRequest(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicationRequest", options)
+	result, err := g.Search(ctx, "MedicationRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicationRequest]{}, err
 	}
@@ -23895,7 +23895,7 @@ func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.Options) (search.Result[r5.MedicationStatement], error) {
+func (w Concrete) SearchMedicationStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationStatement], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicationStatement]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23904,7 +23904,7 @@ func (w Concrete) SearchMedicationStatement(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicationStatement", options)
+	result, err := g.Search(ctx, "MedicationStatement", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicationStatement]{}, err
 	}
@@ -23975,7 +23975,7 @@ func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options search.Options) (search.Result[r5.MedicinalProductDefinition], error) {
+func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicinalProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MedicinalProductDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -23984,7 +23984,7 @@ func (w Concrete) SearchMedicinalProductDefinition(ctx context.Context, options 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MedicinalProductDefinition", options)
+	result, err := g.Search(ctx, "MedicinalProductDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.MedicinalProductDefinition]{}, err
 	}
@@ -24055,7 +24055,7 @@ func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Conte
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Options) (search.Result[r5.MessageDefinition], error) {
+func (w Concrete) SearchMessageDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MessageDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MessageDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24064,7 +24064,7 @@ func (w Concrete) SearchMessageDefinition(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MessageDefinition", options)
+	result, err := g.Search(ctx, "MessageDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.MessageDefinition]{}, err
 	}
@@ -24135,7 +24135,7 @@ func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Options) (search.Result[r5.MessageHeader], error) {
+func (w Concrete) SearchMessageHeader(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MessageHeader], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MessageHeader]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24144,7 +24144,7 @@ func (w Concrete) SearchMessageHeader(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MessageHeader", options)
+	result, err := g.Search(ctx, "MessageHeader", parameters, options)
 	if err != nil {
 		return search.Result[r5.MessageHeader]{}, err
 	}
@@ -24215,7 +24215,7 @@ func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Options) (search.Result[r5.MolecularSequence], error) {
+func (w Concrete) SearchMolecularSequence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MolecularSequence], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.MolecularSequence]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24224,7 +24224,7 @@ func (w Concrete) SearchMolecularSequence(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "MolecularSequence", options)
+	result, err := g.Search(ctx, "MolecularSequence", parameters, options)
 	if err != nil {
 		return search.Result[r5.MolecularSequence]{}, err
 	}
@@ -24295,7 +24295,7 @@ func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options) (search.Result[r5.NamingSystem], error) {
+func (w Concrete) SearchNamingSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NamingSystem], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.NamingSystem]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24304,7 +24304,7 @@ func (w Concrete) SearchNamingSystem(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "NamingSystem", options)
+	result, err := g.Search(ctx, "NamingSystem", parameters, options)
 	if err != nil {
 		return search.Result[r5.NamingSystem]{}, err
 	}
@@ -24375,7 +24375,7 @@ func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchNutritionIntake(ctx context.Context, options search.Options) (search.Result[r5.NutritionIntake], error) {
+func (w Concrete) SearchNutritionIntake(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionIntake], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.NutritionIntake]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24384,7 +24384,7 @@ func (w Concrete) SearchNutritionIntake(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "NutritionIntake", options)
+	result, err := g.Search(ctx, "NutritionIntake", parameters, options)
 	if err != nil {
 		return search.Result[r5.NutritionIntake]{}, err
 	}
@@ -24455,7 +24455,7 @@ func (w Concrete) SearchCapabilitiesNutritionIntake(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Options) (search.Result[r5.NutritionOrder], error) {
+func (w Concrete) SearchNutritionOrder(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionOrder], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.NutritionOrder]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24464,7 +24464,7 @@ func (w Concrete) SearchNutritionOrder(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "NutritionOrder", options)
+	result, err := g.Search(ctx, "NutritionOrder", parameters, options)
 	if err != nil {
 		return search.Result[r5.NutritionOrder]{}, err
 	}
@@ -24535,7 +24535,7 @@ func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Options) (search.Result[r5.NutritionProduct], error) {
+func (w Concrete) SearchNutritionProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionProduct], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.NutritionProduct]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24544,7 +24544,7 @@ func (w Concrete) SearchNutritionProduct(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "NutritionProduct", options)
+	result, err := g.Search(ctx, "NutritionProduct", parameters, options)
 	if err != nil {
 		return search.Result[r5.NutritionProduct]{}, err
 	}
@@ -24615,7 +24615,7 @@ func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchObservation(ctx context.Context, options search.Options) (search.Result[r5.Observation], error) {
+func (w Concrete) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Observation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Observation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24624,7 +24624,7 @@ func (w Concrete) SearchObservation(ctx context.Context, options search.Options)
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Observation", options)
+	result, err := g.Search(ctx, "Observation", parameters, options)
 	if err != nil {
 		return search.Result[r5.Observation]{}, err
 	}
@@ -24695,7 +24695,7 @@ func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (r5.SearchC
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchObservationDefinition(ctx context.Context, options search.Options) (search.Result[r5.ObservationDefinition], error) {
+func (w Concrete) SearchObservationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ObservationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ObservationDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24704,7 +24704,7 @@ func (w Concrete) SearchObservationDefinition(ctx context.Context, options searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ObservationDefinition", options)
+	result, err := g.Search(ctx, "ObservationDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.ObservationDefinition]{}, err
 	}
@@ -24775,7 +24775,7 @@ func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.Options) (search.Result[r5.OperationDefinition], error) {
+func (w Concrete) SearchOperationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OperationDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.OperationDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24784,7 +24784,7 @@ func (w Concrete) SearchOperationDefinition(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "OperationDefinition", options)
+	result, err := g.Search(ctx, "OperationDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.OperationDefinition]{}, err
 	}
@@ -24855,7 +24855,7 @@ func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Options) (search.Result[r5.OperationOutcome], error) {
+func (w Concrete) SearchOperationOutcome(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OperationOutcome], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.OperationOutcome]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24864,7 +24864,7 @@ func (w Concrete) SearchOperationOutcome(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "OperationOutcome", options)
+	result, err := g.Search(ctx, "OperationOutcome", parameters, options)
 	if err != nil {
 		return search.Result[r5.OperationOutcome]{}, err
 	}
@@ -24935,7 +24935,7 @@ func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchOrganization(ctx context.Context, options search.Options) (search.Result[r5.Organization], error) {
+func (w Concrete) SearchOrganization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Organization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Organization]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -24944,7 +24944,7 @@ func (w Concrete) SearchOrganization(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Organization", options)
+	result, err := g.Search(ctx, "Organization", parameters, options)
 	if err != nil {
 		return search.Result[r5.Organization]{}, err
 	}
@@ -25015,7 +25015,7 @@ func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options search.Options) (search.Result[r5.OrganizationAffiliation], error) {
+func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OrganizationAffiliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.OrganizationAffiliation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25024,7 +25024,7 @@ func (w Concrete) SearchOrganizationAffiliation(ctx context.Context, options sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "OrganizationAffiliation", options)
+	result, err := g.Search(ctx, "OrganizationAffiliation", parameters, options)
 	if err != nil {
 		return search.Result[r5.OrganizationAffiliation]{}, err
 	}
@@ -25095,7 +25095,7 @@ func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context)
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options search.Options) (search.Result[r5.PackagedProductDefinition], error) {
+func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PackagedProductDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.PackagedProductDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25104,7 +25104,7 @@ func (w Concrete) SearchPackagedProductDefinition(ctx context.Context, options s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "PackagedProductDefinition", options)
+	result, err := g.Search(ctx, "PackagedProductDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.PackagedProductDefinition]{}, err
 	}
@@ -25175,7 +25175,7 @@ func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Contex
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchParameters(ctx context.Context, options search.Options) (search.Result[r5.Parameters], error) {
+func (w Concrete) SearchParameters(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Parameters], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Parameters]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25184,7 +25184,7 @@ func (w Concrete) SearchParameters(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Parameters", options)
+	result, err := g.Search(ctx, "Parameters", parameters, options)
 	if err != nil {
 		return search.Result[r5.Parameters]{}, err
 	}
@@ -25255,7 +25255,7 @@ func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (search.Result[r5.Patient], error) {
+func (w Concrete) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Patient], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Patient]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25264,7 +25264,7 @@ func (w Concrete) SearchPatient(ctx context.Context, options search.Options) (se
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Patient", options)
+	result, err := g.Search(ctx, "Patient", parameters, options)
 	if err != nil {
 		return search.Result[r5.Patient]{}, err
 	}
@@ -25335,7 +25335,7 @@ func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (r5.SearchCapab
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Options) (search.Result[r5.PaymentNotice], error) {
+func (w Concrete) SearchPaymentNotice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PaymentNotice], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.PaymentNotice]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25344,7 +25344,7 @@ func (w Concrete) SearchPaymentNotice(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "PaymentNotice", options)
+	result, err := g.Search(ctx, "PaymentNotice", parameters, options)
 	if err != nil {
 		return search.Result[r5.PaymentNotice]{}, err
 	}
@@ -25415,7 +25415,7 @@ func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options search.Options) (search.Result[r5.PaymentReconciliation], error) {
+func (w Concrete) SearchPaymentReconciliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PaymentReconciliation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.PaymentReconciliation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25424,7 +25424,7 @@ func (w Concrete) SearchPaymentReconciliation(ctx context.Context, options searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "PaymentReconciliation", options)
+	result, err := g.Search(ctx, "PaymentReconciliation", parameters, options)
 	if err != nil {
 		return search.Result[r5.PaymentReconciliation]{}, err
 	}
@@ -25495,7 +25495,7 @@ func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPermission(ctx context.Context, options search.Options) (search.Result[r5.Permission], error) {
+func (w Concrete) SearchPermission(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Permission], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Permission]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25504,7 +25504,7 @@ func (w Concrete) SearchPermission(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Permission", options)
+	result, err := g.Search(ctx, "Permission", parameters, options)
 	if err != nil {
 		return search.Result[r5.Permission]{}, err
 	}
@@ -25575,7 +25575,7 @@ func (w Concrete) SearchCapabilitiesPermission(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (search.Result[r5.Person], error) {
+func (w Concrete) SearchPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Person], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Person]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25584,7 +25584,7 @@ func (w Concrete) SearchPerson(ctx context.Context, options search.Options) (sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Person", options)
+	result, err := g.Search(ctx, "Person", parameters, options)
 	if err != nil {
 		return search.Result[r5.Person]{}, err
 	}
@@ -25655,7 +25655,7 @@ func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (r5.SearchCapabi
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Options) (search.Result[r5.PlanDefinition], error) {
+func (w Concrete) SearchPlanDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PlanDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.PlanDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25664,7 +25664,7 @@ func (w Concrete) SearchPlanDefinition(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "PlanDefinition", options)
+	result, err := g.Search(ctx, "PlanDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.PlanDefinition]{}, err
 	}
@@ -25735,7 +25735,7 @@ func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options) (search.Result[r5.Practitioner], error) {
+func (w Concrete) SearchPractitioner(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Practitioner], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Practitioner]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25744,7 +25744,7 @@ func (w Concrete) SearchPractitioner(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Practitioner", options)
+	result, err := g.Search(ctx, "Practitioner", parameters, options)
 	if err != nil {
 		return search.Result[r5.Practitioner]{}, err
 	}
@@ -25815,7 +25815,7 @@ func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Options) (search.Result[r5.PractitionerRole], error) {
+func (w Concrete) SearchPractitionerRole(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PractitionerRole], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.PractitionerRole]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25824,7 +25824,7 @@ func (w Concrete) SearchPractitionerRole(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "PractitionerRole", options)
+	result, err := g.Search(ctx, "PractitionerRole", parameters, options)
 	if err != nil {
 		return search.Result[r5.PractitionerRole]{}, err
 	}
@@ -25895,7 +25895,7 @@ func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (search.Result[r5.Procedure], error) {
+func (w Concrete) SearchProcedure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Procedure], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Procedure]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25904,7 +25904,7 @@ func (w Concrete) SearchProcedure(ctx context.Context, options search.Options) (
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Procedure", options)
+	result, err := g.Search(ctx, "Procedure", parameters, options)
 	if err != nil {
 		return search.Result[r5.Procedure]{}, err
 	}
@@ -25975,7 +25975,7 @@ func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (r5.SearchCap
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) (search.Result[r5.Provenance], error) {
+func (w Concrete) SearchProvenance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Provenance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Provenance]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -25984,7 +25984,7 @@ func (w Concrete) SearchProvenance(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Provenance", options)
+	result, err := g.Search(ctx, "Provenance", parameters, options)
 	if err != nil {
 		return search.Result[r5.Provenance]{}, err
 	}
@@ -26055,7 +26055,7 @@ func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Options) (search.Result[r5.Questionnaire], error) {
+func (w Concrete) SearchQuestionnaire(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Questionnaire], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Questionnaire]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26064,7 +26064,7 @@ func (w Concrete) SearchQuestionnaire(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Questionnaire", options)
+	result, err := g.Search(ctx, "Questionnaire", parameters, options)
 	if err != nil {
 		return search.Result[r5.Questionnaire]{}, err
 	}
@@ -26135,7 +26135,7 @@ func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options search.Options) (search.Result[r5.QuestionnaireResponse], error) {
+func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.QuestionnaireResponse], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.QuestionnaireResponse]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26144,7 +26144,7 @@ func (w Concrete) SearchQuestionnaireResponse(ctx context.Context, options searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "QuestionnaireResponse", options)
+	result, err := g.Search(ctx, "QuestionnaireResponse", parameters, options)
 	if err != nil {
 		return search.Result[r5.QuestionnaireResponse]{}, err
 	}
@@ -26215,7 +26215,7 @@ func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options search.Options) (search.Result[r5.RegulatedAuthorization], error) {
+func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RegulatedAuthorization], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.RegulatedAuthorization]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26224,7 +26224,7 @@ func (w Concrete) SearchRegulatedAuthorization(ctx context.Context, options sear
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "RegulatedAuthorization", options)
+	result, err := g.Search(ctx, "RegulatedAuthorization", parameters, options)
 	if err != nil {
 		return search.Result[r5.RegulatedAuthorization]{}, err
 	}
@@ -26295,7 +26295,7 @@ func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) 
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Options) (search.Result[r5.RelatedPerson], error) {
+func (w Concrete) SearchRelatedPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RelatedPerson], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.RelatedPerson]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26304,7 +26304,7 @@ func (w Concrete) SearchRelatedPerson(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "RelatedPerson", options)
+	result, err := g.Search(ctx, "RelatedPerson", parameters, options)
 	if err != nil {
 		return search.Result[r5.RelatedPerson]{}, err
 	}
@@ -26375,7 +26375,7 @@ func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchRequestOrchestration(ctx context.Context, options search.Options) (search.Result[r5.RequestOrchestration], error) {
+func (w Concrete) SearchRequestOrchestration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RequestOrchestration], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.RequestOrchestration]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26384,7 +26384,7 @@ func (w Concrete) SearchRequestOrchestration(ctx context.Context, options search
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "RequestOrchestration", options)
+	result, err := g.Search(ctx, "RequestOrchestration", parameters, options)
 	if err != nil {
 		return search.Result[r5.RequestOrchestration]{}, err
 	}
@@ -26455,7 +26455,7 @@ func (w Concrete) SearchCapabilitiesRequestOrchestration(ctx context.Context) (r
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchRequirements(ctx context.Context, options search.Options) (search.Result[r5.Requirements], error) {
+func (w Concrete) SearchRequirements(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Requirements], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Requirements]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26464,7 +26464,7 @@ func (w Concrete) SearchRequirements(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Requirements", options)
+	result, err := g.Search(ctx, "Requirements", parameters, options)
 	if err != nil {
 		return search.Result[r5.Requirements]{}, err
 	}
@@ -26535,7 +26535,7 @@ func (w Concrete) SearchCapabilitiesRequirements(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Options) (search.Result[r5.ResearchStudy], error) {
+func (w Concrete) SearchResearchStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ResearchStudy], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ResearchStudy]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26544,7 +26544,7 @@ func (w Concrete) SearchResearchStudy(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ResearchStudy", options)
+	result, err := g.Search(ctx, "ResearchStudy", parameters, options)
 	if err != nil {
 		return search.Result[r5.ResearchStudy]{}, err
 	}
@@ -26615,7 +26615,7 @@ func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Options) (search.Result[r5.ResearchSubject], error) {
+func (w Concrete) SearchResearchSubject(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ResearchSubject], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ResearchSubject]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26624,7 +26624,7 @@ func (w Concrete) SearchResearchSubject(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ResearchSubject", options)
+	result, err := g.Search(ctx, "ResearchSubject", parameters, options)
 	if err != nil {
 		return search.Result[r5.ResearchSubject]{}, err
 	}
@@ -26695,7 +26695,7 @@ func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Options) (search.Result[r5.RiskAssessment], error) {
+func (w Concrete) SearchRiskAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RiskAssessment], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.RiskAssessment]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26704,7 +26704,7 @@ func (w Concrete) SearchRiskAssessment(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "RiskAssessment", options)
+	result, err := g.Search(ctx, "RiskAssessment", parameters, options)
 	if err != nil {
 		return search.Result[r5.RiskAssessment]{}, err
 	}
@@ -26775,7 +26775,7 @@ func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (search.Result[r5.Schedule], error) {
+func (w Concrete) SearchSchedule(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Schedule], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Schedule]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26784,7 +26784,7 @@ func (w Concrete) SearchSchedule(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Schedule", options)
+	result, err := g.Search(ctx, "Schedule", parameters, options)
 	if err != nil {
 		return search.Result[r5.Schedule]{}, err
 	}
@@ -26855,7 +26855,7 @@ func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r5.SearchParameter], error) {
+func (w Concrete) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SearchParameter], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SearchParameter]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26864,7 +26864,7 @@ func (w Concrete) SearchSearchParameter(ctx context.Context, options search.Opti
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SearchParameter", options)
+	result, err := g.Search(ctx, "SearchParameter", parameters, options)
 	if err != nil {
 		return search.Result[r5.SearchParameter]{}, err
 	}
@@ -26935,7 +26935,7 @@ func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (r5.Sea
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Options) (search.Result[r5.ServiceRequest], error) {
+func (w Concrete) SearchServiceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ServiceRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ServiceRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -26944,7 +26944,7 @@ func (w Concrete) SearchServiceRequest(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ServiceRequest", options)
+	result, err := g.Search(ctx, "ServiceRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.ServiceRequest]{}, err
 	}
@@ -27015,7 +27015,7 @@ func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (search.Result[r5.Slot], error) {
+func (w Concrete) SearchSlot(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Slot], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Slot]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27024,7 +27024,7 @@ func (w Concrete) SearchSlot(ctx context.Context, options search.Options) (searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Slot", options)
+	result, err := g.Search(ctx, "Slot", parameters, options)
 	if err != nil {
 		return search.Result[r5.Slot]{}, err
 	}
@@ -27095,7 +27095,7 @@ func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (r5.SearchCapabili
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (search.Result[r5.Specimen], error) {
+func (w Concrete) SearchSpecimen(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Specimen], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Specimen]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27104,7 +27104,7 @@ func (w Concrete) SearchSpecimen(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Specimen", options)
+	result, err := g.Search(ctx, "Specimen", parameters, options)
 	if err != nil {
 		return search.Result[r5.Specimen]{}, err
 	}
@@ -27175,7 +27175,7 @@ func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.Options) (search.Result[r5.SpecimenDefinition], error) {
+func (w Concrete) SearchSpecimenDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SpecimenDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SpecimenDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27184,7 +27184,7 @@ func (w Concrete) SearchSpecimenDefinition(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SpecimenDefinition", options)
+	result, err := g.Search(ctx, "SpecimenDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.SpecimenDefinition]{}, err
 	}
@@ -27255,7 +27255,7 @@ func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.Options) (search.Result[r5.StructureDefinition], error) {
+func (w Concrete) SearchStructureDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.StructureDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.StructureDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27264,7 +27264,7 @@ func (w Concrete) SearchStructureDefinition(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "StructureDefinition", options)
+	result, err := g.Search(ctx, "StructureDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.StructureDefinition]{}, err
 	}
@@ -27335,7 +27335,7 @@ func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options) (search.Result[r5.StructureMap], error) {
+func (w Concrete) SearchStructureMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.StructureMap], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.StructureMap]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27344,7 +27344,7 @@ func (w Concrete) SearchStructureMap(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "StructureMap", options)
+	result, err := g.Search(ctx, "StructureMap", parameters, options)
 	if err != nil {
 		return search.Result[r5.StructureMap]{}, err
 	}
@@ -27415,7 +27415,7 @@ func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubscription(ctx context.Context, options search.Options) (search.Result[r5.Subscription], error) {
+func (w Concrete) SearchSubscription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Subscription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Subscription]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27424,7 +27424,7 @@ func (w Concrete) SearchSubscription(ctx context.Context, options search.Options
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Subscription", options)
+	result, err := g.Search(ctx, "Subscription", parameters, options)
 	if err != nil {
 		return search.Result[r5.Subscription]{}, err
 	}
@@ -27495,7 +27495,7 @@ func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (r5.Search
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.Options) (search.Result[r5.SubscriptionStatus], error) {
+func (w Concrete) SearchSubscriptionStatus(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubscriptionStatus], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubscriptionStatus]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27504,7 +27504,7 @@ func (w Concrete) SearchSubscriptionStatus(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubscriptionStatus", options)
+	result, err := g.Search(ctx, "SubscriptionStatus", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubscriptionStatus]{}, err
 	}
@@ -27575,7 +27575,7 @@ func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Options) (search.Result[r5.SubscriptionTopic], error) {
+func (w Concrete) SearchSubscriptionTopic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubscriptionTopic], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubscriptionTopic]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27584,7 +27584,7 @@ func (w Concrete) SearchSubscriptionTopic(ctx context.Context, options search.Op
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubscriptionTopic", options)
+	result, err := g.Search(ctx, "SubscriptionTopic", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubscriptionTopic]{}, err
 	}
@@ -27655,7 +27655,7 @@ func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (r5.S
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (search.Result[r5.Substance], error) {
+func (w Concrete) SearchSubstance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Substance], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Substance]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27664,7 +27664,7 @@ func (w Concrete) SearchSubstance(ctx context.Context, options search.Options) (
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Substance", options)
+	result, err := g.Search(ctx, "Substance", parameters, options)
 	if err != nil {
 		return search.Result[r5.Substance]{}, err
 	}
@@ -27735,7 +27735,7 @@ func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (r5.SearchCap
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.Options) (search.Result[r5.SubstanceDefinition], error) {
+func (w Concrete) SearchSubstanceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceDefinition], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstanceDefinition]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27744,7 +27744,7 @@ func (w Concrete) SearchSubstanceDefinition(ctx context.Context, options search.
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstanceDefinition", options)
+	result, err := g.Search(ctx, "SubstanceDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstanceDefinition]{}, err
 	}
@@ -27815,7 +27815,7 @@ func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (r5
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search.Options) (search.Result[r5.SubstanceNucleicAcid], error) {
+func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceNucleicAcid], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstanceNucleicAcid]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27824,7 +27824,7 @@ func (w Concrete) SearchSubstanceNucleicAcid(ctx context.Context, options search
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstanceNucleicAcid", options)
+	result, err := g.Search(ctx, "SubstanceNucleicAcid", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstanceNucleicAcid]{}, err
 	}
@@ -27895,7 +27895,7 @@ func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (r
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Options) (search.Result[r5.SubstancePolymer], error) {
+func (w Concrete) SearchSubstancePolymer(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstancePolymer], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstancePolymer]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27904,7 +27904,7 @@ func (w Concrete) SearchSubstancePolymer(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstancePolymer", options)
+	result, err := g.Search(ctx, "SubstancePolymer", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstancePolymer]{}, err
 	}
@@ -27975,7 +27975,7 @@ func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Options) (search.Result[r5.SubstanceProtein], error) {
+func (w Concrete) SearchSubstanceProtein(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceProtein], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstanceProtein]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -27984,7 +27984,7 @@ func (w Concrete) SearchSubstanceProtein(ctx context.Context, options search.Opt
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstanceProtein", options)
+	result, err := g.Search(ctx, "SubstanceProtein", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstanceProtein]{}, err
 	}
@@ -28055,7 +28055,7 @@ func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (r5.Se
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, options search.Options) (search.Result[r5.SubstanceReferenceInformation], error) {
+func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceReferenceInformation], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstanceReferenceInformation]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28064,7 +28064,7 @@ func (w Concrete) SearchSubstanceReferenceInformation(ctx context.Context, optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstanceReferenceInformation", options)
+	result, err := g.Search(ctx, "SubstanceReferenceInformation", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstanceReferenceInformation]{}, err
 	}
@@ -28135,7 +28135,7 @@ func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Co
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options search.Options) (search.Result[r5.SubstanceSourceMaterial], error) {
+func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceSourceMaterial], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SubstanceSourceMaterial]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28144,7 +28144,7 @@ func (w Concrete) SearchSubstanceSourceMaterial(ctx context.Context, options sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SubstanceSourceMaterial", options)
+	result, err := g.Search(ctx, "SubstanceSourceMaterial", parameters, options)
 	if err != nil {
 		return search.Result[r5.SubstanceSourceMaterial]{}, err
 	}
@@ -28215,7 +28215,7 @@ func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context)
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Options) (search.Result[r5.SupplyDelivery], error) {
+func (w Concrete) SearchSupplyDelivery(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SupplyDelivery], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SupplyDelivery]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28224,7 +28224,7 @@ func (w Concrete) SearchSupplyDelivery(ctx context.Context, options search.Optio
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SupplyDelivery", options)
+	result, err := g.Search(ctx, "SupplyDelivery", parameters, options)
 	if err != nil {
 		return search.Result[r5.SupplyDelivery]{}, err
 	}
@@ -28295,7 +28295,7 @@ func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (r5.Sear
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Options) (search.Result[r5.SupplyRequest], error) {
+func (w Concrete) SearchSupplyRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SupplyRequest], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.SupplyRequest]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28304,7 +28304,7 @@ func (w Concrete) SearchSupplyRequest(ctx context.Context, options search.Option
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "SupplyRequest", options)
+	result, err := g.Search(ctx, "SupplyRequest", parameters, options)
 	if err != nil {
 		return search.Result[r5.SupplyRequest]{}, err
 	}
@@ -28375,7 +28375,7 @@ func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (r5.Searc
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTask(ctx context.Context, options search.Options) (search.Result[r5.Task], error) {
+func (w Concrete) SearchTask(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Task], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Task]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28384,7 +28384,7 @@ func (w Concrete) SearchTask(ctx context.Context, options search.Options) (searc
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Task", options)
+	result, err := g.Search(ctx, "Task", parameters, options)
 	if err != nil {
 		return search.Result[r5.Task]{}, err
 	}
@@ -28455,7 +28455,7 @@ func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (r5.SearchCapabili
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options search.Options) (search.Result[r5.TerminologyCapabilities], error) {
+func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TerminologyCapabilities], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.TerminologyCapabilities]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28464,7 +28464,7 @@ func (w Concrete) SearchTerminologyCapabilities(ctx context.Context, options sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "TerminologyCapabilities", options)
+	result, err := g.Search(ctx, "TerminologyCapabilities", parameters, options)
 	if err != nil {
 		return search.Result[r5.TerminologyCapabilities]{}, err
 	}
@@ -28535,7 +28535,7 @@ func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context)
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTestPlan(ctx context.Context, options search.Options) (search.Result[r5.TestPlan], error) {
+func (w Concrete) SearchTestPlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestPlan], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.TestPlan]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28544,7 +28544,7 @@ func (w Concrete) SearchTestPlan(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "TestPlan", options)
+	result, err := g.Search(ctx, "TestPlan", parameters, options)
 	if err != nil {
 		return search.Result[r5.TestPlan]{}, err
 	}
@@ -28615,7 +28615,7 @@ func (w Concrete) SearchCapabilitiesTestPlan(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) (search.Result[r5.TestReport], error) {
+func (w Concrete) SearchTestReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestReport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.TestReport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28624,7 +28624,7 @@ func (w Concrete) SearchTestReport(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "TestReport", options)
+	result, err := g.Search(ctx, "TestReport", parameters, options)
 	if err != nil {
 		return search.Result[r5.TestReport]{}, err
 	}
@@ -28695,7 +28695,7 @@ func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) (search.Result[r5.TestScript], error) {
+func (w Concrete) SearchTestScript(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestScript], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.TestScript]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28704,7 +28704,7 @@ func (w Concrete) SearchTestScript(ctx context.Context, options search.Options) 
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "TestScript", options)
+	result, err := g.Search(ctx, "TestScript", parameters, options)
 	if err != nil {
 		return search.Result[r5.TestScript]{}, err
 	}
@@ -28775,7 +28775,7 @@ func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (r5.SearchCa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchTransport(ctx context.Context, options search.Options) (search.Result[r5.Transport], error) {
+func (w Concrete) SearchTransport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Transport], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.Transport]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28784,7 +28784,7 @@ func (w Concrete) SearchTransport(ctx context.Context, options search.Options) (
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "Transport", options)
+	result, err := g.Search(ctx, "Transport", parameters, options)
 	if err != nil {
 		return search.Result[r5.Transport]{}, err
 	}
@@ -28855,7 +28855,7 @@ func (w Concrete) SearchCapabilitiesTransport(ctx context.Context) (r5.SearchCap
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (search.Result[r5.ValueSet], error) {
+func (w Concrete) SearchValueSet(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ValueSet], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.ValueSet]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28864,7 +28864,7 @@ func (w Concrete) SearchValueSet(ctx context.Context, options search.Options) (s
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "ValueSet", options)
+	result, err := g.Search(ctx, "ValueSet", parameters, options)
 	if err != nil {
 		return search.Result[r5.ValueSet]{}, err
 	}
@@ -28935,7 +28935,7 @@ func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (r5.SearchCapa
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchVerificationResult(ctx context.Context, options search.Options) (search.Result[r5.VerificationResult], error) {
+func (w Concrete) SearchVerificationResult(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.VerificationResult], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.VerificationResult]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -28944,7 +28944,7 @@ func (w Concrete) SearchVerificationResult(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "VerificationResult", options)
+	result, err := g.Search(ctx, "VerificationResult", parameters, options)
 	if err != nil {
 		return search.Result[r5.VerificationResult]{}, err
 	}
@@ -29015,7 +29015,7 @@ func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (r5.
 		Parameters: parameters,
 	}, nil
 }
-func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.Options) (search.Result[r5.VisionPrescription], error) {
+func (w Concrete) SearchVisionPrescription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.VisionPrescription], error) {
 	g, ok := w.Generic.(capabilities.GenericSearch)
 	if !ok {
 		return search.Result[r5.VisionPrescription]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
@@ -29024,7 +29024,7 @@ func (w Concrete) SearchVisionPrescription(ctx context.Context, options search.O
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
-	result, err := g.Search(ctx, "VisionPrescription", options)
+	result, err := g.Search(ctx, "VisionPrescription", parameters, options)
 	if err != nil {
 		return search.Result[r5.VisionPrescription]{}, err
 	}

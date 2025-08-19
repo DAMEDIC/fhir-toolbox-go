@@ -332,7 +332,7 @@ func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesPatient(ctx c
 }
 
 // Add Patient search implementation to make it part of capabilities
-func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
+func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Patient], error) {
 	return search.Result[r4.Patient]{}, nil
 }
 
@@ -346,7 +346,7 @@ func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesObservation(c
 }
 
 // Add Observation search implementation to make it part of capabilities
-func (m mockBackendWithoutSearchParameterSearch) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
+func (m mockBackendWithoutSearchParameterSearch) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Observation], error) {
 	return search.Result[r4.Observation]{}, nil
 }
 
@@ -363,7 +363,7 @@ func (m mockBackendWithSearchParameterSearchOnly) SearchCapabilitiesSearchParame
 	}, nil
 }
 
-func (m mockBackendWithSearchParameterSearchOnly) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
+func (m mockBackendWithSearchParameterSearchOnly) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SearchParameter], error) {
 	result := search.Result[r4.SearchParameter]{}
 
 	// Return a mock SearchParameter
@@ -398,7 +398,7 @@ func (m mockBackendWithSearchParameterSearch) SearchCapabilitiesSearchParameter(
 	}, nil
 }
 
-func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
+func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SearchParameter], error) {
 	result := search.Result[r4.SearchParameter]{}
 
 	// Return a mock SearchParameter

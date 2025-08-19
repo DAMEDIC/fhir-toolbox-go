@@ -120,8 +120,11 @@ func (c *Client) Read(ctx context.Context, resourceType string, id string) (mode
 	return resource, nil
 }
 
-func (c *Client) Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error) {
-	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, options.QueryString())
+func (c *Client) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+	opts := options
+
+	queryString := search.BuildQuery(parameters, opts)
+	url := fmt.Sprintf("%s/%s?%s", c.url, resourceType, queryString)
 	log.Printf("forwarding GET %s", url)
 
 	resp, err := http.Get(url)

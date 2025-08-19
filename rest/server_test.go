@@ -1571,7 +1571,7 @@ func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCa
 	}, nil
 }
 
-func (m mockBackend) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
+func (m mockBackend) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Patient], error) {
 	result := search.Result[r4.Patient]{}
 
 	for _, p := range m.mockPatients {
@@ -1594,7 +1594,7 @@ func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r4.Sear
 	}, nil
 }
 
-func (m mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
+func (m mockBackend) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Observation], error) {
 	var result search.Result[r4.Observation]
 
 	for _, p := range m.mockObservations {

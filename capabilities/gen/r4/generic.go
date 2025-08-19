@@ -18363,11 +18363,11 @@ func (w Generic) Delete(ctx context.Context, resourceType string, id string) err
 		}}}
 	}
 }
-func (w Generic) Search(ctx context.Context, resourceType string, options search.Options) (search.Result[model.Resource], error) {
+func (w Generic) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
 	g, ok := w.Concrete.(capabilities.GenericSearch)
 	if ok {
 		// shortcut for the case that the underlying implementation already implements the generic API
-		return g.Search(ctx, resourceType, options)
+		return g.Search(ctx, resourceType, parameters, options)
 	}
 	switch resourceType {
 	case "Account":
@@ -18379,7 +18379,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAccount(ctx, options)
+		result, err := impl.SearchAccount(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18402,7 +18402,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchActivityDefinition(ctx, options)
+		result, err := impl.SearchActivityDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18425,7 +18425,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAdverseEvent(ctx, options)
+		result, err := impl.SearchAdverseEvent(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18448,7 +18448,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAllergyIntolerance(ctx, options)
+		result, err := impl.SearchAllergyIntolerance(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18471,7 +18471,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAppointment(ctx, options)
+		result, err := impl.SearchAppointment(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18494,7 +18494,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAppointmentResponse(ctx, options)
+		result, err := impl.SearchAppointmentResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18517,7 +18517,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchAuditEvent(ctx, options)
+		result, err := impl.SearchAuditEvent(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18540,7 +18540,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchBasic(ctx, options)
+		result, err := impl.SearchBasic(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18563,7 +18563,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchBinary(ctx, options)
+		result, err := impl.SearchBinary(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18586,7 +18586,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchBiologicallyDerivedProduct(ctx, options)
+		result, err := impl.SearchBiologicallyDerivedProduct(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18609,7 +18609,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchBodyStructure(ctx, options)
+		result, err := impl.SearchBodyStructure(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18632,7 +18632,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchBundle(ctx, options)
+		result, err := impl.SearchBundle(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18655,7 +18655,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCapabilityStatement(ctx, options)
+		result, err := impl.SearchCapabilityStatement(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18678,7 +18678,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCarePlan(ctx, options)
+		result, err := impl.SearchCarePlan(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18701,7 +18701,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCareTeam(ctx, options)
+		result, err := impl.SearchCareTeam(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18724,7 +18724,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCatalogEntry(ctx, options)
+		result, err := impl.SearchCatalogEntry(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18747,7 +18747,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchChargeItem(ctx, options)
+		result, err := impl.SearchChargeItem(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18770,7 +18770,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchChargeItemDefinition(ctx, options)
+		result, err := impl.SearchChargeItemDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18793,7 +18793,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchClaim(ctx, options)
+		result, err := impl.SearchClaim(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18816,7 +18816,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchClaimResponse(ctx, options)
+		result, err := impl.SearchClaimResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18839,7 +18839,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchClinicalImpression(ctx, options)
+		result, err := impl.SearchClinicalImpression(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18862,7 +18862,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCodeSystem(ctx, options)
+		result, err := impl.SearchCodeSystem(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18885,7 +18885,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCommunication(ctx, options)
+		result, err := impl.SearchCommunication(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18908,7 +18908,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCommunicationRequest(ctx, options)
+		result, err := impl.SearchCommunicationRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18931,7 +18931,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCompartmentDefinition(ctx, options)
+		result, err := impl.SearchCompartmentDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18954,7 +18954,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchComposition(ctx, options)
+		result, err := impl.SearchComposition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -18977,7 +18977,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchConceptMap(ctx, options)
+		result, err := impl.SearchConceptMap(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19000,7 +19000,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCondition(ctx, options)
+		result, err := impl.SearchCondition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19023,7 +19023,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchConsent(ctx, options)
+		result, err := impl.SearchConsent(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19046,7 +19046,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchContract(ctx, options)
+		result, err := impl.SearchContract(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19069,7 +19069,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCoverage(ctx, options)
+		result, err := impl.SearchCoverage(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19092,7 +19092,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCoverageEligibilityRequest(ctx, options)
+		result, err := impl.SearchCoverageEligibilityRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19115,7 +19115,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchCoverageEligibilityResponse(ctx, options)
+		result, err := impl.SearchCoverageEligibilityResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19138,7 +19138,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDetectedIssue(ctx, options)
+		result, err := impl.SearchDetectedIssue(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19161,7 +19161,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDevice(ctx, options)
+		result, err := impl.SearchDevice(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19184,7 +19184,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDeviceDefinition(ctx, options)
+		result, err := impl.SearchDeviceDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19207,7 +19207,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDeviceMetric(ctx, options)
+		result, err := impl.SearchDeviceMetric(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19230,7 +19230,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDeviceRequest(ctx, options)
+		result, err := impl.SearchDeviceRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19253,7 +19253,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDeviceUseStatement(ctx, options)
+		result, err := impl.SearchDeviceUseStatement(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19276,7 +19276,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDiagnosticReport(ctx, options)
+		result, err := impl.SearchDiagnosticReport(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19299,7 +19299,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDocumentManifest(ctx, options)
+		result, err := impl.SearchDocumentManifest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19322,7 +19322,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchDocumentReference(ctx, options)
+		result, err := impl.SearchDocumentReference(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19345,7 +19345,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEffectEvidenceSynthesis(ctx, options)
+		result, err := impl.SearchEffectEvidenceSynthesis(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19368,7 +19368,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEncounter(ctx, options)
+		result, err := impl.SearchEncounter(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19391,7 +19391,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEndpoint(ctx, options)
+		result, err := impl.SearchEndpoint(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19414,7 +19414,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEnrollmentRequest(ctx, options)
+		result, err := impl.SearchEnrollmentRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19437,7 +19437,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEnrollmentResponse(ctx, options)
+		result, err := impl.SearchEnrollmentResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19460,7 +19460,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEpisodeOfCare(ctx, options)
+		result, err := impl.SearchEpisodeOfCare(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19483,7 +19483,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEventDefinition(ctx, options)
+		result, err := impl.SearchEventDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19506,7 +19506,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEvidence(ctx, options)
+		result, err := impl.SearchEvidence(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19529,7 +19529,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchEvidenceVariable(ctx, options)
+		result, err := impl.SearchEvidenceVariable(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19552,7 +19552,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchExampleScenario(ctx, options)
+		result, err := impl.SearchExampleScenario(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19575,7 +19575,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchExplanationOfBenefit(ctx, options)
+		result, err := impl.SearchExplanationOfBenefit(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19598,7 +19598,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchFamilyMemberHistory(ctx, options)
+		result, err := impl.SearchFamilyMemberHistory(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19621,7 +19621,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchFlag(ctx, options)
+		result, err := impl.SearchFlag(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19644,7 +19644,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchGoal(ctx, options)
+		result, err := impl.SearchGoal(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19667,7 +19667,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchGraphDefinition(ctx, options)
+		result, err := impl.SearchGraphDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19690,7 +19690,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchGroup(ctx, options)
+		result, err := impl.SearchGroup(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19713,7 +19713,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchGuidanceResponse(ctx, options)
+		result, err := impl.SearchGuidanceResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19736,7 +19736,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchHealthcareService(ctx, options)
+		result, err := impl.SearchHealthcareService(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19759,7 +19759,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchImagingStudy(ctx, options)
+		result, err := impl.SearchImagingStudy(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19782,7 +19782,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchImmunization(ctx, options)
+		result, err := impl.SearchImmunization(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19805,7 +19805,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchImmunizationEvaluation(ctx, options)
+		result, err := impl.SearchImmunizationEvaluation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19828,7 +19828,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchImmunizationRecommendation(ctx, options)
+		result, err := impl.SearchImmunizationRecommendation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19851,7 +19851,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchImplementationGuide(ctx, options)
+		result, err := impl.SearchImplementationGuide(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19874,7 +19874,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchInsurancePlan(ctx, options)
+		result, err := impl.SearchInsurancePlan(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19897,7 +19897,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchInvoice(ctx, options)
+		result, err := impl.SearchInvoice(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19920,7 +19920,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchLibrary(ctx, options)
+		result, err := impl.SearchLibrary(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19943,7 +19943,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchLinkage(ctx, options)
+		result, err := impl.SearchLinkage(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19966,7 +19966,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchList(ctx, options)
+		result, err := impl.SearchList(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -19989,7 +19989,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchLocation(ctx, options)
+		result, err := impl.SearchLocation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20012,7 +20012,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMeasure(ctx, options)
+		result, err := impl.SearchMeasure(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20035,7 +20035,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMeasureReport(ctx, options)
+		result, err := impl.SearchMeasureReport(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20058,7 +20058,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedia(ctx, options)
+		result, err := impl.SearchMedia(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20081,7 +20081,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedication(ctx, options)
+		result, err := impl.SearchMedication(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20104,7 +20104,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicationAdministration(ctx, options)
+		result, err := impl.SearchMedicationAdministration(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20127,7 +20127,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicationDispense(ctx, options)
+		result, err := impl.SearchMedicationDispense(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20150,7 +20150,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicationKnowledge(ctx, options)
+		result, err := impl.SearchMedicationKnowledge(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20173,7 +20173,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicationRequest(ctx, options)
+		result, err := impl.SearchMedicationRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20196,7 +20196,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicationStatement(ctx, options)
+		result, err := impl.SearchMedicationStatement(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20219,7 +20219,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProduct(ctx, options)
+		result, err := impl.SearchMedicinalProduct(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20242,7 +20242,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductAuthorization(ctx, options)
+		result, err := impl.SearchMedicinalProductAuthorization(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20265,7 +20265,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductContraindication(ctx, options)
+		result, err := impl.SearchMedicinalProductContraindication(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20288,7 +20288,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductIndication(ctx, options)
+		result, err := impl.SearchMedicinalProductIndication(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20311,7 +20311,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductIngredient(ctx, options)
+		result, err := impl.SearchMedicinalProductIngredient(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20334,7 +20334,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductInteraction(ctx, options)
+		result, err := impl.SearchMedicinalProductInteraction(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20357,7 +20357,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductManufactured(ctx, options)
+		result, err := impl.SearchMedicinalProductManufactured(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20380,7 +20380,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductPackaged(ctx, options)
+		result, err := impl.SearchMedicinalProductPackaged(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20403,7 +20403,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductPharmaceutical(ctx, options)
+		result, err := impl.SearchMedicinalProductPharmaceutical(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20426,7 +20426,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMedicinalProductUndesirableEffect(ctx, options)
+		result, err := impl.SearchMedicinalProductUndesirableEffect(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20449,7 +20449,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMessageDefinition(ctx, options)
+		result, err := impl.SearchMessageDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20472,7 +20472,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMessageHeader(ctx, options)
+		result, err := impl.SearchMessageHeader(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20495,7 +20495,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchMolecularSequence(ctx, options)
+		result, err := impl.SearchMolecularSequence(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20518,7 +20518,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchNamingSystem(ctx, options)
+		result, err := impl.SearchNamingSystem(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20541,7 +20541,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchNutritionOrder(ctx, options)
+		result, err := impl.SearchNutritionOrder(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20564,7 +20564,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchObservation(ctx, options)
+		result, err := impl.SearchObservation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20587,7 +20587,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchObservationDefinition(ctx, options)
+		result, err := impl.SearchObservationDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20610,7 +20610,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchOperationDefinition(ctx, options)
+		result, err := impl.SearchOperationDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20633,7 +20633,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchOperationOutcome(ctx, options)
+		result, err := impl.SearchOperationOutcome(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20656,7 +20656,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchOrganization(ctx, options)
+		result, err := impl.SearchOrganization(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20679,7 +20679,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchOrganizationAffiliation(ctx, options)
+		result, err := impl.SearchOrganizationAffiliation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20702,7 +20702,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchParameters(ctx, options)
+		result, err := impl.SearchParameters(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20725,7 +20725,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPatient(ctx, options)
+		result, err := impl.SearchPatient(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20748,7 +20748,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPaymentNotice(ctx, options)
+		result, err := impl.SearchPaymentNotice(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20771,7 +20771,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPaymentReconciliation(ctx, options)
+		result, err := impl.SearchPaymentReconciliation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20794,7 +20794,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPerson(ctx, options)
+		result, err := impl.SearchPerson(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20817,7 +20817,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPlanDefinition(ctx, options)
+		result, err := impl.SearchPlanDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20840,7 +20840,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPractitioner(ctx, options)
+		result, err := impl.SearchPractitioner(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20863,7 +20863,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchPractitionerRole(ctx, options)
+		result, err := impl.SearchPractitionerRole(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20886,7 +20886,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchProcedure(ctx, options)
+		result, err := impl.SearchProcedure(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20909,7 +20909,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchProvenance(ctx, options)
+		result, err := impl.SearchProvenance(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20932,7 +20932,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchQuestionnaire(ctx, options)
+		result, err := impl.SearchQuestionnaire(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20955,7 +20955,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchQuestionnaireResponse(ctx, options)
+		result, err := impl.SearchQuestionnaireResponse(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -20978,7 +20978,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchRelatedPerson(ctx, options)
+		result, err := impl.SearchRelatedPerson(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21001,7 +21001,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchRequestGroup(ctx, options)
+		result, err := impl.SearchRequestGroup(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21024,7 +21024,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchResearchDefinition(ctx, options)
+		result, err := impl.SearchResearchDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21047,7 +21047,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchResearchElementDefinition(ctx, options)
+		result, err := impl.SearchResearchElementDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21070,7 +21070,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchResearchStudy(ctx, options)
+		result, err := impl.SearchResearchStudy(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21093,7 +21093,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchResearchSubject(ctx, options)
+		result, err := impl.SearchResearchSubject(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21116,7 +21116,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchRiskAssessment(ctx, options)
+		result, err := impl.SearchRiskAssessment(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21139,7 +21139,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchRiskEvidenceSynthesis(ctx, options)
+		result, err := impl.SearchRiskEvidenceSynthesis(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21162,7 +21162,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSchedule(ctx, options)
+		result, err := impl.SearchSchedule(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21179,7 +21179,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 	case "SearchParameter":
 		impl, ok := w.Concrete.(SearchParameterSearch)
 		if ok {
-			result, err := impl.SearchSearchParameter(ctx, options)
+			result, err := impl.SearchSearchParameter(ctx, parameters, options)
 			if err != nil {
 				return search.Result[model.Resource]{}, err
 			}
@@ -21212,7 +21212,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 		for id, searchParam := range searchParameters {
 			filteredParameters[id] = searchParam
 		}
-		if idParams, ok := options.Parameters.Map()[search.ParameterKey{Name: "_id"}]; ok {
+		if idParams, ok := parameters.Map()[search.ParameterKey{Name: "_id"}]; ok {
 			filteredParameters = make(map[string]r4.SearchParameter)
 			for _, idValues := range idParams {
 				for _, idValue := range idValues {
@@ -21234,8 +21234,9 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 			allResources = append(allResources, filteredParameters[id])
 		}
 		var offset int
-		if options.Cursor != "" {
-			parsedOffset, err := strconv.Atoi(string(options.Cursor))
+		opts := options
+		if opts.Cursor != "" {
+			parsedOffset, err := strconv.Atoi(string(opts.Cursor))
 			if err != nil {
 				return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor: %w", err)
 			}
@@ -21249,9 +21250,9 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 			resources = allResources[offset:]
 		}
 		var nextCursor search.Cursor
-		if options.Count > 0 && len(resources) > options.Count {
-			resources = resources[:options.Count]
-			nextOffset := offset + options.Count
+		if opts.Count > 0 && len(resources) > opts.Count {
+			resources = resources[:opts.Count]
+			nextOffset := offset + opts.Count
 			if nextOffset < len(allResources) {
 				nextCursor = search.Cursor(strconv.Itoa(nextOffset))
 			}
@@ -21271,7 +21272,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchServiceRequest(ctx, options)
+		result, err := impl.SearchServiceRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21294,7 +21295,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSlot(ctx, options)
+		result, err := impl.SearchSlot(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21317,7 +21318,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSpecimen(ctx, options)
+		result, err := impl.SearchSpecimen(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21340,7 +21341,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSpecimenDefinition(ctx, options)
+		result, err := impl.SearchSpecimenDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21363,7 +21364,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchStructureDefinition(ctx, options)
+		result, err := impl.SearchStructureDefinition(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21386,7 +21387,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchStructureMap(ctx, options)
+		result, err := impl.SearchStructureMap(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21409,7 +21410,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubscription(ctx, options)
+		result, err := impl.SearchSubscription(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21432,7 +21433,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstance(ctx, options)
+		result, err := impl.SearchSubstance(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21455,7 +21456,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstanceNucleicAcid(ctx, options)
+		result, err := impl.SearchSubstanceNucleicAcid(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21478,7 +21479,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstancePolymer(ctx, options)
+		result, err := impl.SearchSubstancePolymer(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21501,7 +21502,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstanceProtein(ctx, options)
+		result, err := impl.SearchSubstanceProtein(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21524,7 +21525,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstanceReferenceInformation(ctx, options)
+		result, err := impl.SearchSubstanceReferenceInformation(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21547,7 +21548,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstanceSourceMaterial(ctx, options)
+		result, err := impl.SearchSubstanceSourceMaterial(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21570,7 +21571,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSubstanceSpecification(ctx, options)
+		result, err := impl.SearchSubstanceSpecification(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21593,7 +21594,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSupplyDelivery(ctx, options)
+		result, err := impl.SearchSupplyDelivery(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21616,7 +21617,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchSupplyRequest(ctx, options)
+		result, err := impl.SearchSupplyRequest(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21639,7 +21640,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchTask(ctx, options)
+		result, err := impl.SearchTask(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21662,7 +21663,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchTerminologyCapabilities(ctx, options)
+		result, err := impl.SearchTerminologyCapabilities(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21685,7 +21686,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchTestReport(ctx, options)
+		result, err := impl.SearchTestReport(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21708,7 +21709,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchTestScript(ctx, options)
+		result, err := impl.SearchTestScript(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21731,7 +21732,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchValueSet(ctx, options)
+		result, err := impl.SearchValueSet(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21754,7 +21755,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchVerificationResult(ctx, options)
+		result, err := impl.SearchVerificationResult(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
@@ -21777,7 +21778,7 @@ func (w Generic) Search(ctx context.Context, resourceType string, options search
 				Severity:    r4.Code{Value: ptr.To("fatal")},
 			}}}
 		}
-		result, err := impl.SearchVisionPrescription(ctx, options)
+		result, err := impl.SearchVisionPrescription(ctx, parameters, options)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}

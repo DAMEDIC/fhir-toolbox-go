@@ -69,12 +69,10 @@ func (b *mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityState
 
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
-	result, err := b.SearchObservation(ctx, search.Options{
-		Parameters: map[string]search.Criteria{
-			"_id": search.MatchAll{search.MatchAny{search.String{Value: id}}},
-		},
-		Count: 1,
-	})
+	parameters := search.Params{
+		"_id": search.MatchAll{search.MatchAny{search.String(id)}},
+	}
+	result, err := b.SearchObservation(ctx, parameters, search.Options{Count: 1})
 	if err != nil {
 		return r5.Observation{}, err
 	}
@@ -106,7 +104,7 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r5.Sea
 	}, nil
 }
 
-func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r5.Observation], error) {
+func (b *mockBackend) SearchObservation(ctx context.Context, parameters search.Parameters, options ...search.Options) (search.Result[r5.Observation], error) {
 	return search.Result[r5.Observation]{
 		Resources: []r5.Observation{
 			r5.Observation{
@@ -170,12 +168,10 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 }
 
 func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
-	result, err := b.SearchComposition(ctx, search.Options{
-		Parameters: map[string]search.Criteria{
-			"_id": search.MatchAll{search.MatchAny{search.String{Value: id}}},
-		},
-		Count: 1,
-	})
+	parameters := search.Params{
+		"_id": search.MatchAll{search.MatchAny{search.String(id)}},
+	}
+	result, err := b.SearchComposition(ctx, parameters, search.Options{Count: 1})
 	if err != nil {
 		return r5.Composition{}, err
 	}
@@ -207,7 +203,7 @@ func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (r5.Sea
 	}, nil
 }
 
-func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result[r5.Composition], error) {
+func (b *mockBackend) SearchComposition(ctx context.Context, parameters search.Parameters, options ...search.Options) (search.Result[r5.Composition], error) {
 	return search.Result[r5.Composition]{
 		Resources: []r5.Composition{
 			r5.Composition{

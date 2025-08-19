@@ -73,9 +73,9 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 		shortcutParams = append(shortcutParams, Id("resourceType"), Id("id"))
 		passParams = append(passParams, Id("id"))
 	case "search":
-		params = append(params, Id("resourceType").String(), Id("options").Qual(moduleName+"/capabilities/search", "Options"))
-		shortcutParams = append(shortcutParams, Id("resourceType"), Id("options"))
-		passParams = append(passParams, Id("options"))
+		params = append(params, Id("resourceType").String(), Id("parameters").Qual(moduleName+"/capabilities/search", "Parameters"), Id("options").Qual(moduleName+"/capabilities/search", "Options"))
+		shortcutParams = append(shortcutParams, Id("resourceType"), Id("parameters"), Id("options"))
+		passParams = append(passParams, Id("parameters"), Id("options"))
 		returnType = Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model", "Resource"))
 	}
 
@@ -225,7 +225,7 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								)
 
 								// Check for _id parameter in search options
-								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("options.Parameters.Map()").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
+								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("parameters.Map()").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
 									Id("filteredParameters").Op("=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
 									For(List(Id("_"), Id("idValues")).Op(":=").Range().Id("idParams")).Block(
 										For(List(Id("_"), Id("idValue")).Op(":=").Range().Id("idValues")).Block(
@@ -252,8 +252,9 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 								// Apply cursor-based pagination (offset-based)
 								g.Var().Id("offset").Int()
-								g.If(Id("options.Cursor").Op("!=").Lit("")).Block(
-									List(Id("parsedOffset"), Id("err")).Op(":=").Qual("strconv", "Atoi").Call(String().Call(Id("options.Cursor"))),
+								g.Id("opts").Op(":=").Id("options")
+								g.If(Id("opts.Cursor").Op("!=").Lit("")).Block(
+									List(Id("parsedOffset"), Id("err")).Op(":=").Qual("strconv", "Atoi").Call(String().Call(Id("opts.Cursor"))),
 									If(Id("err").Op("!=").Nil()).Block(
 										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: %w"), Id("err"))),
 									),
@@ -271,9 +272,9 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 
 								// Apply count limit and determine next cursor
 								g.Var().Id("nextCursor").Qual(moduleName+"/capabilities/search", "Cursor")
-								g.If(Id("options.Count").Op(">").Lit(0).Op("&&").Len(Id("resources")).Op(">").Id("options.Count")).Block(
-									Id("resources").Op("=").Id("resources").Index(Op(":").Id("options.Count")),
-									Id("nextOffset").Op(":=").Id("offset").Op("+").Id("options.Count"),
+								g.If(Id("opts.Count").Op(">").Lit(0).Op("&&").Len(Id("resources")).Op(">").Id("opts.Count")).Block(
+									Id("resources").Op("=").Id("resources").Index(Op(":").Id("opts.Count")),
+									Id("nextOffset").Op(":=").Id("offset").Op("+").Id("opts.Count"),
 									If(Id("nextOffset").Op("<").Len(Id("allResources"))).Block(
 										Id("nextCursor").Op("=").Qual(moduleName+"/capabilities/search", "Cursor").Call(Qual("strconv", "Itoa").Call(Id("nextOffset"))),
 									),
@@ -640,8 +641,8 @@ func generateConcrete(f *File, release string, resources []ir.ResourceOrType, in
 			params = append(params, Id("id").String())
 			passParams = append(passParams, Lit(r.Name), Id("id"))
 		case "search":
-			params = append(params, Id("options").Qual(moduleName+"/capabilities/search", "Options"))
-			passParams = append(passParams, Lit(r.Name), Id("options"))
+			params = append(params, Id("parameters").Qual(moduleName+"/capabilities/search", "Parameters"), Id("options").Qual(moduleName+"/capabilities/search", "Options"))
+			passParams = append(passParams, Lit(r.Name), Id("parameters"), Id("options"))
 			returnType = Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), r.Name))
 		}
 

@@ -20,6 +20,7 @@ func TestParseAndToString(t *testing.T) {
 	tests := []struct {
 		name         string
 		capabilities r4.SearchCapabilities
+		parameters   Parameters
 		options      Options
 		want         string
 	}{
@@ -32,10 +33,9 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
-			},
-			want: "number=0.100",
+			parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			options:    Options{},
+			want:       "number=0.100",
 		},
 		{
 			name: "number with prefix",
@@ -46,10 +46,9 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
-			},
-			want: "number=ge0.100",
+			parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
+			options:    Options{},
+			want:       "number=ge0.100",
 		},
 		{
 			name: "number with modifer",
@@ -61,10 +60,9 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{ParameterKey{Name: "number", Modifier: ModifierMissing}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
-			},
-			want: "number:missing=0.100",
+			parameters: internalParams{ParameterKey{Name: "number", Modifier: ModifierMissing}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			options:    Options{},
+			want:       "number:missing=0.100",
 		},
 		{
 			name: "number with count",
@@ -75,11 +73,9 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
-				Count:      100,
-			},
-			want: "number=0.100&_count=100",
+			parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			options:    Options{Count: 100},
+			want:       "number=0.100&_count=100",
 		},
 		{
 			name: "number with max count",
@@ -90,11 +86,9 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
-				Count:      1000,
-			},
-			want: "number=0.100&_count=500",
+			parameters: internalParams{ParameterKey{Name: "number"}: MatchAll{{Number{Value: apd.New(100, -3)}}}},
+			options:    Options{Count: 1000},
+			want:       "number=0.100&_count=500",
 		},
 		{
 			name: "date",
@@ -105,15 +99,14 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "date"}: MatchAll{{Date{
-						Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
-						Precision: PrecisionDay,
-					}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "date"}: MatchAll{{Date{
+					Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
+					Precision: PrecisionDay,
+				}}},
 			},
-			want: "date=2024-12-25",
+			options: Options{},
+			want:    "date=2024-12-25",
 		},
 		{
 			name: "string",
@@ -124,12 +117,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "string"}: MatchAll{{String("example")}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "string"}: MatchAll{{String("example")}},
 			},
-			want: "string=example",
+			options: Options{},
+			want:    "string=example",
 		},
 		{
 			name: "token",
@@ -140,14 +132,13 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "token"}: MatchAll{
-						{Token{Code: "value"}},
-					},
+			parameters: internalParams{
+				ParameterKey{Name: "token"}: MatchAll{
+					{Token{Code: "value"}},
 				},
 			},
-			want: "token=value",
+			options: Options{},
+			want:    "token=value",
 		},
 		{
 			name: "token parameter with system",
@@ -158,12 +149,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "token"}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "token"}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
-			want: "token=scheme://system|value",
+			options: Options{},
+			want:    "token=scheme://system|value",
 		},
 		{
 			name: "local reference",
@@ -174,12 +164,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123"}}},
 			},
-			want: "ref=Patient/123",
+			options: Options{},
+			want:    "ref=Patient/123",
 		},
 		{
 			name: "local reference with version",
@@ -190,12 +179,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "ref"}: MatchAll{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
 			},
-			want: "ref=Patient/123/_history/456",
+			options: Options{},
+			want:    "ref=Patient/123/_history/456",
 		},
 		{
 			name: "url reference",
@@ -206,12 +194,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}}}},
 			},
-			want: "ref=scheme://host",
+			options: Options{},
+			want:    "ref=scheme://host",
 		},
 		{
 			name: "url reference with version",
@@ -222,12 +209,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "ref"}: MatchAll{{Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
 			},
-			want: "ref=scheme://host|456",
+			options: Options{},
+			want:    "ref=scheme://host|456",
 		},
 		{
 			name: "reference identifier modifier (treated as token)",
@@ -239,12 +225,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: MatchAll{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
-			want: "ref:identifier=scheme://system|value",
+			options: Options{},
+			want:    "ref:identifier=scheme://system|value",
 		},
 		{
 			name: "composite",
@@ -255,12 +240,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "composite"}: MatchAll{{Composite{"a", "b"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "composite"}: MatchAll{{Composite{"a", "b"}}},
 			},
-			want: "composite=a$b",
+			options: Options{},
+			want:    "composite=a$b",
 		},
 		{
 			name: "quantity",
@@ -271,12 +255,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "quantity"}: MatchAll{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "quantity"}: MatchAll{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
 			},
-			want: "quantity=ge0.100|scheme://host|code",
+			options: Options{},
+			want:    "quantity=ge0.100|scheme://host|code",
 		},
 		{
 			name: "uri",
@@ -287,12 +270,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "uri"}: MatchAll{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "uri"}: MatchAll{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
 			},
-			want: "uri=urn:oid:1.2.3.4.5",
+			options: Options{},
+			want:    "uri=urn:oid:1.2.3.4.5",
 		},
 		{
 			name: "special",
@@ -303,12 +285,11 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			options: Options{
-				Parameters: internalParams{
-					ParameterKey{Name: "special"}: MatchAll{{Special("abc")}},
-				},
+			parameters: internalParams{
+				ParameterKey{Name: "special"}: MatchAll{{Special("abc")}},
 			},
-			want: "special=abc",
+			options: Options{},
+			want:    "special=abc",
 		},
 	}
 	for _, tt := range tests {
@@ -356,19 +337,23 @@ func TestParseAndToString(t *testing.T) {
 			}
 
 			// test parse
-			parsedOpts, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count, false)
+			parsedParameters, parsedOptions, err := ParseQuery(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count, false)
 			if err != nil {
-				t.Fatalf("Failed to parse options: %v", err)
+				t.Fatalf("Failed to parse query: %v", err)
 			}
 
 			tt.options.Count = min(tt.options.Count, 500)
 
-			if !cmp.Equal(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
-				t.Errorf("ParseOptions() = %v, want %v, diff: %s", parsedOpts, tt.options, cmp.Diff(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
+			if !cmp.Equal(parsedParameters, tt.parameters, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseQuery() parameters = %v, want %v, diff: %s", parsedParameters, tt.parameters, cmp.Diff(parsedParameters, tt.parameters, cmpopts.EquateComparable(apd.Decimal{})))
+			}
+
+			if !cmp.Equal(parsedOptions, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseQuery() options = %v, want %v, diff: %s", parsedOptions, tt.options, cmp.Diff(parsedOptions, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
 			}
 
 			// test to string
-			gotValues, err := url.ParseQuery(tt.options.QueryString())
+			gotValues, err := url.ParseQuery(BuildQuery(tt.parameters, tt.options))
 			if err != nil {
 				t.Fatalf("Failed to parse query string: %v", err)
 			}
@@ -380,7 +365,7 @@ func TestParseAndToString(t *testing.T) {
 	}
 }
 
-func TestParseOptionsStrict(t *testing.T) {
+func TestParseQueryStrict(t *testing.T) {
 	capabilityStatement := basic.CapabilityStatement{
 		Rest: []basic.CapabilityStatementRest{
 			{
@@ -451,7 +436,7 @@ func TestParseOptionsStrict(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			_, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, tc.queryParams, time.UTC, 500, 50, tc.strict)
+			_, _, err := ParseQuery(capabilityStatement, "TestResource", resolveSearchParameter, tc.queryParams, time.UTC, 500, 50, tc.strict)
 
 			if tc.expectError {
 				if err == nil {

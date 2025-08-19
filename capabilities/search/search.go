@@ -51,10 +51,8 @@ type Result[R model.Resource] struct {
 // for multi-page queries.
 type Cursor string
 
-// Options represents the parameters passed to a search implementation.
+// Options represents the options passed to a search implementation.
 type Options struct {
-	// Parameters defines the search parameters.
-	Parameters Parameters
 	// Includes specifies the related resources to include in the search results.
 	Includes []string
 	// Count defines the maximum number of results to return.
@@ -91,8 +89,8 @@ func (p ParameterKey) MarshalText() ([]byte, error) {
 
 type Params map[string]Criteria
 
-func (p Params) Map() map[ParameterKey]Criteria {
-	m := make(map[ParameterKey]Criteria, len(p))
+func (p Params) Map() map[ParameterKey]MatchAll {
+	m := make(map[ParameterKey]MatchAll, len(p))
 	for k, v := range p {
 		splits := strings.Split(k, ":")
 		paramName := splits[0]
@@ -100,7 +98,7 @@ func (p Params) Map() map[ParameterKey]Criteria {
 		if len(splits) > 1 {
 			paramModifier = splits[1]
 		}
-		m[ParameterKey{Name: paramName, Modifier: paramModifier}] = v
+		m[ParameterKey{Name: paramName, Modifier: paramModifier}] = v.MatchesAll()
 	}
 	return m
 }
@@ -198,7 +196,7 @@ var KnownPrefixes = []string{
 	PrefixEndsBefore,
 }
 
-// ParseOptions parses search options from a [url.Values] query string.
+// ParseQuery parses search parameters and options from a [url.Values] query string.
 //
 // Only parameters supported by the backing implementation as described
 // by the passed `capabilityStatement` for the given `resourceType` are used.
@@ -210,10 +208,10 @@ var KnownPrefixes = []string{
 // When `strict` is false, unsupported search parameters are silently ignored.
 //
 // [Result modifying parameters] are parsed into separate fields on the [Options] object.
-// All other parameters are parsed into [options.Parameters].
+// All other parameters are returned as the Parameters result.
 //
 // [Result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
-func ParseOptions(
+func ParseQuery(
 	capabilityStatement basic.CapabilityStatement,
 	resourceType string,
 	resolveSearchParameter func(canonical string) (model.Element, error),
@@ -221,11 +219,10 @@ func ParseOptions(
 	tz *time.Location,
 	maxCount, defaultCount int,
 	strict bool,
-) (Options, error) {
+) (Parameters, Options, error) {
+	parameters := internalParams{}
 	options := Options{
-		// backed by a map
-		Parameters: internalParams{},
-		Count:      min(defaultCount, maxCount),
+		Count: min(defaultCount, maxCount),
 	}
 
 	// Find the search parameters for the given resource type from the CapabilityStatement
@@ -252,14 +249,14 @@ func ParseOptions(
 		case "_count":
 			count, err := parseCount(v, maxCount)
 			if err != nil {
-				return Options{}, err
+				return nil, Options{}, err
 			}
 			options.Count = count
 
 		case "_cursor":
 			cursor, err := parseCursor(v)
 			if err != nil {
-				return Options{}, err
+				return nil, Options{}, err
 			}
 			options.Cursor = cursor
 
@@ -282,7 +279,7 @@ func ParseOptions(
 			canonical, ok := parameterDefinitions[param.Name]
 			if !ok {
 				if strict {
-					return Options{}, fmt.Errorf("unsupported search parameter: %s", param.String())
+					return nil, Options{}, fmt.Errorf("unsupported search parameter: %s", param.String())
 				}
 				// only known parameters are forwarded
 				continue
@@ -297,14 +294,14 @@ func ParseOptions(
 
 			ands, err := parseSearchParam(param, v, sp, tz)
 			if err != nil {
-				return Options{}, err
+				return nil, Options{}, err
 			}
 
-			options.Parameters.(internalParams)[param] = ands
+			parameters[param] = ands
 		}
 	}
 
-	return options, nil
+	return parameters, options, nil
 }
 
 func parseCount(values []string, maxCount int) (int, error) {
@@ -528,20 +525,23 @@ func parseSearchValuePrefix(typ string, value string) string {
 	return value[:2]
 }
 
-// QueryString of the search options.
+// BuildQuery creates a query string from parameters and options.
 //
 // Search parameters are sorted alphabetically, [result modifying parameters] like `_include`
 // are appended at the end.
-// The function is deterministic, the same `option` input will always yield the same output.
+// The function is deterministic, the same input will always yield the same output.
 //
 // [result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
-func (o Options) QueryString() string {
+func BuildQuery(parameters Parameters, opts Options) string {
+
 	var builder strings.Builder
 
-	builder.WriteString(parameterQuery(o.Parameters).Encode())
+	if parameters != nil {
+		builder.WriteString(parameterQuery(parameters).Encode())
+	}
 
-	if len(o.Includes) > 0 {
-		includes := append([]string{}, o.Includes...)
+	if len(opts.Includes) > 0 {
+		includes := append([]string{}, opts.Includes...)
 		slices.Sort(includes)
 
 		for _, include := range includes {
@@ -553,20 +553,20 @@ func (o Options) QueryString() string {
 		}
 	}
 
-	if o.Cursor != "" {
+	if opts.Cursor != "" {
 		if builder.Len() > 0 {
 			builder.WriteByte('&')
 		}
 		builder.WriteString("_cursor=")
-		builder.WriteString(url.QueryEscape(string(o.Cursor)))
+		builder.WriteString(url.QueryEscape(string(opts.Cursor)))
 	}
 
-	if o.Count > 0 {
+	if opts.Count > 0 {
 		if builder.Len() > 0 {
 			builder.WriteByte('&')
 		}
 		builder.WriteString("_count=")
-		builder.WriteString(strconv.Itoa(o.Count))
+		builder.WriteString(strconv.Itoa(opts.Count))
 	}
 
 	return builder.String()
