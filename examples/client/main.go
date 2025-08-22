@@ -27,8 +27,22 @@ func main() {
 	// Search for patients using typed search parameters
 	result, err := client.SearchPatient(context.Background(),
 		r4.PatientParams{
-			Birthdate: search.String("ge2000-01-01"), // String-based (flexible)
-			Gender:    search.Token{Code: "female"},  // Strongly-typed (safe)
+			Birthdate: search.String("ge2000-01-01"), // would expect search.Date but String is accepted as well for simpler use
+			Gender:    search.Token{Code: "female"},
+		},
+		search.Options{
+			Count: 5,
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// Generic search parameters allow setting of modifiers
+	result, err = client.SearchPatient(context.Background(),
+		search.GenericParams{
+			"birthdate":  search.String("ge2000-01-01"),
+			"gender:not": search.Token{Code: "male"}, // with modifier
 		},
 		search.Options{
 			Count: 5,

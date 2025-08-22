@@ -87,9 +87,9 @@ func (p ParameterKey) MarshalText() ([]byte, error) {
 	return []byte(p.String()), nil
 }
 
-type Params map[string]Criteria
+type GenericParams map[string]Criteria
 
-func (p Params) Map() map[ParameterKey]MatchAll {
+func (p GenericParams) Map() map[ParameterKey]MatchAll {
 	m := make(map[ParameterKey]MatchAll, len(p))
 	for k, v := range p {
 		splits := strings.Split(k, ":")

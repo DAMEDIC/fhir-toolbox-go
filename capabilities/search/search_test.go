@@ -34,7 +34,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			options:    search.Options{},
 			want:       "number=0.100",
 		},
@@ -47,7 +47,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{"number": search.MatchAll{{search.Number{Prefix: search.PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Prefix: search.PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
 			options:    search.Options{},
 			want:       "number=ge0.100",
 		},
@@ -61,7 +61,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{"number:missing": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameters: search.GenericParams{"number:missing": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			options:    search.Options{},
 			want:       "number:missing=0.100",
 		},
@@ -74,7 +74,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			options:    search.Options{Count: 100},
 			want:       "number=0.100&_count=100",
 		},
@@ -87,7 +87,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			options:    search.Options{Count: 1000},
 			want:       "number=0.100&_count=500",
 		},
@@ -100,7 +100,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"date": search.MatchAll{{search.Date{
 					Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
 					Precision: search.PrecisionDay,
@@ -118,7 +118,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"string": search.MatchAll{{search.String("example")}},
 			},
 			options: search.Options{},
@@ -133,7 +133,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"token": search.MatchAll{
 					{search.Token{Code: "value"}},
 				},
@@ -150,7 +150,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"token": search.MatchAll{{search.Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
 			options: search.Options{},
@@ -165,7 +165,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"ref": search.MatchAll{{search.Reference{Type: "Patient", Id: "123"}}},
 			},
 			options: search.Options{},
@@ -180,7 +180,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"ref": search.MatchAll{{search.Reference{Type: "Patient", Id: "123", Version: "456"}}},
 			},
 			options: search.Options{},
@@ -195,7 +195,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"ref": search.MatchAll{{search.Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}}}},
 			},
 			options: search.Options{},
@@ -210,7 +210,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"ref": search.MatchAll{{search.Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
 			},
 			options: search.Options{},
@@ -226,7 +226,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"ref:identifier": search.MatchAll{{search.Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
 			options: search.Options{},
@@ -241,7 +241,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"composite": search.MatchAll{{search.Composite{"a", "b"}}},
 			},
 			options: search.Options{},
@@ -256,7 +256,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"quantity": search.MatchAll{{search.Quantity{Prefix: search.PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
 			},
 			options: search.Options{},
@@ -271,7 +271,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"uri": search.MatchAll{{search.Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
 			},
 			options: search.Options{},
@@ -286,7 +286,7 @@ func TestParseAndToString(t *testing.T) {
 					},
 				},
 			},
-			parameters: search.Params{
+			parameters: search.GenericParams{
 				"special": search.MatchAll{{search.Special("abc")}},
 			},
 			options: search.Options{},
@@ -457,16 +457,16 @@ func TestParseQueryStrict(t *testing.T) {
 func TestParametersMarshalJSON(t *testing.T) {
 	tests := []struct {
 		name      string
-		parameter search.Params
+		parameter search.GenericParams
 		expected  string
 	}{
 		{
 			name:      "No Modifier",
-			parameter: search.Params{"exampleName": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameter: search.GenericParams{"exampleName": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
 		{
 			name:      "Modifier",
-			parameter: search.Params{"exampleName:exact": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			parameter: search.GenericParams{"exampleName:exact": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 
