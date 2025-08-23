@@ -51,7 +51,7 @@ func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.Capa
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return basic.CapabilityStatement{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return basic.CapabilityStatement{}, c.handleErrorResponse(resp)
 	}
 
 	// Determine response format from Content-Type header
@@ -98,7 +98,7 @@ func (c *internalClient[R]) Create(ctx context.Context, resource model.Resource)
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return nil, c.handleErrorResponse(resp)
 	}
 
 	// Determine response format from Content-Type header
@@ -130,7 +130,7 @@ func (c *internalClient[R]) Read(ctx context.Context, resourceType, id string) (
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return nil, c.handleErrorResponse(resp)
 	}
 
 	// Determine response format from Content-Type header
@@ -182,7 +182,7 @@ func (c *internalClient[R]) Update(ctx context.Context, resource model.Resource)
 	case http.StatusCreated:
 		created = true
 	default:
-		return update.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return update.Result[model.Resource]{}, c.handleErrorResponse(resp)
 	}
 
 	// Determine response format from Content-Type header
@@ -218,7 +218,7 @@ func (c *internalClient[R]) Delete(ctx context.Context, resourceType, id string)
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK && resp.StatusCode != http.StatusNoContent {
-		return fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return c.handleErrorResponse(resp)
 	}
 
 	return nil
@@ -268,7 +268,7 @@ func (c *internalClient[R]) Search(ctx context.Context, resourceType string, par
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return search.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
+		return search.Result[model.Resource]{}, c.handleErrorResponse(resp)
 	}
 
 	return parseSearchResponse[R](c, resp)
@@ -487,4 +487,26 @@ func (it *iterator[T]) Next() (search.Result[T], error) {
 	}
 
 	return nextResult, nil
+}
+
+// handleErrorResponse attempts to unmarshal an error response into a basic.OperationOutcome
+// and returns an appropriate error. If unmarshaling fails, it returns a generic status code error.
+func (c *internalClient[R]) handleErrorResponse(resp *http.Response) error {
+	// Read the response body
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("unexpected status code: %d (failed to read response body: %w)", resp.StatusCode, err)
+	}
+
+	// Try to unmarshal as OperationOutcome
+	responseFormat := c.detectResponseFormat(resp)
+
+	operationOutcome, err := encoding.Decode[basic.OperationOutcome](bytes.NewReader(body), encoding.Format(responseFormat))
+	if err != nil {
+		// If we can't unmarshal as OperationOutcome, return generic error with response body
+		return fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
+	}
+
+	// Return the OperationOutcome as an error
+	return operationOutcome
 }
