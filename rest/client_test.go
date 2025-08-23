@@ -707,6 +707,43 @@ func TestClientSearchResourceIncludedBehavior(t *testing.T) {
 			expectedIncludedCount: 0,
 			expectedNextCursor:    "",
 		},
+		{
+			name:         "next_link_url_parsing",
+			resourceType: "Patient",
+			parameters:   search.GenericParams{"birthdate": search.String("ge2000-01-01")},
+			options:      search.Options{Count: 5},
+			statusCode:   http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Bundle",
+				"id": "example-search-result",
+				"type": "searchset",
+				"link": [
+					{
+						"relation": "self",
+						"url": "https://server.fire.ly/Patient?birthdate=ge2000-01-01&_count=5"
+					},
+					{
+						"relation": "next",
+						"url": "https://server.fire.ly/?q=CfDJ8LjzO31FTPZ7oJjS9LaN61lmkTfAnInTGj2O1K-gN64JUkzbjV9Btdtq7ilIc5Z06kpu7l9wjDm3KdPbJ4-w5Ebwov3KvrmuWNo4dLr3nv2BEGxnXAjPiGX_ymfHRVmtwuR2NPDDFuY7vw8uweBWktTYEJFRaM2rPpRpiS7GBM1p6EjYGFTiBJua1BBJYIteMI4-VALy5e3e4m3lR4pBqCqfpWJ0BwdcwZQv1HPnDt9e8nVKi6HixZVx4j3psjceo5GaAe2csWKEpeRz5GsDLLV0Q_X48MS38BXd6H9z6FB9"
+					}
+				],
+				"entry": [
+					{
+						"resource": {
+							"resourceType": "Patient",
+							"id": "patient-1"
+						},
+						"search": {
+							"mode": "match"
+						}
+					}
+				]
+			}`,
+			expectedError:         false,
+			expectedResourceCount: 1,
+			expectedIncludedCount: 0,
+			expectedNextCursor:    "https://server.fire.ly/?q=CfDJ8LjzO31FTPZ7oJjS9LaN61lmkTfAnInTGj2O1K-gN64JUkzbjV9Btdtq7ilIc5Z06kpu7l9wjDm3KdPbJ4-w5Ebwov3KvrmuWNo4dLr3nv2BEGxnXAjPiGX_ymfHRVmtwuR2NPDDFuY7vw8uweBWktTYEJFRaM2rPpRpiS7GBM1p6EjYGFTiBJua1BBJYIteMI4-VALy5e3e4m3lR4pBqCqfpWJ0BwdcwZQv1HPnDt9e8nVKi6HixZVx4j3psjceo5GaAe2csWKEpeRz5GsDLLV0Q_X48MS38BXd6H9z6FB9",
+		},
 	}
 
 	for _, tt := range tests {

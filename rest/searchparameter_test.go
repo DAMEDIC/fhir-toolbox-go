@@ -658,20 +658,32 @@ func TestSearchParameterPaginationBasic(t *testing.T) {
 		expectCursorInNext bool
 	}{
 		{
-			name:               "pagination_with_count",
-			query:              "_count=2",
-			expectedEntries:    2,
-			maxEntries:         2,
-			expectNextLink:     true,
-			expectCursorInNext: true,
+			name:            "pagination_with_count",
+			query:           "_count=2",
+			expectedEntries: 2,
+			maxEntries:      2,
+			expectNextLink:  true,
 		},
 		{
-			name:               "pagination_with_cursor",
-			query:              "_count=2&_cursor=2",
-			expectedEntries:    -1, // Variable number of entries
-			maxEntries:         2,
-			expectNextLink:     false,
-			expectCursorInNext: false,
+			name:            "pagination_with_cursor",
+			query:           "_count=2&_cursor=2",
+			expectedEntries: 2,
+			maxEntries:      2,
+			expectNextLink:  true,
+		},
+		{
+			name:            "pagination_with_cursor",
+			query:           "_count=2&_cursor=4",
+			expectedEntries: 1,
+			maxEntries:      2,
+			expectNextLink:  false, // should not have next link because there are only 5 params
+		},
+		{
+			name:            "pagination_with_cursor",
+			query:           "_count=1&_cursor=4",
+			expectedEntries: 1,
+			maxEntries:      1,
+			expectNextLink:  false, // should not have next link because there are only 5 params
 		},
 	}
 
