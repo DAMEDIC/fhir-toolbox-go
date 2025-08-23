@@ -19,8 +19,12 @@ import (
 
 // ClientR4 provides both generic and resource-specific FHIR client capabilities.
 type ClientR4 struct {
+	// BaseURL is the base URL of the FHIR server
 	BaseURL *url.URL
-	Client  *http.Client
+	// Client is the HTTP client to use for requests. If nil, http.DefaultClient is used.
+	Client *http.Client
+	// Format specifies the request/response format (JSON or XML). Defaults to JSON if not set.
+	Format Format
 }
 
 // httpClient returns the HTTP client, using http.DefaultClient if none is set.
@@ -31,55 +35,45 @@ func (c *ClientR4) httpClient() *http.Client {
 	return http.DefaultClient
 }
 
-// NewClientR4 creates a new R4 FHIR client with the given base URL and HTTP client.
-// If httpClient is nil, http.DefaultClient will be used.
-func NewClientR4(baseURL string, httpClient *http.Client) (*ClientR4, error) {
-	u, err := url.Parse(baseURL)
-	if err != nil {
-		return nil, err
-	}
-	return &ClientR4{BaseURL: u, Client: httpClient}, nil
-}
-
 // CapabilityStatement retrieves the server's CapabilityStatement.
 func (c *ClientR4) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.CapabilityStatement(ctx)
 }
 
 // Create creates a new resource.
 func (c *ClientR4) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Create(ctx, resource)
 }
 
 // Read retrieves a resource by type and ID.
 func (c *ClientR4) Read(ctx context.Context, resourceType string, id string) (model.Resource, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Read(ctx, resourceType, id)
 }
 
 // Update updates an existing resource.
 func (c *ClientR4) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Update(ctx, resource)
 }
 
 // Delete deletes a resource by type and ID.
 func (c *ClientR4) Delete(ctx context.Context, resourceType string, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, resourceType, id)
 }
 
 // Search performs a search operation for the given resource type.
 func (c *ClientR4) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Search(ctx, resourceType, parameters, options)
 }
 
 // CreateAccount creates a new Account resource.
 func (c *ClientR4) CreateAccount(ctx context.Context, resource r4.Account) (r4.Account, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Account{}, err
@@ -93,7 +87,7 @@ func (c *ClientR4) CreateAccount(ctx context.Context, resource r4.Account) (r4.A
 
 // ReadAccount retrieves a Account resource by ID.
 func (c *ClientR4) ReadAccount(ctx context.Context, id string) (r4.Account, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Account", id)
 	if err != nil {
 		return r4.Account{}, err
@@ -107,7 +101,7 @@ func (c *ClientR4) ReadAccount(ctx context.Context, id string) (r4.Account, erro
 
 // UpdateAccount updates an existing Account resource.
 func (c *ClientR4) UpdateAccount(ctx context.Context, resource r4.Account) (update.Result[r4.Account], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Account]{}, err
@@ -121,13 +115,13 @@ func (c *ClientR4) UpdateAccount(ctx context.Context, resource r4.Account) (upda
 
 // DeleteAccount deletes a Account resource by ID.
 func (c *ClientR4) DeleteAccount(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Account", id)
 }
 
 // SearchAccount performs a search for Account resources.
 func (c *ClientR4) SearchAccount(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Account], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Account", parameters, options)
 	if err != nil {
 		return search.Result[r4.Account]{}, err
@@ -146,7 +140,7 @@ func (c *ClientR4) SearchAccount(ctx context.Context, parameters search.Paramete
 
 // CreateActivityDefinition creates a new ActivityDefinition resource.
 func (c *ClientR4) CreateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (r4.ActivityDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ActivityDefinition{}, err
@@ -160,7 +154,7 @@ func (c *ClientR4) CreateActivityDefinition(ctx context.Context, resource r4.Act
 
 // ReadActivityDefinition retrieves a ActivityDefinition resource by ID.
 func (c *ClientR4) ReadActivityDefinition(ctx context.Context, id string) (r4.ActivityDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ActivityDefinition", id)
 	if err != nil {
 		return r4.ActivityDefinition{}, err
@@ -174,7 +168,7 @@ func (c *ClientR4) ReadActivityDefinition(ctx context.Context, id string) (r4.Ac
 
 // UpdateActivityDefinition updates an existing ActivityDefinition resource.
 func (c *ClientR4) UpdateActivityDefinition(ctx context.Context, resource r4.ActivityDefinition) (update.Result[r4.ActivityDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ActivityDefinition]{}, err
@@ -188,13 +182,13 @@ func (c *ClientR4) UpdateActivityDefinition(ctx context.Context, resource r4.Act
 
 // DeleteActivityDefinition deletes a ActivityDefinition resource by ID.
 func (c *ClientR4) DeleteActivityDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ActivityDefinition", id)
 }
 
 // SearchActivityDefinition performs a search for ActivityDefinition resources.
 func (c *ClientR4) SearchActivityDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ActivityDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ActivityDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.ActivityDefinition]{}, err
@@ -213,7 +207,7 @@ func (c *ClientR4) SearchActivityDefinition(ctx context.Context, parameters sear
 
 // CreateAdverseEvent creates a new AdverseEvent resource.
 func (c *ClientR4) CreateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (r4.AdverseEvent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.AdverseEvent{}, err
@@ -227,7 +221,7 @@ func (c *ClientR4) CreateAdverseEvent(ctx context.Context, resource r4.AdverseEv
 
 // ReadAdverseEvent retrieves a AdverseEvent resource by ID.
 func (c *ClientR4) ReadAdverseEvent(ctx context.Context, id string) (r4.AdverseEvent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "AdverseEvent", id)
 	if err != nil {
 		return r4.AdverseEvent{}, err
@@ -241,7 +235,7 @@ func (c *ClientR4) ReadAdverseEvent(ctx context.Context, id string) (r4.AdverseE
 
 // UpdateAdverseEvent updates an existing AdverseEvent resource.
 func (c *ClientR4) UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEvent) (update.Result[r4.AdverseEvent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.AdverseEvent]{}, err
@@ -255,13 +249,13 @@ func (c *ClientR4) UpdateAdverseEvent(ctx context.Context, resource r4.AdverseEv
 
 // DeleteAdverseEvent deletes a AdverseEvent resource by ID.
 func (c *ClientR4) DeleteAdverseEvent(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "AdverseEvent", id)
 }
 
 // SearchAdverseEvent performs a search for AdverseEvent resources.
 func (c *ClientR4) SearchAdverseEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.AdverseEvent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "AdverseEvent", parameters, options)
 	if err != nil {
 		return search.Result[r4.AdverseEvent]{}, err
@@ -280,7 +274,7 @@ func (c *ClientR4) SearchAdverseEvent(ctx context.Context, parameters search.Par
 
 // CreateAllergyIntolerance creates a new AllergyIntolerance resource.
 func (c *ClientR4) CreateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (r4.AllergyIntolerance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.AllergyIntolerance{}, err
@@ -294,7 +288,7 @@ func (c *ClientR4) CreateAllergyIntolerance(ctx context.Context, resource r4.All
 
 // ReadAllergyIntolerance retrieves a AllergyIntolerance resource by ID.
 func (c *ClientR4) ReadAllergyIntolerance(ctx context.Context, id string) (r4.AllergyIntolerance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "AllergyIntolerance", id)
 	if err != nil {
 		return r4.AllergyIntolerance{}, err
@@ -308,7 +302,7 @@ func (c *ClientR4) ReadAllergyIntolerance(ctx context.Context, id string) (r4.Al
 
 // UpdateAllergyIntolerance updates an existing AllergyIntolerance resource.
 func (c *ClientR4) UpdateAllergyIntolerance(ctx context.Context, resource r4.AllergyIntolerance) (update.Result[r4.AllergyIntolerance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.AllergyIntolerance]{}, err
@@ -322,13 +316,13 @@ func (c *ClientR4) UpdateAllergyIntolerance(ctx context.Context, resource r4.All
 
 // DeleteAllergyIntolerance deletes a AllergyIntolerance resource by ID.
 func (c *ClientR4) DeleteAllergyIntolerance(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "AllergyIntolerance", id)
 }
 
 // SearchAllergyIntolerance performs a search for AllergyIntolerance resources.
 func (c *ClientR4) SearchAllergyIntolerance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.AllergyIntolerance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "AllergyIntolerance", parameters, options)
 	if err != nil {
 		return search.Result[r4.AllergyIntolerance]{}, err
@@ -347,7 +341,7 @@ func (c *ClientR4) SearchAllergyIntolerance(ctx context.Context, parameters sear
 
 // CreateAppointment creates a new Appointment resource.
 func (c *ClientR4) CreateAppointment(ctx context.Context, resource r4.Appointment) (r4.Appointment, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Appointment{}, err
@@ -361,7 +355,7 @@ func (c *ClientR4) CreateAppointment(ctx context.Context, resource r4.Appointmen
 
 // ReadAppointment retrieves a Appointment resource by ID.
 func (c *ClientR4) ReadAppointment(ctx context.Context, id string) (r4.Appointment, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Appointment", id)
 	if err != nil {
 		return r4.Appointment{}, err
@@ -375,7 +369,7 @@ func (c *ClientR4) ReadAppointment(ctx context.Context, id string) (r4.Appointme
 
 // UpdateAppointment updates an existing Appointment resource.
 func (c *ClientR4) UpdateAppointment(ctx context.Context, resource r4.Appointment) (update.Result[r4.Appointment], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Appointment]{}, err
@@ -389,13 +383,13 @@ func (c *ClientR4) UpdateAppointment(ctx context.Context, resource r4.Appointmen
 
 // DeleteAppointment deletes a Appointment resource by ID.
 func (c *ClientR4) DeleteAppointment(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Appointment", id)
 }
 
 // SearchAppointment performs a search for Appointment resources.
 func (c *ClientR4) SearchAppointment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Appointment], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Appointment", parameters, options)
 	if err != nil {
 		return search.Result[r4.Appointment]{}, err
@@ -414,7 +408,7 @@ func (c *ClientR4) SearchAppointment(ctx context.Context, parameters search.Para
 
 // CreateAppointmentResponse creates a new AppointmentResponse resource.
 func (c *ClientR4) CreateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (r4.AppointmentResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.AppointmentResponse{}, err
@@ -428,7 +422,7 @@ func (c *ClientR4) CreateAppointmentResponse(ctx context.Context, resource r4.Ap
 
 // ReadAppointmentResponse retrieves a AppointmentResponse resource by ID.
 func (c *ClientR4) ReadAppointmentResponse(ctx context.Context, id string) (r4.AppointmentResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "AppointmentResponse", id)
 	if err != nil {
 		return r4.AppointmentResponse{}, err
@@ -442,7 +436,7 @@ func (c *ClientR4) ReadAppointmentResponse(ctx context.Context, id string) (r4.A
 
 // UpdateAppointmentResponse updates an existing AppointmentResponse resource.
 func (c *ClientR4) UpdateAppointmentResponse(ctx context.Context, resource r4.AppointmentResponse) (update.Result[r4.AppointmentResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.AppointmentResponse]{}, err
@@ -456,13 +450,13 @@ func (c *ClientR4) UpdateAppointmentResponse(ctx context.Context, resource r4.Ap
 
 // DeleteAppointmentResponse deletes a AppointmentResponse resource by ID.
 func (c *ClientR4) DeleteAppointmentResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "AppointmentResponse", id)
 }
 
 // SearchAppointmentResponse performs a search for AppointmentResponse resources.
 func (c *ClientR4) SearchAppointmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.AppointmentResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "AppointmentResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.AppointmentResponse]{}, err
@@ -481,7 +475,7 @@ func (c *ClientR4) SearchAppointmentResponse(ctx context.Context, parameters sea
 
 // CreateAuditEvent creates a new AuditEvent resource.
 func (c *ClientR4) CreateAuditEvent(ctx context.Context, resource r4.AuditEvent) (r4.AuditEvent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.AuditEvent{}, err
@@ -495,7 +489,7 @@ func (c *ClientR4) CreateAuditEvent(ctx context.Context, resource r4.AuditEvent)
 
 // ReadAuditEvent retrieves a AuditEvent resource by ID.
 func (c *ClientR4) ReadAuditEvent(ctx context.Context, id string) (r4.AuditEvent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "AuditEvent", id)
 	if err != nil {
 		return r4.AuditEvent{}, err
@@ -509,7 +503,7 @@ func (c *ClientR4) ReadAuditEvent(ctx context.Context, id string) (r4.AuditEvent
 
 // UpdateAuditEvent updates an existing AuditEvent resource.
 func (c *ClientR4) UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent) (update.Result[r4.AuditEvent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.AuditEvent]{}, err
@@ -523,13 +517,13 @@ func (c *ClientR4) UpdateAuditEvent(ctx context.Context, resource r4.AuditEvent)
 
 // DeleteAuditEvent deletes a AuditEvent resource by ID.
 func (c *ClientR4) DeleteAuditEvent(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "AuditEvent", id)
 }
 
 // SearchAuditEvent performs a search for AuditEvent resources.
 func (c *ClientR4) SearchAuditEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.AuditEvent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "AuditEvent", parameters, options)
 	if err != nil {
 		return search.Result[r4.AuditEvent]{}, err
@@ -548,7 +542,7 @@ func (c *ClientR4) SearchAuditEvent(ctx context.Context, parameters search.Param
 
 // CreateBasic creates a new Basic resource.
 func (c *ClientR4) CreateBasic(ctx context.Context, resource r4.Basic) (r4.Basic, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Basic{}, err
@@ -562,7 +556,7 @@ func (c *ClientR4) CreateBasic(ctx context.Context, resource r4.Basic) (r4.Basic
 
 // ReadBasic retrieves a Basic resource by ID.
 func (c *ClientR4) ReadBasic(ctx context.Context, id string) (r4.Basic, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Basic", id)
 	if err != nil {
 		return r4.Basic{}, err
@@ -576,7 +570,7 @@ func (c *ClientR4) ReadBasic(ctx context.Context, id string) (r4.Basic, error) {
 
 // UpdateBasic updates an existing Basic resource.
 func (c *ClientR4) UpdateBasic(ctx context.Context, resource r4.Basic) (update.Result[r4.Basic], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Basic]{}, err
@@ -590,13 +584,13 @@ func (c *ClientR4) UpdateBasic(ctx context.Context, resource r4.Basic) (update.R
 
 // DeleteBasic deletes a Basic resource by ID.
 func (c *ClientR4) DeleteBasic(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Basic", id)
 }
 
 // SearchBasic performs a search for Basic resources.
 func (c *ClientR4) SearchBasic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Basic], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Basic", parameters, options)
 	if err != nil {
 		return search.Result[r4.Basic]{}, err
@@ -615,7 +609,7 @@ func (c *ClientR4) SearchBasic(ctx context.Context, parameters search.Parameters
 
 // CreateBinary creates a new Binary resource.
 func (c *ClientR4) CreateBinary(ctx context.Context, resource r4.Binary) (r4.Binary, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Binary{}, err
@@ -629,7 +623,7 @@ func (c *ClientR4) CreateBinary(ctx context.Context, resource r4.Binary) (r4.Bin
 
 // ReadBinary retrieves a Binary resource by ID.
 func (c *ClientR4) ReadBinary(ctx context.Context, id string) (r4.Binary, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Binary", id)
 	if err != nil {
 		return r4.Binary{}, err
@@ -643,7 +637,7 @@ func (c *ClientR4) ReadBinary(ctx context.Context, id string) (r4.Binary, error)
 
 // UpdateBinary updates an existing Binary resource.
 func (c *ClientR4) UpdateBinary(ctx context.Context, resource r4.Binary) (update.Result[r4.Binary], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Binary]{}, err
@@ -657,13 +651,13 @@ func (c *ClientR4) UpdateBinary(ctx context.Context, resource r4.Binary) (update
 
 // DeleteBinary deletes a Binary resource by ID.
 func (c *ClientR4) DeleteBinary(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Binary", id)
 }
 
 // SearchBinary performs a search for Binary resources.
 func (c *ClientR4) SearchBinary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Binary], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Binary", parameters, options)
 	if err != nil {
 		return search.Result[r4.Binary]{}, err
@@ -682,7 +676,7 @@ func (c *ClientR4) SearchBinary(ctx context.Context, parameters search.Parameter
 
 // CreateBiologicallyDerivedProduct creates a new BiologicallyDerivedProduct resource.
 func (c *ClientR4) CreateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (r4.BiologicallyDerivedProduct, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.BiologicallyDerivedProduct{}, err
@@ -696,7 +690,7 @@ func (c *ClientR4) CreateBiologicallyDerivedProduct(ctx context.Context, resourc
 
 // ReadBiologicallyDerivedProduct retrieves a BiologicallyDerivedProduct resource by ID.
 func (c *ClientR4) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r4.BiologicallyDerivedProduct, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "BiologicallyDerivedProduct", id)
 	if err != nil {
 		return r4.BiologicallyDerivedProduct{}, err
@@ -710,7 +704,7 @@ func (c *ClientR4) ReadBiologicallyDerivedProduct(ctx context.Context, id string
 
 // UpdateBiologicallyDerivedProduct updates an existing BiologicallyDerivedProduct resource.
 func (c *ClientR4) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r4.BiologicallyDerivedProduct) (update.Result[r4.BiologicallyDerivedProduct], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.BiologicallyDerivedProduct]{}, err
@@ -724,13 +718,13 @@ func (c *ClientR4) UpdateBiologicallyDerivedProduct(ctx context.Context, resourc
 
 // DeleteBiologicallyDerivedProduct deletes a BiologicallyDerivedProduct resource by ID.
 func (c *ClientR4) DeleteBiologicallyDerivedProduct(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "BiologicallyDerivedProduct", id)
 }
 
 // SearchBiologicallyDerivedProduct performs a search for BiologicallyDerivedProduct resources.
 func (c *ClientR4) SearchBiologicallyDerivedProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.BiologicallyDerivedProduct], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "BiologicallyDerivedProduct", parameters, options)
 	if err != nil {
 		return search.Result[r4.BiologicallyDerivedProduct]{}, err
@@ -749,7 +743,7 @@ func (c *ClientR4) SearchBiologicallyDerivedProduct(ctx context.Context, paramet
 
 // CreateBodyStructure creates a new BodyStructure resource.
 func (c *ClientR4) CreateBodyStructure(ctx context.Context, resource r4.BodyStructure) (r4.BodyStructure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.BodyStructure{}, err
@@ -763,7 +757,7 @@ func (c *ClientR4) CreateBodyStructure(ctx context.Context, resource r4.BodyStru
 
 // ReadBodyStructure retrieves a BodyStructure resource by ID.
 func (c *ClientR4) ReadBodyStructure(ctx context.Context, id string) (r4.BodyStructure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "BodyStructure", id)
 	if err != nil {
 		return r4.BodyStructure{}, err
@@ -777,7 +771,7 @@ func (c *ClientR4) ReadBodyStructure(ctx context.Context, id string) (r4.BodyStr
 
 // UpdateBodyStructure updates an existing BodyStructure resource.
 func (c *ClientR4) UpdateBodyStructure(ctx context.Context, resource r4.BodyStructure) (update.Result[r4.BodyStructure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.BodyStructure]{}, err
@@ -791,13 +785,13 @@ func (c *ClientR4) UpdateBodyStructure(ctx context.Context, resource r4.BodyStru
 
 // DeleteBodyStructure deletes a BodyStructure resource by ID.
 func (c *ClientR4) DeleteBodyStructure(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "BodyStructure", id)
 }
 
 // SearchBodyStructure performs a search for BodyStructure resources.
 func (c *ClientR4) SearchBodyStructure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.BodyStructure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "BodyStructure", parameters, options)
 	if err != nil {
 		return search.Result[r4.BodyStructure]{}, err
@@ -816,7 +810,7 @@ func (c *ClientR4) SearchBodyStructure(ctx context.Context, parameters search.Pa
 
 // CreateBundle creates a new Bundle resource.
 func (c *ClientR4) CreateBundle(ctx context.Context, resource r4.Bundle) (r4.Bundle, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Bundle{}, err
@@ -830,7 +824,7 @@ func (c *ClientR4) CreateBundle(ctx context.Context, resource r4.Bundle) (r4.Bun
 
 // ReadBundle retrieves a Bundle resource by ID.
 func (c *ClientR4) ReadBundle(ctx context.Context, id string) (r4.Bundle, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Bundle", id)
 	if err != nil {
 		return r4.Bundle{}, err
@@ -844,7 +838,7 @@ func (c *ClientR4) ReadBundle(ctx context.Context, id string) (r4.Bundle, error)
 
 // UpdateBundle updates an existing Bundle resource.
 func (c *ClientR4) UpdateBundle(ctx context.Context, resource r4.Bundle) (update.Result[r4.Bundle], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Bundle]{}, err
@@ -858,13 +852,13 @@ func (c *ClientR4) UpdateBundle(ctx context.Context, resource r4.Bundle) (update
 
 // DeleteBundle deletes a Bundle resource by ID.
 func (c *ClientR4) DeleteBundle(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Bundle", id)
 }
 
 // SearchBundle performs a search for Bundle resources.
 func (c *ClientR4) SearchBundle(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Bundle], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Bundle", parameters, options)
 	if err != nil {
 		return search.Result[r4.Bundle]{}, err
@@ -883,7 +877,7 @@ func (c *ClientR4) SearchBundle(ctx context.Context, parameters search.Parameter
 
 // CreateCapabilityStatement creates a new CapabilityStatement resource.
 func (c *ClientR4) CreateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (r4.CapabilityStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CapabilityStatement{}, err
@@ -897,7 +891,7 @@ func (c *ClientR4) CreateCapabilityStatement(ctx context.Context, resource r4.Ca
 
 // ReadCapabilityStatement retrieves a CapabilityStatement resource by ID.
 func (c *ClientR4) ReadCapabilityStatement(ctx context.Context, id string) (r4.CapabilityStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CapabilityStatement", id)
 	if err != nil {
 		return r4.CapabilityStatement{}, err
@@ -911,7 +905,7 @@ func (c *ClientR4) ReadCapabilityStatement(ctx context.Context, id string) (r4.C
 
 // UpdateCapabilityStatement updates an existing CapabilityStatement resource.
 func (c *ClientR4) UpdateCapabilityStatement(ctx context.Context, resource r4.CapabilityStatement) (update.Result[r4.CapabilityStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CapabilityStatement]{}, err
@@ -925,13 +919,13 @@ func (c *ClientR4) UpdateCapabilityStatement(ctx context.Context, resource r4.Ca
 
 // DeleteCapabilityStatement deletes a CapabilityStatement resource by ID.
 func (c *ClientR4) DeleteCapabilityStatement(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CapabilityStatement", id)
 }
 
 // SearchCapabilityStatement performs a search for CapabilityStatement resources.
 func (c *ClientR4) SearchCapabilityStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CapabilityStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CapabilityStatement", parameters, options)
 	if err != nil {
 		return search.Result[r4.CapabilityStatement]{}, err
@@ -950,7 +944,7 @@ func (c *ClientR4) SearchCapabilityStatement(ctx context.Context, parameters sea
 
 // CreateCarePlan creates a new CarePlan resource.
 func (c *ClientR4) CreateCarePlan(ctx context.Context, resource r4.CarePlan) (r4.CarePlan, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CarePlan{}, err
@@ -964,7 +958,7 @@ func (c *ClientR4) CreateCarePlan(ctx context.Context, resource r4.CarePlan) (r4
 
 // ReadCarePlan retrieves a CarePlan resource by ID.
 func (c *ClientR4) ReadCarePlan(ctx context.Context, id string) (r4.CarePlan, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CarePlan", id)
 	if err != nil {
 		return r4.CarePlan{}, err
@@ -978,7 +972,7 @@ func (c *ClientR4) ReadCarePlan(ctx context.Context, id string) (r4.CarePlan, er
 
 // UpdateCarePlan updates an existing CarePlan resource.
 func (c *ClientR4) UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (update.Result[r4.CarePlan], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CarePlan]{}, err
@@ -992,13 +986,13 @@ func (c *ClientR4) UpdateCarePlan(ctx context.Context, resource r4.CarePlan) (up
 
 // DeleteCarePlan deletes a CarePlan resource by ID.
 func (c *ClientR4) DeleteCarePlan(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CarePlan", id)
 }
 
 // SearchCarePlan performs a search for CarePlan resources.
 func (c *ClientR4) SearchCarePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CarePlan], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CarePlan", parameters, options)
 	if err != nil {
 		return search.Result[r4.CarePlan]{}, err
@@ -1017,7 +1011,7 @@ func (c *ClientR4) SearchCarePlan(ctx context.Context, parameters search.Paramet
 
 // CreateCareTeam creates a new CareTeam resource.
 func (c *ClientR4) CreateCareTeam(ctx context.Context, resource r4.CareTeam) (r4.CareTeam, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CareTeam{}, err
@@ -1031,7 +1025,7 @@ func (c *ClientR4) CreateCareTeam(ctx context.Context, resource r4.CareTeam) (r4
 
 // ReadCareTeam retrieves a CareTeam resource by ID.
 func (c *ClientR4) ReadCareTeam(ctx context.Context, id string) (r4.CareTeam, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CareTeam", id)
 	if err != nil {
 		return r4.CareTeam{}, err
@@ -1045,7 +1039,7 @@ func (c *ClientR4) ReadCareTeam(ctx context.Context, id string) (r4.CareTeam, er
 
 // UpdateCareTeam updates an existing CareTeam resource.
 func (c *ClientR4) UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (update.Result[r4.CareTeam], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CareTeam]{}, err
@@ -1059,13 +1053,13 @@ func (c *ClientR4) UpdateCareTeam(ctx context.Context, resource r4.CareTeam) (up
 
 // DeleteCareTeam deletes a CareTeam resource by ID.
 func (c *ClientR4) DeleteCareTeam(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CareTeam", id)
 }
 
 // SearchCareTeam performs a search for CareTeam resources.
 func (c *ClientR4) SearchCareTeam(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CareTeam], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CareTeam", parameters, options)
 	if err != nil {
 		return search.Result[r4.CareTeam]{}, err
@@ -1084,7 +1078,7 @@ func (c *ClientR4) SearchCareTeam(ctx context.Context, parameters search.Paramet
 
 // CreateCatalogEntry creates a new CatalogEntry resource.
 func (c *ClientR4) CreateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (r4.CatalogEntry, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CatalogEntry{}, err
@@ -1098,7 +1092,7 @@ func (c *ClientR4) CreateCatalogEntry(ctx context.Context, resource r4.CatalogEn
 
 // ReadCatalogEntry retrieves a CatalogEntry resource by ID.
 func (c *ClientR4) ReadCatalogEntry(ctx context.Context, id string) (r4.CatalogEntry, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CatalogEntry", id)
 	if err != nil {
 		return r4.CatalogEntry{}, err
@@ -1112,7 +1106,7 @@ func (c *ClientR4) ReadCatalogEntry(ctx context.Context, id string) (r4.CatalogE
 
 // UpdateCatalogEntry updates an existing CatalogEntry resource.
 func (c *ClientR4) UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEntry) (update.Result[r4.CatalogEntry], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CatalogEntry]{}, err
@@ -1126,13 +1120,13 @@ func (c *ClientR4) UpdateCatalogEntry(ctx context.Context, resource r4.CatalogEn
 
 // DeleteCatalogEntry deletes a CatalogEntry resource by ID.
 func (c *ClientR4) DeleteCatalogEntry(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CatalogEntry", id)
 }
 
 // SearchCatalogEntry performs a search for CatalogEntry resources.
 func (c *ClientR4) SearchCatalogEntry(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CatalogEntry], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CatalogEntry", parameters, options)
 	if err != nil {
 		return search.Result[r4.CatalogEntry]{}, err
@@ -1151,7 +1145,7 @@ func (c *ClientR4) SearchCatalogEntry(ctx context.Context, parameters search.Par
 
 // CreateChargeItem creates a new ChargeItem resource.
 func (c *ClientR4) CreateChargeItem(ctx context.Context, resource r4.ChargeItem) (r4.ChargeItem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ChargeItem{}, err
@@ -1165,7 +1159,7 @@ func (c *ClientR4) CreateChargeItem(ctx context.Context, resource r4.ChargeItem)
 
 // ReadChargeItem retrieves a ChargeItem resource by ID.
 func (c *ClientR4) ReadChargeItem(ctx context.Context, id string) (r4.ChargeItem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ChargeItem", id)
 	if err != nil {
 		return r4.ChargeItem{}, err
@@ -1179,7 +1173,7 @@ func (c *ClientR4) ReadChargeItem(ctx context.Context, id string) (r4.ChargeItem
 
 // UpdateChargeItem updates an existing ChargeItem resource.
 func (c *ClientR4) UpdateChargeItem(ctx context.Context, resource r4.ChargeItem) (update.Result[r4.ChargeItem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ChargeItem]{}, err
@@ -1193,13 +1187,13 @@ func (c *ClientR4) UpdateChargeItem(ctx context.Context, resource r4.ChargeItem)
 
 // DeleteChargeItem deletes a ChargeItem resource by ID.
 func (c *ClientR4) DeleteChargeItem(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ChargeItem", id)
 }
 
 // SearchChargeItem performs a search for ChargeItem resources.
 func (c *ClientR4) SearchChargeItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ChargeItem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ChargeItem", parameters, options)
 	if err != nil {
 		return search.Result[r4.ChargeItem]{}, err
@@ -1218,7 +1212,7 @@ func (c *ClientR4) SearchChargeItem(ctx context.Context, parameters search.Param
 
 // CreateChargeItemDefinition creates a new ChargeItemDefinition resource.
 func (c *ClientR4) CreateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (r4.ChargeItemDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ChargeItemDefinition{}, err
@@ -1232,7 +1226,7 @@ func (c *ClientR4) CreateChargeItemDefinition(ctx context.Context, resource r4.C
 
 // ReadChargeItemDefinition retrieves a ChargeItemDefinition resource by ID.
 func (c *ClientR4) ReadChargeItemDefinition(ctx context.Context, id string) (r4.ChargeItemDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ChargeItemDefinition", id)
 	if err != nil {
 		return r4.ChargeItemDefinition{}, err
@@ -1246,7 +1240,7 @@ func (c *ClientR4) ReadChargeItemDefinition(ctx context.Context, id string) (r4.
 
 // UpdateChargeItemDefinition updates an existing ChargeItemDefinition resource.
 func (c *ClientR4) UpdateChargeItemDefinition(ctx context.Context, resource r4.ChargeItemDefinition) (update.Result[r4.ChargeItemDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ChargeItemDefinition]{}, err
@@ -1260,13 +1254,13 @@ func (c *ClientR4) UpdateChargeItemDefinition(ctx context.Context, resource r4.C
 
 // DeleteChargeItemDefinition deletes a ChargeItemDefinition resource by ID.
 func (c *ClientR4) DeleteChargeItemDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ChargeItemDefinition", id)
 }
 
 // SearchChargeItemDefinition performs a search for ChargeItemDefinition resources.
 func (c *ClientR4) SearchChargeItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ChargeItemDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ChargeItemDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.ChargeItemDefinition]{}, err
@@ -1285,7 +1279,7 @@ func (c *ClientR4) SearchChargeItemDefinition(ctx context.Context, parameters se
 
 // CreateClaim creates a new Claim resource.
 func (c *ClientR4) CreateClaim(ctx context.Context, resource r4.Claim) (r4.Claim, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Claim{}, err
@@ -1299,7 +1293,7 @@ func (c *ClientR4) CreateClaim(ctx context.Context, resource r4.Claim) (r4.Claim
 
 // ReadClaim retrieves a Claim resource by ID.
 func (c *ClientR4) ReadClaim(ctx context.Context, id string) (r4.Claim, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Claim", id)
 	if err != nil {
 		return r4.Claim{}, err
@@ -1313,7 +1307,7 @@ func (c *ClientR4) ReadClaim(ctx context.Context, id string) (r4.Claim, error) {
 
 // UpdateClaim updates an existing Claim resource.
 func (c *ClientR4) UpdateClaim(ctx context.Context, resource r4.Claim) (update.Result[r4.Claim], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Claim]{}, err
@@ -1327,13 +1321,13 @@ func (c *ClientR4) UpdateClaim(ctx context.Context, resource r4.Claim) (update.R
 
 // DeleteClaim deletes a Claim resource by ID.
 func (c *ClientR4) DeleteClaim(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Claim", id)
 }
 
 // SearchClaim performs a search for Claim resources.
 func (c *ClientR4) SearchClaim(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Claim], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Claim", parameters, options)
 	if err != nil {
 		return search.Result[r4.Claim]{}, err
@@ -1352,7 +1346,7 @@ func (c *ClientR4) SearchClaim(ctx context.Context, parameters search.Parameters
 
 // CreateClaimResponse creates a new ClaimResponse resource.
 func (c *ClientR4) CreateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (r4.ClaimResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ClaimResponse{}, err
@@ -1366,7 +1360,7 @@ func (c *ClientR4) CreateClaimResponse(ctx context.Context, resource r4.ClaimRes
 
 // ReadClaimResponse retrieves a ClaimResponse resource by ID.
 func (c *ClientR4) ReadClaimResponse(ctx context.Context, id string) (r4.ClaimResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ClaimResponse", id)
 	if err != nil {
 		return r4.ClaimResponse{}, err
@@ -1380,7 +1374,7 @@ func (c *ClientR4) ReadClaimResponse(ctx context.Context, id string) (r4.ClaimRe
 
 // UpdateClaimResponse updates an existing ClaimResponse resource.
 func (c *ClientR4) UpdateClaimResponse(ctx context.Context, resource r4.ClaimResponse) (update.Result[r4.ClaimResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ClaimResponse]{}, err
@@ -1394,13 +1388,13 @@ func (c *ClientR4) UpdateClaimResponse(ctx context.Context, resource r4.ClaimRes
 
 // DeleteClaimResponse deletes a ClaimResponse resource by ID.
 func (c *ClientR4) DeleteClaimResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ClaimResponse", id)
 }
 
 // SearchClaimResponse performs a search for ClaimResponse resources.
 func (c *ClientR4) SearchClaimResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ClaimResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ClaimResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.ClaimResponse]{}, err
@@ -1419,7 +1413,7 @@ func (c *ClientR4) SearchClaimResponse(ctx context.Context, parameters search.Pa
 
 // CreateClinicalImpression creates a new ClinicalImpression resource.
 func (c *ClientR4) CreateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (r4.ClinicalImpression, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ClinicalImpression{}, err
@@ -1433,7 +1427,7 @@ func (c *ClientR4) CreateClinicalImpression(ctx context.Context, resource r4.Cli
 
 // ReadClinicalImpression retrieves a ClinicalImpression resource by ID.
 func (c *ClientR4) ReadClinicalImpression(ctx context.Context, id string) (r4.ClinicalImpression, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ClinicalImpression", id)
 	if err != nil {
 		return r4.ClinicalImpression{}, err
@@ -1447,7 +1441,7 @@ func (c *ClientR4) ReadClinicalImpression(ctx context.Context, id string) (r4.Cl
 
 // UpdateClinicalImpression updates an existing ClinicalImpression resource.
 func (c *ClientR4) UpdateClinicalImpression(ctx context.Context, resource r4.ClinicalImpression) (update.Result[r4.ClinicalImpression], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ClinicalImpression]{}, err
@@ -1461,13 +1455,13 @@ func (c *ClientR4) UpdateClinicalImpression(ctx context.Context, resource r4.Cli
 
 // DeleteClinicalImpression deletes a ClinicalImpression resource by ID.
 func (c *ClientR4) DeleteClinicalImpression(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ClinicalImpression", id)
 }
 
 // SearchClinicalImpression performs a search for ClinicalImpression resources.
 func (c *ClientR4) SearchClinicalImpression(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ClinicalImpression], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ClinicalImpression", parameters, options)
 	if err != nil {
 		return search.Result[r4.ClinicalImpression]{}, err
@@ -1486,7 +1480,7 @@ func (c *ClientR4) SearchClinicalImpression(ctx context.Context, parameters sear
 
 // CreateCodeSystem creates a new CodeSystem resource.
 func (c *ClientR4) CreateCodeSystem(ctx context.Context, resource r4.CodeSystem) (r4.CodeSystem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CodeSystem{}, err
@@ -1500,7 +1494,7 @@ func (c *ClientR4) CreateCodeSystem(ctx context.Context, resource r4.CodeSystem)
 
 // ReadCodeSystem retrieves a CodeSystem resource by ID.
 func (c *ClientR4) ReadCodeSystem(ctx context.Context, id string) (r4.CodeSystem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CodeSystem", id)
 	if err != nil {
 		return r4.CodeSystem{}, err
@@ -1514,7 +1508,7 @@ func (c *ClientR4) ReadCodeSystem(ctx context.Context, id string) (r4.CodeSystem
 
 // UpdateCodeSystem updates an existing CodeSystem resource.
 func (c *ClientR4) UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem) (update.Result[r4.CodeSystem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CodeSystem]{}, err
@@ -1528,13 +1522,13 @@ func (c *ClientR4) UpdateCodeSystem(ctx context.Context, resource r4.CodeSystem)
 
 // DeleteCodeSystem deletes a CodeSystem resource by ID.
 func (c *ClientR4) DeleteCodeSystem(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CodeSystem", id)
 }
 
 // SearchCodeSystem performs a search for CodeSystem resources.
 func (c *ClientR4) SearchCodeSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CodeSystem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CodeSystem", parameters, options)
 	if err != nil {
 		return search.Result[r4.CodeSystem]{}, err
@@ -1553,7 +1547,7 @@ func (c *ClientR4) SearchCodeSystem(ctx context.Context, parameters search.Param
 
 // CreateCommunication creates a new Communication resource.
 func (c *ClientR4) CreateCommunication(ctx context.Context, resource r4.Communication) (r4.Communication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Communication{}, err
@@ -1567,7 +1561,7 @@ func (c *ClientR4) CreateCommunication(ctx context.Context, resource r4.Communic
 
 // ReadCommunication retrieves a Communication resource by ID.
 func (c *ClientR4) ReadCommunication(ctx context.Context, id string) (r4.Communication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Communication", id)
 	if err != nil {
 		return r4.Communication{}, err
@@ -1581,7 +1575,7 @@ func (c *ClientR4) ReadCommunication(ctx context.Context, id string) (r4.Communi
 
 // UpdateCommunication updates an existing Communication resource.
 func (c *ClientR4) UpdateCommunication(ctx context.Context, resource r4.Communication) (update.Result[r4.Communication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Communication]{}, err
@@ -1595,13 +1589,13 @@ func (c *ClientR4) UpdateCommunication(ctx context.Context, resource r4.Communic
 
 // DeleteCommunication deletes a Communication resource by ID.
 func (c *ClientR4) DeleteCommunication(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Communication", id)
 }
 
 // SearchCommunication performs a search for Communication resources.
 func (c *ClientR4) SearchCommunication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Communication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Communication", parameters, options)
 	if err != nil {
 		return search.Result[r4.Communication]{}, err
@@ -1620,7 +1614,7 @@ func (c *ClientR4) SearchCommunication(ctx context.Context, parameters search.Pa
 
 // CreateCommunicationRequest creates a new CommunicationRequest resource.
 func (c *ClientR4) CreateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (r4.CommunicationRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CommunicationRequest{}, err
@@ -1634,7 +1628,7 @@ func (c *ClientR4) CreateCommunicationRequest(ctx context.Context, resource r4.C
 
 // ReadCommunicationRequest retrieves a CommunicationRequest resource by ID.
 func (c *ClientR4) ReadCommunicationRequest(ctx context.Context, id string) (r4.CommunicationRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CommunicationRequest", id)
 	if err != nil {
 		return r4.CommunicationRequest{}, err
@@ -1648,7 +1642,7 @@ func (c *ClientR4) ReadCommunicationRequest(ctx context.Context, id string) (r4.
 
 // UpdateCommunicationRequest updates an existing CommunicationRequest resource.
 func (c *ClientR4) UpdateCommunicationRequest(ctx context.Context, resource r4.CommunicationRequest) (update.Result[r4.CommunicationRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CommunicationRequest]{}, err
@@ -1662,13 +1656,13 @@ func (c *ClientR4) UpdateCommunicationRequest(ctx context.Context, resource r4.C
 
 // DeleteCommunicationRequest deletes a CommunicationRequest resource by ID.
 func (c *ClientR4) DeleteCommunicationRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CommunicationRequest", id)
 }
 
 // SearchCommunicationRequest performs a search for CommunicationRequest resources.
 func (c *ClientR4) SearchCommunicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CommunicationRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CommunicationRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.CommunicationRequest]{}, err
@@ -1687,7 +1681,7 @@ func (c *ClientR4) SearchCommunicationRequest(ctx context.Context, parameters se
 
 // CreateCompartmentDefinition creates a new CompartmentDefinition resource.
 func (c *ClientR4) CreateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (r4.CompartmentDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CompartmentDefinition{}, err
@@ -1701,7 +1695,7 @@ func (c *ClientR4) CreateCompartmentDefinition(ctx context.Context, resource r4.
 
 // ReadCompartmentDefinition retrieves a CompartmentDefinition resource by ID.
 func (c *ClientR4) ReadCompartmentDefinition(ctx context.Context, id string) (r4.CompartmentDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CompartmentDefinition", id)
 	if err != nil {
 		return r4.CompartmentDefinition{}, err
@@ -1715,7 +1709,7 @@ func (c *ClientR4) ReadCompartmentDefinition(ctx context.Context, id string) (r4
 
 // UpdateCompartmentDefinition updates an existing CompartmentDefinition resource.
 func (c *ClientR4) UpdateCompartmentDefinition(ctx context.Context, resource r4.CompartmentDefinition) (update.Result[r4.CompartmentDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CompartmentDefinition]{}, err
@@ -1729,13 +1723,13 @@ func (c *ClientR4) UpdateCompartmentDefinition(ctx context.Context, resource r4.
 
 // DeleteCompartmentDefinition deletes a CompartmentDefinition resource by ID.
 func (c *ClientR4) DeleteCompartmentDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CompartmentDefinition", id)
 }
 
 // SearchCompartmentDefinition performs a search for CompartmentDefinition resources.
 func (c *ClientR4) SearchCompartmentDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CompartmentDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CompartmentDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.CompartmentDefinition]{}, err
@@ -1754,7 +1748,7 @@ func (c *ClientR4) SearchCompartmentDefinition(ctx context.Context, parameters s
 
 // CreateComposition creates a new Composition resource.
 func (c *ClientR4) CreateComposition(ctx context.Context, resource r4.Composition) (r4.Composition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Composition{}, err
@@ -1768,7 +1762,7 @@ func (c *ClientR4) CreateComposition(ctx context.Context, resource r4.Compositio
 
 // ReadComposition retrieves a Composition resource by ID.
 func (c *ClientR4) ReadComposition(ctx context.Context, id string) (r4.Composition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Composition", id)
 	if err != nil {
 		return r4.Composition{}, err
@@ -1782,7 +1776,7 @@ func (c *ClientR4) ReadComposition(ctx context.Context, id string) (r4.Compositi
 
 // UpdateComposition updates an existing Composition resource.
 func (c *ClientR4) UpdateComposition(ctx context.Context, resource r4.Composition) (update.Result[r4.Composition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Composition]{}, err
@@ -1796,13 +1790,13 @@ func (c *ClientR4) UpdateComposition(ctx context.Context, resource r4.Compositio
 
 // DeleteComposition deletes a Composition resource by ID.
 func (c *ClientR4) DeleteComposition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Composition", id)
 }
 
 // SearchComposition performs a search for Composition resources.
 func (c *ClientR4) SearchComposition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Composition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Composition", parameters, options)
 	if err != nil {
 		return search.Result[r4.Composition]{}, err
@@ -1821,7 +1815,7 @@ func (c *ClientR4) SearchComposition(ctx context.Context, parameters search.Para
 
 // CreateConceptMap creates a new ConceptMap resource.
 func (c *ClientR4) CreateConceptMap(ctx context.Context, resource r4.ConceptMap) (r4.ConceptMap, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ConceptMap{}, err
@@ -1835,7 +1829,7 @@ func (c *ClientR4) CreateConceptMap(ctx context.Context, resource r4.ConceptMap)
 
 // ReadConceptMap retrieves a ConceptMap resource by ID.
 func (c *ClientR4) ReadConceptMap(ctx context.Context, id string) (r4.ConceptMap, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ConceptMap", id)
 	if err != nil {
 		return r4.ConceptMap{}, err
@@ -1849,7 +1843,7 @@ func (c *ClientR4) ReadConceptMap(ctx context.Context, id string) (r4.ConceptMap
 
 // UpdateConceptMap updates an existing ConceptMap resource.
 func (c *ClientR4) UpdateConceptMap(ctx context.Context, resource r4.ConceptMap) (update.Result[r4.ConceptMap], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ConceptMap]{}, err
@@ -1863,13 +1857,13 @@ func (c *ClientR4) UpdateConceptMap(ctx context.Context, resource r4.ConceptMap)
 
 // DeleteConceptMap deletes a ConceptMap resource by ID.
 func (c *ClientR4) DeleteConceptMap(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ConceptMap", id)
 }
 
 // SearchConceptMap performs a search for ConceptMap resources.
 func (c *ClientR4) SearchConceptMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ConceptMap], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ConceptMap", parameters, options)
 	if err != nil {
 		return search.Result[r4.ConceptMap]{}, err
@@ -1888,7 +1882,7 @@ func (c *ClientR4) SearchConceptMap(ctx context.Context, parameters search.Param
 
 // CreateCondition creates a new Condition resource.
 func (c *ClientR4) CreateCondition(ctx context.Context, resource r4.Condition) (r4.Condition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Condition{}, err
@@ -1902,7 +1896,7 @@ func (c *ClientR4) CreateCondition(ctx context.Context, resource r4.Condition) (
 
 // ReadCondition retrieves a Condition resource by ID.
 func (c *ClientR4) ReadCondition(ctx context.Context, id string) (r4.Condition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Condition", id)
 	if err != nil {
 		return r4.Condition{}, err
@@ -1916,7 +1910,7 @@ func (c *ClientR4) ReadCondition(ctx context.Context, id string) (r4.Condition, 
 
 // UpdateCondition updates an existing Condition resource.
 func (c *ClientR4) UpdateCondition(ctx context.Context, resource r4.Condition) (update.Result[r4.Condition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Condition]{}, err
@@ -1930,13 +1924,13 @@ func (c *ClientR4) UpdateCondition(ctx context.Context, resource r4.Condition) (
 
 // DeleteCondition deletes a Condition resource by ID.
 func (c *ClientR4) DeleteCondition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Condition", id)
 }
 
 // SearchCondition performs a search for Condition resources.
 func (c *ClientR4) SearchCondition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Condition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Condition", parameters, options)
 	if err != nil {
 		return search.Result[r4.Condition]{}, err
@@ -1955,7 +1949,7 @@ func (c *ClientR4) SearchCondition(ctx context.Context, parameters search.Parame
 
 // CreateConsent creates a new Consent resource.
 func (c *ClientR4) CreateConsent(ctx context.Context, resource r4.Consent) (r4.Consent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Consent{}, err
@@ -1969,7 +1963,7 @@ func (c *ClientR4) CreateConsent(ctx context.Context, resource r4.Consent) (r4.C
 
 // ReadConsent retrieves a Consent resource by ID.
 func (c *ClientR4) ReadConsent(ctx context.Context, id string) (r4.Consent, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Consent", id)
 	if err != nil {
 		return r4.Consent{}, err
@@ -1983,7 +1977,7 @@ func (c *ClientR4) ReadConsent(ctx context.Context, id string) (r4.Consent, erro
 
 // UpdateConsent updates an existing Consent resource.
 func (c *ClientR4) UpdateConsent(ctx context.Context, resource r4.Consent) (update.Result[r4.Consent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Consent]{}, err
@@ -1997,13 +1991,13 @@ func (c *ClientR4) UpdateConsent(ctx context.Context, resource r4.Consent) (upda
 
 // DeleteConsent deletes a Consent resource by ID.
 func (c *ClientR4) DeleteConsent(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Consent", id)
 }
 
 // SearchConsent performs a search for Consent resources.
 func (c *ClientR4) SearchConsent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Consent], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Consent", parameters, options)
 	if err != nil {
 		return search.Result[r4.Consent]{}, err
@@ -2022,7 +2016,7 @@ func (c *ClientR4) SearchConsent(ctx context.Context, parameters search.Paramete
 
 // CreateContract creates a new Contract resource.
 func (c *ClientR4) CreateContract(ctx context.Context, resource r4.Contract) (r4.Contract, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Contract{}, err
@@ -2036,7 +2030,7 @@ func (c *ClientR4) CreateContract(ctx context.Context, resource r4.Contract) (r4
 
 // ReadContract retrieves a Contract resource by ID.
 func (c *ClientR4) ReadContract(ctx context.Context, id string) (r4.Contract, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Contract", id)
 	if err != nil {
 		return r4.Contract{}, err
@@ -2050,7 +2044,7 @@ func (c *ClientR4) ReadContract(ctx context.Context, id string) (r4.Contract, er
 
 // UpdateContract updates an existing Contract resource.
 func (c *ClientR4) UpdateContract(ctx context.Context, resource r4.Contract) (update.Result[r4.Contract], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Contract]{}, err
@@ -2064,13 +2058,13 @@ func (c *ClientR4) UpdateContract(ctx context.Context, resource r4.Contract) (up
 
 // DeleteContract deletes a Contract resource by ID.
 func (c *ClientR4) DeleteContract(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Contract", id)
 }
 
 // SearchContract performs a search for Contract resources.
 func (c *ClientR4) SearchContract(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Contract], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Contract", parameters, options)
 	if err != nil {
 		return search.Result[r4.Contract]{}, err
@@ -2089,7 +2083,7 @@ func (c *ClientR4) SearchContract(ctx context.Context, parameters search.Paramet
 
 // CreateCoverage creates a new Coverage resource.
 func (c *ClientR4) CreateCoverage(ctx context.Context, resource r4.Coverage) (r4.Coverage, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Coverage{}, err
@@ -2103,7 +2097,7 @@ func (c *ClientR4) CreateCoverage(ctx context.Context, resource r4.Coverage) (r4
 
 // ReadCoverage retrieves a Coverage resource by ID.
 func (c *ClientR4) ReadCoverage(ctx context.Context, id string) (r4.Coverage, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Coverage", id)
 	if err != nil {
 		return r4.Coverage{}, err
@@ -2117,7 +2111,7 @@ func (c *ClientR4) ReadCoverage(ctx context.Context, id string) (r4.Coverage, er
 
 // UpdateCoverage updates an existing Coverage resource.
 func (c *ClientR4) UpdateCoverage(ctx context.Context, resource r4.Coverage) (update.Result[r4.Coverage], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Coverage]{}, err
@@ -2131,13 +2125,13 @@ func (c *ClientR4) UpdateCoverage(ctx context.Context, resource r4.Coverage) (up
 
 // DeleteCoverage deletes a Coverage resource by ID.
 func (c *ClientR4) DeleteCoverage(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Coverage", id)
 }
 
 // SearchCoverage performs a search for Coverage resources.
 func (c *ClientR4) SearchCoverage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Coverage], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Coverage", parameters, options)
 	if err != nil {
 		return search.Result[r4.Coverage]{}, err
@@ -2156,7 +2150,7 @@ func (c *ClientR4) SearchCoverage(ctx context.Context, parameters search.Paramet
 
 // CreateCoverageEligibilityRequest creates a new CoverageEligibilityRequest resource.
 func (c *ClientR4) CreateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (r4.CoverageEligibilityRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CoverageEligibilityRequest{}, err
@@ -2170,7 +2164,7 @@ func (c *ClientR4) CreateCoverageEligibilityRequest(ctx context.Context, resourc
 
 // ReadCoverageEligibilityRequest retrieves a CoverageEligibilityRequest resource by ID.
 func (c *ClientR4) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r4.CoverageEligibilityRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CoverageEligibilityRequest", id)
 	if err != nil {
 		return r4.CoverageEligibilityRequest{}, err
@@ -2184,7 +2178,7 @@ func (c *ClientR4) ReadCoverageEligibilityRequest(ctx context.Context, id string
 
 // UpdateCoverageEligibilityRequest updates an existing CoverageEligibilityRequest resource.
 func (c *ClientR4) UpdateCoverageEligibilityRequest(ctx context.Context, resource r4.CoverageEligibilityRequest) (update.Result[r4.CoverageEligibilityRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CoverageEligibilityRequest]{}, err
@@ -2198,13 +2192,13 @@ func (c *ClientR4) UpdateCoverageEligibilityRequest(ctx context.Context, resourc
 
 // DeleteCoverageEligibilityRequest deletes a CoverageEligibilityRequest resource by ID.
 func (c *ClientR4) DeleteCoverageEligibilityRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CoverageEligibilityRequest", id)
 }
 
 // SearchCoverageEligibilityRequest performs a search for CoverageEligibilityRequest resources.
 func (c *ClientR4) SearchCoverageEligibilityRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CoverageEligibilityRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CoverageEligibilityRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.CoverageEligibilityRequest]{}, err
@@ -2223,7 +2217,7 @@ func (c *ClientR4) SearchCoverageEligibilityRequest(ctx context.Context, paramet
 
 // CreateCoverageEligibilityResponse creates a new CoverageEligibilityResponse resource.
 func (c *ClientR4) CreateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (r4.CoverageEligibilityResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.CoverageEligibilityResponse{}, err
@@ -2237,7 +2231,7 @@ func (c *ClientR4) CreateCoverageEligibilityResponse(ctx context.Context, resour
 
 // ReadCoverageEligibilityResponse retrieves a CoverageEligibilityResponse resource by ID.
 func (c *ClientR4) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r4.CoverageEligibilityResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "CoverageEligibilityResponse", id)
 	if err != nil {
 		return r4.CoverageEligibilityResponse{}, err
@@ -2251,7 +2245,7 @@ func (c *ClientR4) ReadCoverageEligibilityResponse(ctx context.Context, id strin
 
 // UpdateCoverageEligibilityResponse updates an existing CoverageEligibilityResponse resource.
 func (c *ClientR4) UpdateCoverageEligibilityResponse(ctx context.Context, resource r4.CoverageEligibilityResponse) (update.Result[r4.CoverageEligibilityResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.CoverageEligibilityResponse]{}, err
@@ -2265,13 +2259,13 @@ func (c *ClientR4) UpdateCoverageEligibilityResponse(ctx context.Context, resour
 
 // DeleteCoverageEligibilityResponse deletes a CoverageEligibilityResponse resource by ID.
 func (c *ClientR4) DeleteCoverageEligibilityResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "CoverageEligibilityResponse", id)
 }
 
 // SearchCoverageEligibilityResponse performs a search for CoverageEligibilityResponse resources.
 func (c *ClientR4) SearchCoverageEligibilityResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.CoverageEligibilityResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "CoverageEligibilityResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.CoverageEligibilityResponse]{}, err
@@ -2290,7 +2284,7 @@ func (c *ClientR4) SearchCoverageEligibilityResponse(ctx context.Context, parame
 
 // CreateDetectedIssue creates a new DetectedIssue resource.
 func (c *ClientR4) CreateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (r4.DetectedIssue, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DetectedIssue{}, err
@@ -2304,7 +2298,7 @@ func (c *ClientR4) CreateDetectedIssue(ctx context.Context, resource r4.Detected
 
 // ReadDetectedIssue retrieves a DetectedIssue resource by ID.
 func (c *ClientR4) ReadDetectedIssue(ctx context.Context, id string) (r4.DetectedIssue, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DetectedIssue", id)
 	if err != nil {
 		return r4.DetectedIssue{}, err
@@ -2318,7 +2312,7 @@ func (c *ClientR4) ReadDetectedIssue(ctx context.Context, id string) (r4.Detecte
 
 // UpdateDetectedIssue updates an existing DetectedIssue resource.
 func (c *ClientR4) UpdateDetectedIssue(ctx context.Context, resource r4.DetectedIssue) (update.Result[r4.DetectedIssue], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DetectedIssue]{}, err
@@ -2332,13 +2326,13 @@ func (c *ClientR4) UpdateDetectedIssue(ctx context.Context, resource r4.Detected
 
 // DeleteDetectedIssue deletes a DetectedIssue resource by ID.
 func (c *ClientR4) DeleteDetectedIssue(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DetectedIssue", id)
 }
 
 // SearchDetectedIssue performs a search for DetectedIssue resources.
 func (c *ClientR4) SearchDetectedIssue(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DetectedIssue], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DetectedIssue", parameters, options)
 	if err != nil {
 		return search.Result[r4.DetectedIssue]{}, err
@@ -2357,7 +2351,7 @@ func (c *ClientR4) SearchDetectedIssue(ctx context.Context, parameters search.Pa
 
 // CreateDevice creates a new Device resource.
 func (c *ClientR4) CreateDevice(ctx context.Context, resource r4.Device) (r4.Device, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Device{}, err
@@ -2371,7 +2365,7 @@ func (c *ClientR4) CreateDevice(ctx context.Context, resource r4.Device) (r4.Dev
 
 // ReadDevice retrieves a Device resource by ID.
 func (c *ClientR4) ReadDevice(ctx context.Context, id string) (r4.Device, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Device", id)
 	if err != nil {
 		return r4.Device{}, err
@@ -2385,7 +2379,7 @@ func (c *ClientR4) ReadDevice(ctx context.Context, id string) (r4.Device, error)
 
 // UpdateDevice updates an existing Device resource.
 func (c *ClientR4) UpdateDevice(ctx context.Context, resource r4.Device) (update.Result[r4.Device], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Device]{}, err
@@ -2399,13 +2393,13 @@ func (c *ClientR4) UpdateDevice(ctx context.Context, resource r4.Device) (update
 
 // DeleteDevice deletes a Device resource by ID.
 func (c *ClientR4) DeleteDevice(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Device", id)
 }
 
 // SearchDevice performs a search for Device resources.
 func (c *ClientR4) SearchDevice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Device], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Device", parameters, options)
 	if err != nil {
 		return search.Result[r4.Device]{}, err
@@ -2424,7 +2418,7 @@ func (c *ClientR4) SearchDevice(ctx context.Context, parameters search.Parameter
 
 // CreateDeviceDefinition creates a new DeviceDefinition resource.
 func (c *ClientR4) CreateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (r4.DeviceDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DeviceDefinition{}, err
@@ -2438,7 +2432,7 @@ func (c *ClientR4) CreateDeviceDefinition(ctx context.Context, resource r4.Devic
 
 // ReadDeviceDefinition retrieves a DeviceDefinition resource by ID.
 func (c *ClientR4) ReadDeviceDefinition(ctx context.Context, id string) (r4.DeviceDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DeviceDefinition", id)
 	if err != nil {
 		return r4.DeviceDefinition{}, err
@@ -2452,7 +2446,7 @@ func (c *ClientR4) ReadDeviceDefinition(ctx context.Context, id string) (r4.Devi
 
 // UpdateDeviceDefinition updates an existing DeviceDefinition resource.
 func (c *ClientR4) UpdateDeviceDefinition(ctx context.Context, resource r4.DeviceDefinition) (update.Result[r4.DeviceDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DeviceDefinition]{}, err
@@ -2466,13 +2460,13 @@ func (c *ClientR4) UpdateDeviceDefinition(ctx context.Context, resource r4.Devic
 
 // DeleteDeviceDefinition deletes a DeviceDefinition resource by ID.
 func (c *ClientR4) DeleteDeviceDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DeviceDefinition", id)
 }
 
 // SearchDeviceDefinition performs a search for DeviceDefinition resources.
 func (c *ClientR4) SearchDeviceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DeviceDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DeviceDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.DeviceDefinition]{}, err
@@ -2491,7 +2485,7 @@ func (c *ClientR4) SearchDeviceDefinition(ctx context.Context, parameters search
 
 // CreateDeviceMetric creates a new DeviceMetric resource.
 func (c *ClientR4) CreateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (r4.DeviceMetric, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DeviceMetric{}, err
@@ -2505,7 +2499,7 @@ func (c *ClientR4) CreateDeviceMetric(ctx context.Context, resource r4.DeviceMet
 
 // ReadDeviceMetric retrieves a DeviceMetric resource by ID.
 func (c *ClientR4) ReadDeviceMetric(ctx context.Context, id string) (r4.DeviceMetric, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DeviceMetric", id)
 	if err != nil {
 		return r4.DeviceMetric{}, err
@@ -2519,7 +2513,7 @@ func (c *ClientR4) ReadDeviceMetric(ctx context.Context, id string) (r4.DeviceMe
 
 // UpdateDeviceMetric updates an existing DeviceMetric resource.
 func (c *ClientR4) UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMetric) (update.Result[r4.DeviceMetric], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DeviceMetric]{}, err
@@ -2533,13 +2527,13 @@ func (c *ClientR4) UpdateDeviceMetric(ctx context.Context, resource r4.DeviceMet
 
 // DeleteDeviceMetric deletes a DeviceMetric resource by ID.
 func (c *ClientR4) DeleteDeviceMetric(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DeviceMetric", id)
 }
 
 // SearchDeviceMetric performs a search for DeviceMetric resources.
 func (c *ClientR4) SearchDeviceMetric(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DeviceMetric], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DeviceMetric", parameters, options)
 	if err != nil {
 		return search.Result[r4.DeviceMetric]{}, err
@@ -2558,7 +2552,7 @@ func (c *ClientR4) SearchDeviceMetric(ctx context.Context, parameters search.Par
 
 // CreateDeviceRequest creates a new DeviceRequest resource.
 func (c *ClientR4) CreateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (r4.DeviceRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DeviceRequest{}, err
@@ -2572,7 +2566,7 @@ func (c *ClientR4) CreateDeviceRequest(ctx context.Context, resource r4.DeviceRe
 
 // ReadDeviceRequest retrieves a DeviceRequest resource by ID.
 func (c *ClientR4) ReadDeviceRequest(ctx context.Context, id string) (r4.DeviceRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DeviceRequest", id)
 	if err != nil {
 		return r4.DeviceRequest{}, err
@@ -2586,7 +2580,7 @@ func (c *ClientR4) ReadDeviceRequest(ctx context.Context, id string) (r4.DeviceR
 
 // UpdateDeviceRequest updates an existing DeviceRequest resource.
 func (c *ClientR4) UpdateDeviceRequest(ctx context.Context, resource r4.DeviceRequest) (update.Result[r4.DeviceRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DeviceRequest]{}, err
@@ -2600,13 +2594,13 @@ func (c *ClientR4) UpdateDeviceRequest(ctx context.Context, resource r4.DeviceRe
 
 // DeleteDeviceRequest deletes a DeviceRequest resource by ID.
 func (c *ClientR4) DeleteDeviceRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DeviceRequest", id)
 }
 
 // SearchDeviceRequest performs a search for DeviceRequest resources.
 func (c *ClientR4) SearchDeviceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DeviceRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DeviceRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.DeviceRequest]{}, err
@@ -2625,7 +2619,7 @@ func (c *ClientR4) SearchDeviceRequest(ctx context.Context, parameters search.Pa
 
 // CreateDeviceUseStatement creates a new DeviceUseStatement resource.
 func (c *ClientR4) CreateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (r4.DeviceUseStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DeviceUseStatement{}, err
@@ -2639,7 +2633,7 @@ func (c *ClientR4) CreateDeviceUseStatement(ctx context.Context, resource r4.Dev
 
 // ReadDeviceUseStatement retrieves a DeviceUseStatement resource by ID.
 func (c *ClientR4) ReadDeviceUseStatement(ctx context.Context, id string) (r4.DeviceUseStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DeviceUseStatement", id)
 	if err != nil {
 		return r4.DeviceUseStatement{}, err
@@ -2653,7 +2647,7 @@ func (c *ClientR4) ReadDeviceUseStatement(ctx context.Context, id string) (r4.De
 
 // UpdateDeviceUseStatement updates an existing DeviceUseStatement resource.
 func (c *ClientR4) UpdateDeviceUseStatement(ctx context.Context, resource r4.DeviceUseStatement) (update.Result[r4.DeviceUseStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DeviceUseStatement]{}, err
@@ -2667,13 +2661,13 @@ func (c *ClientR4) UpdateDeviceUseStatement(ctx context.Context, resource r4.Dev
 
 // DeleteDeviceUseStatement deletes a DeviceUseStatement resource by ID.
 func (c *ClientR4) DeleteDeviceUseStatement(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DeviceUseStatement", id)
 }
 
 // SearchDeviceUseStatement performs a search for DeviceUseStatement resources.
 func (c *ClientR4) SearchDeviceUseStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DeviceUseStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DeviceUseStatement", parameters, options)
 	if err != nil {
 		return search.Result[r4.DeviceUseStatement]{}, err
@@ -2692,7 +2686,7 @@ func (c *ClientR4) SearchDeviceUseStatement(ctx context.Context, parameters sear
 
 // CreateDiagnosticReport creates a new DiagnosticReport resource.
 func (c *ClientR4) CreateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (r4.DiagnosticReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DiagnosticReport{}, err
@@ -2706,7 +2700,7 @@ func (c *ClientR4) CreateDiagnosticReport(ctx context.Context, resource r4.Diagn
 
 // ReadDiagnosticReport retrieves a DiagnosticReport resource by ID.
 func (c *ClientR4) ReadDiagnosticReport(ctx context.Context, id string) (r4.DiagnosticReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DiagnosticReport", id)
 	if err != nil {
 		return r4.DiagnosticReport{}, err
@@ -2720,7 +2714,7 @@ func (c *ClientR4) ReadDiagnosticReport(ctx context.Context, id string) (r4.Diag
 
 // UpdateDiagnosticReport updates an existing DiagnosticReport resource.
 func (c *ClientR4) UpdateDiagnosticReport(ctx context.Context, resource r4.DiagnosticReport) (update.Result[r4.DiagnosticReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DiagnosticReport]{}, err
@@ -2734,13 +2728,13 @@ func (c *ClientR4) UpdateDiagnosticReport(ctx context.Context, resource r4.Diagn
 
 // DeleteDiagnosticReport deletes a DiagnosticReport resource by ID.
 func (c *ClientR4) DeleteDiagnosticReport(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DiagnosticReport", id)
 }
 
 // SearchDiagnosticReport performs a search for DiagnosticReport resources.
 func (c *ClientR4) SearchDiagnosticReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DiagnosticReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DiagnosticReport", parameters, options)
 	if err != nil {
 		return search.Result[r4.DiagnosticReport]{}, err
@@ -2759,7 +2753,7 @@ func (c *ClientR4) SearchDiagnosticReport(ctx context.Context, parameters search
 
 // CreateDocumentManifest creates a new DocumentManifest resource.
 func (c *ClientR4) CreateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (r4.DocumentManifest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DocumentManifest{}, err
@@ -2773,7 +2767,7 @@ func (c *ClientR4) CreateDocumentManifest(ctx context.Context, resource r4.Docum
 
 // ReadDocumentManifest retrieves a DocumentManifest resource by ID.
 func (c *ClientR4) ReadDocumentManifest(ctx context.Context, id string) (r4.DocumentManifest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DocumentManifest", id)
 	if err != nil {
 		return r4.DocumentManifest{}, err
@@ -2787,7 +2781,7 @@ func (c *ClientR4) ReadDocumentManifest(ctx context.Context, id string) (r4.Docu
 
 // UpdateDocumentManifest updates an existing DocumentManifest resource.
 func (c *ClientR4) UpdateDocumentManifest(ctx context.Context, resource r4.DocumentManifest) (update.Result[r4.DocumentManifest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DocumentManifest]{}, err
@@ -2801,13 +2795,13 @@ func (c *ClientR4) UpdateDocumentManifest(ctx context.Context, resource r4.Docum
 
 // DeleteDocumentManifest deletes a DocumentManifest resource by ID.
 func (c *ClientR4) DeleteDocumentManifest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DocumentManifest", id)
 }
 
 // SearchDocumentManifest performs a search for DocumentManifest resources.
 func (c *ClientR4) SearchDocumentManifest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DocumentManifest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DocumentManifest", parameters, options)
 	if err != nil {
 		return search.Result[r4.DocumentManifest]{}, err
@@ -2826,7 +2820,7 @@ func (c *ClientR4) SearchDocumentManifest(ctx context.Context, parameters search
 
 // CreateDocumentReference creates a new DocumentReference resource.
 func (c *ClientR4) CreateDocumentReference(ctx context.Context, resource r4.DocumentReference) (r4.DocumentReference, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.DocumentReference{}, err
@@ -2840,7 +2834,7 @@ func (c *ClientR4) CreateDocumentReference(ctx context.Context, resource r4.Docu
 
 // ReadDocumentReference retrieves a DocumentReference resource by ID.
 func (c *ClientR4) ReadDocumentReference(ctx context.Context, id string) (r4.DocumentReference, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "DocumentReference", id)
 	if err != nil {
 		return r4.DocumentReference{}, err
@@ -2854,7 +2848,7 @@ func (c *ClientR4) ReadDocumentReference(ctx context.Context, id string) (r4.Doc
 
 // UpdateDocumentReference updates an existing DocumentReference resource.
 func (c *ClientR4) UpdateDocumentReference(ctx context.Context, resource r4.DocumentReference) (update.Result[r4.DocumentReference], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.DocumentReference]{}, err
@@ -2868,13 +2862,13 @@ func (c *ClientR4) UpdateDocumentReference(ctx context.Context, resource r4.Docu
 
 // DeleteDocumentReference deletes a DocumentReference resource by ID.
 func (c *ClientR4) DeleteDocumentReference(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "DocumentReference", id)
 }
 
 // SearchDocumentReference performs a search for DocumentReference resources.
 func (c *ClientR4) SearchDocumentReference(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.DocumentReference], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "DocumentReference", parameters, options)
 	if err != nil {
 		return search.Result[r4.DocumentReference]{}, err
@@ -2893,7 +2887,7 @@ func (c *ClientR4) SearchDocumentReference(ctx context.Context, parameters searc
 
 // CreateEffectEvidenceSynthesis creates a new EffectEvidenceSynthesis resource.
 func (c *ClientR4) CreateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (r4.EffectEvidenceSynthesis, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EffectEvidenceSynthesis{}, err
@@ -2907,7 +2901,7 @@ func (c *ClientR4) CreateEffectEvidenceSynthesis(ctx context.Context, resource r
 
 // ReadEffectEvidenceSynthesis retrieves a EffectEvidenceSynthesis resource by ID.
 func (c *ClientR4) ReadEffectEvidenceSynthesis(ctx context.Context, id string) (r4.EffectEvidenceSynthesis, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EffectEvidenceSynthesis", id)
 	if err != nil {
 		return r4.EffectEvidenceSynthesis{}, err
@@ -2921,7 +2915,7 @@ func (c *ClientR4) ReadEffectEvidenceSynthesis(ctx context.Context, id string) (
 
 // UpdateEffectEvidenceSynthesis updates an existing EffectEvidenceSynthesis resource.
 func (c *ClientR4) UpdateEffectEvidenceSynthesis(ctx context.Context, resource r4.EffectEvidenceSynthesis) (update.Result[r4.EffectEvidenceSynthesis], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EffectEvidenceSynthesis]{}, err
@@ -2935,13 +2929,13 @@ func (c *ClientR4) UpdateEffectEvidenceSynthesis(ctx context.Context, resource r
 
 // DeleteEffectEvidenceSynthesis deletes a EffectEvidenceSynthesis resource by ID.
 func (c *ClientR4) DeleteEffectEvidenceSynthesis(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EffectEvidenceSynthesis", id)
 }
 
 // SearchEffectEvidenceSynthesis performs a search for EffectEvidenceSynthesis resources.
 func (c *ClientR4) SearchEffectEvidenceSynthesis(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EffectEvidenceSynthesis], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EffectEvidenceSynthesis", parameters, options)
 	if err != nil {
 		return search.Result[r4.EffectEvidenceSynthesis]{}, err
@@ -2960,7 +2954,7 @@ func (c *ClientR4) SearchEffectEvidenceSynthesis(ctx context.Context, parameters
 
 // CreateEncounter creates a new Encounter resource.
 func (c *ClientR4) CreateEncounter(ctx context.Context, resource r4.Encounter) (r4.Encounter, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Encounter{}, err
@@ -2974,7 +2968,7 @@ func (c *ClientR4) CreateEncounter(ctx context.Context, resource r4.Encounter) (
 
 // ReadEncounter retrieves a Encounter resource by ID.
 func (c *ClientR4) ReadEncounter(ctx context.Context, id string) (r4.Encounter, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Encounter", id)
 	if err != nil {
 		return r4.Encounter{}, err
@@ -2988,7 +2982,7 @@ func (c *ClientR4) ReadEncounter(ctx context.Context, id string) (r4.Encounter, 
 
 // UpdateEncounter updates an existing Encounter resource.
 func (c *ClientR4) UpdateEncounter(ctx context.Context, resource r4.Encounter) (update.Result[r4.Encounter], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Encounter]{}, err
@@ -3002,13 +2996,13 @@ func (c *ClientR4) UpdateEncounter(ctx context.Context, resource r4.Encounter) (
 
 // DeleteEncounter deletes a Encounter resource by ID.
 func (c *ClientR4) DeleteEncounter(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Encounter", id)
 }
 
 // SearchEncounter performs a search for Encounter resources.
 func (c *ClientR4) SearchEncounter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Encounter], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Encounter", parameters, options)
 	if err != nil {
 		return search.Result[r4.Encounter]{}, err
@@ -3027,7 +3021,7 @@ func (c *ClientR4) SearchEncounter(ctx context.Context, parameters search.Parame
 
 // CreateEndpoint creates a new Endpoint resource.
 func (c *ClientR4) CreateEndpoint(ctx context.Context, resource r4.Endpoint) (r4.Endpoint, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Endpoint{}, err
@@ -3041,7 +3035,7 @@ func (c *ClientR4) CreateEndpoint(ctx context.Context, resource r4.Endpoint) (r4
 
 // ReadEndpoint retrieves a Endpoint resource by ID.
 func (c *ClientR4) ReadEndpoint(ctx context.Context, id string) (r4.Endpoint, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Endpoint", id)
 	if err != nil {
 		return r4.Endpoint{}, err
@@ -3055,7 +3049,7 @@ func (c *ClientR4) ReadEndpoint(ctx context.Context, id string) (r4.Endpoint, er
 
 // UpdateEndpoint updates an existing Endpoint resource.
 func (c *ClientR4) UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (update.Result[r4.Endpoint], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Endpoint]{}, err
@@ -3069,13 +3063,13 @@ func (c *ClientR4) UpdateEndpoint(ctx context.Context, resource r4.Endpoint) (up
 
 // DeleteEndpoint deletes a Endpoint resource by ID.
 func (c *ClientR4) DeleteEndpoint(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Endpoint", id)
 }
 
 // SearchEndpoint performs a search for Endpoint resources.
 func (c *ClientR4) SearchEndpoint(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Endpoint], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Endpoint", parameters, options)
 	if err != nil {
 		return search.Result[r4.Endpoint]{}, err
@@ -3094,7 +3088,7 @@ func (c *ClientR4) SearchEndpoint(ctx context.Context, parameters search.Paramet
 
 // CreateEnrollmentRequest creates a new EnrollmentRequest resource.
 func (c *ClientR4) CreateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (r4.EnrollmentRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EnrollmentRequest{}, err
@@ -3108,7 +3102,7 @@ func (c *ClientR4) CreateEnrollmentRequest(ctx context.Context, resource r4.Enro
 
 // ReadEnrollmentRequest retrieves a EnrollmentRequest resource by ID.
 func (c *ClientR4) ReadEnrollmentRequest(ctx context.Context, id string) (r4.EnrollmentRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EnrollmentRequest", id)
 	if err != nil {
 		return r4.EnrollmentRequest{}, err
@@ -3122,7 +3116,7 @@ func (c *ClientR4) ReadEnrollmentRequest(ctx context.Context, id string) (r4.Enr
 
 // UpdateEnrollmentRequest updates an existing EnrollmentRequest resource.
 func (c *ClientR4) UpdateEnrollmentRequest(ctx context.Context, resource r4.EnrollmentRequest) (update.Result[r4.EnrollmentRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EnrollmentRequest]{}, err
@@ -3136,13 +3130,13 @@ func (c *ClientR4) UpdateEnrollmentRequest(ctx context.Context, resource r4.Enro
 
 // DeleteEnrollmentRequest deletes a EnrollmentRequest resource by ID.
 func (c *ClientR4) DeleteEnrollmentRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EnrollmentRequest", id)
 }
 
 // SearchEnrollmentRequest performs a search for EnrollmentRequest resources.
 func (c *ClientR4) SearchEnrollmentRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EnrollmentRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EnrollmentRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.EnrollmentRequest]{}, err
@@ -3161,7 +3155,7 @@ func (c *ClientR4) SearchEnrollmentRequest(ctx context.Context, parameters searc
 
 // CreateEnrollmentResponse creates a new EnrollmentResponse resource.
 func (c *ClientR4) CreateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (r4.EnrollmentResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EnrollmentResponse{}, err
@@ -3175,7 +3169,7 @@ func (c *ClientR4) CreateEnrollmentResponse(ctx context.Context, resource r4.Enr
 
 // ReadEnrollmentResponse retrieves a EnrollmentResponse resource by ID.
 func (c *ClientR4) ReadEnrollmentResponse(ctx context.Context, id string) (r4.EnrollmentResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EnrollmentResponse", id)
 	if err != nil {
 		return r4.EnrollmentResponse{}, err
@@ -3189,7 +3183,7 @@ func (c *ClientR4) ReadEnrollmentResponse(ctx context.Context, id string) (r4.En
 
 // UpdateEnrollmentResponse updates an existing EnrollmentResponse resource.
 func (c *ClientR4) UpdateEnrollmentResponse(ctx context.Context, resource r4.EnrollmentResponse) (update.Result[r4.EnrollmentResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EnrollmentResponse]{}, err
@@ -3203,13 +3197,13 @@ func (c *ClientR4) UpdateEnrollmentResponse(ctx context.Context, resource r4.Enr
 
 // DeleteEnrollmentResponse deletes a EnrollmentResponse resource by ID.
 func (c *ClientR4) DeleteEnrollmentResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EnrollmentResponse", id)
 }
 
 // SearchEnrollmentResponse performs a search for EnrollmentResponse resources.
 func (c *ClientR4) SearchEnrollmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EnrollmentResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EnrollmentResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.EnrollmentResponse]{}, err
@@ -3228,7 +3222,7 @@ func (c *ClientR4) SearchEnrollmentResponse(ctx context.Context, parameters sear
 
 // CreateEpisodeOfCare creates a new EpisodeOfCare resource.
 func (c *ClientR4) CreateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (r4.EpisodeOfCare, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EpisodeOfCare{}, err
@@ -3242,7 +3236,7 @@ func (c *ClientR4) CreateEpisodeOfCare(ctx context.Context, resource r4.EpisodeO
 
 // ReadEpisodeOfCare retrieves a EpisodeOfCare resource by ID.
 func (c *ClientR4) ReadEpisodeOfCare(ctx context.Context, id string) (r4.EpisodeOfCare, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EpisodeOfCare", id)
 	if err != nil {
 		return r4.EpisodeOfCare{}, err
@@ -3256,7 +3250,7 @@ func (c *ClientR4) ReadEpisodeOfCare(ctx context.Context, id string) (r4.Episode
 
 // UpdateEpisodeOfCare updates an existing EpisodeOfCare resource.
 func (c *ClientR4) UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeOfCare) (update.Result[r4.EpisodeOfCare], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EpisodeOfCare]{}, err
@@ -3270,13 +3264,13 @@ func (c *ClientR4) UpdateEpisodeOfCare(ctx context.Context, resource r4.EpisodeO
 
 // DeleteEpisodeOfCare deletes a EpisodeOfCare resource by ID.
 func (c *ClientR4) DeleteEpisodeOfCare(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EpisodeOfCare", id)
 }
 
 // SearchEpisodeOfCare performs a search for EpisodeOfCare resources.
 func (c *ClientR4) SearchEpisodeOfCare(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EpisodeOfCare], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EpisodeOfCare", parameters, options)
 	if err != nil {
 		return search.Result[r4.EpisodeOfCare]{}, err
@@ -3295,7 +3289,7 @@ func (c *ClientR4) SearchEpisodeOfCare(ctx context.Context, parameters search.Pa
 
 // CreateEventDefinition creates a new EventDefinition resource.
 func (c *ClientR4) CreateEventDefinition(ctx context.Context, resource r4.EventDefinition) (r4.EventDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EventDefinition{}, err
@@ -3309,7 +3303,7 @@ func (c *ClientR4) CreateEventDefinition(ctx context.Context, resource r4.EventD
 
 // ReadEventDefinition retrieves a EventDefinition resource by ID.
 func (c *ClientR4) ReadEventDefinition(ctx context.Context, id string) (r4.EventDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EventDefinition", id)
 	if err != nil {
 		return r4.EventDefinition{}, err
@@ -3323,7 +3317,7 @@ func (c *ClientR4) ReadEventDefinition(ctx context.Context, id string) (r4.Event
 
 // UpdateEventDefinition updates an existing EventDefinition resource.
 func (c *ClientR4) UpdateEventDefinition(ctx context.Context, resource r4.EventDefinition) (update.Result[r4.EventDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EventDefinition]{}, err
@@ -3337,13 +3331,13 @@ func (c *ClientR4) UpdateEventDefinition(ctx context.Context, resource r4.EventD
 
 // DeleteEventDefinition deletes a EventDefinition resource by ID.
 func (c *ClientR4) DeleteEventDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EventDefinition", id)
 }
 
 // SearchEventDefinition performs a search for EventDefinition resources.
 func (c *ClientR4) SearchEventDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EventDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EventDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.EventDefinition]{}, err
@@ -3362,7 +3356,7 @@ func (c *ClientR4) SearchEventDefinition(ctx context.Context, parameters search.
 
 // CreateEvidence creates a new Evidence resource.
 func (c *ClientR4) CreateEvidence(ctx context.Context, resource r4.Evidence) (r4.Evidence, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Evidence{}, err
@@ -3376,7 +3370,7 @@ func (c *ClientR4) CreateEvidence(ctx context.Context, resource r4.Evidence) (r4
 
 // ReadEvidence retrieves a Evidence resource by ID.
 func (c *ClientR4) ReadEvidence(ctx context.Context, id string) (r4.Evidence, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Evidence", id)
 	if err != nil {
 		return r4.Evidence{}, err
@@ -3390,7 +3384,7 @@ func (c *ClientR4) ReadEvidence(ctx context.Context, id string) (r4.Evidence, er
 
 // UpdateEvidence updates an existing Evidence resource.
 func (c *ClientR4) UpdateEvidence(ctx context.Context, resource r4.Evidence) (update.Result[r4.Evidence], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Evidence]{}, err
@@ -3404,13 +3398,13 @@ func (c *ClientR4) UpdateEvidence(ctx context.Context, resource r4.Evidence) (up
 
 // DeleteEvidence deletes a Evidence resource by ID.
 func (c *ClientR4) DeleteEvidence(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Evidence", id)
 }
 
 // SearchEvidence performs a search for Evidence resources.
 func (c *ClientR4) SearchEvidence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Evidence], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Evidence", parameters, options)
 	if err != nil {
 		return search.Result[r4.Evidence]{}, err
@@ -3429,7 +3423,7 @@ func (c *ClientR4) SearchEvidence(ctx context.Context, parameters search.Paramet
 
 // CreateEvidenceVariable creates a new EvidenceVariable resource.
 func (c *ClientR4) CreateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (r4.EvidenceVariable, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.EvidenceVariable{}, err
@@ -3443,7 +3437,7 @@ func (c *ClientR4) CreateEvidenceVariable(ctx context.Context, resource r4.Evide
 
 // ReadEvidenceVariable retrieves a EvidenceVariable resource by ID.
 func (c *ClientR4) ReadEvidenceVariable(ctx context.Context, id string) (r4.EvidenceVariable, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "EvidenceVariable", id)
 	if err != nil {
 		return r4.EvidenceVariable{}, err
@@ -3457,7 +3451,7 @@ func (c *ClientR4) ReadEvidenceVariable(ctx context.Context, id string) (r4.Evid
 
 // UpdateEvidenceVariable updates an existing EvidenceVariable resource.
 func (c *ClientR4) UpdateEvidenceVariable(ctx context.Context, resource r4.EvidenceVariable) (update.Result[r4.EvidenceVariable], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.EvidenceVariable]{}, err
@@ -3471,13 +3465,13 @@ func (c *ClientR4) UpdateEvidenceVariable(ctx context.Context, resource r4.Evide
 
 // DeleteEvidenceVariable deletes a EvidenceVariable resource by ID.
 func (c *ClientR4) DeleteEvidenceVariable(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "EvidenceVariable", id)
 }
 
 // SearchEvidenceVariable performs a search for EvidenceVariable resources.
 func (c *ClientR4) SearchEvidenceVariable(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.EvidenceVariable], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "EvidenceVariable", parameters, options)
 	if err != nil {
 		return search.Result[r4.EvidenceVariable]{}, err
@@ -3496,7 +3490,7 @@ func (c *ClientR4) SearchEvidenceVariable(ctx context.Context, parameters search
 
 // CreateExampleScenario creates a new ExampleScenario resource.
 func (c *ClientR4) CreateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (r4.ExampleScenario, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ExampleScenario{}, err
@@ -3510,7 +3504,7 @@ func (c *ClientR4) CreateExampleScenario(ctx context.Context, resource r4.Exampl
 
 // ReadExampleScenario retrieves a ExampleScenario resource by ID.
 func (c *ClientR4) ReadExampleScenario(ctx context.Context, id string) (r4.ExampleScenario, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ExampleScenario", id)
 	if err != nil {
 		return r4.ExampleScenario{}, err
@@ -3524,7 +3518,7 @@ func (c *ClientR4) ReadExampleScenario(ctx context.Context, id string) (r4.Examp
 
 // UpdateExampleScenario updates an existing ExampleScenario resource.
 func (c *ClientR4) UpdateExampleScenario(ctx context.Context, resource r4.ExampleScenario) (update.Result[r4.ExampleScenario], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ExampleScenario]{}, err
@@ -3538,13 +3532,13 @@ func (c *ClientR4) UpdateExampleScenario(ctx context.Context, resource r4.Exampl
 
 // DeleteExampleScenario deletes a ExampleScenario resource by ID.
 func (c *ClientR4) DeleteExampleScenario(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ExampleScenario", id)
 }
 
 // SearchExampleScenario performs a search for ExampleScenario resources.
 func (c *ClientR4) SearchExampleScenario(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ExampleScenario], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ExampleScenario", parameters, options)
 	if err != nil {
 		return search.Result[r4.ExampleScenario]{}, err
@@ -3563,7 +3557,7 @@ func (c *ClientR4) SearchExampleScenario(ctx context.Context, parameters search.
 
 // CreateExplanationOfBenefit creates a new ExplanationOfBenefit resource.
 func (c *ClientR4) CreateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (r4.ExplanationOfBenefit, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ExplanationOfBenefit{}, err
@@ -3577,7 +3571,7 @@ func (c *ClientR4) CreateExplanationOfBenefit(ctx context.Context, resource r4.E
 
 // ReadExplanationOfBenefit retrieves a ExplanationOfBenefit resource by ID.
 func (c *ClientR4) ReadExplanationOfBenefit(ctx context.Context, id string) (r4.ExplanationOfBenefit, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ExplanationOfBenefit", id)
 	if err != nil {
 		return r4.ExplanationOfBenefit{}, err
@@ -3591,7 +3585,7 @@ func (c *ClientR4) ReadExplanationOfBenefit(ctx context.Context, id string) (r4.
 
 // UpdateExplanationOfBenefit updates an existing ExplanationOfBenefit resource.
 func (c *ClientR4) UpdateExplanationOfBenefit(ctx context.Context, resource r4.ExplanationOfBenefit) (update.Result[r4.ExplanationOfBenefit], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ExplanationOfBenefit]{}, err
@@ -3605,13 +3599,13 @@ func (c *ClientR4) UpdateExplanationOfBenefit(ctx context.Context, resource r4.E
 
 // DeleteExplanationOfBenefit deletes a ExplanationOfBenefit resource by ID.
 func (c *ClientR4) DeleteExplanationOfBenefit(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ExplanationOfBenefit", id)
 }
 
 // SearchExplanationOfBenefit performs a search for ExplanationOfBenefit resources.
 func (c *ClientR4) SearchExplanationOfBenefit(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ExplanationOfBenefit], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ExplanationOfBenefit", parameters, options)
 	if err != nil {
 		return search.Result[r4.ExplanationOfBenefit]{}, err
@@ -3630,7 +3624,7 @@ func (c *ClientR4) SearchExplanationOfBenefit(ctx context.Context, parameters se
 
 // CreateFamilyMemberHistory creates a new FamilyMemberHistory resource.
 func (c *ClientR4) CreateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (r4.FamilyMemberHistory, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.FamilyMemberHistory{}, err
@@ -3644,7 +3638,7 @@ func (c *ClientR4) CreateFamilyMemberHistory(ctx context.Context, resource r4.Fa
 
 // ReadFamilyMemberHistory retrieves a FamilyMemberHistory resource by ID.
 func (c *ClientR4) ReadFamilyMemberHistory(ctx context.Context, id string) (r4.FamilyMemberHistory, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "FamilyMemberHistory", id)
 	if err != nil {
 		return r4.FamilyMemberHistory{}, err
@@ -3658,7 +3652,7 @@ func (c *ClientR4) ReadFamilyMemberHistory(ctx context.Context, id string) (r4.F
 
 // UpdateFamilyMemberHistory updates an existing FamilyMemberHistory resource.
 func (c *ClientR4) UpdateFamilyMemberHistory(ctx context.Context, resource r4.FamilyMemberHistory) (update.Result[r4.FamilyMemberHistory], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.FamilyMemberHistory]{}, err
@@ -3672,13 +3666,13 @@ func (c *ClientR4) UpdateFamilyMemberHistory(ctx context.Context, resource r4.Fa
 
 // DeleteFamilyMemberHistory deletes a FamilyMemberHistory resource by ID.
 func (c *ClientR4) DeleteFamilyMemberHistory(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "FamilyMemberHistory", id)
 }
 
 // SearchFamilyMemberHistory performs a search for FamilyMemberHistory resources.
 func (c *ClientR4) SearchFamilyMemberHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.FamilyMemberHistory], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "FamilyMemberHistory", parameters, options)
 	if err != nil {
 		return search.Result[r4.FamilyMemberHistory]{}, err
@@ -3697,7 +3691,7 @@ func (c *ClientR4) SearchFamilyMemberHistory(ctx context.Context, parameters sea
 
 // CreateFlag creates a new Flag resource.
 func (c *ClientR4) CreateFlag(ctx context.Context, resource r4.Flag) (r4.Flag, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Flag{}, err
@@ -3711,7 +3705,7 @@ func (c *ClientR4) CreateFlag(ctx context.Context, resource r4.Flag) (r4.Flag, e
 
 // ReadFlag retrieves a Flag resource by ID.
 func (c *ClientR4) ReadFlag(ctx context.Context, id string) (r4.Flag, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Flag", id)
 	if err != nil {
 		return r4.Flag{}, err
@@ -3725,7 +3719,7 @@ func (c *ClientR4) ReadFlag(ctx context.Context, id string) (r4.Flag, error) {
 
 // UpdateFlag updates an existing Flag resource.
 func (c *ClientR4) UpdateFlag(ctx context.Context, resource r4.Flag) (update.Result[r4.Flag], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Flag]{}, err
@@ -3739,13 +3733,13 @@ func (c *ClientR4) UpdateFlag(ctx context.Context, resource r4.Flag) (update.Res
 
 // DeleteFlag deletes a Flag resource by ID.
 func (c *ClientR4) DeleteFlag(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Flag", id)
 }
 
 // SearchFlag performs a search for Flag resources.
 func (c *ClientR4) SearchFlag(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Flag], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Flag", parameters, options)
 	if err != nil {
 		return search.Result[r4.Flag]{}, err
@@ -3764,7 +3758,7 @@ func (c *ClientR4) SearchFlag(ctx context.Context, parameters search.Parameters,
 
 // CreateGoal creates a new Goal resource.
 func (c *ClientR4) CreateGoal(ctx context.Context, resource r4.Goal) (r4.Goal, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Goal{}, err
@@ -3778,7 +3772,7 @@ func (c *ClientR4) CreateGoal(ctx context.Context, resource r4.Goal) (r4.Goal, e
 
 // ReadGoal retrieves a Goal resource by ID.
 func (c *ClientR4) ReadGoal(ctx context.Context, id string) (r4.Goal, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Goal", id)
 	if err != nil {
 		return r4.Goal{}, err
@@ -3792,7 +3786,7 @@ func (c *ClientR4) ReadGoal(ctx context.Context, id string) (r4.Goal, error) {
 
 // UpdateGoal updates an existing Goal resource.
 func (c *ClientR4) UpdateGoal(ctx context.Context, resource r4.Goal) (update.Result[r4.Goal], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Goal]{}, err
@@ -3806,13 +3800,13 @@ func (c *ClientR4) UpdateGoal(ctx context.Context, resource r4.Goal) (update.Res
 
 // DeleteGoal deletes a Goal resource by ID.
 func (c *ClientR4) DeleteGoal(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Goal", id)
 }
 
 // SearchGoal performs a search for Goal resources.
 func (c *ClientR4) SearchGoal(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Goal], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Goal", parameters, options)
 	if err != nil {
 		return search.Result[r4.Goal]{}, err
@@ -3831,7 +3825,7 @@ func (c *ClientR4) SearchGoal(ctx context.Context, parameters search.Parameters,
 
 // CreateGraphDefinition creates a new GraphDefinition resource.
 func (c *ClientR4) CreateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (r4.GraphDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.GraphDefinition{}, err
@@ -3845,7 +3839,7 @@ func (c *ClientR4) CreateGraphDefinition(ctx context.Context, resource r4.GraphD
 
 // ReadGraphDefinition retrieves a GraphDefinition resource by ID.
 func (c *ClientR4) ReadGraphDefinition(ctx context.Context, id string) (r4.GraphDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "GraphDefinition", id)
 	if err != nil {
 		return r4.GraphDefinition{}, err
@@ -3859,7 +3853,7 @@ func (c *ClientR4) ReadGraphDefinition(ctx context.Context, id string) (r4.Graph
 
 // UpdateGraphDefinition updates an existing GraphDefinition resource.
 func (c *ClientR4) UpdateGraphDefinition(ctx context.Context, resource r4.GraphDefinition) (update.Result[r4.GraphDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.GraphDefinition]{}, err
@@ -3873,13 +3867,13 @@ func (c *ClientR4) UpdateGraphDefinition(ctx context.Context, resource r4.GraphD
 
 // DeleteGraphDefinition deletes a GraphDefinition resource by ID.
 func (c *ClientR4) DeleteGraphDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "GraphDefinition", id)
 }
 
 // SearchGraphDefinition performs a search for GraphDefinition resources.
 func (c *ClientR4) SearchGraphDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.GraphDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "GraphDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.GraphDefinition]{}, err
@@ -3898,7 +3892,7 @@ func (c *ClientR4) SearchGraphDefinition(ctx context.Context, parameters search.
 
 // CreateGroup creates a new Group resource.
 func (c *ClientR4) CreateGroup(ctx context.Context, resource r4.Group) (r4.Group, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Group{}, err
@@ -3912,7 +3906,7 @@ func (c *ClientR4) CreateGroup(ctx context.Context, resource r4.Group) (r4.Group
 
 // ReadGroup retrieves a Group resource by ID.
 func (c *ClientR4) ReadGroup(ctx context.Context, id string) (r4.Group, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Group", id)
 	if err != nil {
 		return r4.Group{}, err
@@ -3926,7 +3920,7 @@ func (c *ClientR4) ReadGroup(ctx context.Context, id string) (r4.Group, error) {
 
 // UpdateGroup updates an existing Group resource.
 func (c *ClientR4) UpdateGroup(ctx context.Context, resource r4.Group) (update.Result[r4.Group], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Group]{}, err
@@ -3940,13 +3934,13 @@ func (c *ClientR4) UpdateGroup(ctx context.Context, resource r4.Group) (update.R
 
 // DeleteGroup deletes a Group resource by ID.
 func (c *ClientR4) DeleteGroup(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Group", id)
 }
 
 // SearchGroup performs a search for Group resources.
 func (c *ClientR4) SearchGroup(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Group], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Group", parameters, options)
 	if err != nil {
 		return search.Result[r4.Group]{}, err
@@ -3965,7 +3959,7 @@ func (c *ClientR4) SearchGroup(ctx context.Context, parameters search.Parameters
 
 // CreateGuidanceResponse creates a new GuidanceResponse resource.
 func (c *ClientR4) CreateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (r4.GuidanceResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.GuidanceResponse{}, err
@@ -3979,7 +3973,7 @@ func (c *ClientR4) CreateGuidanceResponse(ctx context.Context, resource r4.Guida
 
 // ReadGuidanceResponse retrieves a GuidanceResponse resource by ID.
 func (c *ClientR4) ReadGuidanceResponse(ctx context.Context, id string) (r4.GuidanceResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "GuidanceResponse", id)
 	if err != nil {
 		return r4.GuidanceResponse{}, err
@@ -3993,7 +3987,7 @@ func (c *ClientR4) ReadGuidanceResponse(ctx context.Context, id string) (r4.Guid
 
 // UpdateGuidanceResponse updates an existing GuidanceResponse resource.
 func (c *ClientR4) UpdateGuidanceResponse(ctx context.Context, resource r4.GuidanceResponse) (update.Result[r4.GuidanceResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.GuidanceResponse]{}, err
@@ -4007,13 +4001,13 @@ func (c *ClientR4) UpdateGuidanceResponse(ctx context.Context, resource r4.Guida
 
 // DeleteGuidanceResponse deletes a GuidanceResponse resource by ID.
 func (c *ClientR4) DeleteGuidanceResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "GuidanceResponse", id)
 }
 
 // SearchGuidanceResponse performs a search for GuidanceResponse resources.
 func (c *ClientR4) SearchGuidanceResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.GuidanceResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "GuidanceResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.GuidanceResponse]{}, err
@@ -4032,7 +4026,7 @@ func (c *ClientR4) SearchGuidanceResponse(ctx context.Context, parameters search
 
 // CreateHealthcareService creates a new HealthcareService resource.
 func (c *ClientR4) CreateHealthcareService(ctx context.Context, resource r4.HealthcareService) (r4.HealthcareService, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.HealthcareService{}, err
@@ -4046,7 +4040,7 @@ func (c *ClientR4) CreateHealthcareService(ctx context.Context, resource r4.Heal
 
 // ReadHealthcareService retrieves a HealthcareService resource by ID.
 func (c *ClientR4) ReadHealthcareService(ctx context.Context, id string) (r4.HealthcareService, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "HealthcareService", id)
 	if err != nil {
 		return r4.HealthcareService{}, err
@@ -4060,7 +4054,7 @@ func (c *ClientR4) ReadHealthcareService(ctx context.Context, id string) (r4.Hea
 
 // UpdateHealthcareService updates an existing HealthcareService resource.
 func (c *ClientR4) UpdateHealthcareService(ctx context.Context, resource r4.HealthcareService) (update.Result[r4.HealthcareService], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.HealthcareService]{}, err
@@ -4074,13 +4068,13 @@ func (c *ClientR4) UpdateHealthcareService(ctx context.Context, resource r4.Heal
 
 // DeleteHealthcareService deletes a HealthcareService resource by ID.
 func (c *ClientR4) DeleteHealthcareService(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "HealthcareService", id)
 }
 
 // SearchHealthcareService performs a search for HealthcareService resources.
 func (c *ClientR4) SearchHealthcareService(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.HealthcareService], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "HealthcareService", parameters, options)
 	if err != nil {
 		return search.Result[r4.HealthcareService]{}, err
@@ -4099,7 +4093,7 @@ func (c *ClientR4) SearchHealthcareService(ctx context.Context, parameters searc
 
 // CreateImagingStudy creates a new ImagingStudy resource.
 func (c *ClientR4) CreateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (r4.ImagingStudy, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ImagingStudy{}, err
@@ -4113,7 +4107,7 @@ func (c *ClientR4) CreateImagingStudy(ctx context.Context, resource r4.ImagingSt
 
 // ReadImagingStudy retrieves a ImagingStudy resource by ID.
 func (c *ClientR4) ReadImagingStudy(ctx context.Context, id string) (r4.ImagingStudy, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ImagingStudy", id)
 	if err != nil {
 		return r4.ImagingStudy{}, err
@@ -4127,7 +4121,7 @@ func (c *ClientR4) ReadImagingStudy(ctx context.Context, id string) (r4.ImagingS
 
 // UpdateImagingStudy updates an existing ImagingStudy resource.
 func (c *ClientR4) UpdateImagingStudy(ctx context.Context, resource r4.ImagingStudy) (update.Result[r4.ImagingStudy], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ImagingStudy]{}, err
@@ -4141,13 +4135,13 @@ func (c *ClientR4) UpdateImagingStudy(ctx context.Context, resource r4.ImagingSt
 
 // DeleteImagingStudy deletes a ImagingStudy resource by ID.
 func (c *ClientR4) DeleteImagingStudy(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ImagingStudy", id)
 }
 
 // SearchImagingStudy performs a search for ImagingStudy resources.
 func (c *ClientR4) SearchImagingStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ImagingStudy], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ImagingStudy", parameters, options)
 	if err != nil {
 		return search.Result[r4.ImagingStudy]{}, err
@@ -4166,7 +4160,7 @@ func (c *ClientR4) SearchImagingStudy(ctx context.Context, parameters search.Par
 
 // CreateImmunization creates a new Immunization resource.
 func (c *ClientR4) CreateImmunization(ctx context.Context, resource r4.Immunization) (r4.Immunization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Immunization{}, err
@@ -4180,7 +4174,7 @@ func (c *ClientR4) CreateImmunization(ctx context.Context, resource r4.Immunizat
 
 // ReadImmunization retrieves a Immunization resource by ID.
 func (c *ClientR4) ReadImmunization(ctx context.Context, id string) (r4.Immunization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Immunization", id)
 	if err != nil {
 		return r4.Immunization{}, err
@@ -4194,7 +4188,7 @@ func (c *ClientR4) ReadImmunization(ctx context.Context, id string) (r4.Immuniza
 
 // UpdateImmunization updates an existing Immunization resource.
 func (c *ClientR4) UpdateImmunization(ctx context.Context, resource r4.Immunization) (update.Result[r4.Immunization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Immunization]{}, err
@@ -4208,13 +4202,13 @@ func (c *ClientR4) UpdateImmunization(ctx context.Context, resource r4.Immunizat
 
 // DeleteImmunization deletes a Immunization resource by ID.
 func (c *ClientR4) DeleteImmunization(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Immunization", id)
 }
 
 // SearchImmunization performs a search for Immunization resources.
 func (c *ClientR4) SearchImmunization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Immunization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Immunization", parameters, options)
 	if err != nil {
 		return search.Result[r4.Immunization]{}, err
@@ -4233,7 +4227,7 @@ func (c *ClientR4) SearchImmunization(ctx context.Context, parameters search.Par
 
 // CreateImmunizationEvaluation creates a new ImmunizationEvaluation resource.
 func (c *ClientR4) CreateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (r4.ImmunizationEvaluation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ImmunizationEvaluation{}, err
@@ -4247,7 +4241,7 @@ func (c *ClientR4) CreateImmunizationEvaluation(ctx context.Context, resource r4
 
 // ReadImmunizationEvaluation retrieves a ImmunizationEvaluation resource by ID.
 func (c *ClientR4) ReadImmunizationEvaluation(ctx context.Context, id string) (r4.ImmunizationEvaluation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ImmunizationEvaluation", id)
 	if err != nil {
 		return r4.ImmunizationEvaluation{}, err
@@ -4261,7 +4255,7 @@ func (c *ClientR4) ReadImmunizationEvaluation(ctx context.Context, id string) (r
 
 // UpdateImmunizationEvaluation updates an existing ImmunizationEvaluation resource.
 func (c *ClientR4) UpdateImmunizationEvaluation(ctx context.Context, resource r4.ImmunizationEvaluation) (update.Result[r4.ImmunizationEvaluation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ImmunizationEvaluation]{}, err
@@ -4275,13 +4269,13 @@ func (c *ClientR4) UpdateImmunizationEvaluation(ctx context.Context, resource r4
 
 // DeleteImmunizationEvaluation deletes a ImmunizationEvaluation resource by ID.
 func (c *ClientR4) DeleteImmunizationEvaluation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ImmunizationEvaluation", id)
 }
 
 // SearchImmunizationEvaluation performs a search for ImmunizationEvaluation resources.
 func (c *ClientR4) SearchImmunizationEvaluation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ImmunizationEvaluation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ImmunizationEvaluation", parameters, options)
 	if err != nil {
 		return search.Result[r4.ImmunizationEvaluation]{}, err
@@ -4300,7 +4294,7 @@ func (c *ClientR4) SearchImmunizationEvaluation(ctx context.Context, parameters 
 
 // CreateImmunizationRecommendation creates a new ImmunizationRecommendation resource.
 func (c *ClientR4) CreateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (r4.ImmunizationRecommendation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ImmunizationRecommendation{}, err
@@ -4314,7 +4308,7 @@ func (c *ClientR4) CreateImmunizationRecommendation(ctx context.Context, resourc
 
 // ReadImmunizationRecommendation retrieves a ImmunizationRecommendation resource by ID.
 func (c *ClientR4) ReadImmunizationRecommendation(ctx context.Context, id string) (r4.ImmunizationRecommendation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ImmunizationRecommendation", id)
 	if err != nil {
 		return r4.ImmunizationRecommendation{}, err
@@ -4328,7 +4322,7 @@ func (c *ClientR4) ReadImmunizationRecommendation(ctx context.Context, id string
 
 // UpdateImmunizationRecommendation updates an existing ImmunizationRecommendation resource.
 func (c *ClientR4) UpdateImmunizationRecommendation(ctx context.Context, resource r4.ImmunizationRecommendation) (update.Result[r4.ImmunizationRecommendation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ImmunizationRecommendation]{}, err
@@ -4342,13 +4336,13 @@ func (c *ClientR4) UpdateImmunizationRecommendation(ctx context.Context, resourc
 
 // DeleteImmunizationRecommendation deletes a ImmunizationRecommendation resource by ID.
 func (c *ClientR4) DeleteImmunizationRecommendation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ImmunizationRecommendation", id)
 }
 
 // SearchImmunizationRecommendation performs a search for ImmunizationRecommendation resources.
 func (c *ClientR4) SearchImmunizationRecommendation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ImmunizationRecommendation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ImmunizationRecommendation", parameters, options)
 	if err != nil {
 		return search.Result[r4.ImmunizationRecommendation]{}, err
@@ -4367,7 +4361,7 @@ func (c *ClientR4) SearchImmunizationRecommendation(ctx context.Context, paramet
 
 // CreateImplementationGuide creates a new ImplementationGuide resource.
 func (c *ClientR4) CreateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (r4.ImplementationGuide, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ImplementationGuide{}, err
@@ -4381,7 +4375,7 @@ func (c *ClientR4) CreateImplementationGuide(ctx context.Context, resource r4.Im
 
 // ReadImplementationGuide retrieves a ImplementationGuide resource by ID.
 func (c *ClientR4) ReadImplementationGuide(ctx context.Context, id string) (r4.ImplementationGuide, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ImplementationGuide", id)
 	if err != nil {
 		return r4.ImplementationGuide{}, err
@@ -4395,7 +4389,7 @@ func (c *ClientR4) ReadImplementationGuide(ctx context.Context, id string) (r4.I
 
 // UpdateImplementationGuide updates an existing ImplementationGuide resource.
 func (c *ClientR4) UpdateImplementationGuide(ctx context.Context, resource r4.ImplementationGuide) (update.Result[r4.ImplementationGuide], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ImplementationGuide]{}, err
@@ -4409,13 +4403,13 @@ func (c *ClientR4) UpdateImplementationGuide(ctx context.Context, resource r4.Im
 
 // DeleteImplementationGuide deletes a ImplementationGuide resource by ID.
 func (c *ClientR4) DeleteImplementationGuide(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ImplementationGuide", id)
 }
 
 // SearchImplementationGuide performs a search for ImplementationGuide resources.
 func (c *ClientR4) SearchImplementationGuide(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ImplementationGuide], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ImplementationGuide", parameters, options)
 	if err != nil {
 		return search.Result[r4.ImplementationGuide]{}, err
@@ -4434,7 +4428,7 @@ func (c *ClientR4) SearchImplementationGuide(ctx context.Context, parameters sea
 
 // CreateInsurancePlan creates a new InsurancePlan resource.
 func (c *ClientR4) CreateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (r4.InsurancePlan, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.InsurancePlan{}, err
@@ -4448,7 +4442,7 @@ func (c *ClientR4) CreateInsurancePlan(ctx context.Context, resource r4.Insuranc
 
 // ReadInsurancePlan retrieves a InsurancePlan resource by ID.
 func (c *ClientR4) ReadInsurancePlan(ctx context.Context, id string) (r4.InsurancePlan, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "InsurancePlan", id)
 	if err != nil {
 		return r4.InsurancePlan{}, err
@@ -4462,7 +4456,7 @@ func (c *ClientR4) ReadInsurancePlan(ctx context.Context, id string) (r4.Insuran
 
 // UpdateInsurancePlan updates an existing InsurancePlan resource.
 func (c *ClientR4) UpdateInsurancePlan(ctx context.Context, resource r4.InsurancePlan) (update.Result[r4.InsurancePlan], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.InsurancePlan]{}, err
@@ -4476,13 +4470,13 @@ func (c *ClientR4) UpdateInsurancePlan(ctx context.Context, resource r4.Insuranc
 
 // DeleteInsurancePlan deletes a InsurancePlan resource by ID.
 func (c *ClientR4) DeleteInsurancePlan(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "InsurancePlan", id)
 }
 
 // SearchInsurancePlan performs a search for InsurancePlan resources.
 func (c *ClientR4) SearchInsurancePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.InsurancePlan], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "InsurancePlan", parameters, options)
 	if err != nil {
 		return search.Result[r4.InsurancePlan]{}, err
@@ -4501,7 +4495,7 @@ func (c *ClientR4) SearchInsurancePlan(ctx context.Context, parameters search.Pa
 
 // CreateInvoice creates a new Invoice resource.
 func (c *ClientR4) CreateInvoice(ctx context.Context, resource r4.Invoice) (r4.Invoice, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Invoice{}, err
@@ -4515,7 +4509,7 @@ func (c *ClientR4) CreateInvoice(ctx context.Context, resource r4.Invoice) (r4.I
 
 // ReadInvoice retrieves a Invoice resource by ID.
 func (c *ClientR4) ReadInvoice(ctx context.Context, id string) (r4.Invoice, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Invoice", id)
 	if err != nil {
 		return r4.Invoice{}, err
@@ -4529,7 +4523,7 @@ func (c *ClientR4) ReadInvoice(ctx context.Context, id string) (r4.Invoice, erro
 
 // UpdateInvoice updates an existing Invoice resource.
 func (c *ClientR4) UpdateInvoice(ctx context.Context, resource r4.Invoice) (update.Result[r4.Invoice], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Invoice]{}, err
@@ -4543,13 +4537,13 @@ func (c *ClientR4) UpdateInvoice(ctx context.Context, resource r4.Invoice) (upda
 
 // DeleteInvoice deletes a Invoice resource by ID.
 func (c *ClientR4) DeleteInvoice(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Invoice", id)
 }
 
 // SearchInvoice performs a search for Invoice resources.
 func (c *ClientR4) SearchInvoice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Invoice], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Invoice", parameters, options)
 	if err != nil {
 		return search.Result[r4.Invoice]{}, err
@@ -4568,7 +4562,7 @@ func (c *ClientR4) SearchInvoice(ctx context.Context, parameters search.Paramete
 
 // CreateLibrary creates a new Library resource.
 func (c *ClientR4) CreateLibrary(ctx context.Context, resource r4.Library) (r4.Library, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Library{}, err
@@ -4582,7 +4576,7 @@ func (c *ClientR4) CreateLibrary(ctx context.Context, resource r4.Library) (r4.L
 
 // ReadLibrary retrieves a Library resource by ID.
 func (c *ClientR4) ReadLibrary(ctx context.Context, id string) (r4.Library, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Library", id)
 	if err != nil {
 		return r4.Library{}, err
@@ -4596,7 +4590,7 @@ func (c *ClientR4) ReadLibrary(ctx context.Context, id string) (r4.Library, erro
 
 // UpdateLibrary updates an existing Library resource.
 func (c *ClientR4) UpdateLibrary(ctx context.Context, resource r4.Library) (update.Result[r4.Library], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Library]{}, err
@@ -4610,13 +4604,13 @@ func (c *ClientR4) UpdateLibrary(ctx context.Context, resource r4.Library) (upda
 
 // DeleteLibrary deletes a Library resource by ID.
 func (c *ClientR4) DeleteLibrary(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Library", id)
 }
 
 // SearchLibrary performs a search for Library resources.
 func (c *ClientR4) SearchLibrary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Library], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Library", parameters, options)
 	if err != nil {
 		return search.Result[r4.Library]{}, err
@@ -4635,7 +4629,7 @@ func (c *ClientR4) SearchLibrary(ctx context.Context, parameters search.Paramete
 
 // CreateLinkage creates a new Linkage resource.
 func (c *ClientR4) CreateLinkage(ctx context.Context, resource r4.Linkage) (r4.Linkage, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Linkage{}, err
@@ -4649,7 +4643,7 @@ func (c *ClientR4) CreateLinkage(ctx context.Context, resource r4.Linkage) (r4.L
 
 // ReadLinkage retrieves a Linkage resource by ID.
 func (c *ClientR4) ReadLinkage(ctx context.Context, id string) (r4.Linkage, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Linkage", id)
 	if err != nil {
 		return r4.Linkage{}, err
@@ -4663,7 +4657,7 @@ func (c *ClientR4) ReadLinkage(ctx context.Context, id string) (r4.Linkage, erro
 
 // UpdateLinkage updates an existing Linkage resource.
 func (c *ClientR4) UpdateLinkage(ctx context.Context, resource r4.Linkage) (update.Result[r4.Linkage], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Linkage]{}, err
@@ -4677,13 +4671,13 @@ func (c *ClientR4) UpdateLinkage(ctx context.Context, resource r4.Linkage) (upda
 
 // DeleteLinkage deletes a Linkage resource by ID.
 func (c *ClientR4) DeleteLinkage(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Linkage", id)
 }
 
 // SearchLinkage performs a search for Linkage resources.
 func (c *ClientR4) SearchLinkage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Linkage], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Linkage", parameters, options)
 	if err != nil {
 		return search.Result[r4.Linkage]{}, err
@@ -4702,7 +4696,7 @@ func (c *ClientR4) SearchLinkage(ctx context.Context, parameters search.Paramete
 
 // CreateList creates a new List resource.
 func (c *ClientR4) CreateList(ctx context.Context, resource r4.List) (r4.List, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.List{}, err
@@ -4716,7 +4710,7 @@ func (c *ClientR4) CreateList(ctx context.Context, resource r4.List) (r4.List, e
 
 // ReadList retrieves a List resource by ID.
 func (c *ClientR4) ReadList(ctx context.Context, id string) (r4.List, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "List", id)
 	if err != nil {
 		return r4.List{}, err
@@ -4730,7 +4724,7 @@ func (c *ClientR4) ReadList(ctx context.Context, id string) (r4.List, error) {
 
 // UpdateList updates an existing List resource.
 func (c *ClientR4) UpdateList(ctx context.Context, resource r4.List) (update.Result[r4.List], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.List]{}, err
@@ -4744,13 +4738,13 @@ func (c *ClientR4) UpdateList(ctx context.Context, resource r4.List) (update.Res
 
 // DeleteList deletes a List resource by ID.
 func (c *ClientR4) DeleteList(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "List", id)
 }
 
 // SearchList performs a search for List resources.
 func (c *ClientR4) SearchList(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.List], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "List", parameters, options)
 	if err != nil {
 		return search.Result[r4.List]{}, err
@@ -4769,7 +4763,7 @@ func (c *ClientR4) SearchList(ctx context.Context, parameters search.Parameters,
 
 // CreateLocation creates a new Location resource.
 func (c *ClientR4) CreateLocation(ctx context.Context, resource r4.Location) (r4.Location, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Location{}, err
@@ -4783,7 +4777,7 @@ func (c *ClientR4) CreateLocation(ctx context.Context, resource r4.Location) (r4
 
 // ReadLocation retrieves a Location resource by ID.
 func (c *ClientR4) ReadLocation(ctx context.Context, id string) (r4.Location, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Location", id)
 	if err != nil {
 		return r4.Location{}, err
@@ -4797,7 +4791,7 @@ func (c *ClientR4) ReadLocation(ctx context.Context, id string) (r4.Location, er
 
 // UpdateLocation updates an existing Location resource.
 func (c *ClientR4) UpdateLocation(ctx context.Context, resource r4.Location) (update.Result[r4.Location], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Location]{}, err
@@ -4811,13 +4805,13 @@ func (c *ClientR4) UpdateLocation(ctx context.Context, resource r4.Location) (up
 
 // DeleteLocation deletes a Location resource by ID.
 func (c *ClientR4) DeleteLocation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Location", id)
 }
 
 // SearchLocation performs a search for Location resources.
 func (c *ClientR4) SearchLocation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Location], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Location", parameters, options)
 	if err != nil {
 		return search.Result[r4.Location]{}, err
@@ -4836,7 +4830,7 @@ func (c *ClientR4) SearchLocation(ctx context.Context, parameters search.Paramet
 
 // CreateMeasure creates a new Measure resource.
 func (c *ClientR4) CreateMeasure(ctx context.Context, resource r4.Measure) (r4.Measure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Measure{}, err
@@ -4850,7 +4844,7 @@ func (c *ClientR4) CreateMeasure(ctx context.Context, resource r4.Measure) (r4.M
 
 // ReadMeasure retrieves a Measure resource by ID.
 func (c *ClientR4) ReadMeasure(ctx context.Context, id string) (r4.Measure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Measure", id)
 	if err != nil {
 		return r4.Measure{}, err
@@ -4864,7 +4858,7 @@ func (c *ClientR4) ReadMeasure(ctx context.Context, id string) (r4.Measure, erro
 
 // UpdateMeasure updates an existing Measure resource.
 func (c *ClientR4) UpdateMeasure(ctx context.Context, resource r4.Measure) (update.Result[r4.Measure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Measure]{}, err
@@ -4878,13 +4872,13 @@ func (c *ClientR4) UpdateMeasure(ctx context.Context, resource r4.Measure) (upda
 
 // DeleteMeasure deletes a Measure resource by ID.
 func (c *ClientR4) DeleteMeasure(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Measure", id)
 }
 
 // SearchMeasure performs a search for Measure resources.
 func (c *ClientR4) SearchMeasure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Measure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Measure", parameters, options)
 	if err != nil {
 		return search.Result[r4.Measure]{}, err
@@ -4903,7 +4897,7 @@ func (c *ClientR4) SearchMeasure(ctx context.Context, parameters search.Paramete
 
 // CreateMeasureReport creates a new MeasureReport resource.
 func (c *ClientR4) CreateMeasureReport(ctx context.Context, resource r4.MeasureReport) (r4.MeasureReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MeasureReport{}, err
@@ -4917,7 +4911,7 @@ func (c *ClientR4) CreateMeasureReport(ctx context.Context, resource r4.MeasureR
 
 // ReadMeasureReport retrieves a MeasureReport resource by ID.
 func (c *ClientR4) ReadMeasureReport(ctx context.Context, id string) (r4.MeasureReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MeasureReport", id)
 	if err != nil {
 		return r4.MeasureReport{}, err
@@ -4931,7 +4925,7 @@ func (c *ClientR4) ReadMeasureReport(ctx context.Context, id string) (r4.Measure
 
 // UpdateMeasureReport updates an existing MeasureReport resource.
 func (c *ClientR4) UpdateMeasureReport(ctx context.Context, resource r4.MeasureReport) (update.Result[r4.MeasureReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MeasureReport]{}, err
@@ -4945,13 +4939,13 @@ func (c *ClientR4) UpdateMeasureReport(ctx context.Context, resource r4.MeasureR
 
 // DeleteMeasureReport deletes a MeasureReport resource by ID.
 func (c *ClientR4) DeleteMeasureReport(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MeasureReport", id)
 }
 
 // SearchMeasureReport performs a search for MeasureReport resources.
 func (c *ClientR4) SearchMeasureReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MeasureReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MeasureReport", parameters, options)
 	if err != nil {
 		return search.Result[r4.MeasureReport]{}, err
@@ -4970,7 +4964,7 @@ func (c *ClientR4) SearchMeasureReport(ctx context.Context, parameters search.Pa
 
 // CreateMedia creates a new Media resource.
 func (c *ClientR4) CreateMedia(ctx context.Context, resource r4.Media) (r4.Media, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Media{}, err
@@ -4984,7 +4978,7 @@ func (c *ClientR4) CreateMedia(ctx context.Context, resource r4.Media) (r4.Media
 
 // ReadMedia retrieves a Media resource by ID.
 func (c *ClientR4) ReadMedia(ctx context.Context, id string) (r4.Media, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Media", id)
 	if err != nil {
 		return r4.Media{}, err
@@ -4998,7 +4992,7 @@ func (c *ClientR4) ReadMedia(ctx context.Context, id string) (r4.Media, error) {
 
 // UpdateMedia updates an existing Media resource.
 func (c *ClientR4) UpdateMedia(ctx context.Context, resource r4.Media) (update.Result[r4.Media], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Media]{}, err
@@ -5012,13 +5006,13 @@ func (c *ClientR4) UpdateMedia(ctx context.Context, resource r4.Media) (update.R
 
 // DeleteMedia deletes a Media resource by ID.
 func (c *ClientR4) DeleteMedia(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Media", id)
 }
 
 // SearchMedia performs a search for Media resources.
 func (c *ClientR4) SearchMedia(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Media], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Media", parameters, options)
 	if err != nil {
 		return search.Result[r4.Media]{}, err
@@ -5037,7 +5031,7 @@ func (c *ClientR4) SearchMedia(ctx context.Context, parameters search.Parameters
 
 // CreateMedication creates a new Medication resource.
 func (c *ClientR4) CreateMedication(ctx context.Context, resource r4.Medication) (r4.Medication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Medication{}, err
@@ -5051,7 +5045,7 @@ func (c *ClientR4) CreateMedication(ctx context.Context, resource r4.Medication)
 
 // ReadMedication retrieves a Medication resource by ID.
 func (c *ClientR4) ReadMedication(ctx context.Context, id string) (r4.Medication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Medication", id)
 	if err != nil {
 		return r4.Medication{}, err
@@ -5065,7 +5059,7 @@ func (c *ClientR4) ReadMedication(ctx context.Context, id string) (r4.Medication
 
 // UpdateMedication updates an existing Medication resource.
 func (c *ClientR4) UpdateMedication(ctx context.Context, resource r4.Medication) (update.Result[r4.Medication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Medication]{}, err
@@ -5079,13 +5073,13 @@ func (c *ClientR4) UpdateMedication(ctx context.Context, resource r4.Medication)
 
 // DeleteMedication deletes a Medication resource by ID.
 func (c *ClientR4) DeleteMedication(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Medication", id)
 }
 
 // SearchMedication performs a search for Medication resources.
 func (c *ClientR4) SearchMedication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Medication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Medication", parameters, options)
 	if err != nil {
 		return search.Result[r4.Medication]{}, err
@@ -5104,7 +5098,7 @@ func (c *ClientR4) SearchMedication(ctx context.Context, parameters search.Param
 
 // CreateMedicationAdministration creates a new MedicationAdministration resource.
 func (c *ClientR4) CreateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (r4.MedicationAdministration, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicationAdministration{}, err
@@ -5118,7 +5112,7 @@ func (c *ClientR4) CreateMedicationAdministration(ctx context.Context, resource 
 
 // ReadMedicationAdministration retrieves a MedicationAdministration resource by ID.
 func (c *ClientR4) ReadMedicationAdministration(ctx context.Context, id string) (r4.MedicationAdministration, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicationAdministration", id)
 	if err != nil {
 		return r4.MedicationAdministration{}, err
@@ -5132,7 +5126,7 @@ func (c *ClientR4) ReadMedicationAdministration(ctx context.Context, id string) 
 
 // UpdateMedicationAdministration updates an existing MedicationAdministration resource.
 func (c *ClientR4) UpdateMedicationAdministration(ctx context.Context, resource r4.MedicationAdministration) (update.Result[r4.MedicationAdministration], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicationAdministration]{}, err
@@ -5146,13 +5140,13 @@ func (c *ClientR4) UpdateMedicationAdministration(ctx context.Context, resource 
 
 // DeleteMedicationAdministration deletes a MedicationAdministration resource by ID.
 func (c *ClientR4) DeleteMedicationAdministration(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicationAdministration", id)
 }
 
 // SearchMedicationAdministration performs a search for MedicationAdministration resources.
 func (c *ClientR4) SearchMedicationAdministration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicationAdministration], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicationAdministration", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicationAdministration]{}, err
@@ -5171,7 +5165,7 @@ func (c *ClientR4) SearchMedicationAdministration(ctx context.Context, parameter
 
 // CreateMedicationDispense creates a new MedicationDispense resource.
 func (c *ClientR4) CreateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (r4.MedicationDispense, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicationDispense{}, err
@@ -5185,7 +5179,7 @@ func (c *ClientR4) CreateMedicationDispense(ctx context.Context, resource r4.Med
 
 // ReadMedicationDispense retrieves a MedicationDispense resource by ID.
 func (c *ClientR4) ReadMedicationDispense(ctx context.Context, id string) (r4.MedicationDispense, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicationDispense", id)
 	if err != nil {
 		return r4.MedicationDispense{}, err
@@ -5199,7 +5193,7 @@ func (c *ClientR4) ReadMedicationDispense(ctx context.Context, id string) (r4.Me
 
 // UpdateMedicationDispense updates an existing MedicationDispense resource.
 func (c *ClientR4) UpdateMedicationDispense(ctx context.Context, resource r4.MedicationDispense) (update.Result[r4.MedicationDispense], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicationDispense]{}, err
@@ -5213,13 +5207,13 @@ func (c *ClientR4) UpdateMedicationDispense(ctx context.Context, resource r4.Med
 
 // DeleteMedicationDispense deletes a MedicationDispense resource by ID.
 func (c *ClientR4) DeleteMedicationDispense(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicationDispense", id)
 }
 
 // SearchMedicationDispense performs a search for MedicationDispense resources.
 func (c *ClientR4) SearchMedicationDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicationDispense], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicationDispense", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicationDispense]{}, err
@@ -5238,7 +5232,7 @@ func (c *ClientR4) SearchMedicationDispense(ctx context.Context, parameters sear
 
 // CreateMedicationKnowledge creates a new MedicationKnowledge resource.
 func (c *ClientR4) CreateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (r4.MedicationKnowledge, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicationKnowledge{}, err
@@ -5252,7 +5246,7 @@ func (c *ClientR4) CreateMedicationKnowledge(ctx context.Context, resource r4.Me
 
 // ReadMedicationKnowledge retrieves a MedicationKnowledge resource by ID.
 func (c *ClientR4) ReadMedicationKnowledge(ctx context.Context, id string) (r4.MedicationKnowledge, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicationKnowledge", id)
 	if err != nil {
 		return r4.MedicationKnowledge{}, err
@@ -5266,7 +5260,7 @@ func (c *ClientR4) ReadMedicationKnowledge(ctx context.Context, id string) (r4.M
 
 // UpdateMedicationKnowledge updates an existing MedicationKnowledge resource.
 func (c *ClientR4) UpdateMedicationKnowledge(ctx context.Context, resource r4.MedicationKnowledge) (update.Result[r4.MedicationKnowledge], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicationKnowledge]{}, err
@@ -5280,13 +5274,13 @@ func (c *ClientR4) UpdateMedicationKnowledge(ctx context.Context, resource r4.Me
 
 // DeleteMedicationKnowledge deletes a MedicationKnowledge resource by ID.
 func (c *ClientR4) DeleteMedicationKnowledge(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicationKnowledge", id)
 }
 
 // SearchMedicationKnowledge performs a search for MedicationKnowledge resources.
 func (c *ClientR4) SearchMedicationKnowledge(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicationKnowledge], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicationKnowledge", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicationKnowledge]{}, err
@@ -5305,7 +5299,7 @@ func (c *ClientR4) SearchMedicationKnowledge(ctx context.Context, parameters sea
 
 // CreateMedicationRequest creates a new MedicationRequest resource.
 func (c *ClientR4) CreateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (r4.MedicationRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicationRequest{}, err
@@ -5319,7 +5313,7 @@ func (c *ClientR4) CreateMedicationRequest(ctx context.Context, resource r4.Medi
 
 // ReadMedicationRequest retrieves a MedicationRequest resource by ID.
 func (c *ClientR4) ReadMedicationRequest(ctx context.Context, id string) (r4.MedicationRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicationRequest", id)
 	if err != nil {
 		return r4.MedicationRequest{}, err
@@ -5333,7 +5327,7 @@ func (c *ClientR4) ReadMedicationRequest(ctx context.Context, id string) (r4.Med
 
 // UpdateMedicationRequest updates an existing MedicationRequest resource.
 func (c *ClientR4) UpdateMedicationRequest(ctx context.Context, resource r4.MedicationRequest) (update.Result[r4.MedicationRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicationRequest]{}, err
@@ -5347,13 +5341,13 @@ func (c *ClientR4) UpdateMedicationRequest(ctx context.Context, resource r4.Medi
 
 // DeleteMedicationRequest deletes a MedicationRequest resource by ID.
 func (c *ClientR4) DeleteMedicationRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicationRequest", id)
 }
 
 // SearchMedicationRequest performs a search for MedicationRequest resources.
 func (c *ClientR4) SearchMedicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicationRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicationRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicationRequest]{}, err
@@ -5372,7 +5366,7 @@ func (c *ClientR4) SearchMedicationRequest(ctx context.Context, parameters searc
 
 // CreateMedicationStatement creates a new MedicationStatement resource.
 func (c *ClientR4) CreateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (r4.MedicationStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicationStatement{}, err
@@ -5386,7 +5380,7 @@ func (c *ClientR4) CreateMedicationStatement(ctx context.Context, resource r4.Me
 
 // ReadMedicationStatement retrieves a MedicationStatement resource by ID.
 func (c *ClientR4) ReadMedicationStatement(ctx context.Context, id string) (r4.MedicationStatement, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicationStatement", id)
 	if err != nil {
 		return r4.MedicationStatement{}, err
@@ -5400,7 +5394,7 @@ func (c *ClientR4) ReadMedicationStatement(ctx context.Context, id string) (r4.M
 
 // UpdateMedicationStatement updates an existing MedicationStatement resource.
 func (c *ClientR4) UpdateMedicationStatement(ctx context.Context, resource r4.MedicationStatement) (update.Result[r4.MedicationStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicationStatement]{}, err
@@ -5414,13 +5408,13 @@ func (c *ClientR4) UpdateMedicationStatement(ctx context.Context, resource r4.Me
 
 // DeleteMedicationStatement deletes a MedicationStatement resource by ID.
 func (c *ClientR4) DeleteMedicationStatement(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicationStatement", id)
 }
 
 // SearchMedicationStatement performs a search for MedicationStatement resources.
 func (c *ClientR4) SearchMedicationStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicationStatement], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicationStatement", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicationStatement]{}, err
@@ -5439,7 +5433,7 @@ func (c *ClientR4) SearchMedicationStatement(ctx context.Context, parameters sea
 
 // CreateMedicinalProduct creates a new MedicinalProduct resource.
 func (c *ClientR4) CreateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (r4.MedicinalProduct, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProduct{}, err
@@ -5453,7 +5447,7 @@ func (c *ClientR4) CreateMedicinalProduct(ctx context.Context, resource r4.Medic
 
 // ReadMedicinalProduct retrieves a MedicinalProduct resource by ID.
 func (c *ClientR4) ReadMedicinalProduct(ctx context.Context, id string) (r4.MedicinalProduct, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProduct", id)
 	if err != nil {
 		return r4.MedicinalProduct{}, err
@@ -5467,7 +5461,7 @@ func (c *ClientR4) ReadMedicinalProduct(ctx context.Context, id string) (r4.Medi
 
 // UpdateMedicinalProduct updates an existing MedicinalProduct resource.
 func (c *ClientR4) UpdateMedicinalProduct(ctx context.Context, resource r4.MedicinalProduct) (update.Result[r4.MedicinalProduct], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProduct]{}, err
@@ -5481,13 +5475,13 @@ func (c *ClientR4) UpdateMedicinalProduct(ctx context.Context, resource r4.Medic
 
 // DeleteMedicinalProduct deletes a MedicinalProduct resource by ID.
 func (c *ClientR4) DeleteMedicinalProduct(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProduct", id)
 }
 
 // SearchMedicinalProduct performs a search for MedicinalProduct resources.
 func (c *ClientR4) SearchMedicinalProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProduct], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProduct", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProduct]{}, err
@@ -5506,7 +5500,7 @@ func (c *ClientR4) SearchMedicinalProduct(ctx context.Context, parameters search
 
 // CreateMedicinalProductAuthorization creates a new MedicinalProductAuthorization resource.
 func (c *ClientR4) CreateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (r4.MedicinalProductAuthorization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductAuthorization{}, err
@@ -5520,7 +5514,7 @@ func (c *ClientR4) CreateMedicinalProductAuthorization(ctx context.Context, reso
 
 // ReadMedicinalProductAuthorization retrieves a MedicinalProductAuthorization resource by ID.
 func (c *ClientR4) ReadMedicinalProductAuthorization(ctx context.Context, id string) (r4.MedicinalProductAuthorization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductAuthorization", id)
 	if err != nil {
 		return r4.MedicinalProductAuthorization{}, err
@@ -5534,7 +5528,7 @@ func (c *ClientR4) ReadMedicinalProductAuthorization(ctx context.Context, id str
 
 // UpdateMedicinalProductAuthorization updates an existing MedicinalProductAuthorization resource.
 func (c *ClientR4) UpdateMedicinalProductAuthorization(ctx context.Context, resource r4.MedicinalProductAuthorization) (update.Result[r4.MedicinalProductAuthorization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductAuthorization]{}, err
@@ -5548,13 +5542,13 @@ func (c *ClientR4) UpdateMedicinalProductAuthorization(ctx context.Context, reso
 
 // DeleteMedicinalProductAuthorization deletes a MedicinalProductAuthorization resource by ID.
 func (c *ClientR4) DeleteMedicinalProductAuthorization(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductAuthorization", id)
 }
 
 // SearchMedicinalProductAuthorization performs a search for MedicinalProductAuthorization resources.
 func (c *ClientR4) SearchMedicinalProductAuthorization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductAuthorization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductAuthorization", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductAuthorization]{}, err
@@ -5573,7 +5567,7 @@ func (c *ClientR4) SearchMedicinalProductAuthorization(ctx context.Context, para
 
 // CreateMedicinalProductContraindication creates a new MedicinalProductContraindication resource.
 func (c *ClientR4) CreateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (r4.MedicinalProductContraindication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductContraindication{}, err
@@ -5587,7 +5581,7 @@ func (c *ClientR4) CreateMedicinalProductContraindication(ctx context.Context, r
 
 // ReadMedicinalProductContraindication retrieves a MedicinalProductContraindication resource by ID.
 func (c *ClientR4) ReadMedicinalProductContraindication(ctx context.Context, id string) (r4.MedicinalProductContraindication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductContraindication", id)
 	if err != nil {
 		return r4.MedicinalProductContraindication{}, err
@@ -5601,7 +5595,7 @@ func (c *ClientR4) ReadMedicinalProductContraindication(ctx context.Context, id 
 
 // UpdateMedicinalProductContraindication updates an existing MedicinalProductContraindication resource.
 func (c *ClientR4) UpdateMedicinalProductContraindication(ctx context.Context, resource r4.MedicinalProductContraindication) (update.Result[r4.MedicinalProductContraindication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductContraindication]{}, err
@@ -5615,13 +5609,13 @@ func (c *ClientR4) UpdateMedicinalProductContraindication(ctx context.Context, r
 
 // DeleteMedicinalProductContraindication deletes a MedicinalProductContraindication resource by ID.
 func (c *ClientR4) DeleteMedicinalProductContraindication(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductContraindication", id)
 }
 
 // SearchMedicinalProductContraindication performs a search for MedicinalProductContraindication resources.
 func (c *ClientR4) SearchMedicinalProductContraindication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductContraindication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductContraindication", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductContraindication]{}, err
@@ -5640,7 +5634,7 @@ func (c *ClientR4) SearchMedicinalProductContraindication(ctx context.Context, p
 
 // CreateMedicinalProductIndication creates a new MedicinalProductIndication resource.
 func (c *ClientR4) CreateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (r4.MedicinalProductIndication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductIndication{}, err
@@ -5654,7 +5648,7 @@ func (c *ClientR4) CreateMedicinalProductIndication(ctx context.Context, resourc
 
 // ReadMedicinalProductIndication retrieves a MedicinalProductIndication resource by ID.
 func (c *ClientR4) ReadMedicinalProductIndication(ctx context.Context, id string) (r4.MedicinalProductIndication, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductIndication", id)
 	if err != nil {
 		return r4.MedicinalProductIndication{}, err
@@ -5668,7 +5662,7 @@ func (c *ClientR4) ReadMedicinalProductIndication(ctx context.Context, id string
 
 // UpdateMedicinalProductIndication updates an existing MedicinalProductIndication resource.
 func (c *ClientR4) UpdateMedicinalProductIndication(ctx context.Context, resource r4.MedicinalProductIndication) (update.Result[r4.MedicinalProductIndication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductIndication]{}, err
@@ -5682,13 +5676,13 @@ func (c *ClientR4) UpdateMedicinalProductIndication(ctx context.Context, resourc
 
 // DeleteMedicinalProductIndication deletes a MedicinalProductIndication resource by ID.
 func (c *ClientR4) DeleteMedicinalProductIndication(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductIndication", id)
 }
 
 // SearchMedicinalProductIndication performs a search for MedicinalProductIndication resources.
 func (c *ClientR4) SearchMedicinalProductIndication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductIndication], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductIndication", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductIndication]{}, err
@@ -5707,7 +5701,7 @@ func (c *ClientR4) SearchMedicinalProductIndication(ctx context.Context, paramet
 
 // CreateMedicinalProductIngredient creates a new MedicinalProductIngredient resource.
 func (c *ClientR4) CreateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (r4.MedicinalProductIngredient, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductIngredient{}, err
@@ -5721,7 +5715,7 @@ func (c *ClientR4) CreateMedicinalProductIngredient(ctx context.Context, resourc
 
 // ReadMedicinalProductIngredient retrieves a MedicinalProductIngredient resource by ID.
 func (c *ClientR4) ReadMedicinalProductIngredient(ctx context.Context, id string) (r4.MedicinalProductIngredient, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductIngredient", id)
 	if err != nil {
 		return r4.MedicinalProductIngredient{}, err
@@ -5735,7 +5729,7 @@ func (c *ClientR4) ReadMedicinalProductIngredient(ctx context.Context, id string
 
 // UpdateMedicinalProductIngredient updates an existing MedicinalProductIngredient resource.
 func (c *ClientR4) UpdateMedicinalProductIngredient(ctx context.Context, resource r4.MedicinalProductIngredient) (update.Result[r4.MedicinalProductIngredient], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductIngredient]{}, err
@@ -5749,13 +5743,13 @@ func (c *ClientR4) UpdateMedicinalProductIngredient(ctx context.Context, resourc
 
 // DeleteMedicinalProductIngredient deletes a MedicinalProductIngredient resource by ID.
 func (c *ClientR4) DeleteMedicinalProductIngredient(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductIngredient", id)
 }
 
 // SearchMedicinalProductIngredient performs a search for MedicinalProductIngredient resources.
 func (c *ClientR4) SearchMedicinalProductIngredient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductIngredient], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductIngredient", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductIngredient]{}, err
@@ -5774,7 +5768,7 @@ func (c *ClientR4) SearchMedicinalProductIngredient(ctx context.Context, paramet
 
 // CreateMedicinalProductInteraction creates a new MedicinalProductInteraction resource.
 func (c *ClientR4) CreateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (r4.MedicinalProductInteraction, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductInteraction{}, err
@@ -5788,7 +5782,7 @@ func (c *ClientR4) CreateMedicinalProductInteraction(ctx context.Context, resour
 
 // ReadMedicinalProductInteraction retrieves a MedicinalProductInteraction resource by ID.
 func (c *ClientR4) ReadMedicinalProductInteraction(ctx context.Context, id string) (r4.MedicinalProductInteraction, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductInteraction", id)
 	if err != nil {
 		return r4.MedicinalProductInteraction{}, err
@@ -5802,7 +5796,7 @@ func (c *ClientR4) ReadMedicinalProductInteraction(ctx context.Context, id strin
 
 // UpdateMedicinalProductInteraction updates an existing MedicinalProductInteraction resource.
 func (c *ClientR4) UpdateMedicinalProductInteraction(ctx context.Context, resource r4.MedicinalProductInteraction) (update.Result[r4.MedicinalProductInteraction], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductInteraction]{}, err
@@ -5816,13 +5810,13 @@ func (c *ClientR4) UpdateMedicinalProductInteraction(ctx context.Context, resour
 
 // DeleteMedicinalProductInteraction deletes a MedicinalProductInteraction resource by ID.
 func (c *ClientR4) DeleteMedicinalProductInteraction(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductInteraction", id)
 }
 
 // SearchMedicinalProductInteraction performs a search for MedicinalProductInteraction resources.
 func (c *ClientR4) SearchMedicinalProductInteraction(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductInteraction], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductInteraction", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductInteraction]{}, err
@@ -5841,7 +5835,7 @@ func (c *ClientR4) SearchMedicinalProductInteraction(ctx context.Context, parame
 
 // CreateMedicinalProductManufactured creates a new MedicinalProductManufactured resource.
 func (c *ClientR4) CreateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (r4.MedicinalProductManufactured, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductManufactured{}, err
@@ -5855,7 +5849,7 @@ func (c *ClientR4) CreateMedicinalProductManufactured(ctx context.Context, resou
 
 // ReadMedicinalProductManufactured retrieves a MedicinalProductManufactured resource by ID.
 func (c *ClientR4) ReadMedicinalProductManufactured(ctx context.Context, id string) (r4.MedicinalProductManufactured, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductManufactured", id)
 	if err != nil {
 		return r4.MedicinalProductManufactured{}, err
@@ -5869,7 +5863,7 @@ func (c *ClientR4) ReadMedicinalProductManufactured(ctx context.Context, id stri
 
 // UpdateMedicinalProductManufactured updates an existing MedicinalProductManufactured resource.
 func (c *ClientR4) UpdateMedicinalProductManufactured(ctx context.Context, resource r4.MedicinalProductManufactured) (update.Result[r4.MedicinalProductManufactured], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductManufactured]{}, err
@@ -5883,13 +5877,13 @@ func (c *ClientR4) UpdateMedicinalProductManufactured(ctx context.Context, resou
 
 // DeleteMedicinalProductManufactured deletes a MedicinalProductManufactured resource by ID.
 func (c *ClientR4) DeleteMedicinalProductManufactured(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductManufactured", id)
 }
 
 // SearchMedicinalProductManufactured performs a search for MedicinalProductManufactured resources.
 func (c *ClientR4) SearchMedicinalProductManufactured(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductManufactured], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductManufactured", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductManufactured]{}, err
@@ -5908,7 +5902,7 @@ func (c *ClientR4) SearchMedicinalProductManufactured(ctx context.Context, param
 
 // CreateMedicinalProductPackaged creates a new MedicinalProductPackaged resource.
 func (c *ClientR4) CreateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (r4.MedicinalProductPackaged, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductPackaged{}, err
@@ -5922,7 +5916,7 @@ func (c *ClientR4) CreateMedicinalProductPackaged(ctx context.Context, resource 
 
 // ReadMedicinalProductPackaged retrieves a MedicinalProductPackaged resource by ID.
 func (c *ClientR4) ReadMedicinalProductPackaged(ctx context.Context, id string) (r4.MedicinalProductPackaged, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductPackaged", id)
 	if err != nil {
 		return r4.MedicinalProductPackaged{}, err
@@ -5936,7 +5930,7 @@ func (c *ClientR4) ReadMedicinalProductPackaged(ctx context.Context, id string) 
 
 // UpdateMedicinalProductPackaged updates an existing MedicinalProductPackaged resource.
 func (c *ClientR4) UpdateMedicinalProductPackaged(ctx context.Context, resource r4.MedicinalProductPackaged) (update.Result[r4.MedicinalProductPackaged], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductPackaged]{}, err
@@ -5950,13 +5944,13 @@ func (c *ClientR4) UpdateMedicinalProductPackaged(ctx context.Context, resource 
 
 // DeleteMedicinalProductPackaged deletes a MedicinalProductPackaged resource by ID.
 func (c *ClientR4) DeleteMedicinalProductPackaged(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductPackaged", id)
 }
 
 // SearchMedicinalProductPackaged performs a search for MedicinalProductPackaged resources.
 func (c *ClientR4) SearchMedicinalProductPackaged(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductPackaged], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductPackaged", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductPackaged]{}, err
@@ -5975,7 +5969,7 @@ func (c *ClientR4) SearchMedicinalProductPackaged(ctx context.Context, parameter
 
 // CreateMedicinalProductPharmaceutical creates a new MedicinalProductPharmaceutical resource.
 func (c *ClientR4) CreateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (r4.MedicinalProductPharmaceutical, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductPharmaceutical{}, err
@@ -5989,7 +5983,7 @@ func (c *ClientR4) CreateMedicinalProductPharmaceutical(ctx context.Context, res
 
 // ReadMedicinalProductPharmaceutical retrieves a MedicinalProductPharmaceutical resource by ID.
 func (c *ClientR4) ReadMedicinalProductPharmaceutical(ctx context.Context, id string) (r4.MedicinalProductPharmaceutical, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductPharmaceutical", id)
 	if err != nil {
 		return r4.MedicinalProductPharmaceutical{}, err
@@ -6003,7 +5997,7 @@ func (c *ClientR4) ReadMedicinalProductPharmaceutical(ctx context.Context, id st
 
 // UpdateMedicinalProductPharmaceutical updates an existing MedicinalProductPharmaceutical resource.
 func (c *ClientR4) UpdateMedicinalProductPharmaceutical(ctx context.Context, resource r4.MedicinalProductPharmaceutical) (update.Result[r4.MedicinalProductPharmaceutical], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductPharmaceutical]{}, err
@@ -6017,13 +6011,13 @@ func (c *ClientR4) UpdateMedicinalProductPharmaceutical(ctx context.Context, res
 
 // DeleteMedicinalProductPharmaceutical deletes a MedicinalProductPharmaceutical resource by ID.
 func (c *ClientR4) DeleteMedicinalProductPharmaceutical(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductPharmaceutical", id)
 }
 
 // SearchMedicinalProductPharmaceutical performs a search for MedicinalProductPharmaceutical resources.
 func (c *ClientR4) SearchMedicinalProductPharmaceutical(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductPharmaceutical], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductPharmaceutical", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductPharmaceutical]{}, err
@@ -6042,7 +6036,7 @@ func (c *ClientR4) SearchMedicinalProductPharmaceutical(ctx context.Context, par
 
 // CreateMedicinalProductUndesirableEffect creates a new MedicinalProductUndesirableEffect resource.
 func (c *ClientR4) CreateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (r4.MedicinalProductUndesirableEffect, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MedicinalProductUndesirableEffect{}, err
@@ -6056,7 +6050,7 @@ func (c *ClientR4) CreateMedicinalProductUndesirableEffect(ctx context.Context, 
 
 // ReadMedicinalProductUndesirableEffect retrieves a MedicinalProductUndesirableEffect resource by ID.
 func (c *ClientR4) ReadMedicinalProductUndesirableEffect(ctx context.Context, id string) (r4.MedicinalProductUndesirableEffect, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MedicinalProductUndesirableEffect", id)
 	if err != nil {
 		return r4.MedicinalProductUndesirableEffect{}, err
@@ -6070,7 +6064,7 @@ func (c *ClientR4) ReadMedicinalProductUndesirableEffect(ctx context.Context, id
 
 // UpdateMedicinalProductUndesirableEffect updates an existing MedicinalProductUndesirableEffect resource.
 func (c *ClientR4) UpdateMedicinalProductUndesirableEffect(ctx context.Context, resource r4.MedicinalProductUndesirableEffect) (update.Result[r4.MedicinalProductUndesirableEffect], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MedicinalProductUndesirableEffect]{}, err
@@ -6084,13 +6078,13 @@ func (c *ClientR4) UpdateMedicinalProductUndesirableEffect(ctx context.Context, 
 
 // DeleteMedicinalProductUndesirableEffect deletes a MedicinalProductUndesirableEffect resource by ID.
 func (c *ClientR4) DeleteMedicinalProductUndesirableEffect(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MedicinalProductUndesirableEffect", id)
 }
 
 // SearchMedicinalProductUndesirableEffect performs a search for MedicinalProductUndesirableEffect resources.
 func (c *ClientR4) SearchMedicinalProductUndesirableEffect(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MedicinalProductUndesirableEffect], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MedicinalProductUndesirableEffect", parameters, options)
 	if err != nil {
 		return search.Result[r4.MedicinalProductUndesirableEffect]{}, err
@@ -6109,7 +6103,7 @@ func (c *ClientR4) SearchMedicinalProductUndesirableEffect(ctx context.Context, 
 
 // CreateMessageDefinition creates a new MessageDefinition resource.
 func (c *ClientR4) CreateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (r4.MessageDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MessageDefinition{}, err
@@ -6123,7 +6117,7 @@ func (c *ClientR4) CreateMessageDefinition(ctx context.Context, resource r4.Mess
 
 // ReadMessageDefinition retrieves a MessageDefinition resource by ID.
 func (c *ClientR4) ReadMessageDefinition(ctx context.Context, id string) (r4.MessageDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MessageDefinition", id)
 	if err != nil {
 		return r4.MessageDefinition{}, err
@@ -6137,7 +6131,7 @@ func (c *ClientR4) ReadMessageDefinition(ctx context.Context, id string) (r4.Mes
 
 // UpdateMessageDefinition updates an existing MessageDefinition resource.
 func (c *ClientR4) UpdateMessageDefinition(ctx context.Context, resource r4.MessageDefinition) (update.Result[r4.MessageDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MessageDefinition]{}, err
@@ -6151,13 +6145,13 @@ func (c *ClientR4) UpdateMessageDefinition(ctx context.Context, resource r4.Mess
 
 // DeleteMessageDefinition deletes a MessageDefinition resource by ID.
 func (c *ClientR4) DeleteMessageDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MessageDefinition", id)
 }
 
 // SearchMessageDefinition performs a search for MessageDefinition resources.
 func (c *ClientR4) SearchMessageDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MessageDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MessageDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.MessageDefinition]{}, err
@@ -6176,7 +6170,7 @@ func (c *ClientR4) SearchMessageDefinition(ctx context.Context, parameters searc
 
 // CreateMessageHeader creates a new MessageHeader resource.
 func (c *ClientR4) CreateMessageHeader(ctx context.Context, resource r4.MessageHeader) (r4.MessageHeader, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MessageHeader{}, err
@@ -6190,7 +6184,7 @@ func (c *ClientR4) CreateMessageHeader(ctx context.Context, resource r4.MessageH
 
 // ReadMessageHeader retrieves a MessageHeader resource by ID.
 func (c *ClientR4) ReadMessageHeader(ctx context.Context, id string) (r4.MessageHeader, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MessageHeader", id)
 	if err != nil {
 		return r4.MessageHeader{}, err
@@ -6204,7 +6198,7 @@ func (c *ClientR4) ReadMessageHeader(ctx context.Context, id string) (r4.Message
 
 // UpdateMessageHeader updates an existing MessageHeader resource.
 func (c *ClientR4) UpdateMessageHeader(ctx context.Context, resource r4.MessageHeader) (update.Result[r4.MessageHeader], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MessageHeader]{}, err
@@ -6218,13 +6212,13 @@ func (c *ClientR4) UpdateMessageHeader(ctx context.Context, resource r4.MessageH
 
 // DeleteMessageHeader deletes a MessageHeader resource by ID.
 func (c *ClientR4) DeleteMessageHeader(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MessageHeader", id)
 }
 
 // SearchMessageHeader performs a search for MessageHeader resources.
 func (c *ClientR4) SearchMessageHeader(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MessageHeader], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MessageHeader", parameters, options)
 	if err != nil {
 		return search.Result[r4.MessageHeader]{}, err
@@ -6243,7 +6237,7 @@ func (c *ClientR4) SearchMessageHeader(ctx context.Context, parameters search.Pa
 
 // CreateMolecularSequence creates a new MolecularSequence resource.
 func (c *ClientR4) CreateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (r4.MolecularSequence, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.MolecularSequence{}, err
@@ -6257,7 +6251,7 @@ func (c *ClientR4) CreateMolecularSequence(ctx context.Context, resource r4.Mole
 
 // ReadMolecularSequence retrieves a MolecularSequence resource by ID.
 func (c *ClientR4) ReadMolecularSequence(ctx context.Context, id string) (r4.MolecularSequence, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "MolecularSequence", id)
 	if err != nil {
 		return r4.MolecularSequence{}, err
@@ -6271,7 +6265,7 @@ func (c *ClientR4) ReadMolecularSequence(ctx context.Context, id string) (r4.Mol
 
 // UpdateMolecularSequence updates an existing MolecularSequence resource.
 func (c *ClientR4) UpdateMolecularSequence(ctx context.Context, resource r4.MolecularSequence) (update.Result[r4.MolecularSequence], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.MolecularSequence]{}, err
@@ -6285,13 +6279,13 @@ func (c *ClientR4) UpdateMolecularSequence(ctx context.Context, resource r4.Mole
 
 // DeleteMolecularSequence deletes a MolecularSequence resource by ID.
 func (c *ClientR4) DeleteMolecularSequence(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "MolecularSequence", id)
 }
 
 // SearchMolecularSequence performs a search for MolecularSequence resources.
 func (c *ClientR4) SearchMolecularSequence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.MolecularSequence], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "MolecularSequence", parameters, options)
 	if err != nil {
 		return search.Result[r4.MolecularSequence]{}, err
@@ -6310,7 +6304,7 @@ func (c *ClientR4) SearchMolecularSequence(ctx context.Context, parameters searc
 
 // CreateNamingSystem creates a new NamingSystem resource.
 func (c *ClientR4) CreateNamingSystem(ctx context.Context, resource r4.NamingSystem) (r4.NamingSystem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.NamingSystem{}, err
@@ -6324,7 +6318,7 @@ func (c *ClientR4) CreateNamingSystem(ctx context.Context, resource r4.NamingSys
 
 // ReadNamingSystem retrieves a NamingSystem resource by ID.
 func (c *ClientR4) ReadNamingSystem(ctx context.Context, id string) (r4.NamingSystem, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "NamingSystem", id)
 	if err != nil {
 		return r4.NamingSystem{}, err
@@ -6338,7 +6332,7 @@ func (c *ClientR4) ReadNamingSystem(ctx context.Context, id string) (r4.NamingSy
 
 // UpdateNamingSystem updates an existing NamingSystem resource.
 func (c *ClientR4) UpdateNamingSystem(ctx context.Context, resource r4.NamingSystem) (update.Result[r4.NamingSystem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.NamingSystem]{}, err
@@ -6352,13 +6346,13 @@ func (c *ClientR4) UpdateNamingSystem(ctx context.Context, resource r4.NamingSys
 
 // DeleteNamingSystem deletes a NamingSystem resource by ID.
 func (c *ClientR4) DeleteNamingSystem(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "NamingSystem", id)
 }
 
 // SearchNamingSystem performs a search for NamingSystem resources.
 func (c *ClientR4) SearchNamingSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.NamingSystem], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "NamingSystem", parameters, options)
 	if err != nil {
 		return search.Result[r4.NamingSystem]{}, err
@@ -6377,7 +6371,7 @@ func (c *ClientR4) SearchNamingSystem(ctx context.Context, parameters search.Par
 
 // CreateNutritionOrder creates a new NutritionOrder resource.
 func (c *ClientR4) CreateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (r4.NutritionOrder, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.NutritionOrder{}, err
@@ -6391,7 +6385,7 @@ func (c *ClientR4) CreateNutritionOrder(ctx context.Context, resource r4.Nutriti
 
 // ReadNutritionOrder retrieves a NutritionOrder resource by ID.
 func (c *ClientR4) ReadNutritionOrder(ctx context.Context, id string) (r4.NutritionOrder, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "NutritionOrder", id)
 	if err != nil {
 		return r4.NutritionOrder{}, err
@@ -6405,7 +6399,7 @@ func (c *ClientR4) ReadNutritionOrder(ctx context.Context, id string) (r4.Nutrit
 
 // UpdateNutritionOrder updates an existing NutritionOrder resource.
 func (c *ClientR4) UpdateNutritionOrder(ctx context.Context, resource r4.NutritionOrder) (update.Result[r4.NutritionOrder], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.NutritionOrder]{}, err
@@ -6419,13 +6413,13 @@ func (c *ClientR4) UpdateNutritionOrder(ctx context.Context, resource r4.Nutriti
 
 // DeleteNutritionOrder deletes a NutritionOrder resource by ID.
 func (c *ClientR4) DeleteNutritionOrder(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "NutritionOrder", id)
 }
 
 // SearchNutritionOrder performs a search for NutritionOrder resources.
 func (c *ClientR4) SearchNutritionOrder(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.NutritionOrder], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "NutritionOrder", parameters, options)
 	if err != nil {
 		return search.Result[r4.NutritionOrder]{}, err
@@ -6444,7 +6438,7 @@ func (c *ClientR4) SearchNutritionOrder(ctx context.Context, parameters search.P
 
 // CreateObservation creates a new Observation resource.
 func (c *ClientR4) CreateObservation(ctx context.Context, resource r4.Observation) (r4.Observation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Observation{}, err
@@ -6458,7 +6452,7 @@ func (c *ClientR4) CreateObservation(ctx context.Context, resource r4.Observatio
 
 // ReadObservation retrieves a Observation resource by ID.
 func (c *ClientR4) ReadObservation(ctx context.Context, id string) (r4.Observation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Observation", id)
 	if err != nil {
 		return r4.Observation{}, err
@@ -6472,7 +6466,7 @@ func (c *ClientR4) ReadObservation(ctx context.Context, id string) (r4.Observati
 
 // UpdateObservation updates an existing Observation resource.
 func (c *ClientR4) UpdateObservation(ctx context.Context, resource r4.Observation) (update.Result[r4.Observation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Observation]{}, err
@@ -6486,13 +6480,13 @@ func (c *ClientR4) UpdateObservation(ctx context.Context, resource r4.Observatio
 
 // DeleteObservation deletes a Observation resource by ID.
 func (c *ClientR4) DeleteObservation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Observation", id)
 }
 
 // SearchObservation performs a search for Observation resources.
 func (c *ClientR4) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Observation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Observation", parameters, options)
 	if err != nil {
 		return search.Result[r4.Observation]{}, err
@@ -6511,7 +6505,7 @@ func (c *ClientR4) SearchObservation(ctx context.Context, parameters search.Para
 
 // CreateObservationDefinition creates a new ObservationDefinition resource.
 func (c *ClientR4) CreateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (r4.ObservationDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ObservationDefinition{}, err
@@ -6525,7 +6519,7 @@ func (c *ClientR4) CreateObservationDefinition(ctx context.Context, resource r4.
 
 // ReadObservationDefinition retrieves a ObservationDefinition resource by ID.
 func (c *ClientR4) ReadObservationDefinition(ctx context.Context, id string) (r4.ObservationDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ObservationDefinition", id)
 	if err != nil {
 		return r4.ObservationDefinition{}, err
@@ -6539,7 +6533,7 @@ func (c *ClientR4) ReadObservationDefinition(ctx context.Context, id string) (r4
 
 // UpdateObservationDefinition updates an existing ObservationDefinition resource.
 func (c *ClientR4) UpdateObservationDefinition(ctx context.Context, resource r4.ObservationDefinition) (update.Result[r4.ObservationDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ObservationDefinition]{}, err
@@ -6553,13 +6547,13 @@ func (c *ClientR4) UpdateObservationDefinition(ctx context.Context, resource r4.
 
 // DeleteObservationDefinition deletes a ObservationDefinition resource by ID.
 func (c *ClientR4) DeleteObservationDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ObservationDefinition", id)
 }
 
 // SearchObservationDefinition performs a search for ObservationDefinition resources.
 func (c *ClientR4) SearchObservationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ObservationDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ObservationDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.ObservationDefinition]{}, err
@@ -6578,7 +6572,7 @@ func (c *ClientR4) SearchObservationDefinition(ctx context.Context, parameters s
 
 // CreateOperationDefinition creates a new OperationDefinition resource.
 func (c *ClientR4) CreateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (r4.OperationDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.OperationDefinition{}, err
@@ -6592,7 +6586,7 @@ func (c *ClientR4) CreateOperationDefinition(ctx context.Context, resource r4.Op
 
 // ReadOperationDefinition retrieves a OperationDefinition resource by ID.
 func (c *ClientR4) ReadOperationDefinition(ctx context.Context, id string) (r4.OperationDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "OperationDefinition", id)
 	if err != nil {
 		return r4.OperationDefinition{}, err
@@ -6606,7 +6600,7 @@ func (c *ClientR4) ReadOperationDefinition(ctx context.Context, id string) (r4.O
 
 // UpdateOperationDefinition updates an existing OperationDefinition resource.
 func (c *ClientR4) UpdateOperationDefinition(ctx context.Context, resource r4.OperationDefinition) (update.Result[r4.OperationDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.OperationDefinition]{}, err
@@ -6620,13 +6614,13 @@ func (c *ClientR4) UpdateOperationDefinition(ctx context.Context, resource r4.Op
 
 // DeleteOperationDefinition deletes a OperationDefinition resource by ID.
 func (c *ClientR4) DeleteOperationDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "OperationDefinition", id)
 }
 
 // SearchOperationDefinition performs a search for OperationDefinition resources.
 func (c *ClientR4) SearchOperationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.OperationDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "OperationDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.OperationDefinition]{}, err
@@ -6645,7 +6639,7 @@ func (c *ClientR4) SearchOperationDefinition(ctx context.Context, parameters sea
 
 // CreateOperationOutcome creates a new OperationOutcome resource.
 func (c *ClientR4) CreateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (r4.OperationOutcome, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.OperationOutcome{}, err
@@ -6659,7 +6653,7 @@ func (c *ClientR4) CreateOperationOutcome(ctx context.Context, resource r4.Opera
 
 // ReadOperationOutcome retrieves a OperationOutcome resource by ID.
 func (c *ClientR4) ReadOperationOutcome(ctx context.Context, id string) (r4.OperationOutcome, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "OperationOutcome", id)
 	if err != nil {
 		return r4.OperationOutcome{}, err
@@ -6673,7 +6667,7 @@ func (c *ClientR4) ReadOperationOutcome(ctx context.Context, id string) (r4.Oper
 
 // UpdateOperationOutcome updates an existing OperationOutcome resource.
 func (c *ClientR4) UpdateOperationOutcome(ctx context.Context, resource r4.OperationOutcome) (update.Result[r4.OperationOutcome], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.OperationOutcome]{}, err
@@ -6687,13 +6681,13 @@ func (c *ClientR4) UpdateOperationOutcome(ctx context.Context, resource r4.Opera
 
 // DeleteOperationOutcome deletes a OperationOutcome resource by ID.
 func (c *ClientR4) DeleteOperationOutcome(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "OperationOutcome", id)
 }
 
 // SearchOperationOutcome performs a search for OperationOutcome resources.
 func (c *ClientR4) SearchOperationOutcome(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.OperationOutcome], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "OperationOutcome", parameters, options)
 	if err != nil {
 		return search.Result[r4.OperationOutcome]{}, err
@@ -6712,7 +6706,7 @@ func (c *ClientR4) SearchOperationOutcome(ctx context.Context, parameters search
 
 // CreateOrganization creates a new Organization resource.
 func (c *ClientR4) CreateOrganization(ctx context.Context, resource r4.Organization) (r4.Organization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Organization{}, err
@@ -6726,7 +6720,7 @@ func (c *ClientR4) CreateOrganization(ctx context.Context, resource r4.Organizat
 
 // ReadOrganization retrieves a Organization resource by ID.
 func (c *ClientR4) ReadOrganization(ctx context.Context, id string) (r4.Organization, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Organization", id)
 	if err != nil {
 		return r4.Organization{}, err
@@ -6740,7 +6734,7 @@ func (c *ClientR4) ReadOrganization(ctx context.Context, id string) (r4.Organiza
 
 // UpdateOrganization updates an existing Organization resource.
 func (c *ClientR4) UpdateOrganization(ctx context.Context, resource r4.Organization) (update.Result[r4.Organization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Organization]{}, err
@@ -6754,13 +6748,13 @@ func (c *ClientR4) UpdateOrganization(ctx context.Context, resource r4.Organizat
 
 // DeleteOrganization deletes a Organization resource by ID.
 func (c *ClientR4) DeleteOrganization(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Organization", id)
 }
 
 // SearchOrganization performs a search for Organization resources.
 func (c *ClientR4) SearchOrganization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Organization], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Organization", parameters, options)
 	if err != nil {
 		return search.Result[r4.Organization]{}, err
@@ -6779,7 +6773,7 @@ func (c *ClientR4) SearchOrganization(ctx context.Context, parameters search.Par
 
 // CreateOrganizationAffiliation creates a new OrganizationAffiliation resource.
 func (c *ClientR4) CreateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (r4.OrganizationAffiliation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.OrganizationAffiliation{}, err
@@ -6793,7 +6787,7 @@ func (c *ClientR4) CreateOrganizationAffiliation(ctx context.Context, resource r
 
 // ReadOrganizationAffiliation retrieves a OrganizationAffiliation resource by ID.
 func (c *ClientR4) ReadOrganizationAffiliation(ctx context.Context, id string) (r4.OrganizationAffiliation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "OrganizationAffiliation", id)
 	if err != nil {
 		return r4.OrganizationAffiliation{}, err
@@ -6807,7 +6801,7 @@ func (c *ClientR4) ReadOrganizationAffiliation(ctx context.Context, id string) (
 
 // UpdateOrganizationAffiliation updates an existing OrganizationAffiliation resource.
 func (c *ClientR4) UpdateOrganizationAffiliation(ctx context.Context, resource r4.OrganizationAffiliation) (update.Result[r4.OrganizationAffiliation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.OrganizationAffiliation]{}, err
@@ -6821,13 +6815,13 @@ func (c *ClientR4) UpdateOrganizationAffiliation(ctx context.Context, resource r
 
 // DeleteOrganizationAffiliation deletes a OrganizationAffiliation resource by ID.
 func (c *ClientR4) DeleteOrganizationAffiliation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "OrganizationAffiliation", id)
 }
 
 // SearchOrganizationAffiliation performs a search for OrganizationAffiliation resources.
 func (c *ClientR4) SearchOrganizationAffiliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.OrganizationAffiliation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "OrganizationAffiliation", parameters, options)
 	if err != nil {
 		return search.Result[r4.OrganizationAffiliation]{}, err
@@ -6846,7 +6840,7 @@ func (c *ClientR4) SearchOrganizationAffiliation(ctx context.Context, parameters
 
 // CreateParameters creates a new Parameters resource.
 func (c *ClientR4) CreateParameters(ctx context.Context, resource r4.Parameters) (r4.Parameters, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Parameters{}, err
@@ -6860,7 +6854,7 @@ func (c *ClientR4) CreateParameters(ctx context.Context, resource r4.Parameters)
 
 // ReadParameters retrieves a Parameters resource by ID.
 func (c *ClientR4) ReadParameters(ctx context.Context, id string) (r4.Parameters, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Parameters", id)
 	if err != nil {
 		return r4.Parameters{}, err
@@ -6874,7 +6868,7 @@ func (c *ClientR4) ReadParameters(ctx context.Context, id string) (r4.Parameters
 
 // UpdateParameters updates an existing Parameters resource.
 func (c *ClientR4) UpdateParameters(ctx context.Context, resource r4.Parameters) (update.Result[r4.Parameters], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Parameters]{}, err
@@ -6888,13 +6882,13 @@ func (c *ClientR4) UpdateParameters(ctx context.Context, resource r4.Parameters)
 
 // DeleteParameters deletes a Parameters resource by ID.
 func (c *ClientR4) DeleteParameters(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Parameters", id)
 }
 
 // SearchParameters performs a search for Parameters resources.
 func (c *ClientR4) SearchParameters(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Parameters], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Parameters", parameters, options)
 	if err != nil {
 		return search.Result[r4.Parameters]{}, err
@@ -6913,7 +6907,7 @@ func (c *ClientR4) SearchParameters(ctx context.Context, parameters search.Param
 
 // CreatePatient creates a new Patient resource.
 func (c *ClientR4) CreatePatient(ctx context.Context, resource r4.Patient) (r4.Patient, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Patient{}, err
@@ -6927,7 +6921,7 @@ func (c *ClientR4) CreatePatient(ctx context.Context, resource r4.Patient) (r4.P
 
 // ReadPatient retrieves a Patient resource by ID.
 func (c *ClientR4) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Patient", id)
 	if err != nil {
 		return r4.Patient{}, err
@@ -6941,7 +6935,7 @@ func (c *ClientR4) ReadPatient(ctx context.Context, id string) (r4.Patient, erro
 
 // UpdatePatient updates an existing Patient resource.
 func (c *ClientR4) UpdatePatient(ctx context.Context, resource r4.Patient) (update.Result[r4.Patient], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Patient]{}, err
@@ -6955,13 +6949,13 @@ func (c *ClientR4) UpdatePatient(ctx context.Context, resource r4.Patient) (upda
 
 // DeletePatient deletes a Patient resource by ID.
 func (c *ClientR4) DeletePatient(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Patient", id)
 }
 
 // SearchPatient performs a search for Patient resources.
 func (c *ClientR4) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Patient], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Patient", parameters, options)
 	if err != nil {
 		return search.Result[r4.Patient]{}, err
@@ -6980,7 +6974,7 @@ func (c *ClientR4) SearchPatient(ctx context.Context, parameters search.Paramete
 
 // CreatePaymentNotice creates a new PaymentNotice resource.
 func (c *ClientR4) CreatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (r4.PaymentNotice, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.PaymentNotice{}, err
@@ -6994,7 +6988,7 @@ func (c *ClientR4) CreatePaymentNotice(ctx context.Context, resource r4.PaymentN
 
 // ReadPaymentNotice retrieves a PaymentNotice resource by ID.
 func (c *ClientR4) ReadPaymentNotice(ctx context.Context, id string) (r4.PaymentNotice, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "PaymentNotice", id)
 	if err != nil {
 		return r4.PaymentNotice{}, err
@@ -7008,7 +7002,7 @@ func (c *ClientR4) ReadPaymentNotice(ctx context.Context, id string) (r4.Payment
 
 // UpdatePaymentNotice updates an existing PaymentNotice resource.
 func (c *ClientR4) UpdatePaymentNotice(ctx context.Context, resource r4.PaymentNotice) (update.Result[r4.PaymentNotice], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.PaymentNotice]{}, err
@@ -7022,13 +7016,13 @@ func (c *ClientR4) UpdatePaymentNotice(ctx context.Context, resource r4.PaymentN
 
 // DeletePaymentNotice deletes a PaymentNotice resource by ID.
 func (c *ClientR4) DeletePaymentNotice(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "PaymentNotice", id)
 }
 
 // SearchPaymentNotice performs a search for PaymentNotice resources.
 func (c *ClientR4) SearchPaymentNotice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.PaymentNotice], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "PaymentNotice", parameters, options)
 	if err != nil {
 		return search.Result[r4.PaymentNotice]{}, err
@@ -7047,7 +7041,7 @@ func (c *ClientR4) SearchPaymentNotice(ctx context.Context, parameters search.Pa
 
 // CreatePaymentReconciliation creates a new PaymentReconciliation resource.
 func (c *ClientR4) CreatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (r4.PaymentReconciliation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.PaymentReconciliation{}, err
@@ -7061,7 +7055,7 @@ func (c *ClientR4) CreatePaymentReconciliation(ctx context.Context, resource r4.
 
 // ReadPaymentReconciliation retrieves a PaymentReconciliation resource by ID.
 func (c *ClientR4) ReadPaymentReconciliation(ctx context.Context, id string) (r4.PaymentReconciliation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "PaymentReconciliation", id)
 	if err != nil {
 		return r4.PaymentReconciliation{}, err
@@ -7075,7 +7069,7 @@ func (c *ClientR4) ReadPaymentReconciliation(ctx context.Context, id string) (r4
 
 // UpdatePaymentReconciliation updates an existing PaymentReconciliation resource.
 func (c *ClientR4) UpdatePaymentReconciliation(ctx context.Context, resource r4.PaymentReconciliation) (update.Result[r4.PaymentReconciliation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.PaymentReconciliation]{}, err
@@ -7089,13 +7083,13 @@ func (c *ClientR4) UpdatePaymentReconciliation(ctx context.Context, resource r4.
 
 // DeletePaymentReconciliation deletes a PaymentReconciliation resource by ID.
 func (c *ClientR4) DeletePaymentReconciliation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "PaymentReconciliation", id)
 }
 
 // SearchPaymentReconciliation performs a search for PaymentReconciliation resources.
 func (c *ClientR4) SearchPaymentReconciliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.PaymentReconciliation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "PaymentReconciliation", parameters, options)
 	if err != nil {
 		return search.Result[r4.PaymentReconciliation]{}, err
@@ -7114,7 +7108,7 @@ func (c *ClientR4) SearchPaymentReconciliation(ctx context.Context, parameters s
 
 // CreatePerson creates a new Person resource.
 func (c *ClientR4) CreatePerson(ctx context.Context, resource r4.Person) (r4.Person, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Person{}, err
@@ -7128,7 +7122,7 @@ func (c *ClientR4) CreatePerson(ctx context.Context, resource r4.Person) (r4.Per
 
 // ReadPerson retrieves a Person resource by ID.
 func (c *ClientR4) ReadPerson(ctx context.Context, id string) (r4.Person, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Person", id)
 	if err != nil {
 		return r4.Person{}, err
@@ -7142,7 +7136,7 @@ func (c *ClientR4) ReadPerson(ctx context.Context, id string) (r4.Person, error)
 
 // UpdatePerson updates an existing Person resource.
 func (c *ClientR4) UpdatePerson(ctx context.Context, resource r4.Person) (update.Result[r4.Person], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Person]{}, err
@@ -7156,13 +7150,13 @@ func (c *ClientR4) UpdatePerson(ctx context.Context, resource r4.Person) (update
 
 // DeletePerson deletes a Person resource by ID.
 func (c *ClientR4) DeletePerson(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Person", id)
 }
 
 // SearchPerson performs a search for Person resources.
 func (c *ClientR4) SearchPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Person], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Person", parameters, options)
 	if err != nil {
 		return search.Result[r4.Person]{}, err
@@ -7181,7 +7175,7 @@ func (c *ClientR4) SearchPerson(ctx context.Context, parameters search.Parameter
 
 // CreatePlanDefinition creates a new PlanDefinition resource.
 func (c *ClientR4) CreatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (r4.PlanDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.PlanDefinition{}, err
@@ -7195,7 +7189,7 @@ func (c *ClientR4) CreatePlanDefinition(ctx context.Context, resource r4.PlanDef
 
 // ReadPlanDefinition retrieves a PlanDefinition resource by ID.
 func (c *ClientR4) ReadPlanDefinition(ctx context.Context, id string) (r4.PlanDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "PlanDefinition", id)
 	if err != nil {
 		return r4.PlanDefinition{}, err
@@ -7209,7 +7203,7 @@ func (c *ClientR4) ReadPlanDefinition(ctx context.Context, id string) (r4.PlanDe
 
 // UpdatePlanDefinition updates an existing PlanDefinition resource.
 func (c *ClientR4) UpdatePlanDefinition(ctx context.Context, resource r4.PlanDefinition) (update.Result[r4.PlanDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.PlanDefinition]{}, err
@@ -7223,13 +7217,13 @@ func (c *ClientR4) UpdatePlanDefinition(ctx context.Context, resource r4.PlanDef
 
 // DeletePlanDefinition deletes a PlanDefinition resource by ID.
 func (c *ClientR4) DeletePlanDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "PlanDefinition", id)
 }
 
 // SearchPlanDefinition performs a search for PlanDefinition resources.
 func (c *ClientR4) SearchPlanDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.PlanDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "PlanDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.PlanDefinition]{}, err
@@ -7248,7 +7242,7 @@ func (c *ClientR4) SearchPlanDefinition(ctx context.Context, parameters search.P
 
 // CreatePractitioner creates a new Practitioner resource.
 func (c *ClientR4) CreatePractitioner(ctx context.Context, resource r4.Practitioner) (r4.Practitioner, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Practitioner{}, err
@@ -7262,7 +7256,7 @@ func (c *ClientR4) CreatePractitioner(ctx context.Context, resource r4.Practitio
 
 // ReadPractitioner retrieves a Practitioner resource by ID.
 func (c *ClientR4) ReadPractitioner(ctx context.Context, id string) (r4.Practitioner, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Practitioner", id)
 	if err != nil {
 		return r4.Practitioner{}, err
@@ -7276,7 +7270,7 @@ func (c *ClientR4) ReadPractitioner(ctx context.Context, id string) (r4.Practiti
 
 // UpdatePractitioner updates an existing Practitioner resource.
 func (c *ClientR4) UpdatePractitioner(ctx context.Context, resource r4.Practitioner) (update.Result[r4.Practitioner], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Practitioner]{}, err
@@ -7290,13 +7284,13 @@ func (c *ClientR4) UpdatePractitioner(ctx context.Context, resource r4.Practitio
 
 // DeletePractitioner deletes a Practitioner resource by ID.
 func (c *ClientR4) DeletePractitioner(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Practitioner", id)
 }
 
 // SearchPractitioner performs a search for Practitioner resources.
 func (c *ClientR4) SearchPractitioner(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Practitioner], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Practitioner", parameters, options)
 	if err != nil {
 		return search.Result[r4.Practitioner]{}, err
@@ -7315,7 +7309,7 @@ func (c *ClientR4) SearchPractitioner(ctx context.Context, parameters search.Par
 
 // CreatePractitionerRole creates a new PractitionerRole resource.
 func (c *ClientR4) CreatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (r4.PractitionerRole, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.PractitionerRole{}, err
@@ -7329,7 +7323,7 @@ func (c *ClientR4) CreatePractitionerRole(ctx context.Context, resource r4.Pract
 
 // ReadPractitionerRole retrieves a PractitionerRole resource by ID.
 func (c *ClientR4) ReadPractitionerRole(ctx context.Context, id string) (r4.PractitionerRole, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "PractitionerRole", id)
 	if err != nil {
 		return r4.PractitionerRole{}, err
@@ -7343,7 +7337,7 @@ func (c *ClientR4) ReadPractitionerRole(ctx context.Context, id string) (r4.Prac
 
 // UpdatePractitionerRole updates an existing PractitionerRole resource.
 func (c *ClientR4) UpdatePractitionerRole(ctx context.Context, resource r4.PractitionerRole) (update.Result[r4.PractitionerRole], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.PractitionerRole]{}, err
@@ -7357,13 +7351,13 @@ func (c *ClientR4) UpdatePractitionerRole(ctx context.Context, resource r4.Pract
 
 // DeletePractitionerRole deletes a PractitionerRole resource by ID.
 func (c *ClientR4) DeletePractitionerRole(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "PractitionerRole", id)
 }
 
 // SearchPractitionerRole performs a search for PractitionerRole resources.
 func (c *ClientR4) SearchPractitionerRole(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.PractitionerRole], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "PractitionerRole", parameters, options)
 	if err != nil {
 		return search.Result[r4.PractitionerRole]{}, err
@@ -7382,7 +7376,7 @@ func (c *ClientR4) SearchPractitionerRole(ctx context.Context, parameters search
 
 // CreateProcedure creates a new Procedure resource.
 func (c *ClientR4) CreateProcedure(ctx context.Context, resource r4.Procedure) (r4.Procedure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Procedure{}, err
@@ -7396,7 +7390,7 @@ func (c *ClientR4) CreateProcedure(ctx context.Context, resource r4.Procedure) (
 
 // ReadProcedure retrieves a Procedure resource by ID.
 func (c *ClientR4) ReadProcedure(ctx context.Context, id string) (r4.Procedure, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Procedure", id)
 	if err != nil {
 		return r4.Procedure{}, err
@@ -7410,7 +7404,7 @@ func (c *ClientR4) ReadProcedure(ctx context.Context, id string) (r4.Procedure, 
 
 // UpdateProcedure updates an existing Procedure resource.
 func (c *ClientR4) UpdateProcedure(ctx context.Context, resource r4.Procedure) (update.Result[r4.Procedure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Procedure]{}, err
@@ -7424,13 +7418,13 @@ func (c *ClientR4) UpdateProcedure(ctx context.Context, resource r4.Procedure) (
 
 // DeleteProcedure deletes a Procedure resource by ID.
 func (c *ClientR4) DeleteProcedure(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Procedure", id)
 }
 
 // SearchProcedure performs a search for Procedure resources.
 func (c *ClientR4) SearchProcedure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Procedure], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Procedure", parameters, options)
 	if err != nil {
 		return search.Result[r4.Procedure]{}, err
@@ -7449,7 +7443,7 @@ func (c *ClientR4) SearchProcedure(ctx context.Context, parameters search.Parame
 
 // CreateProvenance creates a new Provenance resource.
 func (c *ClientR4) CreateProvenance(ctx context.Context, resource r4.Provenance) (r4.Provenance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Provenance{}, err
@@ -7463,7 +7457,7 @@ func (c *ClientR4) CreateProvenance(ctx context.Context, resource r4.Provenance)
 
 // ReadProvenance retrieves a Provenance resource by ID.
 func (c *ClientR4) ReadProvenance(ctx context.Context, id string) (r4.Provenance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Provenance", id)
 	if err != nil {
 		return r4.Provenance{}, err
@@ -7477,7 +7471,7 @@ func (c *ClientR4) ReadProvenance(ctx context.Context, id string) (r4.Provenance
 
 // UpdateProvenance updates an existing Provenance resource.
 func (c *ClientR4) UpdateProvenance(ctx context.Context, resource r4.Provenance) (update.Result[r4.Provenance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Provenance]{}, err
@@ -7491,13 +7485,13 @@ func (c *ClientR4) UpdateProvenance(ctx context.Context, resource r4.Provenance)
 
 // DeleteProvenance deletes a Provenance resource by ID.
 func (c *ClientR4) DeleteProvenance(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Provenance", id)
 }
 
 // SearchProvenance performs a search for Provenance resources.
 func (c *ClientR4) SearchProvenance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Provenance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Provenance", parameters, options)
 	if err != nil {
 		return search.Result[r4.Provenance]{}, err
@@ -7516,7 +7510,7 @@ func (c *ClientR4) SearchProvenance(ctx context.Context, parameters search.Param
 
 // CreateQuestionnaire creates a new Questionnaire resource.
 func (c *ClientR4) CreateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (r4.Questionnaire, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Questionnaire{}, err
@@ -7530,7 +7524,7 @@ func (c *ClientR4) CreateQuestionnaire(ctx context.Context, resource r4.Question
 
 // ReadQuestionnaire retrieves a Questionnaire resource by ID.
 func (c *ClientR4) ReadQuestionnaire(ctx context.Context, id string) (r4.Questionnaire, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Questionnaire", id)
 	if err != nil {
 		return r4.Questionnaire{}, err
@@ -7544,7 +7538,7 @@ func (c *ClientR4) ReadQuestionnaire(ctx context.Context, id string) (r4.Questio
 
 // UpdateQuestionnaire updates an existing Questionnaire resource.
 func (c *ClientR4) UpdateQuestionnaire(ctx context.Context, resource r4.Questionnaire) (update.Result[r4.Questionnaire], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Questionnaire]{}, err
@@ -7558,13 +7552,13 @@ func (c *ClientR4) UpdateQuestionnaire(ctx context.Context, resource r4.Question
 
 // DeleteQuestionnaire deletes a Questionnaire resource by ID.
 func (c *ClientR4) DeleteQuestionnaire(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Questionnaire", id)
 }
 
 // SearchQuestionnaire performs a search for Questionnaire resources.
 func (c *ClientR4) SearchQuestionnaire(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Questionnaire], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Questionnaire", parameters, options)
 	if err != nil {
 		return search.Result[r4.Questionnaire]{}, err
@@ -7583,7 +7577,7 @@ func (c *ClientR4) SearchQuestionnaire(ctx context.Context, parameters search.Pa
 
 // CreateQuestionnaireResponse creates a new QuestionnaireResponse resource.
 func (c *ClientR4) CreateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (r4.QuestionnaireResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.QuestionnaireResponse{}, err
@@ -7597,7 +7591,7 @@ func (c *ClientR4) CreateQuestionnaireResponse(ctx context.Context, resource r4.
 
 // ReadQuestionnaireResponse retrieves a QuestionnaireResponse resource by ID.
 func (c *ClientR4) ReadQuestionnaireResponse(ctx context.Context, id string) (r4.QuestionnaireResponse, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "QuestionnaireResponse", id)
 	if err != nil {
 		return r4.QuestionnaireResponse{}, err
@@ -7611,7 +7605,7 @@ func (c *ClientR4) ReadQuestionnaireResponse(ctx context.Context, id string) (r4
 
 // UpdateQuestionnaireResponse updates an existing QuestionnaireResponse resource.
 func (c *ClientR4) UpdateQuestionnaireResponse(ctx context.Context, resource r4.QuestionnaireResponse) (update.Result[r4.QuestionnaireResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.QuestionnaireResponse]{}, err
@@ -7625,13 +7619,13 @@ func (c *ClientR4) UpdateQuestionnaireResponse(ctx context.Context, resource r4.
 
 // DeleteQuestionnaireResponse deletes a QuestionnaireResponse resource by ID.
 func (c *ClientR4) DeleteQuestionnaireResponse(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "QuestionnaireResponse", id)
 }
 
 // SearchQuestionnaireResponse performs a search for QuestionnaireResponse resources.
 func (c *ClientR4) SearchQuestionnaireResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.QuestionnaireResponse], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "QuestionnaireResponse", parameters, options)
 	if err != nil {
 		return search.Result[r4.QuestionnaireResponse]{}, err
@@ -7650,7 +7644,7 @@ func (c *ClientR4) SearchQuestionnaireResponse(ctx context.Context, parameters s
 
 // CreateRelatedPerson creates a new RelatedPerson resource.
 func (c *ClientR4) CreateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (r4.RelatedPerson, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.RelatedPerson{}, err
@@ -7664,7 +7658,7 @@ func (c *ClientR4) CreateRelatedPerson(ctx context.Context, resource r4.RelatedP
 
 // ReadRelatedPerson retrieves a RelatedPerson resource by ID.
 func (c *ClientR4) ReadRelatedPerson(ctx context.Context, id string) (r4.RelatedPerson, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "RelatedPerson", id)
 	if err != nil {
 		return r4.RelatedPerson{}, err
@@ -7678,7 +7672,7 @@ func (c *ClientR4) ReadRelatedPerson(ctx context.Context, id string) (r4.Related
 
 // UpdateRelatedPerson updates an existing RelatedPerson resource.
 func (c *ClientR4) UpdateRelatedPerson(ctx context.Context, resource r4.RelatedPerson) (update.Result[r4.RelatedPerson], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.RelatedPerson]{}, err
@@ -7692,13 +7686,13 @@ func (c *ClientR4) UpdateRelatedPerson(ctx context.Context, resource r4.RelatedP
 
 // DeleteRelatedPerson deletes a RelatedPerson resource by ID.
 func (c *ClientR4) DeleteRelatedPerson(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "RelatedPerson", id)
 }
 
 // SearchRelatedPerson performs a search for RelatedPerson resources.
 func (c *ClientR4) SearchRelatedPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.RelatedPerson], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "RelatedPerson", parameters, options)
 	if err != nil {
 		return search.Result[r4.RelatedPerson]{}, err
@@ -7717,7 +7711,7 @@ func (c *ClientR4) SearchRelatedPerson(ctx context.Context, parameters search.Pa
 
 // CreateRequestGroup creates a new RequestGroup resource.
 func (c *ClientR4) CreateRequestGroup(ctx context.Context, resource r4.RequestGroup) (r4.RequestGroup, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.RequestGroup{}, err
@@ -7731,7 +7725,7 @@ func (c *ClientR4) CreateRequestGroup(ctx context.Context, resource r4.RequestGr
 
 // ReadRequestGroup retrieves a RequestGroup resource by ID.
 func (c *ClientR4) ReadRequestGroup(ctx context.Context, id string) (r4.RequestGroup, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "RequestGroup", id)
 	if err != nil {
 		return r4.RequestGroup{}, err
@@ -7745,7 +7739,7 @@ func (c *ClientR4) ReadRequestGroup(ctx context.Context, id string) (r4.RequestG
 
 // UpdateRequestGroup updates an existing RequestGroup resource.
 func (c *ClientR4) UpdateRequestGroup(ctx context.Context, resource r4.RequestGroup) (update.Result[r4.RequestGroup], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.RequestGroup]{}, err
@@ -7759,13 +7753,13 @@ func (c *ClientR4) UpdateRequestGroup(ctx context.Context, resource r4.RequestGr
 
 // DeleteRequestGroup deletes a RequestGroup resource by ID.
 func (c *ClientR4) DeleteRequestGroup(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "RequestGroup", id)
 }
 
 // SearchRequestGroup performs a search for RequestGroup resources.
 func (c *ClientR4) SearchRequestGroup(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.RequestGroup], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "RequestGroup", parameters, options)
 	if err != nil {
 		return search.Result[r4.RequestGroup]{}, err
@@ -7784,7 +7778,7 @@ func (c *ClientR4) SearchRequestGroup(ctx context.Context, parameters search.Par
 
 // CreateResearchDefinition creates a new ResearchDefinition resource.
 func (c *ClientR4) CreateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (r4.ResearchDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ResearchDefinition{}, err
@@ -7798,7 +7792,7 @@ func (c *ClientR4) CreateResearchDefinition(ctx context.Context, resource r4.Res
 
 // ReadResearchDefinition retrieves a ResearchDefinition resource by ID.
 func (c *ClientR4) ReadResearchDefinition(ctx context.Context, id string) (r4.ResearchDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ResearchDefinition", id)
 	if err != nil {
 		return r4.ResearchDefinition{}, err
@@ -7812,7 +7806,7 @@ func (c *ClientR4) ReadResearchDefinition(ctx context.Context, id string) (r4.Re
 
 // UpdateResearchDefinition updates an existing ResearchDefinition resource.
 func (c *ClientR4) UpdateResearchDefinition(ctx context.Context, resource r4.ResearchDefinition) (update.Result[r4.ResearchDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ResearchDefinition]{}, err
@@ -7826,13 +7820,13 @@ func (c *ClientR4) UpdateResearchDefinition(ctx context.Context, resource r4.Res
 
 // DeleteResearchDefinition deletes a ResearchDefinition resource by ID.
 func (c *ClientR4) DeleteResearchDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ResearchDefinition", id)
 }
 
 // SearchResearchDefinition performs a search for ResearchDefinition resources.
 func (c *ClientR4) SearchResearchDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ResearchDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ResearchDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.ResearchDefinition]{}, err
@@ -7851,7 +7845,7 @@ func (c *ClientR4) SearchResearchDefinition(ctx context.Context, parameters sear
 
 // CreateResearchElementDefinition creates a new ResearchElementDefinition resource.
 func (c *ClientR4) CreateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (r4.ResearchElementDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ResearchElementDefinition{}, err
@@ -7865,7 +7859,7 @@ func (c *ClientR4) CreateResearchElementDefinition(ctx context.Context, resource
 
 // ReadResearchElementDefinition retrieves a ResearchElementDefinition resource by ID.
 func (c *ClientR4) ReadResearchElementDefinition(ctx context.Context, id string) (r4.ResearchElementDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ResearchElementDefinition", id)
 	if err != nil {
 		return r4.ResearchElementDefinition{}, err
@@ -7879,7 +7873,7 @@ func (c *ClientR4) ReadResearchElementDefinition(ctx context.Context, id string)
 
 // UpdateResearchElementDefinition updates an existing ResearchElementDefinition resource.
 func (c *ClientR4) UpdateResearchElementDefinition(ctx context.Context, resource r4.ResearchElementDefinition) (update.Result[r4.ResearchElementDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ResearchElementDefinition]{}, err
@@ -7893,13 +7887,13 @@ func (c *ClientR4) UpdateResearchElementDefinition(ctx context.Context, resource
 
 // DeleteResearchElementDefinition deletes a ResearchElementDefinition resource by ID.
 func (c *ClientR4) DeleteResearchElementDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ResearchElementDefinition", id)
 }
 
 // SearchResearchElementDefinition performs a search for ResearchElementDefinition resources.
 func (c *ClientR4) SearchResearchElementDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ResearchElementDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ResearchElementDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.ResearchElementDefinition]{}, err
@@ -7918,7 +7912,7 @@ func (c *ClientR4) SearchResearchElementDefinition(ctx context.Context, paramete
 
 // CreateResearchStudy creates a new ResearchStudy resource.
 func (c *ClientR4) CreateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (r4.ResearchStudy, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ResearchStudy{}, err
@@ -7932,7 +7926,7 @@ func (c *ClientR4) CreateResearchStudy(ctx context.Context, resource r4.Research
 
 // ReadResearchStudy retrieves a ResearchStudy resource by ID.
 func (c *ClientR4) ReadResearchStudy(ctx context.Context, id string) (r4.ResearchStudy, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ResearchStudy", id)
 	if err != nil {
 		return r4.ResearchStudy{}, err
@@ -7946,7 +7940,7 @@ func (c *ClientR4) ReadResearchStudy(ctx context.Context, id string) (r4.Researc
 
 // UpdateResearchStudy updates an existing ResearchStudy resource.
 func (c *ClientR4) UpdateResearchStudy(ctx context.Context, resource r4.ResearchStudy) (update.Result[r4.ResearchStudy], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ResearchStudy]{}, err
@@ -7960,13 +7954,13 @@ func (c *ClientR4) UpdateResearchStudy(ctx context.Context, resource r4.Research
 
 // DeleteResearchStudy deletes a ResearchStudy resource by ID.
 func (c *ClientR4) DeleteResearchStudy(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ResearchStudy", id)
 }
 
 // SearchResearchStudy performs a search for ResearchStudy resources.
 func (c *ClientR4) SearchResearchStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ResearchStudy], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ResearchStudy", parameters, options)
 	if err != nil {
 		return search.Result[r4.ResearchStudy]{}, err
@@ -7985,7 +7979,7 @@ func (c *ClientR4) SearchResearchStudy(ctx context.Context, parameters search.Pa
 
 // CreateResearchSubject creates a new ResearchSubject resource.
 func (c *ClientR4) CreateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (r4.ResearchSubject, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ResearchSubject{}, err
@@ -7999,7 +7993,7 @@ func (c *ClientR4) CreateResearchSubject(ctx context.Context, resource r4.Resear
 
 // ReadResearchSubject retrieves a ResearchSubject resource by ID.
 func (c *ClientR4) ReadResearchSubject(ctx context.Context, id string) (r4.ResearchSubject, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ResearchSubject", id)
 	if err != nil {
 		return r4.ResearchSubject{}, err
@@ -8013,7 +8007,7 @@ func (c *ClientR4) ReadResearchSubject(ctx context.Context, id string) (r4.Resea
 
 // UpdateResearchSubject updates an existing ResearchSubject resource.
 func (c *ClientR4) UpdateResearchSubject(ctx context.Context, resource r4.ResearchSubject) (update.Result[r4.ResearchSubject], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ResearchSubject]{}, err
@@ -8027,13 +8021,13 @@ func (c *ClientR4) UpdateResearchSubject(ctx context.Context, resource r4.Resear
 
 // DeleteResearchSubject deletes a ResearchSubject resource by ID.
 func (c *ClientR4) DeleteResearchSubject(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ResearchSubject", id)
 }
 
 // SearchResearchSubject performs a search for ResearchSubject resources.
 func (c *ClientR4) SearchResearchSubject(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ResearchSubject], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ResearchSubject", parameters, options)
 	if err != nil {
 		return search.Result[r4.ResearchSubject]{}, err
@@ -8052,7 +8046,7 @@ func (c *ClientR4) SearchResearchSubject(ctx context.Context, parameters search.
 
 // CreateRiskAssessment creates a new RiskAssessment resource.
 func (c *ClientR4) CreateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (r4.RiskAssessment, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.RiskAssessment{}, err
@@ -8066,7 +8060,7 @@ func (c *ClientR4) CreateRiskAssessment(ctx context.Context, resource r4.RiskAss
 
 // ReadRiskAssessment retrieves a RiskAssessment resource by ID.
 func (c *ClientR4) ReadRiskAssessment(ctx context.Context, id string) (r4.RiskAssessment, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "RiskAssessment", id)
 	if err != nil {
 		return r4.RiskAssessment{}, err
@@ -8080,7 +8074,7 @@ func (c *ClientR4) ReadRiskAssessment(ctx context.Context, id string) (r4.RiskAs
 
 // UpdateRiskAssessment updates an existing RiskAssessment resource.
 func (c *ClientR4) UpdateRiskAssessment(ctx context.Context, resource r4.RiskAssessment) (update.Result[r4.RiskAssessment], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.RiskAssessment]{}, err
@@ -8094,13 +8088,13 @@ func (c *ClientR4) UpdateRiskAssessment(ctx context.Context, resource r4.RiskAss
 
 // DeleteRiskAssessment deletes a RiskAssessment resource by ID.
 func (c *ClientR4) DeleteRiskAssessment(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "RiskAssessment", id)
 }
 
 // SearchRiskAssessment performs a search for RiskAssessment resources.
 func (c *ClientR4) SearchRiskAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.RiskAssessment], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "RiskAssessment", parameters, options)
 	if err != nil {
 		return search.Result[r4.RiskAssessment]{}, err
@@ -8119,7 +8113,7 @@ func (c *ClientR4) SearchRiskAssessment(ctx context.Context, parameters search.P
 
 // CreateRiskEvidenceSynthesis creates a new RiskEvidenceSynthesis resource.
 func (c *ClientR4) CreateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (r4.RiskEvidenceSynthesis, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.RiskEvidenceSynthesis{}, err
@@ -8133,7 +8127,7 @@ func (c *ClientR4) CreateRiskEvidenceSynthesis(ctx context.Context, resource r4.
 
 // ReadRiskEvidenceSynthesis retrieves a RiskEvidenceSynthesis resource by ID.
 func (c *ClientR4) ReadRiskEvidenceSynthesis(ctx context.Context, id string) (r4.RiskEvidenceSynthesis, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "RiskEvidenceSynthesis", id)
 	if err != nil {
 		return r4.RiskEvidenceSynthesis{}, err
@@ -8147,7 +8141,7 @@ func (c *ClientR4) ReadRiskEvidenceSynthesis(ctx context.Context, id string) (r4
 
 // UpdateRiskEvidenceSynthesis updates an existing RiskEvidenceSynthesis resource.
 func (c *ClientR4) UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.RiskEvidenceSynthesis) (update.Result[r4.RiskEvidenceSynthesis], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.RiskEvidenceSynthesis]{}, err
@@ -8161,13 +8155,13 @@ func (c *ClientR4) UpdateRiskEvidenceSynthesis(ctx context.Context, resource r4.
 
 // DeleteRiskEvidenceSynthesis deletes a RiskEvidenceSynthesis resource by ID.
 func (c *ClientR4) DeleteRiskEvidenceSynthesis(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "RiskEvidenceSynthesis", id)
 }
 
 // SearchRiskEvidenceSynthesis performs a search for RiskEvidenceSynthesis resources.
 func (c *ClientR4) SearchRiskEvidenceSynthesis(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.RiskEvidenceSynthesis], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "RiskEvidenceSynthesis", parameters, options)
 	if err != nil {
 		return search.Result[r4.RiskEvidenceSynthesis]{}, err
@@ -8186,7 +8180,7 @@ func (c *ClientR4) SearchRiskEvidenceSynthesis(ctx context.Context, parameters s
 
 // CreateSchedule creates a new Schedule resource.
 func (c *ClientR4) CreateSchedule(ctx context.Context, resource r4.Schedule) (r4.Schedule, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Schedule{}, err
@@ -8200,7 +8194,7 @@ func (c *ClientR4) CreateSchedule(ctx context.Context, resource r4.Schedule) (r4
 
 // ReadSchedule retrieves a Schedule resource by ID.
 func (c *ClientR4) ReadSchedule(ctx context.Context, id string) (r4.Schedule, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Schedule", id)
 	if err != nil {
 		return r4.Schedule{}, err
@@ -8214,7 +8208,7 @@ func (c *ClientR4) ReadSchedule(ctx context.Context, id string) (r4.Schedule, er
 
 // UpdateSchedule updates an existing Schedule resource.
 func (c *ClientR4) UpdateSchedule(ctx context.Context, resource r4.Schedule) (update.Result[r4.Schedule], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Schedule]{}, err
@@ -8228,13 +8222,13 @@ func (c *ClientR4) UpdateSchedule(ctx context.Context, resource r4.Schedule) (up
 
 // DeleteSchedule deletes a Schedule resource by ID.
 func (c *ClientR4) DeleteSchedule(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Schedule", id)
 }
 
 // SearchSchedule performs a search for Schedule resources.
 func (c *ClientR4) SearchSchedule(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Schedule], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Schedule", parameters, options)
 	if err != nil {
 		return search.Result[r4.Schedule]{}, err
@@ -8253,7 +8247,7 @@ func (c *ClientR4) SearchSchedule(ctx context.Context, parameters search.Paramet
 
 // CreateSearchParameter creates a new SearchParameter resource.
 func (c *ClientR4) CreateSearchParameter(ctx context.Context, resource r4.SearchParameter) (r4.SearchParameter, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SearchParameter{}, err
@@ -8267,7 +8261,7 @@ func (c *ClientR4) CreateSearchParameter(ctx context.Context, resource r4.Search
 
 // ReadSearchParameter retrieves a SearchParameter resource by ID.
 func (c *ClientR4) ReadSearchParameter(ctx context.Context, id string) (r4.SearchParameter, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SearchParameter", id)
 	if err != nil {
 		return r4.SearchParameter{}, err
@@ -8281,7 +8275,7 @@ func (c *ClientR4) ReadSearchParameter(ctx context.Context, id string) (r4.Searc
 
 // UpdateSearchParameter updates an existing SearchParameter resource.
 func (c *ClientR4) UpdateSearchParameter(ctx context.Context, resource r4.SearchParameter) (update.Result[r4.SearchParameter], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SearchParameter]{}, err
@@ -8295,13 +8289,13 @@ func (c *ClientR4) UpdateSearchParameter(ctx context.Context, resource r4.Search
 
 // DeleteSearchParameter deletes a SearchParameter resource by ID.
 func (c *ClientR4) DeleteSearchParameter(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SearchParameter", id)
 }
 
 // SearchSearchParameter performs a search for SearchParameter resources.
 func (c *ClientR4) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SearchParameter], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SearchParameter", parameters, options)
 	if err != nil {
 		return search.Result[r4.SearchParameter]{}, err
@@ -8320,7 +8314,7 @@ func (c *ClientR4) SearchSearchParameter(ctx context.Context, parameters search.
 
 // CreateServiceRequest creates a new ServiceRequest resource.
 func (c *ClientR4) CreateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (r4.ServiceRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ServiceRequest{}, err
@@ -8334,7 +8328,7 @@ func (c *ClientR4) CreateServiceRequest(ctx context.Context, resource r4.Service
 
 // ReadServiceRequest retrieves a ServiceRequest resource by ID.
 func (c *ClientR4) ReadServiceRequest(ctx context.Context, id string) (r4.ServiceRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ServiceRequest", id)
 	if err != nil {
 		return r4.ServiceRequest{}, err
@@ -8348,7 +8342,7 @@ func (c *ClientR4) ReadServiceRequest(ctx context.Context, id string) (r4.Servic
 
 // UpdateServiceRequest updates an existing ServiceRequest resource.
 func (c *ClientR4) UpdateServiceRequest(ctx context.Context, resource r4.ServiceRequest) (update.Result[r4.ServiceRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ServiceRequest]{}, err
@@ -8362,13 +8356,13 @@ func (c *ClientR4) UpdateServiceRequest(ctx context.Context, resource r4.Service
 
 // DeleteServiceRequest deletes a ServiceRequest resource by ID.
 func (c *ClientR4) DeleteServiceRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ServiceRequest", id)
 }
 
 // SearchServiceRequest performs a search for ServiceRequest resources.
 func (c *ClientR4) SearchServiceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ServiceRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ServiceRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.ServiceRequest]{}, err
@@ -8387,7 +8381,7 @@ func (c *ClientR4) SearchServiceRequest(ctx context.Context, parameters search.P
 
 // CreateSlot creates a new Slot resource.
 func (c *ClientR4) CreateSlot(ctx context.Context, resource r4.Slot) (r4.Slot, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Slot{}, err
@@ -8401,7 +8395,7 @@ func (c *ClientR4) CreateSlot(ctx context.Context, resource r4.Slot) (r4.Slot, e
 
 // ReadSlot retrieves a Slot resource by ID.
 func (c *ClientR4) ReadSlot(ctx context.Context, id string) (r4.Slot, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Slot", id)
 	if err != nil {
 		return r4.Slot{}, err
@@ -8415,7 +8409,7 @@ func (c *ClientR4) ReadSlot(ctx context.Context, id string) (r4.Slot, error) {
 
 // UpdateSlot updates an existing Slot resource.
 func (c *ClientR4) UpdateSlot(ctx context.Context, resource r4.Slot) (update.Result[r4.Slot], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Slot]{}, err
@@ -8429,13 +8423,13 @@ func (c *ClientR4) UpdateSlot(ctx context.Context, resource r4.Slot) (update.Res
 
 // DeleteSlot deletes a Slot resource by ID.
 func (c *ClientR4) DeleteSlot(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Slot", id)
 }
 
 // SearchSlot performs a search for Slot resources.
 func (c *ClientR4) SearchSlot(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Slot], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Slot", parameters, options)
 	if err != nil {
 		return search.Result[r4.Slot]{}, err
@@ -8454,7 +8448,7 @@ func (c *ClientR4) SearchSlot(ctx context.Context, parameters search.Parameters,
 
 // CreateSpecimen creates a new Specimen resource.
 func (c *ClientR4) CreateSpecimen(ctx context.Context, resource r4.Specimen) (r4.Specimen, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Specimen{}, err
@@ -8468,7 +8462,7 @@ func (c *ClientR4) CreateSpecimen(ctx context.Context, resource r4.Specimen) (r4
 
 // ReadSpecimen retrieves a Specimen resource by ID.
 func (c *ClientR4) ReadSpecimen(ctx context.Context, id string) (r4.Specimen, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Specimen", id)
 	if err != nil {
 		return r4.Specimen{}, err
@@ -8482,7 +8476,7 @@ func (c *ClientR4) ReadSpecimen(ctx context.Context, id string) (r4.Specimen, er
 
 // UpdateSpecimen updates an existing Specimen resource.
 func (c *ClientR4) UpdateSpecimen(ctx context.Context, resource r4.Specimen) (update.Result[r4.Specimen], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Specimen]{}, err
@@ -8496,13 +8490,13 @@ func (c *ClientR4) UpdateSpecimen(ctx context.Context, resource r4.Specimen) (up
 
 // DeleteSpecimen deletes a Specimen resource by ID.
 func (c *ClientR4) DeleteSpecimen(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Specimen", id)
 }
 
 // SearchSpecimen performs a search for Specimen resources.
 func (c *ClientR4) SearchSpecimen(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Specimen], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Specimen", parameters, options)
 	if err != nil {
 		return search.Result[r4.Specimen]{}, err
@@ -8521,7 +8515,7 @@ func (c *ClientR4) SearchSpecimen(ctx context.Context, parameters search.Paramet
 
 // CreateSpecimenDefinition creates a new SpecimenDefinition resource.
 func (c *ClientR4) CreateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (r4.SpecimenDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SpecimenDefinition{}, err
@@ -8535,7 +8529,7 @@ func (c *ClientR4) CreateSpecimenDefinition(ctx context.Context, resource r4.Spe
 
 // ReadSpecimenDefinition retrieves a SpecimenDefinition resource by ID.
 func (c *ClientR4) ReadSpecimenDefinition(ctx context.Context, id string) (r4.SpecimenDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SpecimenDefinition", id)
 	if err != nil {
 		return r4.SpecimenDefinition{}, err
@@ -8549,7 +8543,7 @@ func (c *ClientR4) ReadSpecimenDefinition(ctx context.Context, id string) (r4.Sp
 
 // UpdateSpecimenDefinition updates an existing SpecimenDefinition resource.
 func (c *ClientR4) UpdateSpecimenDefinition(ctx context.Context, resource r4.SpecimenDefinition) (update.Result[r4.SpecimenDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SpecimenDefinition]{}, err
@@ -8563,13 +8557,13 @@ func (c *ClientR4) UpdateSpecimenDefinition(ctx context.Context, resource r4.Spe
 
 // DeleteSpecimenDefinition deletes a SpecimenDefinition resource by ID.
 func (c *ClientR4) DeleteSpecimenDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SpecimenDefinition", id)
 }
 
 // SearchSpecimenDefinition performs a search for SpecimenDefinition resources.
 func (c *ClientR4) SearchSpecimenDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SpecimenDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SpecimenDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.SpecimenDefinition]{}, err
@@ -8588,7 +8582,7 @@ func (c *ClientR4) SearchSpecimenDefinition(ctx context.Context, parameters sear
 
 // CreateStructureDefinition creates a new StructureDefinition resource.
 func (c *ClientR4) CreateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (r4.StructureDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.StructureDefinition{}, err
@@ -8602,7 +8596,7 @@ func (c *ClientR4) CreateStructureDefinition(ctx context.Context, resource r4.St
 
 // ReadStructureDefinition retrieves a StructureDefinition resource by ID.
 func (c *ClientR4) ReadStructureDefinition(ctx context.Context, id string) (r4.StructureDefinition, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "StructureDefinition", id)
 	if err != nil {
 		return r4.StructureDefinition{}, err
@@ -8616,7 +8610,7 @@ func (c *ClientR4) ReadStructureDefinition(ctx context.Context, id string) (r4.S
 
 // UpdateStructureDefinition updates an existing StructureDefinition resource.
 func (c *ClientR4) UpdateStructureDefinition(ctx context.Context, resource r4.StructureDefinition) (update.Result[r4.StructureDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.StructureDefinition]{}, err
@@ -8630,13 +8624,13 @@ func (c *ClientR4) UpdateStructureDefinition(ctx context.Context, resource r4.St
 
 // DeleteStructureDefinition deletes a StructureDefinition resource by ID.
 func (c *ClientR4) DeleteStructureDefinition(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "StructureDefinition", id)
 }
 
 // SearchStructureDefinition performs a search for StructureDefinition resources.
 func (c *ClientR4) SearchStructureDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.StructureDefinition], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "StructureDefinition", parameters, options)
 	if err != nil {
 		return search.Result[r4.StructureDefinition]{}, err
@@ -8655,7 +8649,7 @@ func (c *ClientR4) SearchStructureDefinition(ctx context.Context, parameters sea
 
 // CreateStructureMap creates a new StructureMap resource.
 func (c *ClientR4) CreateStructureMap(ctx context.Context, resource r4.StructureMap) (r4.StructureMap, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.StructureMap{}, err
@@ -8669,7 +8663,7 @@ func (c *ClientR4) CreateStructureMap(ctx context.Context, resource r4.Structure
 
 // ReadStructureMap retrieves a StructureMap resource by ID.
 func (c *ClientR4) ReadStructureMap(ctx context.Context, id string) (r4.StructureMap, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "StructureMap", id)
 	if err != nil {
 		return r4.StructureMap{}, err
@@ -8683,7 +8677,7 @@ func (c *ClientR4) ReadStructureMap(ctx context.Context, id string) (r4.Structur
 
 // UpdateStructureMap updates an existing StructureMap resource.
 func (c *ClientR4) UpdateStructureMap(ctx context.Context, resource r4.StructureMap) (update.Result[r4.StructureMap], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.StructureMap]{}, err
@@ -8697,13 +8691,13 @@ func (c *ClientR4) UpdateStructureMap(ctx context.Context, resource r4.Structure
 
 // DeleteStructureMap deletes a StructureMap resource by ID.
 func (c *ClientR4) DeleteStructureMap(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "StructureMap", id)
 }
 
 // SearchStructureMap performs a search for StructureMap resources.
 func (c *ClientR4) SearchStructureMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.StructureMap], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "StructureMap", parameters, options)
 	if err != nil {
 		return search.Result[r4.StructureMap]{}, err
@@ -8722,7 +8716,7 @@ func (c *ClientR4) SearchStructureMap(ctx context.Context, parameters search.Par
 
 // CreateSubscription creates a new Subscription resource.
 func (c *ClientR4) CreateSubscription(ctx context.Context, resource r4.Subscription) (r4.Subscription, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Subscription{}, err
@@ -8736,7 +8730,7 @@ func (c *ClientR4) CreateSubscription(ctx context.Context, resource r4.Subscript
 
 // ReadSubscription retrieves a Subscription resource by ID.
 func (c *ClientR4) ReadSubscription(ctx context.Context, id string) (r4.Subscription, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Subscription", id)
 	if err != nil {
 		return r4.Subscription{}, err
@@ -8750,7 +8744,7 @@ func (c *ClientR4) ReadSubscription(ctx context.Context, id string) (r4.Subscrip
 
 // UpdateSubscription updates an existing Subscription resource.
 func (c *ClientR4) UpdateSubscription(ctx context.Context, resource r4.Subscription) (update.Result[r4.Subscription], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Subscription]{}, err
@@ -8764,13 +8758,13 @@ func (c *ClientR4) UpdateSubscription(ctx context.Context, resource r4.Subscript
 
 // DeleteSubscription deletes a Subscription resource by ID.
 func (c *ClientR4) DeleteSubscription(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Subscription", id)
 }
 
 // SearchSubscription performs a search for Subscription resources.
 func (c *ClientR4) SearchSubscription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Subscription], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Subscription", parameters, options)
 	if err != nil {
 		return search.Result[r4.Subscription]{}, err
@@ -8789,7 +8783,7 @@ func (c *ClientR4) SearchSubscription(ctx context.Context, parameters search.Par
 
 // CreateSubstance creates a new Substance resource.
 func (c *ClientR4) CreateSubstance(ctx context.Context, resource r4.Substance) (r4.Substance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Substance{}, err
@@ -8803,7 +8797,7 @@ func (c *ClientR4) CreateSubstance(ctx context.Context, resource r4.Substance) (
 
 // ReadSubstance retrieves a Substance resource by ID.
 func (c *ClientR4) ReadSubstance(ctx context.Context, id string) (r4.Substance, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Substance", id)
 	if err != nil {
 		return r4.Substance{}, err
@@ -8817,7 +8811,7 @@ func (c *ClientR4) ReadSubstance(ctx context.Context, id string) (r4.Substance, 
 
 // UpdateSubstance updates an existing Substance resource.
 func (c *ClientR4) UpdateSubstance(ctx context.Context, resource r4.Substance) (update.Result[r4.Substance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Substance]{}, err
@@ -8831,13 +8825,13 @@ func (c *ClientR4) UpdateSubstance(ctx context.Context, resource r4.Substance) (
 
 // DeleteSubstance deletes a Substance resource by ID.
 func (c *ClientR4) DeleteSubstance(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Substance", id)
 }
 
 // SearchSubstance performs a search for Substance resources.
 func (c *ClientR4) SearchSubstance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Substance], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Substance", parameters, options)
 	if err != nil {
 		return search.Result[r4.Substance]{}, err
@@ -8856,7 +8850,7 @@ func (c *ClientR4) SearchSubstance(ctx context.Context, parameters search.Parame
 
 // CreateSubstanceNucleicAcid creates a new SubstanceNucleicAcid resource.
 func (c *ClientR4) CreateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (r4.SubstanceNucleicAcid, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstanceNucleicAcid{}, err
@@ -8870,7 +8864,7 @@ func (c *ClientR4) CreateSubstanceNucleicAcid(ctx context.Context, resource r4.S
 
 // ReadSubstanceNucleicAcid retrieves a SubstanceNucleicAcid resource by ID.
 func (c *ClientR4) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r4.SubstanceNucleicAcid, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstanceNucleicAcid", id)
 	if err != nil {
 		return r4.SubstanceNucleicAcid{}, err
@@ -8884,7 +8878,7 @@ func (c *ClientR4) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r4.
 
 // UpdateSubstanceNucleicAcid updates an existing SubstanceNucleicAcid resource.
 func (c *ClientR4) UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.SubstanceNucleicAcid) (update.Result[r4.SubstanceNucleicAcid], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstanceNucleicAcid]{}, err
@@ -8898,13 +8892,13 @@ func (c *ClientR4) UpdateSubstanceNucleicAcid(ctx context.Context, resource r4.S
 
 // DeleteSubstanceNucleicAcid deletes a SubstanceNucleicAcid resource by ID.
 func (c *ClientR4) DeleteSubstanceNucleicAcid(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstanceNucleicAcid", id)
 }
 
 // SearchSubstanceNucleicAcid performs a search for SubstanceNucleicAcid resources.
 func (c *ClientR4) SearchSubstanceNucleicAcid(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstanceNucleicAcid], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstanceNucleicAcid", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstanceNucleicAcid]{}, err
@@ -8923,7 +8917,7 @@ func (c *ClientR4) SearchSubstanceNucleicAcid(ctx context.Context, parameters se
 
 // CreateSubstancePolymer creates a new SubstancePolymer resource.
 func (c *ClientR4) CreateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (r4.SubstancePolymer, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstancePolymer{}, err
@@ -8937,7 +8931,7 @@ func (c *ClientR4) CreateSubstancePolymer(ctx context.Context, resource r4.Subst
 
 // ReadSubstancePolymer retrieves a SubstancePolymer resource by ID.
 func (c *ClientR4) ReadSubstancePolymer(ctx context.Context, id string) (r4.SubstancePolymer, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstancePolymer", id)
 	if err != nil {
 		return r4.SubstancePolymer{}, err
@@ -8951,7 +8945,7 @@ func (c *ClientR4) ReadSubstancePolymer(ctx context.Context, id string) (r4.Subs
 
 // UpdateSubstancePolymer updates an existing SubstancePolymer resource.
 func (c *ClientR4) UpdateSubstancePolymer(ctx context.Context, resource r4.SubstancePolymer) (update.Result[r4.SubstancePolymer], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstancePolymer]{}, err
@@ -8965,13 +8959,13 @@ func (c *ClientR4) UpdateSubstancePolymer(ctx context.Context, resource r4.Subst
 
 // DeleteSubstancePolymer deletes a SubstancePolymer resource by ID.
 func (c *ClientR4) DeleteSubstancePolymer(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstancePolymer", id)
 }
 
 // SearchSubstancePolymer performs a search for SubstancePolymer resources.
 func (c *ClientR4) SearchSubstancePolymer(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstancePolymer], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstancePolymer", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstancePolymer]{}, err
@@ -8990,7 +8984,7 @@ func (c *ClientR4) SearchSubstancePolymer(ctx context.Context, parameters search
 
 // CreateSubstanceProtein creates a new SubstanceProtein resource.
 func (c *ClientR4) CreateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (r4.SubstanceProtein, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstanceProtein{}, err
@@ -9004,7 +8998,7 @@ func (c *ClientR4) CreateSubstanceProtein(ctx context.Context, resource r4.Subst
 
 // ReadSubstanceProtein retrieves a SubstanceProtein resource by ID.
 func (c *ClientR4) ReadSubstanceProtein(ctx context.Context, id string) (r4.SubstanceProtein, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstanceProtein", id)
 	if err != nil {
 		return r4.SubstanceProtein{}, err
@@ -9018,7 +9012,7 @@ func (c *ClientR4) ReadSubstanceProtein(ctx context.Context, id string) (r4.Subs
 
 // UpdateSubstanceProtein updates an existing SubstanceProtein resource.
 func (c *ClientR4) UpdateSubstanceProtein(ctx context.Context, resource r4.SubstanceProtein) (update.Result[r4.SubstanceProtein], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstanceProtein]{}, err
@@ -9032,13 +9026,13 @@ func (c *ClientR4) UpdateSubstanceProtein(ctx context.Context, resource r4.Subst
 
 // DeleteSubstanceProtein deletes a SubstanceProtein resource by ID.
 func (c *ClientR4) DeleteSubstanceProtein(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstanceProtein", id)
 }
 
 // SearchSubstanceProtein performs a search for SubstanceProtein resources.
 func (c *ClientR4) SearchSubstanceProtein(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstanceProtein], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstanceProtein", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstanceProtein]{}, err
@@ -9057,7 +9051,7 @@ func (c *ClientR4) SearchSubstanceProtein(ctx context.Context, parameters search
 
 // CreateSubstanceReferenceInformation creates a new SubstanceReferenceInformation resource.
 func (c *ClientR4) CreateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (r4.SubstanceReferenceInformation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstanceReferenceInformation{}, err
@@ -9071,7 +9065,7 @@ func (c *ClientR4) CreateSubstanceReferenceInformation(ctx context.Context, reso
 
 // ReadSubstanceReferenceInformation retrieves a SubstanceReferenceInformation resource by ID.
 func (c *ClientR4) ReadSubstanceReferenceInformation(ctx context.Context, id string) (r4.SubstanceReferenceInformation, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstanceReferenceInformation", id)
 	if err != nil {
 		return r4.SubstanceReferenceInformation{}, err
@@ -9085,7 +9079,7 @@ func (c *ClientR4) ReadSubstanceReferenceInformation(ctx context.Context, id str
 
 // UpdateSubstanceReferenceInformation updates an existing SubstanceReferenceInformation resource.
 func (c *ClientR4) UpdateSubstanceReferenceInformation(ctx context.Context, resource r4.SubstanceReferenceInformation) (update.Result[r4.SubstanceReferenceInformation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstanceReferenceInformation]{}, err
@@ -9099,13 +9093,13 @@ func (c *ClientR4) UpdateSubstanceReferenceInformation(ctx context.Context, reso
 
 // DeleteSubstanceReferenceInformation deletes a SubstanceReferenceInformation resource by ID.
 func (c *ClientR4) DeleteSubstanceReferenceInformation(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstanceReferenceInformation", id)
 }
 
 // SearchSubstanceReferenceInformation performs a search for SubstanceReferenceInformation resources.
 func (c *ClientR4) SearchSubstanceReferenceInformation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstanceReferenceInformation], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstanceReferenceInformation", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstanceReferenceInformation]{}, err
@@ -9124,7 +9118,7 @@ func (c *ClientR4) SearchSubstanceReferenceInformation(ctx context.Context, para
 
 // CreateSubstanceSourceMaterial creates a new SubstanceSourceMaterial resource.
 func (c *ClientR4) CreateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (r4.SubstanceSourceMaterial, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstanceSourceMaterial{}, err
@@ -9138,7 +9132,7 @@ func (c *ClientR4) CreateSubstanceSourceMaterial(ctx context.Context, resource r
 
 // ReadSubstanceSourceMaterial retrieves a SubstanceSourceMaterial resource by ID.
 func (c *ClientR4) ReadSubstanceSourceMaterial(ctx context.Context, id string) (r4.SubstanceSourceMaterial, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstanceSourceMaterial", id)
 	if err != nil {
 		return r4.SubstanceSourceMaterial{}, err
@@ -9152,7 +9146,7 @@ func (c *ClientR4) ReadSubstanceSourceMaterial(ctx context.Context, id string) (
 
 // UpdateSubstanceSourceMaterial updates an existing SubstanceSourceMaterial resource.
 func (c *ClientR4) UpdateSubstanceSourceMaterial(ctx context.Context, resource r4.SubstanceSourceMaterial) (update.Result[r4.SubstanceSourceMaterial], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstanceSourceMaterial]{}, err
@@ -9166,13 +9160,13 @@ func (c *ClientR4) UpdateSubstanceSourceMaterial(ctx context.Context, resource r
 
 // DeleteSubstanceSourceMaterial deletes a SubstanceSourceMaterial resource by ID.
 func (c *ClientR4) DeleteSubstanceSourceMaterial(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstanceSourceMaterial", id)
 }
 
 // SearchSubstanceSourceMaterial performs a search for SubstanceSourceMaterial resources.
 func (c *ClientR4) SearchSubstanceSourceMaterial(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstanceSourceMaterial], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstanceSourceMaterial", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstanceSourceMaterial]{}, err
@@ -9191,7 +9185,7 @@ func (c *ClientR4) SearchSubstanceSourceMaterial(ctx context.Context, parameters
 
 // CreateSubstanceSpecification creates a new SubstanceSpecification resource.
 func (c *ClientR4) CreateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (r4.SubstanceSpecification, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SubstanceSpecification{}, err
@@ -9205,7 +9199,7 @@ func (c *ClientR4) CreateSubstanceSpecification(ctx context.Context, resource r4
 
 // ReadSubstanceSpecification retrieves a SubstanceSpecification resource by ID.
 func (c *ClientR4) ReadSubstanceSpecification(ctx context.Context, id string) (r4.SubstanceSpecification, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SubstanceSpecification", id)
 	if err != nil {
 		return r4.SubstanceSpecification{}, err
@@ -9219,7 +9213,7 @@ func (c *ClientR4) ReadSubstanceSpecification(ctx context.Context, id string) (r
 
 // UpdateSubstanceSpecification updates an existing SubstanceSpecification resource.
 func (c *ClientR4) UpdateSubstanceSpecification(ctx context.Context, resource r4.SubstanceSpecification) (update.Result[r4.SubstanceSpecification], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SubstanceSpecification]{}, err
@@ -9233,13 +9227,13 @@ func (c *ClientR4) UpdateSubstanceSpecification(ctx context.Context, resource r4
 
 // DeleteSubstanceSpecification deletes a SubstanceSpecification resource by ID.
 func (c *ClientR4) DeleteSubstanceSpecification(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SubstanceSpecification", id)
 }
 
 // SearchSubstanceSpecification performs a search for SubstanceSpecification resources.
 func (c *ClientR4) SearchSubstanceSpecification(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SubstanceSpecification], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SubstanceSpecification", parameters, options)
 	if err != nil {
 		return search.Result[r4.SubstanceSpecification]{}, err
@@ -9258,7 +9252,7 @@ func (c *ClientR4) SearchSubstanceSpecification(ctx context.Context, parameters 
 
 // CreateSupplyDelivery creates a new SupplyDelivery resource.
 func (c *ClientR4) CreateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (r4.SupplyDelivery, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SupplyDelivery{}, err
@@ -9272,7 +9266,7 @@ func (c *ClientR4) CreateSupplyDelivery(ctx context.Context, resource r4.SupplyD
 
 // ReadSupplyDelivery retrieves a SupplyDelivery resource by ID.
 func (c *ClientR4) ReadSupplyDelivery(ctx context.Context, id string) (r4.SupplyDelivery, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SupplyDelivery", id)
 	if err != nil {
 		return r4.SupplyDelivery{}, err
@@ -9286,7 +9280,7 @@ func (c *ClientR4) ReadSupplyDelivery(ctx context.Context, id string) (r4.Supply
 
 // UpdateSupplyDelivery updates an existing SupplyDelivery resource.
 func (c *ClientR4) UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyDelivery) (update.Result[r4.SupplyDelivery], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SupplyDelivery]{}, err
@@ -9300,13 +9294,13 @@ func (c *ClientR4) UpdateSupplyDelivery(ctx context.Context, resource r4.SupplyD
 
 // DeleteSupplyDelivery deletes a SupplyDelivery resource by ID.
 func (c *ClientR4) DeleteSupplyDelivery(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SupplyDelivery", id)
 }
 
 // SearchSupplyDelivery performs a search for SupplyDelivery resources.
 func (c *ClientR4) SearchSupplyDelivery(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SupplyDelivery], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SupplyDelivery", parameters, options)
 	if err != nil {
 		return search.Result[r4.SupplyDelivery]{}, err
@@ -9325,7 +9319,7 @@ func (c *ClientR4) SearchSupplyDelivery(ctx context.Context, parameters search.P
 
 // CreateSupplyRequest creates a new SupplyRequest resource.
 func (c *ClientR4) CreateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (r4.SupplyRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.SupplyRequest{}, err
@@ -9339,7 +9333,7 @@ func (c *ClientR4) CreateSupplyRequest(ctx context.Context, resource r4.SupplyRe
 
 // ReadSupplyRequest retrieves a SupplyRequest resource by ID.
 func (c *ClientR4) ReadSupplyRequest(ctx context.Context, id string) (r4.SupplyRequest, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "SupplyRequest", id)
 	if err != nil {
 		return r4.SupplyRequest{}, err
@@ -9353,7 +9347,7 @@ func (c *ClientR4) ReadSupplyRequest(ctx context.Context, id string) (r4.SupplyR
 
 // UpdateSupplyRequest updates an existing SupplyRequest resource.
 func (c *ClientR4) UpdateSupplyRequest(ctx context.Context, resource r4.SupplyRequest) (update.Result[r4.SupplyRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.SupplyRequest]{}, err
@@ -9367,13 +9361,13 @@ func (c *ClientR4) UpdateSupplyRequest(ctx context.Context, resource r4.SupplyRe
 
 // DeleteSupplyRequest deletes a SupplyRequest resource by ID.
 func (c *ClientR4) DeleteSupplyRequest(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "SupplyRequest", id)
 }
 
 // SearchSupplyRequest performs a search for SupplyRequest resources.
 func (c *ClientR4) SearchSupplyRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SupplyRequest], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "SupplyRequest", parameters, options)
 	if err != nil {
 		return search.Result[r4.SupplyRequest]{}, err
@@ -9392,7 +9386,7 @@ func (c *ClientR4) SearchSupplyRequest(ctx context.Context, parameters search.Pa
 
 // CreateTask creates a new Task resource.
 func (c *ClientR4) CreateTask(ctx context.Context, resource r4.Task) (r4.Task, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.Task{}, err
@@ -9406,7 +9400,7 @@ func (c *ClientR4) CreateTask(ctx context.Context, resource r4.Task) (r4.Task, e
 
 // ReadTask retrieves a Task resource by ID.
 func (c *ClientR4) ReadTask(ctx context.Context, id string) (r4.Task, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "Task", id)
 	if err != nil {
 		return r4.Task{}, err
@@ -9420,7 +9414,7 @@ func (c *ClientR4) ReadTask(ctx context.Context, id string) (r4.Task, error) {
 
 // UpdateTask updates an existing Task resource.
 func (c *ClientR4) UpdateTask(ctx context.Context, resource r4.Task) (update.Result[r4.Task], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.Task]{}, err
@@ -9434,13 +9428,13 @@ func (c *ClientR4) UpdateTask(ctx context.Context, resource r4.Task) (update.Res
 
 // DeleteTask deletes a Task resource by ID.
 func (c *ClientR4) DeleteTask(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "Task", id)
 }
 
 // SearchTask performs a search for Task resources.
 func (c *ClientR4) SearchTask(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Task], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "Task", parameters, options)
 	if err != nil {
 		return search.Result[r4.Task]{}, err
@@ -9459,7 +9453,7 @@ func (c *ClientR4) SearchTask(ctx context.Context, parameters search.Parameters,
 
 // CreateTerminologyCapabilities creates a new TerminologyCapabilities resource.
 func (c *ClientR4) CreateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (r4.TerminologyCapabilities, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.TerminologyCapabilities{}, err
@@ -9473,7 +9467,7 @@ func (c *ClientR4) CreateTerminologyCapabilities(ctx context.Context, resource r
 
 // ReadTerminologyCapabilities retrieves a TerminologyCapabilities resource by ID.
 func (c *ClientR4) ReadTerminologyCapabilities(ctx context.Context, id string) (r4.TerminologyCapabilities, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "TerminologyCapabilities", id)
 	if err != nil {
 		return r4.TerminologyCapabilities{}, err
@@ -9487,7 +9481,7 @@ func (c *ClientR4) ReadTerminologyCapabilities(ctx context.Context, id string) (
 
 // UpdateTerminologyCapabilities updates an existing TerminologyCapabilities resource.
 func (c *ClientR4) UpdateTerminologyCapabilities(ctx context.Context, resource r4.TerminologyCapabilities) (update.Result[r4.TerminologyCapabilities], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.TerminologyCapabilities]{}, err
@@ -9501,13 +9495,13 @@ func (c *ClientR4) UpdateTerminologyCapabilities(ctx context.Context, resource r
 
 // DeleteTerminologyCapabilities deletes a TerminologyCapabilities resource by ID.
 func (c *ClientR4) DeleteTerminologyCapabilities(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "TerminologyCapabilities", id)
 }
 
 // SearchTerminologyCapabilities performs a search for TerminologyCapabilities resources.
 func (c *ClientR4) SearchTerminologyCapabilities(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.TerminologyCapabilities], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "TerminologyCapabilities", parameters, options)
 	if err != nil {
 		return search.Result[r4.TerminologyCapabilities]{}, err
@@ -9526,7 +9520,7 @@ func (c *ClientR4) SearchTerminologyCapabilities(ctx context.Context, parameters
 
 // CreateTestReport creates a new TestReport resource.
 func (c *ClientR4) CreateTestReport(ctx context.Context, resource r4.TestReport) (r4.TestReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.TestReport{}, err
@@ -9540,7 +9534,7 @@ func (c *ClientR4) CreateTestReport(ctx context.Context, resource r4.TestReport)
 
 // ReadTestReport retrieves a TestReport resource by ID.
 func (c *ClientR4) ReadTestReport(ctx context.Context, id string) (r4.TestReport, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "TestReport", id)
 	if err != nil {
 		return r4.TestReport{}, err
@@ -9554,7 +9548,7 @@ func (c *ClientR4) ReadTestReport(ctx context.Context, id string) (r4.TestReport
 
 // UpdateTestReport updates an existing TestReport resource.
 func (c *ClientR4) UpdateTestReport(ctx context.Context, resource r4.TestReport) (update.Result[r4.TestReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.TestReport]{}, err
@@ -9568,13 +9562,13 @@ func (c *ClientR4) UpdateTestReport(ctx context.Context, resource r4.TestReport)
 
 // DeleteTestReport deletes a TestReport resource by ID.
 func (c *ClientR4) DeleteTestReport(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "TestReport", id)
 }
 
 // SearchTestReport performs a search for TestReport resources.
 func (c *ClientR4) SearchTestReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.TestReport], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "TestReport", parameters, options)
 	if err != nil {
 		return search.Result[r4.TestReport]{}, err
@@ -9593,7 +9587,7 @@ func (c *ClientR4) SearchTestReport(ctx context.Context, parameters search.Param
 
 // CreateTestScript creates a new TestScript resource.
 func (c *ClientR4) CreateTestScript(ctx context.Context, resource r4.TestScript) (r4.TestScript, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.TestScript{}, err
@@ -9607,7 +9601,7 @@ func (c *ClientR4) CreateTestScript(ctx context.Context, resource r4.TestScript)
 
 // ReadTestScript retrieves a TestScript resource by ID.
 func (c *ClientR4) ReadTestScript(ctx context.Context, id string) (r4.TestScript, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "TestScript", id)
 	if err != nil {
 		return r4.TestScript{}, err
@@ -9621,7 +9615,7 @@ func (c *ClientR4) ReadTestScript(ctx context.Context, id string) (r4.TestScript
 
 // UpdateTestScript updates an existing TestScript resource.
 func (c *ClientR4) UpdateTestScript(ctx context.Context, resource r4.TestScript) (update.Result[r4.TestScript], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.TestScript]{}, err
@@ -9635,13 +9629,13 @@ func (c *ClientR4) UpdateTestScript(ctx context.Context, resource r4.TestScript)
 
 // DeleteTestScript deletes a TestScript resource by ID.
 func (c *ClientR4) DeleteTestScript(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "TestScript", id)
 }
 
 // SearchTestScript performs a search for TestScript resources.
 func (c *ClientR4) SearchTestScript(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.TestScript], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "TestScript", parameters, options)
 	if err != nil {
 		return search.Result[r4.TestScript]{}, err
@@ -9660,7 +9654,7 @@ func (c *ClientR4) SearchTestScript(ctx context.Context, parameters search.Param
 
 // CreateValueSet creates a new ValueSet resource.
 func (c *ClientR4) CreateValueSet(ctx context.Context, resource r4.ValueSet) (r4.ValueSet, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.ValueSet{}, err
@@ -9674,7 +9668,7 @@ func (c *ClientR4) CreateValueSet(ctx context.Context, resource r4.ValueSet) (r4
 
 // ReadValueSet retrieves a ValueSet resource by ID.
 func (c *ClientR4) ReadValueSet(ctx context.Context, id string) (r4.ValueSet, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "ValueSet", id)
 	if err != nil {
 		return r4.ValueSet{}, err
@@ -9688,7 +9682,7 @@ func (c *ClientR4) ReadValueSet(ctx context.Context, id string) (r4.ValueSet, er
 
 // UpdateValueSet updates an existing ValueSet resource.
 func (c *ClientR4) UpdateValueSet(ctx context.Context, resource r4.ValueSet) (update.Result[r4.ValueSet], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.ValueSet]{}, err
@@ -9702,13 +9696,13 @@ func (c *ClientR4) UpdateValueSet(ctx context.Context, resource r4.ValueSet) (up
 
 // DeleteValueSet deletes a ValueSet resource by ID.
 func (c *ClientR4) DeleteValueSet(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "ValueSet", id)
 }
 
 // SearchValueSet performs a search for ValueSet resources.
 func (c *ClientR4) SearchValueSet(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.ValueSet], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "ValueSet", parameters, options)
 	if err != nil {
 		return search.Result[r4.ValueSet]{}, err
@@ -9727,7 +9721,7 @@ func (c *ClientR4) SearchValueSet(ctx context.Context, parameters search.Paramet
 
 // CreateVerificationResult creates a new VerificationResult resource.
 func (c *ClientR4) CreateVerificationResult(ctx context.Context, resource r4.VerificationResult) (r4.VerificationResult, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.VerificationResult{}, err
@@ -9741,7 +9735,7 @@ func (c *ClientR4) CreateVerificationResult(ctx context.Context, resource r4.Ver
 
 // ReadVerificationResult retrieves a VerificationResult resource by ID.
 func (c *ClientR4) ReadVerificationResult(ctx context.Context, id string) (r4.VerificationResult, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "VerificationResult", id)
 	if err != nil {
 		return r4.VerificationResult{}, err
@@ -9755,7 +9749,7 @@ func (c *ClientR4) ReadVerificationResult(ctx context.Context, id string) (r4.Ve
 
 // UpdateVerificationResult updates an existing VerificationResult resource.
 func (c *ClientR4) UpdateVerificationResult(ctx context.Context, resource r4.VerificationResult) (update.Result[r4.VerificationResult], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.VerificationResult]{}, err
@@ -9769,13 +9763,13 @@ func (c *ClientR4) UpdateVerificationResult(ctx context.Context, resource r4.Ver
 
 // DeleteVerificationResult deletes a VerificationResult resource by ID.
 func (c *ClientR4) DeleteVerificationResult(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "VerificationResult", id)
 }
 
 // SearchVerificationResult performs a search for VerificationResult resources.
 func (c *ClientR4) SearchVerificationResult(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.VerificationResult], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "VerificationResult", parameters, options)
 	if err != nil {
 		return search.Result[r4.VerificationResult]{}, err
@@ -9794,7 +9788,7 @@ func (c *ClientR4) SearchVerificationResult(ctx context.Context, parameters sear
 
 // CreateVisionPrescription creates a new VisionPrescription resource.
 func (c *ClientR4) CreateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (r4.VisionPrescription, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Create(ctx, resource)
 	if err != nil {
 		return r4.VisionPrescription{}, err
@@ -9808,7 +9802,7 @@ func (c *ClientR4) CreateVisionPrescription(ctx context.Context, resource r4.Vis
 
 // ReadVisionPrescription retrieves a VisionPrescription resource by ID.
 func (c *ClientR4) ReadVisionPrescription(ctx context.Context, id string) (r4.VisionPrescription, error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Read(ctx, "VisionPrescription", id)
 	if err != nil {
 		return r4.VisionPrescription{}, err
@@ -9822,7 +9816,7 @@ func (c *ClientR4) ReadVisionPrescription(ctx context.Context, id string) (r4.Vi
 
 // UpdateVisionPrescription updates an existing VisionPrescription resource.
 func (c *ClientR4) UpdateVisionPrescription(ctx context.Context, resource r4.VisionPrescription) (update.Result[r4.VisionPrescription], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Update(ctx, resource)
 	if err != nil {
 		return update.Result[r4.VisionPrescription]{}, err
@@ -9836,13 +9830,13 @@ func (c *ClientR4) UpdateVisionPrescription(ctx context.Context, resource r4.Vis
 
 // DeleteVisionPrescription deletes a VisionPrescription resource by ID.
 func (c *ClientR4) DeleteVisionPrescription(ctx context.Context, id string) error {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Delete(ctx, "VisionPrescription", id)
 }
 
 // SearchVisionPrescription performs a search for VisionPrescription resources.
 func (c *ClientR4) SearchVisionPrescription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.VisionPrescription], error) {
-	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient()}
+	client := &internalClient[model.R4]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	result, err := client.Search(ctx, "VisionPrescription", parameters, options)
 	if err != nil {
 		return search.Result[r4.VisionPrescription]{}, err

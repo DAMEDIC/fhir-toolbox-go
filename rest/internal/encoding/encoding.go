@@ -8,7 +8,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"io"
-	"slices"
 )
 
 type Format string
@@ -18,36 +17,6 @@ const (
 	FormatXML  Format = "application/fhir+xml"
 )
 
-// UnmarshalJSON implements json.Unmarshaler for Format
-func (f *Format) UnmarshalJSON(data []byte) error {
-	var s string
-	if err := json.Unmarshal(data, &s); err != nil {
-		return err
-	}
-
-	format := MatchFormat(s)
-	if format == "" {
-		return fmt.Errorf("unsupported format: %s", s)
-	}
-
-	*f = Format(format)
-	return nil
-}
-
-var (
-	alternateFormatsJSON = []string{"application/json", "text/json", "json"}
-	alternateFormatsXML  = []string{"application/xml", "text/xml", "xml"}
-)
-
-func MatchFormat(requested string) Format {
-	switch {
-	case requested == string(FormatJSON) || slices.Contains(alternateFormatsJSON, requested):
-		return FormatJSON
-	case requested == string(FormatXML) || slices.Contains(alternateFormatsXML, requested):
-		return FormatXML
-	}
-	return ""
-}
 func disabledErr[R model.Release]() error {
 	r := model.ReleaseName[R]()
 	return fmt.Errorf("release %s disabled by build tag; remove all build tags or add %s", r, r)

@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"net/http/httptest"
+	"net/url"
 	"testing"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
@@ -111,12 +112,13 @@ func TestClientCapabilityStatement(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
-			_, err = client.CapabilityStatement(context.Background())
+			_, err := client.CapabilityStatement(context.Background())
 
 			if tt.expectedError {
 				if err == nil {
@@ -237,9 +239,10 @@ func TestClientCreate(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
 			result, err := client.Create(context.Background(), tt.inputResource)
@@ -356,9 +359,10 @@ func TestClientRead(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
 			result, err := client.Read(context.Background(), tt.resourceType, tt.resourceID)
@@ -482,9 +486,10 @@ func TestClientUpdate(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
 			result, err := client.Update(context.Background(), tt.inputResource)
@@ -593,12 +598,13 @@ func TestClientDelete(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
-			err = client.Delete(context.Background(), tt.resourceType, tt.resourceID)
+			err := client.Delete(context.Background(), tt.resourceType, tt.resourceID)
 
 			if tt.expectedError {
 				if err == nil {
@@ -763,9 +769,10 @@ func TestClientSearchResourceIncludedBehavior(t *testing.T) {
 			}))
 			defer server.Close()
 
-			client, err := NewClientR4(server.URL, nil)
-			if err != nil {
-				t.Fatalf("Failed to create client: %v", err)
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{
+				BaseURL: baseURL,
+				Client:  server.Client(),
 			}
 
 			result, err := client.Search(context.Background(), tt.resourceType, tt.parameters, tt.options)

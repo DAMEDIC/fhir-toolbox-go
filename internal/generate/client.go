@@ -50,8 +50,9 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 	clientName := "Client" + releaseType
 	f.Comment("// " + clientName + " provides both generic and resource-specific FHIR client capabilities.")
 	f.Type().Id(clientName).Struct(
-		Id("BaseURL").Op("*").Qual("net/url", "URL"),
-		Id("Client").Op("*").Qual("net/http", "Client"),
+		Comment("// BaseURL is the base URL of the FHIR server").Line().Id("BaseURL").Op("*").Qual("net/url", "URL"),
+		Comment("// Client is the HTTP client to use for requests. If nil, http.DefaultClient is used.").Line().Id("Client").Op("*").Qual("net/http", "Client"),
+		Comment("// Format specifies the request/response format (JSON or XML). Defaults to JSON if not set.").Line().Id("Format").Id("Format"),
 	)
 
 	// Add HTTP client helper method
@@ -61,27 +62,6 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 			Return(Id("c").Dot("Client")),
 		),
 		Return(Qual("net/http", "DefaultClient")),
-	)
-
-	// Add constructor function
-	constructorName := "NewClient" + releaseType
-	f.Comment("// " + constructorName + " creates a new " + releaseType + " FHIR client with the given base URL and HTTP client.")
-	f.Comment("// If httpClient is nil, http.DefaultClient will be used.")
-	f.Func().Id(constructorName).Params(
-		Id("baseURL").String(),
-		Id("httpClient").Op("*").Qual("net/http", "Client"),
-	).Params(
-		Op("*").Id(clientName),
-		Error(),
-	).Block(
-		List(Id("u"), Id("err")).Op(":=").Qual("net/url", "Parse").Call(Id("baseURL")),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return(Nil(), Id("err")),
-		),
-		Return(Op("&").Id(clientName).Values(
-			Id("BaseURL").Op(":").Id("u"),
-			Id("Client").Op(":").Id("httpClient"),
-		), Nil()),
 	)
 
 	// Generate generic methods
@@ -105,6 +85,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("CapabilityStatement").Call(Id("ctx"))),
 	)
@@ -121,6 +102,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Create").Call(Id("ctx"), Id("resource"))),
 	)
@@ -138,6 +120,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Read").Call(Id("ctx"), Id("resourceType"), Id("id"))),
 	)
@@ -154,6 +137,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Update").Call(Id("ctx"), Id("resource"))),
 	)
@@ -170,6 +154,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Delete").Call(Id("ctx"), Id("resourceType"), Id("id"))),
 	)
@@ -188,6 +173,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Search").Call(Id("ctx"), Id("resourceType"), Id("parameters"), Id("options"))),
 	)
@@ -209,6 +195,7 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Create").Call(Id("ctx"), Id("resource")),
 		If(Id("err").Op("!=").Nil()).Block(
@@ -233,6 +220,7 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Read").Call(Id("ctx"), Lit(resourceName), Id("id")),
 		If(Id("err").Op("!=").Nil()).Block(
@@ -257,6 +245,7 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Update").Call(Id("ctx"), Id("resource")),
 		If(Id("err").Op("!=").Nil()).Block(
@@ -283,6 +272,7 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Delete").Call(Id("ctx"), Lit(resourceName), Id("id"))),
 	)
@@ -300,6 +290,7 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
 			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Search").Call(Id("ctx"), Lit(resourceName), Id("parameters"), Id("options")),
 		If(Id("err").Op("!=").Nil()).Block(

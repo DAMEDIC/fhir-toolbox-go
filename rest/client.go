@@ -2,8 +2,8 @@ package rest
 
 import (
 	"bytes"
+	"cmp"
 	"context"
-	"encoding/json"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
@@ -17,9 +17,14 @@ import (
 	"net/url"
 )
 
+const (
+	defaultClientFormat = FormatJSON
+)
+
 type internalClient[R model.Release] struct {
 	baseURL *url.URL
 	client  *http.Client
+	format  Format
 }
 
 // CapabilityStatement retrieves the CapabilityStatement from the server's metadata endpoint.
@@ -35,7 +40,9 @@ func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.Capa
 		return basic.CapabilityStatement{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(encoding.FormatJSON))
+	// Set Accept header, using configured format or default
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+	req.Header.Set("Accept", string(requestFormat))
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -47,8 +54,11 @@ func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.Capa
 		return basic.CapabilityStatement{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	var capability basic.CapabilityStatement
-	if err := parseJSONResponse(resp, &capability); err != nil {
+	// Determine response format from Content-Type header
+	responseFormat := c.detectResponseFormat(resp)
+
+	capability, err := encoding.Decode[basic.CapabilityStatement](resp.Body, encoding.Format(responseFormat))
+	if err != nil {
 		return basic.CapabilityStatement{}, fmt.Errorf("parse response: %w", err)
 	}
 
@@ -64,7 +74,10 @@ func (c *internalClient[R]) Create(ctx context.Context, resource model.Resource)
 	resourceType := resource.ResourceType()
 	u := c.baseURL.JoinPath(resourceType)
 
-	body, err := marshalResource(resource)
+	// Use configured format or default
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+
+	body, err := marshalResource(resource, encoding.Format(requestFormat))
 	if err != nil {
 		return nil, fmt.Errorf("marshal resource: %w", err)
 	}
@@ -74,8 +87,9 @@ func (c *internalClient[R]) Create(ctx context.Context, resource model.Resource)
 		return nil, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Content-Type", string(encoding.FormatJSON))
-	req.Header.Set("Accept", string(encoding.FormatJSON))
+	req.Header.Set("Content-Type", string(requestFormat))
+	// Set Accept header
+	req.Header.Set("Accept", string(requestFormat))
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -87,7 +101,9 @@ func (c *internalClient[R]) Create(ctx context.Context, resource model.Resource)
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
+	// Determine response format from Content-Type header
+	responseFormat := c.detectResponseFormat(resp)
+	return encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 }
 
 // Read retrieves a resource by type and ID.
@@ -103,7 +119,9 @@ func (c *internalClient[R]) Read(ctx context.Context, resourceType, id string) (
 		return nil, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(encoding.FormatJSON))
+	// Set Accept header, using configured format or default
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+	req.Header.Set("Accept", string(requestFormat))
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -115,7 +133,9 @@ func (c *internalClient[R]) Read(ctx context.Context, resourceType, id string) (
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
+	// Determine response format from Content-Type header
+	responseFormat := c.detectResponseFormat(resp)
+	return encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 }
 
 // Update updates an existing resource.
@@ -132,7 +152,10 @@ func (c *internalClient[R]) Update(ctx context.Context, resource model.Resource)
 
 	u := c.baseURL.JoinPath(resourceType, id)
 
-	body, err := marshalResource(resource)
+	// Use configured format or default
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+
+	body, err := marshalResource(resource, encoding.Format(requestFormat))
 	if err != nil {
 		return update.Result[model.Resource]{}, fmt.Errorf("marshal resource: %w", err)
 	}
@@ -142,8 +165,9 @@ func (c *internalClient[R]) Update(ctx context.Context, resource model.Resource)
 		return update.Result[model.Resource]{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Content-Type", string(encoding.FormatJSON))
-	req.Header.Set("Accept", string(encoding.FormatJSON))
+	req.Header.Set("Content-Type", string(requestFormat))
+	// Set Accept header
+	req.Header.Set("Accept", string(requestFormat))
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -161,7 +185,9 @@ func (c *internalClient[R]) Update(ctx context.Context, resource model.Resource)
 		return update.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	updatedResource, err := encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
+	// Determine response format from Content-Type header
+	responseFormat := c.detectResponseFormat(resp)
+	updatedResource, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 	if err != nil {
 		return update.Result[model.Resource]{}, fmt.Errorf("parse response: %w", err)
 	}
@@ -231,7 +257,9 @@ func (c *internalClient[R]) Search(ctx context.Context, resourceType string, par
 		return search.Result[model.Resource]{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(encoding.FormatJSON))
+	// Set Accept header, using configured format or default
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+	req.Header.Set("Accept", string(requestFormat))
 
 	resp, err := c.client.Do(req)
 	if err != nil {
@@ -243,29 +271,42 @@ func (c *internalClient[R]) Search(ctx context.Context, resourceType string, par
 		return search.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return parseSearchResponse[R](resp)
+	return parseSearchResponse[R](c, resp)
 }
 
 // Helper functions
 
-// marshalResource marshals a FHIR resource to JSON.
-func marshalResource(resource model.Resource) (io.Reader, error) {
-	data, err := json.Marshal(resource)
-	if err != nil {
+// marshalResource marshals a FHIR resource to the specified format.
+func marshalResource(resource model.Resource, format encoding.Format) (io.Reader, error) {
+	buf := &bytes.Buffer{}
+	if err := encoding.Encode(buf, resource, format); err != nil {
 		return nil, err
 	}
-	return bytes.NewReader(data), nil
+	return buf, nil
 }
 
-// parseJSONResponse parses a JSON response into the given value.
-func parseJSONResponse(resp *http.Response, v interface{}) error {
-	return json.NewDecoder(resp.Body).Decode(v)
+// detectResponseFormat determines the format from the response Content-Type header.
+// Falls back to the configured format if Content-Type is not recognized.
+func (c *internalClient[R]) detectResponseFormat(resp *http.Response) Format {
+	contentType := resp.Header.Get("Content-Type")
+	if contentType != "" {
+		format := matchFormat(contentType)
+		if format != "" {
+			return format
+		}
+	}
+
+	// Fall back to configured format or default
+	format := cmp.Or(c.format, defaultClientFormat)
+	return format
 }
 
 // parseSearchResponse parses a search bundle response using FHIRPath expressions.
-func parseSearchResponse[R model.Release](resp *http.Response) (search.Result[model.Resource], error) {
+func parseSearchResponse[R model.Release](c *internalClient[R], resp *http.Response) (search.Result[model.Resource], error) {
+	// Determine response format from Content-Type header
+	responseFormat := c.detectResponseFormat(resp)
 	// Decode the bundle as a resource using the generic decode function
-	bundle, err := encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
+	bundle, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 	if err != nil {
 		return search.Result[model.Resource]{}, fmt.Errorf("parse bundle: %w", err)
 	}

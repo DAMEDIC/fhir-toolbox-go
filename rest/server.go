@@ -41,6 +41,7 @@ package rest
 import (
 	"cmp"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
@@ -53,23 +54,17 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"slices"
 	"strings"
 	"sync"
 	"time"
 )
 
-type Format = encoding.Format
-
-const (
-	FormatJSON = encoding.FormatJSON
-	FormatXML  = encoding.FormatXML
-)
-
 var (
-	defaultTimezone      = time.Local
-	defaultMaxCount      = 500
-	defaultDefaultCount  = 500
-	defaultDefaultFormat = FormatJSON
+	defaultServerTimezone      = time.Local
+	defaultServerMaxCount      = 500
+	defaultServerDefaultCount  = 500
+	defaultServerDefaultFormat = FormatJSON
 )
 
 // Server is a generic FHIR server type that registers and serves HTTP endpoints for FHIR resource interactions.
@@ -209,7 +204,7 @@ func (s *Server[R]) handlerCreate(w http.ResponseWriter, r *http.Request) {
 	}
 	backend, impl := anyBackend.(capabilities.GenericCreate)
 
-	if !checkInteractionImplemented[R](impl, "create", w, responseFormat) {
+	if !checkInteractionImplemented(impl, "create", w, responseFormat) {
 		return
 	}
 
@@ -231,10 +226,10 @@ func (s *Server[R]) handlerCreate(w http.ResponseWriter, r *http.Request) {
 func dispatchCreate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericCreate,
-	requestFormat encoding.Format,
+	requestFormat Format,
 	resourceType string,
 ) (model.Resource, error) {
-	resource, err := encoding.DecodeResource[R](r.Body, requestFormat)
+	resource, err := encoding.DecodeResource[R](r.Body, encoding.Format(requestFormat))
 	if err != nil {
 		return nil, err
 	}
@@ -264,7 +259,7 @@ func (s *Server[R]) handlerRead(w http.ResponseWriter, r *http.Request) {
 	}
 	backend, impl := anyBackend.(capabilities.GenericRead)
 
-	if !checkInteractionImplemented[R](impl, "read", w, responseFormat) {
+	if !checkInteractionImplemented(impl, "read", w, responseFormat) {
 		return
 	}
 
@@ -305,7 +300,7 @@ func (s *Server[R]) handlerUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 	backend, impl := anyBackend.(capabilities.GenericUpdate)
 
-	if !checkInteractionImplemented[R](impl, "update", w, responseFormat) {
+	if !checkInteractionImplemented(impl, "update", w, responseFormat) {
 		return
 	}
 
@@ -332,11 +327,11 @@ func (s *Server[R]) handlerUpdate(w http.ResponseWriter, r *http.Request) {
 func dispatchUpdate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericUpdate,
-	requestFormat encoding.Format,
+	requestFormat Format,
 	resourceType string,
 	resourceID string,
 ) (update.Result[model.Resource], error) {
-	resource, err := encoding.DecodeResource[R](r.Body, requestFormat)
+	resource, err := encoding.DecodeResource[R](r.Body, encoding.Format(requestFormat))
 	if err != nil {
 		return update.Result[model.Resource]{}, err
 	}
@@ -376,7 +371,7 @@ func (s *Server[R]) handlerDelete(w http.ResponseWriter, r *http.Request) {
 	}
 	backend, impl := anyBackend.(capabilities.GenericDelete)
 
-	if !checkInteractionImplemented[R](impl, "delete", w, responseFormat) {
+	if !checkInteractionImplemented(impl, "delete", w, responseFormat) {
 		return
 	}
 
@@ -411,7 +406,7 @@ func (s *Server[R]) handlerSearch(w http.ResponseWriter, r *http.Request) {
 	}
 	backend, impl := anyBackend.(capabilities.GenericSearch)
 
-	if !checkInteractionImplemented[R](impl, "search-type", w, responseFormat) {
+	if !checkInteractionImplemented(impl, "search-type", w, responseFormat) {
 		return
 	}
 
@@ -420,9 +415,9 @@ func (s *Server[R]) handlerSearch(w http.ResponseWriter, r *http.Request) {
 		backend,
 		resourceType,
 		r.URL.Query(),
-		cmp.Or(s.Timezone, defaultTimezone),
-		cmp.Or(s.MaxCount, defaultMaxCount),
-		cmp.Or(s.DefaultCount, defaultDefaultCount),
+		cmp.Or(s.Timezone, defaultServerTimezone),
+		cmp.Or(s.MaxCount, defaultServerMaxCount),
+		cmp.Or(s.DefaultCount, defaultServerDefaultCount),
 		s.StrictSearchParameters,
 	)
 	if err != nil {
@@ -510,35 +505,73 @@ func parseSearchOptions(
 	return parameters, options, nil
 }
 
-func (s *Server[R]) detectFormat(r *http.Request, headerName string) encoding.Format {
+type Format encoding.Format
+
+const (
+	FormatJSON = Format(encoding.FormatJSON)
+	FormatXML  = Format(encoding.FormatXML)
+)
+
+var (
+	alternateFormatsJSON = []string{"application/json", "text/json", "json"}
+	alternateFormatsXML  = []string{"application/xml", "text/xml", "xml"}
+)
+
+func (s *Server[R]) detectFormat(r *http.Request, headerName string) Format {
 	// url parameter overrides the Accept header
 	formatQuery := r.URL.Query()["_format"]
 	if len(formatQuery) > 0 {
-		format := encoding.MatchFormat(formatQuery[0])
+		format := matchFormat(formatQuery[0])
 		if format != "" {
 			return format
 		}
 	}
 
 	for _, accept := range r.Header[headerName] {
-		format := encoding.MatchFormat(accept)
+		format := matchFormat(accept)
 		if format != "" {
 			return format
 		}
 	}
-	return cmp.Or(s.DefaultFormat, defaultDefaultFormat)
+	return cmp.Or(s.DefaultFormat, defaultServerDefaultFormat)
 }
 
-func returnErr(w http.ResponseWriter, err error, format encoding.Format) {
+// UnmarshalJSON implements json.Unmarshaler for Format
+func (f *Format) UnmarshalJSON(data []byte) error {
+	var s string
+	if err := json.Unmarshal(data, &s); err != nil {
+		return err
+	}
+
+	format := matchFormat(s)
+	if format == "" {
+		return fmt.Errorf("unsupported format: %s", s)
+	}
+
+	*f = Format(format)
+	return nil
+}
+
+func matchFormat(contentType string) Format {
+	switch {
+	case contentType == string(FormatJSON) || slices.Contains(alternateFormatsJSON, contentType):
+		return FormatJSON
+	case contentType == string(FormatXML) || slices.Contains(alternateFormatsXML, contentType):
+		return FormatXML
+	}
+	return ""
+}
+
+func returnErr(w http.ResponseWriter, err error, format Format) {
 	status, oo := errToOperationOutcome(err)
 	returnResult(w, oo, status, format)
 }
 
-func returnResult[T any](w http.ResponseWriter, r T, status int, format encoding.Format) {
+func returnResult[T any](w http.ResponseWriter, r T, status int, format Format) {
 	w.Header().Set("Content-Type", string(format))
 	w.WriteHeader(status)
 
-	err := encoding.Encode(w, r, format)
+	err := encoding.Encode(w, r, encoding.Format(format))
 	if err != nil {
 		// we were not able to return an application level error (OperationOutcome)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -557,11 +590,11 @@ func createOperationOutcome(severity, code, diagnostics string) basic.OperationO
 	}
 }
 
-func checkInteractionImplemented[R model.Release](
+func checkInteractionImplemented(
 	implemented bool,
 	interaction string,
 	w http.ResponseWriter,
-	format encoding.Format,
+	format Format,
 ) bool {
 	if !implemented {
 		slog.Error("interaction not implemented by backend", "interaction", interaction)
