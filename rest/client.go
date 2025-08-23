@@ -16,52 +16,49 @@ import (
 	capabilitiesR5 "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 )
 
 // Compile-time interface compliance checks
 var (
-	_ capabilities.GenericCapabilities = (*client)(nil)
-	_ capabilities.GenericCreate       = (*client)(nil)
-	_ capabilities.GenericRead         = (*client)(nil)
-	_ capabilities.GenericUpdate       = (*client)(nil)
-	_ capabilities.GenericDelete       = (*client)(nil)
-	_ capabilities.GenericSearch       = (*client)(nil)
+	_ capabilities.GenericCapabilities = (*client[model.R4])(nil)
+	_ capabilities.GenericCreate       = (*client[model.R4])(nil)
+	_ capabilities.GenericRead         = (*client[model.R4])(nil)
+	_ capabilities.GenericUpdate       = (*client[model.R4])(nil)
+	_ capabilities.GenericDelete       = (*client[model.R4])(nil)
+	_ capabilities.GenericSearch       = (*client[model.R4])(nil)
 )
 
 // client implements a FHIR REST client that can perform all generic FHIR operations.
 // This is private - use the concrete R4, R4B, R5 clients instead.
-type client struct {
+type client[R model.Release] struct {
 	baseURL    *url.URL
 	httpClient *http.Client
-	release    model.Release
 }
 
 // clientR4 is a FHIR R4 REST client that provides both generic and concrete APIs.
 type clientR4 struct {
-	*client
+	*client[model.R4]
 	capabilitiesR4.Concrete
 }
 
 // clientR4B is a FHIR R4B REST client that provides both generic and concrete APIs.
 type clientR4B struct {
-	*client
+	*client[model.R4B]
 	capabilitiesR4B.Concrete
 }
 
 // clientR5 is a FHIR R5 REST client that provides both generic and concrete APIs.
 type clientR5 struct {
-	*client
+	*client[model.R5]
 	capabilitiesR5.Concrete
 }
 
 // NewClientR4 creates a new FHIR R4 REST client with the given base URL.
 func NewClientR4(baseURL string, httpClient *http.Client) (*clientR4, error) {
-	c, err := newClientWithRelease(baseURL, httpClient, model.R4{})
+	c, err := newClientWithRelease[model.R4](baseURL, httpClient, model.R4{})
 	if err != nil {
 		return nil, err
 	}
@@ -76,7 +73,7 @@ func NewClientR4(baseURL string, httpClient *http.Client) (*clientR4, error) {
 
 // NewClientR4B creates a new FHIR R4B REST client with the given base URL.
 func NewClientR4B(baseURL string, httpClient *http.Client) (*clientR4B, error) {
-	c, err := newClientWithRelease(baseURL, httpClient, model.R4B{})
+	c, err := newClientWithRelease[model.R4B](baseURL, httpClient, model.R4B{})
 	if err != nil {
 		return nil, err
 	}
@@ -91,7 +88,7 @@ func NewClientR4B(baseURL string, httpClient *http.Client) (*clientR4B, error) {
 
 // NewClientR5 creates a new FHIR R5 REST client with the given base URL.
 func NewClientR5(baseURL string, httpClient *http.Client) (*clientR5, error) {
-	c, err := newClientWithRelease(baseURL, httpClient, model.R5{})
+	c, err := newClientWithRelease[model.R5](baseURL, httpClient, model.R5{})
 	if err != nil {
 		return nil, err
 	}
@@ -105,7 +102,7 @@ func NewClientR5(baseURL string, httpClient *http.Client) (*clientR5, error) {
 }
 
 // newClientWithRelease creates a new FHIR REST client with the specified release.
-func newClientWithRelease(baseURL string, httpClient *http.Client, release model.Release) (*client, error) {
+func newClientWithRelease[R model.Release](baseURL string, httpClient *http.Client, release model.Release) (*client[R], error) {
 	u, err := url.Parse(baseURL)
 	if err != nil {
 		return nil, fmt.Errorf("invalid base URL: %w", err)
@@ -117,15 +114,14 @@ func newClientWithRelease(baseURL string, httpClient *http.Client, release model
 		}
 	}
 
-	return &client{
+	return &client[R]{
 		baseURL:    u,
 		httpClient: httpClient,
-		release:    release,
 	}, nil
 }
 
 // CapabilityStatement retrieves the CapabilityStatement from the server's metadata endpoint.
-func (c *client) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+func (c *client[R]) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
 	u := c.baseURL.JoinPath("metadata")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
@@ -154,7 +150,7 @@ func (c *client) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 }
 
 // Create creates a new resource.
-func (c *client) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
+func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
 	resourceType := resource.ResourceType()
 	u := c.baseURL.JoinPath(resourceType)
 
@@ -181,11 +177,11 @@ func (c *client) Create(ctx context.Context, resource model.Resource) (model.Res
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return c.parseResourceResponse(resp)
+	return decodeResource[R](resp.Body, FormatJSON)
 }
 
 // Read retrieves a resource by type and ID.
-func (c *client) Read(ctx context.Context, resourceType, id string) (model.Resource, error) {
+func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Resource, error) {
 	u := c.baseURL.JoinPath(resourceType, id)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
@@ -205,11 +201,11 @@ func (c *client) Read(ctx context.Context, resourceType, id string) (model.Resou
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return c.parseResourceResponse(resp)
+	return decodeResource[R](resp.Body, FormatJSON)
 }
 
 // Update updates an existing resource.
-func (c *client) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
+func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
 	resourceType := resource.ResourceType()
 	id, hasID := resource.ResourceId()
 	if !hasID {
@@ -247,7 +243,7 @@ func (c *client) Update(ctx context.Context, resource model.Resource) (update.Re
 		return update.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	updatedResource, err := c.parseResourceResponse(resp)
+	updatedResource, err := decodeResource[R](resp.Body, FormatJSON)
 	if err != nil {
 		return update.Result[model.Resource]{}, fmt.Errorf("parse response: %w", err)
 	}
@@ -259,7 +255,7 @@ func (c *client) Update(ctx context.Context, resource model.Resource) (update.Re
 }
 
 // Delete deletes a resource by type and ID.
-func (c *client) Delete(ctx context.Context, resourceType, id string) error {
+func (c *client[R]) Delete(ctx context.Context, resourceType, id string) error {
 	u := c.baseURL.JoinPath(resourceType, id)
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", u.String(), nil)
@@ -281,7 +277,7 @@ func (c *client) Delete(ctx context.Context, resourceType, id string) error {
 }
 
 // Search performs a search operation for the given resource type with the specified options.
-func (c *client) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+func (c *client[R]) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
 	opts := options
 
 	var u *url.URL
@@ -340,174 +336,99 @@ func parseJSONResponse(resp *http.Response, v interface{}) error {
 	return json.NewDecoder(resp.Body).Decode(v)
 }
 
-// parseSearchResponse parses a search bundle response using the client's FHIR version.
-func (c *client) parseSearchResponse(resp *http.Response) (search.Result[model.Resource], error) {
-	// Read the response body
-	body, err := io.ReadAll(resp.Body)
+// parseSearchResponse parses a search bundle response using FHIRPath expressions.
+func (c *client[R]) parseSearchResponse(resp *http.Response) (search.Result[model.Resource], error) {
+	// Decode the bundle as a resource using the generic decode function
+	bundle, err := decodeResource[R](resp.Body, FormatJSON)
 	if err != nil {
-		return search.Result[model.Resource]{}, fmt.Errorf("read response body: %w", err)
+		return search.Result[model.Resource]{}, fmt.Errorf("parse bundle: %w", err)
 	}
 
-	// Parse the bundle using the client's FHIR release
-	switch c.release.(type) {
-	case model.R4:
-		var bundle r4.Bundle
-		if err := json.Unmarshal(body, &bundle); err != nil {
-			return search.Result[model.Resource]{}, fmt.Errorf("parse R4 bundle: %w", err)
-		}
-		return c.parseR4SearchBundle(bundle)
-	case model.R4B:
-		var bundle r4b.Bundle
-		if err := json.Unmarshal(body, &bundle); err != nil {
-			return search.Result[model.Resource]{}, fmt.Errorf("parse R4B bundle: %w", err)
-		}
-		return c.parseR4BSearchBundle(bundle)
-	case model.R5:
-		var bundle r5.Bundle
-		if err := json.Unmarshal(body, &bundle); err != nil {
-			return search.Result[model.Resource]{}, fmt.Errorf("parse R5 bundle: %w", err)
-		}
-		return c.parseR5SearchBundle(bundle)
-	}
-
-	return search.Result[model.Resource]{}, fmt.Errorf("unsupported FHIR release: %s", c.release)
+	return c.parseSearchBundle(bundle)
 }
 
-// parseResourceResponse parses a resource from an HTTP response using the client's FHIR version.
-func (c *client) parseResourceResponse(resp *http.Response) (model.Resource, error) {
-	// Read the response body
-	body, err := io.ReadAll(resp.Body)
+// parseSearchBundle parses a Bundle into a search result using FHIRPath expressions.
+func (c *client[R]) parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], error) {
+	// Extract all bundle entries using FHIRPath
+	entryExpr := fhirpath.MustParse("entry")
+	entryResults, err := fhirpath.Evaluate(context.Background(), bundle, entryExpr)
 	if err != nil {
-		return nil, fmt.Errorf("read response body: %w", err)
+		return search.Result[model.Resource]{}, fmt.Errorf("extract bundle entries: %w", err)
 	}
 
-	// Parse the resource using the client's FHIR release
-	switch c.release.(type) {
-	case model.R4:
-		if resource := tryParseR4Resource(body); resource != nil {
-			return resource, nil
+	var resources []model.Resource
+	var included []model.Resource
+
+	// Process each entry to determine if it's a match or include
+	for _, entryElement := range entryResults {
+		// Extract the resource from this entry
+		resourceExpr := fhirpath.MustParse("resource")
+		resourceResults, err := fhirpath.Evaluate(context.Background(), entryElement, resourceExpr)
+		if err != nil {
+			continue // Skip entries without resources
 		}
-	case model.R4B:
-		if resource := tryParseR4BResource(body); resource != nil {
-			return resource, nil
+
+		if len(resourceResults) == 0 {
+			continue // Skip entries without resources
 		}
-	case model.R5:
-		if resource := tryParseR5Resource(body); resource != nil {
-			return resource, nil
+
+		resource, ok := resourceResults[0].(model.Resource)
+		if !ok {
+			continue // Skip if not a resource
 		}
-	}
 
-	// Peek at the resourceType field for error message
-	var peek struct {
-		ResourceType string `json:"resourceType"`
-	}
-	json.Unmarshal(body, &peek)
-
-	return nil, fmt.Errorf("unable to parse resource of type %s for FHIR %s", peek.ResourceType, c.release)
-}
-
-// tryParseR4Resource attempts to parse a resource as R4.
-func tryParseR4Resource(data []byte) model.Resource {
-	var contained r4.ContainedResource
-	if err := json.Unmarshal(data, &contained); err == nil && contained.Resource != nil {
-		return contained.Resource
-	}
-	return nil
-}
-
-// tryParseR4BResource attempts to parse a resource as R4B.
-func tryParseR4BResource(data []byte) model.Resource {
-	var contained r4b.ContainedResource
-	if err := json.Unmarshal(data, &contained); err == nil && contained.Resource != nil {
-		return contained.Resource
-	}
-	return nil
-}
-
-// tryParseR5Resource attempts to parse a resource as R5.
-func tryParseR5Resource(data []byte) model.Resource {
-	var contained r5.ContainedResource
-	if err := json.Unmarshal(data, &contained); err == nil && contained.Resource != nil {
-		return contained.Resource
-	}
-	return nil
-}
-
-// parseR4SearchBundle parses an R4 Bundle into a search result.
-func (c *client) parseR4SearchBundle(bundle r4.Bundle) (search.Result[model.Resource], error) {
-	result := search.Result[model.Resource]{
-		Resources: make([]model.Resource, 0, len(bundle.Entry)),
-		Included:  make([]model.Resource, 0),
-	}
-
-	// Parse resources from bundle entries
-	for _, entry := range bundle.Entry {
-		if entry.Resource != nil {
-			result.Resources = append(result.Resources, entry.Resource)
+		// Extract the search mode from this entry
+		searchModeExpr := fhirpath.MustParse("search.mode")
+		searchModeResults, err := fhirpath.Evaluate(context.Background(), entryElement, searchModeExpr)
+		if err != nil || len(searchModeResults) == 0 {
+			// Default to match if no search mode specified
+			resources = append(resources, resource)
+			continue
 		}
-	}
 
-	// Extract next cursor from bundle links
-	for _, link := range bundle.Link {
-		if link.Relation.Value != nil && *link.Relation.Value == "next" {
-			if link.Url.Value != nil {
-				result.Next = search.Cursor(*link.Url.Value)
-				break
+		// Check the search mode value - handle different FHIR types
+		var searchModeStr string
+		if len(searchModeResults) > 0 {
+			searchModeString, ok, err := searchModeResults[0].ToString(false)
+			if err != nil {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid search mode: %w", err)
 			}
-		}
-	}
-
-	return result, nil
-}
-
-// parseR4BSearchBundle parses an R4B Bundle into a search result.
-func (c *client) parseR4BSearchBundle(bundle r4b.Bundle) (search.Result[model.Resource], error) {
-	result := search.Result[model.Resource]{
-		Resources: make([]model.Resource, 0, len(bundle.Entry)),
-		Included:  make([]model.Resource, 0),
-	}
-
-	// Parse resources from bundle entries
-	for _, entry := range bundle.Entry {
-		if entry.Resource != nil {
-			result.Resources = append(result.Resources, entry.Resource)
-		}
-	}
-
-	// Extract next cursor from bundle links
-	for _, link := range bundle.Link {
-		if link.Relation.Value != nil && *link.Relation.Value == "next" {
-			if link.Url.Value != nil {
-				result.Next = search.Cursor(*link.Url.Value)
-				break
+			if !ok {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid search mode: %v", searchModeResults[0])
 			}
+			searchModeStr = string(searchModeString)
+		}
+
+		// Sort based on search mode
+		switch searchModeStr {
+		case "include":
+			included = append(included, resource)
+		case "match":
+			fallthrough
+		default:
+			// Default to match for any other value or if mode is not specified
+			resources = append(resources, resource)
 		}
 	}
 
-	return result, nil
-}
+	// Extract next link URL using FHIRPath
+	nextLinkExpr := fhirpath.MustParse("link.where(relation = 'next').url")
+	nextResults, err := fhirpath.Evaluate(context.Background(), bundle, nextLinkExpr)
+	if err != nil {
+		return search.Result[model.Resource]{}, fmt.Errorf("extract next link: %w", err)
+	}
 
-// parseR5SearchBundle parses an R5 Bundle into a search result.
-func (c *client) parseR5SearchBundle(bundle r5.Bundle) (search.Result[model.Resource], error) {
 	result := search.Result[model.Resource]{
-		Resources: make([]model.Resource, 0, len(bundle.Entry)),
-		Included:  make([]model.Resource, 0),
+		Resources: resources,
+		Included:  included,
 	}
 
-	// Parse resources from bundle entries
-	for _, entry := range bundle.Entry {
-		if entry.Resource != nil {
-			result.Resources = append(result.Resources, entry.Resource)
-		}
-	}
-
-	// Extract next cursor from bundle links
-	for _, link := range bundle.Link {
-		if link.Relation.Value != nil && *link.Relation.Value == "next" {
-			if link.Url.Value != nil {
-				result.Next = search.Cursor(*link.Url.Value)
-				break
-			}
+	// Set next cursor if available
+	if len(nextResults) > 0 {
+		if nextURL, ok := nextResults[0].(fhirpath.String); ok {
+			result.Next = search.Cursor(nextURL)
+		} else {
+			return search.Result[model.Resource]{}, fmt.Errorf("invalid next link: %v", nextResults[0])
 		}
 	}
 

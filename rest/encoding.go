@@ -10,6 +10,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	"io"
 	"net/http"
 	"slices"
 )
@@ -67,21 +68,34 @@ func decodingError(encoding string) basic.OperationOutcome {
 	}
 }
 
-func decodeResource[R model.Release](
-	r *http.Request,
-	requestFormat Format,
-) (model.Resource, error) {
-	var resource model.Resource
-	var err error
-
-	switch requestFormat {
-	case FormatJSON:
-		resource, err = decodeResourceJSON[R](r)
-	case FormatXML:
-		resource, err = decodeResourceXML[R](r)
+func decodeResource[R model.Release](r io.Reader, format Format) (model.Resource, error) {
+	var release R
+	switch any(release).(type) {
+	case model.R4:
+		resource, err := decode[r4.ContainedResource](r, format)
+		return resource.Resource, err
+	case model.R4B:
+		resource, err := decode[r4b.ContainedResource](r, format)
+		return resource.Resource, err
+	case model.R5:
+		resource, err := decode[r5.ContainedResource](r, format)
+		return resource.Resource, err
+	default:
+		// This should never happen as long as we control all implementations of the Release interface.
+		// This is achieved by sealing the interface. See the interface definition for more information.
+		panic("unsupported release")
 	}
+}
 
-	return resource, err
+func decode[T any](r io.Reader, format Format) (T, error) {
+	switch format {
+	case FormatJSON:
+		return decodeJSON[T](r)
+	case FormatXML:
+		return decodeXML[T](r)
+	default:
+		return *new(T), fmt.Errorf("unsupported format: %s", format)
+	}
 }
 
 func encodeJSON[T any](w http.ResponseWriter, status int, v T) error {
@@ -97,28 +111,9 @@ func encodeJSON[T any](w http.ResponseWriter, status int, v T) error {
 	return nil
 }
 
-func decodeResourceJSON[R model.Release](r *http.Request) (model.Resource, error) {
-	var release R
-	switch any(release).(type) {
-	case model.R4:
-		resource, err := decodeJSON[r4.ContainedResource](r)
-		return resource.Resource, err
-	case model.R4B:
-		resource, err := decodeJSON[r4b.ContainedResource](r)
-		return resource.Resource, err
-	case model.R5:
-		resource, err := decodeJSON[r5.ContainedResource](r)
-		return resource.Resource, err
-	default:
-		// This should never happen as long as we control all implementations of the Release interface.
-		// This is achieved by sealing the interface. See the interface definition for more information.
-		panic("unsupported release")
-	}
-}
-
-func decodeJSON[T any](r *http.Request) (T, error) {
+func decodeJSON[T any](r io.Reader) (T, error) {
 	var v T
-	if err := json.NewDecoder(r.Body).Decode(&v); err != nil {
+	if err := json.NewDecoder(r).Decode(&v); err != nil {
 		return v, decodingError("json")
 	}
 	return v, nil
@@ -136,7 +131,7 @@ func encodeXML[T any](w http.ResponseWriter, status int, v T) error {
 	return nil
 }
 
-func decodeResourceXML[R model.Release](r *http.Request) (model.Resource, error) {
+func decodeResourceXML[R model.Release](r io.Reader) (model.Resource, error) {
 	var release R
 	switch any(release).(type) {
 	case model.R4:
@@ -155,9 +150,9 @@ func decodeResourceXML[R model.Release](r *http.Request) (model.Resource, error)
 	}
 }
 
-func decodeXML[T any](r *http.Request) (T, error) {
+func decodeXML[T any](r io.Reader) (T, error) {
 	var v T
-	if err := xml.NewDecoder(r.Body).Decode(&v); err != nil {
+	if err := xml.NewDecoder(r).Decode(&v); err != nil {
 		return v, decodingError("xml")
 	}
 	return v, nil

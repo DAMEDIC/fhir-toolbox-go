@@ -158,7 +158,7 @@ func dispatchCreate[R model.Release](
 	requestFormat Format,
 	resourceType string,
 ) (model.Resource, error) {
-	resource, err := decodeResource[R](r, requestFormat)
+	resource, err := decodeResource[R](r.Body, requestFormat)
 	if err != nil {
 		return nil, err
 	}
@@ -258,7 +258,7 @@ func dispatchUpdate[R model.Release](
 	resourceType string,
 	resourceID string,
 ) (update.Result[model.Resource], error) {
-	resource, err := decodeResource[R](r, requestFormat)
+	resource, err := decodeResource[R](r.Body, requestFormat)
 	if err != nil {
 		return update.Result[model.Resource]{}, err
 	}

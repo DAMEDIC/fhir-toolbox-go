@@ -3,6 +3,8 @@ package rest
 import (
 	"context"
 	"io"
+	"net/http"
+	"net/http/httptest"
 	"testing"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
@@ -44,6 +46,713 @@ func (m *mockSearchClient) Search(ctx context.Context, resourceType string, para
 	}
 
 	return search.Result[model.Resource]{}, nil
+}
+
+func TestClientCapabilityStatement(t *testing.T) {
+	tests := []struct {
+		name            string
+		serverResponse  string
+		statusCode      int
+		expectedError   bool
+		validateRequest func(t *testing.T, r *http.Request)
+	}{
+		{
+			name:       "successful_capability_statement",
+			statusCode: http.StatusOK,
+			serverResponse: `{
+				"resourceType": "CapabilityStatement"
+			}`,
+			expectedError: false,
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Expected method GET, got %s", r.Method)
+				}
+				if r.URL.Path != "/metadata" {
+					t.Errorf("Expected path /metadata, got %s", r.URL.Path)
+				}
+				if r.Header.Get("Accept") != "application/fhir+json" {
+					t.Errorf("Expected Accept header application/fhir+json, got %s", r.Header.Get("Accept"))
+				}
+			},
+		},
+		{
+			name:          "server_error_500",
+			statusCode:    http.StatusInternalServerError,
+			expectedError: true,
+		},
+		{
+			name:          "not_found_404",
+			statusCode:    http.StatusNotFound,
+			expectedError: true,
+		},
+		{
+			name:           "invalid_json_response",
+			statusCode:     http.StatusOK,
+			serverResponse: `{invalid json}`,
+			expectedError:  true,
+		},
+		{
+			name:          "service_unavailable_503",
+			statusCode:    http.StatusServiceUnavailable,
+			expectedError: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.validateRequest != nil {
+					tt.validateRequest(t, r)
+				}
+				w.WriteHeader(tt.statusCode)
+				if tt.serverResponse != "" {
+					w.Write([]byte(tt.serverResponse))
+				}
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			_, err = client.CapabilityStatement(context.Background())
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+			}
+		})
+	}
+}
+
+func TestClientCreate(t *testing.T) {
+	tests := []struct {
+		name               string
+		inputResource      model.Resource
+		serverResponse     string
+		statusCode         int
+		expectedError      bool
+		expectedResourceID string
+		validateRequest    func(t *testing.T, r *http.Request)
+	}{
+		{
+			name: "successful_create",
+			inputResource: &r4.Patient{
+				Name: []r4.HumanName{
+					{Given: []r4.String{{Value: ptr.To("John")}}},
+				},
+			},
+			statusCode: http.StatusCreated,
+			serverResponse: `{
+				"resourceType": "Patient",
+				"id": "123",
+				"name": [{"given": ["John"]}]
+			}`,
+			expectedError:      false,
+			expectedResourceID: "123",
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.Method != "POST" {
+					t.Errorf("Expected method POST, got %s", r.Method)
+				}
+				if r.Header.Get("Content-Type") != "application/fhir+json" {
+					t.Errorf("Expected Content-Type application/fhir+json, got %s", r.Header.Get("Content-Type"))
+				}
+				if r.URL.Path != "/Patient" {
+					t.Errorf("Expected path /Patient, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name: "create_observation",
+			inputResource: &r4.Observation{
+				Status: r4.Code{Value: ptr.To("final")},
+				Code: r4.CodeableConcept{
+					Text: &r4.String{Value: ptr.To("Blood pressure")},
+				},
+			},
+			statusCode: http.StatusCreated,
+			serverResponse: `{
+				"resourceType": "Observation",
+				"id": "obs-456",
+				"status": "final",
+				"code": {"text": "Blood pressure"}
+			}`,
+			expectedError:      false,
+			expectedResourceID: "obs-456",
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.URL.Path != "/Observation" {
+					t.Errorf("Expected path /Observation, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name: "server_error_500",
+			inputResource: &r4.Patient{
+				Name: []r4.HumanName{
+					{Given: []r4.String{{Value: ptr.To("John")}}},
+				},
+			},
+			statusCode:    http.StatusInternalServerError,
+			expectedError: true,
+		},
+		{
+			name: "bad_request_400",
+			inputResource: &r4.Patient{
+				Name: []r4.HumanName{
+					{Given: []r4.String{{Value: ptr.To("John")}}},
+				},
+			},
+			statusCode:    http.StatusBadRequest,
+			expectedError: true,
+		},
+		{
+			name: "invalid_response_json",
+			inputResource: &r4.Patient{
+				Name: []r4.HumanName{
+					{Given: []r4.String{{Value: ptr.To("John")}}},
+				},
+			},
+			statusCode:     http.StatusCreated,
+			serverResponse: `{invalid json}`,
+			expectedError:  true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.validateRequest != nil {
+					tt.validateRequest(t, r)
+				}
+				w.WriteHeader(tt.statusCode)
+				if tt.serverResponse != "" {
+					w.Write([]byte(tt.serverResponse))
+				}
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			result, err := client.Create(context.Background(), tt.inputResource)
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+				if result != nil {
+					if id, hasID := result.ResourceId(); hasID && id != tt.expectedResourceID {
+						t.Errorf("Expected resource ID %s, got %s", tt.expectedResourceID, id)
+					}
+				}
+			}
+		})
+	}
+}
+
+func TestClientRead(t *testing.T) {
+	tests := []struct {
+		name               string
+		resourceType       string
+		resourceID         string
+		serverResponse     string
+		statusCode         int
+		expectedError      bool
+		expectedResourceID string
+		validateRequest    func(t *testing.T, r *http.Request)
+	}{
+		{
+			name:         "successful_read_patient",
+			resourceType: "Patient",
+			resourceID:   "123",
+			statusCode:   http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Patient",
+				"id": "123",
+				"name": [{"given": ["John"]}]
+			}`,
+			expectedError:      false,
+			expectedResourceID: "123",
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.Method != "GET" {
+					t.Errorf("Expected method GET, got %s", r.Method)
+				}
+				if r.URL.Path != "/Patient/123" {
+					t.Errorf("Expected path /Patient/123, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name:         "successful_read_observation",
+			resourceType: "Observation",
+			resourceID:   "obs-456",
+			statusCode:   http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Observation",
+				"id": "obs-456",
+				"status": "final"
+			}`,
+			expectedError:      false,
+			expectedResourceID: "obs-456",
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.URL.Path != "/Observation/obs-456" {
+					t.Errorf("Expected path /Observation/obs-456, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name:          "not_found_404",
+			resourceType:  "Patient",
+			resourceID:    "999",
+			statusCode:    http.StatusNotFound,
+			expectedError: true,
+		},
+		{
+			name:          "server_error_500",
+			resourceType:  "Patient",
+			resourceID:    "123",
+			statusCode:    http.StatusInternalServerError,
+			expectedError: true,
+		},
+		{
+			name:           "invalid_response_json",
+			resourceType:   "Patient",
+			resourceID:     "123",
+			statusCode:     http.StatusOK,
+			serverResponse: `{invalid json}`,
+			expectedError:  true,
+		},
+		{
+			name:          "forbidden_403",
+			resourceType:  "Patient",
+			resourceID:    "secret-123",
+			statusCode:    http.StatusForbidden,
+			expectedError: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.validateRequest != nil {
+					tt.validateRequest(t, r)
+				}
+				w.WriteHeader(tt.statusCode)
+				if tt.serverResponse != "" {
+					w.Write([]byte(tt.serverResponse))
+				}
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			result, err := client.Read(context.Background(), tt.resourceType, tt.resourceID)
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+				if result != nil {
+					if id, hasID := result.ResourceId(); hasID && id != tt.expectedResourceID {
+						t.Errorf("Expected resource ID %s, got %s", tt.expectedResourceID, id)
+					}
+				}
+			}
+		})
+	}
+}
+
+func TestClientUpdate(t *testing.T) {
+	tests := []struct {
+		name               string
+		inputResource      model.Resource
+		serverResponse     string
+		statusCode         int
+		expectedError      bool
+		expectedCreated    bool
+		expectedResourceID string
+		validateRequest    func(t *testing.T, r *http.Request)
+	}{
+		{
+			name: "successful_update",
+			inputResource: &r4.Patient{
+				Id:   &r4.Id{Value: ptr.To("123")},
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("John")}}}},
+			},
+			statusCode: http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Patient",
+				"id": "123",
+				"name": [{"given": ["John"]}]
+			}`,
+			expectedError:      false,
+			expectedCreated:    false,
+			expectedResourceID: "123",
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.Method != "PUT" {
+					t.Errorf("Expected method PUT, got %s", r.Method)
+				}
+				if r.URL.Path != "/Patient/123" {
+					t.Errorf("Expected path /Patient/123, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name: "successful_create_via_update",
+			inputResource: &r4.Patient{
+				Id:   &r4.Id{Value: ptr.To("456")},
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("Jane")}}}},
+			},
+			statusCode: http.StatusCreated,
+			serverResponse: `{
+				"resourceType": "Patient",
+				"id": "456",
+				"name": [{"given": ["Jane"]}]
+			}`,
+			expectedError:      false,
+			expectedCreated:    true,
+			expectedResourceID: "456",
+		},
+		{
+			name: "resource_without_id",
+			inputResource: &r4.Patient{
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("John")}}}},
+			},
+			expectedError: true,
+		},
+		{
+			name: "server_error_500",
+			inputResource: &r4.Patient{
+				Id:   &r4.Id{Value: ptr.To("123")},
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("John")}}}},
+			},
+			statusCode:    http.StatusInternalServerError,
+			expectedError: true,
+		},
+		{
+			name: "conflict_409",
+			inputResource: &r4.Patient{
+				Id:   &r4.Id{Value: ptr.To("123")},
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("John")}}}},
+			},
+			statusCode:    http.StatusConflict,
+			expectedError: true,
+		},
+		{
+			name: "invalid_response_json",
+			inputResource: &r4.Patient{
+				Id:   &r4.Id{Value: ptr.To("123")},
+				Name: []r4.HumanName{{Given: []r4.String{{Value: ptr.To("John")}}}},
+			},
+			statusCode:     http.StatusOK,
+			serverResponse: `{invalid json}`,
+			expectedError:  true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.validateRequest != nil {
+					tt.validateRequest(t, r)
+				}
+				w.WriteHeader(tt.statusCode)
+				if tt.serverResponse != "" {
+					w.Write([]byte(tt.serverResponse))
+				}
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			result, err := client.Update(context.Background(), tt.inputResource)
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+				if result.Created != tt.expectedCreated {
+					t.Errorf("Expected created=%v, got %v", tt.expectedCreated, result.Created)
+				}
+				if result.Resource != nil {
+					if id, hasID := result.Resource.ResourceId(); hasID && id != tt.expectedResourceID {
+						t.Errorf("Expected resource ID %s, got %s", tt.expectedResourceID, id)
+					}
+				}
+			}
+		})
+	}
+}
+
+func TestClientDelete(t *testing.T) {
+	tests := []struct {
+		name            string
+		resourceType    string
+		resourceID      string
+		statusCode      int
+		expectedError   bool
+		validateRequest func(t *testing.T, r *http.Request)
+	}{
+		{
+			name:          "successful_delete_ok",
+			resourceType:  "Patient",
+			resourceID:    "123",
+			statusCode:    http.StatusOK,
+			expectedError: false,
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.Method != "DELETE" {
+					t.Errorf("Expected method DELETE, got %s", r.Method)
+				}
+				if r.URL.Path != "/Patient/123" {
+					t.Errorf("Expected path /Patient/123, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name:          "successful_delete_no_content",
+			resourceType:  "Patient",
+			resourceID:    "123",
+			statusCode:    http.StatusNoContent,
+			expectedError: false,
+		},
+		{
+			name:          "successful_delete_observation",
+			resourceType:  "Observation",
+			resourceID:    "obs-456",
+			statusCode:    http.StatusOK,
+			expectedError: false,
+			validateRequest: func(t *testing.T, r *http.Request) {
+				if r.URL.Path != "/Observation/obs-456" {
+					t.Errorf("Expected path /Observation/obs-456, got %s", r.URL.Path)
+				}
+			},
+		},
+		{
+			name:          "not_found_404",
+			resourceType:  "Patient",
+			resourceID:    "999",
+			statusCode:    http.StatusNotFound,
+			expectedError: true,
+		},
+		{
+			name:          "server_error_500",
+			resourceType:  "Patient",
+			resourceID:    "123",
+			statusCode:    http.StatusInternalServerError,
+			expectedError: true,
+		},
+		{
+			name:          "forbidden_403",
+			resourceType:  "Patient",
+			resourceID:    "secret-123",
+			statusCode:    http.StatusForbidden,
+			expectedError: true,
+		},
+		{
+			name:          "method_not_allowed_405",
+			resourceType:  "Patient",
+			resourceID:    "123",
+			statusCode:    http.StatusMethodNotAllowed,
+			expectedError: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				if tt.validateRequest != nil {
+					tt.validateRequest(t, r)
+				}
+				w.WriteHeader(tt.statusCode)
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			err = client.Delete(context.Background(), tt.resourceType, tt.resourceID)
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+			}
+		})
+	}
+}
+
+func TestClientSearchResourceIncludedBehavior(t *testing.T) {
+	tests := []struct {
+		name                  string
+		resourceType          string
+		parameters            search.Parameters
+		options               search.Options
+		serverResponse        string
+		statusCode            int
+		expectedError         bool
+		expectedResourceCount int
+		expectedIncludedCount int
+		expectedNextCursor    string
+	}{
+		{
+			name:         "search_with_matches_and_includes",
+			resourceType: "Patient",
+			parameters:   search.GenericParams{"name": search.String("John"), "_include": search.String("Patient:organization")},
+			options:      search.Options{},
+			statusCode:   http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Bundle",
+				"type": "searchset",
+				"entry": [
+					{
+						"resource": {
+							"resourceType": "Patient",
+							"id": "123",
+							"name": [{"given": ["John"]}]
+						},
+						"search": {
+							"mode": "match"
+						}
+					},
+					{
+						"resource": {
+							"resourceType": "Organization",
+							"id": "org1",
+							"name": "Test Hospital"
+						},
+						"search": {
+							"mode": "include"
+						}
+					},
+					{
+						"resource": {
+							"resourceType": "Organization",
+							"id": "org2",
+							"name": "Another Hospital"
+						},
+						"search": {
+							"mode": "include"
+						}
+					}
+				]
+			}`,
+			expectedError:         false,
+			expectedResourceCount: 1,
+			expectedIncludedCount: 2,
+			expectedNextCursor:    "",
+		},
+		{
+			name:         "entries_without_search_mode_default_to_match",
+			resourceType: "Patient",
+			parameters:   search.GenericParams{"name": search.String("John")},
+			options:      search.Options{},
+			statusCode:   http.StatusOK,
+			serverResponse: `{
+				"resourceType": "Bundle",
+				"type": "searchset",
+				"entry": [
+					{
+						"resource": {
+							"resourceType": "Patient",
+							"id": "123",
+							"name": [{"given": ["John"]}]
+						}
+					},
+					{
+						"resource": {
+							"resourceType": "Patient",
+							"id": "456",
+							"name": [{"given": ["Jane"]}]
+						},
+						"search": {
+							"mode": "match"
+						}
+					}
+				]
+			}`,
+			expectedError:         false,
+			expectedResourceCount: 2,
+			expectedIncludedCount: 0,
+			expectedNextCursor:    "",
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				expectedPath := "/" + tt.resourceType
+				if r.URL.Path != expectedPath {
+					t.Errorf("Expected path %s, got %s", expectedPath, r.URL.Path)
+				}
+				if r.Method != "GET" {
+					t.Errorf("Expected method GET, got %s", r.Method)
+				}
+				w.WriteHeader(tt.statusCode)
+				if tt.serverResponse != "" {
+					w.Write([]byte(tt.serverResponse))
+				}
+			}))
+			defer server.Close()
+
+			client, err := NewClientR4(server.URL, nil)
+			if err != nil {
+				t.Fatalf("Failed to create client: %v", err)
+			}
+
+			result, err := client.Search(context.Background(), tt.resourceType, tt.parameters, tt.options)
+
+			if tt.expectedError {
+				if err == nil {
+					t.Error("Expected error, but got none")
+				}
+			} else {
+				if err != nil {
+					t.Errorf("Unexpected error: %v", err)
+				}
+				if len(result.Resources) != tt.expectedResourceCount {
+					t.Errorf("Expected %d resources, got %d", tt.expectedResourceCount, len(result.Resources))
+				}
+				if len(result.Included) != tt.expectedIncludedCount {
+					t.Errorf("Expected %d included resources, got %d", tt.expectedIncludedCount, len(result.Included))
+				}
+				if string(result.Next) != tt.expectedNextCursor {
+					t.Errorf("Expected next cursor '%s', got '%s'", tt.expectedNextCursor, string(result.Next))
+				}
+			}
+		})
+	}
 }
 
 func TestIterator(t *testing.T) {
