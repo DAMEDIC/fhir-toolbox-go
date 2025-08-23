@@ -46,6 +46,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log/slog"
@@ -111,13 +112,13 @@ func metadataHandler[R model.Release](
 		capabilityStatement, err := backend.CapabilityStatement(r.Context())
 		if err != nil {
 			slog.Error("error getting metadata", "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
 		// The CapabilityStatement comes fully configured from the backend
 		// No additional modification needed
-		returnResult(w, responseFormat, http.StatusOK, capabilityStatement)
+		returnResult(w, capabilityStatement, http.StatusOK, responseFormat)
 	})
 }
 
@@ -139,7 +140,7 @@ func createHandler[R model.Release](
 		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
 		if err != nil {
 			slog.Error("error creating resource", "resourceType", resourceType, "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
@@ -148,17 +149,17 @@ func createHandler[R model.Release](
 		baseURL := getBaseURL(r)
 		w.Header().Set("Location", baseURL.JoinPath(resourceType, id).String())
 
-		returnResult(w, responseFormat, http.StatusCreated, resource)
+		returnResult(w, resource, http.StatusCreated, responseFormat)
 	})
 }
 
 func dispatchCreate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericCreate,
-	requestFormat Format,
+	requestFormat encoding.Format,
 	resourceType string,
 ) (model.Resource, error) {
-	resource, err := decodeResource[R](r.Body, requestFormat)
+	resource, err := encoding.DecodeResource[R](r.Body, requestFormat)
 	if err != nil {
 		return nil, err
 	}
@@ -193,11 +194,11 @@ func readHandler[R model.Release](
 		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error reading resource", "resourceType", resourceType, "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
-		returnResult(w, responseFormat, http.StatusOK, resource)
+		returnResult(w, resource, http.StatusOK, responseFormat)
 	})
 }
 
@@ -233,7 +234,7 @@ func updateHandler[R model.Release](
 		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
@@ -247,18 +248,18 @@ func updateHandler[R model.Release](
 			status = http.StatusCreated
 		}
 
-		returnResult(w, responseFormat, status, result.Resource)
+		returnResult(w, result.Resource, status, responseFormat)
 	})
 }
 
 func dispatchUpdate[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericUpdate,
-	requestFormat Format,
+	requestFormat encoding.Format,
 	resourceType string,
 	resourceID string,
 ) (update.Result[model.Resource], error) {
-	resource, err := decodeResource[R](r.Body, requestFormat)
+	resource, err := encoding.DecodeResource[R](r.Body, requestFormat)
 	if err != nil {
 		return update.Result[model.Resource]{}, err
 	}
@@ -303,7 +304,7 @@ func deleteHandler[R model.Release](
 		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
 		if err != nil {
 			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
@@ -345,11 +346,11 @@ func searchHandler[R model.Release](
 		)
 		if err != nil {
 			slog.Error("error reading searching", "resourceType", resourceType, "err", err)
-			returnErr(w, responseFormat, err)
+			returnErr(w, err, responseFormat)
 			return
 		}
 
-		returnResult(w, responseFormat, http.StatusOK, resource)
+		returnResult(w, resource, http.StatusOK, responseFormat)
 	})
 }
 
@@ -421,19 +422,35 @@ func parseSearchOptions(
 	return parameters, options, nil
 }
 
-func returnErr(w http.ResponseWriter, format Format, err error) {
-	status, oo := errToOperationOutcome(err)
-	returnResult(w, format, status, oo)
+func detectFormat(r *http.Request, headerName string, defaultFormat Format) encoding.Format {
+	// url parameter overrides the Accept header
+	formatQuery := r.URL.Query()["_format"]
+	if len(formatQuery) > 0 {
+		format := encoding.MatchFormat(formatQuery[0])
+		if format != "" {
+			return format
+		}
+	}
+
+	for _, accept := range r.Header[headerName] {
+		format := encoding.MatchFormat(accept)
+		if format != "" {
+			return format
+		}
+	}
+	return defaultFormat
 }
 
-func returnResult[T any](w http.ResponseWriter, format Format, status int, r T) {
-	var err error
-	switch format {
-	case FormatJSON:
-		err = encodeJSON(w, status, r)
-	case FormatXML:
-		err = encodeXML(w, status, r)
-	}
+func returnErr(w http.ResponseWriter, err error, format encoding.Format) {
+	status, oo := errToOperationOutcome(err)
+	returnResult(w, oo, status, format)
+}
+
+func returnResult[T any](w http.ResponseWriter, r T, status int, format encoding.Format) {
+	w.Header().Set("Content-Type", string(format))
+	w.WriteHeader(status)
+
+	err := encoding.Encode(w, r, format)
 	if err != nil {
 		// we were not able to return an application level error (OperationOutcome)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
@@ -456,11 +473,11 @@ func checkInteractionImplemented[R model.Release](
 	implemented bool,
 	interaction string,
 	w http.ResponseWriter,
-	format Format,
+	format encoding.Format,
 ) bool {
 	if !implemented {
 		slog.Error("interaction not implemented by backend", "interaction", interaction)
-		returnErr(w, format, notImplementedError(interaction))
+		returnErr(w, notImplementedError(interaction), format)
 		return false
 	}
 	return true

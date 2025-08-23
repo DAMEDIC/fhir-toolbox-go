@@ -19,6 +19,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
 )
 
 // Compile-time interface compliance checks
@@ -129,7 +130,7 @@ func (c *client[R]) CapabilityStatement(ctx context.Context) (basic.CapabilitySt
 		return basic.CapabilityStatement{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(FormatJSON))
+	req.Header.Set("Accept", string(encoding.FormatJSON))
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -164,8 +165,8 @@ func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.
 		return nil, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Content-Type", string(FormatJSON))
-	req.Header.Set("Accept", string(FormatJSON))
+	req.Header.Set("Content-Type", string(encoding.FormatJSON))
+	req.Header.Set("Accept", string(encoding.FormatJSON))
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -177,7 +178,7 @@ func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return decodeResource[R](resp.Body, FormatJSON)
+	return encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
 }
 
 // Read retrieves a resource by type and ID.
@@ -189,7 +190,7 @@ func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Re
 		return nil, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(FormatJSON))
+	req.Header.Set("Accept", string(encoding.FormatJSON))
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -201,7 +202,7 @@ func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Re
 		return nil, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return decodeResource[R](resp.Body, FormatJSON)
+	return encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
 }
 
 // Update updates an existing resource.
@@ -224,8 +225,8 @@ func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update
 		return update.Result[model.Resource]{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Content-Type", string(FormatJSON))
-	req.Header.Set("Accept", string(FormatJSON))
+	req.Header.Set("Content-Type", string(encoding.FormatJSON))
+	req.Header.Set("Accept", string(encoding.FormatJSON))
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -243,7 +244,7 @@ func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update
 		return update.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	updatedResource, err := decodeResource[R](resp.Body, FormatJSON)
+	updatedResource, err := encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
 	if err != nil {
 		return update.Result[model.Resource]{}, fmt.Errorf("parse response: %w", err)
 	}
@@ -305,7 +306,7 @@ func (c *client[R]) Search(ctx context.Context, resourceType string, parameters 
 		return search.Result[model.Resource]{}, fmt.Errorf("create request: %w", err)
 	}
 
-	req.Header.Set("Accept", string(FormatJSON))
+	req.Header.Set("Accept", string(encoding.FormatJSON))
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {
@@ -339,7 +340,7 @@ func parseJSONResponse(resp *http.Response, v interface{}) error {
 // parseSearchResponse parses a search bundle response using FHIRPath expressions.
 func (c *client[R]) parseSearchResponse(resp *http.Response) (search.Result[model.Resource], error) {
 	// Decode the bundle as a resource using the generic decode function
-	bundle, err := decodeResource[R](resp.Body, FormatJSON)
+	bundle, err := encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
 	if err != nil {
 		return search.Result[model.Resource]{}, fmt.Errorf("parse bundle: %w", err)
 	}

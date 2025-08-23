@@ -2,7 +2,15 @@ package rest
 
 import (
 	"encoding/json"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
 	"time"
+)
+
+type Format = encoding.Format
+
+const (
+	FormatJSON = encoding.FormatJSON
+	FormatXML  = encoding.FormatXML
 )
 
 type Config struct {
