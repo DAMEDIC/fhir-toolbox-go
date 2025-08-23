@@ -5,124 +5,29 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
-	"net/url"
-	"time"
-
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
-	capabilitiesR4 "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r4"
-	capabilitiesR4B "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r4b"
-	capabilitiesR5 "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
+	"io"
+	"net/http"
+	"net/url"
 )
 
-// Compile-time interface compliance checks
-var (
-	_ capabilities.GenericCapabilities = (*client[model.R4])(nil)
-	_ capabilities.GenericCreate       = (*client[model.R4])(nil)
-	_ capabilities.GenericRead         = (*client[model.R4])(nil)
-	_ capabilities.GenericUpdate       = (*client[model.R4])(nil)
-	_ capabilities.GenericDelete       = (*client[model.R4])(nil)
-	_ capabilities.GenericSearch       = (*client[model.R4])(nil)
-)
-
-// client implements a FHIR REST client that can perform all generic FHIR operations.
-// This is private - use the concrete R4, R4B, R5 clients instead.
-type client[R model.Release] struct {
-	baseURL    *url.URL
-	httpClient *http.Client
-}
-
-// clientR4 is a FHIR R4 REST client that provides both generic and concrete APIs.
-type clientR4 struct {
-	*client[model.R4]
-	capabilitiesR4.Concrete
-}
-
-// clientR4B is a FHIR R4B REST client that provides both generic and concrete APIs.
-type clientR4B struct {
-	*client[model.R4B]
-	capabilitiesR4B.Concrete
-}
-
-// clientR5 is a FHIR R5 REST client that provides both generic and concrete APIs.
-type clientR5 struct {
-	*client[model.R5]
-	capabilitiesR5.Concrete
-}
-
-// NewClientR4 creates a new FHIR R4 REST client with the given base URL.
-func NewClientR4(baseURL string, httpClient *http.Client) (*clientR4, error) {
-	c, err := newClientWithRelease[model.R4](baseURL, httpClient, model.R4{})
-	if err != nil {
-		return nil, err
-	}
-	r4Client := &clientR4{
-		client: c,
-		Concrete: capabilitiesR4.Concrete{
-			Generic: c,
-		},
-	}
-	return r4Client, nil
-}
-
-// NewClientR4B creates a new FHIR R4B REST client with the given base URL.
-func NewClientR4B(baseURL string, httpClient *http.Client) (*clientR4B, error) {
-	c, err := newClientWithRelease[model.R4B](baseURL, httpClient, model.R4B{})
-	if err != nil {
-		return nil, err
-	}
-	r4bClient := &clientR4B{
-		client: c,
-		Concrete: capabilitiesR4B.Concrete{
-			Generic: c,
-		},
-	}
-	return r4bClient, nil
-}
-
-// NewClientR5 creates a new FHIR R5 REST client with the given base URL.
-func NewClientR5(baseURL string, httpClient *http.Client) (*clientR5, error) {
-	c, err := newClientWithRelease[model.R5](baseURL, httpClient, model.R5{})
-	if err != nil {
-		return nil, err
-	}
-	r5Client := &clientR5{
-		client: c,
-		Concrete: capabilitiesR5.Concrete{
-			Generic: c,
-		},
-	}
-	return r5Client, nil
-}
-
-// newClientWithRelease creates a new FHIR REST client with the specified release.
-func newClientWithRelease[R model.Release](baseURL string, httpClient *http.Client, release model.Release) (*client[R], error) {
-	u, err := url.Parse(baseURL)
-	if err != nil {
-		return nil, fmt.Errorf("invalid base URL: %w", err)
-	}
-
-	if httpClient == nil {
-		httpClient = &http.Client{
-			Timeout: 30 * time.Second,
-		}
-	}
-
-	return &client[R]{
-		baseURL:    u,
-		httpClient: httpClient,
-	}, nil
+type internalClient[R model.Release] struct {
+	baseURL *url.URL
+	client  *http.Client
 }
 
 // CapabilityStatement retrieves the CapabilityStatement from the server's metadata endpoint.
-func (c *client[R]) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+	if c.baseURL == nil {
+		return basic.CapabilityStatement{}, fmt.Errorf("base URL is nil")
+	}
+
 	u := c.baseURL.JoinPath("metadata")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
@@ -132,7 +37,7 @@ func (c *client[R]) CapabilityStatement(ctx context.Context) (basic.CapabilitySt
 
 	req.Header.Set("Accept", string(encoding.FormatJSON))
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return basic.CapabilityStatement{}, fmt.Errorf("execute request: %w", err)
 	}
@@ -151,7 +56,11 @@ func (c *client[R]) CapabilityStatement(ctx context.Context) (basic.CapabilitySt
 }
 
 // Create creates a new resource.
-func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
+func (c *internalClient[R]) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
+	if c.baseURL == nil {
+		return nil, fmt.Errorf("base URL is nil")
+	}
+
 	resourceType := resource.ResourceType()
 	u := c.baseURL.JoinPath(resourceType)
 
@@ -168,7 +77,7 @@ func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.
 	req.Header.Set("Content-Type", string(encoding.FormatJSON))
 	req.Header.Set("Accept", string(encoding.FormatJSON))
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("execute request: %w", err)
 	}
@@ -182,7 +91,11 @@ func (c *client[R]) Create(ctx context.Context, resource model.Resource) (model.
 }
 
 // Read retrieves a resource by type and ID.
-func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Resource, error) {
+func (c *internalClient[R]) Read(ctx context.Context, resourceType, id string) (model.Resource, error) {
+	if c.baseURL == nil {
+		return nil, fmt.Errorf("base URL is nil")
+	}
+
 	u := c.baseURL.JoinPath(resourceType, id)
 
 	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
@@ -192,7 +105,7 @@ func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Re
 
 	req.Header.Set("Accept", string(encoding.FormatJSON))
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("execute request: %w", err)
 	}
@@ -206,7 +119,11 @@ func (c *client[R]) Read(ctx context.Context, resourceType, id string) (model.Re
 }
 
 // Update updates an existing resource.
-func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
+func (c *internalClient[R]) Update(ctx context.Context, resource model.Resource) (update.Result[model.Resource], error) {
+	if c.baseURL == nil {
+		return update.Result[model.Resource]{}, fmt.Errorf("base URL is nil")
+	}
+
 	resourceType := resource.ResourceType()
 	id, hasID := resource.ResourceId()
 	if !hasID {
@@ -228,7 +145,7 @@ func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update
 	req.Header.Set("Content-Type", string(encoding.FormatJSON))
 	req.Header.Set("Accept", string(encoding.FormatJSON))
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return update.Result[model.Resource]{}, fmt.Errorf("execute request: %w", err)
 	}
@@ -256,7 +173,11 @@ func (c *client[R]) Update(ctx context.Context, resource model.Resource) (update
 }
 
 // Delete deletes a resource by type and ID.
-func (c *client[R]) Delete(ctx context.Context, resourceType, id string) error {
+func (c *internalClient[R]) Delete(ctx context.Context, resourceType, id string) error {
+	if c.baseURL == nil {
+		return fmt.Errorf("base URL is nil")
+	}
+
 	u := c.baseURL.JoinPath(resourceType, id)
 
 	req, err := http.NewRequestWithContext(ctx, "DELETE", u.String(), nil)
@@ -264,7 +185,7 @@ func (c *client[R]) Delete(ctx context.Context, resourceType, id string) error {
 		return fmt.Errorf("create request: %w", err)
 	}
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return fmt.Errorf("execute request: %w", err)
 	}
@@ -278,7 +199,11 @@ func (c *client[R]) Delete(ctx context.Context, resourceType, id string) error {
 }
 
 // Search performs a search operation for the given resource type with the specified options.
-func (c *client[R]) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+func (c *internalClient[R]) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
+	if c.baseURL == nil {
+		return search.Result[model.Resource]{}, fmt.Errorf("base URL is nil")
+	}
+
 	opts := options
 
 	var u *url.URL
@@ -308,7 +233,7 @@ func (c *client[R]) Search(ctx context.Context, resourceType string, parameters 
 
 	req.Header.Set("Accept", string(encoding.FormatJSON))
 
-	resp, err := c.httpClient.Do(req)
+	resp, err := c.client.Do(req)
 	if err != nil {
 		return search.Result[model.Resource]{}, fmt.Errorf("execute request: %w", err)
 	}
@@ -318,7 +243,7 @@ func (c *client[R]) Search(ctx context.Context, resourceType string, parameters 
 		return search.Result[model.Resource]{}, fmt.Errorf("unexpected status code: %d", resp.StatusCode)
 	}
 
-	return c.parseSearchResponse(resp)
+	return parseSearchResponse[R](resp)
 }
 
 // Helper functions
@@ -338,18 +263,18 @@ func parseJSONResponse(resp *http.Response, v interface{}) error {
 }
 
 // parseSearchResponse parses a search bundle response using FHIRPath expressions.
-func (c *client[R]) parseSearchResponse(resp *http.Response) (search.Result[model.Resource], error) {
+func parseSearchResponse[R model.Release](resp *http.Response) (search.Result[model.Resource], error) {
 	// Decode the bundle as a resource using the generic decode function
 	bundle, err := encoding.DecodeResource[R](resp.Body, encoding.FormatJSON)
 	if err != nil {
 		return search.Result[model.Resource]{}, fmt.Errorf("parse bundle: %w", err)
 	}
 
-	return c.parseSearchBundle(bundle)
+	return parseSearchBundle(bundle)
 }
 
 // parseSearchBundle parses a Bundle into a search result using FHIRPath expressions.
-func (c *client[R]) parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], error) {
+func parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], error) {
 	// Extract all bundle entries using FHIRPath
 	entryExpr := fhirpath.MustParse("entry")
 	entryResults, err := fhirpath.Evaluate(context.Background(), bundle, entryExpr)

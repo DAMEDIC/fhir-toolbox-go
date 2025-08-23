@@ -8,12 +8,17 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"io"
 	"log"
+	"net/url"
 )
 
 func main() {
-	client, err := rest.NewClientR4("https://server.fire.ly", nil)
+	baseURL, err := url.Parse("https://server.fire.ly")
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	client := &rest.ClientR4{
+		BaseURL: baseURL,
 	}
 
 	// Read patient
