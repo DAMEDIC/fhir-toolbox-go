@@ -351,11 +351,15 @@ func parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], er
 
 	// Set next cursor if available
 	if len(nextResults) > 0 {
-		if nextURL, ok := nextResults[0].(fhirpath.String); ok {
-			result.Next = search.Cursor(nextURL)
-		} else {
-			return search.Result[model.Resource]{}, fmt.Errorf("invalid next link: %v", nextResults[0])
+		// Use ToString() to convert any FHIRPath value to string
+		nextURLString, ok, err := nextResults[0].ToString(false)
+		if err != nil {
+			return search.Result[model.Resource]{}, fmt.Errorf("error converting next link to string: %w", err)
 		}
+		if !ok {
+			return search.Result[model.Resource]{}, fmt.Errorf("next link cannot be converted to string: %v", nextResults[0])
+		}
+		result.Next = search.Cursor(nextURLString)
 	}
 
 	return result, nil
