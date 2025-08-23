@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
@@ -501,6 +502,213 @@ func (r TriggerDefinition) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *TriggerDefinition) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TriggerDefinition element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TriggerDefinition element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TriggerDefinition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TriggerDefinition element", t)
+			}
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "name":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Value = v.Value
+		case "_name":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Name == nil {
+				r.Name = &String{}
+			}
+			r.Name.Id = v.Id
+			r.Name.Extension = v.Extension
+		case "timingTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Timing = v
+		case "timingReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Timing = v
+		case "timingDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = Date{
+					Extension: r.Timing.(Date).Extension,
+					Id:        r.Timing.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Timing = v
+			}
+		case "_timingDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Timing.(Date).Value,
+				}
+			} else {
+				r.Timing = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "timingDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = DateTime{
+					Extension: r.Timing.(DateTime).Extension,
+					Id:        r.Timing.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Timing = v
+			}
+		case "_timingDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Timing != nil {
+				r.Timing = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Timing.(DateTime).Value,
+				}
+			} else {
+				r.Timing = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "data":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TriggerDefinition element", t)
+			}
+			for d.More() {
+				var v DataRequirement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Data = append(r.Data, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TriggerDefinition element", t)
+			}
+		case "condition":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Condition = &v
+		default:
+			return fmt.Errorf("invalid field: %s in TriggerDefinition", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TriggerDefinition element", t)
+	}
+	return nil
+}
 func (r TriggerDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -559,6 +767,112 @@ func (r TriggerDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) er
 		return err
 	}
 	return nil
+}
+func (r *TriggerDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "name":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Name = &v
+			case "timingTiming":
+				if r.Timing != nil {
+					return fmt.Errorf("multiple values for field \"Timing\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timing = v
+			case "timingReference":
+				if r.Timing != nil {
+					return fmt.Errorf("multiple values for field \"Timing\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timing = v
+			case "timingDate":
+				if r.Timing != nil {
+					return fmt.Errorf("multiple values for field \"Timing\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timing = v
+			case "timingDateTime":
+				if r.Timing != nil {
+					return fmt.Errorf("multiple values for field \"Timing\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timing = v
+			case "data":
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Data = append(r.Data, v)
+			case "condition":
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Condition = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r TriggerDefinition) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection

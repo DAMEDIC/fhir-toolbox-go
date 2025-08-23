@@ -30,6 +30,7 @@ func missingIdError(resourceType string) basic.OperationOutcome {
 func buildSearchBundle[R model.Resource](
 	resourceType string,
 	result search.Result[R],
+	usedParameters search.Parameters,
 	usedOptions search.Options,
 	capabilityStatement basic.CapabilityStatement,
 	resolveSearchParameter func(canonical string) (model.Element, error),
@@ -51,6 +52,7 @@ func buildSearchBundle[R model.Resource](
 				Relation: basic.String{Value: ptr.To("self")},
 				Url: relationLink(
 					resourceType,
+					usedParameters,
 					usedOptions,
 					capabilityStatement,
 					resolveSearchParameter,
@@ -68,6 +70,7 @@ func buildSearchBundle[R model.Resource](
 			Relation: basic.String{Value: ptr.To("next")},
 			Url: relationLink(
 				resourceType,
+				usedParameters,
 				nextOptions,
 				capabilityStatement,
 				resolveSearchParameter,
@@ -130,6 +133,7 @@ func entry(resource model.Resource, searchMode string, baseURL *url.URL) (basic.
 // are removed.
 func relationLink(
 	resourceType string,
+	parameters search.Parameters,
 	options search.Options,
 	capabilityStatement basic.CapabilityStatement,
 	resolveSearchParameter func(canonical string) (model.Element, error),
@@ -148,11 +152,10 @@ func relationLink(
 	}
 
 	// remove options supplied by the client, but not used/supported by the backend
-	usedOptions := options
-	usedOptions.Parameters = make(map[search.ParameterKey]search.AllOf, len(options.Parameters))
+	usedOptionsParams := make(map[string]search.Criteria)
 
 	// Build search parameters map from CapabilityStatement
-	searchParameters := make(map[string]search.Parameter)
+	searchParameters := make(map[string]model.Element)
 	for _, rest := range capabilityStatement.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
@@ -172,7 +175,7 @@ func relationLink(
 		}
 	}
 
-	for key, ands := range options.Parameters {
+	for key, ands := range parameters.Map() {
 		p, ok := searchParameters[key.Name]
 		if !ok {
 			continue
@@ -189,12 +192,12 @@ func relationLink(
 			resolvedModifiers = append(resolvedModifiers, string(m))
 		}
 
-		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, key.Modifier) {
-			usedOptions.Parameters[key] = ands
+		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, string(key.Modifier)) {
+			usedOptionsParams[key.String()] = ands
 		}
 	}
 
-	link.RawQuery = usedOptions.QueryString()
+	link.RawQuery = search.BuildQuery(parameters, options)
 
 	return basic.Uri{Value: ptr.To(link.String())}
 }

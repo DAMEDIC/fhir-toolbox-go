@@ -17,261 +17,204 @@ import (
 	"testing"
 )
 
-// Test SearchParameter fallback capabilities when SearchParameterSearch is NOT implemented
-func TestSearchParameterFallbackCapabilities(t *testing.T) {
-	// Backend without SearchParameterSearch interface and without other resource search capabilities
-	backend := mockBackendMinimal{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	expectedBody := `{
-		"date": "2024-11-28T11:25:27+01:00",
-		"fhirVersion": "4.0",
-		"format": [
-			"xml",
-			"json"
-		],
-		"implementation": {
-			"description": "a simple FHIR service built with fhir-toolbox-go",
-			"url": "http://example.com"
-		},
-		"kind": "instance",
-		"resourceType": "CapabilityStatement",
-		"rest": [
-			{
-				"mode": "server",
-				"resource": [
-					{
-						"interaction": [
-							{
-								"code": "read"
-							},
-							{
-								"code": "search-type"
-							}
-						],
-						"searchParam": [
-							{
-								"definition": "http://example.com/SearchParameter/SearchParameter-id",
-								"name": "_id",
-								"type": "token"
-							}
-						],
-						"type": "SearchParameter"
-					}
-				]
-			}
-		],
-		"software": {
-			"name": "fhir-toolbox-go"
-		},
-		"status": "active"
-	}`
-
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
-}
-
-// Test SearchParameter capabilities when SearchParameterSearch IS implemented
-func TestSearchParameterConcreteCapabilities(t *testing.T) {
-	// Backend with SearchParameterSearch interface (inherits from minimal, not the one with Patient/Observation)
-	backend := mockBackendWithSearchParameterSearchOnly{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	expectedBody := `{
-		"date": "2024-11-28T11:25:27+01:00",
-		"fhirVersion": "4.0",
-		"format": [
-			"xml",
-			"json"
-		],
-		"implementation": {
-			"description": "a simple FHIR service built with fhir-toolbox-go",
-			"url": "http://example.com"
-		},
-		"kind": "instance",
-		"resourceType": "CapabilityStatement",
-		"rest": [
-			{
-				"mode": "server",
-				"resource": [
-					{
-						"interaction": [
-							{
-								"code": "search-type"
-							}
-						],
-						"searchParam": [
-							{
-								"definition": "http://example.com/SearchParameter/SearchParameter-name",
-								"name": "name",
-								"type": "string"
-							}
-						],
-						"type": "SearchParameter"
-					}
-				]
-			}
-		],
-		"software": {
-			"name": "fhir-toolbox-go"
-		},
-		"status": "active"
-	}`
-
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
-}
-
-// Test SearchParameter read fallback when SearchParameterSearch is NOT implemented
-func TestSearchParameterReadFallback(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter/SearchParameter-id", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	expectedBody := `{
-		"resourceType": "SearchParameter",
-		"id": "SearchParameter-id",
-		"url": "http://example.com/SearchParameter/SearchParameter-id",
-		"name": "_id",
-		"status": "active",
-		"description": "Logical id of this artifact",
-		"code": "_id",
-		"base": ["SearchParameter"],
-		"type": "token",
-		"expression": "SearchParameter.id"
-	}`
-
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
-}
-
-// Test SearchParameter search fallback when SearchParameterSearch is NOT implemented
-func TestSearchParameterSearchFallback(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_id=SearchParameter-id", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	expectedBody := `{
-		"resourceType": "Bundle",
-		"type": "searchset",
-		"entry": [
-			{
-				"fullUrl": "http://example.com/SearchParameter/SearchParameter-id",
-				"resource": {
-					"resourceType": "SearchParameter",
-					"id": "SearchParameter-id",
-					"url": "http://example.com/SearchParameter/SearchParameter-id",
-					"name": "_id",
-					"status": "active",
-					"description": "Logical id of this artifact",
-					"code": "_id",
-					"base": ["SearchParameter"],
-					"type": "token",
-					"expression": "SearchParameter.id"
+func TestSearchParameterCapabilities(t *testing.T) {
+	tests := []struct {
+		name         string
+		backend      interface{}
+		expectedBody string
+	}{
+		{
+			name:    "fallback_capabilities_without_SearchParameterSearch",
+			backend: mockBackendMinimal{},
+			expectedBody: `{
+				"date": "2024-11-28T11:25:27+01:00",
+				"fhirVersion": "4.0",
+				"format": [
+					"xml",
+					"json"
+				],
+				"implementation": {
+					"description": "a simple FHIR service built with fhir-toolbox-go",
+					"url": "http://example.com"
 				},
-				"search": {
-					"mode": "match"
-				}
-			}
-		],
-		"link": [
-			{
-				"relation": "self",
-				"url": "http://example.com/SearchParameter?_id=SearchParameter-id&_count=500"
-			}
-		]
-	}`
+				"kind": "instance",
+				"resourceType": "CapabilityStatement",
+				"rest": [
+					{
+						"mode": "server",
+						"resource": [
+							{
+								"interaction": [
+									{
+										"code": "read"
+									},
+									{
+										"code": "search-type"
+									}
+								],
+								"searchParam": [
+									{
+										"definition": "http://example.com/SearchParameter/SearchParameter-id",
+										"name": "_id",
+										"type": "token"
+									}
+								],
+								"type": "SearchParameter"
+							}
+						]
+					}
+				],
+				"software": {
+					"name": "fhir-toolbox-go"
+				},
+				"status": "active"
+			}`,
+		},
+		{
+			name:    "concrete_capabilities_with_SearchParameterSearch",
+			backend: mockBackendWithSearchParameterSearchOnly{},
+			expectedBody: `{
+				"date": "2024-11-28T11:25:27+01:00",
+				"fhirVersion": "4.0",
+				"format": [
+					"xml",
+					"json"
+				],
+				"implementation": {
+					"description": "a simple FHIR service built with fhir-toolbox-go",
+					"url": "http://example.com"
+				},
+				"kind": "instance",
+				"resourceType": "CapabilityStatement",
+				"rest": [
+					{
+						"mode": "server",
+						"resource": [
+							{
+								"interaction": [
+									{
+										"code": "search-type"
+									}
+								],
+								"searchParam": [
+									{
+										"definition": "http://example.com/SearchParameter/SearchParameter-name",
+										"name": "name",
+										"type": "string"
+									}
+								],
+								"type": "SearchParameter"
+							}
+						]
+					}
+				],
+				"software": {
+					"name": "fhir-toolbox-go"
+				},
+				"status": "active"
+			}`,
+		},
+	}
 
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := &rest.Server[model.R4]{
+				Backend: tt.backend,
+			}
+
+			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != http.StatusOK {
+				t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+			}
+
+			assertResponse(t, "application/fhir+json", tt.expectedBody, rr)
+		})
+	}
 }
 
-// Test SearchParameter search with empty results when searching for unknown ID
-func TestSearchParameterSearchFallbackEmptyResult(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+func TestSearchParameterSearch(t *testing.T) {
+	tests := []struct {
+		name         string
+		backend      interface{}
+		query        string
+		expectedBody string
+	}{
+		{
+			name:    "search_fallback_with_results",
+			backend: mockBackendWithoutSearchParameterSearch{},
+			query:   "_id=SearchParameter-id",
+			expectedBody: `{
+				"resourceType": "Bundle",
+				"type": "searchset",
+				"entry": [
+					{
+						"fullUrl": "http://example.com/SearchParameter/SearchParameter-id",
+						"resource": {
+							"resourceType": "SearchParameter",
+							"id": "SearchParameter-id",
+							"url": "http://example.com/SearchParameter/SearchParameter-id",
+							"name": "_id",
+							"status": "active",
+							"description": "Logical id of this artifact",
+							"code": "_id",
+							"base": ["SearchParameter"],
+							"type": "token",
+							"expression": "SearchParameter.id"
+						},
+						"search": {
+							"mode": "match"
+						}
+					}
+				],
+				"link": [
+					{
+						"relation": "self",
+						"url": "http://example.com/SearchParameter?_id=SearchParameter-id&_count=500"
+					}
+				]
+			}`,
+		},
+		{
+			name:    "search_fallback_empty_result",
+			backend: mockBackendWithoutSearchParameterSearch{},
+			query:   "_id=unknown-id",
+			expectedBody: `{
+				"resourceType": "Bundle",
+				"type": "searchset",
+				"link": [
+					{
+						"relation": "self",
+						"url": "http://example.com/SearchParameter?_id=unknown-id&_count=500"
+					}
+				]
+			}`,
+		},
 	}
 
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_id=unknown-id", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	expectedBody := `{
-		"resourceType": "Bundle",
-		"type": "searchset",
-		"link": [
-			{
-				"relation": "self",
-				"url": "http://example.com/SearchParameter?_id=unknown-id&_count=500"
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := &rest.Server[model.R4]{
+				Backend: tt.backend,
 			}
-		]
-	}`
 
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
+			req := httptest.NewRequest("GET", "http://example.com/SearchParameter?"+tt.query, nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != http.StatusOK {
+				t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+			}
+
+			assertResponse(t, "application/fhir+json", tt.expectedBody, rr)
+		})
+	}
 }
 
 // Mock backend with minimal capabilities (only CapabilityBase)
@@ -324,15 +267,15 @@ func (m mockBackendWithoutSearchParameterSearch) CapabilityBase(ctx context.Cont
 func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"_id":  {Type: r4.SearchParamTypeToken},
+			"date": {Type: r4.SearchParamTypeDate},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }
 
 // Add Patient search implementation to make it part of capabilities
-func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Context, options search.Options) (search.Result[r4.Patient], error) {
+func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Patient], error) {
 	return search.Result[r4.Patient]{}, nil
 }
 
@@ -340,13 +283,13 @@ func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Conte
 func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesObservation(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"_id": {Type: r4.SearchParamTypeToken},
 		},
 	}, nil
 }
 
 // Add Observation search implementation to make it part of capabilities
-func (m mockBackendWithoutSearchParameterSearch) SearchObservation(ctx context.Context, options search.Options) (search.Result[r4.Observation], error) {
+func (m mockBackendWithoutSearchParameterSearch) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.Observation], error) {
 	return search.Result[r4.Observation]{}, nil
 }
 
@@ -358,12 +301,12 @@ type mockBackendWithSearchParameterSearchOnly struct {
 func (m mockBackendWithSearchParameterSearchOnly) SearchCapabilitiesSearchParameter(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }
 
-func (m mockBackendWithSearchParameterSearchOnly) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
+func (m mockBackendWithSearchParameterSearchOnly) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SearchParameter], error) {
 	result := search.Result[r4.SearchParameter]{}
 
 	// Return a mock SearchParameter
@@ -393,12 +336,12 @@ type mockBackendWithSearchParameterSearch struct {
 func (m mockBackendWithSearchParameterSearch) SearchCapabilitiesSearchParameter(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }
 
-func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.Context, options search.Options) (search.Result[r4.SearchParameter], error) {
+func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r4.SearchParameter], error) {
 	result := search.Result[r4.SearchParameter]{}
 
 	// Return a mock SearchParameter
@@ -420,50 +363,75 @@ func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.
 	return result, nil
 }
 
-// Test reading generated SearchParameters from Patient search capabilities
-func TestSearchParameterReadGeneratedFromPatient(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+func TestSearchParameterRead(t *testing.T) {
+	tests := []struct {
+		name         string
+		backend      interface{}
+		url          string
+		expectedBody string
+	}{
+		{
+			name:    "read_fallback_SearchParameter_id",
+			backend: mockBackendWithoutSearchParameterSearch{},
+			url:     "http://example.com/SearchParameter/SearchParameter-id",
+			expectedBody: `{
+				"resourceType": "SearchParameter",
+				"id": "SearchParameter-id",
+				"url": "http://example.com/SearchParameter/SearchParameter-id",
+				"name": "_id",
+				"status": "active",
+				"description": "Logical id of this artifact",
+				"code": "_id",
+				"base": ["SearchParameter"],
+				"type": "token",
+				"expression": "SearchParameter.id"
+			}`,
+		},
+		{
+			name:    "read_generated_from_Patient_capabilities",
+			backend: mockBackendWithoutSearchParameterSearch{},
+			url:     "http://example.com/SearchParameter/Patient-id",
+			expectedBody: `{
+				"resourceType": "SearchParameter",
+				"id": "Patient-id",
+				"url": "http://example.com/SearchParameter/Patient-id",
+				"name": "_id",
+				"status": "active",
+				"description": "Search parameter _id for Patient resource",
+				"code": "_id",
+				"base": ["Patient"],
+				"type": "token"
+			}`,
+		},
 	}
 
-	// Test reading Patient-_id SearchParameter
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter/Patient-id", nil)
-	req.Header.Set("Accept", "application/fhir+json")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := &rest.Server[model.R4]{
+				Backend: tt.backend,
+			}
 
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
+			req := httptest.NewRequest("GET", tt.url, nil)
+			req.Header.Set("Accept", "application/fhir+json")
 
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != http.StatusOK {
+				t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
+			}
+
+			assertResponse(t, "application/fhir+json", tt.expectedBody, rr)
+		})
 	}
-
-	expectedBody := `{
-		"resourceType": "SearchParameter",
-		"id": "Patient-id",
-		"url": "http://example.com/SearchParameter/Patient-id",
-		"name": "_id",
-		"status": "active",
-		"description": "Search parameter _id for Patient resource",
-		"code": "_id",
-		"base": ["Patient"],
-		"type": "token"
-	}`
-
-	assertResponse(t, "application/fhir+json", expectedBody, rr)
 }
 
 // Test that all SearchParameter URLs in CapabilityStatement can be resolved
 func TestAllCapabilityStatementSearchParameterUrlsResolvable(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// First, get the CapabilityStatement
@@ -606,272 +574,277 @@ func getLastPathSegment(urlStr string) string {
 	return "unknown"
 }
 
-// Test strict search parameters configuration
-func TestStrictSearchParametersEnabled(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	// Create config with strict search parameters enabled
-	config := rest.DefaultConfig
-	config.StrictSearchParameters = true
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	// Try to search with an unsupported parameter - should return an error
-	req := httptest.NewRequest("GET", "http://example.com/Patient?unsupported_param=test", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	// Should return a 400 Bad Request due to unsupported parameter
-	if rr.Code != http.StatusBadRequest {
-		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusBadRequest, rr.Code, rr.Body.String())
-	}
-
-	// Check that the error message mentions unsupported parameter
-	bodyStr := rr.Body.String()
-	if !strings.Contains(bodyStr, "unsupported search parameter") {
-		t.Error("Expected error message to mention 'unsupported search parameter'")
-	}
-}
-
-// Test strict search parameters disabled (default behavior)
-func TestStrictSearchParametersDisabled(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	// Use default config (strict search parameters disabled)
-	config := rest.DefaultConfig
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	// Try to search with an unsupported parameter - should silently ignore it
-	req := httptest.NewRequest("GET", "http://example.com/Patient?unsupported_param=test", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	// Should return 200 OK and ignore the unsupported parameter
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
-	}
-
-	// Should return an empty search bundle (since no Patient resources exist in our mock)
-	bodyStr := rr.Body.String()
-	if !strings.Contains(bodyStr, `"resourceType":"Bundle"`) {
-		t.Error("Expected response to be a Bundle")
-	}
-	if !strings.Contains(bodyStr, `"type":"searchset"`) {
-		t.Error("Expected Bundle type to be searchset")
-	}
-}
-
-// Test strict search parameters with supported parameter
-func TestStrictSearchParametersWithSupportedParameter(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	// Create config with strict search parameters enabled
-	config := rest.DefaultConfig
-	config.StrictSearchParameters = true
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	// Try to search with a supported parameter (_id) - should work fine
-	req := httptest.NewRequest("GET", "http://example.com/Patient?_id=test123", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	// Should return 200 OK since _id is a supported parameter
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
-	}
-
-	// Should return a search bundle
-	bodyStr := rr.Body.String()
-	if !strings.Contains(bodyStr, `"resourceType":"Bundle"`) {
-		t.Error("Expected response to be a Bundle")
-	}
-}
-
-// Test SearchParameter pagination with count parameter
-func TestSearchParameterPaginationWithCount(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	// First page with count=2
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_count=2", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	// Parse the response to check pagination
-	var bundle map[string]interface{}
-	if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
-		t.Fatalf("Failed to parse bundle: %v", err)
-	}
-
-	// Should have exactly 2 entries
-	entries, ok := bundle["entry"].([]interface{})
-	if !ok {
-		t.Fatal("Bundle should have entries")
-	}
-	if len(entries) != 2 {
-		t.Errorf("Expected 2 entries, got %d", len(entries))
-	}
-
-	// Should have a next link
-	links, ok := bundle["link"].([]interface{})
-	if !ok {
-		t.Fatal("Bundle should have links")
-	}
-
-	var nextLink string
-	for _, link := range links {
-		linkObj := link.(map[string]interface{})
-		if relation, ok := linkObj["relation"].(string); ok && relation == "next" {
-			nextLink = linkObj["url"].(string)
-			break
-		}
-	}
-
-	if nextLink == "" {
-		t.Error("Expected to find next link for pagination")
-	}
-
-	// Verify next link contains cursor parameter
-	if !strings.Contains(nextLink, "_cursor=") {
-		t.Error("Next link should contain _cursor parameter")
-	}
-}
-
-// Test SearchParameter pagination with cursor
-func TestSearchParameterPaginationWithCursor(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	// Request second page with cursor (offset=2)
-	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_count=2&_cursor=2", nil)
-	req.Header.Set("Accept", "application/fhir+json")
-
-	rr := httptest.NewRecorder()
-	server.ServeHTTP(rr, req)
-
-	if rr.Code != http.StatusOK {
-		t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
-	}
-
-	// Parse the response
-	var bundle map[string]interface{}
-	if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
-		t.Fatalf("Failed to parse bundle: %v", err)
-	}
-
-	// Should have entries (remaining items after offset 2)
-	entries, ok := bundle["entry"].([]interface{})
-	if !ok || len(entries) == 0 {
-		t.Error("Expected entries in paginated result")
-	}
-
-	// Should have at most 2 entries due to count limit
-	if len(entries) > 2 {
-		t.Errorf("Expected at most 2 entries, got %d", len(entries))
-	}
-}
-
-// Test SearchParameter pagination edge cases
-func TestSearchParameterPaginationEdgeCases(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	testCases := []struct {
+func TestStrictSearchParameters(t *testing.T) {
+	tests := []struct {
 		name           string
-		queryString    string
-		expectNextLink bool
-		expectError    bool
+		strict         bool
+		query          string
+		expectedStatus int
+		errorContains  string
+		expectBundle   bool
 	}{
 		{
-			name:           "cursor_beyond_results",
-			queryString:    "_cursor=100&_count=10",
-			expectNextLink: false,
-			expectError:    false,
+			name:           "strict_enabled_unsupported_param",
+			strict:         true,
+			query:          "unsupported_param=test",
+			expectedStatus: http.StatusBadRequest,
+			errorContains:  "unsupported search parameter",
+			expectBundle:   false,
 		},
 		{
-			name:           "invalid_cursor",
-			queryString:    "_cursor=invalid&_count=2",
-			expectNextLink: false,
-			expectError:    true, // Should return error for unparsable cursor
+			name:           "strict_disabled_unsupported_param",
+			strict:         false,
+			query:          "unsupported_param=test",
+			expectedStatus: http.StatusOK,
+			errorContains:  "",
+			expectBundle:   true,
 		},
 		{
-			name:           "last_page",
-			queryString:    "_cursor=4&_count=10", // Should get last item(s)
-			expectNextLink: false,
-			expectError:    false,
+			name:           "strict_enabled_supported_param",
+			strict:         true,
+			query:          "_id=test123",
+			expectedStatus: http.StatusOK,
+			errorContains:  "",
+			expectBundle:   true,
 		},
 	}
 
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			req := httptest.NewRequest("GET", "http://example.com/SearchParameter?"+tc.queryString, nil)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			backend := mockBackendWithoutSearchParameterSearch{}
+
+			server := &rest.Server[model.R4]{
+				Backend:                backend,
+				StrictSearchParameters: tt.strict,
+			}
+
+			req := httptest.NewRequest("GET", "http://example.com/Patient?"+tt.query, nil)
 			req.Header.Set("Accept", "application/fhir+json")
 
 			rr := httptest.NewRecorder()
 			server.ServeHTTP(rr, req)
 
-			if tc.expectError {
-				// Should return an error status code for invalid cursor
-				if rr.Code == http.StatusOK {
-					t.Errorf("Expected error status code, got %d", rr.Code)
-				}
-				// Check that error message mentions invalid cursor
-				bodyStr := rr.Body.String()
-				if !strings.Contains(bodyStr, "invalid cursor") {
-					t.Error("Expected error message to mention 'invalid cursor'")
-				}
-				return
+			if rr.Code != tt.expectedStatus {
+				t.Errorf("Expected status code %d, got %d. Response: %s", tt.expectedStatus, rr.Code, rr.Body.String())
 			}
+
+			bodyStr := rr.Body.String()
+
+			if tt.errorContains != "" {
+				if !strings.Contains(bodyStr, tt.errorContains) {
+					t.Errorf("Expected error message to contain '%s'", tt.errorContains)
+				}
+			}
+
+			if tt.expectBundle {
+				if !strings.Contains(bodyStr, `"resourceType":"Bundle"`) {
+					t.Error("Expected response to be a Bundle")
+				}
+				if !strings.Contains(bodyStr, `"type":"searchset"`) {
+					t.Error("Expected Bundle type to be searchset")
+				}
+			}
+		})
+	}
+}
+
+func TestSearchParameterPaginationBasic(t *testing.T) {
+	tests := []struct {
+		name               string
+		query              string
+		expectedEntries    int
+		maxEntries         int
+		expectNextLink     bool
+		expectCursorInNext bool
+	}{
+		{
+			name:            "pagination_with_count",
+			query:           "_count=2",
+			expectedEntries: 2,
+			maxEntries:      2,
+			expectNextLink:  true,
+		},
+		{
+			name:            "pagination_with_cursor",
+			query:           "_count=2&_cursor=2",
+			expectedEntries: 2,
+			maxEntries:      2,
+			expectNextLink:  true,
+		},
+		{
+			name:            "pagination_with_cursor",
+			query:           "_count=2&_cursor=4",
+			expectedEntries: 1,
+			maxEntries:      2,
+			expectNextLink:  false, // should not have next link because there are only 5 params
+		},
+		{
+			name:            "pagination_with_cursor",
+			query:           "_count=1&_cursor=4",
+			expectedEntries: 1,
+			maxEntries:      1,
+			expectNextLink:  false, // should not have next link because there are only 5 params
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			backend := mockBackendWithoutSearchParameterSearch{}
+
+			server := &rest.Server[model.R4]{
+				Backend: backend,
+			}
+
+			req := httptest.NewRequest("GET", "http://example.com/SearchParameter?"+tt.query, nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
 
 			if rr.Code != http.StatusOK {
 				t.Errorf("Expected status code %d, got %d", http.StatusOK, rr.Code)
 			}
 
-			// Parse the response
 			var bundle map[string]interface{}
 			if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
 				t.Fatalf("Failed to parse bundle: %v", err)
 			}
 
-			// Check for next link
+			entries, ok := bundle["entry"].([]interface{})
+			if !ok {
+				entries = []interface{}{}
+			}
+
+			if tt.expectedEntries >= 0 && len(entries) != tt.expectedEntries {
+				t.Errorf("Expected %d entries, got %d", tt.expectedEntries, len(entries))
+			}
+
+			if len(entries) > tt.maxEntries {
+				t.Errorf("Expected at most %d entries, got %d", tt.maxEntries, len(entries))
+			}
+
+			links, _ := bundle["link"].([]interface{})
+			var nextLink string
+			if links != nil {
+				for _, link := range links {
+					linkObj := link.(map[string]interface{})
+					if relation, ok := linkObj["relation"].(string); ok && relation == "next" {
+						nextLink = linkObj["url"].(string)
+						break
+					}
+				}
+			}
+
+			hasNextLink := nextLink != ""
+			if hasNextLink != tt.expectNextLink {
+				t.Errorf("Expected next link presence: %v, got: %v", tt.expectNextLink, hasNextLink)
+			}
+
+			if tt.expectCursorInNext && !strings.Contains(nextLink, "_cursor=") {
+				t.Error("Next link should contain _cursor parameter")
+			}
+		})
+	}
+}
+
+func TestSearchParameterPaginationEdgeCases(t *testing.T) {
+	tests := []struct {
+		name           string
+		cursor         string
+		count          string
+		expectedError  string
+		expectNextLink bool
+	}{
+		{
+			name:           "cursor_beyond_results",
+			cursor:         "100",
+			count:          "10",
+			expectedError:  "",
+			expectNextLink: false,
+		},
+		{
+			name:           "invalid_cursor_non_numeric",
+			cursor:         "invalid",
+			count:          "2",
+			expectedError:  "invalid cursor",
+			expectNextLink: false,
+		},
+		{
+			name:           "last_page",
+			cursor:         "4",
+			count:          "10",
+			expectedError:  "",
+			expectNextLink: false,
+		},
+		{
+			name:           "empty_cursor_is_valid",
+			cursor:         "",
+			count:          "2",
+			expectedError:  "",
+			expectNextLink: true,
+		},
+		{
+			name:           "numeric_cursor_is_valid",
+			cursor:         "5",
+			count:          "2",
+			expectedError:  "",
+			expectNextLink: false,
+		},
+		{
+			name:           "special_characters_cursor",
+			cursor:         "abc123",
+			count:          "2",
+			expectedError:  "invalid cursor",
+			expectNextLink: false,
+		},
+		{
+			name:           "negative_number_cursor",
+			cursor:         "-1",
+			count:          "2",
+			expectedError:  "invalid cursor: offset must be non-negative",
+			expectNextLink: false,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			backend := mockBackendWithoutSearchParameterSearch{}
+
+			server := &rest.Server[model.R4]{
+				Backend: backend,
+			}
+
+			reqURL := "http://example.com/SearchParameter?_count=" + tt.count
+			if tt.cursor != "" {
+				reqURL += "&_cursor=" + tt.cursor
+			}
+
+			req := httptest.NewRequest("GET", reqURL, nil)
+			req.Header.Set("Accept", "application/fhir+json")
+
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if tt.expectedError != "" {
+				if rr.Code == http.StatusOK {
+					t.Errorf("Expected error status code, got %d", rr.Code)
+				}
+				bodyStr := rr.Body.String()
+				if !strings.Contains(bodyStr, tt.expectedError) {
+					t.Errorf("Expected error message to contain '%s', got: %s", tt.expectedError, bodyStr)
+				}
+				return
+			}
+
+			if rr.Code != http.StatusOK {
+				t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
+			}
+
+			var bundle map[string]interface{}
+			if err := json.Unmarshal(rr.Body.Bytes(), &bundle); err != nil {
+				t.Fatalf("Failed to parse bundle: %v", err)
+			}
+
 			links, _ := bundle["link"].([]interface{})
 			hasNextLink := false
 			if links != nil {
@@ -884,83 +857,8 @@ func TestSearchParameterPaginationEdgeCases(t *testing.T) {
 				}
 			}
 
-			if hasNextLink != tc.expectNextLink {
-				t.Errorf("Expected next link presence: %v, got: %v", tc.expectNextLink, hasNextLink)
-			}
-		})
-	}
-}
-
-// Test SearchParameter pagination with invalid cursor error handling
-func TestSearchParameterPaginationInvalidCursor(t *testing.T) {
-	backend := mockBackendWithoutSearchParameterSearch{}
-
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
-	}
-
-	testCases := []struct {
-		name          string
-		cursor        string
-		expectedError string
-	}{
-		{
-			name:          "non_numeric_cursor",
-			cursor:        "invalid",
-			expectedError: "invalid cursor",
-		},
-		{
-			name:          "empty_cursor_is_valid",
-			cursor:        "",
-			expectedError: "", // Empty cursor should be valid (no error)
-		},
-		{
-			name:          "numeric_cursor_is_valid",
-			cursor:        "5",
-			expectedError: "", // Valid numeric cursor should work
-		},
-		{
-			name:          "special_characters_cursor",
-			cursor:        "abc123",
-			expectedError: "invalid cursor",
-		},
-		{
-			name:          "negative_number_cursor",
-			cursor:        "-1",
-			expectedError: "invalid cursor: offset must be non-negative",
-		},
-	}
-
-	for _, tc := range testCases {
-		t.Run(tc.name, func(t *testing.T) {
-			reqURL := "http://example.com/SearchParameter?_count=2"
-			if tc.cursor != "" {
-				reqURL += "&_cursor=" + tc.cursor
-			}
-
-			req := httptest.NewRequest("GET", reqURL, nil)
-			req.Header.Set("Accept", "application/fhir+json")
-
-			rr := httptest.NewRecorder()
-			server.ServeHTTP(rr, req)
-
-			if tc.expectedError != "" {
-				// Should return an error status code
-				if rr.Code == http.StatusOK {
-					t.Errorf("Expected error status code, got %d", rr.Code)
-				}
-				// Check that error message contains expected text
-				bodyStr := rr.Body.String()
-				if !strings.Contains(bodyStr, tc.expectedError) {
-					t.Errorf("Expected error message to contain '%s', got: %s", tc.expectedError, bodyStr)
-				}
-			} else {
-				// Should succeed
-				if rr.Code != http.StatusOK {
-					t.Errorf("Expected status code %d, got %d. Response: %s", http.StatusOK, rr.Code, rr.Body.String())
-				}
+			if hasNextLink != tt.expectNextLink {
+				t.Errorf("Expected next link presence: %v, got: %v", tt.expectNextLink, hasNextLink)
 			}
 		})
 	}
@@ -970,10 +868,8 @@ func TestSearchParameterPaginationInvalidCursor(t *testing.T) {
 func TestSearchParameterPaginationMultiplePages(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Test navigating through multiple pages
@@ -1061,10 +957,8 @@ func TestSearchParameterPaginationMultiplePages(t *testing.T) {
 func TestSearchParameterPaginationDeterministicOrdering(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Make the same request multiple times to ensure consistent ordering

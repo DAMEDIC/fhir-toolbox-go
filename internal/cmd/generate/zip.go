@@ -10,8 +10,10 @@ import (
 )
 
 type bundles struct {
-	resources model.Bundle
-	types     model.Bundle
+	resources    model.Bundle
+	types        model.Bundle
+	searchParams model.Bundle
+	valueSets    model.Bundle
 }
 
 func readJSONFromZIP(path string) bundles {
@@ -24,8 +26,10 @@ func readJSONFromZIP(path string) bundles {
 
 	log.Println("unmarshalling JSON...")
 	return bundles{
-		resources: readAndParseJSON(&zip.Reader, "profiles-resources.json"),
-		types:     readAndParseJSON(&zip.Reader, "profiles-types.json"),
+		resources:    readAndParseJSON(&zip.Reader, "profiles-resources.json"),
+		types:        readAndParseJSON(&zip.Reader, "profiles-types.json"),
+		searchParams: readAndParseJSON(&zip.Reader, "search-parameters.json"),
+		valueSets:    readAndParseJSON(&zip.Reader, "valuesets.json"),
 	}
 
 }

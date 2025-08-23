@@ -23,19 +23,15 @@ func main() {
 	textHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	})
-	// Add some additional context to the log (like request id).
-	requestContextHandler := rest.NewRequestContextSlogHandler(textHandler)
-	slog.SetDefault(slog.New(requestContextHandler))
+	slog.SetDefault(slog.New(textHandler))
 
 	// Create the mock backend that just returns some dummy data.
 	backend := mockBackend{}
 
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	cfg := rest.DefaultConfig
-	server, err := rest.NewServer[model.R5](&backend, cfg)
-	if err != nil {
-		log.Fatalf("unable to create server: %v", err)
+	server := &rest.Server[model.R5]{
+		Backend: &backend,
 	}
 
 	// Start the server and listen on port 80.
@@ -69,12 +65,10 @@ func (b *mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityState
 
 func (b *mockBackend) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
 	// forward single resource read to a search for the specific id
-	result, err := b.SearchObservation(ctx, search.Options{
-		Parameters: map[search.ParameterKey]search.AllOf{
-			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
-		},
-		Count: 1,
-	})
+	parameters := search.GenericParams{
+		"_id": search.String(id),
+	}
+	result, err := b.SearchObservation(ctx, parameters, search.Options{Count: 1})
 	if err != nil {
 		return r5.Observation{}, err
 	}
@@ -100,13 +94,13 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r5.Sea
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r5.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.SearchParamTypeToken,
 			},
 		},
 	}, nil
 }
 
-func (b *mockBackend) SearchObservation(ctx context.Context, options search.Options) (search.Result[r5.Observation], error) {
+func (b *mockBackend) SearchObservation(ctx context.Context, parameters search.Parameters, options ...search.Options) (search.Result[r5.Observation], error) {
 	return search.Result[r5.Observation]{
 		Resources: []r5.Observation{
 			r5.Observation{
@@ -170,12 +164,10 @@ func (b *mockBackend) SearchObservation(ctx context.Context, options search.Opti
 }
 
 func (b *mockBackend) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
-	result, err := b.SearchComposition(ctx, search.Options{
-		Parameters: map[search.ParameterKey]search.AllOf{
-			search.ParameterKey{Name: "_id"}: search.AllOf{search.OneOf{search.String(id)}},
-		},
-		Count: 1,
-	})
+	parameters := search.GenericParams{
+		"_id": search.String(id),
+	}
+	result, err := b.SearchComposition(ctx, parameters, search.Options{Count: 1})
 	if err != nil {
 		return r5.Composition{}, err
 	}
@@ -201,13 +193,13 @@ func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (r5.Sea
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r5.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.SearchParamTypeToken,
 			},
 		},
 	}, nil
 }
 
-func (b *mockBackend) SearchComposition(ctx context.Context, options search.Options) (search.Result[r5.Composition], error) {
+func (b *mockBackend) SearchComposition(ctx context.Context, parameters search.Parameters, options ...search.Options) (search.Result[r5.Composition], error) {
 	return search.Result[r5.Composition]{
 		Resources: []r5.Composition{
 			r5.Composition{

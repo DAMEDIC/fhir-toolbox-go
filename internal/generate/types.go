@@ -20,8 +20,8 @@ func (g TypesGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g TypesGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementContainedResource(f("contained_resource", strings.ToLower(release)))
 	if release != "basic" {
+		implementContainedResource(f("contained_resource", strings.ToLower(release)))
 		generateSearchCapabilities(f("search_capabilities", strings.ToLower(release)), release)
 	}
 }

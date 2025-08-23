@@ -74,6 +74,7 @@ func generateCapability(f *File, resources []ir.ResourceOrType, release, interac
 				g.Id(interactionName+r.Name).
 					Params(
 						Id("ctx").Qual("context", "Context"),
+						Id("parameters").Qual(moduleName+"/capabilities/search", "Parameters"),
 						Id("options").Qual(moduleName+"/capabilities/search", "Options"),
 					).
 					Params(

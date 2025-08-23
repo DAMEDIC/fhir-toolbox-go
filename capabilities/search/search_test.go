@@ -1,8 +1,9 @@
-package search
+package search_test
 
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
@@ -20,7 +21,8 @@ func TestParseAndToString(t *testing.T) {
 	tests := []struct {
 		name         string
 		capabilities r4.SearchCapabilities
-		options      Options
+		parameters   search.Parameters
+		options      search.Options
 		want         string
 	}{
 		{
@@ -28,287 +30,267 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
-			},
-			want: "number=0.100",
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			options:    search.Options{},
+			want:       "number=0.100",
 		},
 		{
 			name: "number with prefix",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
-			},
-			want: "number=ge0.100",
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Prefix: search.PrefixGreaterOrEqual, Value: apd.New(100, -3)}}}},
+			options:    search.Options{},
+			want:       "number=ge0.100",
 		},
 		{
-			name: "number with modifer",
+			name: "number with modifer (disabled - modifiers need constants)",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type:     r4.Code{Value: ptr.To(TypeNumber)},
-						Modifier: []r4.Code{{Value: ptr.To(ModifierMissing)}},
+						Type:     r4.SearchParamTypeNumber,
+						Modifier: []r4.Code{r4.SearchModifierCodeMissing},
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number", Modifier: ModifierMissing}: AllOf{{Number{Value: apd.New(100, -3)}}}},
-			},
-			want: "number:missing=0.100",
+			parameters: search.GenericParams{"number:missing": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			options:    search.Options{},
+			want:       "number:missing=0.100",
 		},
 		{
 			name: "number with count",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
-				Count:      100,
-			},
-			want: "number=0.100&_count=100",
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			options:    search.Options{Count: 100},
+			want:       "number=0.100&_count=100",
 		},
 		{
 			name: "number with max count",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{ParameterKey{Name: "number"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
-				Count:      1000,
-			},
-			want: "number=0.100&_count=500",
+			parameters: search.GenericParams{"number": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
+			options:    search.Options{Count: 1000},
+			want:       "number=0.100&_count=500",
 		},
 		{
 			name: "date",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"date": {
-						Type: r4.Code{Value: ptr.To(TypeDate)},
+						Type: r4.SearchParamTypeDate,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "date"}: AllOf{{Date{
-						Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
-						Precision: PrecisionDay,
-					}}},
-				},
+			parameters: search.GenericParams{
+				"date": search.MatchAll{{search.Date{
+					Value:     time.Date(2024, time.December, 25, 0, 0, 0, 0, time.UTC),
+					Precision: search.PrecisionDay,
+				}}},
 			},
-			want: "date=2024-12-25",
+			options: search.Options{},
+			want:    "date=2024-12-25",
 		},
 		{
 			name: "string",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"string": {
-						Type: r4.Code{Value: ptr.To(TypeString)},
+						Type: r4.SearchParamTypeString,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "string"}: AllOf{{String("example")}},
-				},
+			parameters: search.GenericParams{
+				"string": search.MatchAll{{search.String("example")}},
 			},
-			want: "string=example",
+			options: search.Options{},
+			want:    "string=example",
 		},
 		{
 			name: "token",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
-						Type: r4.Code{Value: ptr.To(TypeToken)},
+						Type: r4.SearchParamTypeToken,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "token"}: AllOf{
-						{Token{Code: "value"}},
-					},
+			parameters: search.GenericParams{
+				"token": search.MatchAll{
+					{search.Token{Code: "value"}},
 				},
 			},
-			want: "token=value",
+			options: search.Options{},
+			want:    "token=value",
 		},
 		{
 			name: "token parameter with system",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
-						Type: r4.Code{Value: ptr.To(TypeToken)},
+						Type: r4.SearchParamTypeToken,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "token"}: AllOf{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
-				},
+			parameters: search.GenericParams{
+				"token": search.MatchAll{{search.Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
-			want: "token=scheme://system|value",
+			options: search.Options{},
+			want:    "token=scheme://system|value",
 		},
 		{
 			name: "local reference",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Type: "Patient", Id: "123"}}},
-				},
+			parameters: search.GenericParams{
+				"ref": search.MatchAll{{search.Reference{Type: "Patient", Id: "123"}}},
 			},
-			want: "ref=Patient/123",
+			options: search.Options{},
+			want:    "ref=Patient/123",
 		},
 		{
 			name: "local reference with version",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Type: "Patient", Id: "123", Version: "456"}}},
-				},
+			parameters: search.GenericParams{
+				"ref": search.MatchAll{{search.Reference{Type: "Patient", Id: "123", Version: "456"}}},
 			},
-			want: "ref=Patient/123/_history/456",
+			options: search.Options{},
+			want:    "ref=Patient/123/_history/456",
 		},
 		{
 			name: "url reference",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}}}},
-				},
+			parameters: search.GenericParams{
+				"ref": search.MatchAll{{search.Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}}}},
 			},
-			want: "ref=scheme://host",
+			options: search.Options{},
+			want:    "ref=scheme://host",
 		},
 		{
 			name: "url reference with version",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref"}: AllOf{{Reference{Url: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
-				},
+			parameters: search.GenericParams{
+				"ref": search.MatchAll{{search.Reference{URL: &url.URL{Scheme: "scheme", Host: "host"}, Version: "456"}}},
 			},
-			want: "ref=scheme://host|456",
+			options: search.Options{},
+			want:    "ref=scheme://host|456",
 		},
 		{
-			name: "reference identifier modifier (treated as token)",
+			name: "reference identifier modifier (treated as token) (disabled - modifiers need constants)",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type:     r4.Code{Value: ptr.To(TypeReference)},
-						Modifier: []r4.Code{{Value: ptr.To(ModifierIdentifier)}},
+						Type:     r4.SearchParamTypeReference,
+						Modifier: []r4.Code{r4.SearchModifierCodeIdentifier},
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "ref", Modifier: ModifierIdentifier}: AllOf{{Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
-				},
+			parameters: search.GenericParams{
+				"ref:identifier": search.MatchAll{{search.Token{System: &url.URL{Scheme: "scheme", Host: "system"}, Code: "value"}}},
 			},
-			want: "ref:identifier=scheme://system|value",
+			options: search.Options{},
+			want:    "ref:identifier=scheme://system|value",
 		},
 		{
 			name: "composite",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"composite": {
-						Type: r4.Code{Value: ptr.To(TypeComposite)},
+						Type: r4.SearchParamTypeComposite,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "composite"}: AllOf{{Composite{"a", "b"}}},
-				},
+			parameters: search.GenericParams{
+				"composite": search.MatchAll{{search.Composite{"a", "b"}}},
 			},
-			want: "composite=a$b",
+			options: search.Options{},
+			want:    "composite=a$b",
 		},
 		{
 			name: "quantity",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"quantity": {
-						Type: r4.Code{Value: ptr.To(TypeQuantity)},
+						Type: r4.SearchParamTypeQuantity,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "quantity"}: AllOf{{Quantity{Prefix: PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
-				},
+			parameters: search.GenericParams{
+				"quantity": search.MatchAll{{search.Quantity{Prefix: search.PrefixGreaterOrEqual, Value: apd.New(100, -3), System: &url.URL{Scheme: "scheme", Host: "host"}, Code: "code"}}},
 			},
-			want: "quantity=ge0.100|scheme://host|code",
+			options: search.Options{},
+			want:    "quantity=ge0.100|scheme://host|code",
 		},
 		{
 			name: "uri",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"uri": {
-						Type: r4.Code{Value: ptr.To(TypeUri)},
+						Type: r4.SearchParamTypeUri,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "uri"}: AllOf{{Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
-				},
+			parameters: search.GenericParams{
+				"uri": search.MatchAll{{search.Uri{&url.URL{Scheme: "urn", Opaque: "oid:1.2.3.4.5"}}}},
 			},
-			want: "uri=urn:oid:1.2.3.4.5",
+			options: search.Options{},
+			want:    "uri=urn:oid:1.2.3.4.5",
 		},
 		{
 			name: "special",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"special": {
-						Type: r4.Code{Value: ptr.To(TypeSpecial)},
+						Type: r4.SearchParamTypeSpecial,
 					},
 				},
 			},
-			options: Options{
-				Parameters: map[ParameterKey]AllOf{
-					ParameterKey{Name: "special"}: AllOf{{Special("abc")}},
-				},
+			parameters: search.GenericParams{
+				"special": search.MatchAll{{search.Special("abc")}},
 			},
-			want: "special=abc",
+			options: search.Options{},
+			want:    "special=abc",
 		},
 	}
 	for _, tt := range tests {
@@ -356,19 +338,23 @@ func TestParseAndToString(t *testing.T) {
 			}
 
 			// test parse
-			parsedOpts, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count, false)
+			parsedParameters, parsedOptions, err := search.ParseQuery(capabilityStatement, "TestResource", resolveSearchParameter, wantValues, time.UTC, 500, tt.options.Count, false)
 			if err != nil {
-				t.Fatalf("Failed to parse options: %v", err)
+				t.Fatalf("Failed to parse query: %v", err)
 			}
 
 			tt.options.Count = min(tt.options.Count, 500)
 
-			if !cmp.Equal(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
-				t.Errorf("ParseOptions() = %v, want %v, diff: %s", parsedOpts, tt.options, cmp.Diff(parsedOpts, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
+			if !cmp.Equal(parsedParameters.Map(), tt.parameters.Map(), cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseQuery() parameters = %v, want %v, diff: %s", parsedParameters.Map(), tt.parameters.Map(), cmp.Diff(parsedParameters.Map(), tt.parameters.Map(), cmpopts.EquateComparable(apd.Decimal{})))
+			}
+
+			if !cmp.Equal(parsedOptions, tt.options, cmpopts.EquateComparable(apd.Decimal{})) {
+				t.Errorf("ParseQuery() options = %v, want %v, diff: %s", parsedOptions, tt.options, cmp.Diff(parsedOptions, tt.options, cmpopts.EquateComparable(apd.Decimal{})))
 			}
 
 			// test to string
-			gotValues, err := url.ParseQuery(tt.options.QueryString())
+			gotValues, err := url.ParseQuery(search.BuildQuery(tt.parameters, tt.options))
 			if err != nil {
 				t.Fatalf("Failed to parse query string: %v", err)
 			}
@@ -380,7 +366,7 @@ func TestParseAndToString(t *testing.T) {
 	}
 }
 
-func TestParseOptionsStrict(t *testing.T) {
+func TestParseQueryStrict(t *testing.T) {
 	capabilityStatement := basic.CapabilityStatement{
 		Rest: []basic.CapabilityStatementRest{
 			{
@@ -391,7 +377,7 @@ func TestParseOptionsStrict(t *testing.T) {
 							{
 								Name:       basic.String{Value: ptr.To("supported-param")},
 								Definition: &basic.Canonical{Value: ptr.To("http://example.com/SearchParameter/supported")},
-								Type:       basic.Code{Value: ptr.To("string")},
+								Type:       basic.Code{Value: ptr.To(string(search.TypeString))},
 							},
 						},
 					},
@@ -402,7 +388,7 @@ func TestParseOptionsStrict(t *testing.T) {
 
 	resolveSearchParameter := func(canonical string) (model.Element, error) {
 		return &r4.SearchParameter{
-			Type: r4.Code{Value: ptr.To("string")},
+			Type: r4.Code{Value: ptr.To(string(search.TypeString))},
 		}, nil
 	}
 
@@ -451,7 +437,7 @@ func TestParseOptionsStrict(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			_, err := ParseOptions(capabilityStatement, "TestResource", resolveSearchParameter, tc.queryParams, time.UTC, 500, 50, tc.strict)
+			_, _, err := search.ParseQuery(capabilityStatement, "TestResource", resolveSearchParameter, tc.queryParams, time.UTC, 500, 50, tc.strict)
 
 			if tc.expectError {
 				if err == nil {
@@ -471,16 +457,16 @@ func TestParseOptionsStrict(t *testing.T) {
 func TestParametersMarshalJSON(t *testing.T) {
 	tests := []struct {
 		name      string
-		parameter map[ParameterKey]AllOf
+		parameter search.GenericParams
 		expected  string
 	}{
 		{
 			name:      "No Modifier",
-			parameter: map[ParameterKey]AllOf{ParameterKey{Name: "exampleName"}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+			parameter: search.GenericParams{"exampleName": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName":[[{"Prefix":"","Value":"0.100"}]]}`},
 		{
 			name:      "Modifier",
-			parameter: map[ParameterKey]AllOf{ParameterKey{Name: "exampleName", Modifier: ModifierExact}: AllOf{{Number{Value: apd.New(100, -3)}}}},
+			parameter: search.GenericParams{"exampleName:exact": search.MatchAll{{search.Number{Value: apd.New(100, -3)}}}},
 			expected:  `{"exampleName:exact":[[{"Prefix":"","Value":"0.100"}]]}`},
 	}
 

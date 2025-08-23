@@ -38,6 +38,34 @@ func (e *BundleEntry) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		e.Resource = &r.R
+	case "SearchParameter":
+		// For SearchParameter, we just unmarshal as generic map
+		var r struct {
+			R map[string]interface{} `json:"resource"`
+		}
+		err := json.Unmarshal(data, &r)
+		if err != nil {
+			return err
+		}
+		e.Resource = r.R
+	case "ValueSet":
+		var r struct {
+			R ValueSet `json:"resource"`
+		}
+		err := json.Unmarshal(data, &r)
+		if err != nil {
+			return err
+		}
+		e.Resource = &r.R
+	case "CodeSystem":
+		var r struct {
+			R CodeSystem `json:"resource"`
+		}
+		err := json.Unmarshal(data, &r)
+		if err != nil {
+			return err
+		}
+		e.Resource = &r.R
 	}
 	return nil
 }
@@ -59,17 +87,51 @@ type StructureDefinitionSnapshot struct {
 }
 
 type ElementDefinition struct {
-	ID               string                  `json:"id"`
-	Short            string                  `json:"short"`
-	Definition       string                  `json:"definition"`
-	Comment          string                  `json:"comment"`
-	Path             string                  `json:"path"`
-	Min              uint32                  `json:"min"`
-	Max              string                  `json:"max"`
-	Type             []ElementDefinitionType `json:"type"`
-	ContentReference string                  `json:"contentReference"`
+	ID               string                    `json:"id"`
+	Short            string                    `json:"short"`
+	Definition       string                    `json:"definition"`
+	Comment          string                    `json:"comment"`
+	Path             string                    `json:"path"`
+	Min              uint32                    `json:"min"`
+	Max              string                    `json:"max"`
+	Type             []ElementDefinitionType   `json:"type"`
+	ContentReference string                    `json:"contentReference"`
+	Binding          *ElementDefinitionBinding `json:"binding"`
 }
 
 type ElementDefinitionType struct {
 	Code string `json:"code"`
+}
+
+type ElementDefinitionBinding struct {
+	Strength string `json:"strength"`
+	ValueSet string `json:"valueSet"`
+}
+
+type ValueSet struct {
+	URL     string           `json:"url"`
+	Name    string           `json:"name"`
+	Title   string           `json:"title"`
+	Compose *ValueSetCompose `json:"compose"`
+}
+
+type ValueSetCompose struct {
+	Include []ValueSetComposeInclude `json:"include"`
+}
+
+type ValueSetComposeInclude struct {
+	System string `json:"system"`
+}
+
+type CodeSystem struct {
+	URL     string    `json:"url"`
+	Name    string    `json:"name"`
+	Title   string    `json:"title"`
+	Content string    `json:"content"`
+	Concept []Concept `json:"concept"`
+}
+
+type Concept struct {
+	Code    string `json:"code"`
+	Display string `json:"display"`
 }

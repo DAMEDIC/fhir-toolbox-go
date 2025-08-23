@@ -25,8 +25,10 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
-	implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	if !g.NotUseContainedResource {
+		implementMarshalContainedExternal(f("contained_resource", strings.ToLower(release)))
+		implementMarshalContainedInternal(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	}
 	implementPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 	implementMarshalPrimitiveElement(f("json_primitive_element", strings.ToLower(release)))
 }
