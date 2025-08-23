@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"io"
 	"reflect"
@@ -328,6 +329,172 @@ func (r Count) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Count) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Count element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Count element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Count element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Count element", t)
+			}
+		case "value":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Value = v.Value
+		case "_value":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value == nil {
+				r.Value = &Decimal{}
+			}
+			r.Value.Id = v.Id
+			r.Value.Extension = v.Extension
+		case "comparator":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Comparator == nil {
+				r.Comparator = &Code{}
+			}
+			r.Comparator.Value = v.Value
+		case "_comparator":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Comparator == nil {
+				r.Comparator = &Code{}
+			}
+			r.Comparator.Id = v.Id
+			r.Comparator.Extension = v.Extension
+		case "unit":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Unit == nil {
+				r.Unit = &String{}
+			}
+			r.Unit.Value = v.Value
+		case "_unit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Unit == nil {
+				r.Unit = &String{}
+			}
+			r.Unit.Id = v.Id
+			r.Unit.Extension = v.Extension
+		case "system":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Value = v.Value
+		case "_system":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.System == nil {
+				r.System = &Uri{}
+			}
+			r.System.Id = v.Id
+			r.System.Extension = v.Extension
+		case "code":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Code == nil {
+				r.Code = &Code{}
+			}
+			r.Code.Value = v.Value
+		case "_code":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Code == nil {
+				r.Code = &Code{}
+			}
+			r.Code.Id = v.Id
+			r.Code.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in Count", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Count element", t)
+	}
+	return nil
+}
 func (r Count) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -368,6 +535,79 @@ func (r Count) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r *Count) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "value":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = &v
+			case "comparator":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comparator = &v
+			case "unit":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Unit = &v
+			case "system":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.System = &v
+			case "code":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r Count) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection

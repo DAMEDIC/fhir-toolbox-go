@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
@@ -57,6 +58,14 @@ func (r Integer) MarshalJSON() ([]byte, error) {
 	}
 	return b.Bytes(), nil
 }
+func (r *Integer) UnmarshalJSON(b []byte) error {
+	var v int32
+	if err := json.Unmarshal(b, &v); err != nil {
+		return err
+	}
+	*r = Integer{Value: &v}
+	return nil
+}
 func (r Integer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -83,6 +92,51 @@ func (r Integer) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r *Integer) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		case "value":
+			i, err := strconv.ParseInt(a.Value, 10, 0)
+			if err != nil {
+				return err
+			}
+			v := int32(i)
+			r.Value = &v
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r Integer) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection

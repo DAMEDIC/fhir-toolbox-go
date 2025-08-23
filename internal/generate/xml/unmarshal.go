@@ -9,21 +9,24 @@ import (
 
 type UnmarshalGenerator struct {
 	generate.NoOpGenerator
+	NotUseContainedResource bool
 }
 
 func (g UnmarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 	for _, t := range rt.Structs {
-		implementUnmarshal(f, t)
+		g.implementUnmarshal(f, t)
 	}
 
 	return true
 }
 
 func (g UnmarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementUnmarshalContained(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	if !g.NotUseContainedResource {
+		implementUnmarshalContained(f("contained_resource", strings.ToLower(release)), ir.FilterResources(rt))
+	}
 }
 
-func implementUnmarshal(f *File, s ir.Struct) {
+func (gen UnmarshalGenerator) implementUnmarshal(f *File, s ir.Struct) {
 	f.Func().Params(Id("r").Op("*").Id(s.Name)).Id("UnmarshalXML").Params(
 		Id("d").Op("*").Qual("encoding/xml", "Decoder"),
 		Id("start").Qual("encoding/xml", "StartElement"),
@@ -34,7 +37,7 @@ func implementUnmarshal(f *File, s ir.Struct) {
 		if s.Name == "Xhtml" {
 			unmarshalXhtml(g)
 		} else {
-			unmarshalFields(g, s)
+			gen.unmarshalFields(g, s)
 		}
 	})
 }
@@ -145,7 +148,7 @@ func unmarshalPrimitiveValueAttr(g *Group, s ir.Struct) {
 	})
 }
 
-func unmarshalFields(g *Group, s ir.Struct) {
+func (gen UnmarshalGenerator) unmarshalFields(g *Group, s ir.Struct) {
 	g.For().Block(
 		List(Id("token"), Id("err")).Op(":=").Id("d.Token").Params(),
 		If(Err().Op("!=").Nil()).Block(
@@ -165,7 +168,7 @@ func unmarshalFields(g *Group, s ir.Struct) {
 							continue
 						}
 
-						unmarshalField(g, f)
+						gen.unmarshalField(g, f)
 					}
 				})
 			}),
@@ -174,7 +177,7 @@ func unmarshalFields(g *Group, s ir.Struct) {
 	)
 }
 
-func unmarshalField(g *Group, f ir.StructField) {
+func (gen UnmarshalGenerator) unmarshalField(g *Group, f ir.StructField) {
 	if f.Polymorph {
 		for _, t := range f.PossibleTypes {
 			g.Case(Lit(f.MarshalName+t.Name)).Block(
@@ -193,7 +196,29 @@ func unmarshalField(g *Group, f ir.StructField) {
 		t := f.PossibleTypes[0]
 
 		g.Case(Lit(f.MarshalName)).BlockFunc(func(g *Group) {
-			if t.IsNestedResource {
+			if t.IsNestedResource && gen.NotUseContainedResource {
+				// For basic types, decode as generic interface and encode to XML string
+				g.Var().Id("elem").Interface()
+				g.Id("err").Op(":=").Id("d.DecodeElement").Call(Op("&").Id("elem"), Id("&t"))
+				g.If(Err().Op("!=").Nil()).Block(
+					Return(Id("err")),
+				)
+				g.Var().Id("raw").Qual("bytes", "Buffer")
+				g.Id("err").Op("=").Qual("encoding/xml", "NewEncoder").Call(Op("&").Id("raw")).Dot("Encode").Call(Id("elem"))
+				g.If(Err().Op("!=").Nil()).Block(
+					Return(Id("err")),
+				)
+				g.Id("v").Op(":=").Id("RawResource").Values(Dict{
+					Id("Content"): Id("raw.String").Call(),
+					Id("IsJSON"):  False(),
+					Id("IsXML"):   True(),
+				})
+				if f.Multiple {
+					g.Id("r."+f.Name).Op("=").Append(Id("r."+f.Name), Id("v"))
+				} else {
+					g.Id("r." + f.Name).Op("=").Id("v")
+				}
+			} else if t.IsNestedResource {
 				g.Var().Id("c").Id("ContainedResource")
 				g.Id("err").Op(":=").Id("d.DecodeElement").Call(Op("&").Id("c"), Id("&t"))
 				g.If(Err().Op("!=").Nil()).Block(

@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
@@ -1963,6 +1964,1012 @@ func (r BundleEntryResponse) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Bundle) UnmarshalJSON(b []byte) error {
+	d := json.NewDecoder(bytes.NewReader(b))
+	return r.unmarshalJSON(d)
+}
+func (r *Bundle) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Bundle element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Bundle element", t)
+		}
+		switch f {
+		case "resourceType":
+			_, err := d.Token()
+			if err != nil {
+				return err
+			}
+		case "id":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Value = v.Value
+		case "_id":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Id == nil {
+				r.Id = &Id{}
+			}
+			r.Id.Id = v.Id
+			r.Id.Extension = v.Extension
+		case "meta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Meta = &v
+		case "implicitRules":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Value = v.Value
+		case "_implicitRules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ImplicitRules == nil {
+				r.ImplicitRules = &Uri{}
+			}
+			r.ImplicitRules.Id = v.Id
+			r.ImplicitRules.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "identifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Identifier = &v
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "timestamp":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Timestamp == nil {
+				r.Timestamp = &Instant{}
+			}
+			r.Timestamp.Value = v.Value
+		case "_timestamp":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Timestamp == nil {
+				r.Timestamp = &Instant{}
+			}
+			r.Timestamp.Id = v.Id
+			r.Timestamp.Extension = v.Extension
+		case "total":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Total == nil {
+				r.Total = &UnsignedInt{}
+			}
+			r.Total.Value = v.Value
+		case "_total":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Total == nil {
+				r.Total = &UnsignedInt{}
+			}
+			r.Total.Id = v.Id
+			r.Total.Extension = v.Extension
+		case "link":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Bundle element", t)
+			}
+			for d.More() {
+				var v BundleLink
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Link = append(r.Link, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Bundle element", t)
+			}
+		case "entry":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Bundle element", t)
+			}
+			for d.More() {
+				var v BundleEntry
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Entry = append(r.Entry, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Bundle element", t)
+			}
+		case "signature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Signature = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Bundle", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Bundle element", t)
+	}
+	return nil
+}
+func (r *BundleLink) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in BundleLink element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in BundleLink element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleLink element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleLink element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleLink element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleLink element", t)
+			}
+		case "relation":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Relation.Value = v.Value
+		case "_relation":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Relation.Id = v.Id
+			r.Relation.Extension = v.Extension
+		case "url":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Url.Value = v.Value
+		case "_url":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Url.Id = v.Id
+			r.Url.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in BundleLink", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in BundleLink element", t)
+	}
+	return nil
+}
+func (r *BundleEntry) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in BundleEntry element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in BundleEntry element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntry element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntry element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntry element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntry element", t)
+			}
+		case "link":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntry element", t)
+			}
+			for d.More() {
+				var v BundleLink
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Link = append(r.Link, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntry element", t)
+			}
+		case "fullUrl":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.FullUrl == nil {
+				r.FullUrl = &Uri{}
+			}
+			r.FullUrl.Value = v.Value
+		case "_fullUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.FullUrl == nil {
+				r.FullUrl = &Uri{}
+			}
+			r.FullUrl.Id = v.Id
+			r.FullUrl.Extension = v.Extension
+		case "resource":
+			var raw json.RawMessage
+			err := d.Decode(&raw)
+			if err != nil {
+				return err
+			}
+			v := RawResource{
+				Content: string(raw),
+				IsJSON:  true,
+				IsXML:   false,
+			}
+			if err != nil {
+				return err
+			}
+			r.Resource = v
+		case "search":
+			var v BundleEntrySearch
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Search = &v
+		case "request":
+			var v BundleEntryRequest
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Request = &v
+		case "response":
+			var v BundleEntryResponse
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Response = &v
+		default:
+			return fmt.Errorf("invalid field: %s in BundleEntry", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in BundleEntry element", t)
+	}
+	return nil
+}
+func (r *BundleEntrySearch) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in BundleEntrySearch element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in BundleEntrySearch element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntrySearch element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntrySearch element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntrySearch element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntrySearch element", t)
+			}
+		case "mode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Mode == nil {
+				r.Mode = &Code{}
+			}
+			r.Mode.Value = v.Value
+		case "_mode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Mode == nil {
+				r.Mode = &Code{}
+			}
+			r.Mode.Id = v.Id
+			r.Mode.Extension = v.Extension
+		case "score":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Score == nil {
+				r.Score = &Decimal{}
+			}
+			r.Score.Value = v.Value
+		case "_score":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Score == nil {
+				r.Score = &Decimal{}
+			}
+			r.Score.Id = v.Id
+			r.Score.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in BundleEntrySearch", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in BundleEntrySearch element", t)
+	}
+	return nil
+}
+func (r *BundleEntryRequest) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in BundleEntryRequest element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in BundleEntryRequest element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntryRequest element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntryRequest element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntryRequest element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntryRequest element", t)
+			}
+		case "method":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Method.Value = v.Value
+		case "_method":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Method.Id = v.Id
+			r.Method.Extension = v.Extension
+		case "url":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Url.Value = v.Value
+		case "_url":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Url.Id = v.Id
+			r.Url.Extension = v.Extension
+		case "ifNoneMatch":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IfNoneMatch == nil {
+				r.IfNoneMatch = &String{}
+			}
+			r.IfNoneMatch.Value = v.Value
+		case "_ifNoneMatch":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IfNoneMatch == nil {
+				r.IfNoneMatch = &String{}
+			}
+			r.IfNoneMatch.Id = v.Id
+			r.IfNoneMatch.Extension = v.Extension
+		case "ifModifiedSince":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IfModifiedSince == nil {
+				r.IfModifiedSince = &Instant{}
+			}
+			r.IfModifiedSince.Value = v.Value
+		case "_ifModifiedSince":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IfModifiedSince == nil {
+				r.IfModifiedSince = &Instant{}
+			}
+			r.IfModifiedSince.Id = v.Id
+			r.IfModifiedSince.Extension = v.Extension
+		case "ifMatch":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IfMatch == nil {
+				r.IfMatch = &String{}
+			}
+			r.IfMatch.Value = v.Value
+		case "_ifMatch":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IfMatch == nil {
+				r.IfMatch = &String{}
+			}
+			r.IfMatch.Id = v.Id
+			r.IfMatch.Extension = v.Extension
+		case "ifNoneExist":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IfNoneExist == nil {
+				r.IfNoneExist = &String{}
+			}
+			r.IfNoneExist.Value = v.Value
+		case "_ifNoneExist":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IfNoneExist == nil {
+				r.IfNoneExist = &String{}
+			}
+			r.IfNoneExist.Id = v.Id
+			r.IfNoneExist.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in BundleEntryRequest", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in BundleEntryRequest element", t)
+	}
+	return nil
+}
+func (r *BundleEntryResponse) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in BundleEntryResponse element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in BundleEntryResponse element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntryResponse element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntryResponse element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in BundleEntryResponse element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in BundleEntryResponse element", t)
+			}
+		case "status":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Status.Value = v.Value
+		case "_status":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Status.Id = v.Id
+			r.Status.Extension = v.Extension
+		case "location":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Location == nil {
+				r.Location = &Uri{}
+			}
+			r.Location.Value = v.Value
+		case "_location":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Location == nil {
+				r.Location = &Uri{}
+			}
+			r.Location.Id = v.Id
+			r.Location.Extension = v.Extension
+		case "etag":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Etag == nil {
+				r.Etag = &String{}
+			}
+			r.Etag.Value = v.Value
+		case "_etag":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Etag == nil {
+				r.Etag = &String{}
+			}
+			r.Etag.Id = v.Id
+			r.Etag.Extension = v.Extension
+		case "lastModified":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.LastModified == nil {
+				r.LastModified = &Instant{}
+			}
+			r.LastModified.Value = v.Value
+		case "_lastModified":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.LastModified == nil {
+				r.LastModified = &Instant{}
+			}
+			r.LastModified.Id = v.Id
+			r.LastModified.Extension = v.Extension
+		case "outcome":
+			var raw json.RawMessage
+			err := d.Decode(&raw)
+			if err != nil {
+				return err
+			}
+			v := RawResource{
+				Content: string(raw),
+				IsJSON:  true,
+				IsXML:   false,
+			}
+			if err != nil {
+				return err
+			}
+			r.Outcome = v
+		default:
+			return fmt.Errorf("invalid field: %s in BundleEntryResponse", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in BundleEntryResponse element", t)
+	}
+	return nil
+}
 func (r Bundle) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if start.Name.Local == "__contained__" {
 		start.Name.Space = ""
@@ -2252,6 +3259,504 @@ func (r BundleEntryResponse) MarshalXML(e *xml.Encoder, start xml.StartElement) 
 		return err
 	}
 	return nil
+}
+func (r *Bundle) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "id":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Id = &v
+			case "meta":
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Meta = &v
+			case "implicitRules":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ImplicitRules = &v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "identifier":
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identifier = &v
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "timestamp":
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Timestamp = &v
+			case "total":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Total = &v
+			case "link":
+				var v BundleLink
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Link = append(r.Link, v)
+			case "entry":
+				var v BundleEntry
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Entry = append(r.Entry, v)
+			case "signature":
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Signature = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *BundleLink) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "relation":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Relation = v
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *BundleEntry) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "link":
+				var v BundleLink
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Link = append(r.Link, v)
+			case "fullUrl":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.FullUrl = &v
+			case "resource":
+				var elem interface{}
+				err := d.DecodeElement(&elem, &t)
+				if err != nil {
+					return err
+				}
+				var raw bytes.Buffer
+				err = xml.NewEncoder(&raw).Encode(elem)
+				if err != nil {
+					return err
+				}
+				v := RawResource{
+					Content: raw.String(),
+					IsJSON:  false,
+					IsXML:   true,
+				}
+				r.Resource = v
+			case "search":
+				var v BundleEntrySearch
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Search = &v
+			case "request":
+				var v BundleEntryRequest
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Request = &v
+			case "response":
+				var v BundleEntryResponse
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Response = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *BundleEntrySearch) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "mode":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mode = &v
+			case "score":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Score = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *BundleEntryRequest) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "method":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Method = v
+			case "url":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Url = v
+			case "ifNoneMatch":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IfNoneMatch = &v
+			case "ifModifiedSince":
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IfModifiedSince = &v
+			case "ifMatch":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IfMatch = &v
+			case "ifNoneExist":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IfNoneExist = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *BundleEntryResponse) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "status":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Status = v
+			case "location":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Location = &v
+			case "etag":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Etag = &v
+			case "lastModified":
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.LastModified = &v
+			case "outcome":
+				var elem interface{}
+				err := d.DecodeElement(&elem, &t)
+				if err != nil {
+					return err
+				}
+				var raw bytes.Buffer
+				err = xml.NewEncoder(&raw).Encode(elem)
+				if err != nil {
+					return err
+				}
+				v := RawResource{
+					Content: raw.String(),
+					IsJSON:  false,
+					IsXML:   true,
+				}
+				r.Outcome = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r Bundle) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection

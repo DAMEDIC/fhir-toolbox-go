@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
@@ -1255,6 +1256,629 @@ func (r TimingRepeat) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *Timing) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in Timing element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in Timing element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "event":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v DateTime
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Event) <= i {
+					r.Event = append(r.Event, DateTime{})
+				}
+				r.Event[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "_event":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in Timing element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Event) <= i {
+					r.Event = append(r.Event, DateTime{})
+				}
+				r.Event[i].Id = v.Id
+				r.Event[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in Timing element", t)
+			}
+		case "repeat":
+			var v TimingRepeat
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Repeat = &v
+		case "code":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code = &v
+		default:
+			return fmt.Errorf("invalid field: %s in Timing", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in Timing element", t)
+	}
+	return nil
+}
+func (r *TimingRepeat) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in TimingRepeat element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in TimingRepeat element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "boundsDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "boundsRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "boundsPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Bounds = v
+		case "count":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Count == nil {
+				r.Count = &PositiveInt{}
+			}
+			r.Count.Value = v.Value
+		case "_count":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Count == nil {
+				r.Count = &PositiveInt{}
+			}
+			r.Count.Id = v.Id
+			r.Count.Extension = v.Extension
+		case "countMax":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.CountMax == nil {
+				r.CountMax = &PositiveInt{}
+			}
+			r.CountMax.Value = v.Value
+		case "_countMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.CountMax == nil {
+				r.CountMax = &PositiveInt{}
+			}
+			r.CountMax.Id = v.Id
+			r.CountMax.Extension = v.Extension
+		case "duration":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Duration == nil {
+				r.Duration = &Decimal{}
+			}
+			r.Duration.Value = v.Value
+		case "_duration":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Duration == nil {
+				r.Duration = &Decimal{}
+			}
+			r.Duration.Id = v.Id
+			r.Duration.Extension = v.Extension
+		case "durationMax":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DurationMax == nil {
+				r.DurationMax = &Decimal{}
+			}
+			r.DurationMax.Value = v.Value
+		case "_durationMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DurationMax == nil {
+				r.DurationMax = &Decimal{}
+			}
+			r.DurationMax.Id = v.Id
+			r.DurationMax.Extension = v.Extension
+		case "durationUnit":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DurationUnit == nil {
+				r.DurationUnit = &Code{}
+			}
+			r.DurationUnit.Value = v.Value
+		case "_durationUnit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DurationUnit == nil {
+				r.DurationUnit = &Code{}
+			}
+			r.DurationUnit.Id = v.Id
+			r.DurationUnit.Extension = v.Extension
+		case "frequency":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Frequency == nil {
+				r.Frequency = &PositiveInt{}
+			}
+			r.Frequency.Value = v.Value
+		case "_frequency":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Frequency == nil {
+				r.Frequency = &PositiveInt{}
+			}
+			r.Frequency.Id = v.Id
+			r.Frequency.Extension = v.Extension
+		case "frequencyMax":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.FrequencyMax == nil {
+				r.FrequencyMax = &PositiveInt{}
+			}
+			r.FrequencyMax.Value = v.Value
+		case "_frequencyMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.FrequencyMax == nil {
+				r.FrequencyMax = &PositiveInt{}
+			}
+			r.FrequencyMax.Id = v.Id
+			r.FrequencyMax.Extension = v.Extension
+		case "period":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Period == nil {
+				r.Period = &Decimal{}
+			}
+			r.Period.Value = v.Value
+		case "_period":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Period == nil {
+				r.Period = &Decimal{}
+			}
+			r.Period.Id = v.Id
+			r.Period.Extension = v.Extension
+		case "periodMax":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PeriodMax == nil {
+				r.PeriodMax = &Decimal{}
+			}
+			r.PeriodMax.Value = v.Value
+		case "_periodMax":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PeriodMax == nil {
+				r.PeriodMax = &Decimal{}
+			}
+			r.PeriodMax.Id = v.Id
+			r.PeriodMax.Extension = v.Extension
+		case "periodUnit":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.PeriodUnit == nil {
+				r.PeriodUnit = &Code{}
+			}
+			r.PeriodUnit.Value = v.Value
+		case "_periodUnit":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.PeriodUnit == nil {
+				r.PeriodUnit = &Code{}
+			}
+			r.PeriodUnit.Id = v.Id
+			r.PeriodUnit.Extension = v.Extension
+		case "dayOfWeek":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.DayOfWeek) <= i {
+					r.DayOfWeek = append(r.DayOfWeek, Code{})
+				}
+				r.DayOfWeek[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_dayOfWeek":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.DayOfWeek) <= i {
+					r.DayOfWeek = append(r.DayOfWeek, Code{})
+				}
+				r.DayOfWeek[i].Id = v.Id
+				r.DayOfWeek[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "timeOfDay":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Time
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.TimeOfDay) <= i {
+					r.TimeOfDay = append(r.TimeOfDay, Time{})
+				}
+				r.TimeOfDay[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_timeOfDay":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.TimeOfDay) <= i {
+					r.TimeOfDay = append(r.TimeOfDay, Time{})
+				}
+				r.TimeOfDay[i].Id = v.Id
+				r.TimeOfDay[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "when":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.When) <= i {
+					r.When = append(r.When, Code{})
+				}
+				r.When[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "_when":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in TimingRepeat element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.When) <= i {
+					r.When = append(r.When, Code{})
+				}
+				r.When[i].Id = v.Id
+				r.When[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in TimingRepeat element", t)
+			}
+		case "offset":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Offset == nil {
+				r.Offset = &UnsignedInt{}
+			}
+			r.Offset.Value = v.Value
+		case "_offset":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Offset == nil {
+				r.Offset = &UnsignedInt{}
+			}
+			r.Offset.Id = v.Id
+			r.Offset.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in TimingRepeat", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in TimingRepeat element", t)
+	}
+	return nil
+}
 func (r Timing) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -1385,6 +2009,238 @@ func (r TimingRepeat) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 		return err
 	}
 	return nil
+}
+func (r *Timing) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "event":
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Event = append(r.Event, v)
+			case "repeat":
+				var v TimingRepeat
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Repeat = &v
+			case "code":
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *TimingRepeat) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "boundsDuration":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "boundsRange":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "boundsPeriod":
+				if r.Bounds != nil {
+					return fmt.Errorf("multiple values for field \"Bounds\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Bounds = v
+			case "count":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Count = &v
+			case "countMax":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.CountMax = &v
+			case "duration":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Duration = &v
+			case "durationMax":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DurationMax = &v
+			case "durationUnit":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DurationUnit = &v
+			case "frequency":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Frequency = &v
+			case "frequencyMax":
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.FrequencyMax = &v
+			case "period":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Period = &v
+			case "periodMax":
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PeriodMax = &v
+			case "periodUnit":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.PeriodUnit = &v
+			case "dayOfWeek":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DayOfWeek = append(r.DayOfWeek, v)
+			case "timeOfDay":
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TimeOfDay = append(r.TimeOfDay, v)
+			case "when":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.When = append(r.When, v)
+			case "offset":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Offset = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r Timing) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection

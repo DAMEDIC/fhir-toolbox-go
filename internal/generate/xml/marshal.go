@@ -16,6 +16,7 @@ var (
 
 type MarshalGenerator struct {
 	generate.NoOpGenerator
+	NotUseContainedResource bool
 }
 
 func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
@@ -27,7 +28,9 @@ func (g MarshalGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 }
 
 func (g MarshalGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
-	implementMarshalContained(f("contained_resource", strings.ToLower(release)))
+	if !g.NotUseContainedResource {
+		implementMarshalContained(f("contained_resource", strings.ToLower(release)))
+	}
 }
 
 func implementMarshal(f *File, s ir.Struct) {

@@ -80,7 +80,9 @@ func main() {
 		generate.StringerGenerator{},
 		generate.OperationOutcomeErrorGenerator{},
 		json.MarshalGenerator{NotUseContainedResource: true},
-		xml.MarshalGenerator{},
+		json.UnmarshalGenerator{NotUseContainedResource: true},
+		xml.MarshalGenerator{NotUseContainedResource: true},
+		xml.UnmarshalGenerator{NotUseContainedResource: true},
 		fhirpath.FHIRPathGenerator{},
 	)
 

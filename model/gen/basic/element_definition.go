@@ -9,6 +9,7 @@ import (
 	"encoding/json"
 	"encoding/xml"
 	"errors"
+	"fmt"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	"io"
@@ -15392,6 +15393,5765 @@ func (r ElementDefinitionMapping) marshalJSON(w io.Writer) error {
 	}
 	return nil
 }
+func (r *ElementDefinition) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinition element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinition element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "modifierExtension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "path":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Path.Value = v.Value
+		case "_path":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Path.Id = v.Id
+			r.Path.Extension = v.Extension
+		case "representation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Representation) <= i {
+					r.Representation = append(r.Representation, Code{})
+				}
+				r.Representation[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "_representation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Representation) <= i {
+					r.Representation = append(r.Representation, Code{})
+				}
+				r.Representation[i].Id = v.Id
+				r.Representation[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "sliceName":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SliceName == nil {
+				r.SliceName = &String{}
+			}
+			r.SliceName.Value = v.Value
+		case "_sliceName":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SliceName == nil {
+				r.SliceName = &String{}
+			}
+			r.SliceName.Id = v.Id
+			r.SliceName.Extension = v.Extension
+		case "sliceIsConstraining":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.SliceIsConstraining == nil {
+				r.SliceIsConstraining = &Boolean{}
+			}
+			r.SliceIsConstraining.Value = v.Value
+		case "_sliceIsConstraining":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.SliceIsConstraining == nil {
+				r.SliceIsConstraining = &Boolean{}
+			}
+			r.SliceIsConstraining.Id = v.Id
+			r.SliceIsConstraining.Extension = v.Extension
+		case "label":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Label == nil {
+				r.Label = &String{}
+			}
+			r.Label.Value = v.Value
+		case "_label":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Label == nil {
+				r.Label = &String{}
+			}
+			r.Label.Id = v.Id
+			r.Label.Extension = v.Extension
+		case "code":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v Coding
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "slicing":
+			var v ElementDefinitionSlicing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Slicing = &v
+		case "short":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Short == nil {
+				r.Short = &String{}
+			}
+			r.Short.Value = v.Value
+		case "_short":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Short == nil {
+				r.Short = &String{}
+			}
+			r.Short.Id = v.Id
+			r.Short.Extension = v.Extension
+		case "definition":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Definition == nil {
+				r.Definition = &Markdown{}
+			}
+			r.Definition.Value = v.Value
+		case "_definition":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Definition == nil {
+				r.Definition = &Markdown{}
+			}
+			r.Definition.Id = v.Id
+			r.Definition.Extension = v.Extension
+		case "comment":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &Markdown{}
+			}
+			r.Comment.Value = v.Value
+		case "_comment":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &Markdown{}
+			}
+			r.Comment.Id = v.Id
+			r.Comment.Extension = v.Extension
+		case "requirements":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Requirements == nil {
+				r.Requirements = &Markdown{}
+			}
+			r.Requirements.Value = v.Value
+		case "_requirements":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Requirements == nil {
+				r.Requirements = &Markdown{}
+			}
+			r.Requirements.Id = v.Id
+			r.Requirements.Extension = v.Extension
+		case "alias":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v String
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Alias) <= i {
+					r.Alias = append(r.Alias, String{})
+				}
+				r.Alias[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "_alias":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Alias) <= i {
+					r.Alias = append(r.Alias, String{})
+				}
+				r.Alias[i].Id = v.Id
+				r.Alias[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "min":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Min == nil {
+				r.Min = &UnsignedInt{}
+			}
+			r.Min.Value = v.Value
+		case "_min":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Min == nil {
+				r.Min = &UnsignedInt{}
+			}
+			r.Min.Id = v.Id
+			r.Min.Extension = v.Extension
+		case "max":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Max == nil {
+				r.Max = &String{}
+			}
+			r.Max.Value = v.Value
+		case "_max":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Max == nil {
+				r.Max = &String{}
+			}
+			r.Max.Id = v.Id
+			r.Max.Extension = v.Extension
+		case "base":
+			var v ElementDefinitionBase
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Base = &v
+		case "contentReference":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ContentReference == nil {
+				r.ContentReference = &Uri{}
+			}
+			r.ContentReference.Value = v.Value
+		case "_contentReference":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ContentReference == nil {
+				r.ContentReference = &Uri{}
+			}
+			r.ContentReference.Id = v.Id
+			r.ContentReference.Extension = v.Extension
+		case "type":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v ElementDefinitionType
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "defaultValueBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Base64Binary{
+					Extension: r.DefaultValue.(Base64Binary).Extension,
+					Id:        r.DefaultValue.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Base64Binary).Value,
+				}
+			} else {
+				r.DefaultValue = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Boolean{
+					Extension: r.DefaultValue.(Boolean).Extension,
+					Id:        r.DefaultValue.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Boolean).Value,
+				}
+			} else {
+				r.DefaultValue = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Canonical{
+					Extension: r.DefaultValue.(Canonical).Extension,
+					Id:        r.DefaultValue.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Canonical).Value,
+				}
+			} else {
+				r.DefaultValue = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Code{
+					Extension: r.DefaultValue.(Code).Extension,
+					Id:        r.DefaultValue.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Code).Value,
+				}
+			} else {
+				r.DefaultValue = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Date{
+					Extension: r.DefaultValue.(Date).Extension,
+					Id:        r.DefaultValue.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Date).Value,
+				}
+			} else {
+				r.DefaultValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = DateTime{
+					Extension: r.DefaultValue.(DateTime).Extension,
+					Id:        r.DefaultValue.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(DateTime).Value,
+				}
+			} else {
+				r.DefaultValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Decimal{
+					Extension: r.DefaultValue.(Decimal).Extension,
+					Id:        r.DefaultValue.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Decimal).Value,
+				}
+			} else {
+				r.DefaultValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Id{
+					Extension: r.DefaultValue.(Id).Extension,
+					Id:        r.DefaultValue.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Id).Value,
+				}
+			} else {
+				r.DefaultValue = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Instant{
+					Extension: r.DefaultValue.(Instant).Extension,
+					Id:        r.DefaultValue.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Instant).Value,
+				}
+			} else {
+				r.DefaultValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Integer{
+					Extension: r.DefaultValue.(Integer).Extension,
+					Id:        r.DefaultValue.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Integer).Value,
+				}
+			} else {
+				r.DefaultValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Markdown{
+					Extension: r.DefaultValue.(Markdown).Extension,
+					Id:        r.DefaultValue.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Markdown).Value,
+				}
+			} else {
+				r.DefaultValue = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Oid{
+					Extension: r.DefaultValue.(Oid).Extension,
+					Id:        r.DefaultValue.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Oid).Value,
+				}
+			} else {
+				r.DefaultValue = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = PositiveInt{
+					Extension: r.DefaultValue.(PositiveInt).Extension,
+					Id:        r.DefaultValue.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(PositiveInt).Value,
+				}
+			} else {
+				r.DefaultValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = String{
+					Extension: r.DefaultValue.(String).Extension,
+					Id:        r.DefaultValue.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(String).Value,
+				}
+			} else {
+				r.DefaultValue = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Time{
+					Extension: r.DefaultValue.(Time).Extension,
+					Id:        r.DefaultValue.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Time).Value,
+				}
+			} else {
+				r.DefaultValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = UnsignedInt{
+					Extension: r.DefaultValue.(UnsignedInt).Extension,
+					Id:        r.DefaultValue.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(UnsignedInt).Value,
+				}
+			} else {
+				r.DefaultValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Uri{
+					Extension: r.DefaultValue.(Uri).Extension,
+					Id:        r.DefaultValue.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Uri).Value,
+				}
+			} else {
+				r.DefaultValue = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Url{
+					Extension: r.DefaultValue.(Url).Extension,
+					Id:        r.DefaultValue.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Url).Value,
+				}
+			} else {
+				r.DefaultValue = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Uuid{
+					Extension: r.DefaultValue.(Uuid).Extension,
+					Id:        r.DefaultValue.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.DefaultValue = v
+			}
+		case "_defaultValueUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.DefaultValue != nil {
+				r.DefaultValue = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.DefaultValue.(Uuid).Value,
+				}
+			} else {
+				r.DefaultValue = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "defaultValueAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValuePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "defaultValueMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.DefaultValue = v
+		case "meaningWhenMissing":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MeaningWhenMissing == nil {
+				r.MeaningWhenMissing = &Markdown{}
+			}
+			r.MeaningWhenMissing.Value = v.Value
+		case "_meaningWhenMissing":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MeaningWhenMissing == nil {
+				r.MeaningWhenMissing = &Markdown{}
+			}
+			r.MeaningWhenMissing.Id = v.Id
+			r.MeaningWhenMissing.Extension = v.Extension
+		case "orderMeaning":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.OrderMeaning == nil {
+				r.OrderMeaning = &String{}
+			}
+			r.OrderMeaning.Value = v.Value
+		case "_orderMeaning":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.OrderMeaning == nil {
+				r.OrderMeaning = &String{}
+			}
+			r.OrderMeaning.Id = v.Id
+			r.OrderMeaning.Extension = v.Extension
+		case "fixedBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Base64Binary{
+					Extension: r.Fixed.(Base64Binary).Extension,
+					Id:        r.Fixed.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Base64Binary).Value,
+				}
+			} else {
+				r.Fixed = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Boolean{
+					Extension: r.Fixed.(Boolean).Extension,
+					Id:        r.Fixed.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Boolean).Value,
+				}
+			} else {
+				r.Fixed = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Canonical{
+					Extension: r.Fixed.(Canonical).Extension,
+					Id:        r.Fixed.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Canonical).Value,
+				}
+			} else {
+				r.Fixed = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Code{
+					Extension: r.Fixed.(Code).Extension,
+					Id:        r.Fixed.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Code).Value,
+				}
+			} else {
+				r.Fixed = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Date{
+					Extension: r.Fixed.(Date).Extension,
+					Id:        r.Fixed.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Date).Value,
+				}
+			} else {
+				r.Fixed = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = DateTime{
+					Extension: r.Fixed.(DateTime).Extension,
+					Id:        r.Fixed.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(DateTime).Value,
+				}
+			} else {
+				r.Fixed = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Decimal{
+					Extension: r.Fixed.(Decimal).Extension,
+					Id:        r.Fixed.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Decimal).Value,
+				}
+			} else {
+				r.Fixed = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Id{
+					Extension: r.Fixed.(Id).Extension,
+					Id:        r.Fixed.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Id).Value,
+				}
+			} else {
+				r.Fixed = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Instant{
+					Extension: r.Fixed.(Instant).Extension,
+					Id:        r.Fixed.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Instant).Value,
+				}
+			} else {
+				r.Fixed = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Integer{
+					Extension: r.Fixed.(Integer).Extension,
+					Id:        r.Fixed.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Integer).Value,
+				}
+			} else {
+				r.Fixed = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Markdown{
+					Extension: r.Fixed.(Markdown).Extension,
+					Id:        r.Fixed.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Markdown).Value,
+				}
+			} else {
+				r.Fixed = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Oid{
+					Extension: r.Fixed.(Oid).Extension,
+					Id:        r.Fixed.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Oid).Value,
+				}
+			} else {
+				r.Fixed = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedPositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = PositiveInt{
+					Extension: r.Fixed.(PositiveInt).Extension,
+					Id:        r.Fixed.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedPositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(PositiveInt).Value,
+				}
+			} else {
+				r.Fixed = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = String{
+					Extension: r.Fixed.(String).Extension,
+					Id:        r.Fixed.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(String).Value,
+				}
+			} else {
+				r.Fixed = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Time{
+					Extension: r.Fixed.(Time).Extension,
+					Id:        r.Fixed.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Time).Value,
+				}
+			} else {
+				r.Fixed = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = UnsignedInt{
+					Extension: r.Fixed.(UnsignedInt).Extension,
+					Id:        r.Fixed.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(UnsignedInt).Value,
+				}
+			} else {
+				r.Fixed = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Uri{
+					Extension: r.Fixed.(Uri).Extension,
+					Id:        r.Fixed.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Uri).Value,
+				}
+			} else {
+				r.Fixed = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Url{
+					Extension: r.Fixed.(Url).Extension,
+					Id:        r.Fixed.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Url).Value,
+				}
+			} else {
+				r.Fixed = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Uuid{
+					Extension: r.Fixed.(Uuid).Extension,
+					Id:        r.Fixed.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Fixed = v
+			}
+		case "_fixedUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Fixed != nil {
+				r.Fixed = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Fixed.(Uuid).Value,
+				}
+			} else {
+				r.Fixed = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "fixedAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "fixedMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Fixed = v
+		case "patternBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Base64Binary{
+					Extension: r.Pattern.(Base64Binary).Extension,
+					Id:        r.Pattern.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Base64Binary).Value,
+				}
+			} else {
+				r.Pattern = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Boolean{
+					Extension: r.Pattern.(Boolean).Extension,
+					Id:        r.Pattern.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Boolean).Value,
+				}
+			} else {
+				r.Pattern = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Canonical{
+					Extension: r.Pattern.(Canonical).Extension,
+					Id:        r.Pattern.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Canonical).Value,
+				}
+			} else {
+				r.Pattern = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Code{
+					Extension: r.Pattern.(Code).Extension,
+					Id:        r.Pattern.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Code).Value,
+				}
+			} else {
+				r.Pattern = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Date{
+					Extension: r.Pattern.(Date).Extension,
+					Id:        r.Pattern.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Date).Value,
+				}
+			} else {
+				r.Pattern = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = DateTime{
+					Extension: r.Pattern.(DateTime).Extension,
+					Id:        r.Pattern.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(DateTime).Value,
+				}
+			} else {
+				r.Pattern = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Decimal{
+					Extension: r.Pattern.(Decimal).Extension,
+					Id:        r.Pattern.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Decimal).Value,
+				}
+			} else {
+				r.Pattern = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Id{
+					Extension: r.Pattern.(Id).Extension,
+					Id:        r.Pattern.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Id).Value,
+				}
+			} else {
+				r.Pattern = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Instant{
+					Extension: r.Pattern.(Instant).Extension,
+					Id:        r.Pattern.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Instant).Value,
+				}
+			} else {
+				r.Pattern = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Integer{
+					Extension: r.Pattern.(Integer).Extension,
+					Id:        r.Pattern.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Integer).Value,
+				}
+			} else {
+				r.Pattern = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Markdown{
+					Extension: r.Pattern.(Markdown).Extension,
+					Id:        r.Pattern.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Markdown).Value,
+				}
+			} else {
+				r.Pattern = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Oid{
+					Extension: r.Pattern.(Oid).Extension,
+					Id:        r.Pattern.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Oid).Value,
+				}
+			} else {
+				r.Pattern = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternPositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = PositiveInt{
+					Extension: r.Pattern.(PositiveInt).Extension,
+					Id:        r.Pattern.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternPositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(PositiveInt).Value,
+				}
+			} else {
+				r.Pattern = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = String{
+					Extension: r.Pattern.(String).Extension,
+					Id:        r.Pattern.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(String).Value,
+				}
+			} else {
+				r.Pattern = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Time{
+					Extension: r.Pattern.(Time).Extension,
+					Id:        r.Pattern.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Time).Value,
+				}
+			} else {
+				r.Pattern = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = UnsignedInt{
+					Extension: r.Pattern.(UnsignedInt).Extension,
+					Id:        r.Pattern.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(UnsignedInt).Value,
+				}
+			} else {
+				r.Pattern = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Uri{
+					Extension: r.Pattern.(Uri).Extension,
+					Id:        r.Pattern.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Uri).Value,
+				}
+			} else {
+				r.Pattern = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Url{
+					Extension: r.Pattern.(Url).Extension,
+					Id:        r.Pattern.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Url).Value,
+				}
+			} else {
+				r.Pattern = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Uuid{
+					Extension: r.Pattern.(Uuid).Extension,
+					Id:        r.Pattern.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Pattern = v
+			}
+		case "_patternUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Pattern != nil {
+				r.Pattern = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Pattern.(Uuid).Value,
+				}
+			} else {
+				r.Pattern = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "patternAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternPeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "patternMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Pattern = v
+		case "example":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v ElementDefinitionExample
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Example = append(r.Example, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "minValueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Date{
+					Extension: r.MinValue.(Date).Extension,
+					Id:        r.MinValue.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(Date).Value,
+				}
+			} else {
+				r.MinValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = DateTime{
+					Extension: r.MinValue.(DateTime).Extension,
+					Id:        r.MinValue.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(DateTime).Value,
+				}
+			} else {
+				r.MinValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Instant{
+					Extension: r.MinValue.(Instant).Extension,
+					Id:        r.MinValue.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(Instant).Value,
+				}
+			} else {
+				r.MinValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Time{
+					Extension: r.MinValue.(Time).Extension,
+					Id:        r.MinValue.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(Time).Value,
+				}
+			} else {
+				r.MinValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Decimal{
+					Extension: r.MinValue.(Decimal).Extension,
+					Id:        r.MinValue.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(Decimal).Value,
+				}
+			} else {
+				r.MinValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Integer{
+					Extension: r.MinValue.(Integer).Extension,
+					Id:        r.MinValue.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(Integer).Value,
+				}
+			} else {
+				r.MinValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = PositiveInt{
+					Extension: r.MinValue.(PositiveInt).Extension,
+					Id:        r.MinValue.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(PositiveInt).Value,
+				}
+			} else {
+				r.MinValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = UnsignedInt{
+					Extension: r.MinValue.(UnsignedInt).Extension,
+					Id:        r.MinValue.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MinValue = v
+			}
+		case "_minValueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MinValue != nil {
+				r.MinValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MinValue.(UnsignedInt).Value,
+				}
+			} else {
+				r.MinValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "minValueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.MinValue = v
+		case "maxValueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Date{
+					Extension: r.MaxValue.(Date).Extension,
+					Id:        r.MaxValue.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(Date).Value,
+				}
+			} else {
+				r.MaxValue = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = DateTime{
+					Extension: r.MaxValue.(DateTime).Extension,
+					Id:        r.MaxValue.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(DateTime).Value,
+				}
+			} else {
+				r.MaxValue = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Instant{
+					Extension: r.MaxValue.(Instant).Extension,
+					Id:        r.MaxValue.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(Instant).Value,
+				}
+			} else {
+				r.MaxValue = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Time{
+					Extension: r.MaxValue.(Time).Extension,
+					Id:        r.MaxValue.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(Time).Value,
+				}
+			} else {
+				r.MaxValue = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Decimal{
+					Extension: r.MaxValue.(Decimal).Extension,
+					Id:        r.MaxValue.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(Decimal).Value,
+				}
+			} else {
+				r.MaxValue = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Integer{
+					Extension: r.MaxValue.(Integer).Extension,
+					Id:        r.MaxValue.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(Integer).Value,
+				}
+			} else {
+				r.MaxValue = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = PositiveInt{
+					Extension: r.MaxValue.(PositiveInt).Extension,
+					Id:        r.MaxValue.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(PositiveInt).Value,
+				}
+			} else {
+				r.MaxValue = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = UnsignedInt{
+					Extension: r.MaxValue.(UnsignedInt).Extension,
+					Id:        r.MaxValue.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.MaxValue = v
+			}
+		case "_maxValueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxValue != nil {
+				r.MaxValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.MaxValue.(UnsignedInt).Value,
+				}
+			} else {
+				r.MaxValue = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "maxValueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.MaxValue = v
+		case "maxLength":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MaxLength == nil {
+				r.MaxLength = &Integer{}
+			}
+			r.MaxLength.Value = v.Value
+		case "_maxLength":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MaxLength == nil {
+				r.MaxLength = &Integer{}
+			}
+			r.MaxLength.Id = v.Id
+			r.MaxLength.Extension = v.Extension
+		case "condition":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Id
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Condition) <= i {
+					r.Condition = append(r.Condition, Id{})
+				}
+				r.Condition[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "_condition":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Condition) <= i {
+					r.Condition = append(r.Condition, Id{})
+				}
+				r.Condition[i].Id = v.Id
+				r.Condition[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "constraint":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v ElementDefinitionConstraint
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Constraint = append(r.Constraint, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		case "mustSupport":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.MustSupport == nil {
+				r.MustSupport = &Boolean{}
+			}
+			r.MustSupport.Value = v.Value
+		case "_mustSupport":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.MustSupport == nil {
+				r.MustSupport = &Boolean{}
+			}
+			r.MustSupport.Id = v.Id
+			r.MustSupport.Extension = v.Extension
+		case "isModifier":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IsModifier == nil {
+				r.IsModifier = &Boolean{}
+			}
+			r.IsModifier.Value = v.Value
+		case "_isModifier":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IsModifier == nil {
+				r.IsModifier = &Boolean{}
+			}
+			r.IsModifier.Id = v.Id
+			r.IsModifier.Extension = v.Extension
+		case "isModifierReason":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IsModifierReason == nil {
+				r.IsModifierReason = &String{}
+			}
+			r.IsModifierReason.Value = v.Value
+		case "_isModifierReason":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IsModifierReason == nil {
+				r.IsModifierReason = &String{}
+			}
+			r.IsModifierReason.Id = v.Id
+			r.IsModifierReason.Extension = v.Extension
+		case "isSummary":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.IsSummary == nil {
+				r.IsSummary = &Boolean{}
+			}
+			r.IsSummary.Value = v.Value
+		case "_isSummary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.IsSummary == nil {
+				r.IsSummary = &Boolean{}
+			}
+			r.IsSummary.Id = v.Id
+			r.IsSummary.Extension = v.Extension
+		case "binding":
+			var v ElementDefinitionBinding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Binding = &v
+		case "mapping":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinition element", t)
+			}
+			for d.More() {
+				var v ElementDefinitionMapping
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Mapping = append(r.Mapping, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinition element", t)
+			}
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinition", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinition element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionSlicing) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionSlicing element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionSlicing element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionSlicing element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionSlicing element", t)
+			}
+		case "discriminator":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionSlicing element", t)
+			}
+			for d.More() {
+				var v ElementDefinitionSlicingDiscriminator
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Discriminator = append(r.Discriminator, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionSlicing element", t)
+			}
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "ordered":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Ordered == nil {
+				r.Ordered = &Boolean{}
+			}
+			r.Ordered.Value = v.Value
+		case "_ordered":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Ordered == nil {
+				r.Ordered = &Boolean{}
+			}
+			r.Ordered.Id = v.Id
+			r.Ordered.Extension = v.Extension
+		case "rules":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Rules.Value = v.Value
+		case "_rules":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Rules.Id = v.Id
+			r.Rules.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionSlicing", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionSlicing element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionSlicingDiscriminator) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionSlicingDiscriminator element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionSlicingDiscriminator element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionSlicingDiscriminator element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionSlicingDiscriminator element", t)
+			}
+		case "type":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Type.Value = v.Value
+		case "_type":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Type.Id = v.Id
+			r.Type.Extension = v.Extension
+		case "path":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Path.Value = v.Value
+		case "_path":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Path.Id = v.Id
+			r.Path.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionSlicingDiscriminator", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionSlicingDiscriminator element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionBase) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionBase element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionBase element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionBase element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionBase element", t)
+			}
+		case "path":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Path.Value = v.Value
+		case "_path":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Path.Id = v.Id
+			r.Path.Extension = v.Extension
+		case "min":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Min.Value = v.Value
+		case "_min":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Min.Id = v.Id
+			r.Min.Extension = v.Extension
+		case "max":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Max.Value = v.Value
+		case "_max":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Max.Id = v.Id
+			r.Max.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionBase", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionBase element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionType) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionType element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionType element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "code":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Code.Value = v.Value
+		case "_code":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Code.Id = v.Id
+			r.Code.Extension = v.Extension
+		case "profile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Canonical
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Profile) <= i {
+					r.Profile = append(r.Profile, Canonical{})
+				}
+				r.Profile[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "_profile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Profile) <= i {
+					r.Profile = append(r.Profile, Canonical{})
+				}
+				r.Profile[i].Id = v.Id
+				r.Profile[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "targetProfile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Canonical
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.TargetProfile) <= i {
+					r.TargetProfile = append(r.TargetProfile, Canonical{})
+				}
+				r.TargetProfile[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "_targetProfile":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.TargetProfile) <= i {
+					r.TargetProfile = append(r.TargetProfile, Canonical{})
+				}
+				r.TargetProfile[i].Id = v.Id
+				r.TargetProfile[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "aggregation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v Code
+				err := d.Decode(&v)
+				if err != nil {
+					return err
+				}
+				for len(r.Aggregation) <= i {
+					r.Aggregation = append(r.Aggregation, Code{})
+				}
+				r.Aggregation[i].Value = v.Value
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "_aggregation":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionType element", t)
+			}
+			for i := 0; d.More(); i++ {
+				var v primitiveElement
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				for len(r.Aggregation) <= i {
+					r.Aggregation = append(r.Aggregation, Code{})
+				}
+				r.Aggregation[i].Id = v.Id
+				r.Aggregation[i].Extension = v.Extension
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionType element", t)
+			}
+		case "versioning":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Versioning == nil {
+				r.Versioning = &Code{}
+			}
+			r.Versioning.Value = v.Value
+		case "_versioning":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Versioning == nil {
+				r.Versioning = &Code{}
+			}
+			r.Versioning.Id = v.Id
+			r.Versioning.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionType", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionType element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionExample) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionExample element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionExample element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionExample element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionExample element", t)
+			}
+		case "label":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Label.Value = v.Value
+		case "_label":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Label.Id = v.Id
+			r.Label.Extension = v.Extension
+		case "valueBase64Binary":
+			var v Base64Binary
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: r.Value.(Base64Binary).Extension,
+					Id:        r.Value.(Base64Binary).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueBase64Binary":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Base64Binary).Value,
+				}
+			} else {
+				r.Value = Base64Binary{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueBoolean":
+			var v Boolean
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: r.Value.(Boolean).Extension,
+					Id:        r.Value.(Boolean).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueBoolean":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Boolean).Value,
+				}
+			} else {
+				r.Value = Boolean{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCanonical":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: r.Value.(Canonical).Extension,
+					Id:        r.Value.(Canonical).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCanonical":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Canonical).Value,
+				}
+			} else {
+				r.Value = Canonical{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueCode":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: r.Value.(Code).Extension,
+					Id:        r.Value.(Code).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueCode":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Code).Value,
+				}
+			} else {
+				r.Value = Code{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDate":
+			var v Date
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: r.Value.(Date).Extension,
+					Id:        r.Value.(Date).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDate":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Date).Value,
+				}
+			} else {
+				r.Value = Date{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDateTime":
+			var v DateTime
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: r.Value.(DateTime).Extension,
+					Id:        r.Value.(DateTime).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDateTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(DateTime).Value,
+				}
+			} else {
+				r.Value = DateTime{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueDecimal":
+			var v Decimal
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: r.Value.(Decimal).Extension,
+					Id:        r.Value.(Decimal).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueDecimal":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Decimal).Value,
+				}
+			} else {
+				r.Value = Decimal{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueId":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: r.Value.(Id).Extension,
+					Id:        r.Value.(Id).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueId":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Id).Value,
+				}
+			} else {
+				r.Value = Id{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInstant":
+			var v Instant
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: r.Value.(Instant).Extension,
+					Id:        r.Value.(Instant).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInstant":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Instant).Value,
+				}
+			} else {
+				r.Value = Instant{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueInteger":
+			var v Integer
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: r.Value.(Integer).Extension,
+					Id:        r.Value.(Integer).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueInteger":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Integer).Value,
+				}
+			} else {
+				r.Value = Integer{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueMarkdown":
+			var v Markdown
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: r.Value.(Markdown).Extension,
+					Id:        r.Value.(Markdown).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueMarkdown":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Markdown).Value,
+				}
+			} else {
+				r.Value = Markdown{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueOid":
+			var v Oid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: r.Value.(Oid).Extension,
+					Id:        r.Value.(Oid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueOid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Oid).Value,
+				}
+			} else {
+				r.Value = Oid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valuePositiveInt":
+			var v PositiveInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: r.Value.(PositiveInt).Extension,
+					Id:        r.Value.(PositiveInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valuePositiveInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(PositiveInt).Value,
+				}
+			} else {
+				r.Value = PositiveInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueString":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: r.Value.(String).Extension,
+					Id:        r.Value.(String).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueString":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(String).Value,
+				}
+			} else {
+				r.Value = String{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueTime":
+			var v Time
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: r.Value.(Time).Extension,
+					Id:        r.Value.(Time).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueTime":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Time).Value,
+				}
+			} else {
+				r.Value = Time{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUnsignedInt":
+			var v UnsignedInt
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: r.Value.(UnsignedInt).Extension,
+					Id:        r.Value.(UnsignedInt).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUnsignedInt":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(UnsignedInt).Value,
+				}
+			} else {
+				r.Value = UnsignedInt{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUri":
+			var v Uri
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: r.Value.(Uri).Extension,
+					Id:        r.Value.(Uri).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUri":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uri).Value,
+				}
+			} else {
+				r.Value = Uri{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUrl":
+			var v Url
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: r.Value.(Url).Extension,
+					Id:        r.Value.(Url).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUrl":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Url).Value,
+				}
+			} else {
+				r.Value = Url{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueUuid":
+			var v Uuid
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: r.Value.(Uuid).Extension,
+					Id:        r.Value.(Uuid).Id,
+					Value:     v.Value,
+				}
+			} else {
+				r.Value = v
+			}
+		case "_valueUuid":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Value != nil {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+					Value:     r.Value.(Uuid).Value,
+				}
+			} else {
+				r.Value = Uuid{
+					Extension: v.Extension,
+					Id:        v.Id,
+				}
+			}
+		case "valueAddress":
+			var v Address
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAge":
+			var v Age
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAnnotation":
+			var v Annotation
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueAttachment":
+			var v Attachment
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCodeableConcept":
+			var v CodeableConcept
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCoding":
+			var v Coding
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactPoint":
+			var v ContactPoint
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueCount":
+			var v Count
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDistance":
+			var v Distance
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDuration":
+			var v Duration
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueHumanName":
+			var v HumanName
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueIdentifier":
+			var v Identifier
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMoney":
+			var v Money
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valuePeriod":
+			var v Period
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueQuantity":
+			var v Quantity
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRange":
+			var v Range
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRatio":
+			var v Ratio
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueReference":
+			var v Reference
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSampledData":
+			var v SampledData
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueSignature":
+			var v Signature
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTiming":
+			var v Timing
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContactDetail":
+			var v ContactDetail
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueContributor":
+			var v Contributor
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDataRequirement":
+			var v DataRequirement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueExpression":
+			var v Expression
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueParameterDefinition":
+			var v ParameterDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueRelatedArtifact":
+			var v RelatedArtifact
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueTriggerDefinition":
+			var v TriggerDefinition
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueUsageContext":
+			var v UsageContext
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueDosage":
+			var v Dosage
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		case "valueMeta":
+			var v Meta
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Value = v
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionExample", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionExample element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionConstraint) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionConstraint element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionConstraint element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionConstraint element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionConstraint element", t)
+			}
+		case "key":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Key.Value = v.Value
+		case "_key":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Key.Id = v.Id
+			r.Key.Extension = v.Extension
+		case "requirements":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Requirements == nil {
+				r.Requirements = &String{}
+			}
+			r.Requirements.Value = v.Value
+		case "_requirements":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Requirements == nil {
+				r.Requirements = &String{}
+			}
+			r.Requirements.Id = v.Id
+			r.Requirements.Extension = v.Extension
+		case "severity":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Severity.Value = v.Value
+		case "_severity":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Severity.Id = v.Id
+			r.Severity.Extension = v.Extension
+		case "human":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Human.Value = v.Value
+		case "_human":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Human.Id = v.Id
+			r.Human.Extension = v.Extension
+		case "expression":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Expression == nil {
+				r.Expression = &String{}
+			}
+			r.Expression.Value = v.Value
+		case "_expression":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Expression == nil {
+				r.Expression = &String{}
+			}
+			r.Expression.Id = v.Id
+			r.Expression.Extension = v.Extension
+		case "source":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Source == nil {
+				r.Source = &Canonical{}
+			}
+			r.Source.Value = v.Value
+		case "_source":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Source == nil {
+				r.Source = &Canonical{}
+			}
+			r.Source.Id = v.Id
+			r.Source.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionConstraint", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionConstraint element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionBinding) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionBinding element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionBinding element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionBinding element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionBinding element", t)
+			}
+		case "strength":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Strength.Value = v.Value
+		case "_strength":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Strength.Id = v.Id
+			r.Strength.Extension = v.Extension
+		case "description":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Value = v.Value
+		case "_description":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Description == nil {
+				r.Description = &String{}
+			}
+			r.Description.Id = v.Id
+			r.Description.Extension = v.Extension
+		case "valueSet":
+			var v Canonical
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.ValueSet == nil {
+				r.ValueSet = &Canonical{}
+			}
+			r.ValueSet.Value = v.Value
+		case "_valueSet":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.ValueSet == nil {
+				r.ValueSet = &Canonical{}
+			}
+			r.ValueSet.Id = v.Id
+			r.ValueSet.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionBinding", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionBinding element", t)
+	}
+	return nil
+}
+func (r *ElementDefinitionMapping) unmarshalJSON(d *json.Decoder) error {
+	t, err := d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('{') {
+		return fmt.Errorf("invalid token: %v, expected: '{' in ElementDefinitionMapping element", t)
+	}
+	for d.More() {
+		t, err = d.Token()
+		if err != nil {
+			return err
+		}
+		f, ok := t.(string)
+		if !ok {
+			return fmt.Errorf("invalid token: %v, expected: field name in ElementDefinitionMapping element", t)
+		}
+		switch f {
+		case "id":
+			var v string
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Id = &v
+		case "extension":
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim('[') {
+				return fmt.Errorf("invalid token: %v, expected: '[' in ElementDefinitionMapping element", t)
+			}
+			for d.More() {
+				var v Extension
+				err := v.unmarshalJSON(d)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			}
+			t, err = d.Token()
+			if err != nil {
+				return err
+			}
+			if t != json.Delim(']') {
+				return fmt.Errorf("invalid token: %v, expected: ']' in ElementDefinitionMapping element", t)
+			}
+		case "identity":
+			var v Id
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Identity.Value = v.Value
+		case "_identity":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Identity.Id = v.Id
+			r.Identity.Extension = v.Extension
+		case "language":
+			var v Code
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Value = v.Value
+		case "_language":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Language == nil {
+				r.Language = &Code{}
+			}
+			r.Language.Id = v.Id
+			r.Language.Extension = v.Extension
+		case "map":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			r.Map.Value = v.Value
+		case "_map":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			r.Map.Id = v.Id
+			r.Map.Extension = v.Extension
+		case "comment":
+			var v String
+			err := d.Decode(&v)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &String{}
+			}
+			r.Comment.Value = v.Value
+		case "_comment":
+			var v primitiveElement
+			err := v.unmarshalJSON(d)
+			if err != nil {
+				return err
+			}
+			if r.Comment == nil {
+				r.Comment = &String{}
+			}
+			r.Comment.Id = v.Id
+			r.Comment.Extension = v.Extension
+		default:
+			return fmt.Errorf("invalid field: %s in ElementDefinitionMapping", f)
+		}
+	}
+	t, err = d.Token()
+	if err != nil {
+		return err
+	}
+	if t != json.Delim('}') {
+		return fmt.Errorf("invalid token: %v, expected: '}' in ElementDefinitionMapping element", t)
+	}
+	return nil
+}
 func (r ElementDefinition) MarshalXML(e *xml.Encoder, start xml.StartElement) error {
 	if r.Id != nil {
 		start.Attr = append(start.Attr, xml.Attr{
@@ -16914,6 +22674,2934 @@ func (r ElementDefinitionMapping) MarshalXML(e *xml.Encoder, start xml.StartElem
 		return err
 	}
 	return nil
+}
+func (r *ElementDefinition) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "modifierExtension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ModifierExtension = append(r.ModifierExtension, v)
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			case "representation":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Representation = append(r.Representation, v)
+			case "sliceName":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SliceName = &v
+			case "sliceIsConstraining":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.SliceIsConstraining = &v
+			case "label":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Label = &v
+			case "code":
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = append(r.Code, v)
+			case "slicing":
+				var v ElementDefinitionSlicing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Slicing = &v
+			case "short":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Short = &v
+			case "definition":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Definition = &v
+			case "comment":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comment = &v
+			case "requirements":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requirements = &v
+			case "alias":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Alias = append(r.Alias, v)
+			case "min":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Min = &v
+			case "max":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Max = &v
+			case "base":
+				var v ElementDefinitionBase
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Base = &v
+			case "contentReference":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ContentReference = &v
+			case "type":
+				var v ElementDefinitionType
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = append(r.Type, v)
+			case "defaultValueBase64Binary":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueBoolean":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCanonical":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCode":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDate":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDateTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDecimal":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueId":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInstant":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueInteger":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMarkdown":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueOid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePositiveInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueString":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTime":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUnsignedInt":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUri":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUrl":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUuid":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAddress":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAge":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAnnotation":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueAttachment":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCodeableConcept":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCoding":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactPoint":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueCount":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDistance":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDuration":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueHumanName":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueIdentifier":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMoney":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValuePeriod":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueQuantity":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRange":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRatio":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueReference":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSampledData":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueSignature":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTiming":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContactDetail":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueContributor":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDataRequirement":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueExpression":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueParameterDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueRelatedArtifact":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueTriggerDefinition":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueUsageContext":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueDosage":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "defaultValueMeta":
+				if r.DefaultValue != nil {
+					return fmt.Errorf("multiple values for field \"DefaultValue\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.DefaultValue = v
+			case "meaningWhenMissing":
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MeaningWhenMissing = &v
+			case "orderMeaning":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.OrderMeaning = &v
+			case "fixedBase64Binary":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedBoolean":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCanonical":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCode":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDate":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDateTime":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDecimal":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedId":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedInstant":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedInteger":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMarkdown":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedOid":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedPositiveInt":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedString":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTime":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUnsignedInt":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUri":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUrl":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUuid":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAddress":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAge":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAnnotation":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedAttachment":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCodeableConcept":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCoding":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContactPoint":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedCount":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDistance":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDuration":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedHumanName":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedIdentifier":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMoney":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedPeriod":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedQuantity":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRange":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRatio":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedReference":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedSampledData":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedSignature":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTiming":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContactDetail":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedContributor":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDataRequirement":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedExpression":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedParameterDefinition":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedRelatedArtifact":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedTriggerDefinition":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedUsageContext":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedDosage":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "fixedMeta":
+				if r.Fixed != nil {
+					return fmt.Errorf("multiple values for field \"Fixed\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Fixed = v
+			case "patternBase64Binary":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternBoolean":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCanonical":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCode":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDate":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDateTime":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDecimal":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternId":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternInstant":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternInteger":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMarkdown":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternOid":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternPositiveInt":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternString":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTime":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUnsignedInt":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUri":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUrl":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUuid":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAddress":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAge":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAnnotation":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternAttachment":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCodeableConcept":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCoding":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContactPoint":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternCount":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDistance":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDuration":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternHumanName":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternIdentifier":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMoney":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternPeriod":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternQuantity":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRange":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRatio":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternReference":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternSampledData":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternSignature":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTiming":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContactDetail":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternContributor":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDataRequirement":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternExpression":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternParameterDefinition":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternRelatedArtifact":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternTriggerDefinition":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternUsageContext":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternDosage":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "patternMeta":
+				if r.Pattern != nil {
+					return fmt.Errorf("multiple values for field \"Pattern\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Pattern = v
+			case "example":
+				var v ElementDefinitionExample
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Example = append(r.Example, v)
+			case "minValueDate":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueDateTime":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueInstant":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueTime":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueDecimal":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueInteger":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValuePositiveInt":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueUnsignedInt":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "minValueQuantity":
+				if r.MinValue != nil {
+					return fmt.Errorf("multiple values for field \"MinValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MinValue = v
+			case "maxValueDate":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueDateTime":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueInstant":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueTime":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueDecimal":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueInteger":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValuePositiveInt":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueUnsignedInt":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxValueQuantity":
+				if r.MaxValue != nil {
+					return fmt.Errorf("multiple values for field \"MaxValue\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxValue = v
+			case "maxLength":
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MaxLength = &v
+			case "condition":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Condition = append(r.Condition, v)
+			case "constraint":
+				var v ElementDefinitionConstraint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Constraint = append(r.Constraint, v)
+			case "mustSupport":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.MustSupport = &v
+			case "isModifier":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsModifier = &v
+			case "isModifierReason":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsModifierReason = &v
+			case "isSummary":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.IsSummary = &v
+			case "binding":
+				var v ElementDefinitionBinding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Binding = &v
+			case "mapping":
+				var v ElementDefinitionMapping
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Mapping = append(r.Mapping, v)
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionSlicing) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "discriminator":
+				var v ElementDefinitionSlicingDiscriminator
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Discriminator = append(r.Discriminator, v)
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "ordered":
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Ordered = &v
+			case "rules":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Rules = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionSlicingDiscriminator) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "type":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Type = v
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionBase) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "path":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Path = v
+			case "min":
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Min = v
+			case "max":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Max = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionType) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "code":
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Code = v
+			case "profile":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Profile = append(r.Profile, v)
+			case "targetProfile":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.TargetProfile = append(r.TargetProfile, v)
+			case "aggregation":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Aggregation = append(r.Aggregation, v)
+			case "versioning":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Versioning = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionExample) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "label":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Label = v
+			case "valueBase64Binary":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Base64Binary
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueBoolean":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Boolean
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCanonical":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCode":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDate":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Date
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDateTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v DateTime
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDecimal":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Decimal
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueId":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInstant":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Instant
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueInteger":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Integer
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMarkdown":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Markdown
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueOid":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Oid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valuePositiveInt":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v PositiveInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueString":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTime":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Time
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUnsignedInt":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v UnsignedInt
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUri":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Uri
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUrl":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Url
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUuid":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Uuid
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAddress":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Address
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAge":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Age
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAnnotation":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Annotation
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueAttachment":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Attachment
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCodeableConcept":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v CodeableConcept
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCoding":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Coding
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContactPoint":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ContactPoint
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueCount":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Count
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDistance":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Distance
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDuration":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Duration
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueHumanName":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v HumanName
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueIdentifier":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Identifier
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMoney":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Money
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valuePeriod":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Period
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueQuantity":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Quantity
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRange":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Range
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRatio":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Ratio
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueReference":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Reference
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueSampledData":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v SampledData
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueSignature":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Signature
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTiming":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Timing
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContactDetail":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ContactDetail
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueContributor":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Contributor
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDataRequirement":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v DataRequirement
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueExpression":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Expression
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueParameterDefinition":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v ParameterDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueRelatedArtifact":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v RelatedArtifact
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueTriggerDefinition":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v TriggerDefinition
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueUsageContext":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v UsageContext
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueDosage":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Dosage
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			case "valueMeta":
+				if r.Value != nil {
+					return fmt.Errorf("multiple values for field \"Value\"")
+				}
+				var v Meta
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Value = v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionConstraint) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "key":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Key = v
+			case "requirements":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Requirements = &v
+			case "severity":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Severity = v
+			case "human":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Human = v
+			case "expression":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Expression = &v
+			case "source":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Source = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionBinding) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "strength":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Strength = v
+			case "description":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Description = &v
+			case "valueSet":
+				var v Canonical
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.ValueSet = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
+}
+func (r *ElementDefinitionMapping) UnmarshalXML(d *xml.Decoder, start xml.StartElement) error {
+	if start.Name.Space != "http://hl7.org/fhir" {
+		return fmt.Errorf("invalid namespace: \"%s\", expected: \"http://hl7.org/fhir\"", start.Name.Space)
+	}
+	for _, a := range start.Attr {
+		if a.Name.Space != "" {
+			return fmt.Errorf("invalid attribute namespace: \"%s\", expected default namespace", start.Name.Space)
+		}
+		switch a.Name.Local {
+		case "xmlns":
+			continue
+		case "id":
+			r.Id = &a.Value
+		default:
+			return fmt.Errorf("invalid attribute: \"%s\"", a.Name.Local)
+		}
+	}
+	for {
+		token, err := d.Token()
+		if err != nil {
+			return err
+		}
+		switch t := token.(type) {
+		case xml.StartElement:
+			switch t.Name.Local {
+			case "extension":
+				var v Extension
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Extension = append(r.Extension, v)
+			case "identity":
+				var v Id
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Identity = v
+			case "language":
+				var v Code
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Language = &v
+			case "map":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Map = v
+			case "comment":
+				var v String
+				err := d.DecodeElement(&v, &t)
+				if err != nil {
+					return err
+				}
+				r.Comment = &v
+			}
+		case xml.EndElement:
+			return nil
+		}
+	}
 }
 func (r ElementDefinition) Children(name ...string) fhirpath.Collection {
 	var children fhirpath.Collection
