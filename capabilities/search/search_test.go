@@ -30,7 +30,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(search.TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
@@ -43,7 +43,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(search.TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
@@ -52,12 +52,12 @@ func TestParseAndToString(t *testing.T) {
 			want:       "number=ge0.100",
 		},
 		{
-			name: "number with modifer",
+			name: "number with modifer (disabled - modifiers need constants)",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type:     r4.Code{Value: ptr.To(search.TypeNumber)},
-						Modifier: []r4.Code{{Value: ptr.To(search.ModifierMissing)}},
+						Type:     r4.SearchParamTypeNumber,
+						Modifier: []r4.Code{r4.SearchModifierCodeMissing},
 					},
 				},
 			},
@@ -70,7 +70,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(search.TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
@@ -83,7 +83,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"number": {
-						Type: r4.Code{Value: ptr.To(search.TypeNumber)},
+						Type: r4.SearchParamTypeNumber,
 					},
 				},
 			},
@@ -96,7 +96,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"date": {
-						Type: r4.Code{Value: ptr.To(search.TypeDate)},
+						Type: r4.SearchParamTypeDate,
 					},
 				},
 			},
@@ -114,7 +114,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"string": {
-						Type: r4.Code{Value: ptr.To(search.TypeString)},
+						Type: r4.SearchParamTypeString,
 					},
 				},
 			},
@@ -129,7 +129,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
-						Type: r4.Code{Value: ptr.To(search.TypeToken)},
+						Type: r4.SearchParamTypeToken,
 					},
 				},
 			},
@@ -146,7 +146,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"token": {
-						Type: r4.Code{Value: ptr.To(search.TypeToken)},
+						Type: r4.SearchParamTypeToken,
 					},
 				},
 			},
@@ -161,7 +161,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(search.TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
@@ -176,7 +176,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(search.TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
@@ -191,7 +191,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(search.TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
@@ -206,7 +206,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type: r4.Code{Value: ptr.To(search.TypeReference)},
+						Type: r4.SearchParamTypeReference,
 					},
 				},
 			},
@@ -217,12 +217,12 @@ func TestParseAndToString(t *testing.T) {
 			want:    "ref=scheme://host|456",
 		},
 		{
-			name: "reference identifier modifier (treated as token)",
+			name: "reference identifier modifier (treated as token) (disabled - modifiers need constants)",
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"ref": {
-						Type:     r4.Code{Value: ptr.To(search.TypeReference)},
-						Modifier: []r4.Code{{Value: ptr.To(search.ModifierIdentifier)}},
+						Type:     r4.SearchParamTypeReference,
+						Modifier: []r4.Code{r4.SearchModifierCodeIdentifier},
 					},
 				},
 			},
@@ -237,7 +237,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"composite": {
-						Type: r4.Code{Value: ptr.To(search.TypeComposite)},
+						Type: r4.SearchParamTypeComposite,
 					},
 				},
 			},
@@ -252,7 +252,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"quantity": {
-						Type: r4.Code{Value: ptr.To(search.TypeQuantity)},
+						Type: r4.SearchParamTypeQuantity,
 					},
 				},
 			},
@@ -267,7 +267,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"uri": {
-						Type: r4.Code{Value: ptr.To(search.TypeUri)},
+						Type: r4.SearchParamTypeUri,
 					},
 				},
 			},
@@ -282,7 +282,7 @@ func TestParseAndToString(t *testing.T) {
 			capabilities: r4.SearchCapabilities{
 				Parameters: map[string]r4.SearchParameter{
 					"special": {
-						Type: r4.Code{Value: ptr.To(search.TypeSpecial)},
+						Type: r4.SearchParamTypeSpecial,
 					},
 				},
 			},
@@ -377,7 +377,7 @@ func TestParseQueryStrict(t *testing.T) {
 							{
 								Name:       basic.String{Value: ptr.To("supported-param")},
 								Definition: &basic.Canonical{Value: ptr.To("http://example.com/SearchParameter/supported")},
-								Type:       basic.Code{Value: ptr.To("string")},
+								Type:       basic.Code{Value: ptr.To(string(search.TypeString))},
 							},
 						},
 					},
@@ -388,7 +388,7 @@ func TestParseQueryStrict(t *testing.T) {
 
 	resolveSearchParameter := func(canonical string) (model.Element, error) {
 		return &r4.SearchParameter{
-			Type: r4.Code{Value: ptr.To("string")},
+			Type: r4.Code{Value: ptr.To(string(search.TypeString))},
 		}, nil
 	}
 

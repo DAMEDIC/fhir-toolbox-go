@@ -36,7 +36,7 @@ func main() {
 	// Clean up generated client files
 	cleanupGeneratedClientFiles(clientGenTarget)
 
-	releaseTypes, releaseSearchParams := loadTypes(buildReleases)
+	releaseTypes, releaseSearchParams, releaseValueSets := loadTypes(buildReleases)
 	basicTypes := collectBasicTypes(releaseTypes)
 
 	for _, r := range buildReleases {
@@ -48,6 +48,7 @@ func main() {
 			generate.ModelPkgDocGenerator{},
 			generate.TypesGenerator{},
 			generate.SearchParamsGenerator{SearchParams: releaseSearchParams},
+			generate.ValueSetsGenerator{ValueSets: releaseValueSets[r]},
 			generate.ImplResourceGenerator{},
 			generate.ImplElementGenerator{},
 			generate.StringerGenerator{},
@@ -96,17 +97,19 @@ func cleanupGeneratedClientFiles(targetDir string) {
 	}
 }
 
-func loadTypes(releases []string) (map[string][]ir.ResourceOrType, map[string]model.Bundle) {
+func loadTypes(releases []string) (map[string][]ir.ResourceOrType, map[string]model.Bundle, map[string]model.Bundle) {
 	types := map[string][]ir.ResourceOrType{}
 	searchParams := map[string]model.Bundle{}
+	valueSets := map[string]model.Bundle{}
 	for _, r := range releases {
 		zipPath := downloadDefinitions(r)
 		bundles := readJSONFromZIP(zipPath)
 
 		types[r] = append(ir.Parse(&bundles.types), ir.Parse(&bundles.resources)...)
 		searchParams[r] = bundles.searchParams
+		valueSets[r] = bundles.valueSets
 	}
-	return types, searchParams
+	return types, searchParams, valueSets
 }
 
 func collectBasicTypes(releaseTypes map[string][]ir.ResourceOrType) []ir.ResourceOrType {

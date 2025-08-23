@@ -267,9 +267,9 @@ func (m mockBackendWithoutSearchParameterSearch) CapabilityBase(ctx context.Cont
 func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"_id":  {Type: r4.SearchParamTypeToken},
+			"date": {Type: r4.SearchParamTypeDate},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }
@@ -283,7 +283,7 @@ func (m mockBackendWithoutSearchParameterSearch) SearchPatient(ctx context.Conte
 func (m mockBackendWithoutSearchParameterSearch) SearchCapabilitiesObservation(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"_id": {Type: r4.SearchParamTypeToken},
 		},
 	}, nil
 }
@@ -301,7 +301,7 @@ type mockBackendWithSearchParameterSearchOnly struct {
 func (m mockBackendWithSearchParameterSearchOnly) SearchCapabilitiesSearchParameter(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }
@@ -336,7 +336,7 @@ type mockBackendWithSearchParameterSearch struct {
 func (m mockBackendWithSearchParameterSearch) SearchCapabilitiesSearchParameter(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"name": {Type: r4.Code{Value: ptr.To(search.TypeString)}},
+			"name": {Type: r4.SearchParamTypeString},
 		},
 	}, nil
 }

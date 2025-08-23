@@ -204,6 +204,14 @@ func parseField(
 		})
 	}
 
+	var binding *Binding
+	if elementDefinition.Binding != nil {
+		binding = &Binding{
+			Strength: elementDefinition.Binding.Strength,
+			ValueSet: elementDefinition.Binding.ValueSet,
+		}
+	}
+
 	return StructField{
 		Name:          toGoFieldCasing(fieldName),
 		MarshalName:   fieldName,
@@ -212,6 +220,7 @@ func parseField(
 		Multiple:      elementDefinition.Max == "*",
 		Optional:      elementDefinition.Min == 0,
 		DocComment:    elementDefinition.Definition,
+		Binding:       binding,
 	}
 }
 

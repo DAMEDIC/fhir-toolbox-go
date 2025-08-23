@@ -31,6 +31,13 @@ type StructField struct {
 	Multiple      bool
 	Optional      bool
 	DocComment    string
+	Binding       *Binding
+}
+
+// Binding represents a FHIR value set binding
+type Binding struct {
+	Strength string
+	ValueSet string
 }
 
 // FieldType holds type information of a child element.

@@ -94,7 +94,7 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r5.Sea
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r5.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.SearchParamTypeToken,
 			},
 		},
 	}, nil
@@ -193,7 +193,7 @@ func (b *mockBackend) SearchCapabilitiesComposition(ctx context.Context) (r5.Sea
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
 				// This can and should actually be a full SearchParameter resource!
-				Type: r5.Code{Value: ptr.To(search.TypeToken)},
+				Type: r5.SearchParamTypeToken,
 			},
 		},
 	}, nil

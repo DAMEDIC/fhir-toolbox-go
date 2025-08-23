@@ -1555,17 +1555,17 @@ func (m mockBackend) DeletePatient(ctx context.Context, id string) error {
 func (m mockBackend) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"date": {Type: r4.Code{Value: ptr.To(search.TypeDate)}},
-			"eq1":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"ne2":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"gt3":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"lt4":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"ge5":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"le6":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"sa7":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"eb8":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
-			"pre":  {Type: r4.Code{Value: ptr.To(search.TypeToken)}, Modifier: []r4.Code{{Value: ptr.To(search.ModifierAbove)}}},
+			"_id":  {Type: r4.SearchParamTypeToken},
+			"date": {Type: r4.SearchParamTypeDate},
+			"eq1":  {Type: r4.SearchParamTypeToken},
+			"ne2":  {Type: r4.SearchParamTypeToken},
+			"gt3":  {Type: r4.SearchParamTypeToken},
+			"lt4":  {Type: r4.SearchParamTypeToken},
+			"ge5":  {Type: r4.SearchParamTypeToken},
+			"le6":  {Type: r4.SearchParamTypeToken},
+			"sa7":  {Type: r4.SearchParamTypeToken},
+			"eb8":  {Type: r4.SearchParamTypeToken},
+			"pre":  {Type: r4.SearchParamTypeToken, Modifier: []r4.Code{r4.SearchModifierCodeAbove}},
 		},
 	}, nil
 }
@@ -1587,7 +1587,7 @@ func (m mockBackend) SearchPatient(ctx context.Context, parameters search.Parame
 func (m mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r4.SearchCapabilities, error) {
 	return r4.SearchCapabilities{
 		Parameters: map[string]r4.SearchParameter{
-			"_id": {Type: r4.Code{Value: ptr.To(search.TypeToken)}},
+			"_id": {Type: r4.SearchParamTypeToken},
 		},
 		Includes: []string{"Observation:patient"},
 	}, nil

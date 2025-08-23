@@ -128,64 +128,34 @@ func (o MatchAny) MatchesAll() MatchAll {
 	return MatchAll{o}
 }
 
-const (
-	TypeNumber    string = "number"
-	TypeDate      string = "date"
-	TypeString    string = "string"
-	TypeToken     string = "token"
-	TypeReference string = "reference"
-	TypeComposite string = "composite"
-	TypeQuantity  string = "quantity"
-	TypeUri       string = "uri"
-	TypeSpecial   string = "special"
-)
+type Type string
 
 const (
-	// ModifierAbove on reference, token, uri: Tests whether the value in a resource is or subsumes the supplied parameter value (is-a, or hierarchical relationships).
-	ModifierAbove string = "above"
-	// ModifierBelow on reference, token, uri: Tests whether the value in a resource is or is subsumed by the supplied parameter value (is-a, or hierarchical relationships).
-	ModifierBelow string = "below"
-	// ModifierCodeText on reference, token: Tests whether the textual display value in a resource (e.g., CodeableConcept.text, Coding.display, or Reference.display) matches the supplied parameter value.
-	ModifierCodeText string = "code-text"
-	// ModifierContains on string, uri: Tests whether the value in a resource includes the supplied parameter value anywhere within the field being searched.
-	ModifierContains string = "contains"
-	// ModifierExact on string: Tests whether the value in a resource exactly matches the supplied parameter value (the whole string, including casing and accents).
-	ModifierExact string = "exact"
-	// ModifierIdentifier on reference: Tests whether the Reference.identifier in a resource (rather than the Reference.reference) matches the supplied parameter value.
-	ModifierIdentifier string = "identifier"
-	// ModifierInModifier on token: Tests whether the value in a resource is a member of the supplied parameter ValueSet.
-	ModifierIn string = "in"
-	// ModifierIterate Not allowed anywhere by default: The search parameter indicates an inclusion directive (_include, _revinclude) that is applied to an included resource instead of the matching resource.
-	ModifierIterate string = "iterate"
-	// ModifierMissing on date, number, quantity, reference, string, token, uri: Tests whether the value in a resource is present (when the supplied parameter value is true) or absent (when the supplied parameter value is false).
-	ModifierMissing string = "missing"
-	// ModifierNot on token: Tests whether the value in a resource does not match the specified parameter value. Note that this includes resources that have no value for the parameter.
-	ModifierNot string = "not"
-	// ModifierNotIn on reference, token: Tests whether the value in a resource is not a member of the supplied parameter ValueSet.
-	ModifierNotIn string = "not-in"
-	// ModifierOfType on token (only Identifier): Tests whether the Identifier value in a resource matches the supplied parameter value.
-	ModifierOfType string = "of-type"
-	// ModifierText on reference, token: Tests whether the textual value in a resource (e.g., CodeableConcept.text, Coding.display, Identifier.type.text, or Reference.display) matches the supplied parameter value using basic string matching (begins with or is, case-insensitive).
-	//
-	//on string: The search parameter value should be processed as input to a search with advanced text handling.
-	ModifierText string = "text"
-	// ModifierTextAdvancedModifier on reference, token: Tests whether the value in a resource matches the supplied parameter value using advanced text handling that searches text associated with the code/value - e.g., CodeableConcept.text, Coding.display, or Identifier.type.text.
-	ModifierTextAdvanced string = "text-advanced"
-	// ModifierType on reference: Tests whether the value in a resource points to a resource of the supplied parameter type. Note: a concrete ResourceType is specified as the modifier (e.g., not the literal :[type], but a value such as :Patient).
-	ModifierType string = "[type]"
-)
-const (
-	PrefixEqual          string = "eq"
-	PrefixNotEqual       string = "ne"
-	PrefixGreaterThan    string = "gt"
-	PrefixLessThan       string = "lt"
-	PrefixGreaterOrEqual string = "ge"
-	PrefixLessOrEqual    string = "le"
-	PrefixStartsAfter    string = "sa"
-	PrefixEndsBefore     string = "eb"
+	TypeNumber    Type = "number"
+	TypeDate      Type = "date"
+	TypeString    Type = "string"
+	TypeToken     Type = "token"
+	TypeReference Type = "reference"
+	TypeComposite Type = "composite"
+	TypeQuantity  Type = "quantity"
+	TypeUri       Type = "uri"
+	TypeSpecial   Type = "special"
 )
 
-var KnownPrefixes = []string{
+type Prefix string
+
+const (
+	PrefixEqual          Prefix = "eq"
+	PrefixNotEqual       Prefix = "ne"
+	PrefixGreaterThan    Prefix = "gt"
+	PrefixLessThan       Prefix = "lt"
+	PrefixGreaterOrEqual Prefix = "ge"
+	PrefixLessOrEqual    Prefix = "le"
+	PrefixStartsAfter    Prefix = "sa"
+	PrefixEndsBefore     Prefix = "eb"
+)
+
+var allPrefixes = []Prefix{
 	PrefixEqual,
 	PrefixNotEqual,
 	PrefixGreaterThan,
@@ -327,7 +297,7 @@ func parseSearchParam(param ParameterKey, urlValues []string, sp model.Element, 
 	if !ok || err != nil {
 		return MatchAll{}, fmt.Errorf("Parameter has no type: %v", sp)
 	}
-	resolvedType := string(fhirpathType)
+	resolvedType := Type(fhirpathType)
 
 	var supportedModifiers []string
 	for _, e := range sp.Children("modifier") {
@@ -339,12 +309,12 @@ func parseSearchParam(param ParameterKey, urlValues []string, sp model.Element, 
 	}
 
 	// When the :identifier modifier is used, the search value works as a token search.
-	if resolvedType == TypeReference && param.Modifier == ModifierIdentifier {
+	if resolvedType == TypeReference && param.Modifier == "identifier" {
 		resolvedType = TypeToken
 	}
 
 	// empty modifiers in SearchParameters should mean all are supported
-	if param.Modifier != "" && (len(supportedModifiers) == 0 || !slices.Contains(supportedModifiers, param.Modifier)) {
+	if param.Modifier != "" && (len(supportedModifiers) == 0 || !slices.Contains(supportedModifiers, string(param.Modifier))) {
 		return nil, fmt.Errorf("unsupported modifier for parameter %s, supported are: %s", param, supportedModifiers)
 	}
 
@@ -366,7 +336,7 @@ func parseSearchParam(param ParameterKey, urlValues []string, sp model.Element, 
 	return matchAll, nil
 }
 
-func parseSearchValue(paramType string, value string, tz *time.Location) (Value, error) {
+func parseSearchValue(paramType Type, value string, tz *time.Location) (Value, error) {
 	prefix := parseSearchValuePrefix(paramType, value)
 	if prefix != "" {
 		// all prefixes have a width of 2
@@ -507,22 +477,22 @@ func parseSearchValue(paramType string, value string, tz *time.Location) (Value,
 	}
 }
 
-func parseSearchValuePrefix(typ string, value string) string {
+func parseSearchValuePrefix(typ Type, value string) Prefix {
 	// all prefixes have a width of 2
 	if len(value) < 2 {
 		return ""
 	}
 
 	// only number, date and quantity can have prefixes
-	if !slices.Contains([]string{TypeNumber, TypeDate, TypeQuantity}, typ) {
+	if !slices.Contains([]Type{TypeNumber, TypeDate, TypeQuantity}, typ) {
 		return ""
 	}
 
-	if !slices.Contains(KnownPrefixes, value[:2]) {
+	if !slices.Contains(allPrefixes, Prefix(value[:2])) {
 		return ""
 	}
 
-	return value[:2]
+	return Prefix(value[:2])
 }
 
 // BuildQuery creates a query string from parameters and options.
@@ -618,7 +588,7 @@ type Value interface {
 }
 
 type Number struct {
-	Prefix string
+	Prefix Prefix
 	Value  *apd.Decimal
 }
 
@@ -635,7 +605,7 @@ func (n Number) String() string {
 }
 
 type Date struct {
-	Prefix    string
+	Prefix    Prefix
 	Precision DatePrecision
 	Value     time.Time
 }
@@ -691,7 +661,7 @@ func (d Date) MatchesAll() MatchAll {
 func (d Date) String() string {
 	b := strings.Builder{}
 	if d.Prefix != "" {
-		b.WriteString(d.Prefix)
+		b.WriteString(string(d.Prefix))
 	}
 	switch d.Precision {
 	case PrecisionYear:
@@ -785,7 +755,7 @@ func (c Composite) MatchesAll() MatchAll {
 }
 
 type Quantity struct {
-	Prefix string
+	Prefix Prefix
 	Value  *apd.Decimal
 	System *url.URL
 	Code   string
@@ -797,7 +767,7 @@ func (q Quantity) MatchesAll() MatchAll {
 
 func (q Quantity) String() string {
 	b := strings.Builder{}
-	b.WriteString(q.Prefix)
+	b.WriteString(string(q.Prefix))
 	b.WriteString(q.Value.String())
 	if q.Code != "" {
 		b.WriteRune('|')

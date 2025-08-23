@@ -192,7 +192,7 @@ func relationLink(
 			resolvedModifiers = append(resolvedModifiers, string(m))
 		}
 
-		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, key.Modifier) {
+		if key.Modifier == "" || len(resolvedModifiers) == 0 || slices.Contains(resolvedModifiers, string(key.Modifier)) {
 			usedOptionsParams[key.String()] = ands
 		}
 	}
