@@ -23,19 +23,15 @@ func main() {
 	textHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	})
-	// Add some additional context to the log (like request id).
-	requestContextHandler := rest.NewRequestContextSlogHandler(textHandler)
-	slog.SetDefault(slog.New(requestContextHandler))
+	slog.SetDefault(slog.New(textHandler))
 
 	// Create the mock backend that just returns some dummy data.
 	backend := mockBackend{}
 
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	cfg := rest.DefaultConfig
-	server, err := rest.NewServer[model.R5](&backend, cfg)
-	if err != nil {
-		log.Fatalf("unable to create server: %v", err)
+	server := &rest.Server[model.R5]{
+		Backend: &backend,
 	}
 
 	// Start the server and listen on port 80.

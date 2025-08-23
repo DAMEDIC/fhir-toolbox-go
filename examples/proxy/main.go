@@ -35,9 +35,7 @@ func main() {
 	textHandler := slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
 		Level: slog.LevelDebug,
 	})
-	// Add some additional context to the log (like request id).
-	requestContextHandler := rest.NewRequestContextSlogHandler(textHandler)
-	slog.SetDefault(slog.New(requestContextHandler))
+	slog.SetDefault(slog.New(textHandler))
 
 	log.Printf("FHIR Server: %s", backendUrl)
 
@@ -52,10 +50,8 @@ func main() {
 
 	// Create the REST server.
 	// You can plug in any backend you want here.
-	cfg := rest.DefaultConfig
-	server, err := rest.NewServer[model.R5](genericClient, cfg)
-	if err != nil {
-		log.Fatalf("unable to create server: %v", err)
+	server := &rest.Server[model.R5]{
+		Backend: genericClient,
 	}
 
 	// Start the server and listen on port 80.

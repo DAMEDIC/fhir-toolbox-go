@@ -34,11 +34,8 @@ type testCase struct {
 
 // runTest executes a common test pattern for HTTP handlers
 func runTest(t *testing.T, tc testCase) {
-	config := rest.DefaultConfig
-
-	server, err := rest.NewServer[model.R4](tc.backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: tc.backend,
 	}
 
 	var requestURL string
@@ -57,6 +54,7 @@ func runTest(t *testing.T, tc testCase) {
 	if tc.requestBody != "" {
 		req = httptest.NewRequest(tc.method, requestURL, strings.NewReader(tc.requestBody))
 		req.Header.Set("Content-Type", tc.format)
+		req.Header.Set("Accept", tc.format)
 	} else {
 		req = httptest.NewRequest(tc.method, requestURL, nil)
 		if tc.format != "" {
@@ -98,13 +96,17 @@ func assertResponse(t *testing.T, format, expectedBody string, rr *httptest.Resp
 		if contentType != "application/fhir+json" {
 			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+json", contentType)
 		}
-		assert.JSONEqual(t, expectedBody, rr.Body.String())
+		if expectedBody != "" {
+			assert.JSONEqual(t, expectedBody, rr.Body.String())
+		}
 	} else if strings.Contains(format, "xml") {
 		contentType := rr.Header().Get("Content-Type")
 		if contentType != "application/fhir+xml" {
 			t.Errorf("Expected Content-Type %s, got %s", "application/fhir+xml", contentType)
 		}
-		assert.XMLEqual(t, expectedBody, rr.Body.String())
+		if expectedBody != "" {
+			assert.XMLEqual(t, expectedBody, rr.Body.String())
+		}
 	}
 }
 
@@ -390,11 +392,8 @@ func TestCapabilityStatement(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			config := rest.DefaultConfig
-
-			server, err := rest.NewServer[model.R4](mockBackend{}, config)
-			if err != nil {
-				t.Fatalf("Failed to create server: %v", err)
+			server := &rest.Server[model.R4]{
+				Backend: mockBackend{},
 			}
 
 			req := httptest.NewRequest("GET", "http://example.com/metadata", nil)

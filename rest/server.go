@@ -39,6 +39,7 @@
 package rest
 
 import (
+	"cmp"
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
@@ -53,104 +54,178 @@ import (
 	"net/http"
 	"net/url"
 	"strings"
+	"sync"
 	"time"
 )
 
-// NewServer returns a http.Handler that serves the supplied backend.
-func NewServer[R model.Release](backend any, config Config) (http.Handler, error) {
-	mux := http.NewServeMux()
+type Format = encoding.Format
 
-	var genericBackend capabilities.GenericCapabilities
-	genericBackend, ok := backend.(capabilities.GenericCapabilities)
+const (
+	FormatJSON = encoding.FormatJSON
+	FormatXML  = encoding.FormatXML
+)
+
+var (
+	defaultTimezone      = time.Local
+	defaultMaxCount      = 500
+	defaultDefaultCount  = 500
+	defaultDefaultFormat = FormatJSON
+)
+
+// Server is a generic FHIR server type that registers and serves HTTP endpoints for FHIR resource interactions.
+// It is parameterized with the FHIR Release version R as a type constraint.
+// It supports configuration of timezone, default and maximum search result counts, and strict parameter handling.
+//
+// The Server uses a dynamic backend system that detects capabilities through type assertions.
+// The Backend field can accept two different types of implementations:
+//
+// 1. Generic API implementations (resource-agnostic):
+//   - capabilities.GenericCapabilities: For capability statement generation
+//   - capabilities.GenericCreate: For resource creation operations
+//   - capabilities.GenericRead: For resource retrieval operations
+//   - capabilities.GenericUpdate: For resource update operations
+//   - capabilities.GenericDelete: For resource deletion operations
+//   - capabilities.GenericSearch: For resource search operations
+//
+// 2. Concrete API implementations (resource-specific):
+//   - capabilities.ConcreteCapabilities: Required for concrete backends
+//   - Resource-specific methods like PatientRead, PatientSearch, etc.
+//
+// The Server automatically detects which approach your backend uses and handles
+// the appropriate conversions. For concrete implementations, it will wrap them
+// in a generic interface adapter using wrap.Generic[R].
+//
+// If a backend doesn't implement a specific capability interface, the corresponding
+// HTTP endpoint will return a "not-supported" OperationOutcome.
+//
+// Backends can implement only the capabilities they need, giving flexibility while
+// maintaining type safety. The server handles validation and proper error responses.
+//
+// NOTE: When using the concrete API, you must implement the CapabilityBase method
+// which provides the base CapabilityStatement that will be enhanced with the
+// capabilities detected from your concrete implementation.
+type Server[R model.Release] struct {
+	// Backend is the actual concrete or generic FHIR handler.
+	// This field can hold any implementation that satisfies at least one of the capability
+	// interfaces from the capabilities package. The server will detect which operations
+	// are supported through type assertions at runtime.
+	Backend any
+
+	// Timezone used for parsing date parameters without timezones.
+	// Defaults to current server timezone.
+	Timezone *time.Location
+	// MaxCount of search bundle entries.
+	// Defaults to 500.
+	MaxCount int
+	// DefaultCount of search bundle entries.
+	// Defaults to 500.
+	DefaultCount int
+	// DefaultFormat of the server.
+	// Defaults to JSON.
+	DefaultFormat Format
+	// StrictSearchParameters when true causes the server to return an error
+	// if unsupported search parameters are used. When false (default),
+	// unsupported search parameters are silently ignored.
+	StrictSearchParameters bool
+
+	// internal fields
+	muxMu sync.Mutex
+	mux   *http.ServeMux
+}
+
+func (s *Server[R]) ServeHTTP(writer http.ResponseWriter, request *http.Request) {
+	if s.mux == nil {
+		s.registerRoutes()
+	}
+	s.mux.ServeHTTP(writer, request)
+}
+
+func (s *Server[R]) registerRoutes() {
+	s.muxMu.Lock()
+	defer s.muxMu.Unlock()
+
+	// double check, mux might have been set in the background while waiting
+	if s.mux != nil {
+		return
+	}
+
+	s.mux = http.NewServeMux()
+	s.mux.Handle("GET /metadata", http.HandlerFunc(s.handleMetadata))
+	s.mux.Handle("POST /{type}", http.HandlerFunc(s.handlerCreate))
+	s.mux.Handle("GET /{type}/{id}", http.HandlerFunc(s.handlerRead))
+	s.mux.Handle("PUT /{type}/{id}", http.HandlerFunc(s.handlerUpdate))
+	s.mux.Handle("DELETE /{type}/{id}", http.HandlerFunc(s.handlerDelete))
+	s.mux.Handle("GET /{type}", http.HandlerFunc(s.handlerSearch))
+
+}
+
+func (s *Server[R]) genericBackend() (capabilities.GenericCapabilities, error) {
+	genericBackend, ok := s.Backend.(capabilities.GenericCapabilities)
+	if ok {
+		return genericBackend, nil
+	}
+
+	concreteBackend, ok := s.Backend.(capabilities.ConcreteCapabilities)
 	if !ok {
-		concreteBackend, ok := backend.(capabilities.ConcreteCapabilities)
-		if !ok {
-			return nil, fmt.Errorf("backend does not implement capabilities.GenericCapabilities or capabilities.ConcreteCapabilities")
-		}
-
-		var err error
-		genericBackend, err = wrap.Generic[R](concreteBackend)
-		if err != nil {
-			return nil, err
-		}
+		return nil, fmt.Errorf("backend does not implement capabilities.GenericCapabilities or capabilities.ConcreteCapabilities")
 	}
 
-	err := registerRoutes[R](mux, genericBackend, config)
+	return wrap.Generic[R](concreteBackend)
+}
+
+func (s *Server[R]) handleMetadata(w http.ResponseWriter, r *http.Request) {
+	responseFormat := s.detectFormat(r, "Accept")
+
+	backend, err := s.genericBackend()
 	if err != nil {
-		return nil, err
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
 	}
 
-	var handler http.Handler = mux
-	handler = withLogging(handler)
-	handler = withRequestContext(handler)
+	capabilityStatement, err := backend.CapabilityStatement(r.Context())
+	if err != nil {
+		slog.Error("error getting metadata", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-	return handler, nil
+	// The CapabilityStatement comes fully configured from the backend
+	// No additional modification needed
+	returnResult(w, capabilityStatement, http.StatusOK, responseFormat)
+
 }
 
-func registerRoutes[R model.Release](
-	mux *http.ServeMux,
-	backend capabilities.GenericCapabilities,
-	config Config,
-) error {
-	mux.Handle("GET /metadata", metadataHandler[R](backend, config))
-	mux.Handle("POST /{type}", createHandler[R](backend, config))
-	mux.Handle("GET /{type}/{id}", readHandler[R](backend, config))
-	mux.Handle("PUT /{type}/{id}", updateHandler[R](backend, config))
-	mux.Handle("DELETE /{type}/{id}", deleteHandler[R](backend, config))
-	mux.Handle("GET /{type}", searchHandler[R](backend, config, config.Timezone))
+func (s *Server[R]) handlerCreate(w http.ResponseWriter, r *http.Request) {
+	requestFormat := s.detectFormat(r, "Content-Type")
+	responseFormat := s.detectFormat(r, "Accept")
+	resourceType := r.PathValue("type")
 
-	return nil
-}
+	anyBackend, err := s.genericBackend()
+	if err != nil {
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
+	backend, impl := anyBackend.(capabilities.GenericCreate)
 
-func metadataHandler[R model.Release](
-	backend capabilities.GenericCapabilities,
-	config Config,
-) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
+	if !checkInteractionImplemented[R](impl, "create", w, responseFormat) {
+		return
+	}
 
-		capabilityStatement, err := backend.CapabilityStatement(r.Context())
-		if err != nil {
-			slog.Error("error getting metadata", "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
+	resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
+	if err != nil {
+		slog.Error("error creating resource", "resourceType", resourceType, "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-		// The CapabilityStatement comes fully configured from the backend
-		// No additional modification needed
-		returnResult(w, capabilityStatement, http.StatusOK, responseFormat)
-	})
-}
+	// fall back to empty string if id is not set
+	id, _ := resource.ResourceId()
+	baseURL := getBaseURL(r)
+	w.Header().Set("Location", baseURL.JoinPath(resourceType, id).String())
 
-func createHandler[R model.Release](
-	anyBackend any,
-	config Config,
-) http.Handler {
-	backend, implemented := anyBackend.(capabilities.GenericCreate)
-
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		requestFormat := detectFormat(r, "Content-Type", config.DefaultFormat)
-		responseFormat := detectFormat(r, "Accept", requestFormat)
-		resourceType := r.PathValue("type")
-
-		if !checkInteractionImplemented[R](implemented, "create", w, responseFormat) {
-			return
-		}
-
-		resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
-		if err != nil {
-			slog.Error("error creating resource", "resourceType", resourceType, "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
-
-		// fall back to empty string if id is not set
-		id, _ := resource.ResourceId()
-		baseURL := getBaseURL(r)
-		w.Header().Set("Location", baseURL.JoinPath(resourceType, id).String())
-
-		returnResult(w, resource, http.StatusCreated, responseFormat)
-	})
+	returnResult(w, resource, http.StatusCreated, responseFormat)
 }
 
 func dispatchCreate[R model.Release](
@@ -176,30 +251,31 @@ func dispatchCreate[R model.Release](
 	return createdResource, nil
 }
 
-func readHandler[R model.Release](
-	anyBackend any,
-	config Config,
-) http.Handler {
-	backend, implemented := anyBackend.(capabilities.GenericRead)
+func (s *Server[R]) handlerRead(w http.ResponseWriter, r *http.Request) {
+	responseFormat := s.detectFormat(r, "Accept")
+	resourceType := r.PathValue("type")
+	resourceID := r.PathValue("id")
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
-		resourceType := r.PathValue("type")
-		resourceID := r.PathValue("id")
+	anyBackend, err := s.genericBackend()
+	if err != nil {
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
+	backend, impl := anyBackend.(capabilities.GenericRead)
 
-		if !checkInteractionImplemented[R](implemented, "read", w, responseFormat) {
-			return
-		}
+	if !checkInteractionImplemented[R](impl, "read", w, responseFormat) {
+		return
+	}
 
-		resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
-		if err != nil {
-			slog.Error("error reading resource", "resourceType", resourceType, "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
+	resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
+	if err != nil {
+		slog.Error("error reading resource", "resourceType", resourceType, "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-		returnResult(w, resource, http.StatusOK, responseFormat)
-	})
+	returnResult(w, resource, http.StatusOK, responseFormat)
 }
 
 func dispatchRead(
@@ -215,41 +291,42 @@ func dispatchRead(
 	return resource, nil
 }
 
-func updateHandler[R model.Release](
-	anyBackend any,
-	config Config,
-) http.Handler {
-	backend, implemented := anyBackend.(capabilities.GenericUpdate)
+func (s *Server[R]) handlerUpdate(w http.ResponseWriter, r *http.Request) {
+	requestFormat := s.detectFormat(r, "Content-Type")
+	responseFormat := s.detectFormat(r, "Accept")
+	resourceType := r.PathValue("type")
+	resourceID := r.PathValue("id")
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		requestFormat := detectFormat(r, "Content-Type", config.DefaultFormat)
-		responseFormat := detectFormat(r, "Accept", requestFormat)
-		resourceType := r.PathValue("type")
-		resourceID := r.PathValue("id")
+	anyBackend, err := s.genericBackend()
+	if err != nil {
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
+	backend, impl := anyBackend.(capabilities.GenericUpdate)
 
-		if !checkInteractionImplemented[R](implemented, "update", w, responseFormat) {
-			return
-		}
+	if !checkInteractionImplemented[R](impl, "update", w, responseFormat) {
+		return
+	}
 
-		result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
-		if err != nil {
-			slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
+	result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
+	if err != nil {
+		slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-		// set Location header with the resource's logical ID
-		// the dispatchUpdate function checks that the path id matches the id included in the resource
-		baseURL := getBaseURL(r)
-		w.Header().Set("Location", baseURL.JoinPath(resourceType, resourceID).String())
+	// set Location header with the resource's logical ID
+	// the dispatchUpdate function checks that the path id matches the id included in the resource
+	baseURL := getBaseURL(r)
+	w.Header().Set("Location", baseURL.JoinPath(resourceType, resourceID).String())
 
-		status := http.StatusOK
-		if result.Created {
-			status = http.StatusCreated
-		}
+	status := http.StatusOK
+	if result.Created {
+		status = http.StatusCreated
+	}
 
-		returnResult(w, result.Resource, status, responseFormat)
-	})
+	returnResult(w, result.Resource, status, responseFormat)
 }
 
 func dispatchUpdate[R model.Release](
@@ -286,30 +363,31 @@ func dispatchUpdate[R model.Release](
 	return result, nil
 }
 
-func deleteHandler[R model.Release](
-	anyBackend any,
-	config Config,
-) http.Handler {
-	backend, implemented := anyBackend.(capabilities.GenericDelete)
+func (s *Server[R]) handlerDelete(w http.ResponseWriter, r *http.Request) {
+	responseFormat := s.detectFormat(r, "Accept")
+	resourceType := r.PathValue("type")
+	resourceID := r.PathValue("id")
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
-		resourceType := r.PathValue("type")
-		resourceID := r.PathValue("id")
+	anyBackend, err := s.genericBackend()
+	if err != nil {
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
+	backend, impl := anyBackend.(capabilities.GenericDelete)
 
-		if !checkInteractionImplemented[R](implemented, "delete", w, responseFormat) {
-			return
-		}
+	if !checkInteractionImplemented[R](impl, "delete", w, responseFormat) {
+		return
+	}
 
-		err := dispatchDelete(r.Context(), backend, resourceType, resourceID)
-		if err != nil {
-			slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
+	err = dispatchDelete(r.Context(), backend, resourceType, resourceID)
+	if err != nil {
+		slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-		w.WriteHeader(http.StatusNoContent)
-	})
+	w.WriteHeader(http.StatusNoContent)
 }
 
 func dispatchDelete(
@@ -321,46 +399,49 @@ func dispatchDelete(
 	return backend.Delete(ctx, resourceType, resourceID)
 }
 
-func searchHandler[R model.Release](
-	anyBackend any,
-	config Config,
-	tz *time.Location,
-) http.Handler {
-	backend, implemented := anyBackend.(capabilities.GenericSearch)
+func (s *Server[R]) handlerSearch(w http.ResponseWriter, r *http.Request) {
+	responseFormat := s.detectFormat(r, "Accept")
+	resourceType := r.PathValue("type")
 
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		responseFormat := detectFormat(r, "Accept", config.DefaultFormat)
-		resourceType := r.PathValue("type")
+	anyBackend, err := s.genericBackend()
+	if err != nil {
+		slog.Error("error in backend configuration", "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
+	backend, impl := anyBackend.(capabilities.GenericSearch)
 
-		if !checkInteractionImplemented[R](implemented, "search-type", w, responseFormat) {
-			return
-		}
+	if !checkInteractionImplemented[R](impl, "search-type", w, responseFormat) {
+		return
+	}
 
-		resource, err := dispatchSearch[R](
-			r,
-			backend,
-			config,
-			resourceType,
-			r.URL.Query(),
-			tz,
-		)
-		if err != nil {
-			slog.Error("error reading searching", "resourceType", resourceType, "err", err)
-			returnErr(w, err, responseFormat)
-			return
-		}
+	resource, err := dispatchSearch(
+		r,
+		backend,
+		resourceType,
+		r.URL.Query(),
+		cmp.Or(s.Timezone, defaultTimezone),
+		cmp.Or(s.MaxCount, defaultMaxCount),
+		cmp.Or(s.DefaultCount, defaultDefaultCount),
+		s.StrictSearchParameters,
+	)
+	if err != nil {
+		slog.Error("error reading searching", "resourceType", resourceType, "err", err)
+		returnErr(w, err, responseFormat)
+		return
+	}
 
-		returnResult(w, resource, http.StatusOK, responseFormat)
-	})
+	returnResult(w, resource, http.StatusOK, responseFormat)
 }
 
-func dispatchSearch[R model.Release](
+func dispatchSearch(
 	r *http.Request,
 	backend capabilities.GenericSearch,
-	config Config,
 	resourceType string,
 	parameters url.Values,
 	tz *time.Location,
+	maxCount, defaultCount int,
+	strictSearchParameters bool,
 ) (model.Resource, error) {
 	ctx := r.Context()
 	// Get CapabilityStatement to extract SearchParameter information
@@ -389,7 +470,14 @@ func dispatchSearch[R model.Release](
 		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 	}
 
-	searchParameters, options, err := parseSearchOptions(capabilityStatement, resourceType, resolveSearchParameter, parameters, tz, config.MaxCount, config.DefaultCount, config.StrictSearchParameters)
+	searchParameters, options, err := parseSearchOptions(
+		capabilityStatement,
+		resourceType,
+		resolveSearchParameter,
+		parameters,
+		tz, maxCount, defaultCount,
+		strictSearchParameters,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -422,7 +510,7 @@ func parseSearchOptions(
 	return parameters, options, nil
 }
 
-func detectFormat(r *http.Request, headerName string, defaultFormat Format) encoding.Format {
+func (s *Server[R]) detectFormat(r *http.Request, headerName string) encoding.Format {
 	// url parameter overrides the Accept header
 	formatQuery := r.URL.Query()["_format"]
 	if len(formatQuery) > 0 {
@@ -438,7 +526,7 @@ func detectFormat(r *http.Request, headerName string, defaultFormat Format) enco
 			return format
 		}
 	}
-	return defaultFormat
+	return cmp.Or(s.DefaultFormat, defaultDefaultFormat)
 }
 
 func returnErr(w http.ResponseWriter, err error, format encoding.Format) {

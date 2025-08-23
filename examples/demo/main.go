@@ -62,10 +62,8 @@ func main() {
 	backend := demoBackend{}
 
 	// 5. Start your server!
-	cfg := rest.DefaultConfig
-	server, err := rest.NewServer[model.R5](&backend, cfg)
-	if err != nil {
-		log.Fatalf("unable to create server: %v", err)
+	server := &rest.Server[model.R5]{
+		Backend: &backend,
 	}
 
 	log.Println("listening on http://localhost")

@@ -22,10 +22,8 @@ func TestSearchParameterFallbackCapabilities(t *testing.T) {
 	// Backend without SearchParameterSearch interface and without other resource search capabilities
 	backend := mockBackendMinimal{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
@@ -90,10 +88,8 @@ func TestSearchParameterConcreteCapabilities(t *testing.T) {
 	// Backend with SearchParameterSearch interface (inherits from minimal, not the one with Patient/Observation)
 	backend := mockBackendWithSearchParameterSearchOnly{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	req := httptest.NewRequest("GET", "http://example.com/metadata", nil)
@@ -154,10 +150,8 @@ func TestSearchParameterConcreteCapabilities(t *testing.T) {
 func TestSearchParameterReadFallback(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	req := httptest.NewRequest("GET", "http://example.com/SearchParameter/SearchParameter-id", nil)
@@ -190,10 +184,8 @@ func TestSearchParameterReadFallback(t *testing.T) {
 func TestSearchParameterSearchFallback(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_id=SearchParameter-id", nil)
@@ -244,10 +236,8 @@ func TestSearchParameterSearchFallback(t *testing.T) {
 func TestSearchParameterSearchFallbackEmptyResult(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	req := httptest.NewRequest("GET", "http://example.com/SearchParameter?_id=unknown-id", nil)
@@ -424,10 +414,8 @@ func (m mockBackendWithSearchParameterSearch) SearchSearchParameter(ctx context.
 func TestSearchParameterReadGeneratedFromPatient(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Test reading Patient-_id SearchParameter
@@ -460,10 +448,8 @@ func TestSearchParameterReadGeneratedFromPatient(t *testing.T) {
 func TestAllCapabilityStatementSearchParameterUrlsResolvable(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// First, get the CapabilityStatement
@@ -610,13 +596,9 @@ func getLastPathSegment(urlStr string) string {
 func TestStrictSearchParametersEnabled(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	// Create config with strict search parameters enabled
-	config := rest.DefaultConfig
-	config.StrictSearchParameters = true
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend:                backend,
+		StrictSearchParameters: true,
 	}
 
 	// Try to search with an unsupported parameter - should return an error
@@ -642,12 +624,8 @@ func TestStrictSearchParametersEnabled(t *testing.T) {
 func TestStrictSearchParametersDisabled(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	// Use default config (strict search parameters disabled)
-	config := rest.DefaultConfig
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Try to search with an unsupported parameter - should silently ignore it
@@ -676,13 +654,9 @@ func TestStrictSearchParametersDisabled(t *testing.T) {
 func TestStrictSearchParametersWithSupportedParameter(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	// Create config with strict search parameters enabled
-	config := rest.DefaultConfig
-	config.StrictSearchParameters = true
-
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend:                backend,
+		StrictSearchParameters: true,
 	}
 
 	// Try to search with a supported parameter (_id) - should work fine
@@ -708,10 +682,8 @@ func TestStrictSearchParametersWithSupportedParameter(t *testing.T) {
 func TestSearchParameterPaginationWithCount(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// First page with count=2
@@ -769,10 +741,8 @@ func TestSearchParameterPaginationWithCount(t *testing.T) {
 func TestSearchParameterPaginationWithCursor(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Request second page with cursor (offset=2)
@@ -808,10 +778,8 @@ func TestSearchParameterPaginationWithCursor(t *testing.T) {
 func TestSearchParameterPaginationEdgeCases(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	testCases := []struct {
@@ -895,10 +863,8 @@ func TestSearchParameterPaginationEdgeCases(t *testing.T) {
 func TestSearchParameterPaginationInvalidCursor(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	testCases := []struct {
@@ -970,10 +936,8 @@ func TestSearchParameterPaginationInvalidCursor(t *testing.T) {
 func TestSearchParameterPaginationMultiplePages(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Test navigating through multiple pages
@@ -1061,10 +1025,8 @@ func TestSearchParameterPaginationMultiplePages(t *testing.T) {
 func TestSearchParameterPaginationDeterministicOrdering(t *testing.T) {
 	backend := mockBackendWithoutSearchParameterSearch{}
 
-	config := rest.DefaultConfig
-	server, err := rest.NewServer[model.R4](backend, config)
-	if err != nil {
-		t.Fatalf("Failed to create server: %v", err)
+	server := &rest.Server[model.R4]{
+		Backend: backend,
 	}
 
 	// Make the same request multiple times to ensure consistent ordering
