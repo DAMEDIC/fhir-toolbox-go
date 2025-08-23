@@ -9,7 +9,7 @@ This project provides a set of packages for working with the HL7® FHIR® standa
 You only need to implement some interfaces and get a REST implementation out-of-the box.
 
 This includes model types and interfaces modeling capabilities that you can use to build custom FHIR® servers.
-
+A REST server and client are provided.
 
 > While used in production at DAMEDIC, this project is still in its early days
 > and the feature set is quite limit.
@@ -24,25 +24,31 @@ This includes model types and interfaces modeling capabilities that you can use 
     err := json.Unmarshal(data, &r)
     ... = r.Resource // the actual resource of type model.Resource
   ```
-- Extensible REST API with capabilities modeled as interfaces
+- Extensible REST API with capabilities modeled as interfaces for building server
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
         - automatic generation of `CapabilityStatements` with full SearchParameter integration
-    - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining interactions)
+    - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining
+      interactions)
     - Advanced search parameter handling with full SearchParameter resource support
     - Cursor-based pagination
-    - R4, R4B & R5
-
-      use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
-      versions
+- Fully typed client implementation
+    - Interactions: `create`, `read`, `update`, `delete`, `search`
 - FHIRPath evaluation
-  - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
+    - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
 
-    see [below for more information](#fhirpath)
+      see [below for more information](#fhirpath)
+- R4, R4B & R5
+
+  use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
+  versions
 
 ## Getting Started
 
-A quick "getting started" tutorial can be found in the [`./examples/demo`](./examples/demo/main.go) project.
+A quick "getting started" tutorial for server-side can be found in the [`./examples/demo`](./examples/demo/main.go)
+project.
+
+[`./examples/client`](./examples/client/main.go) shows how the client can be used.
 
 ### Other Examples
 
@@ -116,8 +122,8 @@ or standalone FHIR® servers.
 ```Go
 func (a myAPI) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
     return basic.CapabilityStatement{
-        Status: basic.Code{Value: ptr.To("active")},
-        Kind:   basic.Code{Value: ptr.To("instance")},
+        Status:         basic.Code{Value: ptr.To("active")},
+        Kind:           basic.Code{Value: ptr.To("instance")},
         Implementation: &basic.CapabilityStatementImplementation{
             Description: basic.String{Value: ptr.To("My FHIR Server")},
             Url:         &basic.Url{Value: ptr.To("https://my-server.com")},
@@ -132,12 +138,17 @@ The `implementation.url` field is **required** as it's used to generate canonica
 
 #### SearchParameter Aggregation
 
-The library automatically aggregates SearchParameter resources from your concrete implementations into the CapabilityStatement:
+The library automatically aggregates SearchParameter resources from your concrete implementations into the
+CapabilityStatement:
 
-1. **SearchParameter Resources**: Your `SearchCapabilities*` methods should return full `SearchParameter` resources, not just metadata
-2. **Canonical URLs**: SearchParameters without explicit IDs get auto-generated IDs using the pattern `{resourceType}-{name}` (e.g., `Patient-name`)
-3. **CapabilityStatement Integration**: The library extracts search parameter information and generates `rest.resource.searchParam` entries with canonical references
-4. **SearchParameter Read Access**: The library automatically adds SearchParameter read capability to enable parameter resolution during search operations
+1. **SearchParameter Resources**: Your `SearchCapabilities*` methods should return full `SearchParameter` resources, not
+   just metadata
+2. **Canonical URLs**: SearchParameters without explicit IDs get auto-generated IDs using the pattern
+   `{resourceType}-{name}` (e.g., `Patient-name`)
+3. **CapabilityStatement Integration**: The library extracts search parameter information and generates
+   `rest.resource.searchParam` entries with canonical references
+4. **SearchParameter Read Access**: The library automatically adds SearchParameter read capability to enable parameter
+   resolution during search operations
 
 #### Interoperability
 
@@ -155,10 +166,12 @@ concreteAPI := capabilitiesR4.Concrete{Generic: genericAPI}
 
 ## FHIRPath
 
-The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM support.
+The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM
+support.
 For quantity comparisons and operations, the unit is only asserted for equality.
 
 From the additional functions defined in the FHIR specification, only
+
 * `extension(url : string) : collection`
 
 is implemented.
@@ -181,13 +194,13 @@ ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
 
 expr, err := fhirpath.Parse("Observation.value / 3")
 if err != nil {
-    // Handle error
+// Handle error
 }
 
 // Evaluate the expression against a FHIR resource
 result, err := fhirpath.Evaluate(r4.Context(), observation, expr)
 if err != nil {
-    // Handle error
+// Handle error
 }
 ```
 
@@ -203,9 +216,9 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 ## Roadmap
 
 - interactions
-  - $operations
-  - support for resource versioning (`vread`, `history`)
-  - at some point `patch` and `batch/transaction`, but no priority at the moment
+    - $operations
+    - support for resource versioning (`vread`, `history`)
+    - at some point `patch` and `batch/transaction`, but no priority at the moment
 - constants for code systems and/or value-sets
 - adapter for resolving `_include` and `_revinclude`
 - validation of resources (also against profiles)
