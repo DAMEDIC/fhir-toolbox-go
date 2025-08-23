@@ -949,11 +949,11 @@ func TestIterator(t *testing.T) {
 			// Create iterator based on the type of initial result
 			switch result := initialResult.(type) {
 			case search.Result[r4.Patient]:
-				iter = Iterator(context.Background(), mockClient, result)
+				iter = Iterator(mockClient, result)
 			case search.Result[model.Resource]:
-				iter = Iterator(context.Background(), mockClient, result)
+				iter = Iterator(mockClient, result)
 			case search.Result[*r4.Patient]:
-				iter = Iterator(context.Background(), mockClient, result)
+				iter = Iterator(mockClient, result)
 			default:
 				t.Fatalf("Unsupported result type: %T", initialResult)
 			}
@@ -966,19 +966,19 @@ func TestIterator(t *testing.T) {
 				// Call Next() based on iterator type
 				switch it := iter.(type) {
 				case *iterator[r4.Patient]:
-					page, nextErr := it.Next()
+					page, nextErr := it.Next(context.Background())
 					err = nextErr
 					if err == nil {
 						resourceCount = len(page.Resources)
 					}
 				case *iterator[model.Resource]:
-					page, nextErr := it.Next()
+					page, nextErr := it.Next(context.Background())
 					err = nextErr
 					if err == nil {
 						resourceCount = len(page.Resources)
 					}
 				case *iterator[*r4.Patient]:
-					page, nextErr := it.Next()
+					page, nextErr := it.Next(context.Background())
 					err = nextErr
 					if err == nil {
 						resourceCount = len(page.Resources)
@@ -1043,10 +1043,10 @@ func TestIteratorCountParameter(t *testing.T) {
 		},
 	}
 
-	iter := Iterator(context.Background(), mockClient, initialResult)
+	iter := Iterator(mockClient, initialResult)
 
 	// First call should return initial result without calling Search
-	result1, err := iter.Next()
+	result1, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("First call failed: %v", err)
 	}
@@ -1058,7 +1058,7 @@ func TestIteratorCountParameter(t *testing.T) {
 	}
 
 	// Second call should fetch next page and pass Count=3 (length of initial result)
-	result2, err := iter.Next()
+	result2, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("Second call failed: %v", err)
 	}
@@ -1080,7 +1080,7 @@ func TestIteratorCountParameter(t *testing.T) {
 	}
 
 	// Third call should return EOF
-	_, err = iter.Next()
+	_, err = iter.Next(context.Background())
 	if err != io.EOF {
 		t.Errorf("Expected EOF on third call, got: %v", err)
 	}
@@ -1119,10 +1119,10 @@ func TestIteratorCountParameterMultiplePages(t *testing.T) {
 		},
 	}
 
-	iter := Iterator(context.Background(), mockClient, initialResult)
+	iter := Iterator(mockClient, initialResult)
 
 	// First call returns initial result (2 resources)
-	result1, err := iter.Next()
+	result1, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("First call failed: %v", err)
 	}
@@ -1131,7 +1131,7 @@ func TestIteratorCountParameterMultiplePages(t *testing.T) {
 	}
 
 	// Second call fetches page 1, Count should be 2
-	result2, err := iter.Next()
+	result2, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("Second call failed: %v", err)
 	}
@@ -1146,7 +1146,7 @@ func TestIteratorCountParameterMultiplePages(t *testing.T) {
 	}
 
 	// Third call fetches page 2, Count should still be 2 (from page 1)
-	result3, err := iter.Next()
+	result3, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("Third call failed: %v", err)
 	}
@@ -1161,7 +1161,7 @@ func TestIteratorCountParameterMultiplePages(t *testing.T) {
 	}
 
 	// Fourth call should return EOF
-	_, err = iter.Next()
+	_, err = iter.Next(context.Background())
 	if err != io.EOF {
 		t.Errorf("Expected EOF on fourth call, got: %v", err)
 	}
@@ -1188,10 +1188,10 @@ func TestIteratorCountParameterEmptyInitialResult(t *testing.T) {
 		},
 	}
 
-	iter := Iterator(context.Background(), mockClient, initialResult)
+	iter := Iterator(mockClient, initialResult)
 
 	// First call returns empty initial result
-	result1, err := iter.Next()
+	result1, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("First call failed: %v", err)
 	}
@@ -1200,7 +1200,7 @@ func TestIteratorCountParameterEmptyInitialResult(t *testing.T) {
 	}
 
 	// Second call fetches page 1, Count should be 0 (from empty initial result)
-	result2, err := iter.Next()
+	result2, err := iter.Next(context.Background())
 	if err != nil {
 		t.Fatalf("Second call failed: %v", err)
 	}
@@ -1215,7 +1215,7 @@ func TestIteratorCountParameterEmptyInitialResult(t *testing.T) {
 	}
 
 	// Third call should return EOF
-	_, err = iter.Next()
+	_, err = iter.Next(context.Background())
 	if err != io.EOF {
 		t.Errorf("Expected EOF on third call, got: %v", err)
 	}

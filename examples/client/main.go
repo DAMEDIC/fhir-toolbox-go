@@ -72,12 +72,12 @@ func main() {
 		log.Fatal(err)
 	}
 
-	iter := rest.Iterator(context.Background(), client, initialResult)
+	iter := rest.Iterator(client, initialResult)
 	pageNo := 0
 
 	// Get 5 pages
 	for pageNo < 5 {
-		page, err := iter.Next()
+		page, err := iter.Next(context.Background())
 		if err != nil {
 			// io.EOF signals that there are no more pages.
 			if err == io.EOF {

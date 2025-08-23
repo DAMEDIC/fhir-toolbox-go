@@ -406,9 +406,30 @@ func parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], er
 	return result, nil
 }
 
+// handleErrorResponse attempts to unmarshal an error response into a basic.OperationOutcome
+// and returns an appropriate error. If unmarshaling fails, it returns a generic status code error.
+func (c *internalClient[R]) handleErrorResponse(resp *http.Response) error {
+	// Read the response body
+	body, err := io.ReadAll(resp.Body)
+	if err != nil {
+		return fmt.Errorf("unexpected status code: %d (failed to read response body: %w)", resp.StatusCode, err)
+	}
+
+	// Try to unmarshal as OperationOutcome
+	responseFormat := c.detectResponseFormat(resp)
+
+	operationOutcome, err := encoding.Decode[basic.OperationOutcome](bytes.NewReader(body), encoding.Format(responseFormat))
+	if err != nil {
+		// If we can't unmarshal as OperationOutcome, return generic error with response body
+		return fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
+	}
+
+	// Return the OperationOutcome as an error
+	return operationOutcome
+}
+
 // iterator provides pagination functionality for search results.
 type iterator[T model.Resource] struct {
-	ctx    context.Context
 	client capabilities.GenericSearch
 	result search.Result[T]
 	done   bool
@@ -417,9 +438,8 @@ type iterator[T model.Resource] struct {
 
 // Iterator creates a new iterator for paginating through search results.
 // It starts with the provided initial result and uses the client to fetch subsequent pages.
-func Iterator[T model.Resource](ctx context.Context, client capabilities.GenericSearch, initialResult search.Result[T]) *iterator[T] {
+func Iterator[T model.Resource](client capabilities.GenericSearch, initialResult search.Result[T]) *iterator[T] {
 	return &iterator[T]{
-		ctx:    ctx,
 		client: client,
 		result: initialResult,
 		done:   false,
@@ -429,7 +449,7 @@ func Iterator[T model.Resource](ctx context.Context, client capabilities.Generic
 
 // Next returns the next page of search results.
 // It returns io.EOF when there are no more pages available.
-func (it *iterator[T]) Next() (search.Result[T], error) {
+func (it *iterator[T]) Next(ctx context.Context) (search.Result[T], error) {
 	// If we are done, return EOF
 	if it.done {
 		return search.Result[T]{}, io.EOF
@@ -455,7 +475,7 @@ func (it *iterator[T]) Next() (search.Result[T], error) {
 
 	// Fetch the next page using the cursor
 	// The cursor contains the full URL, so we use it directly
-	genericResult, err := it.client.Search(it.ctx, "", search.GenericParams{}, search.Options{
+	genericResult, err := it.client.Search(ctx, "", search.GenericParams{}, search.Options{
 		Count:  len(it.result.Resources),
 		Cursor: it.result.Next,
 	})
@@ -487,26 +507,4 @@ func (it *iterator[T]) Next() (search.Result[T], error) {
 	}
 
 	return nextResult, nil
-}
-
-// handleErrorResponse attempts to unmarshal an error response into a basic.OperationOutcome
-// and returns an appropriate error. If unmarshaling fails, it returns a generic status code error.
-func (c *internalClient[R]) handleErrorResponse(resp *http.Response) error {
-	// Read the response body
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return fmt.Errorf("unexpected status code: %d (failed to read response body: %w)", resp.StatusCode, err)
-	}
-
-	// Try to unmarshal as OperationOutcome
-	responseFormat := c.detectResponseFormat(resp)
-
-	operationOutcome, err := encoding.Decode[basic.OperationOutcome](bytes.NewReader(body), encoding.Format(responseFormat))
-	if err != nil {
-		// If we can't unmarshal as OperationOutcome, return generic error with response body
-		return fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
-	}
-
-	// Return the OperationOutcome as an error
-	return operationOutcome
 }
