@@ -134,21 +134,36 @@ func (a myAPI) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, e
 ```
 
 This base CapabilityStatement is enhanced with the capabilities detected from your concrete implementation.
-The `implementation.url` field is **required** as it's used to generate canonical URLs for SearchParameter references.
+The `implementation.url` field is **required** as it's used to generate canonical URLs for SearchParameter references
+and other fully qualified ids, e.g. in bundles.
 
 #### SearchParameter Aggregation
 
 The library automatically aggregates SearchParameter resources from your concrete implementations into the
-CapabilityStatement:
+CapabilityStatement. By default, SearchParameter resources are gathered in the following way:
 
-1. **SearchParameter Resources**: Your `SearchCapabilities*` methods should return full `SearchParameter` resources, not
-   just metadata
-2. **Canonical URLs**: SearchParameters without explicit IDs get auto-generated IDs using the pattern
-   `{resourceType}-{name}` (e.g., `Patient-name`)
-3. **CapabilityStatement Integration**: The library extracts search parameter information and generates
-   `rest.resource.searchParam` entries with canonical references
-4. **SearchParameter Read Access**: The library automatically adds SearchParameter read capability to enable parameter
-   resolution during search operations
+```go
+// Your backend implements Patient search capabilities
+func (b MyBackend) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapabilities, error) {
+    return r4.SearchCapabilities{
+        Parameters: map[string]r4.SearchParameter{
+            "_id":  {Type: r4.SearchParamTypeToken},
+            "name": {Type: r4.SearchParamTypeString},
+            "birthdate": {Type: r4.SearchParamTypeDate},
+        },
+    }, nil
+}
+
+// The system automatically creates SearchParameter resources for these parameters
+// Available at: GET /SearchParameter/Patient-name, /SearchParameter/Patient-birthdate, etc.
+```
+
+> **Note**: The values of the parameters map can actually be fully specified SearchParameter resources as defined in the
+> standard. If you omit certain (required) fields like in the above example, these get augmented by the framework.
+
+> **Attention**: If you implement `SearchParameterSearch` (the `search` interaction for the `SearchParameter` resource),
+> you will overwrite the automatic gathering and augmentation as described above. 
+
 
 #### Interoperability
 
