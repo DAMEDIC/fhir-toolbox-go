@@ -57,6 +57,21 @@ func main() {
 		log.Fatal(err)
 	}
 
+	// The client also implements the generic API for dynamic resource type use cases
+	_, err = client.Search(context.Background(),
+		"Patient",
+		search.GenericParams{
+			"birthdate":  search.String("ge2000-01-01"),
+			"gender:not": search.Token{Code: "male"}, // with modifier
+		},
+		search.Options{
+			Count: 5,
+		},
+	)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Printf("Found %d patients:\n%s\n", len(result.Resources), result)
 
 	// Search for patient with pagination
