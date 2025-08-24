@@ -30,7 +30,7 @@ func main() {
 	}
 
 	// Create a REST client to the backing server
-	var genericClient = &rest.ClientR5{
+	var client = &rest.ClientR5{
 		BaseURL: baseURL,
 		Client:  http.DefaultClient,
 		Format:  rest.FormatJSON,
@@ -39,7 +39,7 @@ func main() {
 	// Create the REST server.
 	// You can plug in any backend you want here.
 	server := &rest.Server[model.R5]{
-		Backend: genericClient,
+		Backend: client,
 	}
 
 	// Start the server and listen on port 80.
