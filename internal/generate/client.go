@@ -40,6 +40,7 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 	f.ImportName("fmt", "fmt")
 	f.ImportName("net/http", "http")
 	f.ImportName("net/url", "url")
+	f.ImportName(moduleName+"/capabilities", "capabilities")
 	f.ImportName(moduleName+"/capabilities/search", "search")
 	f.ImportName(moduleName+"/capabilities/update", "update")
 	f.ImportName(moduleName+"/model", "model")
@@ -54,6 +55,16 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 		Comment("// Client is the HTTP client to use for requests. If nil, http.DefaultClient is used.").Line().Id("Client").Op("*").Qual("net/http", "Client"),
 		Comment("// Format specifies the request/response format (JSON or XML). Defaults to JSON if not set.").Line().Id("Format").Id("Format"),
 	)
+
+	// Interface conformance checks for generic client interfaces
+	f.Var().DefsFunc(func(g *Group) {
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericCapabilities").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericSearch").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericCreate").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericRead").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericUpdate").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericDelete").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+	})
 
 	// Add HTTP client helper method
 	f.Comment("// httpClient returns the HTTP client, using http.DefaultClient if none is set.")
@@ -183,6 +194,15 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 	resourceName := resource.Name
 	lowerRelease := strings.ToLower(release)
 
+	// Interface conformance checks for concrete capabilities of this resource
+	f.Var().DefsFunc(func(g *Group) {
+		g.Id("_").Qual(moduleName+"/capabilities/gen/"+lowerRelease, resourceName+"Create").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities/gen/"+lowerRelease, resourceName+"Read").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities/gen/"+lowerRelease, resourceName+"Update").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities/gen/"+lowerRelease, resourceName+"Delete").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities/gen/"+lowerRelease, resourceName+"Search").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+	})
+
 	// Create method
 	f.Comment("// Create" + resourceName + " creates a new " + resourceName + " resource.")
 	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("Create"+resourceName).Params(
@@ -197,15 +217,10 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
-		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Create").Call(Id("ctx"), Id("resource")),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName).Values(), Id("err")),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
 		),
-		List(Id("typed"), Id("ok")).Op(":=").Id("result").Assert(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)),
-		If(Op("!").Id("ok")).Block(
-			Return(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName).Values(), Qual("fmt", "Errorf").Call(Lit("unexpected resource type: %T"), Id("result"))),
-		),
-		Return(Id("typed"), Nil()),
+		Return(Id("wrapper").Dot("Create"+resourceName).Call(Id("ctx"), Id("resource"))),
 	)
 
 	// Read method
@@ -222,15 +237,10 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
-		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Read").Call(Id("ctx"), Lit(resourceName), Id("id")),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName).Values(), Id("err")),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
 		),
-		List(Id("typed"), Id("ok")).Op(":=").Id("result").Assert(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)),
-		If(Op("!").Id("ok")).Block(
-			Return(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName).Values(), Qual("fmt", "Errorf").Call(Lit("unexpected resource type: %T"), Id("result"))),
-		),
-		Return(Id("typed"), Nil()),
+		Return(Id("wrapper").Dot("Read"+resourceName).Call(Id("ctx"), Id("id"))),
 	)
 
 	// Update method
@@ -247,18 +257,10 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
-		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Update").Call(Id("ctx"), Id("resource")),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return(Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(), Id("err")),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
 		),
-		List(Id("typed"), Id("ok")).Op(":=").Id("result").Dot("Resource").Assert(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)),
-		If(Op("!").Id("ok")).Block(
-			Return(Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(), Qual("fmt", "Errorf").Call(Lit("unexpected resource type: %T"), Id("result").Dot("Resource"))),
-		),
-		Return(Qual(moduleName+"/capabilities/update", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(
-			Id("Resource").Op(":").Id("typed"),
-			Id("Created").Op(":").Id("result").Dot("Created"),
-		), Nil()),
+		Return(Id("wrapper").Dot("Update"+resourceName).Call(Id("ctx"), Id("resource"))),
 	)
 
 	// Delete method
@@ -274,7 +276,29 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
-		Return(Id("client").Dot("Delete").Call(Id("ctx"), Lit(resourceName), Id("id"))),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
+		),
+		Return(Id("wrapper").Dot("Delete"+resourceName).Call(Id("ctx"), Id("id"))),
+	)
+
+	// SearchCapabilities method
+	f.Comment("// SearchCapabilities" + resourceName + " returns server search capabilities for " + resourceName + ".")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("SearchCapabilities"+resourceName).Params(
+		Id("ctx").Qual("context", "Context"),
+	).Params(
+		Qual(moduleName+"/model/gen/"+lowerRelease, "SearchCapabilities"),
+		Error(),
+	).Block(
+		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
+			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
+			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
+		),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
+		),
+		Return(Id("wrapper").Dot("SearchCapabilities"+resourceName).Call(Id("ctx"))),
 	)
 
 	// Search method
@@ -292,23 +316,9 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
-		List(Id("result"), Id("err")).Op(":=").Id("client").Dot("Search").Call(Id("ctx"), Lit(resourceName), Id("parameters"), Id("options")),
-		If(Id("err").Op("!=").Nil()).Block(
-			Return(Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(), Id("err")),
+		Id("wrapper").Op(":=").Qual(moduleName+"/capabilities/gen/"+lowerRelease, "Concrete").Values(
+			Id("Generic").Op(":").Id("client"),
 		),
-		Comment("// Convert generic resources to typed resources"),
-		Id("typedResources").Op(":=").Make(Index().Qual(moduleName+"/model/gen/"+lowerRelease, resourceName), Len(Id("result").Dot("Resources"))),
-		For(List(Id("i"), Id("resource")).Op(":=").Range().Id("result").Dot("Resources")).Block(
-			List(Id("typed"), Id("ok")).Op(":=").Id("resource").Assert(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)),
-			If(Op("!").Id("ok")).Block(
-				Return(Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(), Qual("fmt", "Errorf").Call(Lit("unexpected resource type in results: %T"), Id("resource"))),
-			),
-			Id("typedResources").Index(Id("i")).Op("=").Id("typed"),
-		),
-		Return(Qual(moduleName+"/capabilities/search", "Result").Index(Qual(moduleName+"/model/gen/"+lowerRelease, resourceName)).Values(
-			Id("Resources").Op(":").Id("typedResources"),
-			Id("Included").Op(":").Id("result").Dot("Included"),
-			Id("Next").Op(":").Id("result").Dot("Next"),
-		), Nil()),
+		Return(Id("wrapper").Dot("Search"+resourceName).Call(Id("ctx"), Id("parameters"), Id("options"))),
 	)
 }

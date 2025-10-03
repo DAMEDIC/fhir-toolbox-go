@@ -7,12 +7,13 @@ package rest
 
 import (
 	"context"
-	"fmt"
+	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
+	r5 "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
+	r51 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"net/http"
 	"net/url"
 )
@@ -26,6 +27,15 @@ type ClientR5 struct {
 	// Format specifies the request/response format (JSON or XML). Defaults to JSON if not set.
 	Format Format
 }
+
+var (
+	_ capabilities.GenericCapabilities = (*ClientR5)(nil)
+	_ capabilities.GenericSearch       = (*ClientR5)(nil)
+	_ capabilities.GenericCreate       = (*ClientR5)(nil)
+	_ capabilities.GenericRead         = (*ClientR5)(nil)
+	_ capabilities.GenericUpdate       = (*ClientR5)(nil)
+	_ capabilities.GenericDelete       = (*ClientR5)(nil)
+)
 
 // httpClient returns the HTTP client, using http.DefaultClient if none is set.
 func (c *ClientR5) httpClient() *http.Client {
@@ -71,10588 +81,7902 @@ func (c *ClientR5) Search(ctx context.Context, resourceType string, parameters s
 	return client.Search(ctx, resourceType, parameters, options)
 }
 
+var (
+	_ r5.AccountCreate = (*ClientR5)(nil)
+	_ r5.AccountRead   = (*ClientR5)(nil)
+	_ r5.AccountUpdate = (*ClientR5)(nil)
+	_ r5.AccountDelete = (*ClientR5)(nil)
+	_ r5.AccountSearch = (*ClientR5)(nil)
+)
+
 // CreateAccount creates a new Account resource.
-func (c *ClientR5) CreateAccount(ctx context.Context, resource r5.Account) (r5.Account, error) {
+func (c *ClientR5) CreateAccount(ctx context.Context, resource r51.Account) (r51.Account, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Account{}, err
-	}
-	typed, ok := result.(r5.Account)
-	if !ok {
-		return r5.Account{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAccount(ctx, resource)
 }
 
 // ReadAccount retrieves a Account resource by ID.
-func (c *ClientR5) ReadAccount(ctx context.Context, id string) (r5.Account, error) {
+func (c *ClientR5) ReadAccount(ctx context.Context, id string) (r51.Account, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Account", id)
-	if err != nil {
-		return r5.Account{}, err
-	}
-	typed, ok := result.(r5.Account)
-	if !ok {
-		return r5.Account{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAccount(ctx, id)
 }
 
 // UpdateAccount updates an existing Account resource.
-func (c *ClientR5) UpdateAccount(ctx context.Context, resource r5.Account) (update.Result[r5.Account], error) {
+func (c *ClientR5) UpdateAccount(ctx context.Context, resource r51.Account) (update.Result[r51.Account], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Account]{}, err
-	}
-	typed, ok := result.Resource.(r5.Account)
-	if !ok {
-		return update.Result[r5.Account]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Account]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAccount(ctx, resource)
 }
 
 // DeleteAccount deletes a Account resource by ID.
 func (c *ClientR5) DeleteAccount(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Account", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAccount(ctx, id)
+}
+
+// SearchCapabilitiesAccount returns server search capabilities for Account.
+func (c *ClientR5) SearchCapabilitiesAccount(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAccount(ctx)
 }
 
 // SearchAccount performs a search for Account resources.
-func (c *ClientR5) SearchAccount(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Account], error) {
+func (c *ClientR5) SearchAccount(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Account], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Account", parameters, options)
-	if err != nil {
-		return search.Result[r5.Account]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Account, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Account)
-		if !ok {
-			return search.Result[r5.Account]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Account]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAccount(ctx, parameters, options)
 }
 
+var (
+	_ r5.ActivityDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ActivityDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ActivityDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ActivityDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ActivityDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateActivityDefinition creates a new ActivityDefinition resource.
-func (c *ClientR5) CreateActivityDefinition(ctx context.Context, resource r5.ActivityDefinition) (r5.ActivityDefinition, error) {
+func (c *ClientR5) CreateActivityDefinition(ctx context.Context, resource r51.ActivityDefinition) (r51.ActivityDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ActivityDefinition{}, err
-	}
-	typed, ok := result.(r5.ActivityDefinition)
-	if !ok {
-		return r5.ActivityDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateActivityDefinition(ctx, resource)
 }
 
 // ReadActivityDefinition retrieves a ActivityDefinition resource by ID.
-func (c *ClientR5) ReadActivityDefinition(ctx context.Context, id string) (r5.ActivityDefinition, error) {
+func (c *ClientR5) ReadActivityDefinition(ctx context.Context, id string) (r51.ActivityDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ActivityDefinition", id)
-	if err != nil {
-		return r5.ActivityDefinition{}, err
-	}
-	typed, ok := result.(r5.ActivityDefinition)
-	if !ok {
-		return r5.ActivityDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadActivityDefinition(ctx, id)
 }
 
 // UpdateActivityDefinition updates an existing ActivityDefinition resource.
-func (c *ClientR5) UpdateActivityDefinition(ctx context.Context, resource r5.ActivityDefinition) (update.Result[r5.ActivityDefinition], error) {
+func (c *ClientR5) UpdateActivityDefinition(ctx context.Context, resource r51.ActivityDefinition) (update.Result[r51.ActivityDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ActivityDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ActivityDefinition)
-	if !ok {
-		return update.Result[r5.ActivityDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ActivityDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateActivityDefinition(ctx, resource)
 }
 
 // DeleteActivityDefinition deletes a ActivityDefinition resource by ID.
 func (c *ClientR5) DeleteActivityDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ActivityDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteActivityDefinition(ctx, id)
+}
+
+// SearchCapabilitiesActivityDefinition returns server search capabilities for ActivityDefinition.
+func (c *ClientR5) SearchCapabilitiesActivityDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesActivityDefinition(ctx)
 }
 
 // SearchActivityDefinition performs a search for ActivityDefinition resources.
-func (c *ClientR5) SearchActivityDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ActivityDefinition], error) {
+func (c *ClientR5) SearchActivityDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ActivityDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ActivityDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ActivityDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ActivityDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ActivityDefinition)
-		if !ok {
-			return search.Result[r5.ActivityDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ActivityDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchActivityDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.ActorDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ActorDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ActorDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ActorDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ActorDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateActorDefinition creates a new ActorDefinition resource.
-func (c *ClientR5) CreateActorDefinition(ctx context.Context, resource r5.ActorDefinition) (r5.ActorDefinition, error) {
+func (c *ClientR5) CreateActorDefinition(ctx context.Context, resource r51.ActorDefinition) (r51.ActorDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ActorDefinition{}, err
-	}
-	typed, ok := result.(r5.ActorDefinition)
-	if !ok {
-		return r5.ActorDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateActorDefinition(ctx, resource)
 }
 
 // ReadActorDefinition retrieves a ActorDefinition resource by ID.
-func (c *ClientR5) ReadActorDefinition(ctx context.Context, id string) (r5.ActorDefinition, error) {
+func (c *ClientR5) ReadActorDefinition(ctx context.Context, id string) (r51.ActorDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ActorDefinition", id)
-	if err != nil {
-		return r5.ActorDefinition{}, err
-	}
-	typed, ok := result.(r5.ActorDefinition)
-	if !ok {
-		return r5.ActorDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadActorDefinition(ctx, id)
 }
 
 // UpdateActorDefinition updates an existing ActorDefinition resource.
-func (c *ClientR5) UpdateActorDefinition(ctx context.Context, resource r5.ActorDefinition) (update.Result[r5.ActorDefinition], error) {
+func (c *ClientR5) UpdateActorDefinition(ctx context.Context, resource r51.ActorDefinition) (update.Result[r51.ActorDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ActorDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ActorDefinition)
-	if !ok {
-		return update.Result[r5.ActorDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ActorDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateActorDefinition(ctx, resource)
 }
 
 // DeleteActorDefinition deletes a ActorDefinition resource by ID.
 func (c *ClientR5) DeleteActorDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ActorDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteActorDefinition(ctx, id)
+}
+
+// SearchCapabilitiesActorDefinition returns server search capabilities for ActorDefinition.
+func (c *ClientR5) SearchCapabilitiesActorDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesActorDefinition(ctx)
 }
 
 // SearchActorDefinition performs a search for ActorDefinition resources.
-func (c *ClientR5) SearchActorDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ActorDefinition], error) {
+func (c *ClientR5) SearchActorDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ActorDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ActorDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ActorDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ActorDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ActorDefinition)
-		if !ok {
-			return search.Result[r5.ActorDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ActorDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchActorDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.AdministrableProductDefinitionCreate = (*ClientR5)(nil)
+	_ r5.AdministrableProductDefinitionRead   = (*ClientR5)(nil)
+	_ r5.AdministrableProductDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.AdministrableProductDefinitionDelete = (*ClientR5)(nil)
+	_ r5.AdministrableProductDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateAdministrableProductDefinition creates a new AdministrableProductDefinition resource.
-func (c *ClientR5) CreateAdministrableProductDefinition(ctx context.Context, resource r5.AdministrableProductDefinition) (r5.AdministrableProductDefinition, error) {
+func (c *ClientR5) CreateAdministrableProductDefinition(ctx context.Context, resource r51.AdministrableProductDefinition) (r51.AdministrableProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.AdministrableProductDefinition{}, err
-	}
-	typed, ok := result.(r5.AdministrableProductDefinition)
-	if !ok {
-		return r5.AdministrableProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAdministrableProductDefinition(ctx, resource)
 }
 
 // ReadAdministrableProductDefinition retrieves a AdministrableProductDefinition resource by ID.
-func (c *ClientR5) ReadAdministrableProductDefinition(ctx context.Context, id string) (r5.AdministrableProductDefinition, error) {
+func (c *ClientR5) ReadAdministrableProductDefinition(ctx context.Context, id string) (r51.AdministrableProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "AdministrableProductDefinition", id)
-	if err != nil {
-		return r5.AdministrableProductDefinition{}, err
-	}
-	typed, ok := result.(r5.AdministrableProductDefinition)
-	if !ok {
-		return r5.AdministrableProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAdministrableProductDefinition(ctx, id)
 }
 
 // UpdateAdministrableProductDefinition updates an existing AdministrableProductDefinition resource.
-func (c *ClientR5) UpdateAdministrableProductDefinition(ctx context.Context, resource r5.AdministrableProductDefinition) (update.Result[r5.AdministrableProductDefinition], error) {
+func (c *ClientR5) UpdateAdministrableProductDefinition(ctx context.Context, resource r51.AdministrableProductDefinition) (update.Result[r51.AdministrableProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.AdministrableProductDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.AdministrableProductDefinition)
-	if !ok {
-		return update.Result[r5.AdministrableProductDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.AdministrableProductDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAdministrableProductDefinition(ctx, resource)
 }
 
 // DeleteAdministrableProductDefinition deletes a AdministrableProductDefinition resource by ID.
 func (c *ClientR5) DeleteAdministrableProductDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "AdministrableProductDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAdministrableProductDefinition(ctx, id)
+}
+
+// SearchCapabilitiesAdministrableProductDefinition returns server search capabilities for AdministrableProductDefinition.
+func (c *ClientR5) SearchCapabilitiesAdministrableProductDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAdministrableProductDefinition(ctx)
 }
 
 // SearchAdministrableProductDefinition performs a search for AdministrableProductDefinition resources.
-func (c *ClientR5) SearchAdministrableProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AdministrableProductDefinition], error) {
+func (c *ClientR5) SearchAdministrableProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.AdministrableProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "AdministrableProductDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.AdministrableProductDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.AdministrableProductDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.AdministrableProductDefinition)
-		if !ok {
-			return search.Result[r5.AdministrableProductDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.AdministrableProductDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAdministrableProductDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.AdverseEventCreate = (*ClientR5)(nil)
+	_ r5.AdverseEventRead   = (*ClientR5)(nil)
+	_ r5.AdverseEventUpdate = (*ClientR5)(nil)
+	_ r5.AdverseEventDelete = (*ClientR5)(nil)
+	_ r5.AdverseEventSearch = (*ClientR5)(nil)
+)
+
 // CreateAdverseEvent creates a new AdverseEvent resource.
-func (c *ClientR5) CreateAdverseEvent(ctx context.Context, resource r5.AdverseEvent) (r5.AdverseEvent, error) {
+func (c *ClientR5) CreateAdverseEvent(ctx context.Context, resource r51.AdverseEvent) (r51.AdverseEvent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.AdverseEvent{}, err
-	}
-	typed, ok := result.(r5.AdverseEvent)
-	if !ok {
-		return r5.AdverseEvent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAdverseEvent(ctx, resource)
 }
 
 // ReadAdverseEvent retrieves a AdverseEvent resource by ID.
-func (c *ClientR5) ReadAdverseEvent(ctx context.Context, id string) (r5.AdverseEvent, error) {
+func (c *ClientR5) ReadAdverseEvent(ctx context.Context, id string) (r51.AdverseEvent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "AdverseEvent", id)
-	if err != nil {
-		return r5.AdverseEvent{}, err
-	}
-	typed, ok := result.(r5.AdverseEvent)
-	if !ok {
-		return r5.AdverseEvent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAdverseEvent(ctx, id)
 }
 
 // UpdateAdverseEvent updates an existing AdverseEvent resource.
-func (c *ClientR5) UpdateAdverseEvent(ctx context.Context, resource r5.AdverseEvent) (update.Result[r5.AdverseEvent], error) {
+func (c *ClientR5) UpdateAdverseEvent(ctx context.Context, resource r51.AdverseEvent) (update.Result[r51.AdverseEvent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.AdverseEvent]{}, err
-	}
-	typed, ok := result.Resource.(r5.AdverseEvent)
-	if !ok {
-		return update.Result[r5.AdverseEvent]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.AdverseEvent]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAdverseEvent(ctx, resource)
 }
 
 // DeleteAdverseEvent deletes a AdverseEvent resource by ID.
 func (c *ClientR5) DeleteAdverseEvent(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "AdverseEvent", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAdverseEvent(ctx, id)
+}
+
+// SearchCapabilitiesAdverseEvent returns server search capabilities for AdverseEvent.
+func (c *ClientR5) SearchCapabilitiesAdverseEvent(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAdverseEvent(ctx)
 }
 
 // SearchAdverseEvent performs a search for AdverseEvent resources.
-func (c *ClientR5) SearchAdverseEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AdverseEvent], error) {
+func (c *ClientR5) SearchAdverseEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.AdverseEvent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "AdverseEvent", parameters, options)
-	if err != nil {
-		return search.Result[r5.AdverseEvent]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.AdverseEvent, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.AdverseEvent)
-		if !ok {
-			return search.Result[r5.AdverseEvent]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.AdverseEvent]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAdverseEvent(ctx, parameters, options)
 }
 
+var (
+	_ r5.AllergyIntoleranceCreate = (*ClientR5)(nil)
+	_ r5.AllergyIntoleranceRead   = (*ClientR5)(nil)
+	_ r5.AllergyIntoleranceUpdate = (*ClientR5)(nil)
+	_ r5.AllergyIntoleranceDelete = (*ClientR5)(nil)
+	_ r5.AllergyIntoleranceSearch = (*ClientR5)(nil)
+)
+
 // CreateAllergyIntolerance creates a new AllergyIntolerance resource.
-func (c *ClientR5) CreateAllergyIntolerance(ctx context.Context, resource r5.AllergyIntolerance) (r5.AllergyIntolerance, error) {
+func (c *ClientR5) CreateAllergyIntolerance(ctx context.Context, resource r51.AllergyIntolerance) (r51.AllergyIntolerance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.AllergyIntolerance{}, err
-	}
-	typed, ok := result.(r5.AllergyIntolerance)
-	if !ok {
-		return r5.AllergyIntolerance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAllergyIntolerance(ctx, resource)
 }
 
 // ReadAllergyIntolerance retrieves a AllergyIntolerance resource by ID.
-func (c *ClientR5) ReadAllergyIntolerance(ctx context.Context, id string) (r5.AllergyIntolerance, error) {
+func (c *ClientR5) ReadAllergyIntolerance(ctx context.Context, id string) (r51.AllergyIntolerance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "AllergyIntolerance", id)
-	if err != nil {
-		return r5.AllergyIntolerance{}, err
-	}
-	typed, ok := result.(r5.AllergyIntolerance)
-	if !ok {
-		return r5.AllergyIntolerance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAllergyIntolerance(ctx, id)
 }
 
 // UpdateAllergyIntolerance updates an existing AllergyIntolerance resource.
-func (c *ClientR5) UpdateAllergyIntolerance(ctx context.Context, resource r5.AllergyIntolerance) (update.Result[r5.AllergyIntolerance], error) {
+func (c *ClientR5) UpdateAllergyIntolerance(ctx context.Context, resource r51.AllergyIntolerance) (update.Result[r51.AllergyIntolerance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.AllergyIntolerance]{}, err
-	}
-	typed, ok := result.Resource.(r5.AllergyIntolerance)
-	if !ok {
-		return update.Result[r5.AllergyIntolerance]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.AllergyIntolerance]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAllergyIntolerance(ctx, resource)
 }
 
 // DeleteAllergyIntolerance deletes a AllergyIntolerance resource by ID.
 func (c *ClientR5) DeleteAllergyIntolerance(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "AllergyIntolerance", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAllergyIntolerance(ctx, id)
+}
+
+// SearchCapabilitiesAllergyIntolerance returns server search capabilities for AllergyIntolerance.
+func (c *ClientR5) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAllergyIntolerance(ctx)
 }
 
 // SearchAllergyIntolerance performs a search for AllergyIntolerance resources.
-func (c *ClientR5) SearchAllergyIntolerance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AllergyIntolerance], error) {
+func (c *ClientR5) SearchAllergyIntolerance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.AllergyIntolerance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "AllergyIntolerance", parameters, options)
-	if err != nil {
-		return search.Result[r5.AllergyIntolerance]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.AllergyIntolerance, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.AllergyIntolerance)
-		if !ok {
-			return search.Result[r5.AllergyIntolerance]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.AllergyIntolerance]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAllergyIntolerance(ctx, parameters, options)
 }
 
+var (
+	_ r5.AppointmentCreate = (*ClientR5)(nil)
+	_ r5.AppointmentRead   = (*ClientR5)(nil)
+	_ r5.AppointmentUpdate = (*ClientR5)(nil)
+	_ r5.AppointmentDelete = (*ClientR5)(nil)
+	_ r5.AppointmentSearch = (*ClientR5)(nil)
+)
+
 // CreateAppointment creates a new Appointment resource.
-func (c *ClientR5) CreateAppointment(ctx context.Context, resource r5.Appointment) (r5.Appointment, error) {
+func (c *ClientR5) CreateAppointment(ctx context.Context, resource r51.Appointment) (r51.Appointment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Appointment{}, err
-	}
-	typed, ok := result.(r5.Appointment)
-	if !ok {
-		return r5.Appointment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAppointment(ctx, resource)
 }
 
 // ReadAppointment retrieves a Appointment resource by ID.
-func (c *ClientR5) ReadAppointment(ctx context.Context, id string) (r5.Appointment, error) {
+func (c *ClientR5) ReadAppointment(ctx context.Context, id string) (r51.Appointment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Appointment", id)
-	if err != nil {
-		return r5.Appointment{}, err
-	}
-	typed, ok := result.(r5.Appointment)
-	if !ok {
-		return r5.Appointment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAppointment(ctx, id)
 }
 
 // UpdateAppointment updates an existing Appointment resource.
-func (c *ClientR5) UpdateAppointment(ctx context.Context, resource r5.Appointment) (update.Result[r5.Appointment], error) {
+func (c *ClientR5) UpdateAppointment(ctx context.Context, resource r51.Appointment) (update.Result[r51.Appointment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Appointment]{}, err
-	}
-	typed, ok := result.Resource.(r5.Appointment)
-	if !ok {
-		return update.Result[r5.Appointment]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Appointment]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAppointment(ctx, resource)
 }
 
 // DeleteAppointment deletes a Appointment resource by ID.
 func (c *ClientR5) DeleteAppointment(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Appointment", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAppointment(ctx, id)
+}
+
+// SearchCapabilitiesAppointment returns server search capabilities for Appointment.
+func (c *ClientR5) SearchCapabilitiesAppointment(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAppointment(ctx)
 }
 
 // SearchAppointment performs a search for Appointment resources.
-func (c *ClientR5) SearchAppointment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Appointment], error) {
+func (c *ClientR5) SearchAppointment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Appointment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Appointment", parameters, options)
-	if err != nil {
-		return search.Result[r5.Appointment]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Appointment, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Appointment)
-		if !ok {
-			return search.Result[r5.Appointment]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Appointment]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAppointment(ctx, parameters, options)
 }
 
+var (
+	_ r5.AppointmentResponseCreate = (*ClientR5)(nil)
+	_ r5.AppointmentResponseRead   = (*ClientR5)(nil)
+	_ r5.AppointmentResponseUpdate = (*ClientR5)(nil)
+	_ r5.AppointmentResponseDelete = (*ClientR5)(nil)
+	_ r5.AppointmentResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateAppointmentResponse creates a new AppointmentResponse resource.
-func (c *ClientR5) CreateAppointmentResponse(ctx context.Context, resource r5.AppointmentResponse) (r5.AppointmentResponse, error) {
+func (c *ClientR5) CreateAppointmentResponse(ctx context.Context, resource r51.AppointmentResponse) (r51.AppointmentResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.AppointmentResponse{}, err
-	}
-	typed, ok := result.(r5.AppointmentResponse)
-	if !ok {
-		return r5.AppointmentResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAppointmentResponse(ctx, resource)
 }
 
 // ReadAppointmentResponse retrieves a AppointmentResponse resource by ID.
-func (c *ClientR5) ReadAppointmentResponse(ctx context.Context, id string) (r5.AppointmentResponse, error) {
+func (c *ClientR5) ReadAppointmentResponse(ctx context.Context, id string) (r51.AppointmentResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "AppointmentResponse", id)
-	if err != nil {
-		return r5.AppointmentResponse{}, err
-	}
-	typed, ok := result.(r5.AppointmentResponse)
-	if !ok {
-		return r5.AppointmentResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAppointmentResponse(ctx, id)
 }
 
 // UpdateAppointmentResponse updates an existing AppointmentResponse resource.
-func (c *ClientR5) UpdateAppointmentResponse(ctx context.Context, resource r5.AppointmentResponse) (update.Result[r5.AppointmentResponse], error) {
+func (c *ClientR5) UpdateAppointmentResponse(ctx context.Context, resource r51.AppointmentResponse) (update.Result[r51.AppointmentResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.AppointmentResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.AppointmentResponse)
-	if !ok {
-		return update.Result[r5.AppointmentResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.AppointmentResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAppointmentResponse(ctx, resource)
 }
 
 // DeleteAppointmentResponse deletes a AppointmentResponse resource by ID.
 func (c *ClientR5) DeleteAppointmentResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "AppointmentResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAppointmentResponse(ctx, id)
+}
+
+// SearchCapabilitiesAppointmentResponse returns server search capabilities for AppointmentResponse.
+func (c *ClientR5) SearchCapabilitiesAppointmentResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAppointmentResponse(ctx)
 }
 
 // SearchAppointmentResponse performs a search for AppointmentResponse resources.
-func (c *ClientR5) SearchAppointmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AppointmentResponse], error) {
+func (c *ClientR5) SearchAppointmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.AppointmentResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "AppointmentResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.AppointmentResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.AppointmentResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.AppointmentResponse)
-		if !ok {
-			return search.Result[r5.AppointmentResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.AppointmentResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAppointmentResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.ArtifactAssessmentCreate = (*ClientR5)(nil)
+	_ r5.ArtifactAssessmentRead   = (*ClientR5)(nil)
+	_ r5.ArtifactAssessmentUpdate = (*ClientR5)(nil)
+	_ r5.ArtifactAssessmentDelete = (*ClientR5)(nil)
+	_ r5.ArtifactAssessmentSearch = (*ClientR5)(nil)
+)
+
 // CreateArtifactAssessment creates a new ArtifactAssessment resource.
-func (c *ClientR5) CreateArtifactAssessment(ctx context.Context, resource r5.ArtifactAssessment) (r5.ArtifactAssessment, error) {
+func (c *ClientR5) CreateArtifactAssessment(ctx context.Context, resource r51.ArtifactAssessment) (r51.ArtifactAssessment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ArtifactAssessment{}, err
-	}
-	typed, ok := result.(r5.ArtifactAssessment)
-	if !ok {
-		return r5.ArtifactAssessment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateArtifactAssessment(ctx, resource)
 }
 
 // ReadArtifactAssessment retrieves a ArtifactAssessment resource by ID.
-func (c *ClientR5) ReadArtifactAssessment(ctx context.Context, id string) (r5.ArtifactAssessment, error) {
+func (c *ClientR5) ReadArtifactAssessment(ctx context.Context, id string) (r51.ArtifactAssessment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ArtifactAssessment", id)
-	if err != nil {
-		return r5.ArtifactAssessment{}, err
-	}
-	typed, ok := result.(r5.ArtifactAssessment)
-	if !ok {
-		return r5.ArtifactAssessment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadArtifactAssessment(ctx, id)
 }
 
 // UpdateArtifactAssessment updates an existing ArtifactAssessment resource.
-func (c *ClientR5) UpdateArtifactAssessment(ctx context.Context, resource r5.ArtifactAssessment) (update.Result[r5.ArtifactAssessment], error) {
+func (c *ClientR5) UpdateArtifactAssessment(ctx context.Context, resource r51.ArtifactAssessment) (update.Result[r51.ArtifactAssessment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ArtifactAssessment]{}, err
-	}
-	typed, ok := result.Resource.(r5.ArtifactAssessment)
-	if !ok {
-		return update.Result[r5.ArtifactAssessment]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ArtifactAssessment]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateArtifactAssessment(ctx, resource)
 }
 
 // DeleteArtifactAssessment deletes a ArtifactAssessment resource by ID.
 func (c *ClientR5) DeleteArtifactAssessment(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ArtifactAssessment", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteArtifactAssessment(ctx, id)
+}
+
+// SearchCapabilitiesArtifactAssessment returns server search capabilities for ArtifactAssessment.
+func (c *ClientR5) SearchCapabilitiesArtifactAssessment(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesArtifactAssessment(ctx)
 }
 
 // SearchArtifactAssessment performs a search for ArtifactAssessment resources.
-func (c *ClientR5) SearchArtifactAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ArtifactAssessment], error) {
+func (c *ClientR5) SearchArtifactAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ArtifactAssessment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ArtifactAssessment", parameters, options)
-	if err != nil {
-		return search.Result[r5.ArtifactAssessment]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ArtifactAssessment, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ArtifactAssessment)
-		if !ok {
-			return search.Result[r5.ArtifactAssessment]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ArtifactAssessment]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchArtifactAssessment(ctx, parameters, options)
 }
 
+var (
+	_ r5.AuditEventCreate = (*ClientR5)(nil)
+	_ r5.AuditEventRead   = (*ClientR5)(nil)
+	_ r5.AuditEventUpdate = (*ClientR5)(nil)
+	_ r5.AuditEventDelete = (*ClientR5)(nil)
+	_ r5.AuditEventSearch = (*ClientR5)(nil)
+)
+
 // CreateAuditEvent creates a new AuditEvent resource.
-func (c *ClientR5) CreateAuditEvent(ctx context.Context, resource r5.AuditEvent) (r5.AuditEvent, error) {
+func (c *ClientR5) CreateAuditEvent(ctx context.Context, resource r51.AuditEvent) (r51.AuditEvent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.AuditEvent{}, err
-	}
-	typed, ok := result.(r5.AuditEvent)
-	if !ok {
-		return r5.AuditEvent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateAuditEvent(ctx, resource)
 }
 
 // ReadAuditEvent retrieves a AuditEvent resource by ID.
-func (c *ClientR5) ReadAuditEvent(ctx context.Context, id string) (r5.AuditEvent, error) {
+func (c *ClientR5) ReadAuditEvent(ctx context.Context, id string) (r51.AuditEvent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "AuditEvent", id)
-	if err != nil {
-		return r5.AuditEvent{}, err
-	}
-	typed, ok := result.(r5.AuditEvent)
-	if !ok {
-		return r5.AuditEvent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadAuditEvent(ctx, id)
 }
 
 // UpdateAuditEvent updates an existing AuditEvent resource.
-func (c *ClientR5) UpdateAuditEvent(ctx context.Context, resource r5.AuditEvent) (update.Result[r5.AuditEvent], error) {
+func (c *ClientR5) UpdateAuditEvent(ctx context.Context, resource r51.AuditEvent) (update.Result[r51.AuditEvent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.AuditEvent]{}, err
-	}
-	typed, ok := result.Resource.(r5.AuditEvent)
-	if !ok {
-		return update.Result[r5.AuditEvent]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.AuditEvent]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateAuditEvent(ctx, resource)
 }
 
 // DeleteAuditEvent deletes a AuditEvent resource by ID.
 func (c *ClientR5) DeleteAuditEvent(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "AuditEvent", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteAuditEvent(ctx, id)
+}
+
+// SearchCapabilitiesAuditEvent returns server search capabilities for AuditEvent.
+func (c *ClientR5) SearchCapabilitiesAuditEvent(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesAuditEvent(ctx)
 }
 
 // SearchAuditEvent performs a search for AuditEvent resources.
-func (c *ClientR5) SearchAuditEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.AuditEvent], error) {
+func (c *ClientR5) SearchAuditEvent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.AuditEvent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "AuditEvent", parameters, options)
-	if err != nil {
-		return search.Result[r5.AuditEvent]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.AuditEvent, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.AuditEvent)
-		if !ok {
-			return search.Result[r5.AuditEvent]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.AuditEvent]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchAuditEvent(ctx, parameters, options)
 }
 
+var (
+	_ r5.BasicCreate = (*ClientR5)(nil)
+	_ r5.BasicRead   = (*ClientR5)(nil)
+	_ r5.BasicUpdate = (*ClientR5)(nil)
+	_ r5.BasicDelete = (*ClientR5)(nil)
+	_ r5.BasicSearch = (*ClientR5)(nil)
+)
+
 // CreateBasic creates a new Basic resource.
-func (c *ClientR5) CreateBasic(ctx context.Context, resource r5.Basic) (r5.Basic, error) {
+func (c *ClientR5) CreateBasic(ctx context.Context, resource r51.Basic) (r51.Basic, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Basic{}, err
-	}
-	typed, ok := result.(r5.Basic)
-	if !ok {
-		return r5.Basic{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBasic(ctx, resource)
 }
 
 // ReadBasic retrieves a Basic resource by ID.
-func (c *ClientR5) ReadBasic(ctx context.Context, id string) (r5.Basic, error) {
+func (c *ClientR5) ReadBasic(ctx context.Context, id string) (r51.Basic, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Basic", id)
-	if err != nil {
-		return r5.Basic{}, err
-	}
-	typed, ok := result.(r5.Basic)
-	if !ok {
-		return r5.Basic{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBasic(ctx, id)
 }
 
 // UpdateBasic updates an existing Basic resource.
-func (c *ClientR5) UpdateBasic(ctx context.Context, resource r5.Basic) (update.Result[r5.Basic], error) {
+func (c *ClientR5) UpdateBasic(ctx context.Context, resource r51.Basic) (update.Result[r51.Basic], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Basic]{}, err
-	}
-	typed, ok := result.Resource.(r5.Basic)
-	if !ok {
-		return update.Result[r5.Basic]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Basic]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBasic(ctx, resource)
 }
 
 // DeleteBasic deletes a Basic resource by ID.
 func (c *ClientR5) DeleteBasic(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Basic", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBasic(ctx, id)
+}
+
+// SearchCapabilitiesBasic returns server search capabilities for Basic.
+func (c *ClientR5) SearchCapabilitiesBasic(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBasic(ctx)
 }
 
 // SearchBasic performs a search for Basic resources.
-func (c *ClientR5) SearchBasic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Basic], error) {
+func (c *ClientR5) SearchBasic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Basic], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Basic", parameters, options)
-	if err != nil {
-		return search.Result[r5.Basic]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Basic, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Basic)
-		if !ok {
-			return search.Result[r5.Basic]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Basic]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBasic(ctx, parameters, options)
 }
 
+var (
+	_ r5.BinaryCreate = (*ClientR5)(nil)
+	_ r5.BinaryRead   = (*ClientR5)(nil)
+	_ r5.BinaryUpdate = (*ClientR5)(nil)
+	_ r5.BinaryDelete = (*ClientR5)(nil)
+	_ r5.BinarySearch = (*ClientR5)(nil)
+)
+
 // CreateBinary creates a new Binary resource.
-func (c *ClientR5) CreateBinary(ctx context.Context, resource r5.Binary) (r5.Binary, error) {
+func (c *ClientR5) CreateBinary(ctx context.Context, resource r51.Binary) (r51.Binary, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Binary{}, err
-	}
-	typed, ok := result.(r5.Binary)
-	if !ok {
-		return r5.Binary{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBinary(ctx, resource)
 }
 
 // ReadBinary retrieves a Binary resource by ID.
-func (c *ClientR5) ReadBinary(ctx context.Context, id string) (r5.Binary, error) {
+func (c *ClientR5) ReadBinary(ctx context.Context, id string) (r51.Binary, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Binary", id)
-	if err != nil {
-		return r5.Binary{}, err
-	}
-	typed, ok := result.(r5.Binary)
-	if !ok {
-		return r5.Binary{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBinary(ctx, id)
 }
 
 // UpdateBinary updates an existing Binary resource.
-func (c *ClientR5) UpdateBinary(ctx context.Context, resource r5.Binary) (update.Result[r5.Binary], error) {
+func (c *ClientR5) UpdateBinary(ctx context.Context, resource r51.Binary) (update.Result[r51.Binary], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Binary]{}, err
-	}
-	typed, ok := result.Resource.(r5.Binary)
-	if !ok {
-		return update.Result[r5.Binary]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Binary]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBinary(ctx, resource)
 }
 
 // DeleteBinary deletes a Binary resource by ID.
 func (c *ClientR5) DeleteBinary(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Binary", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBinary(ctx, id)
+}
+
+// SearchCapabilitiesBinary returns server search capabilities for Binary.
+func (c *ClientR5) SearchCapabilitiesBinary(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBinary(ctx)
 }
 
 // SearchBinary performs a search for Binary resources.
-func (c *ClientR5) SearchBinary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Binary], error) {
+func (c *ClientR5) SearchBinary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Binary], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Binary", parameters, options)
-	if err != nil {
-		return search.Result[r5.Binary]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Binary, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Binary)
-		if !ok {
-			return search.Result[r5.Binary]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Binary]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBinary(ctx, parameters, options)
 }
 
+var (
+	_ r5.BiologicallyDerivedProductCreate = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductRead   = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductUpdate = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductDelete = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductSearch = (*ClientR5)(nil)
+)
+
 // CreateBiologicallyDerivedProduct creates a new BiologicallyDerivedProduct resource.
-func (c *ClientR5) CreateBiologicallyDerivedProduct(ctx context.Context, resource r5.BiologicallyDerivedProduct) (r5.BiologicallyDerivedProduct, error) {
+func (c *ClientR5) CreateBiologicallyDerivedProduct(ctx context.Context, resource r51.BiologicallyDerivedProduct) (r51.BiologicallyDerivedProduct, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.BiologicallyDerivedProduct{}, err
-	}
-	typed, ok := result.(r5.BiologicallyDerivedProduct)
-	if !ok {
-		return r5.BiologicallyDerivedProduct{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBiologicallyDerivedProduct(ctx, resource)
 }
 
 // ReadBiologicallyDerivedProduct retrieves a BiologicallyDerivedProduct resource by ID.
-func (c *ClientR5) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r5.BiologicallyDerivedProduct, error) {
+func (c *ClientR5) ReadBiologicallyDerivedProduct(ctx context.Context, id string) (r51.BiologicallyDerivedProduct, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "BiologicallyDerivedProduct", id)
-	if err != nil {
-		return r5.BiologicallyDerivedProduct{}, err
-	}
-	typed, ok := result.(r5.BiologicallyDerivedProduct)
-	if !ok {
-		return r5.BiologicallyDerivedProduct{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBiologicallyDerivedProduct(ctx, id)
 }
 
 // UpdateBiologicallyDerivedProduct updates an existing BiologicallyDerivedProduct resource.
-func (c *ClientR5) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r5.BiologicallyDerivedProduct) (update.Result[r5.BiologicallyDerivedProduct], error) {
+func (c *ClientR5) UpdateBiologicallyDerivedProduct(ctx context.Context, resource r51.BiologicallyDerivedProduct) (update.Result[r51.BiologicallyDerivedProduct], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.BiologicallyDerivedProduct]{}, err
-	}
-	typed, ok := result.Resource.(r5.BiologicallyDerivedProduct)
-	if !ok {
-		return update.Result[r5.BiologicallyDerivedProduct]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.BiologicallyDerivedProduct]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBiologicallyDerivedProduct(ctx, resource)
 }
 
 // DeleteBiologicallyDerivedProduct deletes a BiologicallyDerivedProduct resource by ID.
 func (c *ClientR5) DeleteBiologicallyDerivedProduct(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "BiologicallyDerivedProduct", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBiologicallyDerivedProduct(ctx, id)
+}
+
+// SearchCapabilitiesBiologicallyDerivedProduct returns server search capabilities for BiologicallyDerivedProduct.
+func (c *ClientR5) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBiologicallyDerivedProduct(ctx)
 }
 
 // SearchBiologicallyDerivedProduct performs a search for BiologicallyDerivedProduct resources.
-func (c *ClientR5) SearchBiologicallyDerivedProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BiologicallyDerivedProduct], error) {
+func (c *ClientR5) SearchBiologicallyDerivedProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.BiologicallyDerivedProduct], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "BiologicallyDerivedProduct", parameters, options)
-	if err != nil {
-		return search.Result[r5.BiologicallyDerivedProduct]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.BiologicallyDerivedProduct, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.BiologicallyDerivedProduct)
-		if !ok {
-			return search.Result[r5.BiologicallyDerivedProduct]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.BiologicallyDerivedProduct]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBiologicallyDerivedProduct(ctx, parameters, options)
 }
 
+var (
+	_ r5.BiologicallyDerivedProductDispenseCreate = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductDispenseRead   = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductDispenseUpdate = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductDispenseDelete = (*ClientR5)(nil)
+	_ r5.BiologicallyDerivedProductDispenseSearch = (*ClientR5)(nil)
+)
+
 // CreateBiologicallyDerivedProductDispense creates a new BiologicallyDerivedProductDispense resource.
-func (c *ClientR5) CreateBiologicallyDerivedProductDispense(ctx context.Context, resource r5.BiologicallyDerivedProductDispense) (r5.BiologicallyDerivedProductDispense, error) {
+func (c *ClientR5) CreateBiologicallyDerivedProductDispense(ctx context.Context, resource r51.BiologicallyDerivedProductDispense) (r51.BiologicallyDerivedProductDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.BiologicallyDerivedProductDispense{}, err
-	}
-	typed, ok := result.(r5.BiologicallyDerivedProductDispense)
-	if !ok {
-		return r5.BiologicallyDerivedProductDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBiologicallyDerivedProductDispense(ctx, resource)
 }
 
 // ReadBiologicallyDerivedProductDispense retrieves a BiologicallyDerivedProductDispense resource by ID.
-func (c *ClientR5) ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r5.BiologicallyDerivedProductDispense, error) {
+func (c *ClientR5) ReadBiologicallyDerivedProductDispense(ctx context.Context, id string) (r51.BiologicallyDerivedProductDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "BiologicallyDerivedProductDispense", id)
-	if err != nil {
-		return r5.BiologicallyDerivedProductDispense{}, err
-	}
-	typed, ok := result.(r5.BiologicallyDerivedProductDispense)
-	if !ok {
-		return r5.BiologicallyDerivedProductDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBiologicallyDerivedProductDispense(ctx, id)
 }
 
 // UpdateBiologicallyDerivedProductDispense updates an existing BiologicallyDerivedProductDispense resource.
-func (c *ClientR5) UpdateBiologicallyDerivedProductDispense(ctx context.Context, resource r5.BiologicallyDerivedProductDispense) (update.Result[r5.BiologicallyDerivedProductDispense], error) {
+func (c *ClientR5) UpdateBiologicallyDerivedProductDispense(ctx context.Context, resource r51.BiologicallyDerivedProductDispense) (update.Result[r51.BiologicallyDerivedProductDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.BiologicallyDerivedProductDispense]{}, err
-	}
-	typed, ok := result.Resource.(r5.BiologicallyDerivedProductDispense)
-	if !ok {
-		return update.Result[r5.BiologicallyDerivedProductDispense]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.BiologicallyDerivedProductDispense]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBiologicallyDerivedProductDispense(ctx, resource)
 }
 
 // DeleteBiologicallyDerivedProductDispense deletes a BiologicallyDerivedProductDispense resource by ID.
 func (c *ClientR5) DeleteBiologicallyDerivedProductDispense(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "BiologicallyDerivedProductDispense", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBiologicallyDerivedProductDispense(ctx, id)
+}
+
+// SearchCapabilitiesBiologicallyDerivedProductDispense returns server search capabilities for BiologicallyDerivedProductDispense.
+func (c *ClientR5) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBiologicallyDerivedProductDispense(ctx)
 }
 
 // SearchBiologicallyDerivedProductDispense performs a search for BiologicallyDerivedProductDispense resources.
-func (c *ClientR5) SearchBiologicallyDerivedProductDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BiologicallyDerivedProductDispense], error) {
+func (c *ClientR5) SearchBiologicallyDerivedProductDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.BiologicallyDerivedProductDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "BiologicallyDerivedProductDispense", parameters, options)
-	if err != nil {
-		return search.Result[r5.BiologicallyDerivedProductDispense]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.BiologicallyDerivedProductDispense, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.BiologicallyDerivedProductDispense)
-		if !ok {
-			return search.Result[r5.BiologicallyDerivedProductDispense]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.BiologicallyDerivedProductDispense]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBiologicallyDerivedProductDispense(ctx, parameters, options)
 }
 
+var (
+	_ r5.BodyStructureCreate = (*ClientR5)(nil)
+	_ r5.BodyStructureRead   = (*ClientR5)(nil)
+	_ r5.BodyStructureUpdate = (*ClientR5)(nil)
+	_ r5.BodyStructureDelete = (*ClientR5)(nil)
+	_ r5.BodyStructureSearch = (*ClientR5)(nil)
+)
+
 // CreateBodyStructure creates a new BodyStructure resource.
-func (c *ClientR5) CreateBodyStructure(ctx context.Context, resource r5.BodyStructure) (r5.BodyStructure, error) {
+func (c *ClientR5) CreateBodyStructure(ctx context.Context, resource r51.BodyStructure) (r51.BodyStructure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.BodyStructure{}, err
-	}
-	typed, ok := result.(r5.BodyStructure)
-	if !ok {
-		return r5.BodyStructure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBodyStructure(ctx, resource)
 }
 
 // ReadBodyStructure retrieves a BodyStructure resource by ID.
-func (c *ClientR5) ReadBodyStructure(ctx context.Context, id string) (r5.BodyStructure, error) {
+func (c *ClientR5) ReadBodyStructure(ctx context.Context, id string) (r51.BodyStructure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "BodyStructure", id)
-	if err != nil {
-		return r5.BodyStructure{}, err
-	}
-	typed, ok := result.(r5.BodyStructure)
-	if !ok {
-		return r5.BodyStructure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBodyStructure(ctx, id)
 }
 
 // UpdateBodyStructure updates an existing BodyStructure resource.
-func (c *ClientR5) UpdateBodyStructure(ctx context.Context, resource r5.BodyStructure) (update.Result[r5.BodyStructure], error) {
+func (c *ClientR5) UpdateBodyStructure(ctx context.Context, resource r51.BodyStructure) (update.Result[r51.BodyStructure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.BodyStructure]{}, err
-	}
-	typed, ok := result.Resource.(r5.BodyStructure)
-	if !ok {
-		return update.Result[r5.BodyStructure]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.BodyStructure]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBodyStructure(ctx, resource)
 }
 
 // DeleteBodyStructure deletes a BodyStructure resource by ID.
 func (c *ClientR5) DeleteBodyStructure(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "BodyStructure", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBodyStructure(ctx, id)
+}
+
+// SearchCapabilitiesBodyStructure returns server search capabilities for BodyStructure.
+func (c *ClientR5) SearchCapabilitiesBodyStructure(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBodyStructure(ctx)
 }
 
 // SearchBodyStructure performs a search for BodyStructure resources.
-func (c *ClientR5) SearchBodyStructure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.BodyStructure], error) {
+func (c *ClientR5) SearchBodyStructure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.BodyStructure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "BodyStructure", parameters, options)
-	if err != nil {
-		return search.Result[r5.BodyStructure]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.BodyStructure, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.BodyStructure)
-		if !ok {
-			return search.Result[r5.BodyStructure]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.BodyStructure]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBodyStructure(ctx, parameters, options)
 }
 
+var (
+	_ r5.BundleCreate = (*ClientR5)(nil)
+	_ r5.BundleRead   = (*ClientR5)(nil)
+	_ r5.BundleUpdate = (*ClientR5)(nil)
+	_ r5.BundleDelete = (*ClientR5)(nil)
+	_ r5.BundleSearch = (*ClientR5)(nil)
+)
+
 // CreateBundle creates a new Bundle resource.
-func (c *ClientR5) CreateBundle(ctx context.Context, resource r5.Bundle) (r5.Bundle, error) {
+func (c *ClientR5) CreateBundle(ctx context.Context, resource r51.Bundle) (r51.Bundle, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Bundle{}, err
-	}
-	typed, ok := result.(r5.Bundle)
-	if !ok {
-		return r5.Bundle{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateBundle(ctx, resource)
 }
 
 // ReadBundle retrieves a Bundle resource by ID.
-func (c *ClientR5) ReadBundle(ctx context.Context, id string) (r5.Bundle, error) {
+func (c *ClientR5) ReadBundle(ctx context.Context, id string) (r51.Bundle, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Bundle", id)
-	if err != nil {
-		return r5.Bundle{}, err
-	}
-	typed, ok := result.(r5.Bundle)
-	if !ok {
-		return r5.Bundle{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadBundle(ctx, id)
 }
 
 // UpdateBundle updates an existing Bundle resource.
-func (c *ClientR5) UpdateBundle(ctx context.Context, resource r5.Bundle) (update.Result[r5.Bundle], error) {
+func (c *ClientR5) UpdateBundle(ctx context.Context, resource r51.Bundle) (update.Result[r51.Bundle], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Bundle]{}, err
-	}
-	typed, ok := result.Resource.(r5.Bundle)
-	if !ok {
-		return update.Result[r5.Bundle]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Bundle]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateBundle(ctx, resource)
 }
 
 // DeleteBundle deletes a Bundle resource by ID.
 func (c *ClientR5) DeleteBundle(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Bundle", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteBundle(ctx, id)
+}
+
+// SearchCapabilitiesBundle returns server search capabilities for Bundle.
+func (c *ClientR5) SearchCapabilitiesBundle(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesBundle(ctx)
 }
 
 // SearchBundle performs a search for Bundle resources.
-func (c *ClientR5) SearchBundle(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Bundle], error) {
+func (c *ClientR5) SearchBundle(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Bundle], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Bundle", parameters, options)
-	if err != nil {
-		return search.Result[r5.Bundle]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Bundle, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Bundle)
-		if !ok {
-			return search.Result[r5.Bundle]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Bundle]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchBundle(ctx, parameters, options)
 }
 
+var (
+	_ r5.CapabilityStatementCreate = (*ClientR5)(nil)
+	_ r5.CapabilityStatementRead   = (*ClientR5)(nil)
+	_ r5.CapabilityStatementUpdate = (*ClientR5)(nil)
+	_ r5.CapabilityStatementDelete = (*ClientR5)(nil)
+	_ r5.CapabilityStatementSearch = (*ClientR5)(nil)
+)
+
 // CreateCapabilityStatement creates a new CapabilityStatement resource.
-func (c *ClientR5) CreateCapabilityStatement(ctx context.Context, resource r5.CapabilityStatement) (r5.CapabilityStatement, error) {
+func (c *ClientR5) CreateCapabilityStatement(ctx context.Context, resource r51.CapabilityStatement) (r51.CapabilityStatement, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CapabilityStatement{}, err
-	}
-	typed, ok := result.(r5.CapabilityStatement)
-	if !ok {
-		return r5.CapabilityStatement{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCapabilityStatement(ctx, resource)
 }
 
 // ReadCapabilityStatement retrieves a CapabilityStatement resource by ID.
-func (c *ClientR5) ReadCapabilityStatement(ctx context.Context, id string) (r5.CapabilityStatement, error) {
+func (c *ClientR5) ReadCapabilityStatement(ctx context.Context, id string) (r51.CapabilityStatement, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CapabilityStatement", id)
-	if err != nil {
-		return r5.CapabilityStatement{}, err
-	}
-	typed, ok := result.(r5.CapabilityStatement)
-	if !ok {
-		return r5.CapabilityStatement{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCapabilityStatement(ctx, id)
 }
 
 // UpdateCapabilityStatement updates an existing CapabilityStatement resource.
-func (c *ClientR5) UpdateCapabilityStatement(ctx context.Context, resource r5.CapabilityStatement) (update.Result[r5.CapabilityStatement], error) {
+func (c *ClientR5) UpdateCapabilityStatement(ctx context.Context, resource r51.CapabilityStatement) (update.Result[r51.CapabilityStatement], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CapabilityStatement]{}, err
-	}
-	typed, ok := result.Resource.(r5.CapabilityStatement)
-	if !ok {
-		return update.Result[r5.CapabilityStatement]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CapabilityStatement]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCapabilityStatement(ctx, resource)
 }
 
 // DeleteCapabilityStatement deletes a CapabilityStatement resource by ID.
 func (c *ClientR5) DeleteCapabilityStatement(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CapabilityStatement", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCapabilityStatement(ctx, id)
+}
+
+// SearchCapabilitiesCapabilityStatement returns server search capabilities for CapabilityStatement.
+func (c *ClientR5) SearchCapabilitiesCapabilityStatement(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCapabilityStatement(ctx)
 }
 
 // SearchCapabilityStatement performs a search for CapabilityStatement resources.
-func (c *ClientR5) SearchCapabilityStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CapabilityStatement], error) {
+func (c *ClientR5) SearchCapabilityStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CapabilityStatement], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CapabilityStatement", parameters, options)
-	if err != nil {
-		return search.Result[r5.CapabilityStatement]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CapabilityStatement, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CapabilityStatement)
-		if !ok {
-			return search.Result[r5.CapabilityStatement]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CapabilityStatement]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilityStatement(ctx, parameters, options)
 }
 
+var (
+	_ r5.CarePlanCreate = (*ClientR5)(nil)
+	_ r5.CarePlanRead   = (*ClientR5)(nil)
+	_ r5.CarePlanUpdate = (*ClientR5)(nil)
+	_ r5.CarePlanDelete = (*ClientR5)(nil)
+	_ r5.CarePlanSearch = (*ClientR5)(nil)
+)
+
 // CreateCarePlan creates a new CarePlan resource.
-func (c *ClientR5) CreateCarePlan(ctx context.Context, resource r5.CarePlan) (r5.CarePlan, error) {
+func (c *ClientR5) CreateCarePlan(ctx context.Context, resource r51.CarePlan) (r51.CarePlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CarePlan{}, err
-	}
-	typed, ok := result.(r5.CarePlan)
-	if !ok {
-		return r5.CarePlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCarePlan(ctx, resource)
 }
 
 // ReadCarePlan retrieves a CarePlan resource by ID.
-func (c *ClientR5) ReadCarePlan(ctx context.Context, id string) (r5.CarePlan, error) {
+func (c *ClientR5) ReadCarePlan(ctx context.Context, id string) (r51.CarePlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CarePlan", id)
-	if err != nil {
-		return r5.CarePlan{}, err
-	}
-	typed, ok := result.(r5.CarePlan)
-	if !ok {
-		return r5.CarePlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCarePlan(ctx, id)
 }
 
 // UpdateCarePlan updates an existing CarePlan resource.
-func (c *ClientR5) UpdateCarePlan(ctx context.Context, resource r5.CarePlan) (update.Result[r5.CarePlan], error) {
+func (c *ClientR5) UpdateCarePlan(ctx context.Context, resource r51.CarePlan) (update.Result[r51.CarePlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CarePlan]{}, err
-	}
-	typed, ok := result.Resource.(r5.CarePlan)
-	if !ok {
-		return update.Result[r5.CarePlan]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CarePlan]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCarePlan(ctx, resource)
 }
 
 // DeleteCarePlan deletes a CarePlan resource by ID.
 func (c *ClientR5) DeleteCarePlan(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CarePlan", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCarePlan(ctx, id)
+}
+
+// SearchCapabilitiesCarePlan returns server search capabilities for CarePlan.
+func (c *ClientR5) SearchCapabilitiesCarePlan(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCarePlan(ctx)
 }
 
 // SearchCarePlan performs a search for CarePlan resources.
-func (c *ClientR5) SearchCarePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CarePlan], error) {
+func (c *ClientR5) SearchCarePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CarePlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CarePlan", parameters, options)
-	if err != nil {
-		return search.Result[r5.CarePlan]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CarePlan, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CarePlan)
-		if !ok {
-			return search.Result[r5.CarePlan]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CarePlan]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCarePlan(ctx, parameters, options)
 }
 
+var (
+	_ r5.CareTeamCreate = (*ClientR5)(nil)
+	_ r5.CareTeamRead   = (*ClientR5)(nil)
+	_ r5.CareTeamUpdate = (*ClientR5)(nil)
+	_ r5.CareTeamDelete = (*ClientR5)(nil)
+	_ r5.CareTeamSearch = (*ClientR5)(nil)
+)
+
 // CreateCareTeam creates a new CareTeam resource.
-func (c *ClientR5) CreateCareTeam(ctx context.Context, resource r5.CareTeam) (r5.CareTeam, error) {
+func (c *ClientR5) CreateCareTeam(ctx context.Context, resource r51.CareTeam) (r51.CareTeam, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CareTeam{}, err
-	}
-	typed, ok := result.(r5.CareTeam)
-	if !ok {
-		return r5.CareTeam{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCareTeam(ctx, resource)
 }
 
 // ReadCareTeam retrieves a CareTeam resource by ID.
-func (c *ClientR5) ReadCareTeam(ctx context.Context, id string) (r5.CareTeam, error) {
+func (c *ClientR5) ReadCareTeam(ctx context.Context, id string) (r51.CareTeam, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CareTeam", id)
-	if err != nil {
-		return r5.CareTeam{}, err
-	}
-	typed, ok := result.(r5.CareTeam)
-	if !ok {
-		return r5.CareTeam{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCareTeam(ctx, id)
 }
 
 // UpdateCareTeam updates an existing CareTeam resource.
-func (c *ClientR5) UpdateCareTeam(ctx context.Context, resource r5.CareTeam) (update.Result[r5.CareTeam], error) {
+func (c *ClientR5) UpdateCareTeam(ctx context.Context, resource r51.CareTeam) (update.Result[r51.CareTeam], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CareTeam]{}, err
-	}
-	typed, ok := result.Resource.(r5.CareTeam)
-	if !ok {
-		return update.Result[r5.CareTeam]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CareTeam]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCareTeam(ctx, resource)
 }
 
 // DeleteCareTeam deletes a CareTeam resource by ID.
 func (c *ClientR5) DeleteCareTeam(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CareTeam", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCareTeam(ctx, id)
+}
+
+// SearchCapabilitiesCareTeam returns server search capabilities for CareTeam.
+func (c *ClientR5) SearchCapabilitiesCareTeam(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCareTeam(ctx)
 }
 
 // SearchCareTeam performs a search for CareTeam resources.
-func (c *ClientR5) SearchCareTeam(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CareTeam], error) {
+func (c *ClientR5) SearchCareTeam(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CareTeam], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CareTeam", parameters, options)
-	if err != nil {
-		return search.Result[r5.CareTeam]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CareTeam, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CareTeam)
-		if !ok {
-			return search.Result[r5.CareTeam]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CareTeam]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCareTeam(ctx, parameters, options)
 }
 
+var (
+	_ r5.ChargeItemCreate = (*ClientR5)(nil)
+	_ r5.ChargeItemRead   = (*ClientR5)(nil)
+	_ r5.ChargeItemUpdate = (*ClientR5)(nil)
+	_ r5.ChargeItemDelete = (*ClientR5)(nil)
+	_ r5.ChargeItemSearch = (*ClientR5)(nil)
+)
+
 // CreateChargeItem creates a new ChargeItem resource.
-func (c *ClientR5) CreateChargeItem(ctx context.Context, resource r5.ChargeItem) (r5.ChargeItem, error) {
+func (c *ClientR5) CreateChargeItem(ctx context.Context, resource r51.ChargeItem) (r51.ChargeItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ChargeItem{}, err
-	}
-	typed, ok := result.(r5.ChargeItem)
-	if !ok {
-		return r5.ChargeItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateChargeItem(ctx, resource)
 }
 
 // ReadChargeItem retrieves a ChargeItem resource by ID.
-func (c *ClientR5) ReadChargeItem(ctx context.Context, id string) (r5.ChargeItem, error) {
+func (c *ClientR5) ReadChargeItem(ctx context.Context, id string) (r51.ChargeItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ChargeItem", id)
-	if err != nil {
-		return r5.ChargeItem{}, err
-	}
-	typed, ok := result.(r5.ChargeItem)
-	if !ok {
-		return r5.ChargeItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadChargeItem(ctx, id)
 }
 
 // UpdateChargeItem updates an existing ChargeItem resource.
-func (c *ClientR5) UpdateChargeItem(ctx context.Context, resource r5.ChargeItem) (update.Result[r5.ChargeItem], error) {
+func (c *ClientR5) UpdateChargeItem(ctx context.Context, resource r51.ChargeItem) (update.Result[r51.ChargeItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ChargeItem]{}, err
-	}
-	typed, ok := result.Resource.(r5.ChargeItem)
-	if !ok {
-		return update.Result[r5.ChargeItem]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ChargeItem]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateChargeItem(ctx, resource)
 }
 
 // DeleteChargeItem deletes a ChargeItem resource by ID.
 func (c *ClientR5) DeleteChargeItem(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ChargeItem", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteChargeItem(ctx, id)
+}
+
+// SearchCapabilitiesChargeItem returns server search capabilities for ChargeItem.
+func (c *ClientR5) SearchCapabilitiesChargeItem(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesChargeItem(ctx)
 }
 
 // SearchChargeItem performs a search for ChargeItem resources.
-func (c *ClientR5) SearchChargeItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ChargeItem], error) {
+func (c *ClientR5) SearchChargeItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ChargeItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ChargeItem", parameters, options)
-	if err != nil {
-		return search.Result[r5.ChargeItem]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ChargeItem, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ChargeItem)
-		if !ok {
-			return search.Result[r5.ChargeItem]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ChargeItem]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchChargeItem(ctx, parameters, options)
 }
 
+var (
+	_ r5.ChargeItemDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ChargeItemDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ChargeItemDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ChargeItemDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ChargeItemDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateChargeItemDefinition creates a new ChargeItemDefinition resource.
-func (c *ClientR5) CreateChargeItemDefinition(ctx context.Context, resource r5.ChargeItemDefinition) (r5.ChargeItemDefinition, error) {
+func (c *ClientR5) CreateChargeItemDefinition(ctx context.Context, resource r51.ChargeItemDefinition) (r51.ChargeItemDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ChargeItemDefinition{}, err
-	}
-	typed, ok := result.(r5.ChargeItemDefinition)
-	if !ok {
-		return r5.ChargeItemDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateChargeItemDefinition(ctx, resource)
 }
 
 // ReadChargeItemDefinition retrieves a ChargeItemDefinition resource by ID.
-func (c *ClientR5) ReadChargeItemDefinition(ctx context.Context, id string) (r5.ChargeItemDefinition, error) {
+func (c *ClientR5) ReadChargeItemDefinition(ctx context.Context, id string) (r51.ChargeItemDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ChargeItemDefinition", id)
-	if err != nil {
-		return r5.ChargeItemDefinition{}, err
-	}
-	typed, ok := result.(r5.ChargeItemDefinition)
-	if !ok {
-		return r5.ChargeItemDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadChargeItemDefinition(ctx, id)
 }
 
 // UpdateChargeItemDefinition updates an existing ChargeItemDefinition resource.
-func (c *ClientR5) UpdateChargeItemDefinition(ctx context.Context, resource r5.ChargeItemDefinition) (update.Result[r5.ChargeItemDefinition], error) {
+func (c *ClientR5) UpdateChargeItemDefinition(ctx context.Context, resource r51.ChargeItemDefinition) (update.Result[r51.ChargeItemDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ChargeItemDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ChargeItemDefinition)
-	if !ok {
-		return update.Result[r5.ChargeItemDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ChargeItemDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateChargeItemDefinition(ctx, resource)
 }
 
 // DeleteChargeItemDefinition deletes a ChargeItemDefinition resource by ID.
 func (c *ClientR5) DeleteChargeItemDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ChargeItemDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteChargeItemDefinition(ctx, id)
+}
+
+// SearchCapabilitiesChargeItemDefinition returns server search capabilities for ChargeItemDefinition.
+func (c *ClientR5) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesChargeItemDefinition(ctx)
 }
 
 // SearchChargeItemDefinition performs a search for ChargeItemDefinition resources.
-func (c *ClientR5) SearchChargeItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ChargeItemDefinition], error) {
+func (c *ClientR5) SearchChargeItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ChargeItemDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ChargeItemDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ChargeItemDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ChargeItemDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ChargeItemDefinition)
-		if !ok {
-			return search.Result[r5.ChargeItemDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ChargeItemDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchChargeItemDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.CitationCreate = (*ClientR5)(nil)
+	_ r5.CitationRead   = (*ClientR5)(nil)
+	_ r5.CitationUpdate = (*ClientR5)(nil)
+	_ r5.CitationDelete = (*ClientR5)(nil)
+	_ r5.CitationSearch = (*ClientR5)(nil)
+)
+
 // CreateCitation creates a new Citation resource.
-func (c *ClientR5) CreateCitation(ctx context.Context, resource r5.Citation) (r5.Citation, error) {
+func (c *ClientR5) CreateCitation(ctx context.Context, resource r51.Citation) (r51.Citation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Citation{}, err
-	}
-	typed, ok := result.(r5.Citation)
-	if !ok {
-		return r5.Citation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCitation(ctx, resource)
 }
 
 // ReadCitation retrieves a Citation resource by ID.
-func (c *ClientR5) ReadCitation(ctx context.Context, id string) (r5.Citation, error) {
+func (c *ClientR5) ReadCitation(ctx context.Context, id string) (r51.Citation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Citation", id)
-	if err != nil {
-		return r5.Citation{}, err
-	}
-	typed, ok := result.(r5.Citation)
-	if !ok {
-		return r5.Citation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCitation(ctx, id)
 }
 
 // UpdateCitation updates an existing Citation resource.
-func (c *ClientR5) UpdateCitation(ctx context.Context, resource r5.Citation) (update.Result[r5.Citation], error) {
+func (c *ClientR5) UpdateCitation(ctx context.Context, resource r51.Citation) (update.Result[r51.Citation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Citation]{}, err
-	}
-	typed, ok := result.Resource.(r5.Citation)
-	if !ok {
-		return update.Result[r5.Citation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Citation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCitation(ctx, resource)
 }
 
 // DeleteCitation deletes a Citation resource by ID.
 func (c *ClientR5) DeleteCitation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Citation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCitation(ctx, id)
+}
+
+// SearchCapabilitiesCitation returns server search capabilities for Citation.
+func (c *ClientR5) SearchCapabilitiesCitation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCitation(ctx)
 }
 
 // SearchCitation performs a search for Citation resources.
-func (c *ClientR5) SearchCitation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Citation], error) {
+func (c *ClientR5) SearchCitation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Citation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Citation", parameters, options)
-	if err != nil {
-		return search.Result[r5.Citation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Citation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Citation)
-		if !ok {
-			return search.Result[r5.Citation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Citation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCitation(ctx, parameters, options)
 }
 
+var (
+	_ r5.ClaimCreate = (*ClientR5)(nil)
+	_ r5.ClaimRead   = (*ClientR5)(nil)
+	_ r5.ClaimUpdate = (*ClientR5)(nil)
+	_ r5.ClaimDelete = (*ClientR5)(nil)
+	_ r5.ClaimSearch = (*ClientR5)(nil)
+)
+
 // CreateClaim creates a new Claim resource.
-func (c *ClientR5) CreateClaim(ctx context.Context, resource r5.Claim) (r5.Claim, error) {
+func (c *ClientR5) CreateClaim(ctx context.Context, resource r51.Claim) (r51.Claim, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Claim{}, err
-	}
-	typed, ok := result.(r5.Claim)
-	if !ok {
-		return r5.Claim{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateClaim(ctx, resource)
 }
 
 // ReadClaim retrieves a Claim resource by ID.
-func (c *ClientR5) ReadClaim(ctx context.Context, id string) (r5.Claim, error) {
+func (c *ClientR5) ReadClaim(ctx context.Context, id string) (r51.Claim, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Claim", id)
-	if err != nil {
-		return r5.Claim{}, err
-	}
-	typed, ok := result.(r5.Claim)
-	if !ok {
-		return r5.Claim{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadClaim(ctx, id)
 }
 
 // UpdateClaim updates an existing Claim resource.
-func (c *ClientR5) UpdateClaim(ctx context.Context, resource r5.Claim) (update.Result[r5.Claim], error) {
+func (c *ClientR5) UpdateClaim(ctx context.Context, resource r51.Claim) (update.Result[r51.Claim], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Claim]{}, err
-	}
-	typed, ok := result.Resource.(r5.Claim)
-	if !ok {
-		return update.Result[r5.Claim]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Claim]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateClaim(ctx, resource)
 }
 
 // DeleteClaim deletes a Claim resource by ID.
 func (c *ClientR5) DeleteClaim(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Claim", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteClaim(ctx, id)
+}
+
+// SearchCapabilitiesClaim returns server search capabilities for Claim.
+func (c *ClientR5) SearchCapabilitiesClaim(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesClaim(ctx)
 }
 
 // SearchClaim performs a search for Claim resources.
-func (c *ClientR5) SearchClaim(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Claim], error) {
+func (c *ClientR5) SearchClaim(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Claim], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Claim", parameters, options)
-	if err != nil {
-		return search.Result[r5.Claim]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Claim, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Claim)
-		if !ok {
-			return search.Result[r5.Claim]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Claim]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchClaim(ctx, parameters, options)
 }
 
+var (
+	_ r5.ClaimResponseCreate = (*ClientR5)(nil)
+	_ r5.ClaimResponseRead   = (*ClientR5)(nil)
+	_ r5.ClaimResponseUpdate = (*ClientR5)(nil)
+	_ r5.ClaimResponseDelete = (*ClientR5)(nil)
+	_ r5.ClaimResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateClaimResponse creates a new ClaimResponse resource.
-func (c *ClientR5) CreateClaimResponse(ctx context.Context, resource r5.ClaimResponse) (r5.ClaimResponse, error) {
+func (c *ClientR5) CreateClaimResponse(ctx context.Context, resource r51.ClaimResponse) (r51.ClaimResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ClaimResponse{}, err
-	}
-	typed, ok := result.(r5.ClaimResponse)
-	if !ok {
-		return r5.ClaimResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateClaimResponse(ctx, resource)
 }
 
 // ReadClaimResponse retrieves a ClaimResponse resource by ID.
-func (c *ClientR5) ReadClaimResponse(ctx context.Context, id string) (r5.ClaimResponse, error) {
+func (c *ClientR5) ReadClaimResponse(ctx context.Context, id string) (r51.ClaimResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ClaimResponse", id)
-	if err != nil {
-		return r5.ClaimResponse{}, err
-	}
-	typed, ok := result.(r5.ClaimResponse)
-	if !ok {
-		return r5.ClaimResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadClaimResponse(ctx, id)
 }
 
 // UpdateClaimResponse updates an existing ClaimResponse resource.
-func (c *ClientR5) UpdateClaimResponse(ctx context.Context, resource r5.ClaimResponse) (update.Result[r5.ClaimResponse], error) {
+func (c *ClientR5) UpdateClaimResponse(ctx context.Context, resource r51.ClaimResponse) (update.Result[r51.ClaimResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ClaimResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.ClaimResponse)
-	if !ok {
-		return update.Result[r5.ClaimResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ClaimResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateClaimResponse(ctx, resource)
 }
 
 // DeleteClaimResponse deletes a ClaimResponse resource by ID.
 func (c *ClientR5) DeleteClaimResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ClaimResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteClaimResponse(ctx, id)
+}
+
+// SearchCapabilitiesClaimResponse returns server search capabilities for ClaimResponse.
+func (c *ClientR5) SearchCapabilitiesClaimResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesClaimResponse(ctx)
 }
 
 // SearchClaimResponse performs a search for ClaimResponse resources.
-func (c *ClientR5) SearchClaimResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClaimResponse], error) {
+func (c *ClientR5) SearchClaimResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ClaimResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ClaimResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.ClaimResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ClaimResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ClaimResponse)
-		if !ok {
-			return search.Result[r5.ClaimResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ClaimResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchClaimResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.ClinicalImpressionCreate = (*ClientR5)(nil)
+	_ r5.ClinicalImpressionRead   = (*ClientR5)(nil)
+	_ r5.ClinicalImpressionUpdate = (*ClientR5)(nil)
+	_ r5.ClinicalImpressionDelete = (*ClientR5)(nil)
+	_ r5.ClinicalImpressionSearch = (*ClientR5)(nil)
+)
+
 // CreateClinicalImpression creates a new ClinicalImpression resource.
-func (c *ClientR5) CreateClinicalImpression(ctx context.Context, resource r5.ClinicalImpression) (r5.ClinicalImpression, error) {
+func (c *ClientR5) CreateClinicalImpression(ctx context.Context, resource r51.ClinicalImpression) (r51.ClinicalImpression, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ClinicalImpression{}, err
-	}
-	typed, ok := result.(r5.ClinicalImpression)
-	if !ok {
-		return r5.ClinicalImpression{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateClinicalImpression(ctx, resource)
 }
 
 // ReadClinicalImpression retrieves a ClinicalImpression resource by ID.
-func (c *ClientR5) ReadClinicalImpression(ctx context.Context, id string) (r5.ClinicalImpression, error) {
+func (c *ClientR5) ReadClinicalImpression(ctx context.Context, id string) (r51.ClinicalImpression, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ClinicalImpression", id)
-	if err != nil {
-		return r5.ClinicalImpression{}, err
-	}
-	typed, ok := result.(r5.ClinicalImpression)
-	if !ok {
-		return r5.ClinicalImpression{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadClinicalImpression(ctx, id)
 }
 
 // UpdateClinicalImpression updates an existing ClinicalImpression resource.
-func (c *ClientR5) UpdateClinicalImpression(ctx context.Context, resource r5.ClinicalImpression) (update.Result[r5.ClinicalImpression], error) {
+func (c *ClientR5) UpdateClinicalImpression(ctx context.Context, resource r51.ClinicalImpression) (update.Result[r51.ClinicalImpression], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ClinicalImpression]{}, err
-	}
-	typed, ok := result.Resource.(r5.ClinicalImpression)
-	if !ok {
-		return update.Result[r5.ClinicalImpression]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ClinicalImpression]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateClinicalImpression(ctx, resource)
 }
 
 // DeleteClinicalImpression deletes a ClinicalImpression resource by ID.
 func (c *ClientR5) DeleteClinicalImpression(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ClinicalImpression", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteClinicalImpression(ctx, id)
+}
+
+// SearchCapabilitiesClinicalImpression returns server search capabilities for ClinicalImpression.
+func (c *ClientR5) SearchCapabilitiesClinicalImpression(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesClinicalImpression(ctx)
 }
 
 // SearchClinicalImpression performs a search for ClinicalImpression resources.
-func (c *ClientR5) SearchClinicalImpression(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClinicalImpression], error) {
+func (c *ClientR5) SearchClinicalImpression(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ClinicalImpression], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ClinicalImpression", parameters, options)
-	if err != nil {
-		return search.Result[r5.ClinicalImpression]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ClinicalImpression, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ClinicalImpression)
-		if !ok {
-			return search.Result[r5.ClinicalImpression]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ClinicalImpression]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchClinicalImpression(ctx, parameters, options)
 }
 
+var (
+	_ r5.ClinicalUseDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ClinicalUseDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ClinicalUseDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ClinicalUseDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ClinicalUseDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateClinicalUseDefinition creates a new ClinicalUseDefinition resource.
-func (c *ClientR5) CreateClinicalUseDefinition(ctx context.Context, resource r5.ClinicalUseDefinition) (r5.ClinicalUseDefinition, error) {
+func (c *ClientR5) CreateClinicalUseDefinition(ctx context.Context, resource r51.ClinicalUseDefinition) (r51.ClinicalUseDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ClinicalUseDefinition{}, err
-	}
-	typed, ok := result.(r5.ClinicalUseDefinition)
-	if !ok {
-		return r5.ClinicalUseDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateClinicalUseDefinition(ctx, resource)
 }
 
 // ReadClinicalUseDefinition retrieves a ClinicalUseDefinition resource by ID.
-func (c *ClientR5) ReadClinicalUseDefinition(ctx context.Context, id string) (r5.ClinicalUseDefinition, error) {
+func (c *ClientR5) ReadClinicalUseDefinition(ctx context.Context, id string) (r51.ClinicalUseDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ClinicalUseDefinition", id)
-	if err != nil {
-		return r5.ClinicalUseDefinition{}, err
-	}
-	typed, ok := result.(r5.ClinicalUseDefinition)
-	if !ok {
-		return r5.ClinicalUseDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadClinicalUseDefinition(ctx, id)
 }
 
 // UpdateClinicalUseDefinition updates an existing ClinicalUseDefinition resource.
-func (c *ClientR5) UpdateClinicalUseDefinition(ctx context.Context, resource r5.ClinicalUseDefinition) (update.Result[r5.ClinicalUseDefinition], error) {
+func (c *ClientR5) UpdateClinicalUseDefinition(ctx context.Context, resource r51.ClinicalUseDefinition) (update.Result[r51.ClinicalUseDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ClinicalUseDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ClinicalUseDefinition)
-	if !ok {
-		return update.Result[r5.ClinicalUseDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ClinicalUseDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateClinicalUseDefinition(ctx, resource)
 }
 
 // DeleteClinicalUseDefinition deletes a ClinicalUseDefinition resource by ID.
 func (c *ClientR5) DeleteClinicalUseDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ClinicalUseDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteClinicalUseDefinition(ctx, id)
+}
+
+// SearchCapabilitiesClinicalUseDefinition returns server search capabilities for ClinicalUseDefinition.
+func (c *ClientR5) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesClinicalUseDefinition(ctx)
 }
 
 // SearchClinicalUseDefinition performs a search for ClinicalUseDefinition resources.
-func (c *ClientR5) SearchClinicalUseDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ClinicalUseDefinition], error) {
+func (c *ClientR5) SearchClinicalUseDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ClinicalUseDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ClinicalUseDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ClinicalUseDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ClinicalUseDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ClinicalUseDefinition)
-		if !ok {
-			return search.Result[r5.ClinicalUseDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ClinicalUseDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchClinicalUseDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.CodeSystemCreate = (*ClientR5)(nil)
+	_ r5.CodeSystemRead   = (*ClientR5)(nil)
+	_ r5.CodeSystemUpdate = (*ClientR5)(nil)
+	_ r5.CodeSystemDelete = (*ClientR5)(nil)
+	_ r5.CodeSystemSearch = (*ClientR5)(nil)
+)
+
 // CreateCodeSystem creates a new CodeSystem resource.
-func (c *ClientR5) CreateCodeSystem(ctx context.Context, resource r5.CodeSystem) (r5.CodeSystem, error) {
+func (c *ClientR5) CreateCodeSystem(ctx context.Context, resource r51.CodeSystem) (r51.CodeSystem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CodeSystem{}, err
-	}
-	typed, ok := result.(r5.CodeSystem)
-	if !ok {
-		return r5.CodeSystem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCodeSystem(ctx, resource)
 }
 
 // ReadCodeSystem retrieves a CodeSystem resource by ID.
-func (c *ClientR5) ReadCodeSystem(ctx context.Context, id string) (r5.CodeSystem, error) {
+func (c *ClientR5) ReadCodeSystem(ctx context.Context, id string) (r51.CodeSystem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CodeSystem", id)
-	if err != nil {
-		return r5.CodeSystem{}, err
-	}
-	typed, ok := result.(r5.CodeSystem)
-	if !ok {
-		return r5.CodeSystem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCodeSystem(ctx, id)
 }
 
 // UpdateCodeSystem updates an existing CodeSystem resource.
-func (c *ClientR5) UpdateCodeSystem(ctx context.Context, resource r5.CodeSystem) (update.Result[r5.CodeSystem], error) {
+func (c *ClientR5) UpdateCodeSystem(ctx context.Context, resource r51.CodeSystem) (update.Result[r51.CodeSystem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CodeSystem]{}, err
-	}
-	typed, ok := result.Resource.(r5.CodeSystem)
-	if !ok {
-		return update.Result[r5.CodeSystem]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CodeSystem]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCodeSystem(ctx, resource)
 }
 
 // DeleteCodeSystem deletes a CodeSystem resource by ID.
 func (c *ClientR5) DeleteCodeSystem(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CodeSystem", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCodeSystem(ctx, id)
+}
+
+// SearchCapabilitiesCodeSystem returns server search capabilities for CodeSystem.
+func (c *ClientR5) SearchCapabilitiesCodeSystem(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCodeSystem(ctx)
 }
 
 // SearchCodeSystem performs a search for CodeSystem resources.
-func (c *ClientR5) SearchCodeSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CodeSystem], error) {
+func (c *ClientR5) SearchCodeSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CodeSystem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CodeSystem", parameters, options)
-	if err != nil {
-		return search.Result[r5.CodeSystem]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CodeSystem, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CodeSystem)
-		if !ok {
-			return search.Result[r5.CodeSystem]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CodeSystem]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCodeSystem(ctx, parameters, options)
 }
 
+var (
+	_ r5.CommunicationCreate = (*ClientR5)(nil)
+	_ r5.CommunicationRead   = (*ClientR5)(nil)
+	_ r5.CommunicationUpdate = (*ClientR5)(nil)
+	_ r5.CommunicationDelete = (*ClientR5)(nil)
+	_ r5.CommunicationSearch = (*ClientR5)(nil)
+)
+
 // CreateCommunication creates a new Communication resource.
-func (c *ClientR5) CreateCommunication(ctx context.Context, resource r5.Communication) (r5.Communication, error) {
+func (c *ClientR5) CreateCommunication(ctx context.Context, resource r51.Communication) (r51.Communication, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Communication{}, err
-	}
-	typed, ok := result.(r5.Communication)
-	if !ok {
-		return r5.Communication{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCommunication(ctx, resource)
 }
 
 // ReadCommunication retrieves a Communication resource by ID.
-func (c *ClientR5) ReadCommunication(ctx context.Context, id string) (r5.Communication, error) {
+func (c *ClientR5) ReadCommunication(ctx context.Context, id string) (r51.Communication, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Communication", id)
-	if err != nil {
-		return r5.Communication{}, err
-	}
-	typed, ok := result.(r5.Communication)
-	if !ok {
-		return r5.Communication{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCommunication(ctx, id)
 }
 
 // UpdateCommunication updates an existing Communication resource.
-func (c *ClientR5) UpdateCommunication(ctx context.Context, resource r5.Communication) (update.Result[r5.Communication], error) {
+func (c *ClientR5) UpdateCommunication(ctx context.Context, resource r51.Communication) (update.Result[r51.Communication], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Communication]{}, err
-	}
-	typed, ok := result.Resource.(r5.Communication)
-	if !ok {
-		return update.Result[r5.Communication]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Communication]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCommunication(ctx, resource)
 }
 
 // DeleteCommunication deletes a Communication resource by ID.
 func (c *ClientR5) DeleteCommunication(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Communication", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCommunication(ctx, id)
+}
+
+// SearchCapabilitiesCommunication returns server search capabilities for Communication.
+func (c *ClientR5) SearchCapabilitiesCommunication(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCommunication(ctx)
 }
 
 // SearchCommunication performs a search for Communication resources.
-func (c *ClientR5) SearchCommunication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Communication], error) {
+func (c *ClientR5) SearchCommunication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Communication], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Communication", parameters, options)
-	if err != nil {
-		return search.Result[r5.Communication]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Communication, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Communication)
-		if !ok {
-			return search.Result[r5.Communication]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Communication]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCommunication(ctx, parameters, options)
 }
 
+var (
+	_ r5.CommunicationRequestCreate = (*ClientR5)(nil)
+	_ r5.CommunicationRequestRead   = (*ClientR5)(nil)
+	_ r5.CommunicationRequestUpdate = (*ClientR5)(nil)
+	_ r5.CommunicationRequestDelete = (*ClientR5)(nil)
+	_ r5.CommunicationRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateCommunicationRequest creates a new CommunicationRequest resource.
-func (c *ClientR5) CreateCommunicationRequest(ctx context.Context, resource r5.CommunicationRequest) (r5.CommunicationRequest, error) {
+func (c *ClientR5) CreateCommunicationRequest(ctx context.Context, resource r51.CommunicationRequest) (r51.CommunicationRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CommunicationRequest{}, err
-	}
-	typed, ok := result.(r5.CommunicationRequest)
-	if !ok {
-		return r5.CommunicationRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCommunicationRequest(ctx, resource)
 }
 
 // ReadCommunicationRequest retrieves a CommunicationRequest resource by ID.
-func (c *ClientR5) ReadCommunicationRequest(ctx context.Context, id string) (r5.CommunicationRequest, error) {
+func (c *ClientR5) ReadCommunicationRequest(ctx context.Context, id string) (r51.CommunicationRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CommunicationRequest", id)
-	if err != nil {
-		return r5.CommunicationRequest{}, err
-	}
-	typed, ok := result.(r5.CommunicationRequest)
-	if !ok {
-		return r5.CommunicationRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCommunicationRequest(ctx, id)
 }
 
 // UpdateCommunicationRequest updates an existing CommunicationRequest resource.
-func (c *ClientR5) UpdateCommunicationRequest(ctx context.Context, resource r5.CommunicationRequest) (update.Result[r5.CommunicationRequest], error) {
+func (c *ClientR5) UpdateCommunicationRequest(ctx context.Context, resource r51.CommunicationRequest) (update.Result[r51.CommunicationRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CommunicationRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.CommunicationRequest)
-	if !ok {
-		return update.Result[r5.CommunicationRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CommunicationRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCommunicationRequest(ctx, resource)
 }
 
 // DeleteCommunicationRequest deletes a CommunicationRequest resource by ID.
 func (c *ClientR5) DeleteCommunicationRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CommunicationRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCommunicationRequest(ctx, id)
+}
+
+// SearchCapabilitiesCommunicationRequest returns server search capabilities for CommunicationRequest.
+func (c *ClientR5) SearchCapabilitiesCommunicationRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCommunicationRequest(ctx)
 }
 
 // SearchCommunicationRequest performs a search for CommunicationRequest resources.
-func (c *ClientR5) SearchCommunicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CommunicationRequest], error) {
+func (c *ClientR5) SearchCommunicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CommunicationRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CommunicationRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.CommunicationRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CommunicationRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CommunicationRequest)
-		if !ok {
-			return search.Result[r5.CommunicationRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CommunicationRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCommunicationRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.CompartmentDefinitionCreate = (*ClientR5)(nil)
+	_ r5.CompartmentDefinitionRead   = (*ClientR5)(nil)
+	_ r5.CompartmentDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.CompartmentDefinitionDelete = (*ClientR5)(nil)
+	_ r5.CompartmentDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateCompartmentDefinition creates a new CompartmentDefinition resource.
-func (c *ClientR5) CreateCompartmentDefinition(ctx context.Context, resource r5.CompartmentDefinition) (r5.CompartmentDefinition, error) {
+func (c *ClientR5) CreateCompartmentDefinition(ctx context.Context, resource r51.CompartmentDefinition) (r51.CompartmentDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CompartmentDefinition{}, err
-	}
-	typed, ok := result.(r5.CompartmentDefinition)
-	if !ok {
-		return r5.CompartmentDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCompartmentDefinition(ctx, resource)
 }
 
 // ReadCompartmentDefinition retrieves a CompartmentDefinition resource by ID.
-func (c *ClientR5) ReadCompartmentDefinition(ctx context.Context, id string) (r5.CompartmentDefinition, error) {
+func (c *ClientR5) ReadCompartmentDefinition(ctx context.Context, id string) (r51.CompartmentDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CompartmentDefinition", id)
-	if err != nil {
-		return r5.CompartmentDefinition{}, err
-	}
-	typed, ok := result.(r5.CompartmentDefinition)
-	if !ok {
-		return r5.CompartmentDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCompartmentDefinition(ctx, id)
 }
 
 // UpdateCompartmentDefinition updates an existing CompartmentDefinition resource.
-func (c *ClientR5) UpdateCompartmentDefinition(ctx context.Context, resource r5.CompartmentDefinition) (update.Result[r5.CompartmentDefinition], error) {
+func (c *ClientR5) UpdateCompartmentDefinition(ctx context.Context, resource r51.CompartmentDefinition) (update.Result[r51.CompartmentDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CompartmentDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.CompartmentDefinition)
-	if !ok {
-		return update.Result[r5.CompartmentDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CompartmentDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCompartmentDefinition(ctx, resource)
 }
 
 // DeleteCompartmentDefinition deletes a CompartmentDefinition resource by ID.
 func (c *ClientR5) DeleteCompartmentDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CompartmentDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCompartmentDefinition(ctx, id)
+}
+
+// SearchCapabilitiesCompartmentDefinition returns server search capabilities for CompartmentDefinition.
+func (c *ClientR5) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCompartmentDefinition(ctx)
 }
 
 // SearchCompartmentDefinition performs a search for CompartmentDefinition resources.
-func (c *ClientR5) SearchCompartmentDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CompartmentDefinition], error) {
+func (c *ClientR5) SearchCompartmentDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CompartmentDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CompartmentDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.CompartmentDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CompartmentDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CompartmentDefinition)
-		if !ok {
-			return search.Result[r5.CompartmentDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CompartmentDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCompartmentDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.CompositionCreate = (*ClientR5)(nil)
+	_ r5.CompositionRead   = (*ClientR5)(nil)
+	_ r5.CompositionUpdate = (*ClientR5)(nil)
+	_ r5.CompositionDelete = (*ClientR5)(nil)
+	_ r5.CompositionSearch = (*ClientR5)(nil)
+)
+
 // CreateComposition creates a new Composition resource.
-func (c *ClientR5) CreateComposition(ctx context.Context, resource r5.Composition) (r5.Composition, error) {
+func (c *ClientR5) CreateComposition(ctx context.Context, resource r51.Composition) (r51.Composition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Composition{}, err
-	}
-	typed, ok := result.(r5.Composition)
-	if !ok {
-		return r5.Composition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateComposition(ctx, resource)
 }
 
 // ReadComposition retrieves a Composition resource by ID.
-func (c *ClientR5) ReadComposition(ctx context.Context, id string) (r5.Composition, error) {
+func (c *ClientR5) ReadComposition(ctx context.Context, id string) (r51.Composition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Composition", id)
-	if err != nil {
-		return r5.Composition{}, err
-	}
-	typed, ok := result.(r5.Composition)
-	if !ok {
-		return r5.Composition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadComposition(ctx, id)
 }
 
 // UpdateComposition updates an existing Composition resource.
-func (c *ClientR5) UpdateComposition(ctx context.Context, resource r5.Composition) (update.Result[r5.Composition], error) {
+func (c *ClientR5) UpdateComposition(ctx context.Context, resource r51.Composition) (update.Result[r51.Composition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Composition]{}, err
-	}
-	typed, ok := result.Resource.(r5.Composition)
-	if !ok {
-		return update.Result[r5.Composition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Composition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateComposition(ctx, resource)
 }
 
 // DeleteComposition deletes a Composition resource by ID.
 func (c *ClientR5) DeleteComposition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Composition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteComposition(ctx, id)
+}
+
+// SearchCapabilitiesComposition returns server search capabilities for Composition.
+func (c *ClientR5) SearchCapabilitiesComposition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesComposition(ctx)
 }
 
 // SearchComposition performs a search for Composition resources.
-func (c *ClientR5) SearchComposition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Composition], error) {
+func (c *ClientR5) SearchComposition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Composition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Composition", parameters, options)
-	if err != nil {
-		return search.Result[r5.Composition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Composition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Composition)
-		if !ok {
-			return search.Result[r5.Composition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Composition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchComposition(ctx, parameters, options)
 }
 
+var (
+	_ r5.ConceptMapCreate = (*ClientR5)(nil)
+	_ r5.ConceptMapRead   = (*ClientR5)(nil)
+	_ r5.ConceptMapUpdate = (*ClientR5)(nil)
+	_ r5.ConceptMapDelete = (*ClientR5)(nil)
+	_ r5.ConceptMapSearch = (*ClientR5)(nil)
+)
+
 // CreateConceptMap creates a new ConceptMap resource.
-func (c *ClientR5) CreateConceptMap(ctx context.Context, resource r5.ConceptMap) (r5.ConceptMap, error) {
+func (c *ClientR5) CreateConceptMap(ctx context.Context, resource r51.ConceptMap) (r51.ConceptMap, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ConceptMap{}, err
-	}
-	typed, ok := result.(r5.ConceptMap)
-	if !ok {
-		return r5.ConceptMap{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateConceptMap(ctx, resource)
 }
 
 // ReadConceptMap retrieves a ConceptMap resource by ID.
-func (c *ClientR5) ReadConceptMap(ctx context.Context, id string) (r5.ConceptMap, error) {
+func (c *ClientR5) ReadConceptMap(ctx context.Context, id string) (r51.ConceptMap, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ConceptMap", id)
-	if err != nil {
-		return r5.ConceptMap{}, err
-	}
-	typed, ok := result.(r5.ConceptMap)
-	if !ok {
-		return r5.ConceptMap{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadConceptMap(ctx, id)
 }
 
 // UpdateConceptMap updates an existing ConceptMap resource.
-func (c *ClientR5) UpdateConceptMap(ctx context.Context, resource r5.ConceptMap) (update.Result[r5.ConceptMap], error) {
+func (c *ClientR5) UpdateConceptMap(ctx context.Context, resource r51.ConceptMap) (update.Result[r51.ConceptMap], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ConceptMap]{}, err
-	}
-	typed, ok := result.Resource.(r5.ConceptMap)
-	if !ok {
-		return update.Result[r5.ConceptMap]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ConceptMap]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateConceptMap(ctx, resource)
 }
 
 // DeleteConceptMap deletes a ConceptMap resource by ID.
 func (c *ClientR5) DeleteConceptMap(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ConceptMap", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteConceptMap(ctx, id)
+}
+
+// SearchCapabilitiesConceptMap returns server search capabilities for ConceptMap.
+func (c *ClientR5) SearchCapabilitiesConceptMap(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesConceptMap(ctx)
 }
 
 // SearchConceptMap performs a search for ConceptMap resources.
-func (c *ClientR5) SearchConceptMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ConceptMap], error) {
+func (c *ClientR5) SearchConceptMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ConceptMap], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ConceptMap", parameters, options)
-	if err != nil {
-		return search.Result[r5.ConceptMap]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ConceptMap, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ConceptMap)
-		if !ok {
-			return search.Result[r5.ConceptMap]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ConceptMap]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchConceptMap(ctx, parameters, options)
 }
 
+var (
+	_ r5.ConditionCreate = (*ClientR5)(nil)
+	_ r5.ConditionRead   = (*ClientR5)(nil)
+	_ r5.ConditionUpdate = (*ClientR5)(nil)
+	_ r5.ConditionDelete = (*ClientR5)(nil)
+	_ r5.ConditionSearch = (*ClientR5)(nil)
+)
+
 // CreateCondition creates a new Condition resource.
-func (c *ClientR5) CreateCondition(ctx context.Context, resource r5.Condition) (r5.Condition, error) {
+func (c *ClientR5) CreateCondition(ctx context.Context, resource r51.Condition) (r51.Condition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Condition{}, err
-	}
-	typed, ok := result.(r5.Condition)
-	if !ok {
-		return r5.Condition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCondition(ctx, resource)
 }
 
 // ReadCondition retrieves a Condition resource by ID.
-func (c *ClientR5) ReadCondition(ctx context.Context, id string) (r5.Condition, error) {
+func (c *ClientR5) ReadCondition(ctx context.Context, id string) (r51.Condition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Condition", id)
-	if err != nil {
-		return r5.Condition{}, err
-	}
-	typed, ok := result.(r5.Condition)
-	if !ok {
-		return r5.Condition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCondition(ctx, id)
 }
 
 // UpdateCondition updates an existing Condition resource.
-func (c *ClientR5) UpdateCondition(ctx context.Context, resource r5.Condition) (update.Result[r5.Condition], error) {
+func (c *ClientR5) UpdateCondition(ctx context.Context, resource r51.Condition) (update.Result[r51.Condition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Condition]{}, err
-	}
-	typed, ok := result.Resource.(r5.Condition)
-	if !ok {
-		return update.Result[r5.Condition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Condition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCondition(ctx, resource)
 }
 
 // DeleteCondition deletes a Condition resource by ID.
 func (c *ClientR5) DeleteCondition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Condition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCondition(ctx, id)
+}
+
+// SearchCapabilitiesCondition returns server search capabilities for Condition.
+func (c *ClientR5) SearchCapabilitiesCondition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCondition(ctx)
 }
 
 // SearchCondition performs a search for Condition resources.
-func (c *ClientR5) SearchCondition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Condition], error) {
+func (c *ClientR5) SearchCondition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Condition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Condition", parameters, options)
-	if err != nil {
-		return search.Result[r5.Condition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Condition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Condition)
-		if !ok {
-			return search.Result[r5.Condition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Condition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCondition(ctx, parameters, options)
 }
 
+var (
+	_ r5.ConditionDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ConditionDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ConditionDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ConditionDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ConditionDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateConditionDefinition creates a new ConditionDefinition resource.
-func (c *ClientR5) CreateConditionDefinition(ctx context.Context, resource r5.ConditionDefinition) (r5.ConditionDefinition, error) {
+func (c *ClientR5) CreateConditionDefinition(ctx context.Context, resource r51.ConditionDefinition) (r51.ConditionDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ConditionDefinition{}, err
-	}
-	typed, ok := result.(r5.ConditionDefinition)
-	if !ok {
-		return r5.ConditionDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateConditionDefinition(ctx, resource)
 }
 
 // ReadConditionDefinition retrieves a ConditionDefinition resource by ID.
-func (c *ClientR5) ReadConditionDefinition(ctx context.Context, id string) (r5.ConditionDefinition, error) {
+func (c *ClientR5) ReadConditionDefinition(ctx context.Context, id string) (r51.ConditionDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ConditionDefinition", id)
-	if err != nil {
-		return r5.ConditionDefinition{}, err
-	}
-	typed, ok := result.(r5.ConditionDefinition)
-	if !ok {
-		return r5.ConditionDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadConditionDefinition(ctx, id)
 }
 
 // UpdateConditionDefinition updates an existing ConditionDefinition resource.
-func (c *ClientR5) UpdateConditionDefinition(ctx context.Context, resource r5.ConditionDefinition) (update.Result[r5.ConditionDefinition], error) {
+func (c *ClientR5) UpdateConditionDefinition(ctx context.Context, resource r51.ConditionDefinition) (update.Result[r51.ConditionDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ConditionDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ConditionDefinition)
-	if !ok {
-		return update.Result[r5.ConditionDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ConditionDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateConditionDefinition(ctx, resource)
 }
 
 // DeleteConditionDefinition deletes a ConditionDefinition resource by ID.
 func (c *ClientR5) DeleteConditionDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ConditionDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteConditionDefinition(ctx, id)
+}
+
+// SearchCapabilitiesConditionDefinition returns server search capabilities for ConditionDefinition.
+func (c *ClientR5) SearchCapabilitiesConditionDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesConditionDefinition(ctx)
 }
 
 // SearchConditionDefinition performs a search for ConditionDefinition resources.
-func (c *ClientR5) SearchConditionDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ConditionDefinition], error) {
+func (c *ClientR5) SearchConditionDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ConditionDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ConditionDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ConditionDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ConditionDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ConditionDefinition)
-		if !ok {
-			return search.Result[r5.ConditionDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ConditionDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchConditionDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.ConsentCreate = (*ClientR5)(nil)
+	_ r5.ConsentRead   = (*ClientR5)(nil)
+	_ r5.ConsentUpdate = (*ClientR5)(nil)
+	_ r5.ConsentDelete = (*ClientR5)(nil)
+	_ r5.ConsentSearch = (*ClientR5)(nil)
+)
+
 // CreateConsent creates a new Consent resource.
-func (c *ClientR5) CreateConsent(ctx context.Context, resource r5.Consent) (r5.Consent, error) {
+func (c *ClientR5) CreateConsent(ctx context.Context, resource r51.Consent) (r51.Consent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Consent{}, err
-	}
-	typed, ok := result.(r5.Consent)
-	if !ok {
-		return r5.Consent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateConsent(ctx, resource)
 }
 
 // ReadConsent retrieves a Consent resource by ID.
-func (c *ClientR5) ReadConsent(ctx context.Context, id string) (r5.Consent, error) {
+func (c *ClientR5) ReadConsent(ctx context.Context, id string) (r51.Consent, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Consent", id)
-	if err != nil {
-		return r5.Consent{}, err
-	}
-	typed, ok := result.(r5.Consent)
-	if !ok {
-		return r5.Consent{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadConsent(ctx, id)
 }
 
 // UpdateConsent updates an existing Consent resource.
-func (c *ClientR5) UpdateConsent(ctx context.Context, resource r5.Consent) (update.Result[r5.Consent], error) {
+func (c *ClientR5) UpdateConsent(ctx context.Context, resource r51.Consent) (update.Result[r51.Consent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Consent]{}, err
-	}
-	typed, ok := result.Resource.(r5.Consent)
-	if !ok {
-		return update.Result[r5.Consent]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Consent]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateConsent(ctx, resource)
 }
 
 // DeleteConsent deletes a Consent resource by ID.
 func (c *ClientR5) DeleteConsent(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Consent", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteConsent(ctx, id)
+}
+
+// SearchCapabilitiesConsent returns server search capabilities for Consent.
+func (c *ClientR5) SearchCapabilitiesConsent(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesConsent(ctx)
 }
 
 // SearchConsent performs a search for Consent resources.
-func (c *ClientR5) SearchConsent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Consent], error) {
+func (c *ClientR5) SearchConsent(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Consent], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Consent", parameters, options)
-	if err != nil {
-		return search.Result[r5.Consent]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Consent, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Consent)
-		if !ok {
-			return search.Result[r5.Consent]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Consent]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchConsent(ctx, parameters, options)
 }
 
+var (
+	_ r5.ContractCreate = (*ClientR5)(nil)
+	_ r5.ContractRead   = (*ClientR5)(nil)
+	_ r5.ContractUpdate = (*ClientR5)(nil)
+	_ r5.ContractDelete = (*ClientR5)(nil)
+	_ r5.ContractSearch = (*ClientR5)(nil)
+)
+
 // CreateContract creates a new Contract resource.
-func (c *ClientR5) CreateContract(ctx context.Context, resource r5.Contract) (r5.Contract, error) {
+func (c *ClientR5) CreateContract(ctx context.Context, resource r51.Contract) (r51.Contract, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Contract{}, err
-	}
-	typed, ok := result.(r5.Contract)
-	if !ok {
-		return r5.Contract{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateContract(ctx, resource)
 }
 
 // ReadContract retrieves a Contract resource by ID.
-func (c *ClientR5) ReadContract(ctx context.Context, id string) (r5.Contract, error) {
+func (c *ClientR5) ReadContract(ctx context.Context, id string) (r51.Contract, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Contract", id)
-	if err != nil {
-		return r5.Contract{}, err
-	}
-	typed, ok := result.(r5.Contract)
-	if !ok {
-		return r5.Contract{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadContract(ctx, id)
 }
 
 // UpdateContract updates an existing Contract resource.
-func (c *ClientR5) UpdateContract(ctx context.Context, resource r5.Contract) (update.Result[r5.Contract], error) {
+func (c *ClientR5) UpdateContract(ctx context.Context, resource r51.Contract) (update.Result[r51.Contract], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Contract]{}, err
-	}
-	typed, ok := result.Resource.(r5.Contract)
-	if !ok {
-		return update.Result[r5.Contract]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Contract]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateContract(ctx, resource)
 }
 
 // DeleteContract deletes a Contract resource by ID.
 func (c *ClientR5) DeleteContract(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Contract", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteContract(ctx, id)
+}
+
+// SearchCapabilitiesContract returns server search capabilities for Contract.
+func (c *ClientR5) SearchCapabilitiesContract(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesContract(ctx)
 }
 
 // SearchContract performs a search for Contract resources.
-func (c *ClientR5) SearchContract(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Contract], error) {
+func (c *ClientR5) SearchContract(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Contract], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Contract", parameters, options)
-	if err != nil {
-		return search.Result[r5.Contract]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Contract, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Contract)
-		if !ok {
-			return search.Result[r5.Contract]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Contract]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchContract(ctx, parameters, options)
 }
 
+var (
+	_ r5.CoverageCreate = (*ClientR5)(nil)
+	_ r5.CoverageRead   = (*ClientR5)(nil)
+	_ r5.CoverageUpdate = (*ClientR5)(nil)
+	_ r5.CoverageDelete = (*ClientR5)(nil)
+	_ r5.CoverageSearch = (*ClientR5)(nil)
+)
+
 // CreateCoverage creates a new Coverage resource.
-func (c *ClientR5) CreateCoverage(ctx context.Context, resource r5.Coverage) (r5.Coverage, error) {
+func (c *ClientR5) CreateCoverage(ctx context.Context, resource r51.Coverage) (r51.Coverage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Coverage{}, err
-	}
-	typed, ok := result.(r5.Coverage)
-	if !ok {
-		return r5.Coverage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCoverage(ctx, resource)
 }
 
 // ReadCoverage retrieves a Coverage resource by ID.
-func (c *ClientR5) ReadCoverage(ctx context.Context, id string) (r5.Coverage, error) {
+func (c *ClientR5) ReadCoverage(ctx context.Context, id string) (r51.Coverage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Coverage", id)
-	if err != nil {
-		return r5.Coverage{}, err
-	}
-	typed, ok := result.(r5.Coverage)
-	if !ok {
-		return r5.Coverage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCoverage(ctx, id)
 }
 
 // UpdateCoverage updates an existing Coverage resource.
-func (c *ClientR5) UpdateCoverage(ctx context.Context, resource r5.Coverage) (update.Result[r5.Coverage], error) {
+func (c *ClientR5) UpdateCoverage(ctx context.Context, resource r51.Coverage) (update.Result[r51.Coverage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Coverage]{}, err
-	}
-	typed, ok := result.Resource.(r5.Coverage)
-	if !ok {
-		return update.Result[r5.Coverage]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Coverage]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCoverage(ctx, resource)
 }
 
 // DeleteCoverage deletes a Coverage resource by ID.
 func (c *ClientR5) DeleteCoverage(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Coverage", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCoverage(ctx, id)
+}
+
+// SearchCapabilitiesCoverage returns server search capabilities for Coverage.
+func (c *ClientR5) SearchCapabilitiesCoverage(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCoverage(ctx)
 }
 
 // SearchCoverage performs a search for Coverage resources.
-func (c *ClientR5) SearchCoverage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Coverage], error) {
+func (c *ClientR5) SearchCoverage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Coverage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Coverage", parameters, options)
-	if err != nil {
-		return search.Result[r5.Coverage]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Coverage, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Coverage)
-		if !ok {
-			return search.Result[r5.Coverage]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Coverage]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCoverage(ctx, parameters, options)
 }
 
+var (
+	_ r5.CoverageEligibilityRequestCreate = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityRequestRead   = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityRequestUpdate = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityRequestDelete = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateCoverageEligibilityRequest creates a new CoverageEligibilityRequest resource.
-func (c *ClientR5) CreateCoverageEligibilityRequest(ctx context.Context, resource r5.CoverageEligibilityRequest) (r5.CoverageEligibilityRequest, error) {
+func (c *ClientR5) CreateCoverageEligibilityRequest(ctx context.Context, resource r51.CoverageEligibilityRequest) (r51.CoverageEligibilityRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CoverageEligibilityRequest{}, err
-	}
-	typed, ok := result.(r5.CoverageEligibilityRequest)
-	if !ok {
-		return r5.CoverageEligibilityRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCoverageEligibilityRequest(ctx, resource)
 }
 
 // ReadCoverageEligibilityRequest retrieves a CoverageEligibilityRequest resource by ID.
-func (c *ClientR5) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r5.CoverageEligibilityRequest, error) {
+func (c *ClientR5) ReadCoverageEligibilityRequest(ctx context.Context, id string) (r51.CoverageEligibilityRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CoverageEligibilityRequest", id)
-	if err != nil {
-		return r5.CoverageEligibilityRequest{}, err
-	}
-	typed, ok := result.(r5.CoverageEligibilityRequest)
-	if !ok {
-		return r5.CoverageEligibilityRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCoverageEligibilityRequest(ctx, id)
 }
 
 // UpdateCoverageEligibilityRequest updates an existing CoverageEligibilityRequest resource.
-func (c *ClientR5) UpdateCoverageEligibilityRequest(ctx context.Context, resource r5.CoverageEligibilityRequest) (update.Result[r5.CoverageEligibilityRequest], error) {
+func (c *ClientR5) UpdateCoverageEligibilityRequest(ctx context.Context, resource r51.CoverageEligibilityRequest) (update.Result[r51.CoverageEligibilityRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CoverageEligibilityRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.CoverageEligibilityRequest)
-	if !ok {
-		return update.Result[r5.CoverageEligibilityRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CoverageEligibilityRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCoverageEligibilityRequest(ctx, resource)
 }
 
 // DeleteCoverageEligibilityRequest deletes a CoverageEligibilityRequest resource by ID.
 func (c *ClientR5) DeleteCoverageEligibilityRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CoverageEligibilityRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCoverageEligibilityRequest(ctx, id)
+}
+
+// SearchCapabilitiesCoverageEligibilityRequest returns server search capabilities for CoverageEligibilityRequest.
+func (c *ClientR5) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCoverageEligibilityRequest(ctx)
 }
 
 // SearchCoverageEligibilityRequest performs a search for CoverageEligibilityRequest resources.
-func (c *ClientR5) SearchCoverageEligibilityRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CoverageEligibilityRequest], error) {
+func (c *ClientR5) SearchCoverageEligibilityRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CoverageEligibilityRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CoverageEligibilityRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.CoverageEligibilityRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CoverageEligibilityRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CoverageEligibilityRequest)
-		if !ok {
-			return search.Result[r5.CoverageEligibilityRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CoverageEligibilityRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCoverageEligibilityRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.CoverageEligibilityResponseCreate = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityResponseRead   = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityResponseUpdate = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityResponseDelete = (*ClientR5)(nil)
+	_ r5.CoverageEligibilityResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateCoverageEligibilityResponse creates a new CoverageEligibilityResponse resource.
-func (c *ClientR5) CreateCoverageEligibilityResponse(ctx context.Context, resource r5.CoverageEligibilityResponse) (r5.CoverageEligibilityResponse, error) {
+func (c *ClientR5) CreateCoverageEligibilityResponse(ctx context.Context, resource r51.CoverageEligibilityResponse) (r51.CoverageEligibilityResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.CoverageEligibilityResponse{}, err
-	}
-	typed, ok := result.(r5.CoverageEligibilityResponse)
-	if !ok {
-		return r5.CoverageEligibilityResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateCoverageEligibilityResponse(ctx, resource)
 }
 
 // ReadCoverageEligibilityResponse retrieves a CoverageEligibilityResponse resource by ID.
-func (c *ClientR5) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r5.CoverageEligibilityResponse, error) {
+func (c *ClientR5) ReadCoverageEligibilityResponse(ctx context.Context, id string) (r51.CoverageEligibilityResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "CoverageEligibilityResponse", id)
-	if err != nil {
-		return r5.CoverageEligibilityResponse{}, err
-	}
-	typed, ok := result.(r5.CoverageEligibilityResponse)
-	if !ok {
-		return r5.CoverageEligibilityResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadCoverageEligibilityResponse(ctx, id)
 }
 
 // UpdateCoverageEligibilityResponse updates an existing CoverageEligibilityResponse resource.
-func (c *ClientR5) UpdateCoverageEligibilityResponse(ctx context.Context, resource r5.CoverageEligibilityResponse) (update.Result[r5.CoverageEligibilityResponse], error) {
+func (c *ClientR5) UpdateCoverageEligibilityResponse(ctx context.Context, resource r51.CoverageEligibilityResponse) (update.Result[r51.CoverageEligibilityResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.CoverageEligibilityResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.CoverageEligibilityResponse)
-	if !ok {
-		return update.Result[r5.CoverageEligibilityResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.CoverageEligibilityResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateCoverageEligibilityResponse(ctx, resource)
 }
 
 // DeleteCoverageEligibilityResponse deletes a CoverageEligibilityResponse resource by ID.
 func (c *ClientR5) DeleteCoverageEligibilityResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "CoverageEligibilityResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteCoverageEligibilityResponse(ctx, id)
+}
+
+// SearchCapabilitiesCoverageEligibilityResponse returns server search capabilities for CoverageEligibilityResponse.
+func (c *ClientR5) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesCoverageEligibilityResponse(ctx)
 }
 
 // SearchCoverageEligibilityResponse performs a search for CoverageEligibilityResponse resources.
-func (c *ClientR5) SearchCoverageEligibilityResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.CoverageEligibilityResponse], error) {
+func (c *ClientR5) SearchCoverageEligibilityResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.CoverageEligibilityResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "CoverageEligibilityResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.CoverageEligibilityResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.CoverageEligibilityResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.CoverageEligibilityResponse)
-		if !ok {
-			return search.Result[r5.CoverageEligibilityResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.CoverageEligibilityResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCoverageEligibilityResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.DetectedIssueCreate = (*ClientR5)(nil)
+	_ r5.DetectedIssueRead   = (*ClientR5)(nil)
+	_ r5.DetectedIssueUpdate = (*ClientR5)(nil)
+	_ r5.DetectedIssueDelete = (*ClientR5)(nil)
+	_ r5.DetectedIssueSearch = (*ClientR5)(nil)
+)
+
 // CreateDetectedIssue creates a new DetectedIssue resource.
-func (c *ClientR5) CreateDetectedIssue(ctx context.Context, resource r5.DetectedIssue) (r5.DetectedIssue, error) {
+func (c *ClientR5) CreateDetectedIssue(ctx context.Context, resource r51.DetectedIssue) (r51.DetectedIssue, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DetectedIssue{}, err
-	}
-	typed, ok := result.(r5.DetectedIssue)
-	if !ok {
-		return r5.DetectedIssue{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDetectedIssue(ctx, resource)
 }
 
 // ReadDetectedIssue retrieves a DetectedIssue resource by ID.
-func (c *ClientR5) ReadDetectedIssue(ctx context.Context, id string) (r5.DetectedIssue, error) {
+func (c *ClientR5) ReadDetectedIssue(ctx context.Context, id string) (r51.DetectedIssue, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DetectedIssue", id)
-	if err != nil {
-		return r5.DetectedIssue{}, err
-	}
-	typed, ok := result.(r5.DetectedIssue)
-	if !ok {
-		return r5.DetectedIssue{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDetectedIssue(ctx, id)
 }
 
 // UpdateDetectedIssue updates an existing DetectedIssue resource.
-func (c *ClientR5) UpdateDetectedIssue(ctx context.Context, resource r5.DetectedIssue) (update.Result[r5.DetectedIssue], error) {
+func (c *ClientR5) UpdateDetectedIssue(ctx context.Context, resource r51.DetectedIssue) (update.Result[r51.DetectedIssue], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DetectedIssue]{}, err
-	}
-	typed, ok := result.Resource.(r5.DetectedIssue)
-	if !ok {
-		return update.Result[r5.DetectedIssue]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DetectedIssue]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDetectedIssue(ctx, resource)
 }
 
 // DeleteDetectedIssue deletes a DetectedIssue resource by ID.
 func (c *ClientR5) DeleteDetectedIssue(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DetectedIssue", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDetectedIssue(ctx, id)
+}
+
+// SearchCapabilitiesDetectedIssue returns server search capabilities for DetectedIssue.
+func (c *ClientR5) SearchCapabilitiesDetectedIssue(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDetectedIssue(ctx)
 }
 
 // SearchDetectedIssue performs a search for DetectedIssue resources.
-func (c *ClientR5) SearchDetectedIssue(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DetectedIssue], error) {
+func (c *ClientR5) SearchDetectedIssue(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DetectedIssue], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DetectedIssue", parameters, options)
-	if err != nil {
-		return search.Result[r5.DetectedIssue]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DetectedIssue, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DetectedIssue)
-		if !ok {
-			return search.Result[r5.DetectedIssue]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DetectedIssue]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDetectedIssue(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceCreate = (*ClientR5)(nil)
+	_ r5.DeviceRead   = (*ClientR5)(nil)
+	_ r5.DeviceUpdate = (*ClientR5)(nil)
+	_ r5.DeviceDelete = (*ClientR5)(nil)
+	_ r5.DeviceSearch = (*ClientR5)(nil)
+)
+
 // CreateDevice creates a new Device resource.
-func (c *ClientR5) CreateDevice(ctx context.Context, resource r5.Device) (r5.Device, error) {
+func (c *ClientR5) CreateDevice(ctx context.Context, resource r51.Device) (r51.Device, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Device{}, err
-	}
-	typed, ok := result.(r5.Device)
-	if !ok {
-		return r5.Device{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDevice(ctx, resource)
 }
 
 // ReadDevice retrieves a Device resource by ID.
-func (c *ClientR5) ReadDevice(ctx context.Context, id string) (r5.Device, error) {
+func (c *ClientR5) ReadDevice(ctx context.Context, id string) (r51.Device, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Device", id)
-	if err != nil {
-		return r5.Device{}, err
-	}
-	typed, ok := result.(r5.Device)
-	if !ok {
-		return r5.Device{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDevice(ctx, id)
 }
 
 // UpdateDevice updates an existing Device resource.
-func (c *ClientR5) UpdateDevice(ctx context.Context, resource r5.Device) (update.Result[r5.Device], error) {
+func (c *ClientR5) UpdateDevice(ctx context.Context, resource r51.Device) (update.Result[r51.Device], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Device]{}, err
-	}
-	typed, ok := result.Resource.(r5.Device)
-	if !ok {
-		return update.Result[r5.Device]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Device]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDevice(ctx, resource)
 }
 
 // DeleteDevice deletes a Device resource by ID.
 func (c *ClientR5) DeleteDevice(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Device", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDevice(ctx, id)
+}
+
+// SearchCapabilitiesDevice returns server search capabilities for Device.
+func (c *ClientR5) SearchCapabilitiesDevice(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDevice(ctx)
 }
 
 // SearchDevice performs a search for Device resources.
-func (c *ClientR5) SearchDevice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Device], error) {
+func (c *ClientR5) SearchDevice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Device], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Device", parameters, options)
-	if err != nil {
-		return search.Result[r5.Device]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Device, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Device)
-		if !ok {
-			return search.Result[r5.Device]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Device]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDevice(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceAssociationCreate = (*ClientR5)(nil)
+	_ r5.DeviceAssociationRead   = (*ClientR5)(nil)
+	_ r5.DeviceAssociationUpdate = (*ClientR5)(nil)
+	_ r5.DeviceAssociationDelete = (*ClientR5)(nil)
+	_ r5.DeviceAssociationSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceAssociation creates a new DeviceAssociation resource.
-func (c *ClientR5) CreateDeviceAssociation(ctx context.Context, resource r5.DeviceAssociation) (r5.DeviceAssociation, error) {
+func (c *ClientR5) CreateDeviceAssociation(ctx context.Context, resource r51.DeviceAssociation) (r51.DeviceAssociation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceAssociation{}, err
-	}
-	typed, ok := result.(r5.DeviceAssociation)
-	if !ok {
-		return r5.DeviceAssociation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceAssociation(ctx, resource)
 }
 
 // ReadDeviceAssociation retrieves a DeviceAssociation resource by ID.
-func (c *ClientR5) ReadDeviceAssociation(ctx context.Context, id string) (r5.DeviceAssociation, error) {
+func (c *ClientR5) ReadDeviceAssociation(ctx context.Context, id string) (r51.DeviceAssociation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceAssociation", id)
-	if err != nil {
-		return r5.DeviceAssociation{}, err
-	}
-	typed, ok := result.(r5.DeviceAssociation)
-	if !ok {
-		return r5.DeviceAssociation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceAssociation(ctx, id)
 }
 
 // UpdateDeviceAssociation updates an existing DeviceAssociation resource.
-func (c *ClientR5) UpdateDeviceAssociation(ctx context.Context, resource r5.DeviceAssociation) (update.Result[r5.DeviceAssociation], error) {
+func (c *ClientR5) UpdateDeviceAssociation(ctx context.Context, resource r51.DeviceAssociation) (update.Result[r51.DeviceAssociation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceAssociation]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceAssociation)
-	if !ok {
-		return update.Result[r5.DeviceAssociation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceAssociation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceAssociation(ctx, resource)
 }
 
 // DeleteDeviceAssociation deletes a DeviceAssociation resource by ID.
 func (c *ClientR5) DeleteDeviceAssociation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceAssociation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceAssociation(ctx, id)
+}
+
+// SearchCapabilitiesDeviceAssociation returns server search capabilities for DeviceAssociation.
+func (c *ClientR5) SearchCapabilitiesDeviceAssociation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceAssociation(ctx)
 }
 
 // SearchDeviceAssociation performs a search for DeviceAssociation resources.
-func (c *ClientR5) SearchDeviceAssociation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceAssociation], error) {
+func (c *ClientR5) SearchDeviceAssociation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceAssociation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceAssociation", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceAssociation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceAssociation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceAssociation)
-		if !ok {
-			return search.Result[r5.DeviceAssociation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceAssociation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceAssociation(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceDefinitionCreate = (*ClientR5)(nil)
+	_ r5.DeviceDefinitionRead   = (*ClientR5)(nil)
+	_ r5.DeviceDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.DeviceDefinitionDelete = (*ClientR5)(nil)
+	_ r5.DeviceDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceDefinition creates a new DeviceDefinition resource.
-func (c *ClientR5) CreateDeviceDefinition(ctx context.Context, resource r5.DeviceDefinition) (r5.DeviceDefinition, error) {
+func (c *ClientR5) CreateDeviceDefinition(ctx context.Context, resource r51.DeviceDefinition) (r51.DeviceDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceDefinition{}, err
-	}
-	typed, ok := result.(r5.DeviceDefinition)
-	if !ok {
-		return r5.DeviceDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceDefinition(ctx, resource)
 }
 
 // ReadDeviceDefinition retrieves a DeviceDefinition resource by ID.
-func (c *ClientR5) ReadDeviceDefinition(ctx context.Context, id string) (r5.DeviceDefinition, error) {
+func (c *ClientR5) ReadDeviceDefinition(ctx context.Context, id string) (r51.DeviceDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceDefinition", id)
-	if err != nil {
-		return r5.DeviceDefinition{}, err
-	}
-	typed, ok := result.(r5.DeviceDefinition)
-	if !ok {
-		return r5.DeviceDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceDefinition(ctx, id)
 }
 
 // UpdateDeviceDefinition updates an existing DeviceDefinition resource.
-func (c *ClientR5) UpdateDeviceDefinition(ctx context.Context, resource r5.DeviceDefinition) (update.Result[r5.DeviceDefinition], error) {
+func (c *ClientR5) UpdateDeviceDefinition(ctx context.Context, resource r51.DeviceDefinition) (update.Result[r51.DeviceDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceDefinition)
-	if !ok {
-		return update.Result[r5.DeviceDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceDefinition(ctx, resource)
 }
 
 // DeleteDeviceDefinition deletes a DeviceDefinition resource by ID.
 func (c *ClientR5) DeleteDeviceDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceDefinition(ctx, id)
+}
+
+// SearchCapabilitiesDeviceDefinition returns server search capabilities for DeviceDefinition.
+func (c *ClientR5) SearchCapabilitiesDeviceDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceDefinition(ctx)
 }
 
 // SearchDeviceDefinition performs a search for DeviceDefinition resources.
-func (c *ClientR5) SearchDeviceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceDefinition], error) {
+func (c *ClientR5) SearchDeviceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceDefinition)
-		if !ok {
-			return search.Result[r5.DeviceDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceDispenseCreate = (*ClientR5)(nil)
+	_ r5.DeviceDispenseRead   = (*ClientR5)(nil)
+	_ r5.DeviceDispenseUpdate = (*ClientR5)(nil)
+	_ r5.DeviceDispenseDelete = (*ClientR5)(nil)
+	_ r5.DeviceDispenseSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceDispense creates a new DeviceDispense resource.
-func (c *ClientR5) CreateDeviceDispense(ctx context.Context, resource r5.DeviceDispense) (r5.DeviceDispense, error) {
+func (c *ClientR5) CreateDeviceDispense(ctx context.Context, resource r51.DeviceDispense) (r51.DeviceDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceDispense{}, err
-	}
-	typed, ok := result.(r5.DeviceDispense)
-	if !ok {
-		return r5.DeviceDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceDispense(ctx, resource)
 }
 
 // ReadDeviceDispense retrieves a DeviceDispense resource by ID.
-func (c *ClientR5) ReadDeviceDispense(ctx context.Context, id string) (r5.DeviceDispense, error) {
+func (c *ClientR5) ReadDeviceDispense(ctx context.Context, id string) (r51.DeviceDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceDispense", id)
-	if err != nil {
-		return r5.DeviceDispense{}, err
-	}
-	typed, ok := result.(r5.DeviceDispense)
-	if !ok {
-		return r5.DeviceDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceDispense(ctx, id)
 }
 
 // UpdateDeviceDispense updates an existing DeviceDispense resource.
-func (c *ClientR5) UpdateDeviceDispense(ctx context.Context, resource r5.DeviceDispense) (update.Result[r5.DeviceDispense], error) {
+func (c *ClientR5) UpdateDeviceDispense(ctx context.Context, resource r51.DeviceDispense) (update.Result[r51.DeviceDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceDispense]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceDispense)
-	if !ok {
-		return update.Result[r5.DeviceDispense]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceDispense]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceDispense(ctx, resource)
 }
 
 // DeleteDeviceDispense deletes a DeviceDispense resource by ID.
 func (c *ClientR5) DeleteDeviceDispense(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceDispense", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceDispense(ctx, id)
+}
+
+// SearchCapabilitiesDeviceDispense returns server search capabilities for DeviceDispense.
+func (c *ClientR5) SearchCapabilitiesDeviceDispense(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceDispense(ctx)
 }
 
 // SearchDeviceDispense performs a search for DeviceDispense resources.
-func (c *ClientR5) SearchDeviceDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceDispense], error) {
+func (c *ClientR5) SearchDeviceDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceDispense", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceDispense]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceDispense, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceDispense)
-		if !ok {
-			return search.Result[r5.DeviceDispense]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceDispense]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceDispense(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceMetricCreate = (*ClientR5)(nil)
+	_ r5.DeviceMetricRead   = (*ClientR5)(nil)
+	_ r5.DeviceMetricUpdate = (*ClientR5)(nil)
+	_ r5.DeviceMetricDelete = (*ClientR5)(nil)
+	_ r5.DeviceMetricSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceMetric creates a new DeviceMetric resource.
-func (c *ClientR5) CreateDeviceMetric(ctx context.Context, resource r5.DeviceMetric) (r5.DeviceMetric, error) {
+func (c *ClientR5) CreateDeviceMetric(ctx context.Context, resource r51.DeviceMetric) (r51.DeviceMetric, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceMetric{}, err
-	}
-	typed, ok := result.(r5.DeviceMetric)
-	if !ok {
-		return r5.DeviceMetric{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceMetric(ctx, resource)
 }
 
 // ReadDeviceMetric retrieves a DeviceMetric resource by ID.
-func (c *ClientR5) ReadDeviceMetric(ctx context.Context, id string) (r5.DeviceMetric, error) {
+func (c *ClientR5) ReadDeviceMetric(ctx context.Context, id string) (r51.DeviceMetric, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceMetric", id)
-	if err != nil {
-		return r5.DeviceMetric{}, err
-	}
-	typed, ok := result.(r5.DeviceMetric)
-	if !ok {
-		return r5.DeviceMetric{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceMetric(ctx, id)
 }
 
 // UpdateDeviceMetric updates an existing DeviceMetric resource.
-func (c *ClientR5) UpdateDeviceMetric(ctx context.Context, resource r5.DeviceMetric) (update.Result[r5.DeviceMetric], error) {
+func (c *ClientR5) UpdateDeviceMetric(ctx context.Context, resource r51.DeviceMetric) (update.Result[r51.DeviceMetric], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceMetric]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceMetric)
-	if !ok {
-		return update.Result[r5.DeviceMetric]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceMetric]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceMetric(ctx, resource)
 }
 
 // DeleteDeviceMetric deletes a DeviceMetric resource by ID.
 func (c *ClientR5) DeleteDeviceMetric(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceMetric", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceMetric(ctx, id)
+}
+
+// SearchCapabilitiesDeviceMetric returns server search capabilities for DeviceMetric.
+func (c *ClientR5) SearchCapabilitiesDeviceMetric(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceMetric(ctx)
 }
 
 // SearchDeviceMetric performs a search for DeviceMetric resources.
-func (c *ClientR5) SearchDeviceMetric(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceMetric], error) {
+func (c *ClientR5) SearchDeviceMetric(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceMetric], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceMetric", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceMetric]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceMetric, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceMetric)
-		if !ok {
-			return search.Result[r5.DeviceMetric]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceMetric]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceMetric(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceRequestCreate = (*ClientR5)(nil)
+	_ r5.DeviceRequestRead   = (*ClientR5)(nil)
+	_ r5.DeviceRequestUpdate = (*ClientR5)(nil)
+	_ r5.DeviceRequestDelete = (*ClientR5)(nil)
+	_ r5.DeviceRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceRequest creates a new DeviceRequest resource.
-func (c *ClientR5) CreateDeviceRequest(ctx context.Context, resource r5.DeviceRequest) (r5.DeviceRequest, error) {
+func (c *ClientR5) CreateDeviceRequest(ctx context.Context, resource r51.DeviceRequest) (r51.DeviceRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceRequest{}, err
-	}
-	typed, ok := result.(r5.DeviceRequest)
-	if !ok {
-		return r5.DeviceRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceRequest(ctx, resource)
 }
 
 // ReadDeviceRequest retrieves a DeviceRequest resource by ID.
-func (c *ClientR5) ReadDeviceRequest(ctx context.Context, id string) (r5.DeviceRequest, error) {
+func (c *ClientR5) ReadDeviceRequest(ctx context.Context, id string) (r51.DeviceRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceRequest", id)
-	if err != nil {
-		return r5.DeviceRequest{}, err
-	}
-	typed, ok := result.(r5.DeviceRequest)
-	if !ok {
-		return r5.DeviceRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceRequest(ctx, id)
 }
 
 // UpdateDeviceRequest updates an existing DeviceRequest resource.
-func (c *ClientR5) UpdateDeviceRequest(ctx context.Context, resource r5.DeviceRequest) (update.Result[r5.DeviceRequest], error) {
+func (c *ClientR5) UpdateDeviceRequest(ctx context.Context, resource r51.DeviceRequest) (update.Result[r51.DeviceRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceRequest)
-	if !ok {
-		return update.Result[r5.DeviceRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceRequest(ctx, resource)
 }
 
 // DeleteDeviceRequest deletes a DeviceRequest resource by ID.
 func (c *ClientR5) DeleteDeviceRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceRequest(ctx, id)
+}
+
+// SearchCapabilitiesDeviceRequest returns server search capabilities for DeviceRequest.
+func (c *ClientR5) SearchCapabilitiesDeviceRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceRequest(ctx)
 }
 
 // SearchDeviceRequest performs a search for DeviceRequest resources.
-func (c *ClientR5) SearchDeviceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceRequest], error) {
+func (c *ClientR5) SearchDeviceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceRequest)
-		if !ok {
-			return search.Result[r5.DeviceRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.DeviceUsageCreate = (*ClientR5)(nil)
+	_ r5.DeviceUsageRead   = (*ClientR5)(nil)
+	_ r5.DeviceUsageUpdate = (*ClientR5)(nil)
+	_ r5.DeviceUsageDelete = (*ClientR5)(nil)
+	_ r5.DeviceUsageSearch = (*ClientR5)(nil)
+)
+
 // CreateDeviceUsage creates a new DeviceUsage resource.
-func (c *ClientR5) CreateDeviceUsage(ctx context.Context, resource r5.DeviceUsage) (r5.DeviceUsage, error) {
+func (c *ClientR5) CreateDeviceUsage(ctx context.Context, resource r51.DeviceUsage) (r51.DeviceUsage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DeviceUsage{}, err
-	}
-	typed, ok := result.(r5.DeviceUsage)
-	if !ok {
-		return r5.DeviceUsage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDeviceUsage(ctx, resource)
 }
 
 // ReadDeviceUsage retrieves a DeviceUsage resource by ID.
-func (c *ClientR5) ReadDeviceUsage(ctx context.Context, id string) (r5.DeviceUsage, error) {
+func (c *ClientR5) ReadDeviceUsage(ctx context.Context, id string) (r51.DeviceUsage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DeviceUsage", id)
-	if err != nil {
-		return r5.DeviceUsage{}, err
-	}
-	typed, ok := result.(r5.DeviceUsage)
-	if !ok {
-		return r5.DeviceUsage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDeviceUsage(ctx, id)
 }
 
 // UpdateDeviceUsage updates an existing DeviceUsage resource.
-func (c *ClientR5) UpdateDeviceUsage(ctx context.Context, resource r5.DeviceUsage) (update.Result[r5.DeviceUsage], error) {
+func (c *ClientR5) UpdateDeviceUsage(ctx context.Context, resource r51.DeviceUsage) (update.Result[r51.DeviceUsage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DeviceUsage]{}, err
-	}
-	typed, ok := result.Resource.(r5.DeviceUsage)
-	if !ok {
-		return update.Result[r5.DeviceUsage]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DeviceUsage]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDeviceUsage(ctx, resource)
 }
 
 // DeleteDeviceUsage deletes a DeviceUsage resource by ID.
 func (c *ClientR5) DeleteDeviceUsage(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DeviceUsage", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDeviceUsage(ctx, id)
+}
+
+// SearchCapabilitiesDeviceUsage returns server search capabilities for DeviceUsage.
+func (c *ClientR5) SearchCapabilitiesDeviceUsage(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDeviceUsage(ctx)
 }
 
 // SearchDeviceUsage performs a search for DeviceUsage resources.
-func (c *ClientR5) SearchDeviceUsage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DeviceUsage], error) {
+func (c *ClientR5) SearchDeviceUsage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DeviceUsage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DeviceUsage", parameters, options)
-	if err != nil {
-		return search.Result[r5.DeviceUsage]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DeviceUsage, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DeviceUsage)
-		if !ok {
-			return search.Result[r5.DeviceUsage]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DeviceUsage]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDeviceUsage(ctx, parameters, options)
 }
 
+var (
+	_ r5.DiagnosticReportCreate = (*ClientR5)(nil)
+	_ r5.DiagnosticReportRead   = (*ClientR5)(nil)
+	_ r5.DiagnosticReportUpdate = (*ClientR5)(nil)
+	_ r5.DiagnosticReportDelete = (*ClientR5)(nil)
+	_ r5.DiagnosticReportSearch = (*ClientR5)(nil)
+)
+
 // CreateDiagnosticReport creates a new DiagnosticReport resource.
-func (c *ClientR5) CreateDiagnosticReport(ctx context.Context, resource r5.DiagnosticReport) (r5.DiagnosticReport, error) {
+func (c *ClientR5) CreateDiagnosticReport(ctx context.Context, resource r51.DiagnosticReport) (r51.DiagnosticReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DiagnosticReport{}, err
-	}
-	typed, ok := result.(r5.DiagnosticReport)
-	if !ok {
-		return r5.DiagnosticReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDiagnosticReport(ctx, resource)
 }
 
 // ReadDiagnosticReport retrieves a DiagnosticReport resource by ID.
-func (c *ClientR5) ReadDiagnosticReport(ctx context.Context, id string) (r5.DiagnosticReport, error) {
+func (c *ClientR5) ReadDiagnosticReport(ctx context.Context, id string) (r51.DiagnosticReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DiagnosticReport", id)
-	if err != nil {
-		return r5.DiagnosticReport{}, err
-	}
-	typed, ok := result.(r5.DiagnosticReport)
-	if !ok {
-		return r5.DiagnosticReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDiagnosticReport(ctx, id)
 }
 
 // UpdateDiagnosticReport updates an existing DiagnosticReport resource.
-func (c *ClientR5) UpdateDiagnosticReport(ctx context.Context, resource r5.DiagnosticReport) (update.Result[r5.DiagnosticReport], error) {
+func (c *ClientR5) UpdateDiagnosticReport(ctx context.Context, resource r51.DiagnosticReport) (update.Result[r51.DiagnosticReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DiagnosticReport]{}, err
-	}
-	typed, ok := result.Resource.(r5.DiagnosticReport)
-	if !ok {
-		return update.Result[r5.DiagnosticReport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DiagnosticReport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDiagnosticReport(ctx, resource)
 }
 
 // DeleteDiagnosticReport deletes a DiagnosticReport resource by ID.
 func (c *ClientR5) DeleteDiagnosticReport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DiagnosticReport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDiagnosticReport(ctx, id)
+}
+
+// SearchCapabilitiesDiagnosticReport returns server search capabilities for DiagnosticReport.
+func (c *ClientR5) SearchCapabilitiesDiagnosticReport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDiagnosticReport(ctx)
 }
 
 // SearchDiagnosticReport performs a search for DiagnosticReport resources.
-func (c *ClientR5) SearchDiagnosticReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DiagnosticReport], error) {
+func (c *ClientR5) SearchDiagnosticReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DiagnosticReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DiagnosticReport", parameters, options)
-	if err != nil {
-		return search.Result[r5.DiagnosticReport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DiagnosticReport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DiagnosticReport)
-		if !ok {
-			return search.Result[r5.DiagnosticReport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DiagnosticReport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDiagnosticReport(ctx, parameters, options)
 }
 
+var (
+	_ r5.DocumentReferenceCreate = (*ClientR5)(nil)
+	_ r5.DocumentReferenceRead   = (*ClientR5)(nil)
+	_ r5.DocumentReferenceUpdate = (*ClientR5)(nil)
+	_ r5.DocumentReferenceDelete = (*ClientR5)(nil)
+	_ r5.DocumentReferenceSearch = (*ClientR5)(nil)
+)
+
 // CreateDocumentReference creates a new DocumentReference resource.
-func (c *ClientR5) CreateDocumentReference(ctx context.Context, resource r5.DocumentReference) (r5.DocumentReference, error) {
+func (c *ClientR5) CreateDocumentReference(ctx context.Context, resource r51.DocumentReference) (r51.DocumentReference, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.DocumentReference{}, err
-	}
-	typed, ok := result.(r5.DocumentReference)
-	if !ok {
-		return r5.DocumentReference{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateDocumentReference(ctx, resource)
 }
 
 // ReadDocumentReference retrieves a DocumentReference resource by ID.
-func (c *ClientR5) ReadDocumentReference(ctx context.Context, id string) (r5.DocumentReference, error) {
+func (c *ClientR5) ReadDocumentReference(ctx context.Context, id string) (r51.DocumentReference, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "DocumentReference", id)
-	if err != nil {
-		return r5.DocumentReference{}, err
-	}
-	typed, ok := result.(r5.DocumentReference)
-	if !ok {
-		return r5.DocumentReference{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadDocumentReference(ctx, id)
 }
 
 // UpdateDocumentReference updates an existing DocumentReference resource.
-func (c *ClientR5) UpdateDocumentReference(ctx context.Context, resource r5.DocumentReference) (update.Result[r5.DocumentReference], error) {
+func (c *ClientR5) UpdateDocumentReference(ctx context.Context, resource r51.DocumentReference) (update.Result[r51.DocumentReference], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.DocumentReference]{}, err
-	}
-	typed, ok := result.Resource.(r5.DocumentReference)
-	if !ok {
-		return update.Result[r5.DocumentReference]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.DocumentReference]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateDocumentReference(ctx, resource)
 }
 
 // DeleteDocumentReference deletes a DocumentReference resource by ID.
 func (c *ClientR5) DeleteDocumentReference(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "DocumentReference", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteDocumentReference(ctx, id)
+}
+
+// SearchCapabilitiesDocumentReference returns server search capabilities for DocumentReference.
+func (c *ClientR5) SearchCapabilitiesDocumentReference(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesDocumentReference(ctx)
 }
 
 // SearchDocumentReference performs a search for DocumentReference resources.
-func (c *ClientR5) SearchDocumentReference(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.DocumentReference], error) {
+func (c *ClientR5) SearchDocumentReference(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.DocumentReference], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "DocumentReference", parameters, options)
-	if err != nil {
-		return search.Result[r5.DocumentReference]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.DocumentReference, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.DocumentReference)
-		if !ok {
-			return search.Result[r5.DocumentReference]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.DocumentReference]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchDocumentReference(ctx, parameters, options)
 }
 
+var (
+	_ r5.EncounterCreate = (*ClientR5)(nil)
+	_ r5.EncounterRead   = (*ClientR5)(nil)
+	_ r5.EncounterUpdate = (*ClientR5)(nil)
+	_ r5.EncounterDelete = (*ClientR5)(nil)
+	_ r5.EncounterSearch = (*ClientR5)(nil)
+)
+
 // CreateEncounter creates a new Encounter resource.
-func (c *ClientR5) CreateEncounter(ctx context.Context, resource r5.Encounter) (r5.Encounter, error) {
+func (c *ClientR5) CreateEncounter(ctx context.Context, resource r51.Encounter) (r51.Encounter, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Encounter{}, err
-	}
-	typed, ok := result.(r5.Encounter)
-	if !ok {
-		return r5.Encounter{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEncounter(ctx, resource)
 }
 
 // ReadEncounter retrieves a Encounter resource by ID.
-func (c *ClientR5) ReadEncounter(ctx context.Context, id string) (r5.Encounter, error) {
+func (c *ClientR5) ReadEncounter(ctx context.Context, id string) (r51.Encounter, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Encounter", id)
-	if err != nil {
-		return r5.Encounter{}, err
-	}
-	typed, ok := result.(r5.Encounter)
-	if !ok {
-		return r5.Encounter{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEncounter(ctx, id)
 }
 
 // UpdateEncounter updates an existing Encounter resource.
-func (c *ClientR5) UpdateEncounter(ctx context.Context, resource r5.Encounter) (update.Result[r5.Encounter], error) {
+func (c *ClientR5) UpdateEncounter(ctx context.Context, resource r51.Encounter) (update.Result[r51.Encounter], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Encounter]{}, err
-	}
-	typed, ok := result.Resource.(r5.Encounter)
-	if !ok {
-		return update.Result[r5.Encounter]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Encounter]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEncounter(ctx, resource)
 }
 
 // DeleteEncounter deletes a Encounter resource by ID.
 func (c *ClientR5) DeleteEncounter(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Encounter", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEncounter(ctx, id)
+}
+
+// SearchCapabilitiesEncounter returns server search capabilities for Encounter.
+func (c *ClientR5) SearchCapabilitiesEncounter(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEncounter(ctx)
 }
 
 // SearchEncounter performs a search for Encounter resources.
-func (c *ClientR5) SearchEncounter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Encounter], error) {
+func (c *ClientR5) SearchEncounter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Encounter], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Encounter", parameters, options)
-	if err != nil {
-		return search.Result[r5.Encounter]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Encounter, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Encounter)
-		if !ok {
-			return search.Result[r5.Encounter]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Encounter]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEncounter(ctx, parameters, options)
 }
 
+var (
+	_ r5.EncounterHistoryCreate = (*ClientR5)(nil)
+	_ r5.EncounterHistoryRead   = (*ClientR5)(nil)
+	_ r5.EncounterHistoryUpdate = (*ClientR5)(nil)
+	_ r5.EncounterHistoryDelete = (*ClientR5)(nil)
+	_ r5.EncounterHistorySearch = (*ClientR5)(nil)
+)
+
 // CreateEncounterHistory creates a new EncounterHistory resource.
-func (c *ClientR5) CreateEncounterHistory(ctx context.Context, resource r5.EncounterHistory) (r5.EncounterHistory, error) {
+func (c *ClientR5) CreateEncounterHistory(ctx context.Context, resource r51.EncounterHistory) (r51.EncounterHistory, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EncounterHistory{}, err
-	}
-	typed, ok := result.(r5.EncounterHistory)
-	if !ok {
-		return r5.EncounterHistory{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEncounterHistory(ctx, resource)
 }
 
 // ReadEncounterHistory retrieves a EncounterHistory resource by ID.
-func (c *ClientR5) ReadEncounterHistory(ctx context.Context, id string) (r5.EncounterHistory, error) {
+func (c *ClientR5) ReadEncounterHistory(ctx context.Context, id string) (r51.EncounterHistory, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EncounterHistory", id)
-	if err != nil {
-		return r5.EncounterHistory{}, err
-	}
-	typed, ok := result.(r5.EncounterHistory)
-	if !ok {
-		return r5.EncounterHistory{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEncounterHistory(ctx, id)
 }
 
 // UpdateEncounterHistory updates an existing EncounterHistory resource.
-func (c *ClientR5) UpdateEncounterHistory(ctx context.Context, resource r5.EncounterHistory) (update.Result[r5.EncounterHistory], error) {
+func (c *ClientR5) UpdateEncounterHistory(ctx context.Context, resource r51.EncounterHistory) (update.Result[r51.EncounterHistory], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EncounterHistory]{}, err
-	}
-	typed, ok := result.Resource.(r5.EncounterHistory)
-	if !ok {
-		return update.Result[r5.EncounterHistory]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EncounterHistory]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEncounterHistory(ctx, resource)
 }
 
 // DeleteEncounterHistory deletes a EncounterHistory resource by ID.
 func (c *ClientR5) DeleteEncounterHistory(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EncounterHistory", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEncounterHistory(ctx, id)
+}
+
+// SearchCapabilitiesEncounterHistory returns server search capabilities for EncounterHistory.
+func (c *ClientR5) SearchCapabilitiesEncounterHistory(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEncounterHistory(ctx)
 }
 
 // SearchEncounterHistory performs a search for EncounterHistory resources.
-func (c *ClientR5) SearchEncounterHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EncounterHistory], error) {
+func (c *ClientR5) SearchEncounterHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EncounterHistory], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EncounterHistory", parameters, options)
-	if err != nil {
-		return search.Result[r5.EncounterHistory]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EncounterHistory, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EncounterHistory)
-		if !ok {
-			return search.Result[r5.EncounterHistory]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EncounterHistory]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEncounterHistory(ctx, parameters, options)
 }
 
+var (
+	_ r5.EndpointCreate = (*ClientR5)(nil)
+	_ r5.EndpointRead   = (*ClientR5)(nil)
+	_ r5.EndpointUpdate = (*ClientR5)(nil)
+	_ r5.EndpointDelete = (*ClientR5)(nil)
+	_ r5.EndpointSearch = (*ClientR5)(nil)
+)
+
 // CreateEndpoint creates a new Endpoint resource.
-func (c *ClientR5) CreateEndpoint(ctx context.Context, resource r5.Endpoint) (r5.Endpoint, error) {
+func (c *ClientR5) CreateEndpoint(ctx context.Context, resource r51.Endpoint) (r51.Endpoint, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Endpoint{}, err
-	}
-	typed, ok := result.(r5.Endpoint)
-	if !ok {
-		return r5.Endpoint{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEndpoint(ctx, resource)
 }
 
 // ReadEndpoint retrieves a Endpoint resource by ID.
-func (c *ClientR5) ReadEndpoint(ctx context.Context, id string) (r5.Endpoint, error) {
+func (c *ClientR5) ReadEndpoint(ctx context.Context, id string) (r51.Endpoint, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Endpoint", id)
-	if err != nil {
-		return r5.Endpoint{}, err
-	}
-	typed, ok := result.(r5.Endpoint)
-	if !ok {
-		return r5.Endpoint{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEndpoint(ctx, id)
 }
 
 // UpdateEndpoint updates an existing Endpoint resource.
-func (c *ClientR5) UpdateEndpoint(ctx context.Context, resource r5.Endpoint) (update.Result[r5.Endpoint], error) {
+func (c *ClientR5) UpdateEndpoint(ctx context.Context, resource r51.Endpoint) (update.Result[r51.Endpoint], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Endpoint]{}, err
-	}
-	typed, ok := result.Resource.(r5.Endpoint)
-	if !ok {
-		return update.Result[r5.Endpoint]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Endpoint]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEndpoint(ctx, resource)
 }
 
 // DeleteEndpoint deletes a Endpoint resource by ID.
 func (c *ClientR5) DeleteEndpoint(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Endpoint", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEndpoint(ctx, id)
+}
+
+// SearchCapabilitiesEndpoint returns server search capabilities for Endpoint.
+func (c *ClientR5) SearchCapabilitiesEndpoint(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEndpoint(ctx)
 }
 
 // SearchEndpoint performs a search for Endpoint resources.
-func (c *ClientR5) SearchEndpoint(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Endpoint], error) {
+func (c *ClientR5) SearchEndpoint(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Endpoint], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Endpoint", parameters, options)
-	if err != nil {
-		return search.Result[r5.Endpoint]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Endpoint, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Endpoint)
-		if !ok {
-			return search.Result[r5.Endpoint]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Endpoint]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEndpoint(ctx, parameters, options)
 }
 
+var (
+	_ r5.EnrollmentRequestCreate = (*ClientR5)(nil)
+	_ r5.EnrollmentRequestRead   = (*ClientR5)(nil)
+	_ r5.EnrollmentRequestUpdate = (*ClientR5)(nil)
+	_ r5.EnrollmentRequestDelete = (*ClientR5)(nil)
+	_ r5.EnrollmentRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateEnrollmentRequest creates a new EnrollmentRequest resource.
-func (c *ClientR5) CreateEnrollmentRequest(ctx context.Context, resource r5.EnrollmentRequest) (r5.EnrollmentRequest, error) {
+func (c *ClientR5) CreateEnrollmentRequest(ctx context.Context, resource r51.EnrollmentRequest) (r51.EnrollmentRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EnrollmentRequest{}, err
-	}
-	typed, ok := result.(r5.EnrollmentRequest)
-	if !ok {
-		return r5.EnrollmentRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEnrollmentRequest(ctx, resource)
 }
 
 // ReadEnrollmentRequest retrieves a EnrollmentRequest resource by ID.
-func (c *ClientR5) ReadEnrollmentRequest(ctx context.Context, id string) (r5.EnrollmentRequest, error) {
+func (c *ClientR5) ReadEnrollmentRequest(ctx context.Context, id string) (r51.EnrollmentRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EnrollmentRequest", id)
-	if err != nil {
-		return r5.EnrollmentRequest{}, err
-	}
-	typed, ok := result.(r5.EnrollmentRequest)
-	if !ok {
-		return r5.EnrollmentRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEnrollmentRequest(ctx, id)
 }
 
 // UpdateEnrollmentRequest updates an existing EnrollmentRequest resource.
-func (c *ClientR5) UpdateEnrollmentRequest(ctx context.Context, resource r5.EnrollmentRequest) (update.Result[r5.EnrollmentRequest], error) {
+func (c *ClientR5) UpdateEnrollmentRequest(ctx context.Context, resource r51.EnrollmentRequest) (update.Result[r51.EnrollmentRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EnrollmentRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.EnrollmentRequest)
-	if !ok {
-		return update.Result[r5.EnrollmentRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EnrollmentRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEnrollmentRequest(ctx, resource)
 }
 
 // DeleteEnrollmentRequest deletes a EnrollmentRequest resource by ID.
 func (c *ClientR5) DeleteEnrollmentRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EnrollmentRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEnrollmentRequest(ctx, id)
+}
+
+// SearchCapabilitiesEnrollmentRequest returns server search capabilities for EnrollmentRequest.
+func (c *ClientR5) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEnrollmentRequest(ctx)
 }
 
 // SearchEnrollmentRequest performs a search for EnrollmentRequest resources.
-func (c *ClientR5) SearchEnrollmentRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EnrollmentRequest], error) {
+func (c *ClientR5) SearchEnrollmentRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EnrollmentRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EnrollmentRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.EnrollmentRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EnrollmentRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EnrollmentRequest)
-		if !ok {
-			return search.Result[r5.EnrollmentRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EnrollmentRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEnrollmentRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.EnrollmentResponseCreate = (*ClientR5)(nil)
+	_ r5.EnrollmentResponseRead   = (*ClientR5)(nil)
+	_ r5.EnrollmentResponseUpdate = (*ClientR5)(nil)
+	_ r5.EnrollmentResponseDelete = (*ClientR5)(nil)
+	_ r5.EnrollmentResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateEnrollmentResponse creates a new EnrollmentResponse resource.
-func (c *ClientR5) CreateEnrollmentResponse(ctx context.Context, resource r5.EnrollmentResponse) (r5.EnrollmentResponse, error) {
+func (c *ClientR5) CreateEnrollmentResponse(ctx context.Context, resource r51.EnrollmentResponse) (r51.EnrollmentResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EnrollmentResponse{}, err
-	}
-	typed, ok := result.(r5.EnrollmentResponse)
-	if !ok {
-		return r5.EnrollmentResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEnrollmentResponse(ctx, resource)
 }
 
 // ReadEnrollmentResponse retrieves a EnrollmentResponse resource by ID.
-func (c *ClientR5) ReadEnrollmentResponse(ctx context.Context, id string) (r5.EnrollmentResponse, error) {
+func (c *ClientR5) ReadEnrollmentResponse(ctx context.Context, id string) (r51.EnrollmentResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EnrollmentResponse", id)
-	if err != nil {
-		return r5.EnrollmentResponse{}, err
-	}
-	typed, ok := result.(r5.EnrollmentResponse)
-	if !ok {
-		return r5.EnrollmentResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEnrollmentResponse(ctx, id)
 }
 
 // UpdateEnrollmentResponse updates an existing EnrollmentResponse resource.
-func (c *ClientR5) UpdateEnrollmentResponse(ctx context.Context, resource r5.EnrollmentResponse) (update.Result[r5.EnrollmentResponse], error) {
+func (c *ClientR5) UpdateEnrollmentResponse(ctx context.Context, resource r51.EnrollmentResponse) (update.Result[r51.EnrollmentResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EnrollmentResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.EnrollmentResponse)
-	if !ok {
-		return update.Result[r5.EnrollmentResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EnrollmentResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEnrollmentResponse(ctx, resource)
 }
 
 // DeleteEnrollmentResponse deletes a EnrollmentResponse resource by ID.
 func (c *ClientR5) DeleteEnrollmentResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EnrollmentResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEnrollmentResponse(ctx, id)
+}
+
+// SearchCapabilitiesEnrollmentResponse returns server search capabilities for EnrollmentResponse.
+func (c *ClientR5) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEnrollmentResponse(ctx)
 }
 
 // SearchEnrollmentResponse performs a search for EnrollmentResponse resources.
-func (c *ClientR5) SearchEnrollmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EnrollmentResponse], error) {
+func (c *ClientR5) SearchEnrollmentResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EnrollmentResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EnrollmentResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.EnrollmentResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EnrollmentResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EnrollmentResponse)
-		if !ok {
-			return search.Result[r5.EnrollmentResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EnrollmentResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEnrollmentResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.EpisodeOfCareCreate = (*ClientR5)(nil)
+	_ r5.EpisodeOfCareRead   = (*ClientR5)(nil)
+	_ r5.EpisodeOfCareUpdate = (*ClientR5)(nil)
+	_ r5.EpisodeOfCareDelete = (*ClientR5)(nil)
+	_ r5.EpisodeOfCareSearch = (*ClientR5)(nil)
+)
+
 // CreateEpisodeOfCare creates a new EpisodeOfCare resource.
-func (c *ClientR5) CreateEpisodeOfCare(ctx context.Context, resource r5.EpisodeOfCare) (r5.EpisodeOfCare, error) {
+func (c *ClientR5) CreateEpisodeOfCare(ctx context.Context, resource r51.EpisodeOfCare) (r51.EpisodeOfCare, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EpisodeOfCare{}, err
-	}
-	typed, ok := result.(r5.EpisodeOfCare)
-	if !ok {
-		return r5.EpisodeOfCare{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEpisodeOfCare(ctx, resource)
 }
 
 // ReadEpisodeOfCare retrieves a EpisodeOfCare resource by ID.
-func (c *ClientR5) ReadEpisodeOfCare(ctx context.Context, id string) (r5.EpisodeOfCare, error) {
+func (c *ClientR5) ReadEpisodeOfCare(ctx context.Context, id string) (r51.EpisodeOfCare, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EpisodeOfCare", id)
-	if err != nil {
-		return r5.EpisodeOfCare{}, err
-	}
-	typed, ok := result.(r5.EpisodeOfCare)
-	if !ok {
-		return r5.EpisodeOfCare{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEpisodeOfCare(ctx, id)
 }
 
 // UpdateEpisodeOfCare updates an existing EpisodeOfCare resource.
-func (c *ClientR5) UpdateEpisodeOfCare(ctx context.Context, resource r5.EpisodeOfCare) (update.Result[r5.EpisodeOfCare], error) {
+func (c *ClientR5) UpdateEpisodeOfCare(ctx context.Context, resource r51.EpisodeOfCare) (update.Result[r51.EpisodeOfCare], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EpisodeOfCare]{}, err
-	}
-	typed, ok := result.Resource.(r5.EpisodeOfCare)
-	if !ok {
-		return update.Result[r5.EpisodeOfCare]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EpisodeOfCare]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEpisodeOfCare(ctx, resource)
 }
 
 // DeleteEpisodeOfCare deletes a EpisodeOfCare resource by ID.
 func (c *ClientR5) DeleteEpisodeOfCare(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EpisodeOfCare", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEpisodeOfCare(ctx, id)
+}
+
+// SearchCapabilitiesEpisodeOfCare returns server search capabilities for EpisodeOfCare.
+func (c *ClientR5) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEpisodeOfCare(ctx)
 }
 
 // SearchEpisodeOfCare performs a search for EpisodeOfCare resources.
-func (c *ClientR5) SearchEpisodeOfCare(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EpisodeOfCare], error) {
+func (c *ClientR5) SearchEpisodeOfCare(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EpisodeOfCare], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EpisodeOfCare", parameters, options)
-	if err != nil {
-		return search.Result[r5.EpisodeOfCare]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EpisodeOfCare, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EpisodeOfCare)
-		if !ok {
-			return search.Result[r5.EpisodeOfCare]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EpisodeOfCare]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEpisodeOfCare(ctx, parameters, options)
 }
 
+var (
+	_ r5.EventDefinitionCreate = (*ClientR5)(nil)
+	_ r5.EventDefinitionRead   = (*ClientR5)(nil)
+	_ r5.EventDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.EventDefinitionDelete = (*ClientR5)(nil)
+	_ r5.EventDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateEventDefinition creates a new EventDefinition resource.
-func (c *ClientR5) CreateEventDefinition(ctx context.Context, resource r5.EventDefinition) (r5.EventDefinition, error) {
+func (c *ClientR5) CreateEventDefinition(ctx context.Context, resource r51.EventDefinition) (r51.EventDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EventDefinition{}, err
-	}
-	typed, ok := result.(r5.EventDefinition)
-	if !ok {
-		return r5.EventDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEventDefinition(ctx, resource)
 }
 
 // ReadEventDefinition retrieves a EventDefinition resource by ID.
-func (c *ClientR5) ReadEventDefinition(ctx context.Context, id string) (r5.EventDefinition, error) {
+func (c *ClientR5) ReadEventDefinition(ctx context.Context, id string) (r51.EventDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EventDefinition", id)
-	if err != nil {
-		return r5.EventDefinition{}, err
-	}
-	typed, ok := result.(r5.EventDefinition)
-	if !ok {
-		return r5.EventDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEventDefinition(ctx, id)
 }
 
 // UpdateEventDefinition updates an existing EventDefinition resource.
-func (c *ClientR5) UpdateEventDefinition(ctx context.Context, resource r5.EventDefinition) (update.Result[r5.EventDefinition], error) {
+func (c *ClientR5) UpdateEventDefinition(ctx context.Context, resource r51.EventDefinition) (update.Result[r51.EventDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EventDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.EventDefinition)
-	if !ok {
-		return update.Result[r5.EventDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EventDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEventDefinition(ctx, resource)
 }
 
 // DeleteEventDefinition deletes a EventDefinition resource by ID.
 func (c *ClientR5) DeleteEventDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EventDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEventDefinition(ctx, id)
+}
+
+// SearchCapabilitiesEventDefinition returns server search capabilities for EventDefinition.
+func (c *ClientR5) SearchCapabilitiesEventDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEventDefinition(ctx)
 }
 
 // SearchEventDefinition performs a search for EventDefinition resources.
-func (c *ClientR5) SearchEventDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EventDefinition], error) {
+func (c *ClientR5) SearchEventDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EventDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EventDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.EventDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EventDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EventDefinition)
-		if !ok {
-			return search.Result[r5.EventDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EventDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEventDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.EvidenceCreate = (*ClientR5)(nil)
+	_ r5.EvidenceRead   = (*ClientR5)(nil)
+	_ r5.EvidenceUpdate = (*ClientR5)(nil)
+	_ r5.EvidenceDelete = (*ClientR5)(nil)
+	_ r5.EvidenceSearch = (*ClientR5)(nil)
+)
+
 // CreateEvidence creates a new Evidence resource.
-func (c *ClientR5) CreateEvidence(ctx context.Context, resource r5.Evidence) (r5.Evidence, error) {
+func (c *ClientR5) CreateEvidence(ctx context.Context, resource r51.Evidence) (r51.Evidence, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Evidence{}, err
-	}
-	typed, ok := result.(r5.Evidence)
-	if !ok {
-		return r5.Evidence{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEvidence(ctx, resource)
 }
 
 // ReadEvidence retrieves a Evidence resource by ID.
-func (c *ClientR5) ReadEvidence(ctx context.Context, id string) (r5.Evidence, error) {
+func (c *ClientR5) ReadEvidence(ctx context.Context, id string) (r51.Evidence, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Evidence", id)
-	if err != nil {
-		return r5.Evidence{}, err
-	}
-	typed, ok := result.(r5.Evidence)
-	if !ok {
-		return r5.Evidence{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEvidence(ctx, id)
 }
 
 // UpdateEvidence updates an existing Evidence resource.
-func (c *ClientR5) UpdateEvidence(ctx context.Context, resource r5.Evidence) (update.Result[r5.Evidence], error) {
+func (c *ClientR5) UpdateEvidence(ctx context.Context, resource r51.Evidence) (update.Result[r51.Evidence], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Evidence]{}, err
-	}
-	typed, ok := result.Resource.(r5.Evidence)
-	if !ok {
-		return update.Result[r5.Evidence]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Evidence]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEvidence(ctx, resource)
 }
 
 // DeleteEvidence deletes a Evidence resource by ID.
 func (c *ClientR5) DeleteEvidence(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Evidence", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEvidence(ctx, id)
+}
+
+// SearchCapabilitiesEvidence returns server search capabilities for Evidence.
+func (c *ClientR5) SearchCapabilitiesEvidence(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEvidence(ctx)
 }
 
 // SearchEvidence performs a search for Evidence resources.
-func (c *ClientR5) SearchEvidence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Evidence], error) {
+func (c *ClientR5) SearchEvidence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Evidence], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Evidence", parameters, options)
-	if err != nil {
-		return search.Result[r5.Evidence]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Evidence, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Evidence)
-		if !ok {
-			return search.Result[r5.Evidence]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Evidence]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEvidence(ctx, parameters, options)
 }
 
+var (
+	_ r5.EvidenceReportCreate = (*ClientR5)(nil)
+	_ r5.EvidenceReportRead   = (*ClientR5)(nil)
+	_ r5.EvidenceReportUpdate = (*ClientR5)(nil)
+	_ r5.EvidenceReportDelete = (*ClientR5)(nil)
+	_ r5.EvidenceReportSearch = (*ClientR5)(nil)
+)
+
 // CreateEvidenceReport creates a new EvidenceReport resource.
-func (c *ClientR5) CreateEvidenceReport(ctx context.Context, resource r5.EvidenceReport) (r5.EvidenceReport, error) {
+func (c *ClientR5) CreateEvidenceReport(ctx context.Context, resource r51.EvidenceReport) (r51.EvidenceReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EvidenceReport{}, err
-	}
-	typed, ok := result.(r5.EvidenceReport)
-	if !ok {
-		return r5.EvidenceReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEvidenceReport(ctx, resource)
 }
 
 // ReadEvidenceReport retrieves a EvidenceReport resource by ID.
-func (c *ClientR5) ReadEvidenceReport(ctx context.Context, id string) (r5.EvidenceReport, error) {
+func (c *ClientR5) ReadEvidenceReport(ctx context.Context, id string) (r51.EvidenceReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EvidenceReport", id)
-	if err != nil {
-		return r5.EvidenceReport{}, err
-	}
-	typed, ok := result.(r5.EvidenceReport)
-	if !ok {
-		return r5.EvidenceReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEvidenceReport(ctx, id)
 }
 
 // UpdateEvidenceReport updates an existing EvidenceReport resource.
-func (c *ClientR5) UpdateEvidenceReport(ctx context.Context, resource r5.EvidenceReport) (update.Result[r5.EvidenceReport], error) {
+func (c *ClientR5) UpdateEvidenceReport(ctx context.Context, resource r51.EvidenceReport) (update.Result[r51.EvidenceReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EvidenceReport]{}, err
-	}
-	typed, ok := result.Resource.(r5.EvidenceReport)
-	if !ok {
-		return update.Result[r5.EvidenceReport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EvidenceReport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEvidenceReport(ctx, resource)
 }
 
 // DeleteEvidenceReport deletes a EvidenceReport resource by ID.
 func (c *ClientR5) DeleteEvidenceReport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EvidenceReport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEvidenceReport(ctx, id)
+}
+
+// SearchCapabilitiesEvidenceReport returns server search capabilities for EvidenceReport.
+func (c *ClientR5) SearchCapabilitiesEvidenceReport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEvidenceReport(ctx)
 }
 
 // SearchEvidenceReport performs a search for EvidenceReport resources.
-func (c *ClientR5) SearchEvidenceReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EvidenceReport], error) {
+func (c *ClientR5) SearchEvidenceReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EvidenceReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EvidenceReport", parameters, options)
-	if err != nil {
-		return search.Result[r5.EvidenceReport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EvidenceReport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EvidenceReport)
-		if !ok {
-			return search.Result[r5.EvidenceReport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EvidenceReport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEvidenceReport(ctx, parameters, options)
 }
 
+var (
+	_ r5.EvidenceVariableCreate = (*ClientR5)(nil)
+	_ r5.EvidenceVariableRead   = (*ClientR5)(nil)
+	_ r5.EvidenceVariableUpdate = (*ClientR5)(nil)
+	_ r5.EvidenceVariableDelete = (*ClientR5)(nil)
+	_ r5.EvidenceVariableSearch = (*ClientR5)(nil)
+)
+
 // CreateEvidenceVariable creates a new EvidenceVariable resource.
-func (c *ClientR5) CreateEvidenceVariable(ctx context.Context, resource r5.EvidenceVariable) (r5.EvidenceVariable, error) {
+func (c *ClientR5) CreateEvidenceVariable(ctx context.Context, resource r51.EvidenceVariable) (r51.EvidenceVariable, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.EvidenceVariable{}, err
-	}
-	typed, ok := result.(r5.EvidenceVariable)
-	if !ok {
-		return r5.EvidenceVariable{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateEvidenceVariable(ctx, resource)
 }
 
 // ReadEvidenceVariable retrieves a EvidenceVariable resource by ID.
-func (c *ClientR5) ReadEvidenceVariable(ctx context.Context, id string) (r5.EvidenceVariable, error) {
+func (c *ClientR5) ReadEvidenceVariable(ctx context.Context, id string) (r51.EvidenceVariable, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "EvidenceVariable", id)
-	if err != nil {
-		return r5.EvidenceVariable{}, err
-	}
-	typed, ok := result.(r5.EvidenceVariable)
-	if !ok {
-		return r5.EvidenceVariable{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadEvidenceVariable(ctx, id)
 }
 
 // UpdateEvidenceVariable updates an existing EvidenceVariable resource.
-func (c *ClientR5) UpdateEvidenceVariable(ctx context.Context, resource r5.EvidenceVariable) (update.Result[r5.EvidenceVariable], error) {
+func (c *ClientR5) UpdateEvidenceVariable(ctx context.Context, resource r51.EvidenceVariable) (update.Result[r51.EvidenceVariable], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.EvidenceVariable]{}, err
-	}
-	typed, ok := result.Resource.(r5.EvidenceVariable)
-	if !ok {
-		return update.Result[r5.EvidenceVariable]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.EvidenceVariable]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateEvidenceVariable(ctx, resource)
 }
 
 // DeleteEvidenceVariable deletes a EvidenceVariable resource by ID.
 func (c *ClientR5) DeleteEvidenceVariable(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "EvidenceVariable", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteEvidenceVariable(ctx, id)
+}
+
+// SearchCapabilitiesEvidenceVariable returns server search capabilities for EvidenceVariable.
+func (c *ClientR5) SearchCapabilitiesEvidenceVariable(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesEvidenceVariable(ctx)
 }
 
 // SearchEvidenceVariable performs a search for EvidenceVariable resources.
-func (c *ClientR5) SearchEvidenceVariable(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.EvidenceVariable], error) {
+func (c *ClientR5) SearchEvidenceVariable(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.EvidenceVariable], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "EvidenceVariable", parameters, options)
-	if err != nil {
-		return search.Result[r5.EvidenceVariable]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.EvidenceVariable, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.EvidenceVariable)
-		if !ok {
-			return search.Result[r5.EvidenceVariable]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.EvidenceVariable]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchEvidenceVariable(ctx, parameters, options)
 }
 
+var (
+	_ r5.ExampleScenarioCreate = (*ClientR5)(nil)
+	_ r5.ExampleScenarioRead   = (*ClientR5)(nil)
+	_ r5.ExampleScenarioUpdate = (*ClientR5)(nil)
+	_ r5.ExampleScenarioDelete = (*ClientR5)(nil)
+	_ r5.ExampleScenarioSearch = (*ClientR5)(nil)
+)
+
 // CreateExampleScenario creates a new ExampleScenario resource.
-func (c *ClientR5) CreateExampleScenario(ctx context.Context, resource r5.ExampleScenario) (r5.ExampleScenario, error) {
+func (c *ClientR5) CreateExampleScenario(ctx context.Context, resource r51.ExampleScenario) (r51.ExampleScenario, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ExampleScenario{}, err
-	}
-	typed, ok := result.(r5.ExampleScenario)
-	if !ok {
-		return r5.ExampleScenario{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateExampleScenario(ctx, resource)
 }
 
 // ReadExampleScenario retrieves a ExampleScenario resource by ID.
-func (c *ClientR5) ReadExampleScenario(ctx context.Context, id string) (r5.ExampleScenario, error) {
+func (c *ClientR5) ReadExampleScenario(ctx context.Context, id string) (r51.ExampleScenario, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ExampleScenario", id)
-	if err != nil {
-		return r5.ExampleScenario{}, err
-	}
-	typed, ok := result.(r5.ExampleScenario)
-	if !ok {
-		return r5.ExampleScenario{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadExampleScenario(ctx, id)
 }
 
 // UpdateExampleScenario updates an existing ExampleScenario resource.
-func (c *ClientR5) UpdateExampleScenario(ctx context.Context, resource r5.ExampleScenario) (update.Result[r5.ExampleScenario], error) {
+func (c *ClientR5) UpdateExampleScenario(ctx context.Context, resource r51.ExampleScenario) (update.Result[r51.ExampleScenario], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ExampleScenario]{}, err
-	}
-	typed, ok := result.Resource.(r5.ExampleScenario)
-	if !ok {
-		return update.Result[r5.ExampleScenario]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ExampleScenario]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateExampleScenario(ctx, resource)
 }
 
 // DeleteExampleScenario deletes a ExampleScenario resource by ID.
 func (c *ClientR5) DeleteExampleScenario(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ExampleScenario", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteExampleScenario(ctx, id)
+}
+
+// SearchCapabilitiesExampleScenario returns server search capabilities for ExampleScenario.
+func (c *ClientR5) SearchCapabilitiesExampleScenario(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesExampleScenario(ctx)
 }
 
 // SearchExampleScenario performs a search for ExampleScenario resources.
-func (c *ClientR5) SearchExampleScenario(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ExampleScenario], error) {
+func (c *ClientR5) SearchExampleScenario(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ExampleScenario], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ExampleScenario", parameters, options)
-	if err != nil {
-		return search.Result[r5.ExampleScenario]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ExampleScenario, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ExampleScenario)
-		if !ok {
-			return search.Result[r5.ExampleScenario]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ExampleScenario]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchExampleScenario(ctx, parameters, options)
 }
 
+var (
+	_ r5.ExplanationOfBenefitCreate = (*ClientR5)(nil)
+	_ r5.ExplanationOfBenefitRead   = (*ClientR5)(nil)
+	_ r5.ExplanationOfBenefitUpdate = (*ClientR5)(nil)
+	_ r5.ExplanationOfBenefitDelete = (*ClientR5)(nil)
+	_ r5.ExplanationOfBenefitSearch = (*ClientR5)(nil)
+)
+
 // CreateExplanationOfBenefit creates a new ExplanationOfBenefit resource.
-func (c *ClientR5) CreateExplanationOfBenefit(ctx context.Context, resource r5.ExplanationOfBenefit) (r5.ExplanationOfBenefit, error) {
+func (c *ClientR5) CreateExplanationOfBenefit(ctx context.Context, resource r51.ExplanationOfBenefit) (r51.ExplanationOfBenefit, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ExplanationOfBenefit{}, err
-	}
-	typed, ok := result.(r5.ExplanationOfBenefit)
-	if !ok {
-		return r5.ExplanationOfBenefit{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateExplanationOfBenefit(ctx, resource)
 }
 
 // ReadExplanationOfBenefit retrieves a ExplanationOfBenefit resource by ID.
-func (c *ClientR5) ReadExplanationOfBenefit(ctx context.Context, id string) (r5.ExplanationOfBenefit, error) {
+func (c *ClientR5) ReadExplanationOfBenefit(ctx context.Context, id string) (r51.ExplanationOfBenefit, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ExplanationOfBenefit", id)
-	if err != nil {
-		return r5.ExplanationOfBenefit{}, err
-	}
-	typed, ok := result.(r5.ExplanationOfBenefit)
-	if !ok {
-		return r5.ExplanationOfBenefit{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadExplanationOfBenefit(ctx, id)
 }
 
 // UpdateExplanationOfBenefit updates an existing ExplanationOfBenefit resource.
-func (c *ClientR5) UpdateExplanationOfBenefit(ctx context.Context, resource r5.ExplanationOfBenefit) (update.Result[r5.ExplanationOfBenefit], error) {
+func (c *ClientR5) UpdateExplanationOfBenefit(ctx context.Context, resource r51.ExplanationOfBenefit) (update.Result[r51.ExplanationOfBenefit], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ExplanationOfBenefit]{}, err
-	}
-	typed, ok := result.Resource.(r5.ExplanationOfBenefit)
-	if !ok {
-		return update.Result[r5.ExplanationOfBenefit]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ExplanationOfBenefit]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateExplanationOfBenefit(ctx, resource)
 }
 
 // DeleteExplanationOfBenefit deletes a ExplanationOfBenefit resource by ID.
 func (c *ClientR5) DeleteExplanationOfBenefit(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ExplanationOfBenefit", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteExplanationOfBenefit(ctx, id)
+}
+
+// SearchCapabilitiesExplanationOfBenefit returns server search capabilities for ExplanationOfBenefit.
+func (c *ClientR5) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesExplanationOfBenefit(ctx)
 }
 
 // SearchExplanationOfBenefit performs a search for ExplanationOfBenefit resources.
-func (c *ClientR5) SearchExplanationOfBenefit(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ExplanationOfBenefit], error) {
+func (c *ClientR5) SearchExplanationOfBenefit(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ExplanationOfBenefit], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ExplanationOfBenefit", parameters, options)
-	if err != nil {
-		return search.Result[r5.ExplanationOfBenefit]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ExplanationOfBenefit, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ExplanationOfBenefit)
-		if !ok {
-			return search.Result[r5.ExplanationOfBenefit]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ExplanationOfBenefit]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchExplanationOfBenefit(ctx, parameters, options)
 }
 
+var (
+	_ r5.FamilyMemberHistoryCreate = (*ClientR5)(nil)
+	_ r5.FamilyMemberHistoryRead   = (*ClientR5)(nil)
+	_ r5.FamilyMemberHistoryUpdate = (*ClientR5)(nil)
+	_ r5.FamilyMemberHistoryDelete = (*ClientR5)(nil)
+	_ r5.FamilyMemberHistorySearch = (*ClientR5)(nil)
+)
+
 // CreateFamilyMemberHistory creates a new FamilyMemberHistory resource.
-func (c *ClientR5) CreateFamilyMemberHistory(ctx context.Context, resource r5.FamilyMemberHistory) (r5.FamilyMemberHistory, error) {
+func (c *ClientR5) CreateFamilyMemberHistory(ctx context.Context, resource r51.FamilyMemberHistory) (r51.FamilyMemberHistory, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.FamilyMemberHistory{}, err
-	}
-	typed, ok := result.(r5.FamilyMemberHistory)
-	if !ok {
-		return r5.FamilyMemberHistory{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateFamilyMemberHistory(ctx, resource)
 }
 
 // ReadFamilyMemberHistory retrieves a FamilyMemberHistory resource by ID.
-func (c *ClientR5) ReadFamilyMemberHistory(ctx context.Context, id string) (r5.FamilyMemberHistory, error) {
+func (c *ClientR5) ReadFamilyMemberHistory(ctx context.Context, id string) (r51.FamilyMemberHistory, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "FamilyMemberHistory", id)
-	if err != nil {
-		return r5.FamilyMemberHistory{}, err
-	}
-	typed, ok := result.(r5.FamilyMemberHistory)
-	if !ok {
-		return r5.FamilyMemberHistory{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadFamilyMemberHistory(ctx, id)
 }
 
 // UpdateFamilyMemberHistory updates an existing FamilyMemberHistory resource.
-func (c *ClientR5) UpdateFamilyMemberHistory(ctx context.Context, resource r5.FamilyMemberHistory) (update.Result[r5.FamilyMemberHistory], error) {
+func (c *ClientR5) UpdateFamilyMemberHistory(ctx context.Context, resource r51.FamilyMemberHistory) (update.Result[r51.FamilyMemberHistory], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.FamilyMemberHistory]{}, err
-	}
-	typed, ok := result.Resource.(r5.FamilyMemberHistory)
-	if !ok {
-		return update.Result[r5.FamilyMemberHistory]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.FamilyMemberHistory]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateFamilyMemberHistory(ctx, resource)
 }
 
 // DeleteFamilyMemberHistory deletes a FamilyMemberHistory resource by ID.
 func (c *ClientR5) DeleteFamilyMemberHistory(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "FamilyMemberHistory", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteFamilyMemberHistory(ctx, id)
+}
+
+// SearchCapabilitiesFamilyMemberHistory returns server search capabilities for FamilyMemberHistory.
+func (c *ClientR5) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesFamilyMemberHistory(ctx)
 }
 
 // SearchFamilyMemberHistory performs a search for FamilyMemberHistory resources.
-func (c *ClientR5) SearchFamilyMemberHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.FamilyMemberHistory], error) {
+func (c *ClientR5) SearchFamilyMemberHistory(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.FamilyMemberHistory], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "FamilyMemberHistory", parameters, options)
-	if err != nil {
-		return search.Result[r5.FamilyMemberHistory]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.FamilyMemberHistory, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.FamilyMemberHistory)
-		if !ok {
-			return search.Result[r5.FamilyMemberHistory]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.FamilyMemberHistory]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchFamilyMemberHistory(ctx, parameters, options)
 }
 
+var (
+	_ r5.FlagCreate = (*ClientR5)(nil)
+	_ r5.FlagRead   = (*ClientR5)(nil)
+	_ r5.FlagUpdate = (*ClientR5)(nil)
+	_ r5.FlagDelete = (*ClientR5)(nil)
+	_ r5.FlagSearch = (*ClientR5)(nil)
+)
+
 // CreateFlag creates a new Flag resource.
-func (c *ClientR5) CreateFlag(ctx context.Context, resource r5.Flag) (r5.Flag, error) {
+func (c *ClientR5) CreateFlag(ctx context.Context, resource r51.Flag) (r51.Flag, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Flag{}, err
-	}
-	typed, ok := result.(r5.Flag)
-	if !ok {
-		return r5.Flag{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateFlag(ctx, resource)
 }
 
 // ReadFlag retrieves a Flag resource by ID.
-func (c *ClientR5) ReadFlag(ctx context.Context, id string) (r5.Flag, error) {
+func (c *ClientR5) ReadFlag(ctx context.Context, id string) (r51.Flag, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Flag", id)
-	if err != nil {
-		return r5.Flag{}, err
-	}
-	typed, ok := result.(r5.Flag)
-	if !ok {
-		return r5.Flag{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadFlag(ctx, id)
 }
 
 // UpdateFlag updates an existing Flag resource.
-func (c *ClientR5) UpdateFlag(ctx context.Context, resource r5.Flag) (update.Result[r5.Flag], error) {
+func (c *ClientR5) UpdateFlag(ctx context.Context, resource r51.Flag) (update.Result[r51.Flag], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Flag]{}, err
-	}
-	typed, ok := result.Resource.(r5.Flag)
-	if !ok {
-		return update.Result[r5.Flag]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Flag]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateFlag(ctx, resource)
 }
 
 // DeleteFlag deletes a Flag resource by ID.
 func (c *ClientR5) DeleteFlag(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Flag", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteFlag(ctx, id)
+}
+
+// SearchCapabilitiesFlag returns server search capabilities for Flag.
+func (c *ClientR5) SearchCapabilitiesFlag(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesFlag(ctx)
 }
 
 // SearchFlag performs a search for Flag resources.
-func (c *ClientR5) SearchFlag(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Flag], error) {
+func (c *ClientR5) SearchFlag(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Flag], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Flag", parameters, options)
-	if err != nil {
-		return search.Result[r5.Flag]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Flag, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Flag)
-		if !ok {
-			return search.Result[r5.Flag]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Flag]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchFlag(ctx, parameters, options)
 }
 
+var (
+	_ r5.FormularyItemCreate = (*ClientR5)(nil)
+	_ r5.FormularyItemRead   = (*ClientR5)(nil)
+	_ r5.FormularyItemUpdate = (*ClientR5)(nil)
+	_ r5.FormularyItemDelete = (*ClientR5)(nil)
+	_ r5.FormularyItemSearch = (*ClientR5)(nil)
+)
+
 // CreateFormularyItem creates a new FormularyItem resource.
-func (c *ClientR5) CreateFormularyItem(ctx context.Context, resource r5.FormularyItem) (r5.FormularyItem, error) {
+func (c *ClientR5) CreateFormularyItem(ctx context.Context, resource r51.FormularyItem) (r51.FormularyItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.FormularyItem{}, err
-	}
-	typed, ok := result.(r5.FormularyItem)
-	if !ok {
-		return r5.FormularyItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateFormularyItem(ctx, resource)
 }
 
 // ReadFormularyItem retrieves a FormularyItem resource by ID.
-func (c *ClientR5) ReadFormularyItem(ctx context.Context, id string) (r5.FormularyItem, error) {
+func (c *ClientR5) ReadFormularyItem(ctx context.Context, id string) (r51.FormularyItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "FormularyItem", id)
-	if err != nil {
-		return r5.FormularyItem{}, err
-	}
-	typed, ok := result.(r5.FormularyItem)
-	if !ok {
-		return r5.FormularyItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadFormularyItem(ctx, id)
 }
 
 // UpdateFormularyItem updates an existing FormularyItem resource.
-func (c *ClientR5) UpdateFormularyItem(ctx context.Context, resource r5.FormularyItem) (update.Result[r5.FormularyItem], error) {
+func (c *ClientR5) UpdateFormularyItem(ctx context.Context, resource r51.FormularyItem) (update.Result[r51.FormularyItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.FormularyItem]{}, err
-	}
-	typed, ok := result.Resource.(r5.FormularyItem)
-	if !ok {
-		return update.Result[r5.FormularyItem]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.FormularyItem]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateFormularyItem(ctx, resource)
 }
 
 // DeleteFormularyItem deletes a FormularyItem resource by ID.
 func (c *ClientR5) DeleteFormularyItem(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "FormularyItem", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteFormularyItem(ctx, id)
+}
+
+// SearchCapabilitiesFormularyItem returns server search capabilities for FormularyItem.
+func (c *ClientR5) SearchCapabilitiesFormularyItem(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesFormularyItem(ctx)
 }
 
 // SearchFormularyItem performs a search for FormularyItem resources.
-func (c *ClientR5) SearchFormularyItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.FormularyItem], error) {
+func (c *ClientR5) SearchFormularyItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.FormularyItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "FormularyItem", parameters, options)
-	if err != nil {
-		return search.Result[r5.FormularyItem]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.FormularyItem, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.FormularyItem)
-		if !ok {
-			return search.Result[r5.FormularyItem]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.FormularyItem]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchFormularyItem(ctx, parameters, options)
 }
 
+var (
+	_ r5.GenomicStudyCreate = (*ClientR5)(nil)
+	_ r5.GenomicStudyRead   = (*ClientR5)(nil)
+	_ r5.GenomicStudyUpdate = (*ClientR5)(nil)
+	_ r5.GenomicStudyDelete = (*ClientR5)(nil)
+	_ r5.GenomicStudySearch = (*ClientR5)(nil)
+)
+
 // CreateGenomicStudy creates a new GenomicStudy resource.
-func (c *ClientR5) CreateGenomicStudy(ctx context.Context, resource r5.GenomicStudy) (r5.GenomicStudy, error) {
+func (c *ClientR5) CreateGenomicStudy(ctx context.Context, resource r51.GenomicStudy) (r51.GenomicStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.GenomicStudy{}, err
-	}
-	typed, ok := result.(r5.GenomicStudy)
-	if !ok {
-		return r5.GenomicStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateGenomicStudy(ctx, resource)
 }
 
 // ReadGenomicStudy retrieves a GenomicStudy resource by ID.
-func (c *ClientR5) ReadGenomicStudy(ctx context.Context, id string) (r5.GenomicStudy, error) {
+func (c *ClientR5) ReadGenomicStudy(ctx context.Context, id string) (r51.GenomicStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "GenomicStudy", id)
-	if err != nil {
-		return r5.GenomicStudy{}, err
-	}
-	typed, ok := result.(r5.GenomicStudy)
-	if !ok {
-		return r5.GenomicStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadGenomicStudy(ctx, id)
 }
 
 // UpdateGenomicStudy updates an existing GenomicStudy resource.
-func (c *ClientR5) UpdateGenomicStudy(ctx context.Context, resource r5.GenomicStudy) (update.Result[r5.GenomicStudy], error) {
+func (c *ClientR5) UpdateGenomicStudy(ctx context.Context, resource r51.GenomicStudy) (update.Result[r51.GenomicStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.GenomicStudy]{}, err
-	}
-	typed, ok := result.Resource.(r5.GenomicStudy)
-	if !ok {
-		return update.Result[r5.GenomicStudy]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.GenomicStudy]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateGenomicStudy(ctx, resource)
 }
 
 // DeleteGenomicStudy deletes a GenomicStudy resource by ID.
 func (c *ClientR5) DeleteGenomicStudy(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "GenomicStudy", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteGenomicStudy(ctx, id)
+}
+
+// SearchCapabilitiesGenomicStudy returns server search capabilities for GenomicStudy.
+func (c *ClientR5) SearchCapabilitiesGenomicStudy(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesGenomicStudy(ctx)
 }
 
 // SearchGenomicStudy performs a search for GenomicStudy resources.
-func (c *ClientR5) SearchGenomicStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GenomicStudy], error) {
+func (c *ClientR5) SearchGenomicStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.GenomicStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "GenomicStudy", parameters, options)
-	if err != nil {
-		return search.Result[r5.GenomicStudy]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.GenomicStudy, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.GenomicStudy)
-		if !ok {
-			return search.Result[r5.GenomicStudy]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.GenomicStudy]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchGenomicStudy(ctx, parameters, options)
 }
 
+var (
+	_ r5.GoalCreate = (*ClientR5)(nil)
+	_ r5.GoalRead   = (*ClientR5)(nil)
+	_ r5.GoalUpdate = (*ClientR5)(nil)
+	_ r5.GoalDelete = (*ClientR5)(nil)
+	_ r5.GoalSearch = (*ClientR5)(nil)
+)
+
 // CreateGoal creates a new Goal resource.
-func (c *ClientR5) CreateGoal(ctx context.Context, resource r5.Goal) (r5.Goal, error) {
+func (c *ClientR5) CreateGoal(ctx context.Context, resource r51.Goal) (r51.Goal, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Goal{}, err
-	}
-	typed, ok := result.(r5.Goal)
-	if !ok {
-		return r5.Goal{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateGoal(ctx, resource)
 }
 
 // ReadGoal retrieves a Goal resource by ID.
-func (c *ClientR5) ReadGoal(ctx context.Context, id string) (r5.Goal, error) {
+func (c *ClientR5) ReadGoal(ctx context.Context, id string) (r51.Goal, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Goal", id)
-	if err != nil {
-		return r5.Goal{}, err
-	}
-	typed, ok := result.(r5.Goal)
-	if !ok {
-		return r5.Goal{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadGoal(ctx, id)
 }
 
 // UpdateGoal updates an existing Goal resource.
-func (c *ClientR5) UpdateGoal(ctx context.Context, resource r5.Goal) (update.Result[r5.Goal], error) {
+func (c *ClientR5) UpdateGoal(ctx context.Context, resource r51.Goal) (update.Result[r51.Goal], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Goal]{}, err
-	}
-	typed, ok := result.Resource.(r5.Goal)
-	if !ok {
-		return update.Result[r5.Goal]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Goal]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateGoal(ctx, resource)
 }
 
 // DeleteGoal deletes a Goal resource by ID.
 func (c *ClientR5) DeleteGoal(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Goal", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteGoal(ctx, id)
+}
+
+// SearchCapabilitiesGoal returns server search capabilities for Goal.
+func (c *ClientR5) SearchCapabilitiesGoal(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesGoal(ctx)
 }
 
 // SearchGoal performs a search for Goal resources.
-func (c *ClientR5) SearchGoal(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Goal], error) {
+func (c *ClientR5) SearchGoal(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Goal], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Goal", parameters, options)
-	if err != nil {
-		return search.Result[r5.Goal]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Goal, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Goal)
-		if !ok {
-			return search.Result[r5.Goal]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Goal]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchGoal(ctx, parameters, options)
 }
 
+var (
+	_ r5.GraphDefinitionCreate = (*ClientR5)(nil)
+	_ r5.GraphDefinitionRead   = (*ClientR5)(nil)
+	_ r5.GraphDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.GraphDefinitionDelete = (*ClientR5)(nil)
+	_ r5.GraphDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateGraphDefinition creates a new GraphDefinition resource.
-func (c *ClientR5) CreateGraphDefinition(ctx context.Context, resource r5.GraphDefinition) (r5.GraphDefinition, error) {
+func (c *ClientR5) CreateGraphDefinition(ctx context.Context, resource r51.GraphDefinition) (r51.GraphDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.GraphDefinition{}, err
-	}
-	typed, ok := result.(r5.GraphDefinition)
-	if !ok {
-		return r5.GraphDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateGraphDefinition(ctx, resource)
 }
 
 // ReadGraphDefinition retrieves a GraphDefinition resource by ID.
-func (c *ClientR5) ReadGraphDefinition(ctx context.Context, id string) (r5.GraphDefinition, error) {
+func (c *ClientR5) ReadGraphDefinition(ctx context.Context, id string) (r51.GraphDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "GraphDefinition", id)
-	if err != nil {
-		return r5.GraphDefinition{}, err
-	}
-	typed, ok := result.(r5.GraphDefinition)
-	if !ok {
-		return r5.GraphDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadGraphDefinition(ctx, id)
 }
 
 // UpdateGraphDefinition updates an existing GraphDefinition resource.
-func (c *ClientR5) UpdateGraphDefinition(ctx context.Context, resource r5.GraphDefinition) (update.Result[r5.GraphDefinition], error) {
+func (c *ClientR5) UpdateGraphDefinition(ctx context.Context, resource r51.GraphDefinition) (update.Result[r51.GraphDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.GraphDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.GraphDefinition)
-	if !ok {
-		return update.Result[r5.GraphDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.GraphDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateGraphDefinition(ctx, resource)
 }
 
 // DeleteGraphDefinition deletes a GraphDefinition resource by ID.
 func (c *ClientR5) DeleteGraphDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "GraphDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteGraphDefinition(ctx, id)
+}
+
+// SearchCapabilitiesGraphDefinition returns server search capabilities for GraphDefinition.
+func (c *ClientR5) SearchCapabilitiesGraphDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesGraphDefinition(ctx)
 }
 
 // SearchGraphDefinition performs a search for GraphDefinition resources.
-func (c *ClientR5) SearchGraphDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GraphDefinition], error) {
+func (c *ClientR5) SearchGraphDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.GraphDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "GraphDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.GraphDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.GraphDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.GraphDefinition)
-		if !ok {
-			return search.Result[r5.GraphDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.GraphDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchGraphDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.GroupCreate = (*ClientR5)(nil)
+	_ r5.GroupRead   = (*ClientR5)(nil)
+	_ r5.GroupUpdate = (*ClientR5)(nil)
+	_ r5.GroupDelete = (*ClientR5)(nil)
+	_ r5.GroupSearch = (*ClientR5)(nil)
+)
+
 // CreateGroup creates a new Group resource.
-func (c *ClientR5) CreateGroup(ctx context.Context, resource r5.Group) (r5.Group, error) {
+func (c *ClientR5) CreateGroup(ctx context.Context, resource r51.Group) (r51.Group, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Group{}, err
-	}
-	typed, ok := result.(r5.Group)
-	if !ok {
-		return r5.Group{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateGroup(ctx, resource)
 }
 
 // ReadGroup retrieves a Group resource by ID.
-func (c *ClientR5) ReadGroup(ctx context.Context, id string) (r5.Group, error) {
+func (c *ClientR5) ReadGroup(ctx context.Context, id string) (r51.Group, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Group", id)
-	if err != nil {
-		return r5.Group{}, err
-	}
-	typed, ok := result.(r5.Group)
-	if !ok {
-		return r5.Group{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadGroup(ctx, id)
 }
 
 // UpdateGroup updates an existing Group resource.
-func (c *ClientR5) UpdateGroup(ctx context.Context, resource r5.Group) (update.Result[r5.Group], error) {
+func (c *ClientR5) UpdateGroup(ctx context.Context, resource r51.Group) (update.Result[r51.Group], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Group]{}, err
-	}
-	typed, ok := result.Resource.(r5.Group)
-	if !ok {
-		return update.Result[r5.Group]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Group]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateGroup(ctx, resource)
 }
 
 // DeleteGroup deletes a Group resource by ID.
 func (c *ClientR5) DeleteGroup(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Group", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteGroup(ctx, id)
+}
+
+// SearchCapabilitiesGroup returns server search capabilities for Group.
+func (c *ClientR5) SearchCapabilitiesGroup(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesGroup(ctx)
 }
 
 // SearchGroup performs a search for Group resources.
-func (c *ClientR5) SearchGroup(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Group], error) {
+func (c *ClientR5) SearchGroup(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Group], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Group", parameters, options)
-	if err != nil {
-		return search.Result[r5.Group]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Group, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Group)
-		if !ok {
-			return search.Result[r5.Group]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Group]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchGroup(ctx, parameters, options)
 }
 
+var (
+	_ r5.GuidanceResponseCreate = (*ClientR5)(nil)
+	_ r5.GuidanceResponseRead   = (*ClientR5)(nil)
+	_ r5.GuidanceResponseUpdate = (*ClientR5)(nil)
+	_ r5.GuidanceResponseDelete = (*ClientR5)(nil)
+	_ r5.GuidanceResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateGuidanceResponse creates a new GuidanceResponse resource.
-func (c *ClientR5) CreateGuidanceResponse(ctx context.Context, resource r5.GuidanceResponse) (r5.GuidanceResponse, error) {
+func (c *ClientR5) CreateGuidanceResponse(ctx context.Context, resource r51.GuidanceResponse) (r51.GuidanceResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.GuidanceResponse{}, err
-	}
-	typed, ok := result.(r5.GuidanceResponse)
-	if !ok {
-		return r5.GuidanceResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateGuidanceResponse(ctx, resource)
 }
 
 // ReadGuidanceResponse retrieves a GuidanceResponse resource by ID.
-func (c *ClientR5) ReadGuidanceResponse(ctx context.Context, id string) (r5.GuidanceResponse, error) {
+func (c *ClientR5) ReadGuidanceResponse(ctx context.Context, id string) (r51.GuidanceResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "GuidanceResponse", id)
-	if err != nil {
-		return r5.GuidanceResponse{}, err
-	}
-	typed, ok := result.(r5.GuidanceResponse)
-	if !ok {
-		return r5.GuidanceResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadGuidanceResponse(ctx, id)
 }
 
 // UpdateGuidanceResponse updates an existing GuidanceResponse resource.
-func (c *ClientR5) UpdateGuidanceResponse(ctx context.Context, resource r5.GuidanceResponse) (update.Result[r5.GuidanceResponse], error) {
+func (c *ClientR5) UpdateGuidanceResponse(ctx context.Context, resource r51.GuidanceResponse) (update.Result[r51.GuidanceResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.GuidanceResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.GuidanceResponse)
-	if !ok {
-		return update.Result[r5.GuidanceResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.GuidanceResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateGuidanceResponse(ctx, resource)
 }
 
 // DeleteGuidanceResponse deletes a GuidanceResponse resource by ID.
 func (c *ClientR5) DeleteGuidanceResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "GuidanceResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteGuidanceResponse(ctx, id)
+}
+
+// SearchCapabilitiesGuidanceResponse returns server search capabilities for GuidanceResponse.
+func (c *ClientR5) SearchCapabilitiesGuidanceResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesGuidanceResponse(ctx)
 }
 
 // SearchGuidanceResponse performs a search for GuidanceResponse resources.
-func (c *ClientR5) SearchGuidanceResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.GuidanceResponse], error) {
+func (c *ClientR5) SearchGuidanceResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.GuidanceResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "GuidanceResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.GuidanceResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.GuidanceResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.GuidanceResponse)
-		if !ok {
-			return search.Result[r5.GuidanceResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.GuidanceResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchGuidanceResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.HealthcareServiceCreate = (*ClientR5)(nil)
+	_ r5.HealthcareServiceRead   = (*ClientR5)(nil)
+	_ r5.HealthcareServiceUpdate = (*ClientR5)(nil)
+	_ r5.HealthcareServiceDelete = (*ClientR5)(nil)
+	_ r5.HealthcareServiceSearch = (*ClientR5)(nil)
+)
+
 // CreateHealthcareService creates a new HealthcareService resource.
-func (c *ClientR5) CreateHealthcareService(ctx context.Context, resource r5.HealthcareService) (r5.HealthcareService, error) {
+func (c *ClientR5) CreateHealthcareService(ctx context.Context, resource r51.HealthcareService) (r51.HealthcareService, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.HealthcareService{}, err
-	}
-	typed, ok := result.(r5.HealthcareService)
-	if !ok {
-		return r5.HealthcareService{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateHealthcareService(ctx, resource)
 }
 
 // ReadHealthcareService retrieves a HealthcareService resource by ID.
-func (c *ClientR5) ReadHealthcareService(ctx context.Context, id string) (r5.HealthcareService, error) {
+func (c *ClientR5) ReadHealthcareService(ctx context.Context, id string) (r51.HealthcareService, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "HealthcareService", id)
-	if err != nil {
-		return r5.HealthcareService{}, err
-	}
-	typed, ok := result.(r5.HealthcareService)
-	if !ok {
-		return r5.HealthcareService{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadHealthcareService(ctx, id)
 }
 
 // UpdateHealthcareService updates an existing HealthcareService resource.
-func (c *ClientR5) UpdateHealthcareService(ctx context.Context, resource r5.HealthcareService) (update.Result[r5.HealthcareService], error) {
+func (c *ClientR5) UpdateHealthcareService(ctx context.Context, resource r51.HealthcareService) (update.Result[r51.HealthcareService], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.HealthcareService]{}, err
-	}
-	typed, ok := result.Resource.(r5.HealthcareService)
-	if !ok {
-		return update.Result[r5.HealthcareService]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.HealthcareService]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateHealthcareService(ctx, resource)
 }
 
 // DeleteHealthcareService deletes a HealthcareService resource by ID.
 func (c *ClientR5) DeleteHealthcareService(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "HealthcareService", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteHealthcareService(ctx, id)
+}
+
+// SearchCapabilitiesHealthcareService returns server search capabilities for HealthcareService.
+func (c *ClientR5) SearchCapabilitiesHealthcareService(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesHealthcareService(ctx)
 }
 
 // SearchHealthcareService performs a search for HealthcareService resources.
-func (c *ClientR5) SearchHealthcareService(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.HealthcareService], error) {
+func (c *ClientR5) SearchHealthcareService(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.HealthcareService], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "HealthcareService", parameters, options)
-	if err != nil {
-		return search.Result[r5.HealthcareService]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.HealthcareService, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.HealthcareService)
-		if !ok {
-			return search.Result[r5.HealthcareService]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.HealthcareService]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchHealthcareService(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImagingSelectionCreate = (*ClientR5)(nil)
+	_ r5.ImagingSelectionRead   = (*ClientR5)(nil)
+	_ r5.ImagingSelectionUpdate = (*ClientR5)(nil)
+	_ r5.ImagingSelectionDelete = (*ClientR5)(nil)
+	_ r5.ImagingSelectionSearch = (*ClientR5)(nil)
+)
+
 // CreateImagingSelection creates a new ImagingSelection resource.
-func (c *ClientR5) CreateImagingSelection(ctx context.Context, resource r5.ImagingSelection) (r5.ImagingSelection, error) {
+func (c *ClientR5) CreateImagingSelection(ctx context.Context, resource r51.ImagingSelection) (r51.ImagingSelection, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ImagingSelection{}, err
-	}
-	typed, ok := result.(r5.ImagingSelection)
-	if !ok {
-		return r5.ImagingSelection{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImagingSelection(ctx, resource)
 }
 
 // ReadImagingSelection retrieves a ImagingSelection resource by ID.
-func (c *ClientR5) ReadImagingSelection(ctx context.Context, id string) (r5.ImagingSelection, error) {
+func (c *ClientR5) ReadImagingSelection(ctx context.Context, id string) (r51.ImagingSelection, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ImagingSelection", id)
-	if err != nil {
-		return r5.ImagingSelection{}, err
-	}
-	typed, ok := result.(r5.ImagingSelection)
-	if !ok {
-		return r5.ImagingSelection{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImagingSelection(ctx, id)
 }
 
 // UpdateImagingSelection updates an existing ImagingSelection resource.
-func (c *ClientR5) UpdateImagingSelection(ctx context.Context, resource r5.ImagingSelection) (update.Result[r5.ImagingSelection], error) {
+func (c *ClientR5) UpdateImagingSelection(ctx context.Context, resource r51.ImagingSelection) (update.Result[r51.ImagingSelection], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ImagingSelection]{}, err
-	}
-	typed, ok := result.Resource.(r5.ImagingSelection)
-	if !ok {
-		return update.Result[r5.ImagingSelection]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ImagingSelection]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImagingSelection(ctx, resource)
 }
 
 // DeleteImagingSelection deletes a ImagingSelection resource by ID.
 func (c *ClientR5) DeleteImagingSelection(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ImagingSelection", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImagingSelection(ctx, id)
+}
+
+// SearchCapabilitiesImagingSelection returns server search capabilities for ImagingSelection.
+func (c *ClientR5) SearchCapabilitiesImagingSelection(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImagingSelection(ctx)
 }
 
 // SearchImagingSelection performs a search for ImagingSelection resources.
-func (c *ClientR5) SearchImagingSelection(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImagingSelection], error) {
+func (c *ClientR5) SearchImagingSelection(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ImagingSelection], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ImagingSelection", parameters, options)
-	if err != nil {
-		return search.Result[r5.ImagingSelection]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ImagingSelection, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ImagingSelection)
-		if !ok {
-			return search.Result[r5.ImagingSelection]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ImagingSelection]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImagingSelection(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImagingStudyCreate = (*ClientR5)(nil)
+	_ r5.ImagingStudyRead   = (*ClientR5)(nil)
+	_ r5.ImagingStudyUpdate = (*ClientR5)(nil)
+	_ r5.ImagingStudyDelete = (*ClientR5)(nil)
+	_ r5.ImagingStudySearch = (*ClientR5)(nil)
+)
+
 // CreateImagingStudy creates a new ImagingStudy resource.
-func (c *ClientR5) CreateImagingStudy(ctx context.Context, resource r5.ImagingStudy) (r5.ImagingStudy, error) {
+func (c *ClientR5) CreateImagingStudy(ctx context.Context, resource r51.ImagingStudy) (r51.ImagingStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ImagingStudy{}, err
-	}
-	typed, ok := result.(r5.ImagingStudy)
-	if !ok {
-		return r5.ImagingStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImagingStudy(ctx, resource)
 }
 
 // ReadImagingStudy retrieves a ImagingStudy resource by ID.
-func (c *ClientR5) ReadImagingStudy(ctx context.Context, id string) (r5.ImagingStudy, error) {
+func (c *ClientR5) ReadImagingStudy(ctx context.Context, id string) (r51.ImagingStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ImagingStudy", id)
-	if err != nil {
-		return r5.ImagingStudy{}, err
-	}
-	typed, ok := result.(r5.ImagingStudy)
-	if !ok {
-		return r5.ImagingStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImagingStudy(ctx, id)
 }
 
 // UpdateImagingStudy updates an existing ImagingStudy resource.
-func (c *ClientR5) UpdateImagingStudy(ctx context.Context, resource r5.ImagingStudy) (update.Result[r5.ImagingStudy], error) {
+func (c *ClientR5) UpdateImagingStudy(ctx context.Context, resource r51.ImagingStudy) (update.Result[r51.ImagingStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ImagingStudy]{}, err
-	}
-	typed, ok := result.Resource.(r5.ImagingStudy)
-	if !ok {
-		return update.Result[r5.ImagingStudy]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ImagingStudy]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImagingStudy(ctx, resource)
 }
 
 // DeleteImagingStudy deletes a ImagingStudy resource by ID.
 func (c *ClientR5) DeleteImagingStudy(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ImagingStudy", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImagingStudy(ctx, id)
+}
+
+// SearchCapabilitiesImagingStudy returns server search capabilities for ImagingStudy.
+func (c *ClientR5) SearchCapabilitiesImagingStudy(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImagingStudy(ctx)
 }
 
 // SearchImagingStudy performs a search for ImagingStudy resources.
-func (c *ClientR5) SearchImagingStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImagingStudy], error) {
+func (c *ClientR5) SearchImagingStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ImagingStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ImagingStudy", parameters, options)
-	if err != nil {
-		return search.Result[r5.ImagingStudy]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ImagingStudy, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ImagingStudy)
-		if !ok {
-			return search.Result[r5.ImagingStudy]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ImagingStudy]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImagingStudy(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImmunizationCreate = (*ClientR5)(nil)
+	_ r5.ImmunizationRead   = (*ClientR5)(nil)
+	_ r5.ImmunizationUpdate = (*ClientR5)(nil)
+	_ r5.ImmunizationDelete = (*ClientR5)(nil)
+	_ r5.ImmunizationSearch = (*ClientR5)(nil)
+)
+
 // CreateImmunization creates a new Immunization resource.
-func (c *ClientR5) CreateImmunization(ctx context.Context, resource r5.Immunization) (r5.Immunization, error) {
+func (c *ClientR5) CreateImmunization(ctx context.Context, resource r51.Immunization) (r51.Immunization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Immunization{}, err
-	}
-	typed, ok := result.(r5.Immunization)
-	if !ok {
-		return r5.Immunization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImmunization(ctx, resource)
 }
 
 // ReadImmunization retrieves a Immunization resource by ID.
-func (c *ClientR5) ReadImmunization(ctx context.Context, id string) (r5.Immunization, error) {
+func (c *ClientR5) ReadImmunization(ctx context.Context, id string) (r51.Immunization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Immunization", id)
-	if err != nil {
-		return r5.Immunization{}, err
-	}
-	typed, ok := result.(r5.Immunization)
-	if !ok {
-		return r5.Immunization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImmunization(ctx, id)
 }
 
 // UpdateImmunization updates an existing Immunization resource.
-func (c *ClientR5) UpdateImmunization(ctx context.Context, resource r5.Immunization) (update.Result[r5.Immunization], error) {
+func (c *ClientR5) UpdateImmunization(ctx context.Context, resource r51.Immunization) (update.Result[r51.Immunization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Immunization]{}, err
-	}
-	typed, ok := result.Resource.(r5.Immunization)
-	if !ok {
-		return update.Result[r5.Immunization]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Immunization]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImmunization(ctx, resource)
 }
 
 // DeleteImmunization deletes a Immunization resource by ID.
 func (c *ClientR5) DeleteImmunization(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Immunization", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImmunization(ctx, id)
+}
+
+// SearchCapabilitiesImmunization returns server search capabilities for Immunization.
+func (c *ClientR5) SearchCapabilitiesImmunization(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImmunization(ctx)
 }
 
 // SearchImmunization performs a search for Immunization resources.
-func (c *ClientR5) SearchImmunization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Immunization], error) {
+func (c *ClientR5) SearchImmunization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Immunization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Immunization", parameters, options)
-	if err != nil {
-		return search.Result[r5.Immunization]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Immunization, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Immunization)
-		if !ok {
-			return search.Result[r5.Immunization]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Immunization]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImmunization(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImmunizationEvaluationCreate = (*ClientR5)(nil)
+	_ r5.ImmunizationEvaluationRead   = (*ClientR5)(nil)
+	_ r5.ImmunizationEvaluationUpdate = (*ClientR5)(nil)
+	_ r5.ImmunizationEvaluationDelete = (*ClientR5)(nil)
+	_ r5.ImmunizationEvaluationSearch = (*ClientR5)(nil)
+)
+
 // CreateImmunizationEvaluation creates a new ImmunizationEvaluation resource.
-func (c *ClientR5) CreateImmunizationEvaluation(ctx context.Context, resource r5.ImmunizationEvaluation) (r5.ImmunizationEvaluation, error) {
+func (c *ClientR5) CreateImmunizationEvaluation(ctx context.Context, resource r51.ImmunizationEvaluation) (r51.ImmunizationEvaluation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ImmunizationEvaluation{}, err
-	}
-	typed, ok := result.(r5.ImmunizationEvaluation)
-	if !ok {
-		return r5.ImmunizationEvaluation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImmunizationEvaluation(ctx, resource)
 }
 
 // ReadImmunizationEvaluation retrieves a ImmunizationEvaluation resource by ID.
-func (c *ClientR5) ReadImmunizationEvaluation(ctx context.Context, id string) (r5.ImmunizationEvaluation, error) {
+func (c *ClientR5) ReadImmunizationEvaluation(ctx context.Context, id string) (r51.ImmunizationEvaluation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ImmunizationEvaluation", id)
-	if err != nil {
-		return r5.ImmunizationEvaluation{}, err
-	}
-	typed, ok := result.(r5.ImmunizationEvaluation)
-	if !ok {
-		return r5.ImmunizationEvaluation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImmunizationEvaluation(ctx, id)
 }
 
 // UpdateImmunizationEvaluation updates an existing ImmunizationEvaluation resource.
-func (c *ClientR5) UpdateImmunizationEvaluation(ctx context.Context, resource r5.ImmunizationEvaluation) (update.Result[r5.ImmunizationEvaluation], error) {
+func (c *ClientR5) UpdateImmunizationEvaluation(ctx context.Context, resource r51.ImmunizationEvaluation) (update.Result[r51.ImmunizationEvaluation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ImmunizationEvaluation]{}, err
-	}
-	typed, ok := result.Resource.(r5.ImmunizationEvaluation)
-	if !ok {
-		return update.Result[r5.ImmunizationEvaluation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ImmunizationEvaluation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImmunizationEvaluation(ctx, resource)
 }
 
 // DeleteImmunizationEvaluation deletes a ImmunizationEvaluation resource by ID.
 func (c *ClientR5) DeleteImmunizationEvaluation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ImmunizationEvaluation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImmunizationEvaluation(ctx, id)
+}
+
+// SearchCapabilitiesImmunizationEvaluation returns server search capabilities for ImmunizationEvaluation.
+func (c *ClientR5) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImmunizationEvaluation(ctx)
 }
 
 // SearchImmunizationEvaluation performs a search for ImmunizationEvaluation resources.
-func (c *ClientR5) SearchImmunizationEvaluation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImmunizationEvaluation], error) {
+func (c *ClientR5) SearchImmunizationEvaluation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ImmunizationEvaluation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ImmunizationEvaluation", parameters, options)
-	if err != nil {
-		return search.Result[r5.ImmunizationEvaluation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ImmunizationEvaluation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ImmunizationEvaluation)
-		if !ok {
-			return search.Result[r5.ImmunizationEvaluation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ImmunizationEvaluation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImmunizationEvaluation(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImmunizationRecommendationCreate = (*ClientR5)(nil)
+	_ r5.ImmunizationRecommendationRead   = (*ClientR5)(nil)
+	_ r5.ImmunizationRecommendationUpdate = (*ClientR5)(nil)
+	_ r5.ImmunizationRecommendationDelete = (*ClientR5)(nil)
+	_ r5.ImmunizationRecommendationSearch = (*ClientR5)(nil)
+)
+
 // CreateImmunizationRecommendation creates a new ImmunizationRecommendation resource.
-func (c *ClientR5) CreateImmunizationRecommendation(ctx context.Context, resource r5.ImmunizationRecommendation) (r5.ImmunizationRecommendation, error) {
+func (c *ClientR5) CreateImmunizationRecommendation(ctx context.Context, resource r51.ImmunizationRecommendation) (r51.ImmunizationRecommendation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ImmunizationRecommendation{}, err
-	}
-	typed, ok := result.(r5.ImmunizationRecommendation)
-	if !ok {
-		return r5.ImmunizationRecommendation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImmunizationRecommendation(ctx, resource)
 }
 
 // ReadImmunizationRecommendation retrieves a ImmunizationRecommendation resource by ID.
-func (c *ClientR5) ReadImmunizationRecommendation(ctx context.Context, id string) (r5.ImmunizationRecommendation, error) {
+func (c *ClientR5) ReadImmunizationRecommendation(ctx context.Context, id string) (r51.ImmunizationRecommendation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ImmunizationRecommendation", id)
-	if err != nil {
-		return r5.ImmunizationRecommendation{}, err
-	}
-	typed, ok := result.(r5.ImmunizationRecommendation)
-	if !ok {
-		return r5.ImmunizationRecommendation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImmunizationRecommendation(ctx, id)
 }
 
 // UpdateImmunizationRecommendation updates an existing ImmunizationRecommendation resource.
-func (c *ClientR5) UpdateImmunizationRecommendation(ctx context.Context, resource r5.ImmunizationRecommendation) (update.Result[r5.ImmunizationRecommendation], error) {
+func (c *ClientR5) UpdateImmunizationRecommendation(ctx context.Context, resource r51.ImmunizationRecommendation) (update.Result[r51.ImmunizationRecommendation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ImmunizationRecommendation]{}, err
-	}
-	typed, ok := result.Resource.(r5.ImmunizationRecommendation)
-	if !ok {
-		return update.Result[r5.ImmunizationRecommendation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ImmunizationRecommendation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImmunizationRecommendation(ctx, resource)
 }
 
 // DeleteImmunizationRecommendation deletes a ImmunizationRecommendation resource by ID.
 func (c *ClientR5) DeleteImmunizationRecommendation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ImmunizationRecommendation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImmunizationRecommendation(ctx, id)
+}
+
+// SearchCapabilitiesImmunizationRecommendation returns server search capabilities for ImmunizationRecommendation.
+func (c *ClientR5) SearchCapabilitiesImmunizationRecommendation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImmunizationRecommendation(ctx)
 }
 
 // SearchImmunizationRecommendation performs a search for ImmunizationRecommendation resources.
-func (c *ClientR5) SearchImmunizationRecommendation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImmunizationRecommendation], error) {
+func (c *ClientR5) SearchImmunizationRecommendation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ImmunizationRecommendation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ImmunizationRecommendation", parameters, options)
-	if err != nil {
-		return search.Result[r5.ImmunizationRecommendation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ImmunizationRecommendation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ImmunizationRecommendation)
-		if !ok {
-			return search.Result[r5.ImmunizationRecommendation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ImmunizationRecommendation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImmunizationRecommendation(ctx, parameters, options)
 }
 
+var (
+	_ r5.ImplementationGuideCreate = (*ClientR5)(nil)
+	_ r5.ImplementationGuideRead   = (*ClientR5)(nil)
+	_ r5.ImplementationGuideUpdate = (*ClientR5)(nil)
+	_ r5.ImplementationGuideDelete = (*ClientR5)(nil)
+	_ r5.ImplementationGuideSearch = (*ClientR5)(nil)
+)
+
 // CreateImplementationGuide creates a new ImplementationGuide resource.
-func (c *ClientR5) CreateImplementationGuide(ctx context.Context, resource r5.ImplementationGuide) (r5.ImplementationGuide, error) {
+func (c *ClientR5) CreateImplementationGuide(ctx context.Context, resource r51.ImplementationGuide) (r51.ImplementationGuide, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ImplementationGuide{}, err
-	}
-	typed, ok := result.(r5.ImplementationGuide)
-	if !ok {
-		return r5.ImplementationGuide{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateImplementationGuide(ctx, resource)
 }
 
 // ReadImplementationGuide retrieves a ImplementationGuide resource by ID.
-func (c *ClientR5) ReadImplementationGuide(ctx context.Context, id string) (r5.ImplementationGuide, error) {
+func (c *ClientR5) ReadImplementationGuide(ctx context.Context, id string) (r51.ImplementationGuide, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ImplementationGuide", id)
-	if err != nil {
-		return r5.ImplementationGuide{}, err
-	}
-	typed, ok := result.(r5.ImplementationGuide)
-	if !ok {
-		return r5.ImplementationGuide{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadImplementationGuide(ctx, id)
 }
 
 // UpdateImplementationGuide updates an existing ImplementationGuide resource.
-func (c *ClientR5) UpdateImplementationGuide(ctx context.Context, resource r5.ImplementationGuide) (update.Result[r5.ImplementationGuide], error) {
+func (c *ClientR5) UpdateImplementationGuide(ctx context.Context, resource r51.ImplementationGuide) (update.Result[r51.ImplementationGuide], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ImplementationGuide]{}, err
-	}
-	typed, ok := result.Resource.(r5.ImplementationGuide)
-	if !ok {
-		return update.Result[r5.ImplementationGuide]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ImplementationGuide]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateImplementationGuide(ctx, resource)
 }
 
 // DeleteImplementationGuide deletes a ImplementationGuide resource by ID.
 func (c *ClientR5) DeleteImplementationGuide(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ImplementationGuide", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteImplementationGuide(ctx, id)
+}
+
+// SearchCapabilitiesImplementationGuide returns server search capabilities for ImplementationGuide.
+func (c *ClientR5) SearchCapabilitiesImplementationGuide(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesImplementationGuide(ctx)
 }
 
 // SearchImplementationGuide performs a search for ImplementationGuide resources.
-func (c *ClientR5) SearchImplementationGuide(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ImplementationGuide], error) {
+func (c *ClientR5) SearchImplementationGuide(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ImplementationGuide], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ImplementationGuide", parameters, options)
-	if err != nil {
-		return search.Result[r5.ImplementationGuide]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ImplementationGuide, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ImplementationGuide)
-		if !ok {
-			return search.Result[r5.ImplementationGuide]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ImplementationGuide]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchImplementationGuide(ctx, parameters, options)
 }
 
+var (
+	_ r5.IngredientCreate = (*ClientR5)(nil)
+	_ r5.IngredientRead   = (*ClientR5)(nil)
+	_ r5.IngredientUpdate = (*ClientR5)(nil)
+	_ r5.IngredientDelete = (*ClientR5)(nil)
+	_ r5.IngredientSearch = (*ClientR5)(nil)
+)
+
 // CreateIngredient creates a new Ingredient resource.
-func (c *ClientR5) CreateIngredient(ctx context.Context, resource r5.Ingredient) (r5.Ingredient, error) {
+func (c *ClientR5) CreateIngredient(ctx context.Context, resource r51.Ingredient) (r51.Ingredient, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Ingredient{}, err
-	}
-	typed, ok := result.(r5.Ingredient)
-	if !ok {
-		return r5.Ingredient{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateIngredient(ctx, resource)
 }
 
 // ReadIngredient retrieves a Ingredient resource by ID.
-func (c *ClientR5) ReadIngredient(ctx context.Context, id string) (r5.Ingredient, error) {
+func (c *ClientR5) ReadIngredient(ctx context.Context, id string) (r51.Ingredient, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Ingredient", id)
-	if err != nil {
-		return r5.Ingredient{}, err
-	}
-	typed, ok := result.(r5.Ingredient)
-	if !ok {
-		return r5.Ingredient{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadIngredient(ctx, id)
 }
 
 // UpdateIngredient updates an existing Ingredient resource.
-func (c *ClientR5) UpdateIngredient(ctx context.Context, resource r5.Ingredient) (update.Result[r5.Ingredient], error) {
+func (c *ClientR5) UpdateIngredient(ctx context.Context, resource r51.Ingredient) (update.Result[r51.Ingredient], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Ingredient]{}, err
-	}
-	typed, ok := result.Resource.(r5.Ingredient)
-	if !ok {
-		return update.Result[r5.Ingredient]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Ingredient]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateIngredient(ctx, resource)
 }
 
 // DeleteIngredient deletes a Ingredient resource by ID.
 func (c *ClientR5) DeleteIngredient(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Ingredient", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteIngredient(ctx, id)
+}
+
+// SearchCapabilitiesIngredient returns server search capabilities for Ingredient.
+func (c *ClientR5) SearchCapabilitiesIngredient(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesIngredient(ctx)
 }
 
 // SearchIngredient performs a search for Ingredient resources.
-func (c *ClientR5) SearchIngredient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Ingredient], error) {
+func (c *ClientR5) SearchIngredient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Ingredient], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Ingredient", parameters, options)
-	if err != nil {
-		return search.Result[r5.Ingredient]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Ingredient, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Ingredient)
-		if !ok {
-			return search.Result[r5.Ingredient]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Ingredient]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchIngredient(ctx, parameters, options)
 }
 
+var (
+	_ r5.InsurancePlanCreate = (*ClientR5)(nil)
+	_ r5.InsurancePlanRead   = (*ClientR5)(nil)
+	_ r5.InsurancePlanUpdate = (*ClientR5)(nil)
+	_ r5.InsurancePlanDelete = (*ClientR5)(nil)
+	_ r5.InsurancePlanSearch = (*ClientR5)(nil)
+)
+
 // CreateInsurancePlan creates a new InsurancePlan resource.
-func (c *ClientR5) CreateInsurancePlan(ctx context.Context, resource r5.InsurancePlan) (r5.InsurancePlan, error) {
+func (c *ClientR5) CreateInsurancePlan(ctx context.Context, resource r51.InsurancePlan) (r51.InsurancePlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.InsurancePlan{}, err
-	}
-	typed, ok := result.(r5.InsurancePlan)
-	if !ok {
-		return r5.InsurancePlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateInsurancePlan(ctx, resource)
 }
 
 // ReadInsurancePlan retrieves a InsurancePlan resource by ID.
-func (c *ClientR5) ReadInsurancePlan(ctx context.Context, id string) (r5.InsurancePlan, error) {
+func (c *ClientR5) ReadInsurancePlan(ctx context.Context, id string) (r51.InsurancePlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "InsurancePlan", id)
-	if err != nil {
-		return r5.InsurancePlan{}, err
-	}
-	typed, ok := result.(r5.InsurancePlan)
-	if !ok {
-		return r5.InsurancePlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadInsurancePlan(ctx, id)
 }
 
 // UpdateInsurancePlan updates an existing InsurancePlan resource.
-func (c *ClientR5) UpdateInsurancePlan(ctx context.Context, resource r5.InsurancePlan) (update.Result[r5.InsurancePlan], error) {
+func (c *ClientR5) UpdateInsurancePlan(ctx context.Context, resource r51.InsurancePlan) (update.Result[r51.InsurancePlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.InsurancePlan]{}, err
-	}
-	typed, ok := result.Resource.(r5.InsurancePlan)
-	if !ok {
-		return update.Result[r5.InsurancePlan]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.InsurancePlan]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateInsurancePlan(ctx, resource)
 }
 
 // DeleteInsurancePlan deletes a InsurancePlan resource by ID.
 func (c *ClientR5) DeleteInsurancePlan(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "InsurancePlan", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteInsurancePlan(ctx, id)
+}
+
+// SearchCapabilitiesInsurancePlan returns server search capabilities for InsurancePlan.
+func (c *ClientR5) SearchCapabilitiesInsurancePlan(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesInsurancePlan(ctx)
 }
 
 // SearchInsurancePlan performs a search for InsurancePlan resources.
-func (c *ClientR5) SearchInsurancePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InsurancePlan], error) {
+func (c *ClientR5) SearchInsurancePlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.InsurancePlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "InsurancePlan", parameters, options)
-	if err != nil {
-		return search.Result[r5.InsurancePlan]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.InsurancePlan, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.InsurancePlan)
-		if !ok {
-			return search.Result[r5.InsurancePlan]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.InsurancePlan]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchInsurancePlan(ctx, parameters, options)
 }
 
+var (
+	_ r5.InventoryItemCreate = (*ClientR5)(nil)
+	_ r5.InventoryItemRead   = (*ClientR5)(nil)
+	_ r5.InventoryItemUpdate = (*ClientR5)(nil)
+	_ r5.InventoryItemDelete = (*ClientR5)(nil)
+	_ r5.InventoryItemSearch = (*ClientR5)(nil)
+)
+
 // CreateInventoryItem creates a new InventoryItem resource.
-func (c *ClientR5) CreateInventoryItem(ctx context.Context, resource r5.InventoryItem) (r5.InventoryItem, error) {
+func (c *ClientR5) CreateInventoryItem(ctx context.Context, resource r51.InventoryItem) (r51.InventoryItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.InventoryItem{}, err
-	}
-	typed, ok := result.(r5.InventoryItem)
-	if !ok {
-		return r5.InventoryItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateInventoryItem(ctx, resource)
 }
 
 // ReadInventoryItem retrieves a InventoryItem resource by ID.
-func (c *ClientR5) ReadInventoryItem(ctx context.Context, id string) (r5.InventoryItem, error) {
+func (c *ClientR5) ReadInventoryItem(ctx context.Context, id string) (r51.InventoryItem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "InventoryItem", id)
-	if err != nil {
-		return r5.InventoryItem{}, err
-	}
-	typed, ok := result.(r5.InventoryItem)
-	if !ok {
-		return r5.InventoryItem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadInventoryItem(ctx, id)
 }
 
 // UpdateInventoryItem updates an existing InventoryItem resource.
-func (c *ClientR5) UpdateInventoryItem(ctx context.Context, resource r5.InventoryItem) (update.Result[r5.InventoryItem], error) {
+func (c *ClientR5) UpdateInventoryItem(ctx context.Context, resource r51.InventoryItem) (update.Result[r51.InventoryItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.InventoryItem]{}, err
-	}
-	typed, ok := result.Resource.(r5.InventoryItem)
-	if !ok {
-		return update.Result[r5.InventoryItem]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.InventoryItem]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateInventoryItem(ctx, resource)
 }
 
 // DeleteInventoryItem deletes a InventoryItem resource by ID.
 func (c *ClientR5) DeleteInventoryItem(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "InventoryItem", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteInventoryItem(ctx, id)
+}
+
+// SearchCapabilitiesInventoryItem returns server search capabilities for InventoryItem.
+func (c *ClientR5) SearchCapabilitiesInventoryItem(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesInventoryItem(ctx)
 }
 
 // SearchInventoryItem performs a search for InventoryItem resources.
-func (c *ClientR5) SearchInventoryItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InventoryItem], error) {
+func (c *ClientR5) SearchInventoryItem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.InventoryItem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "InventoryItem", parameters, options)
-	if err != nil {
-		return search.Result[r5.InventoryItem]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.InventoryItem, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.InventoryItem)
-		if !ok {
-			return search.Result[r5.InventoryItem]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.InventoryItem]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchInventoryItem(ctx, parameters, options)
 }
 
+var (
+	_ r5.InventoryReportCreate = (*ClientR5)(nil)
+	_ r5.InventoryReportRead   = (*ClientR5)(nil)
+	_ r5.InventoryReportUpdate = (*ClientR5)(nil)
+	_ r5.InventoryReportDelete = (*ClientR5)(nil)
+	_ r5.InventoryReportSearch = (*ClientR5)(nil)
+)
+
 // CreateInventoryReport creates a new InventoryReport resource.
-func (c *ClientR5) CreateInventoryReport(ctx context.Context, resource r5.InventoryReport) (r5.InventoryReport, error) {
+func (c *ClientR5) CreateInventoryReport(ctx context.Context, resource r51.InventoryReport) (r51.InventoryReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.InventoryReport{}, err
-	}
-	typed, ok := result.(r5.InventoryReport)
-	if !ok {
-		return r5.InventoryReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateInventoryReport(ctx, resource)
 }
 
 // ReadInventoryReport retrieves a InventoryReport resource by ID.
-func (c *ClientR5) ReadInventoryReport(ctx context.Context, id string) (r5.InventoryReport, error) {
+func (c *ClientR5) ReadInventoryReport(ctx context.Context, id string) (r51.InventoryReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "InventoryReport", id)
-	if err != nil {
-		return r5.InventoryReport{}, err
-	}
-	typed, ok := result.(r5.InventoryReport)
-	if !ok {
-		return r5.InventoryReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadInventoryReport(ctx, id)
 }
 
 // UpdateInventoryReport updates an existing InventoryReport resource.
-func (c *ClientR5) UpdateInventoryReport(ctx context.Context, resource r5.InventoryReport) (update.Result[r5.InventoryReport], error) {
+func (c *ClientR5) UpdateInventoryReport(ctx context.Context, resource r51.InventoryReport) (update.Result[r51.InventoryReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.InventoryReport]{}, err
-	}
-	typed, ok := result.Resource.(r5.InventoryReport)
-	if !ok {
-		return update.Result[r5.InventoryReport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.InventoryReport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateInventoryReport(ctx, resource)
 }
 
 // DeleteInventoryReport deletes a InventoryReport resource by ID.
 func (c *ClientR5) DeleteInventoryReport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "InventoryReport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteInventoryReport(ctx, id)
+}
+
+// SearchCapabilitiesInventoryReport returns server search capabilities for InventoryReport.
+func (c *ClientR5) SearchCapabilitiesInventoryReport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesInventoryReport(ctx)
 }
 
 // SearchInventoryReport performs a search for InventoryReport resources.
-func (c *ClientR5) SearchInventoryReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.InventoryReport], error) {
+func (c *ClientR5) SearchInventoryReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.InventoryReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "InventoryReport", parameters, options)
-	if err != nil {
-		return search.Result[r5.InventoryReport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.InventoryReport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.InventoryReport)
-		if !ok {
-			return search.Result[r5.InventoryReport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.InventoryReport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchInventoryReport(ctx, parameters, options)
 }
 
+var (
+	_ r5.InvoiceCreate = (*ClientR5)(nil)
+	_ r5.InvoiceRead   = (*ClientR5)(nil)
+	_ r5.InvoiceUpdate = (*ClientR5)(nil)
+	_ r5.InvoiceDelete = (*ClientR5)(nil)
+	_ r5.InvoiceSearch = (*ClientR5)(nil)
+)
+
 // CreateInvoice creates a new Invoice resource.
-func (c *ClientR5) CreateInvoice(ctx context.Context, resource r5.Invoice) (r5.Invoice, error) {
+func (c *ClientR5) CreateInvoice(ctx context.Context, resource r51.Invoice) (r51.Invoice, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Invoice{}, err
-	}
-	typed, ok := result.(r5.Invoice)
-	if !ok {
-		return r5.Invoice{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateInvoice(ctx, resource)
 }
 
 // ReadInvoice retrieves a Invoice resource by ID.
-func (c *ClientR5) ReadInvoice(ctx context.Context, id string) (r5.Invoice, error) {
+func (c *ClientR5) ReadInvoice(ctx context.Context, id string) (r51.Invoice, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Invoice", id)
-	if err != nil {
-		return r5.Invoice{}, err
-	}
-	typed, ok := result.(r5.Invoice)
-	if !ok {
-		return r5.Invoice{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadInvoice(ctx, id)
 }
 
 // UpdateInvoice updates an existing Invoice resource.
-func (c *ClientR5) UpdateInvoice(ctx context.Context, resource r5.Invoice) (update.Result[r5.Invoice], error) {
+func (c *ClientR5) UpdateInvoice(ctx context.Context, resource r51.Invoice) (update.Result[r51.Invoice], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Invoice]{}, err
-	}
-	typed, ok := result.Resource.(r5.Invoice)
-	if !ok {
-		return update.Result[r5.Invoice]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Invoice]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateInvoice(ctx, resource)
 }
 
 // DeleteInvoice deletes a Invoice resource by ID.
 func (c *ClientR5) DeleteInvoice(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Invoice", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteInvoice(ctx, id)
+}
+
+// SearchCapabilitiesInvoice returns server search capabilities for Invoice.
+func (c *ClientR5) SearchCapabilitiesInvoice(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesInvoice(ctx)
 }
 
 // SearchInvoice performs a search for Invoice resources.
-func (c *ClientR5) SearchInvoice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Invoice], error) {
+func (c *ClientR5) SearchInvoice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Invoice], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Invoice", parameters, options)
-	if err != nil {
-		return search.Result[r5.Invoice]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Invoice, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Invoice)
-		if !ok {
-			return search.Result[r5.Invoice]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Invoice]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchInvoice(ctx, parameters, options)
 }
 
+var (
+	_ r5.LibraryCreate = (*ClientR5)(nil)
+	_ r5.LibraryRead   = (*ClientR5)(nil)
+	_ r5.LibraryUpdate = (*ClientR5)(nil)
+	_ r5.LibraryDelete = (*ClientR5)(nil)
+	_ r5.LibrarySearch = (*ClientR5)(nil)
+)
+
 // CreateLibrary creates a new Library resource.
-func (c *ClientR5) CreateLibrary(ctx context.Context, resource r5.Library) (r5.Library, error) {
+func (c *ClientR5) CreateLibrary(ctx context.Context, resource r51.Library) (r51.Library, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Library{}, err
-	}
-	typed, ok := result.(r5.Library)
-	if !ok {
-		return r5.Library{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateLibrary(ctx, resource)
 }
 
 // ReadLibrary retrieves a Library resource by ID.
-func (c *ClientR5) ReadLibrary(ctx context.Context, id string) (r5.Library, error) {
+func (c *ClientR5) ReadLibrary(ctx context.Context, id string) (r51.Library, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Library", id)
-	if err != nil {
-		return r5.Library{}, err
-	}
-	typed, ok := result.(r5.Library)
-	if !ok {
-		return r5.Library{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadLibrary(ctx, id)
 }
 
 // UpdateLibrary updates an existing Library resource.
-func (c *ClientR5) UpdateLibrary(ctx context.Context, resource r5.Library) (update.Result[r5.Library], error) {
+func (c *ClientR5) UpdateLibrary(ctx context.Context, resource r51.Library) (update.Result[r51.Library], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Library]{}, err
-	}
-	typed, ok := result.Resource.(r5.Library)
-	if !ok {
-		return update.Result[r5.Library]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Library]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateLibrary(ctx, resource)
 }
 
 // DeleteLibrary deletes a Library resource by ID.
 func (c *ClientR5) DeleteLibrary(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Library", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteLibrary(ctx, id)
+}
+
+// SearchCapabilitiesLibrary returns server search capabilities for Library.
+func (c *ClientR5) SearchCapabilitiesLibrary(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesLibrary(ctx)
 }
 
 // SearchLibrary performs a search for Library resources.
-func (c *ClientR5) SearchLibrary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Library], error) {
+func (c *ClientR5) SearchLibrary(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Library], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Library", parameters, options)
-	if err != nil {
-		return search.Result[r5.Library]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Library, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Library)
-		if !ok {
-			return search.Result[r5.Library]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Library]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchLibrary(ctx, parameters, options)
 }
 
+var (
+	_ r5.LinkageCreate = (*ClientR5)(nil)
+	_ r5.LinkageRead   = (*ClientR5)(nil)
+	_ r5.LinkageUpdate = (*ClientR5)(nil)
+	_ r5.LinkageDelete = (*ClientR5)(nil)
+	_ r5.LinkageSearch = (*ClientR5)(nil)
+)
+
 // CreateLinkage creates a new Linkage resource.
-func (c *ClientR5) CreateLinkage(ctx context.Context, resource r5.Linkage) (r5.Linkage, error) {
+func (c *ClientR5) CreateLinkage(ctx context.Context, resource r51.Linkage) (r51.Linkage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Linkage{}, err
-	}
-	typed, ok := result.(r5.Linkage)
-	if !ok {
-		return r5.Linkage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateLinkage(ctx, resource)
 }
 
 // ReadLinkage retrieves a Linkage resource by ID.
-func (c *ClientR5) ReadLinkage(ctx context.Context, id string) (r5.Linkage, error) {
+func (c *ClientR5) ReadLinkage(ctx context.Context, id string) (r51.Linkage, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Linkage", id)
-	if err != nil {
-		return r5.Linkage{}, err
-	}
-	typed, ok := result.(r5.Linkage)
-	if !ok {
-		return r5.Linkage{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadLinkage(ctx, id)
 }
 
 // UpdateLinkage updates an existing Linkage resource.
-func (c *ClientR5) UpdateLinkage(ctx context.Context, resource r5.Linkage) (update.Result[r5.Linkage], error) {
+func (c *ClientR5) UpdateLinkage(ctx context.Context, resource r51.Linkage) (update.Result[r51.Linkage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Linkage]{}, err
-	}
-	typed, ok := result.Resource.(r5.Linkage)
-	if !ok {
-		return update.Result[r5.Linkage]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Linkage]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateLinkage(ctx, resource)
 }
 
 // DeleteLinkage deletes a Linkage resource by ID.
 func (c *ClientR5) DeleteLinkage(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Linkage", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteLinkage(ctx, id)
+}
+
+// SearchCapabilitiesLinkage returns server search capabilities for Linkage.
+func (c *ClientR5) SearchCapabilitiesLinkage(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesLinkage(ctx)
 }
 
 // SearchLinkage performs a search for Linkage resources.
-func (c *ClientR5) SearchLinkage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Linkage], error) {
+func (c *ClientR5) SearchLinkage(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Linkage], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Linkage", parameters, options)
-	if err != nil {
-		return search.Result[r5.Linkage]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Linkage, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Linkage)
-		if !ok {
-			return search.Result[r5.Linkage]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Linkage]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchLinkage(ctx, parameters, options)
 }
 
+var (
+	_ r5.ListCreate = (*ClientR5)(nil)
+	_ r5.ListRead   = (*ClientR5)(nil)
+	_ r5.ListUpdate = (*ClientR5)(nil)
+	_ r5.ListDelete = (*ClientR5)(nil)
+	_ r5.ListSearch = (*ClientR5)(nil)
+)
+
 // CreateList creates a new List resource.
-func (c *ClientR5) CreateList(ctx context.Context, resource r5.List) (r5.List, error) {
+func (c *ClientR5) CreateList(ctx context.Context, resource r51.List) (r51.List, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.List{}, err
-	}
-	typed, ok := result.(r5.List)
-	if !ok {
-		return r5.List{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateList(ctx, resource)
 }
 
 // ReadList retrieves a List resource by ID.
-func (c *ClientR5) ReadList(ctx context.Context, id string) (r5.List, error) {
+func (c *ClientR5) ReadList(ctx context.Context, id string) (r51.List, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "List", id)
-	if err != nil {
-		return r5.List{}, err
-	}
-	typed, ok := result.(r5.List)
-	if !ok {
-		return r5.List{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadList(ctx, id)
 }
 
 // UpdateList updates an existing List resource.
-func (c *ClientR5) UpdateList(ctx context.Context, resource r5.List) (update.Result[r5.List], error) {
+func (c *ClientR5) UpdateList(ctx context.Context, resource r51.List) (update.Result[r51.List], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.List]{}, err
-	}
-	typed, ok := result.Resource.(r5.List)
-	if !ok {
-		return update.Result[r5.List]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.List]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateList(ctx, resource)
 }
 
 // DeleteList deletes a List resource by ID.
 func (c *ClientR5) DeleteList(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "List", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteList(ctx, id)
+}
+
+// SearchCapabilitiesList returns server search capabilities for List.
+func (c *ClientR5) SearchCapabilitiesList(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesList(ctx)
 }
 
 // SearchList performs a search for List resources.
-func (c *ClientR5) SearchList(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.List], error) {
+func (c *ClientR5) SearchList(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.List], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "List", parameters, options)
-	if err != nil {
-		return search.Result[r5.List]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.List, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.List)
-		if !ok {
-			return search.Result[r5.List]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.List]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchList(ctx, parameters, options)
 }
 
+var (
+	_ r5.LocationCreate = (*ClientR5)(nil)
+	_ r5.LocationRead   = (*ClientR5)(nil)
+	_ r5.LocationUpdate = (*ClientR5)(nil)
+	_ r5.LocationDelete = (*ClientR5)(nil)
+	_ r5.LocationSearch = (*ClientR5)(nil)
+)
+
 // CreateLocation creates a new Location resource.
-func (c *ClientR5) CreateLocation(ctx context.Context, resource r5.Location) (r5.Location, error) {
+func (c *ClientR5) CreateLocation(ctx context.Context, resource r51.Location) (r51.Location, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Location{}, err
-	}
-	typed, ok := result.(r5.Location)
-	if !ok {
-		return r5.Location{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateLocation(ctx, resource)
 }
 
 // ReadLocation retrieves a Location resource by ID.
-func (c *ClientR5) ReadLocation(ctx context.Context, id string) (r5.Location, error) {
+func (c *ClientR5) ReadLocation(ctx context.Context, id string) (r51.Location, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Location", id)
-	if err != nil {
-		return r5.Location{}, err
-	}
-	typed, ok := result.(r5.Location)
-	if !ok {
-		return r5.Location{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadLocation(ctx, id)
 }
 
 // UpdateLocation updates an existing Location resource.
-func (c *ClientR5) UpdateLocation(ctx context.Context, resource r5.Location) (update.Result[r5.Location], error) {
+func (c *ClientR5) UpdateLocation(ctx context.Context, resource r51.Location) (update.Result[r51.Location], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Location]{}, err
-	}
-	typed, ok := result.Resource.(r5.Location)
-	if !ok {
-		return update.Result[r5.Location]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Location]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateLocation(ctx, resource)
 }
 
 // DeleteLocation deletes a Location resource by ID.
 func (c *ClientR5) DeleteLocation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Location", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteLocation(ctx, id)
+}
+
+// SearchCapabilitiesLocation returns server search capabilities for Location.
+func (c *ClientR5) SearchCapabilitiesLocation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesLocation(ctx)
 }
 
 // SearchLocation performs a search for Location resources.
-func (c *ClientR5) SearchLocation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Location], error) {
+func (c *ClientR5) SearchLocation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Location], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Location", parameters, options)
-	if err != nil {
-		return search.Result[r5.Location]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Location, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Location)
-		if !ok {
-			return search.Result[r5.Location]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Location]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchLocation(ctx, parameters, options)
 }
 
+var (
+	_ r5.ManufacturedItemDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ManufacturedItemDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ManufacturedItemDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ManufacturedItemDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ManufacturedItemDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateManufacturedItemDefinition creates a new ManufacturedItemDefinition resource.
-func (c *ClientR5) CreateManufacturedItemDefinition(ctx context.Context, resource r5.ManufacturedItemDefinition) (r5.ManufacturedItemDefinition, error) {
+func (c *ClientR5) CreateManufacturedItemDefinition(ctx context.Context, resource r51.ManufacturedItemDefinition) (r51.ManufacturedItemDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ManufacturedItemDefinition{}, err
-	}
-	typed, ok := result.(r5.ManufacturedItemDefinition)
-	if !ok {
-		return r5.ManufacturedItemDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateManufacturedItemDefinition(ctx, resource)
 }
 
 // ReadManufacturedItemDefinition retrieves a ManufacturedItemDefinition resource by ID.
-func (c *ClientR5) ReadManufacturedItemDefinition(ctx context.Context, id string) (r5.ManufacturedItemDefinition, error) {
+func (c *ClientR5) ReadManufacturedItemDefinition(ctx context.Context, id string) (r51.ManufacturedItemDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ManufacturedItemDefinition", id)
-	if err != nil {
-		return r5.ManufacturedItemDefinition{}, err
-	}
-	typed, ok := result.(r5.ManufacturedItemDefinition)
-	if !ok {
-		return r5.ManufacturedItemDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadManufacturedItemDefinition(ctx, id)
 }
 
 // UpdateManufacturedItemDefinition updates an existing ManufacturedItemDefinition resource.
-func (c *ClientR5) UpdateManufacturedItemDefinition(ctx context.Context, resource r5.ManufacturedItemDefinition) (update.Result[r5.ManufacturedItemDefinition], error) {
+func (c *ClientR5) UpdateManufacturedItemDefinition(ctx context.Context, resource r51.ManufacturedItemDefinition) (update.Result[r51.ManufacturedItemDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ManufacturedItemDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ManufacturedItemDefinition)
-	if !ok {
-		return update.Result[r5.ManufacturedItemDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ManufacturedItemDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateManufacturedItemDefinition(ctx, resource)
 }
 
 // DeleteManufacturedItemDefinition deletes a ManufacturedItemDefinition resource by ID.
 func (c *ClientR5) DeleteManufacturedItemDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ManufacturedItemDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteManufacturedItemDefinition(ctx, id)
+}
+
+// SearchCapabilitiesManufacturedItemDefinition returns server search capabilities for ManufacturedItemDefinition.
+func (c *ClientR5) SearchCapabilitiesManufacturedItemDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesManufacturedItemDefinition(ctx)
 }
 
 // SearchManufacturedItemDefinition performs a search for ManufacturedItemDefinition resources.
-func (c *ClientR5) SearchManufacturedItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ManufacturedItemDefinition], error) {
+func (c *ClientR5) SearchManufacturedItemDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ManufacturedItemDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ManufacturedItemDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ManufacturedItemDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ManufacturedItemDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ManufacturedItemDefinition)
-		if !ok {
-			return search.Result[r5.ManufacturedItemDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ManufacturedItemDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchManufacturedItemDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.MeasureCreate = (*ClientR5)(nil)
+	_ r5.MeasureRead   = (*ClientR5)(nil)
+	_ r5.MeasureUpdate = (*ClientR5)(nil)
+	_ r5.MeasureDelete = (*ClientR5)(nil)
+	_ r5.MeasureSearch = (*ClientR5)(nil)
+)
+
 // CreateMeasure creates a new Measure resource.
-func (c *ClientR5) CreateMeasure(ctx context.Context, resource r5.Measure) (r5.Measure, error) {
+func (c *ClientR5) CreateMeasure(ctx context.Context, resource r51.Measure) (r51.Measure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Measure{}, err
-	}
-	typed, ok := result.(r5.Measure)
-	if !ok {
-		return r5.Measure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMeasure(ctx, resource)
 }
 
 // ReadMeasure retrieves a Measure resource by ID.
-func (c *ClientR5) ReadMeasure(ctx context.Context, id string) (r5.Measure, error) {
+func (c *ClientR5) ReadMeasure(ctx context.Context, id string) (r51.Measure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Measure", id)
-	if err != nil {
-		return r5.Measure{}, err
-	}
-	typed, ok := result.(r5.Measure)
-	if !ok {
-		return r5.Measure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMeasure(ctx, id)
 }
 
 // UpdateMeasure updates an existing Measure resource.
-func (c *ClientR5) UpdateMeasure(ctx context.Context, resource r5.Measure) (update.Result[r5.Measure], error) {
+func (c *ClientR5) UpdateMeasure(ctx context.Context, resource r51.Measure) (update.Result[r51.Measure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Measure]{}, err
-	}
-	typed, ok := result.Resource.(r5.Measure)
-	if !ok {
-		return update.Result[r5.Measure]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Measure]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMeasure(ctx, resource)
 }
 
 // DeleteMeasure deletes a Measure resource by ID.
 func (c *ClientR5) DeleteMeasure(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Measure", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMeasure(ctx, id)
+}
+
+// SearchCapabilitiesMeasure returns server search capabilities for Measure.
+func (c *ClientR5) SearchCapabilitiesMeasure(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMeasure(ctx)
 }
 
 // SearchMeasure performs a search for Measure resources.
-func (c *ClientR5) SearchMeasure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Measure], error) {
+func (c *ClientR5) SearchMeasure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Measure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Measure", parameters, options)
-	if err != nil {
-		return search.Result[r5.Measure]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Measure, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Measure)
-		if !ok {
-			return search.Result[r5.Measure]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Measure]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMeasure(ctx, parameters, options)
 }
 
+var (
+	_ r5.MeasureReportCreate = (*ClientR5)(nil)
+	_ r5.MeasureReportRead   = (*ClientR5)(nil)
+	_ r5.MeasureReportUpdate = (*ClientR5)(nil)
+	_ r5.MeasureReportDelete = (*ClientR5)(nil)
+	_ r5.MeasureReportSearch = (*ClientR5)(nil)
+)
+
 // CreateMeasureReport creates a new MeasureReport resource.
-func (c *ClientR5) CreateMeasureReport(ctx context.Context, resource r5.MeasureReport) (r5.MeasureReport, error) {
+func (c *ClientR5) CreateMeasureReport(ctx context.Context, resource r51.MeasureReport) (r51.MeasureReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MeasureReport{}, err
-	}
-	typed, ok := result.(r5.MeasureReport)
-	if !ok {
-		return r5.MeasureReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMeasureReport(ctx, resource)
 }
 
 // ReadMeasureReport retrieves a MeasureReport resource by ID.
-func (c *ClientR5) ReadMeasureReport(ctx context.Context, id string) (r5.MeasureReport, error) {
+func (c *ClientR5) ReadMeasureReport(ctx context.Context, id string) (r51.MeasureReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MeasureReport", id)
-	if err != nil {
-		return r5.MeasureReport{}, err
-	}
-	typed, ok := result.(r5.MeasureReport)
-	if !ok {
-		return r5.MeasureReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMeasureReport(ctx, id)
 }
 
 // UpdateMeasureReport updates an existing MeasureReport resource.
-func (c *ClientR5) UpdateMeasureReport(ctx context.Context, resource r5.MeasureReport) (update.Result[r5.MeasureReport], error) {
+func (c *ClientR5) UpdateMeasureReport(ctx context.Context, resource r51.MeasureReport) (update.Result[r51.MeasureReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MeasureReport]{}, err
-	}
-	typed, ok := result.Resource.(r5.MeasureReport)
-	if !ok {
-		return update.Result[r5.MeasureReport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MeasureReport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMeasureReport(ctx, resource)
 }
 
 // DeleteMeasureReport deletes a MeasureReport resource by ID.
 func (c *ClientR5) DeleteMeasureReport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MeasureReport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMeasureReport(ctx, id)
+}
+
+// SearchCapabilitiesMeasureReport returns server search capabilities for MeasureReport.
+func (c *ClientR5) SearchCapabilitiesMeasureReport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMeasureReport(ctx)
 }
 
 // SearchMeasureReport performs a search for MeasureReport resources.
-func (c *ClientR5) SearchMeasureReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MeasureReport], error) {
+func (c *ClientR5) SearchMeasureReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MeasureReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MeasureReport", parameters, options)
-	if err != nil {
-		return search.Result[r5.MeasureReport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MeasureReport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MeasureReport)
-		if !ok {
-			return search.Result[r5.MeasureReport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MeasureReport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMeasureReport(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationCreate = (*ClientR5)(nil)
+	_ r5.MedicationRead   = (*ClientR5)(nil)
+	_ r5.MedicationUpdate = (*ClientR5)(nil)
+	_ r5.MedicationDelete = (*ClientR5)(nil)
+	_ r5.MedicationSearch = (*ClientR5)(nil)
+)
+
 // CreateMedication creates a new Medication resource.
-func (c *ClientR5) CreateMedication(ctx context.Context, resource r5.Medication) (r5.Medication, error) {
+func (c *ClientR5) CreateMedication(ctx context.Context, resource r51.Medication) (r51.Medication, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Medication{}, err
-	}
-	typed, ok := result.(r5.Medication)
-	if !ok {
-		return r5.Medication{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedication(ctx, resource)
 }
 
 // ReadMedication retrieves a Medication resource by ID.
-func (c *ClientR5) ReadMedication(ctx context.Context, id string) (r5.Medication, error) {
+func (c *ClientR5) ReadMedication(ctx context.Context, id string) (r51.Medication, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Medication", id)
-	if err != nil {
-		return r5.Medication{}, err
-	}
-	typed, ok := result.(r5.Medication)
-	if !ok {
-		return r5.Medication{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedication(ctx, id)
 }
 
 // UpdateMedication updates an existing Medication resource.
-func (c *ClientR5) UpdateMedication(ctx context.Context, resource r5.Medication) (update.Result[r5.Medication], error) {
+func (c *ClientR5) UpdateMedication(ctx context.Context, resource r51.Medication) (update.Result[r51.Medication], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Medication]{}, err
-	}
-	typed, ok := result.Resource.(r5.Medication)
-	if !ok {
-		return update.Result[r5.Medication]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Medication]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedication(ctx, resource)
 }
 
 // DeleteMedication deletes a Medication resource by ID.
 func (c *ClientR5) DeleteMedication(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Medication", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedication(ctx, id)
+}
+
+// SearchCapabilitiesMedication returns server search capabilities for Medication.
+func (c *ClientR5) SearchCapabilitiesMedication(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedication(ctx)
 }
 
 // SearchMedication performs a search for Medication resources.
-func (c *ClientR5) SearchMedication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Medication], error) {
+func (c *ClientR5) SearchMedication(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Medication], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Medication", parameters, options)
-	if err != nil {
-		return search.Result[r5.Medication]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Medication, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Medication)
-		if !ok {
-			return search.Result[r5.Medication]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Medication]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedication(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationAdministrationCreate = (*ClientR5)(nil)
+	_ r5.MedicationAdministrationRead   = (*ClientR5)(nil)
+	_ r5.MedicationAdministrationUpdate = (*ClientR5)(nil)
+	_ r5.MedicationAdministrationDelete = (*ClientR5)(nil)
+	_ r5.MedicationAdministrationSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicationAdministration creates a new MedicationAdministration resource.
-func (c *ClientR5) CreateMedicationAdministration(ctx context.Context, resource r5.MedicationAdministration) (r5.MedicationAdministration, error) {
+func (c *ClientR5) CreateMedicationAdministration(ctx context.Context, resource r51.MedicationAdministration) (r51.MedicationAdministration, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicationAdministration{}, err
-	}
-	typed, ok := result.(r5.MedicationAdministration)
-	if !ok {
-		return r5.MedicationAdministration{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicationAdministration(ctx, resource)
 }
 
 // ReadMedicationAdministration retrieves a MedicationAdministration resource by ID.
-func (c *ClientR5) ReadMedicationAdministration(ctx context.Context, id string) (r5.MedicationAdministration, error) {
+func (c *ClientR5) ReadMedicationAdministration(ctx context.Context, id string) (r51.MedicationAdministration, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicationAdministration", id)
-	if err != nil {
-		return r5.MedicationAdministration{}, err
-	}
-	typed, ok := result.(r5.MedicationAdministration)
-	if !ok {
-		return r5.MedicationAdministration{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicationAdministration(ctx, id)
 }
 
 // UpdateMedicationAdministration updates an existing MedicationAdministration resource.
-func (c *ClientR5) UpdateMedicationAdministration(ctx context.Context, resource r5.MedicationAdministration) (update.Result[r5.MedicationAdministration], error) {
+func (c *ClientR5) UpdateMedicationAdministration(ctx context.Context, resource r51.MedicationAdministration) (update.Result[r51.MedicationAdministration], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicationAdministration]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicationAdministration)
-	if !ok {
-		return update.Result[r5.MedicationAdministration]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicationAdministration]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicationAdministration(ctx, resource)
 }
 
 // DeleteMedicationAdministration deletes a MedicationAdministration resource by ID.
 func (c *ClientR5) DeleteMedicationAdministration(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicationAdministration", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicationAdministration(ctx, id)
+}
+
+// SearchCapabilitiesMedicationAdministration returns server search capabilities for MedicationAdministration.
+func (c *ClientR5) SearchCapabilitiesMedicationAdministration(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicationAdministration(ctx)
 }
 
 // SearchMedicationAdministration performs a search for MedicationAdministration resources.
-func (c *ClientR5) SearchMedicationAdministration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationAdministration], error) {
+func (c *ClientR5) SearchMedicationAdministration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicationAdministration], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicationAdministration", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicationAdministration]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicationAdministration, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicationAdministration)
-		if !ok {
-			return search.Result[r5.MedicationAdministration]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicationAdministration]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicationAdministration(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationDispenseCreate = (*ClientR5)(nil)
+	_ r5.MedicationDispenseRead   = (*ClientR5)(nil)
+	_ r5.MedicationDispenseUpdate = (*ClientR5)(nil)
+	_ r5.MedicationDispenseDelete = (*ClientR5)(nil)
+	_ r5.MedicationDispenseSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicationDispense creates a new MedicationDispense resource.
-func (c *ClientR5) CreateMedicationDispense(ctx context.Context, resource r5.MedicationDispense) (r5.MedicationDispense, error) {
+func (c *ClientR5) CreateMedicationDispense(ctx context.Context, resource r51.MedicationDispense) (r51.MedicationDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicationDispense{}, err
-	}
-	typed, ok := result.(r5.MedicationDispense)
-	if !ok {
-		return r5.MedicationDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicationDispense(ctx, resource)
 }
 
 // ReadMedicationDispense retrieves a MedicationDispense resource by ID.
-func (c *ClientR5) ReadMedicationDispense(ctx context.Context, id string) (r5.MedicationDispense, error) {
+func (c *ClientR5) ReadMedicationDispense(ctx context.Context, id string) (r51.MedicationDispense, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicationDispense", id)
-	if err != nil {
-		return r5.MedicationDispense{}, err
-	}
-	typed, ok := result.(r5.MedicationDispense)
-	if !ok {
-		return r5.MedicationDispense{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicationDispense(ctx, id)
 }
 
 // UpdateMedicationDispense updates an existing MedicationDispense resource.
-func (c *ClientR5) UpdateMedicationDispense(ctx context.Context, resource r5.MedicationDispense) (update.Result[r5.MedicationDispense], error) {
+func (c *ClientR5) UpdateMedicationDispense(ctx context.Context, resource r51.MedicationDispense) (update.Result[r51.MedicationDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicationDispense]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicationDispense)
-	if !ok {
-		return update.Result[r5.MedicationDispense]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicationDispense]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicationDispense(ctx, resource)
 }
 
 // DeleteMedicationDispense deletes a MedicationDispense resource by ID.
 func (c *ClientR5) DeleteMedicationDispense(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicationDispense", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicationDispense(ctx, id)
+}
+
+// SearchCapabilitiesMedicationDispense returns server search capabilities for MedicationDispense.
+func (c *ClientR5) SearchCapabilitiesMedicationDispense(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicationDispense(ctx)
 }
 
 // SearchMedicationDispense performs a search for MedicationDispense resources.
-func (c *ClientR5) SearchMedicationDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationDispense], error) {
+func (c *ClientR5) SearchMedicationDispense(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicationDispense], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicationDispense", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicationDispense]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicationDispense, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicationDispense)
-		if !ok {
-			return search.Result[r5.MedicationDispense]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicationDispense]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicationDispense(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationKnowledgeCreate = (*ClientR5)(nil)
+	_ r5.MedicationKnowledgeRead   = (*ClientR5)(nil)
+	_ r5.MedicationKnowledgeUpdate = (*ClientR5)(nil)
+	_ r5.MedicationKnowledgeDelete = (*ClientR5)(nil)
+	_ r5.MedicationKnowledgeSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicationKnowledge creates a new MedicationKnowledge resource.
-func (c *ClientR5) CreateMedicationKnowledge(ctx context.Context, resource r5.MedicationKnowledge) (r5.MedicationKnowledge, error) {
+func (c *ClientR5) CreateMedicationKnowledge(ctx context.Context, resource r51.MedicationKnowledge) (r51.MedicationKnowledge, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicationKnowledge{}, err
-	}
-	typed, ok := result.(r5.MedicationKnowledge)
-	if !ok {
-		return r5.MedicationKnowledge{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicationKnowledge(ctx, resource)
 }
 
 // ReadMedicationKnowledge retrieves a MedicationKnowledge resource by ID.
-func (c *ClientR5) ReadMedicationKnowledge(ctx context.Context, id string) (r5.MedicationKnowledge, error) {
+func (c *ClientR5) ReadMedicationKnowledge(ctx context.Context, id string) (r51.MedicationKnowledge, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicationKnowledge", id)
-	if err != nil {
-		return r5.MedicationKnowledge{}, err
-	}
-	typed, ok := result.(r5.MedicationKnowledge)
-	if !ok {
-		return r5.MedicationKnowledge{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicationKnowledge(ctx, id)
 }
 
 // UpdateMedicationKnowledge updates an existing MedicationKnowledge resource.
-func (c *ClientR5) UpdateMedicationKnowledge(ctx context.Context, resource r5.MedicationKnowledge) (update.Result[r5.MedicationKnowledge], error) {
+func (c *ClientR5) UpdateMedicationKnowledge(ctx context.Context, resource r51.MedicationKnowledge) (update.Result[r51.MedicationKnowledge], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicationKnowledge]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicationKnowledge)
-	if !ok {
-		return update.Result[r5.MedicationKnowledge]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicationKnowledge]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicationKnowledge(ctx, resource)
 }
 
 // DeleteMedicationKnowledge deletes a MedicationKnowledge resource by ID.
 func (c *ClientR5) DeleteMedicationKnowledge(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicationKnowledge", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicationKnowledge(ctx, id)
+}
+
+// SearchCapabilitiesMedicationKnowledge returns server search capabilities for MedicationKnowledge.
+func (c *ClientR5) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicationKnowledge(ctx)
 }
 
 // SearchMedicationKnowledge performs a search for MedicationKnowledge resources.
-func (c *ClientR5) SearchMedicationKnowledge(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationKnowledge], error) {
+func (c *ClientR5) SearchMedicationKnowledge(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicationKnowledge], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicationKnowledge", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicationKnowledge]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicationKnowledge, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicationKnowledge)
-		if !ok {
-			return search.Result[r5.MedicationKnowledge]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicationKnowledge]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicationKnowledge(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationRequestCreate = (*ClientR5)(nil)
+	_ r5.MedicationRequestRead   = (*ClientR5)(nil)
+	_ r5.MedicationRequestUpdate = (*ClientR5)(nil)
+	_ r5.MedicationRequestDelete = (*ClientR5)(nil)
+	_ r5.MedicationRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicationRequest creates a new MedicationRequest resource.
-func (c *ClientR5) CreateMedicationRequest(ctx context.Context, resource r5.MedicationRequest) (r5.MedicationRequest, error) {
+func (c *ClientR5) CreateMedicationRequest(ctx context.Context, resource r51.MedicationRequest) (r51.MedicationRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicationRequest{}, err
-	}
-	typed, ok := result.(r5.MedicationRequest)
-	if !ok {
-		return r5.MedicationRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicationRequest(ctx, resource)
 }
 
 // ReadMedicationRequest retrieves a MedicationRequest resource by ID.
-func (c *ClientR5) ReadMedicationRequest(ctx context.Context, id string) (r5.MedicationRequest, error) {
+func (c *ClientR5) ReadMedicationRequest(ctx context.Context, id string) (r51.MedicationRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicationRequest", id)
-	if err != nil {
-		return r5.MedicationRequest{}, err
-	}
-	typed, ok := result.(r5.MedicationRequest)
-	if !ok {
-		return r5.MedicationRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicationRequest(ctx, id)
 }
 
 // UpdateMedicationRequest updates an existing MedicationRequest resource.
-func (c *ClientR5) UpdateMedicationRequest(ctx context.Context, resource r5.MedicationRequest) (update.Result[r5.MedicationRequest], error) {
+func (c *ClientR5) UpdateMedicationRequest(ctx context.Context, resource r51.MedicationRequest) (update.Result[r51.MedicationRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicationRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicationRequest)
-	if !ok {
-		return update.Result[r5.MedicationRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicationRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicationRequest(ctx, resource)
 }
 
 // DeleteMedicationRequest deletes a MedicationRequest resource by ID.
 func (c *ClientR5) DeleteMedicationRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicationRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicationRequest(ctx, id)
+}
+
+// SearchCapabilitiesMedicationRequest returns server search capabilities for MedicationRequest.
+func (c *ClientR5) SearchCapabilitiesMedicationRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicationRequest(ctx)
 }
 
 // SearchMedicationRequest performs a search for MedicationRequest resources.
-func (c *ClientR5) SearchMedicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationRequest], error) {
+func (c *ClientR5) SearchMedicationRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicationRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicationRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicationRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicationRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicationRequest)
-		if !ok {
-			return search.Result[r5.MedicationRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicationRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicationRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicationStatementCreate = (*ClientR5)(nil)
+	_ r5.MedicationStatementRead   = (*ClientR5)(nil)
+	_ r5.MedicationStatementUpdate = (*ClientR5)(nil)
+	_ r5.MedicationStatementDelete = (*ClientR5)(nil)
+	_ r5.MedicationStatementSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicationStatement creates a new MedicationStatement resource.
-func (c *ClientR5) CreateMedicationStatement(ctx context.Context, resource r5.MedicationStatement) (r5.MedicationStatement, error) {
+func (c *ClientR5) CreateMedicationStatement(ctx context.Context, resource r51.MedicationStatement) (r51.MedicationStatement, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicationStatement{}, err
-	}
-	typed, ok := result.(r5.MedicationStatement)
-	if !ok {
-		return r5.MedicationStatement{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicationStatement(ctx, resource)
 }
 
 // ReadMedicationStatement retrieves a MedicationStatement resource by ID.
-func (c *ClientR5) ReadMedicationStatement(ctx context.Context, id string) (r5.MedicationStatement, error) {
+func (c *ClientR5) ReadMedicationStatement(ctx context.Context, id string) (r51.MedicationStatement, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicationStatement", id)
-	if err != nil {
-		return r5.MedicationStatement{}, err
-	}
-	typed, ok := result.(r5.MedicationStatement)
-	if !ok {
-		return r5.MedicationStatement{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicationStatement(ctx, id)
 }
 
 // UpdateMedicationStatement updates an existing MedicationStatement resource.
-func (c *ClientR5) UpdateMedicationStatement(ctx context.Context, resource r5.MedicationStatement) (update.Result[r5.MedicationStatement], error) {
+func (c *ClientR5) UpdateMedicationStatement(ctx context.Context, resource r51.MedicationStatement) (update.Result[r51.MedicationStatement], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicationStatement]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicationStatement)
-	if !ok {
-		return update.Result[r5.MedicationStatement]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicationStatement]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicationStatement(ctx, resource)
 }
 
 // DeleteMedicationStatement deletes a MedicationStatement resource by ID.
 func (c *ClientR5) DeleteMedicationStatement(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicationStatement", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicationStatement(ctx, id)
+}
+
+// SearchCapabilitiesMedicationStatement returns server search capabilities for MedicationStatement.
+func (c *ClientR5) SearchCapabilitiesMedicationStatement(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicationStatement(ctx)
 }
 
 // SearchMedicationStatement performs a search for MedicationStatement resources.
-func (c *ClientR5) SearchMedicationStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicationStatement], error) {
+func (c *ClientR5) SearchMedicationStatement(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicationStatement], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicationStatement", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicationStatement]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicationStatement, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicationStatement)
-		if !ok {
-			return search.Result[r5.MedicationStatement]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicationStatement]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicationStatement(ctx, parameters, options)
 }
 
+var (
+	_ r5.MedicinalProductDefinitionCreate = (*ClientR5)(nil)
+	_ r5.MedicinalProductDefinitionRead   = (*ClientR5)(nil)
+	_ r5.MedicinalProductDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.MedicinalProductDefinitionDelete = (*ClientR5)(nil)
+	_ r5.MedicinalProductDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateMedicinalProductDefinition creates a new MedicinalProductDefinition resource.
-func (c *ClientR5) CreateMedicinalProductDefinition(ctx context.Context, resource r5.MedicinalProductDefinition) (r5.MedicinalProductDefinition, error) {
+func (c *ClientR5) CreateMedicinalProductDefinition(ctx context.Context, resource r51.MedicinalProductDefinition) (r51.MedicinalProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MedicinalProductDefinition{}, err
-	}
-	typed, ok := result.(r5.MedicinalProductDefinition)
-	if !ok {
-		return r5.MedicinalProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMedicinalProductDefinition(ctx, resource)
 }
 
 // ReadMedicinalProductDefinition retrieves a MedicinalProductDefinition resource by ID.
-func (c *ClientR5) ReadMedicinalProductDefinition(ctx context.Context, id string) (r5.MedicinalProductDefinition, error) {
+func (c *ClientR5) ReadMedicinalProductDefinition(ctx context.Context, id string) (r51.MedicinalProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MedicinalProductDefinition", id)
-	if err != nil {
-		return r5.MedicinalProductDefinition{}, err
-	}
-	typed, ok := result.(r5.MedicinalProductDefinition)
-	if !ok {
-		return r5.MedicinalProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMedicinalProductDefinition(ctx, id)
 }
 
 // UpdateMedicinalProductDefinition updates an existing MedicinalProductDefinition resource.
-func (c *ClientR5) UpdateMedicinalProductDefinition(ctx context.Context, resource r5.MedicinalProductDefinition) (update.Result[r5.MedicinalProductDefinition], error) {
+func (c *ClientR5) UpdateMedicinalProductDefinition(ctx context.Context, resource r51.MedicinalProductDefinition) (update.Result[r51.MedicinalProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MedicinalProductDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.MedicinalProductDefinition)
-	if !ok {
-		return update.Result[r5.MedicinalProductDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MedicinalProductDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMedicinalProductDefinition(ctx, resource)
 }
 
 // DeleteMedicinalProductDefinition deletes a MedicinalProductDefinition resource by ID.
 func (c *ClientR5) DeleteMedicinalProductDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MedicinalProductDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMedicinalProductDefinition(ctx, id)
+}
+
+// SearchCapabilitiesMedicinalProductDefinition returns server search capabilities for MedicinalProductDefinition.
+func (c *ClientR5) SearchCapabilitiesMedicinalProductDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMedicinalProductDefinition(ctx)
 }
 
 // SearchMedicinalProductDefinition performs a search for MedicinalProductDefinition resources.
-func (c *ClientR5) SearchMedicinalProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MedicinalProductDefinition], error) {
+func (c *ClientR5) SearchMedicinalProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MedicinalProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MedicinalProductDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.MedicinalProductDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MedicinalProductDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MedicinalProductDefinition)
-		if !ok {
-			return search.Result[r5.MedicinalProductDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MedicinalProductDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMedicinalProductDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.MessageDefinitionCreate = (*ClientR5)(nil)
+	_ r5.MessageDefinitionRead   = (*ClientR5)(nil)
+	_ r5.MessageDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.MessageDefinitionDelete = (*ClientR5)(nil)
+	_ r5.MessageDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateMessageDefinition creates a new MessageDefinition resource.
-func (c *ClientR5) CreateMessageDefinition(ctx context.Context, resource r5.MessageDefinition) (r5.MessageDefinition, error) {
+func (c *ClientR5) CreateMessageDefinition(ctx context.Context, resource r51.MessageDefinition) (r51.MessageDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MessageDefinition{}, err
-	}
-	typed, ok := result.(r5.MessageDefinition)
-	if !ok {
-		return r5.MessageDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMessageDefinition(ctx, resource)
 }
 
 // ReadMessageDefinition retrieves a MessageDefinition resource by ID.
-func (c *ClientR5) ReadMessageDefinition(ctx context.Context, id string) (r5.MessageDefinition, error) {
+func (c *ClientR5) ReadMessageDefinition(ctx context.Context, id string) (r51.MessageDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MessageDefinition", id)
-	if err != nil {
-		return r5.MessageDefinition{}, err
-	}
-	typed, ok := result.(r5.MessageDefinition)
-	if !ok {
-		return r5.MessageDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMessageDefinition(ctx, id)
 }
 
 // UpdateMessageDefinition updates an existing MessageDefinition resource.
-func (c *ClientR5) UpdateMessageDefinition(ctx context.Context, resource r5.MessageDefinition) (update.Result[r5.MessageDefinition], error) {
+func (c *ClientR5) UpdateMessageDefinition(ctx context.Context, resource r51.MessageDefinition) (update.Result[r51.MessageDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MessageDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.MessageDefinition)
-	if !ok {
-		return update.Result[r5.MessageDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MessageDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMessageDefinition(ctx, resource)
 }
 
 // DeleteMessageDefinition deletes a MessageDefinition resource by ID.
 func (c *ClientR5) DeleteMessageDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MessageDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMessageDefinition(ctx, id)
+}
+
+// SearchCapabilitiesMessageDefinition returns server search capabilities for MessageDefinition.
+func (c *ClientR5) SearchCapabilitiesMessageDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMessageDefinition(ctx)
 }
 
 // SearchMessageDefinition performs a search for MessageDefinition resources.
-func (c *ClientR5) SearchMessageDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MessageDefinition], error) {
+func (c *ClientR5) SearchMessageDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MessageDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MessageDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.MessageDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MessageDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MessageDefinition)
-		if !ok {
-			return search.Result[r5.MessageDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MessageDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMessageDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.MessageHeaderCreate = (*ClientR5)(nil)
+	_ r5.MessageHeaderRead   = (*ClientR5)(nil)
+	_ r5.MessageHeaderUpdate = (*ClientR5)(nil)
+	_ r5.MessageHeaderDelete = (*ClientR5)(nil)
+	_ r5.MessageHeaderSearch = (*ClientR5)(nil)
+)
+
 // CreateMessageHeader creates a new MessageHeader resource.
-func (c *ClientR5) CreateMessageHeader(ctx context.Context, resource r5.MessageHeader) (r5.MessageHeader, error) {
+func (c *ClientR5) CreateMessageHeader(ctx context.Context, resource r51.MessageHeader) (r51.MessageHeader, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MessageHeader{}, err
-	}
-	typed, ok := result.(r5.MessageHeader)
-	if !ok {
-		return r5.MessageHeader{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMessageHeader(ctx, resource)
 }
 
 // ReadMessageHeader retrieves a MessageHeader resource by ID.
-func (c *ClientR5) ReadMessageHeader(ctx context.Context, id string) (r5.MessageHeader, error) {
+func (c *ClientR5) ReadMessageHeader(ctx context.Context, id string) (r51.MessageHeader, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MessageHeader", id)
-	if err != nil {
-		return r5.MessageHeader{}, err
-	}
-	typed, ok := result.(r5.MessageHeader)
-	if !ok {
-		return r5.MessageHeader{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMessageHeader(ctx, id)
 }
 
 // UpdateMessageHeader updates an existing MessageHeader resource.
-func (c *ClientR5) UpdateMessageHeader(ctx context.Context, resource r5.MessageHeader) (update.Result[r5.MessageHeader], error) {
+func (c *ClientR5) UpdateMessageHeader(ctx context.Context, resource r51.MessageHeader) (update.Result[r51.MessageHeader], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MessageHeader]{}, err
-	}
-	typed, ok := result.Resource.(r5.MessageHeader)
-	if !ok {
-		return update.Result[r5.MessageHeader]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MessageHeader]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMessageHeader(ctx, resource)
 }
 
 // DeleteMessageHeader deletes a MessageHeader resource by ID.
 func (c *ClientR5) DeleteMessageHeader(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MessageHeader", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMessageHeader(ctx, id)
+}
+
+// SearchCapabilitiesMessageHeader returns server search capabilities for MessageHeader.
+func (c *ClientR5) SearchCapabilitiesMessageHeader(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMessageHeader(ctx)
 }
 
 // SearchMessageHeader performs a search for MessageHeader resources.
-func (c *ClientR5) SearchMessageHeader(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MessageHeader], error) {
+func (c *ClientR5) SearchMessageHeader(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MessageHeader], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MessageHeader", parameters, options)
-	if err != nil {
-		return search.Result[r5.MessageHeader]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MessageHeader, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MessageHeader)
-		if !ok {
-			return search.Result[r5.MessageHeader]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MessageHeader]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMessageHeader(ctx, parameters, options)
 }
 
+var (
+	_ r5.MolecularSequenceCreate = (*ClientR5)(nil)
+	_ r5.MolecularSequenceRead   = (*ClientR5)(nil)
+	_ r5.MolecularSequenceUpdate = (*ClientR5)(nil)
+	_ r5.MolecularSequenceDelete = (*ClientR5)(nil)
+	_ r5.MolecularSequenceSearch = (*ClientR5)(nil)
+)
+
 // CreateMolecularSequence creates a new MolecularSequence resource.
-func (c *ClientR5) CreateMolecularSequence(ctx context.Context, resource r5.MolecularSequence) (r5.MolecularSequence, error) {
+func (c *ClientR5) CreateMolecularSequence(ctx context.Context, resource r51.MolecularSequence) (r51.MolecularSequence, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.MolecularSequence{}, err
-	}
-	typed, ok := result.(r5.MolecularSequence)
-	if !ok {
-		return r5.MolecularSequence{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateMolecularSequence(ctx, resource)
 }
 
 // ReadMolecularSequence retrieves a MolecularSequence resource by ID.
-func (c *ClientR5) ReadMolecularSequence(ctx context.Context, id string) (r5.MolecularSequence, error) {
+func (c *ClientR5) ReadMolecularSequence(ctx context.Context, id string) (r51.MolecularSequence, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "MolecularSequence", id)
-	if err != nil {
-		return r5.MolecularSequence{}, err
-	}
-	typed, ok := result.(r5.MolecularSequence)
-	if !ok {
-		return r5.MolecularSequence{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadMolecularSequence(ctx, id)
 }
 
 // UpdateMolecularSequence updates an existing MolecularSequence resource.
-func (c *ClientR5) UpdateMolecularSequence(ctx context.Context, resource r5.MolecularSequence) (update.Result[r5.MolecularSequence], error) {
+func (c *ClientR5) UpdateMolecularSequence(ctx context.Context, resource r51.MolecularSequence) (update.Result[r51.MolecularSequence], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.MolecularSequence]{}, err
-	}
-	typed, ok := result.Resource.(r5.MolecularSequence)
-	if !ok {
-		return update.Result[r5.MolecularSequence]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.MolecularSequence]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateMolecularSequence(ctx, resource)
 }
 
 // DeleteMolecularSequence deletes a MolecularSequence resource by ID.
 func (c *ClientR5) DeleteMolecularSequence(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "MolecularSequence", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteMolecularSequence(ctx, id)
+}
+
+// SearchCapabilitiesMolecularSequence returns server search capabilities for MolecularSequence.
+func (c *ClientR5) SearchCapabilitiesMolecularSequence(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesMolecularSequence(ctx)
 }
 
 // SearchMolecularSequence performs a search for MolecularSequence resources.
-func (c *ClientR5) SearchMolecularSequence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.MolecularSequence], error) {
+func (c *ClientR5) SearchMolecularSequence(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.MolecularSequence], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "MolecularSequence", parameters, options)
-	if err != nil {
-		return search.Result[r5.MolecularSequence]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.MolecularSequence, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.MolecularSequence)
-		if !ok {
-			return search.Result[r5.MolecularSequence]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.MolecularSequence]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchMolecularSequence(ctx, parameters, options)
 }
 
+var (
+	_ r5.NamingSystemCreate = (*ClientR5)(nil)
+	_ r5.NamingSystemRead   = (*ClientR5)(nil)
+	_ r5.NamingSystemUpdate = (*ClientR5)(nil)
+	_ r5.NamingSystemDelete = (*ClientR5)(nil)
+	_ r5.NamingSystemSearch = (*ClientR5)(nil)
+)
+
 // CreateNamingSystem creates a new NamingSystem resource.
-func (c *ClientR5) CreateNamingSystem(ctx context.Context, resource r5.NamingSystem) (r5.NamingSystem, error) {
+func (c *ClientR5) CreateNamingSystem(ctx context.Context, resource r51.NamingSystem) (r51.NamingSystem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.NamingSystem{}, err
-	}
-	typed, ok := result.(r5.NamingSystem)
-	if !ok {
-		return r5.NamingSystem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateNamingSystem(ctx, resource)
 }
 
 // ReadNamingSystem retrieves a NamingSystem resource by ID.
-func (c *ClientR5) ReadNamingSystem(ctx context.Context, id string) (r5.NamingSystem, error) {
+func (c *ClientR5) ReadNamingSystem(ctx context.Context, id string) (r51.NamingSystem, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "NamingSystem", id)
-	if err != nil {
-		return r5.NamingSystem{}, err
-	}
-	typed, ok := result.(r5.NamingSystem)
-	if !ok {
-		return r5.NamingSystem{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadNamingSystem(ctx, id)
 }
 
 // UpdateNamingSystem updates an existing NamingSystem resource.
-func (c *ClientR5) UpdateNamingSystem(ctx context.Context, resource r5.NamingSystem) (update.Result[r5.NamingSystem], error) {
+func (c *ClientR5) UpdateNamingSystem(ctx context.Context, resource r51.NamingSystem) (update.Result[r51.NamingSystem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.NamingSystem]{}, err
-	}
-	typed, ok := result.Resource.(r5.NamingSystem)
-	if !ok {
-		return update.Result[r5.NamingSystem]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.NamingSystem]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateNamingSystem(ctx, resource)
 }
 
 // DeleteNamingSystem deletes a NamingSystem resource by ID.
 func (c *ClientR5) DeleteNamingSystem(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "NamingSystem", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteNamingSystem(ctx, id)
+}
+
+// SearchCapabilitiesNamingSystem returns server search capabilities for NamingSystem.
+func (c *ClientR5) SearchCapabilitiesNamingSystem(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesNamingSystem(ctx)
 }
 
 // SearchNamingSystem performs a search for NamingSystem resources.
-func (c *ClientR5) SearchNamingSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NamingSystem], error) {
+func (c *ClientR5) SearchNamingSystem(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.NamingSystem], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "NamingSystem", parameters, options)
-	if err != nil {
-		return search.Result[r5.NamingSystem]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.NamingSystem, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.NamingSystem)
-		if !ok {
-			return search.Result[r5.NamingSystem]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.NamingSystem]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchNamingSystem(ctx, parameters, options)
 }
 
+var (
+	_ r5.NutritionIntakeCreate = (*ClientR5)(nil)
+	_ r5.NutritionIntakeRead   = (*ClientR5)(nil)
+	_ r5.NutritionIntakeUpdate = (*ClientR5)(nil)
+	_ r5.NutritionIntakeDelete = (*ClientR5)(nil)
+	_ r5.NutritionIntakeSearch = (*ClientR5)(nil)
+)
+
 // CreateNutritionIntake creates a new NutritionIntake resource.
-func (c *ClientR5) CreateNutritionIntake(ctx context.Context, resource r5.NutritionIntake) (r5.NutritionIntake, error) {
+func (c *ClientR5) CreateNutritionIntake(ctx context.Context, resource r51.NutritionIntake) (r51.NutritionIntake, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.NutritionIntake{}, err
-	}
-	typed, ok := result.(r5.NutritionIntake)
-	if !ok {
-		return r5.NutritionIntake{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateNutritionIntake(ctx, resource)
 }
 
 // ReadNutritionIntake retrieves a NutritionIntake resource by ID.
-func (c *ClientR5) ReadNutritionIntake(ctx context.Context, id string) (r5.NutritionIntake, error) {
+func (c *ClientR5) ReadNutritionIntake(ctx context.Context, id string) (r51.NutritionIntake, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "NutritionIntake", id)
-	if err != nil {
-		return r5.NutritionIntake{}, err
-	}
-	typed, ok := result.(r5.NutritionIntake)
-	if !ok {
-		return r5.NutritionIntake{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadNutritionIntake(ctx, id)
 }
 
 // UpdateNutritionIntake updates an existing NutritionIntake resource.
-func (c *ClientR5) UpdateNutritionIntake(ctx context.Context, resource r5.NutritionIntake) (update.Result[r5.NutritionIntake], error) {
+func (c *ClientR5) UpdateNutritionIntake(ctx context.Context, resource r51.NutritionIntake) (update.Result[r51.NutritionIntake], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.NutritionIntake]{}, err
-	}
-	typed, ok := result.Resource.(r5.NutritionIntake)
-	if !ok {
-		return update.Result[r5.NutritionIntake]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.NutritionIntake]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateNutritionIntake(ctx, resource)
 }
 
 // DeleteNutritionIntake deletes a NutritionIntake resource by ID.
 func (c *ClientR5) DeleteNutritionIntake(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "NutritionIntake", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteNutritionIntake(ctx, id)
+}
+
+// SearchCapabilitiesNutritionIntake returns server search capabilities for NutritionIntake.
+func (c *ClientR5) SearchCapabilitiesNutritionIntake(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesNutritionIntake(ctx)
 }
 
 // SearchNutritionIntake performs a search for NutritionIntake resources.
-func (c *ClientR5) SearchNutritionIntake(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionIntake], error) {
+func (c *ClientR5) SearchNutritionIntake(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.NutritionIntake], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "NutritionIntake", parameters, options)
-	if err != nil {
-		return search.Result[r5.NutritionIntake]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.NutritionIntake, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.NutritionIntake)
-		if !ok {
-			return search.Result[r5.NutritionIntake]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.NutritionIntake]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchNutritionIntake(ctx, parameters, options)
 }
 
+var (
+	_ r5.NutritionOrderCreate = (*ClientR5)(nil)
+	_ r5.NutritionOrderRead   = (*ClientR5)(nil)
+	_ r5.NutritionOrderUpdate = (*ClientR5)(nil)
+	_ r5.NutritionOrderDelete = (*ClientR5)(nil)
+	_ r5.NutritionOrderSearch = (*ClientR5)(nil)
+)
+
 // CreateNutritionOrder creates a new NutritionOrder resource.
-func (c *ClientR5) CreateNutritionOrder(ctx context.Context, resource r5.NutritionOrder) (r5.NutritionOrder, error) {
+func (c *ClientR5) CreateNutritionOrder(ctx context.Context, resource r51.NutritionOrder) (r51.NutritionOrder, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.NutritionOrder{}, err
-	}
-	typed, ok := result.(r5.NutritionOrder)
-	if !ok {
-		return r5.NutritionOrder{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateNutritionOrder(ctx, resource)
 }
 
 // ReadNutritionOrder retrieves a NutritionOrder resource by ID.
-func (c *ClientR5) ReadNutritionOrder(ctx context.Context, id string) (r5.NutritionOrder, error) {
+func (c *ClientR5) ReadNutritionOrder(ctx context.Context, id string) (r51.NutritionOrder, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "NutritionOrder", id)
-	if err != nil {
-		return r5.NutritionOrder{}, err
-	}
-	typed, ok := result.(r5.NutritionOrder)
-	if !ok {
-		return r5.NutritionOrder{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadNutritionOrder(ctx, id)
 }
 
 // UpdateNutritionOrder updates an existing NutritionOrder resource.
-func (c *ClientR5) UpdateNutritionOrder(ctx context.Context, resource r5.NutritionOrder) (update.Result[r5.NutritionOrder], error) {
+func (c *ClientR5) UpdateNutritionOrder(ctx context.Context, resource r51.NutritionOrder) (update.Result[r51.NutritionOrder], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.NutritionOrder]{}, err
-	}
-	typed, ok := result.Resource.(r5.NutritionOrder)
-	if !ok {
-		return update.Result[r5.NutritionOrder]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.NutritionOrder]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateNutritionOrder(ctx, resource)
 }
 
 // DeleteNutritionOrder deletes a NutritionOrder resource by ID.
 func (c *ClientR5) DeleteNutritionOrder(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "NutritionOrder", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteNutritionOrder(ctx, id)
+}
+
+// SearchCapabilitiesNutritionOrder returns server search capabilities for NutritionOrder.
+func (c *ClientR5) SearchCapabilitiesNutritionOrder(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesNutritionOrder(ctx)
 }
 
 // SearchNutritionOrder performs a search for NutritionOrder resources.
-func (c *ClientR5) SearchNutritionOrder(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionOrder], error) {
+func (c *ClientR5) SearchNutritionOrder(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.NutritionOrder], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "NutritionOrder", parameters, options)
-	if err != nil {
-		return search.Result[r5.NutritionOrder]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.NutritionOrder, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.NutritionOrder)
-		if !ok {
-			return search.Result[r5.NutritionOrder]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.NutritionOrder]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchNutritionOrder(ctx, parameters, options)
 }
 
+var (
+	_ r5.NutritionProductCreate = (*ClientR5)(nil)
+	_ r5.NutritionProductRead   = (*ClientR5)(nil)
+	_ r5.NutritionProductUpdate = (*ClientR5)(nil)
+	_ r5.NutritionProductDelete = (*ClientR5)(nil)
+	_ r5.NutritionProductSearch = (*ClientR5)(nil)
+)
+
 // CreateNutritionProduct creates a new NutritionProduct resource.
-func (c *ClientR5) CreateNutritionProduct(ctx context.Context, resource r5.NutritionProduct) (r5.NutritionProduct, error) {
+func (c *ClientR5) CreateNutritionProduct(ctx context.Context, resource r51.NutritionProduct) (r51.NutritionProduct, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.NutritionProduct{}, err
-	}
-	typed, ok := result.(r5.NutritionProduct)
-	if !ok {
-		return r5.NutritionProduct{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateNutritionProduct(ctx, resource)
 }
 
 // ReadNutritionProduct retrieves a NutritionProduct resource by ID.
-func (c *ClientR5) ReadNutritionProduct(ctx context.Context, id string) (r5.NutritionProduct, error) {
+func (c *ClientR5) ReadNutritionProduct(ctx context.Context, id string) (r51.NutritionProduct, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "NutritionProduct", id)
-	if err != nil {
-		return r5.NutritionProduct{}, err
-	}
-	typed, ok := result.(r5.NutritionProduct)
-	if !ok {
-		return r5.NutritionProduct{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadNutritionProduct(ctx, id)
 }
 
 // UpdateNutritionProduct updates an existing NutritionProduct resource.
-func (c *ClientR5) UpdateNutritionProduct(ctx context.Context, resource r5.NutritionProduct) (update.Result[r5.NutritionProduct], error) {
+func (c *ClientR5) UpdateNutritionProduct(ctx context.Context, resource r51.NutritionProduct) (update.Result[r51.NutritionProduct], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.NutritionProduct]{}, err
-	}
-	typed, ok := result.Resource.(r5.NutritionProduct)
-	if !ok {
-		return update.Result[r5.NutritionProduct]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.NutritionProduct]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateNutritionProduct(ctx, resource)
 }
 
 // DeleteNutritionProduct deletes a NutritionProduct resource by ID.
 func (c *ClientR5) DeleteNutritionProduct(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "NutritionProduct", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteNutritionProduct(ctx, id)
+}
+
+// SearchCapabilitiesNutritionProduct returns server search capabilities for NutritionProduct.
+func (c *ClientR5) SearchCapabilitiesNutritionProduct(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesNutritionProduct(ctx)
 }
 
 // SearchNutritionProduct performs a search for NutritionProduct resources.
-func (c *ClientR5) SearchNutritionProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.NutritionProduct], error) {
+func (c *ClientR5) SearchNutritionProduct(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.NutritionProduct], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "NutritionProduct", parameters, options)
-	if err != nil {
-		return search.Result[r5.NutritionProduct]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.NutritionProduct, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.NutritionProduct)
-		if !ok {
-			return search.Result[r5.NutritionProduct]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.NutritionProduct]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchNutritionProduct(ctx, parameters, options)
 }
 
+var (
+	_ r5.ObservationCreate = (*ClientR5)(nil)
+	_ r5.ObservationRead   = (*ClientR5)(nil)
+	_ r5.ObservationUpdate = (*ClientR5)(nil)
+	_ r5.ObservationDelete = (*ClientR5)(nil)
+	_ r5.ObservationSearch = (*ClientR5)(nil)
+)
+
 // CreateObservation creates a new Observation resource.
-func (c *ClientR5) CreateObservation(ctx context.Context, resource r5.Observation) (r5.Observation, error) {
+func (c *ClientR5) CreateObservation(ctx context.Context, resource r51.Observation) (r51.Observation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Observation{}, err
-	}
-	typed, ok := result.(r5.Observation)
-	if !ok {
-		return r5.Observation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateObservation(ctx, resource)
 }
 
 // ReadObservation retrieves a Observation resource by ID.
-func (c *ClientR5) ReadObservation(ctx context.Context, id string) (r5.Observation, error) {
+func (c *ClientR5) ReadObservation(ctx context.Context, id string) (r51.Observation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Observation", id)
-	if err != nil {
-		return r5.Observation{}, err
-	}
-	typed, ok := result.(r5.Observation)
-	if !ok {
-		return r5.Observation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadObservation(ctx, id)
 }
 
 // UpdateObservation updates an existing Observation resource.
-func (c *ClientR5) UpdateObservation(ctx context.Context, resource r5.Observation) (update.Result[r5.Observation], error) {
+func (c *ClientR5) UpdateObservation(ctx context.Context, resource r51.Observation) (update.Result[r51.Observation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Observation]{}, err
-	}
-	typed, ok := result.Resource.(r5.Observation)
-	if !ok {
-		return update.Result[r5.Observation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Observation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateObservation(ctx, resource)
 }
 
 // DeleteObservation deletes a Observation resource by ID.
 func (c *ClientR5) DeleteObservation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Observation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteObservation(ctx, id)
+}
+
+// SearchCapabilitiesObservation returns server search capabilities for Observation.
+func (c *ClientR5) SearchCapabilitiesObservation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesObservation(ctx)
 }
 
 // SearchObservation performs a search for Observation resources.
-func (c *ClientR5) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Observation], error) {
+func (c *ClientR5) SearchObservation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Observation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Observation", parameters, options)
-	if err != nil {
-		return search.Result[r5.Observation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Observation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Observation)
-		if !ok {
-			return search.Result[r5.Observation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Observation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchObservation(ctx, parameters, options)
 }
 
+var (
+	_ r5.ObservationDefinitionCreate = (*ClientR5)(nil)
+	_ r5.ObservationDefinitionRead   = (*ClientR5)(nil)
+	_ r5.ObservationDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.ObservationDefinitionDelete = (*ClientR5)(nil)
+	_ r5.ObservationDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateObservationDefinition creates a new ObservationDefinition resource.
-func (c *ClientR5) CreateObservationDefinition(ctx context.Context, resource r5.ObservationDefinition) (r5.ObservationDefinition, error) {
+func (c *ClientR5) CreateObservationDefinition(ctx context.Context, resource r51.ObservationDefinition) (r51.ObservationDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ObservationDefinition{}, err
-	}
-	typed, ok := result.(r5.ObservationDefinition)
-	if !ok {
-		return r5.ObservationDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateObservationDefinition(ctx, resource)
 }
 
 // ReadObservationDefinition retrieves a ObservationDefinition resource by ID.
-func (c *ClientR5) ReadObservationDefinition(ctx context.Context, id string) (r5.ObservationDefinition, error) {
+func (c *ClientR5) ReadObservationDefinition(ctx context.Context, id string) (r51.ObservationDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ObservationDefinition", id)
-	if err != nil {
-		return r5.ObservationDefinition{}, err
-	}
-	typed, ok := result.(r5.ObservationDefinition)
-	if !ok {
-		return r5.ObservationDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadObservationDefinition(ctx, id)
 }
 
 // UpdateObservationDefinition updates an existing ObservationDefinition resource.
-func (c *ClientR5) UpdateObservationDefinition(ctx context.Context, resource r5.ObservationDefinition) (update.Result[r5.ObservationDefinition], error) {
+func (c *ClientR5) UpdateObservationDefinition(ctx context.Context, resource r51.ObservationDefinition) (update.Result[r51.ObservationDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ObservationDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.ObservationDefinition)
-	if !ok {
-		return update.Result[r5.ObservationDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ObservationDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateObservationDefinition(ctx, resource)
 }
 
 // DeleteObservationDefinition deletes a ObservationDefinition resource by ID.
 func (c *ClientR5) DeleteObservationDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ObservationDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteObservationDefinition(ctx, id)
+}
+
+// SearchCapabilitiesObservationDefinition returns server search capabilities for ObservationDefinition.
+func (c *ClientR5) SearchCapabilitiesObservationDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesObservationDefinition(ctx)
 }
 
 // SearchObservationDefinition performs a search for ObservationDefinition resources.
-func (c *ClientR5) SearchObservationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ObservationDefinition], error) {
+func (c *ClientR5) SearchObservationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ObservationDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ObservationDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.ObservationDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ObservationDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ObservationDefinition)
-		if !ok {
-			return search.Result[r5.ObservationDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ObservationDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchObservationDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.OperationDefinitionCreate = (*ClientR5)(nil)
+	_ r5.OperationDefinitionRead   = (*ClientR5)(nil)
+	_ r5.OperationDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.OperationDefinitionDelete = (*ClientR5)(nil)
+	_ r5.OperationDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateOperationDefinition creates a new OperationDefinition resource.
-func (c *ClientR5) CreateOperationDefinition(ctx context.Context, resource r5.OperationDefinition) (r5.OperationDefinition, error) {
+func (c *ClientR5) CreateOperationDefinition(ctx context.Context, resource r51.OperationDefinition) (r51.OperationDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.OperationDefinition{}, err
-	}
-	typed, ok := result.(r5.OperationDefinition)
-	if !ok {
-		return r5.OperationDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateOperationDefinition(ctx, resource)
 }
 
 // ReadOperationDefinition retrieves a OperationDefinition resource by ID.
-func (c *ClientR5) ReadOperationDefinition(ctx context.Context, id string) (r5.OperationDefinition, error) {
+func (c *ClientR5) ReadOperationDefinition(ctx context.Context, id string) (r51.OperationDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "OperationDefinition", id)
-	if err != nil {
-		return r5.OperationDefinition{}, err
-	}
-	typed, ok := result.(r5.OperationDefinition)
-	if !ok {
-		return r5.OperationDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadOperationDefinition(ctx, id)
 }
 
 // UpdateOperationDefinition updates an existing OperationDefinition resource.
-func (c *ClientR5) UpdateOperationDefinition(ctx context.Context, resource r5.OperationDefinition) (update.Result[r5.OperationDefinition], error) {
+func (c *ClientR5) UpdateOperationDefinition(ctx context.Context, resource r51.OperationDefinition) (update.Result[r51.OperationDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.OperationDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.OperationDefinition)
-	if !ok {
-		return update.Result[r5.OperationDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.OperationDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateOperationDefinition(ctx, resource)
 }
 
 // DeleteOperationDefinition deletes a OperationDefinition resource by ID.
 func (c *ClientR5) DeleteOperationDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "OperationDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteOperationDefinition(ctx, id)
+}
+
+// SearchCapabilitiesOperationDefinition returns server search capabilities for OperationDefinition.
+func (c *ClientR5) SearchCapabilitiesOperationDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesOperationDefinition(ctx)
 }
 
 // SearchOperationDefinition performs a search for OperationDefinition resources.
-func (c *ClientR5) SearchOperationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OperationDefinition], error) {
+func (c *ClientR5) SearchOperationDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.OperationDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "OperationDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.OperationDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.OperationDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.OperationDefinition)
-		if !ok {
-			return search.Result[r5.OperationDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.OperationDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchOperationDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.OperationOutcomeCreate = (*ClientR5)(nil)
+	_ r5.OperationOutcomeRead   = (*ClientR5)(nil)
+	_ r5.OperationOutcomeUpdate = (*ClientR5)(nil)
+	_ r5.OperationOutcomeDelete = (*ClientR5)(nil)
+	_ r5.OperationOutcomeSearch = (*ClientR5)(nil)
+)
+
 // CreateOperationOutcome creates a new OperationOutcome resource.
-func (c *ClientR5) CreateOperationOutcome(ctx context.Context, resource r5.OperationOutcome) (r5.OperationOutcome, error) {
+func (c *ClientR5) CreateOperationOutcome(ctx context.Context, resource r51.OperationOutcome) (r51.OperationOutcome, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.OperationOutcome{}, err
-	}
-	typed, ok := result.(r5.OperationOutcome)
-	if !ok {
-		return r5.OperationOutcome{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateOperationOutcome(ctx, resource)
 }
 
 // ReadOperationOutcome retrieves a OperationOutcome resource by ID.
-func (c *ClientR5) ReadOperationOutcome(ctx context.Context, id string) (r5.OperationOutcome, error) {
+func (c *ClientR5) ReadOperationOutcome(ctx context.Context, id string) (r51.OperationOutcome, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "OperationOutcome", id)
-	if err != nil {
-		return r5.OperationOutcome{}, err
-	}
-	typed, ok := result.(r5.OperationOutcome)
-	if !ok {
-		return r5.OperationOutcome{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadOperationOutcome(ctx, id)
 }
 
 // UpdateOperationOutcome updates an existing OperationOutcome resource.
-func (c *ClientR5) UpdateOperationOutcome(ctx context.Context, resource r5.OperationOutcome) (update.Result[r5.OperationOutcome], error) {
+func (c *ClientR5) UpdateOperationOutcome(ctx context.Context, resource r51.OperationOutcome) (update.Result[r51.OperationOutcome], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.OperationOutcome]{}, err
-	}
-	typed, ok := result.Resource.(r5.OperationOutcome)
-	if !ok {
-		return update.Result[r5.OperationOutcome]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.OperationOutcome]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateOperationOutcome(ctx, resource)
 }
 
 // DeleteOperationOutcome deletes a OperationOutcome resource by ID.
 func (c *ClientR5) DeleteOperationOutcome(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "OperationOutcome", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteOperationOutcome(ctx, id)
+}
+
+// SearchCapabilitiesOperationOutcome returns server search capabilities for OperationOutcome.
+func (c *ClientR5) SearchCapabilitiesOperationOutcome(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesOperationOutcome(ctx)
 }
 
 // SearchOperationOutcome performs a search for OperationOutcome resources.
-func (c *ClientR5) SearchOperationOutcome(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OperationOutcome], error) {
+func (c *ClientR5) SearchOperationOutcome(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.OperationOutcome], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "OperationOutcome", parameters, options)
-	if err != nil {
-		return search.Result[r5.OperationOutcome]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.OperationOutcome, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.OperationOutcome)
-		if !ok {
-			return search.Result[r5.OperationOutcome]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.OperationOutcome]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchOperationOutcome(ctx, parameters, options)
 }
 
+var (
+	_ r5.OrganizationCreate = (*ClientR5)(nil)
+	_ r5.OrganizationRead   = (*ClientR5)(nil)
+	_ r5.OrganizationUpdate = (*ClientR5)(nil)
+	_ r5.OrganizationDelete = (*ClientR5)(nil)
+	_ r5.OrganizationSearch = (*ClientR5)(nil)
+)
+
 // CreateOrganization creates a new Organization resource.
-func (c *ClientR5) CreateOrganization(ctx context.Context, resource r5.Organization) (r5.Organization, error) {
+func (c *ClientR5) CreateOrganization(ctx context.Context, resource r51.Organization) (r51.Organization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Organization{}, err
-	}
-	typed, ok := result.(r5.Organization)
-	if !ok {
-		return r5.Organization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateOrganization(ctx, resource)
 }
 
 // ReadOrganization retrieves a Organization resource by ID.
-func (c *ClientR5) ReadOrganization(ctx context.Context, id string) (r5.Organization, error) {
+func (c *ClientR5) ReadOrganization(ctx context.Context, id string) (r51.Organization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Organization", id)
-	if err != nil {
-		return r5.Organization{}, err
-	}
-	typed, ok := result.(r5.Organization)
-	if !ok {
-		return r5.Organization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadOrganization(ctx, id)
 }
 
 // UpdateOrganization updates an existing Organization resource.
-func (c *ClientR5) UpdateOrganization(ctx context.Context, resource r5.Organization) (update.Result[r5.Organization], error) {
+func (c *ClientR5) UpdateOrganization(ctx context.Context, resource r51.Organization) (update.Result[r51.Organization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Organization]{}, err
-	}
-	typed, ok := result.Resource.(r5.Organization)
-	if !ok {
-		return update.Result[r5.Organization]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Organization]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateOrganization(ctx, resource)
 }
 
 // DeleteOrganization deletes a Organization resource by ID.
 func (c *ClientR5) DeleteOrganization(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Organization", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteOrganization(ctx, id)
+}
+
+// SearchCapabilitiesOrganization returns server search capabilities for Organization.
+func (c *ClientR5) SearchCapabilitiesOrganization(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesOrganization(ctx)
 }
 
 // SearchOrganization performs a search for Organization resources.
-func (c *ClientR5) SearchOrganization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Organization], error) {
+func (c *ClientR5) SearchOrganization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Organization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Organization", parameters, options)
-	if err != nil {
-		return search.Result[r5.Organization]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Organization, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Organization)
-		if !ok {
-			return search.Result[r5.Organization]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Organization]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchOrganization(ctx, parameters, options)
 }
 
+var (
+	_ r5.OrganizationAffiliationCreate = (*ClientR5)(nil)
+	_ r5.OrganizationAffiliationRead   = (*ClientR5)(nil)
+	_ r5.OrganizationAffiliationUpdate = (*ClientR5)(nil)
+	_ r5.OrganizationAffiliationDelete = (*ClientR5)(nil)
+	_ r5.OrganizationAffiliationSearch = (*ClientR5)(nil)
+)
+
 // CreateOrganizationAffiliation creates a new OrganizationAffiliation resource.
-func (c *ClientR5) CreateOrganizationAffiliation(ctx context.Context, resource r5.OrganizationAffiliation) (r5.OrganizationAffiliation, error) {
+func (c *ClientR5) CreateOrganizationAffiliation(ctx context.Context, resource r51.OrganizationAffiliation) (r51.OrganizationAffiliation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.OrganizationAffiliation{}, err
-	}
-	typed, ok := result.(r5.OrganizationAffiliation)
-	if !ok {
-		return r5.OrganizationAffiliation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateOrganizationAffiliation(ctx, resource)
 }
 
 // ReadOrganizationAffiliation retrieves a OrganizationAffiliation resource by ID.
-func (c *ClientR5) ReadOrganizationAffiliation(ctx context.Context, id string) (r5.OrganizationAffiliation, error) {
+func (c *ClientR5) ReadOrganizationAffiliation(ctx context.Context, id string) (r51.OrganizationAffiliation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "OrganizationAffiliation", id)
-	if err != nil {
-		return r5.OrganizationAffiliation{}, err
-	}
-	typed, ok := result.(r5.OrganizationAffiliation)
-	if !ok {
-		return r5.OrganizationAffiliation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadOrganizationAffiliation(ctx, id)
 }
 
 // UpdateOrganizationAffiliation updates an existing OrganizationAffiliation resource.
-func (c *ClientR5) UpdateOrganizationAffiliation(ctx context.Context, resource r5.OrganizationAffiliation) (update.Result[r5.OrganizationAffiliation], error) {
+func (c *ClientR5) UpdateOrganizationAffiliation(ctx context.Context, resource r51.OrganizationAffiliation) (update.Result[r51.OrganizationAffiliation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.OrganizationAffiliation]{}, err
-	}
-	typed, ok := result.Resource.(r5.OrganizationAffiliation)
-	if !ok {
-		return update.Result[r5.OrganizationAffiliation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.OrganizationAffiliation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateOrganizationAffiliation(ctx, resource)
 }
 
 // DeleteOrganizationAffiliation deletes a OrganizationAffiliation resource by ID.
 func (c *ClientR5) DeleteOrganizationAffiliation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "OrganizationAffiliation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteOrganizationAffiliation(ctx, id)
+}
+
+// SearchCapabilitiesOrganizationAffiliation returns server search capabilities for OrganizationAffiliation.
+func (c *ClientR5) SearchCapabilitiesOrganizationAffiliation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesOrganizationAffiliation(ctx)
 }
 
 // SearchOrganizationAffiliation performs a search for OrganizationAffiliation resources.
-func (c *ClientR5) SearchOrganizationAffiliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.OrganizationAffiliation], error) {
+func (c *ClientR5) SearchOrganizationAffiliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.OrganizationAffiliation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "OrganizationAffiliation", parameters, options)
-	if err != nil {
-		return search.Result[r5.OrganizationAffiliation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.OrganizationAffiliation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.OrganizationAffiliation)
-		if !ok {
-			return search.Result[r5.OrganizationAffiliation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.OrganizationAffiliation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchOrganizationAffiliation(ctx, parameters, options)
 }
 
+var (
+	_ r5.PackagedProductDefinitionCreate = (*ClientR5)(nil)
+	_ r5.PackagedProductDefinitionRead   = (*ClientR5)(nil)
+	_ r5.PackagedProductDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.PackagedProductDefinitionDelete = (*ClientR5)(nil)
+	_ r5.PackagedProductDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreatePackagedProductDefinition creates a new PackagedProductDefinition resource.
-func (c *ClientR5) CreatePackagedProductDefinition(ctx context.Context, resource r5.PackagedProductDefinition) (r5.PackagedProductDefinition, error) {
+func (c *ClientR5) CreatePackagedProductDefinition(ctx context.Context, resource r51.PackagedProductDefinition) (r51.PackagedProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.PackagedProductDefinition{}, err
-	}
-	typed, ok := result.(r5.PackagedProductDefinition)
-	if !ok {
-		return r5.PackagedProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePackagedProductDefinition(ctx, resource)
 }
 
 // ReadPackagedProductDefinition retrieves a PackagedProductDefinition resource by ID.
-func (c *ClientR5) ReadPackagedProductDefinition(ctx context.Context, id string) (r5.PackagedProductDefinition, error) {
+func (c *ClientR5) ReadPackagedProductDefinition(ctx context.Context, id string) (r51.PackagedProductDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "PackagedProductDefinition", id)
-	if err != nil {
-		return r5.PackagedProductDefinition{}, err
-	}
-	typed, ok := result.(r5.PackagedProductDefinition)
-	if !ok {
-		return r5.PackagedProductDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPackagedProductDefinition(ctx, id)
 }
 
 // UpdatePackagedProductDefinition updates an existing PackagedProductDefinition resource.
-func (c *ClientR5) UpdatePackagedProductDefinition(ctx context.Context, resource r5.PackagedProductDefinition) (update.Result[r5.PackagedProductDefinition], error) {
+func (c *ClientR5) UpdatePackagedProductDefinition(ctx context.Context, resource r51.PackagedProductDefinition) (update.Result[r51.PackagedProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.PackagedProductDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.PackagedProductDefinition)
-	if !ok {
-		return update.Result[r5.PackagedProductDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.PackagedProductDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePackagedProductDefinition(ctx, resource)
 }
 
 // DeletePackagedProductDefinition deletes a PackagedProductDefinition resource by ID.
 func (c *ClientR5) DeletePackagedProductDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "PackagedProductDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePackagedProductDefinition(ctx, id)
+}
+
+// SearchCapabilitiesPackagedProductDefinition returns server search capabilities for PackagedProductDefinition.
+func (c *ClientR5) SearchCapabilitiesPackagedProductDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPackagedProductDefinition(ctx)
 }
 
 // SearchPackagedProductDefinition performs a search for PackagedProductDefinition resources.
-func (c *ClientR5) SearchPackagedProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PackagedProductDefinition], error) {
+func (c *ClientR5) SearchPackagedProductDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.PackagedProductDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "PackagedProductDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.PackagedProductDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.PackagedProductDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.PackagedProductDefinition)
-		if !ok {
-			return search.Result[r5.PackagedProductDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.PackagedProductDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPackagedProductDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.ParametersCreate = (*ClientR5)(nil)
+	_ r5.ParametersRead   = (*ClientR5)(nil)
+	_ r5.ParametersUpdate = (*ClientR5)(nil)
+	_ r5.ParametersDelete = (*ClientR5)(nil)
+	_ r5.ParametersSearch = (*ClientR5)(nil)
+)
+
 // CreateParameters creates a new Parameters resource.
-func (c *ClientR5) CreateParameters(ctx context.Context, resource r5.Parameters) (r5.Parameters, error) {
+func (c *ClientR5) CreateParameters(ctx context.Context, resource r51.Parameters) (r51.Parameters, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Parameters{}, err
-	}
-	typed, ok := result.(r5.Parameters)
-	if !ok {
-		return r5.Parameters{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateParameters(ctx, resource)
 }
 
 // ReadParameters retrieves a Parameters resource by ID.
-func (c *ClientR5) ReadParameters(ctx context.Context, id string) (r5.Parameters, error) {
+func (c *ClientR5) ReadParameters(ctx context.Context, id string) (r51.Parameters, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Parameters", id)
-	if err != nil {
-		return r5.Parameters{}, err
-	}
-	typed, ok := result.(r5.Parameters)
-	if !ok {
-		return r5.Parameters{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadParameters(ctx, id)
 }
 
 // UpdateParameters updates an existing Parameters resource.
-func (c *ClientR5) UpdateParameters(ctx context.Context, resource r5.Parameters) (update.Result[r5.Parameters], error) {
+func (c *ClientR5) UpdateParameters(ctx context.Context, resource r51.Parameters) (update.Result[r51.Parameters], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Parameters]{}, err
-	}
-	typed, ok := result.Resource.(r5.Parameters)
-	if !ok {
-		return update.Result[r5.Parameters]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Parameters]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateParameters(ctx, resource)
 }
 
 // DeleteParameters deletes a Parameters resource by ID.
 func (c *ClientR5) DeleteParameters(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Parameters", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteParameters(ctx, id)
+}
+
+// SearchCapabilitiesParameters returns server search capabilities for Parameters.
+func (c *ClientR5) SearchCapabilitiesParameters(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesParameters(ctx)
 }
 
 // SearchParameters performs a search for Parameters resources.
-func (c *ClientR5) SearchParameters(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Parameters], error) {
+func (c *ClientR5) SearchParameters(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Parameters], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Parameters", parameters, options)
-	if err != nil {
-		return search.Result[r5.Parameters]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Parameters, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Parameters)
-		if !ok {
-			return search.Result[r5.Parameters]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Parameters]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchParameters(ctx, parameters, options)
 }
 
+var (
+	_ r5.PatientCreate = (*ClientR5)(nil)
+	_ r5.PatientRead   = (*ClientR5)(nil)
+	_ r5.PatientUpdate = (*ClientR5)(nil)
+	_ r5.PatientDelete = (*ClientR5)(nil)
+	_ r5.PatientSearch = (*ClientR5)(nil)
+)
+
 // CreatePatient creates a new Patient resource.
-func (c *ClientR5) CreatePatient(ctx context.Context, resource r5.Patient) (r5.Patient, error) {
+func (c *ClientR5) CreatePatient(ctx context.Context, resource r51.Patient) (r51.Patient, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Patient{}, err
-	}
-	typed, ok := result.(r5.Patient)
-	if !ok {
-		return r5.Patient{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePatient(ctx, resource)
 }
 
 // ReadPatient retrieves a Patient resource by ID.
-func (c *ClientR5) ReadPatient(ctx context.Context, id string) (r5.Patient, error) {
+func (c *ClientR5) ReadPatient(ctx context.Context, id string) (r51.Patient, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Patient", id)
-	if err != nil {
-		return r5.Patient{}, err
-	}
-	typed, ok := result.(r5.Patient)
-	if !ok {
-		return r5.Patient{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPatient(ctx, id)
 }
 
 // UpdatePatient updates an existing Patient resource.
-func (c *ClientR5) UpdatePatient(ctx context.Context, resource r5.Patient) (update.Result[r5.Patient], error) {
+func (c *ClientR5) UpdatePatient(ctx context.Context, resource r51.Patient) (update.Result[r51.Patient], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Patient]{}, err
-	}
-	typed, ok := result.Resource.(r5.Patient)
-	if !ok {
-		return update.Result[r5.Patient]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Patient]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePatient(ctx, resource)
 }
 
 // DeletePatient deletes a Patient resource by ID.
 func (c *ClientR5) DeletePatient(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Patient", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePatient(ctx, id)
+}
+
+// SearchCapabilitiesPatient returns server search capabilities for Patient.
+func (c *ClientR5) SearchCapabilitiesPatient(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPatient(ctx)
 }
 
 // SearchPatient performs a search for Patient resources.
-func (c *ClientR5) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Patient], error) {
+func (c *ClientR5) SearchPatient(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Patient], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Patient", parameters, options)
-	if err != nil {
-		return search.Result[r5.Patient]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Patient, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Patient)
-		if !ok {
-			return search.Result[r5.Patient]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Patient]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPatient(ctx, parameters, options)
 }
 
+var (
+	_ r5.PaymentNoticeCreate = (*ClientR5)(nil)
+	_ r5.PaymentNoticeRead   = (*ClientR5)(nil)
+	_ r5.PaymentNoticeUpdate = (*ClientR5)(nil)
+	_ r5.PaymentNoticeDelete = (*ClientR5)(nil)
+	_ r5.PaymentNoticeSearch = (*ClientR5)(nil)
+)
+
 // CreatePaymentNotice creates a new PaymentNotice resource.
-func (c *ClientR5) CreatePaymentNotice(ctx context.Context, resource r5.PaymentNotice) (r5.PaymentNotice, error) {
+func (c *ClientR5) CreatePaymentNotice(ctx context.Context, resource r51.PaymentNotice) (r51.PaymentNotice, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.PaymentNotice{}, err
-	}
-	typed, ok := result.(r5.PaymentNotice)
-	if !ok {
-		return r5.PaymentNotice{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePaymentNotice(ctx, resource)
 }
 
 // ReadPaymentNotice retrieves a PaymentNotice resource by ID.
-func (c *ClientR5) ReadPaymentNotice(ctx context.Context, id string) (r5.PaymentNotice, error) {
+func (c *ClientR5) ReadPaymentNotice(ctx context.Context, id string) (r51.PaymentNotice, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "PaymentNotice", id)
-	if err != nil {
-		return r5.PaymentNotice{}, err
-	}
-	typed, ok := result.(r5.PaymentNotice)
-	if !ok {
-		return r5.PaymentNotice{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPaymentNotice(ctx, id)
 }
 
 // UpdatePaymentNotice updates an existing PaymentNotice resource.
-func (c *ClientR5) UpdatePaymentNotice(ctx context.Context, resource r5.PaymentNotice) (update.Result[r5.PaymentNotice], error) {
+func (c *ClientR5) UpdatePaymentNotice(ctx context.Context, resource r51.PaymentNotice) (update.Result[r51.PaymentNotice], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.PaymentNotice]{}, err
-	}
-	typed, ok := result.Resource.(r5.PaymentNotice)
-	if !ok {
-		return update.Result[r5.PaymentNotice]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.PaymentNotice]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePaymentNotice(ctx, resource)
 }
 
 // DeletePaymentNotice deletes a PaymentNotice resource by ID.
 func (c *ClientR5) DeletePaymentNotice(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "PaymentNotice", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePaymentNotice(ctx, id)
+}
+
+// SearchCapabilitiesPaymentNotice returns server search capabilities for PaymentNotice.
+func (c *ClientR5) SearchCapabilitiesPaymentNotice(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPaymentNotice(ctx)
 }
 
 // SearchPaymentNotice performs a search for PaymentNotice resources.
-func (c *ClientR5) SearchPaymentNotice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PaymentNotice], error) {
+func (c *ClientR5) SearchPaymentNotice(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.PaymentNotice], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "PaymentNotice", parameters, options)
-	if err != nil {
-		return search.Result[r5.PaymentNotice]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.PaymentNotice, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.PaymentNotice)
-		if !ok {
-			return search.Result[r5.PaymentNotice]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.PaymentNotice]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPaymentNotice(ctx, parameters, options)
 }
 
+var (
+	_ r5.PaymentReconciliationCreate = (*ClientR5)(nil)
+	_ r5.PaymentReconciliationRead   = (*ClientR5)(nil)
+	_ r5.PaymentReconciliationUpdate = (*ClientR5)(nil)
+	_ r5.PaymentReconciliationDelete = (*ClientR5)(nil)
+	_ r5.PaymentReconciliationSearch = (*ClientR5)(nil)
+)
+
 // CreatePaymentReconciliation creates a new PaymentReconciliation resource.
-func (c *ClientR5) CreatePaymentReconciliation(ctx context.Context, resource r5.PaymentReconciliation) (r5.PaymentReconciliation, error) {
+func (c *ClientR5) CreatePaymentReconciliation(ctx context.Context, resource r51.PaymentReconciliation) (r51.PaymentReconciliation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.PaymentReconciliation{}, err
-	}
-	typed, ok := result.(r5.PaymentReconciliation)
-	if !ok {
-		return r5.PaymentReconciliation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePaymentReconciliation(ctx, resource)
 }
 
 // ReadPaymentReconciliation retrieves a PaymentReconciliation resource by ID.
-func (c *ClientR5) ReadPaymentReconciliation(ctx context.Context, id string) (r5.PaymentReconciliation, error) {
+func (c *ClientR5) ReadPaymentReconciliation(ctx context.Context, id string) (r51.PaymentReconciliation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "PaymentReconciliation", id)
-	if err != nil {
-		return r5.PaymentReconciliation{}, err
-	}
-	typed, ok := result.(r5.PaymentReconciliation)
-	if !ok {
-		return r5.PaymentReconciliation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPaymentReconciliation(ctx, id)
 }
 
 // UpdatePaymentReconciliation updates an existing PaymentReconciliation resource.
-func (c *ClientR5) UpdatePaymentReconciliation(ctx context.Context, resource r5.PaymentReconciliation) (update.Result[r5.PaymentReconciliation], error) {
+func (c *ClientR5) UpdatePaymentReconciliation(ctx context.Context, resource r51.PaymentReconciliation) (update.Result[r51.PaymentReconciliation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.PaymentReconciliation]{}, err
-	}
-	typed, ok := result.Resource.(r5.PaymentReconciliation)
-	if !ok {
-		return update.Result[r5.PaymentReconciliation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.PaymentReconciliation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePaymentReconciliation(ctx, resource)
 }
 
 // DeletePaymentReconciliation deletes a PaymentReconciliation resource by ID.
 func (c *ClientR5) DeletePaymentReconciliation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "PaymentReconciliation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePaymentReconciliation(ctx, id)
+}
+
+// SearchCapabilitiesPaymentReconciliation returns server search capabilities for PaymentReconciliation.
+func (c *ClientR5) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPaymentReconciliation(ctx)
 }
 
 // SearchPaymentReconciliation performs a search for PaymentReconciliation resources.
-func (c *ClientR5) SearchPaymentReconciliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PaymentReconciliation], error) {
+func (c *ClientR5) SearchPaymentReconciliation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.PaymentReconciliation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "PaymentReconciliation", parameters, options)
-	if err != nil {
-		return search.Result[r5.PaymentReconciliation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.PaymentReconciliation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.PaymentReconciliation)
-		if !ok {
-			return search.Result[r5.PaymentReconciliation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.PaymentReconciliation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPaymentReconciliation(ctx, parameters, options)
 }
 
+var (
+	_ r5.PermissionCreate = (*ClientR5)(nil)
+	_ r5.PermissionRead   = (*ClientR5)(nil)
+	_ r5.PermissionUpdate = (*ClientR5)(nil)
+	_ r5.PermissionDelete = (*ClientR5)(nil)
+	_ r5.PermissionSearch = (*ClientR5)(nil)
+)
+
 // CreatePermission creates a new Permission resource.
-func (c *ClientR5) CreatePermission(ctx context.Context, resource r5.Permission) (r5.Permission, error) {
+func (c *ClientR5) CreatePermission(ctx context.Context, resource r51.Permission) (r51.Permission, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Permission{}, err
-	}
-	typed, ok := result.(r5.Permission)
-	if !ok {
-		return r5.Permission{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePermission(ctx, resource)
 }
 
 // ReadPermission retrieves a Permission resource by ID.
-func (c *ClientR5) ReadPermission(ctx context.Context, id string) (r5.Permission, error) {
+func (c *ClientR5) ReadPermission(ctx context.Context, id string) (r51.Permission, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Permission", id)
-	if err != nil {
-		return r5.Permission{}, err
-	}
-	typed, ok := result.(r5.Permission)
-	if !ok {
-		return r5.Permission{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPermission(ctx, id)
 }
 
 // UpdatePermission updates an existing Permission resource.
-func (c *ClientR5) UpdatePermission(ctx context.Context, resource r5.Permission) (update.Result[r5.Permission], error) {
+func (c *ClientR5) UpdatePermission(ctx context.Context, resource r51.Permission) (update.Result[r51.Permission], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Permission]{}, err
-	}
-	typed, ok := result.Resource.(r5.Permission)
-	if !ok {
-		return update.Result[r5.Permission]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Permission]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePermission(ctx, resource)
 }
 
 // DeletePermission deletes a Permission resource by ID.
 func (c *ClientR5) DeletePermission(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Permission", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePermission(ctx, id)
+}
+
+// SearchCapabilitiesPermission returns server search capabilities for Permission.
+func (c *ClientR5) SearchCapabilitiesPermission(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPermission(ctx)
 }
 
 // SearchPermission performs a search for Permission resources.
-func (c *ClientR5) SearchPermission(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Permission], error) {
+func (c *ClientR5) SearchPermission(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Permission], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Permission", parameters, options)
-	if err != nil {
-		return search.Result[r5.Permission]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Permission, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Permission)
-		if !ok {
-			return search.Result[r5.Permission]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Permission]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPermission(ctx, parameters, options)
 }
 
+var (
+	_ r5.PersonCreate = (*ClientR5)(nil)
+	_ r5.PersonRead   = (*ClientR5)(nil)
+	_ r5.PersonUpdate = (*ClientR5)(nil)
+	_ r5.PersonDelete = (*ClientR5)(nil)
+	_ r5.PersonSearch = (*ClientR5)(nil)
+)
+
 // CreatePerson creates a new Person resource.
-func (c *ClientR5) CreatePerson(ctx context.Context, resource r5.Person) (r5.Person, error) {
+func (c *ClientR5) CreatePerson(ctx context.Context, resource r51.Person) (r51.Person, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Person{}, err
-	}
-	typed, ok := result.(r5.Person)
-	if !ok {
-		return r5.Person{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePerson(ctx, resource)
 }
 
 // ReadPerson retrieves a Person resource by ID.
-func (c *ClientR5) ReadPerson(ctx context.Context, id string) (r5.Person, error) {
+func (c *ClientR5) ReadPerson(ctx context.Context, id string) (r51.Person, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Person", id)
-	if err != nil {
-		return r5.Person{}, err
-	}
-	typed, ok := result.(r5.Person)
-	if !ok {
-		return r5.Person{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPerson(ctx, id)
 }
 
 // UpdatePerson updates an existing Person resource.
-func (c *ClientR5) UpdatePerson(ctx context.Context, resource r5.Person) (update.Result[r5.Person], error) {
+func (c *ClientR5) UpdatePerson(ctx context.Context, resource r51.Person) (update.Result[r51.Person], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Person]{}, err
-	}
-	typed, ok := result.Resource.(r5.Person)
-	if !ok {
-		return update.Result[r5.Person]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Person]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePerson(ctx, resource)
 }
 
 // DeletePerson deletes a Person resource by ID.
 func (c *ClientR5) DeletePerson(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Person", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePerson(ctx, id)
+}
+
+// SearchCapabilitiesPerson returns server search capabilities for Person.
+func (c *ClientR5) SearchCapabilitiesPerson(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPerson(ctx)
 }
 
 // SearchPerson performs a search for Person resources.
-func (c *ClientR5) SearchPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Person], error) {
+func (c *ClientR5) SearchPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Person], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Person", parameters, options)
-	if err != nil {
-		return search.Result[r5.Person]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Person, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Person)
-		if !ok {
-			return search.Result[r5.Person]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Person]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPerson(ctx, parameters, options)
 }
 
+var (
+	_ r5.PlanDefinitionCreate = (*ClientR5)(nil)
+	_ r5.PlanDefinitionRead   = (*ClientR5)(nil)
+	_ r5.PlanDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.PlanDefinitionDelete = (*ClientR5)(nil)
+	_ r5.PlanDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreatePlanDefinition creates a new PlanDefinition resource.
-func (c *ClientR5) CreatePlanDefinition(ctx context.Context, resource r5.PlanDefinition) (r5.PlanDefinition, error) {
+func (c *ClientR5) CreatePlanDefinition(ctx context.Context, resource r51.PlanDefinition) (r51.PlanDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.PlanDefinition{}, err
-	}
-	typed, ok := result.(r5.PlanDefinition)
-	if !ok {
-		return r5.PlanDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePlanDefinition(ctx, resource)
 }
 
 // ReadPlanDefinition retrieves a PlanDefinition resource by ID.
-func (c *ClientR5) ReadPlanDefinition(ctx context.Context, id string) (r5.PlanDefinition, error) {
+func (c *ClientR5) ReadPlanDefinition(ctx context.Context, id string) (r51.PlanDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "PlanDefinition", id)
-	if err != nil {
-		return r5.PlanDefinition{}, err
-	}
-	typed, ok := result.(r5.PlanDefinition)
-	if !ok {
-		return r5.PlanDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPlanDefinition(ctx, id)
 }
 
 // UpdatePlanDefinition updates an existing PlanDefinition resource.
-func (c *ClientR5) UpdatePlanDefinition(ctx context.Context, resource r5.PlanDefinition) (update.Result[r5.PlanDefinition], error) {
+func (c *ClientR5) UpdatePlanDefinition(ctx context.Context, resource r51.PlanDefinition) (update.Result[r51.PlanDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.PlanDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.PlanDefinition)
-	if !ok {
-		return update.Result[r5.PlanDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.PlanDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePlanDefinition(ctx, resource)
 }
 
 // DeletePlanDefinition deletes a PlanDefinition resource by ID.
 func (c *ClientR5) DeletePlanDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "PlanDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePlanDefinition(ctx, id)
+}
+
+// SearchCapabilitiesPlanDefinition returns server search capabilities for PlanDefinition.
+func (c *ClientR5) SearchCapabilitiesPlanDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPlanDefinition(ctx)
 }
 
 // SearchPlanDefinition performs a search for PlanDefinition resources.
-func (c *ClientR5) SearchPlanDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PlanDefinition], error) {
+func (c *ClientR5) SearchPlanDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.PlanDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "PlanDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.PlanDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.PlanDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.PlanDefinition)
-		if !ok {
-			return search.Result[r5.PlanDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.PlanDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPlanDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.PractitionerCreate = (*ClientR5)(nil)
+	_ r5.PractitionerRead   = (*ClientR5)(nil)
+	_ r5.PractitionerUpdate = (*ClientR5)(nil)
+	_ r5.PractitionerDelete = (*ClientR5)(nil)
+	_ r5.PractitionerSearch = (*ClientR5)(nil)
+)
+
 // CreatePractitioner creates a new Practitioner resource.
-func (c *ClientR5) CreatePractitioner(ctx context.Context, resource r5.Practitioner) (r5.Practitioner, error) {
+func (c *ClientR5) CreatePractitioner(ctx context.Context, resource r51.Practitioner) (r51.Practitioner, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Practitioner{}, err
-	}
-	typed, ok := result.(r5.Practitioner)
-	if !ok {
-		return r5.Practitioner{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePractitioner(ctx, resource)
 }
 
 // ReadPractitioner retrieves a Practitioner resource by ID.
-func (c *ClientR5) ReadPractitioner(ctx context.Context, id string) (r5.Practitioner, error) {
+func (c *ClientR5) ReadPractitioner(ctx context.Context, id string) (r51.Practitioner, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Practitioner", id)
-	if err != nil {
-		return r5.Practitioner{}, err
-	}
-	typed, ok := result.(r5.Practitioner)
-	if !ok {
-		return r5.Practitioner{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPractitioner(ctx, id)
 }
 
 // UpdatePractitioner updates an existing Practitioner resource.
-func (c *ClientR5) UpdatePractitioner(ctx context.Context, resource r5.Practitioner) (update.Result[r5.Practitioner], error) {
+func (c *ClientR5) UpdatePractitioner(ctx context.Context, resource r51.Practitioner) (update.Result[r51.Practitioner], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Practitioner]{}, err
-	}
-	typed, ok := result.Resource.(r5.Practitioner)
-	if !ok {
-		return update.Result[r5.Practitioner]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Practitioner]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePractitioner(ctx, resource)
 }
 
 // DeletePractitioner deletes a Practitioner resource by ID.
 func (c *ClientR5) DeletePractitioner(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Practitioner", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePractitioner(ctx, id)
+}
+
+// SearchCapabilitiesPractitioner returns server search capabilities for Practitioner.
+func (c *ClientR5) SearchCapabilitiesPractitioner(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPractitioner(ctx)
 }
 
 // SearchPractitioner performs a search for Practitioner resources.
-func (c *ClientR5) SearchPractitioner(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Practitioner], error) {
+func (c *ClientR5) SearchPractitioner(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Practitioner], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Practitioner", parameters, options)
-	if err != nil {
-		return search.Result[r5.Practitioner]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Practitioner, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Practitioner)
-		if !ok {
-			return search.Result[r5.Practitioner]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Practitioner]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPractitioner(ctx, parameters, options)
 }
 
+var (
+	_ r5.PractitionerRoleCreate = (*ClientR5)(nil)
+	_ r5.PractitionerRoleRead   = (*ClientR5)(nil)
+	_ r5.PractitionerRoleUpdate = (*ClientR5)(nil)
+	_ r5.PractitionerRoleDelete = (*ClientR5)(nil)
+	_ r5.PractitionerRoleSearch = (*ClientR5)(nil)
+)
+
 // CreatePractitionerRole creates a new PractitionerRole resource.
-func (c *ClientR5) CreatePractitionerRole(ctx context.Context, resource r5.PractitionerRole) (r5.PractitionerRole, error) {
+func (c *ClientR5) CreatePractitionerRole(ctx context.Context, resource r51.PractitionerRole) (r51.PractitionerRole, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.PractitionerRole{}, err
-	}
-	typed, ok := result.(r5.PractitionerRole)
-	if !ok {
-		return r5.PractitionerRole{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreatePractitionerRole(ctx, resource)
 }
 
 // ReadPractitionerRole retrieves a PractitionerRole resource by ID.
-func (c *ClientR5) ReadPractitionerRole(ctx context.Context, id string) (r5.PractitionerRole, error) {
+func (c *ClientR5) ReadPractitionerRole(ctx context.Context, id string) (r51.PractitionerRole, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "PractitionerRole", id)
-	if err != nil {
-		return r5.PractitionerRole{}, err
-	}
-	typed, ok := result.(r5.PractitionerRole)
-	if !ok {
-		return r5.PractitionerRole{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadPractitionerRole(ctx, id)
 }
 
 // UpdatePractitionerRole updates an existing PractitionerRole resource.
-func (c *ClientR5) UpdatePractitionerRole(ctx context.Context, resource r5.PractitionerRole) (update.Result[r5.PractitionerRole], error) {
+func (c *ClientR5) UpdatePractitionerRole(ctx context.Context, resource r51.PractitionerRole) (update.Result[r51.PractitionerRole], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.PractitionerRole]{}, err
-	}
-	typed, ok := result.Resource.(r5.PractitionerRole)
-	if !ok {
-		return update.Result[r5.PractitionerRole]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.PractitionerRole]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdatePractitionerRole(ctx, resource)
 }
 
 // DeletePractitionerRole deletes a PractitionerRole resource by ID.
 func (c *ClientR5) DeletePractitionerRole(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "PractitionerRole", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeletePractitionerRole(ctx, id)
+}
+
+// SearchCapabilitiesPractitionerRole returns server search capabilities for PractitionerRole.
+func (c *ClientR5) SearchCapabilitiesPractitionerRole(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesPractitionerRole(ctx)
 }
 
 // SearchPractitionerRole performs a search for PractitionerRole resources.
-func (c *ClientR5) SearchPractitionerRole(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.PractitionerRole], error) {
+func (c *ClientR5) SearchPractitionerRole(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.PractitionerRole], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "PractitionerRole", parameters, options)
-	if err != nil {
-		return search.Result[r5.PractitionerRole]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.PractitionerRole, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.PractitionerRole)
-		if !ok {
-			return search.Result[r5.PractitionerRole]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.PractitionerRole]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchPractitionerRole(ctx, parameters, options)
 }
 
+var (
+	_ r5.ProcedureCreate = (*ClientR5)(nil)
+	_ r5.ProcedureRead   = (*ClientR5)(nil)
+	_ r5.ProcedureUpdate = (*ClientR5)(nil)
+	_ r5.ProcedureDelete = (*ClientR5)(nil)
+	_ r5.ProcedureSearch = (*ClientR5)(nil)
+)
+
 // CreateProcedure creates a new Procedure resource.
-func (c *ClientR5) CreateProcedure(ctx context.Context, resource r5.Procedure) (r5.Procedure, error) {
+func (c *ClientR5) CreateProcedure(ctx context.Context, resource r51.Procedure) (r51.Procedure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Procedure{}, err
-	}
-	typed, ok := result.(r5.Procedure)
-	if !ok {
-		return r5.Procedure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateProcedure(ctx, resource)
 }
 
 // ReadProcedure retrieves a Procedure resource by ID.
-func (c *ClientR5) ReadProcedure(ctx context.Context, id string) (r5.Procedure, error) {
+func (c *ClientR5) ReadProcedure(ctx context.Context, id string) (r51.Procedure, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Procedure", id)
-	if err != nil {
-		return r5.Procedure{}, err
-	}
-	typed, ok := result.(r5.Procedure)
-	if !ok {
-		return r5.Procedure{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadProcedure(ctx, id)
 }
 
 // UpdateProcedure updates an existing Procedure resource.
-func (c *ClientR5) UpdateProcedure(ctx context.Context, resource r5.Procedure) (update.Result[r5.Procedure], error) {
+func (c *ClientR5) UpdateProcedure(ctx context.Context, resource r51.Procedure) (update.Result[r51.Procedure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Procedure]{}, err
-	}
-	typed, ok := result.Resource.(r5.Procedure)
-	if !ok {
-		return update.Result[r5.Procedure]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Procedure]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateProcedure(ctx, resource)
 }
 
 // DeleteProcedure deletes a Procedure resource by ID.
 func (c *ClientR5) DeleteProcedure(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Procedure", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteProcedure(ctx, id)
+}
+
+// SearchCapabilitiesProcedure returns server search capabilities for Procedure.
+func (c *ClientR5) SearchCapabilitiesProcedure(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesProcedure(ctx)
 }
 
 // SearchProcedure performs a search for Procedure resources.
-func (c *ClientR5) SearchProcedure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Procedure], error) {
+func (c *ClientR5) SearchProcedure(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Procedure], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Procedure", parameters, options)
-	if err != nil {
-		return search.Result[r5.Procedure]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Procedure, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Procedure)
-		if !ok {
-			return search.Result[r5.Procedure]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Procedure]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchProcedure(ctx, parameters, options)
 }
 
+var (
+	_ r5.ProvenanceCreate = (*ClientR5)(nil)
+	_ r5.ProvenanceRead   = (*ClientR5)(nil)
+	_ r5.ProvenanceUpdate = (*ClientR5)(nil)
+	_ r5.ProvenanceDelete = (*ClientR5)(nil)
+	_ r5.ProvenanceSearch = (*ClientR5)(nil)
+)
+
 // CreateProvenance creates a new Provenance resource.
-func (c *ClientR5) CreateProvenance(ctx context.Context, resource r5.Provenance) (r5.Provenance, error) {
+func (c *ClientR5) CreateProvenance(ctx context.Context, resource r51.Provenance) (r51.Provenance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Provenance{}, err
-	}
-	typed, ok := result.(r5.Provenance)
-	if !ok {
-		return r5.Provenance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateProvenance(ctx, resource)
 }
 
 // ReadProvenance retrieves a Provenance resource by ID.
-func (c *ClientR5) ReadProvenance(ctx context.Context, id string) (r5.Provenance, error) {
+func (c *ClientR5) ReadProvenance(ctx context.Context, id string) (r51.Provenance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Provenance", id)
-	if err != nil {
-		return r5.Provenance{}, err
-	}
-	typed, ok := result.(r5.Provenance)
-	if !ok {
-		return r5.Provenance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadProvenance(ctx, id)
 }
 
 // UpdateProvenance updates an existing Provenance resource.
-func (c *ClientR5) UpdateProvenance(ctx context.Context, resource r5.Provenance) (update.Result[r5.Provenance], error) {
+func (c *ClientR5) UpdateProvenance(ctx context.Context, resource r51.Provenance) (update.Result[r51.Provenance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Provenance]{}, err
-	}
-	typed, ok := result.Resource.(r5.Provenance)
-	if !ok {
-		return update.Result[r5.Provenance]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Provenance]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateProvenance(ctx, resource)
 }
 
 // DeleteProvenance deletes a Provenance resource by ID.
 func (c *ClientR5) DeleteProvenance(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Provenance", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteProvenance(ctx, id)
+}
+
+// SearchCapabilitiesProvenance returns server search capabilities for Provenance.
+func (c *ClientR5) SearchCapabilitiesProvenance(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesProvenance(ctx)
 }
 
 // SearchProvenance performs a search for Provenance resources.
-func (c *ClientR5) SearchProvenance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Provenance], error) {
+func (c *ClientR5) SearchProvenance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Provenance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Provenance", parameters, options)
-	if err != nil {
-		return search.Result[r5.Provenance]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Provenance, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Provenance)
-		if !ok {
-			return search.Result[r5.Provenance]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Provenance]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchProvenance(ctx, parameters, options)
 }
 
+var (
+	_ r5.QuestionnaireCreate = (*ClientR5)(nil)
+	_ r5.QuestionnaireRead   = (*ClientR5)(nil)
+	_ r5.QuestionnaireUpdate = (*ClientR5)(nil)
+	_ r5.QuestionnaireDelete = (*ClientR5)(nil)
+	_ r5.QuestionnaireSearch = (*ClientR5)(nil)
+)
+
 // CreateQuestionnaire creates a new Questionnaire resource.
-func (c *ClientR5) CreateQuestionnaire(ctx context.Context, resource r5.Questionnaire) (r5.Questionnaire, error) {
+func (c *ClientR5) CreateQuestionnaire(ctx context.Context, resource r51.Questionnaire) (r51.Questionnaire, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Questionnaire{}, err
-	}
-	typed, ok := result.(r5.Questionnaire)
-	if !ok {
-		return r5.Questionnaire{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateQuestionnaire(ctx, resource)
 }
 
 // ReadQuestionnaire retrieves a Questionnaire resource by ID.
-func (c *ClientR5) ReadQuestionnaire(ctx context.Context, id string) (r5.Questionnaire, error) {
+func (c *ClientR5) ReadQuestionnaire(ctx context.Context, id string) (r51.Questionnaire, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Questionnaire", id)
-	if err != nil {
-		return r5.Questionnaire{}, err
-	}
-	typed, ok := result.(r5.Questionnaire)
-	if !ok {
-		return r5.Questionnaire{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadQuestionnaire(ctx, id)
 }
 
 // UpdateQuestionnaire updates an existing Questionnaire resource.
-func (c *ClientR5) UpdateQuestionnaire(ctx context.Context, resource r5.Questionnaire) (update.Result[r5.Questionnaire], error) {
+func (c *ClientR5) UpdateQuestionnaire(ctx context.Context, resource r51.Questionnaire) (update.Result[r51.Questionnaire], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Questionnaire]{}, err
-	}
-	typed, ok := result.Resource.(r5.Questionnaire)
-	if !ok {
-		return update.Result[r5.Questionnaire]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Questionnaire]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateQuestionnaire(ctx, resource)
 }
 
 // DeleteQuestionnaire deletes a Questionnaire resource by ID.
 func (c *ClientR5) DeleteQuestionnaire(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Questionnaire", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteQuestionnaire(ctx, id)
+}
+
+// SearchCapabilitiesQuestionnaire returns server search capabilities for Questionnaire.
+func (c *ClientR5) SearchCapabilitiesQuestionnaire(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesQuestionnaire(ctx)
 }
 
 // SearchQuestionnaire performs a search for Questionnaire resources.
-func (c *ClientR5) SearchQuestionnaire(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Questionnaire], error) {
+func (c *ClientR5) SearchQuestionnaire(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Questionnaire], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Questionnaire", parameters, options)
-	if err != nil {
-		return search.Result[r5.Questionnaire]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Questionnaire, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Questionnaire)
-		if !ok {
-			return search.Result[r5.Questionnaire]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Questionnaire]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchQuestionnaire(ctx, parameters, options)
 }
 
+var (
+	_ r5.QuestionnaireResponseCreate = (*ClientR5)(nil)
+	_ r5.QuestionnaireResponseRead   = (*ClientR5)(nil)
+	_ r5.QuestionnaireResponseUpdate = (*ClientR5)(nil)
+	_ r5.QuestionnaireResponseDelete = (*ClientR5)(nil)
+	_ r5.QuestionnaireResponseSearch = (*ClientR5)(nil)
+)
+
 // CreateQuestionnaireResponse creates a new QuestionnaireResponse resource.
-func (c *ClientR5) CreateQuestionnaireResponse(ctx context.Context, resource r5.QuestionnaireResponse) (r5.QuestionnaireResponse, error) {
+func (c *ClientR5) CreateQuestionnaireResponse(ctx context.Context, resource r51.QuestionnaireResponse) (r51.QuestionnaireResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.QuestionnaireResponse{}, err
-	}
-	typed, ok := result.(r5.QuestionnaireResponse)
-	if !ok {
-		return r5.QuestionnaireResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateQuestionnaireResponse(ctx, resource)
 }
 
 // ReadQuestionnaireResponse retrieves a QuestionnaireResponse resource by ID.
-func (c *ClientR5) ReadQuestionnaireResponse(ctx context.Context, id string) (r5.QuestionnaireResponse, error) {
+func (c *ClientR5) ReadQuestionnaireResponse(ctx context.Context, id string) (r51.QuestionnaireResponse, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "QuestionnaireResponse", id)
-	if err != nil {
-		return r5.QuestionnaireResponse{}, err
-	}
-	typed, ok := result.(r5.QuestionnaireResponse)
-	if !ok {
-		return r5.QuestionnaireResponse{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadQuestionnaireResponse(ctx, id)
 }
 
 // UpdateQuestionnaireResponse updates an existing QuestionnaireResponse resource.
-func (c *ClientR5) UpdateQuestionnaireResponse(ctx context.Context, resource r5.QuestionnaireResponse) (update.Result[r5.QuestionnaireResponse], error) {
+func (c *ClientR5) UpdateQuestionnaireResponse(ctx context.Context, resource r51.QuestionnaireResponse) (update.Result[r51.QuestionnaireResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.QuestionnaireResponse]{}, err
-	}
-	typed, ok := result.Resource.(r5.QuestionnaireResponse)
-	if !ok {
-		return update.Result[r5.QuestionnaireResponse]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.QuestionnaireResponse]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateQuestionnaireResponse(ctx, resource)
 }
 
 // DeleteQuestionnaireResponse deletes a QuestionnaireResponse resource by ID.
 func (c *ClientR5) DeleteQuestionnaireResponse(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "QuestionnaireResponse", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteQuestionnaireResponse(ctx, id)
+}
+
+// SearchCapabilitiesQuestionnaireResponse returns server search capabilities for QuestionnaireResponse.
+func (c *ClientR5) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesQuestionnaireResponse(ctx)
 }
 
 // SearchQuestionnaireResponse performs a search for QuestionnaireResponse resources.
-func (c *ClientR5) SearchQuestionnaireResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.QuestionnaireResponse], error) {
+func (c *ClientR5) SearchQuestionnaireResponse(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.QuestionnaireResponse], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "QuestionnaireResponse", parameters, options)
-	if err != nil {
-		return search.Result[r5.QuestionnaireResponse]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.QuestionnaireResponse, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.QuestionnaireResponse)
-		if !ok {
-			return search.Result[r5.QuestionnaireResponse]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.QuestionnaireResponse]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchQuestionnaireResponse(ctx, parameters, options)
 }
 
+var (
+	_ r5.RegulatedAuthorizationCreate = (*ClientR5)(nil)
+	_ r5.RegulatedAuthorizationRead   = (*ClientR5)(nil)
+	_ r5.RegulatedAuthorizationUpdate = (*ClientR5)(nil)
+	_ r5.RegulatedAuthorizationDelete = (*ClientR5)(nil)
+	_ r5.RegulatedAuthorizationSearch = (*ClientR5)(nil)
+)
+
 // CreateRegulatedAuthorization creates a new RegulatedAuthorization resource.
-func (c *ClientR5) CreateRegulatedAuthorization(ctx context.Context, resource r5.RegulatedAuthorization) (r5.RegulatedAuthorization, error) {
+func (c *ClientR5) CreateRegulatedAuthorization(ctx context.Context, resource r51.RegulatedAuthorization) (r51.RegulatedAuthorization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.RegulatedAuthorization{}, err
-	}
-	typed, ok := result.(r5.RegulatedAuthorization)
-	if !ok {
-		return r5.RegulatedAuthorization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateRegulatedAuthorization(ctx, resource)
 }
 
 // ReadRegulatedAuthorization retrieves a RegulatedAuthorization resource by ID.
-func (c *ClientR5) ReadRegulatedAuthorization(ctx context.Context, id string) (r5.RegulatedAuthorization, error) {
+func (c *ClientR5) ReadRegulatedAuthorization(ctx context.Context, id string) (r51.RegulatedAuthorization, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "RegulatedAuthorization", id)
-	if err != nil {
-		return r5.RegulatedAuthorization{}, err
-	}
-	typed, ok := result.(r5.RegulatedAuthorization)
-	if !ok {
-		return r5.RegulatedAuthorization{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadRegulatedAuthorization(ctx, id)
 }
 
 // UpdateRegulatedAuthorization updates an existing RegulatedAuthorization resource.
-func (c *ClientR5) UpdateRegulatedAuthorization(ctx context.Context, resource r5.RegulatedAuthorization) (update.Result[r5.RegulatedAuthorization], error) {
+func (c *ClientR5) UpdateRegulatedAuthorization(ctx context.Context, resource r51.RegulatedAuthorization) (update.Result[r51.RegulatedAuthorization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.RegulatedAuthorization]{}, err
-	}
-	typed, ok := result.Resource.(r5.RegulatedAuthorization)
-	if !ok {
-		return update.Result[r5.RegulatedAuthorization]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.RegulatedAuthorization]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateRegulatedAuthorization(ctx, resource)
 }
 
 // DeleteRegulatedAuthorization deletes a RegulatedAuthorization resource by ID.
 func (c *ClientR5) DeleteRegulatedAuthorization(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "RegulatedAuthorization", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteRegulatedAuthorization(ctx, id)
+}
+
+// SearchCapabilitiesRegulatedAuthorization returns server search capabilities for RegulatedAuthorization.
+func (c *ClientR5) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesRegulatedAuthorization(ctx)
 }
 
 // SearchRegulatedAuthorization performs a search for RegulatedAuthorization resources.
-func (c *ClientR5) SearchRegulatedAuthorization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RegulatedAuthorization], error) {
+func (c *ClientR5) SearchRegulatedAuthorization(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.RegulatedAuthorization], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "RegulatedAuthorization", parameters, options)
-	if err != nil {
-		return search.Result[r5.RegulatedAuthorization]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.RegulatedAuthorization, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.RegulatedAuthorization)
-		if !ok {
-			return search.Result[r5.RegulatedAuthorization]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.RegulatedAuthorization]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchRegulatedAuthorization(ctx, parameters, options)
 }
 
+var (
+	_ r5.RelatedPersonCreate = (*ClientR5)(nil)
+	_ r5.RelatedPersonRead   = (*ClientR5)(nil)
+	_ r5.RelatedPersonUpdate = (*ClientR5)(nil)
+	_ r5.RelatedPersonDelete = (*ClientR5)(nil)
+	_ r5.RelatedPersonSearch = (*ClientR5)(nil)
+)
+
 // CreateRelatedPerson creates a new RelatedPerson resource.
-func (c *ClientR5) CreateRelatedPerson(ctx context.Context, resource r5.RelatedPerson) (r5.RelatedPerson, error) {
+func (c *ClientR5) CreateRelatedPerson(ctx context.Context, resource r51.RelatedPerson) (r51.RelatedPerson, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.RelatedPerson{}, err
-	}
-	typed, ok := result.(r5.RelatedPerson)
-	if !ok {
-		return r5.RelatedPerson{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateRelatedPerson(ctx, resource)
 }
 
 // ReadRelatedPerson retrieves a RelatedPerson resource by ID.
-func (c *ClientR5) ReadRelatedPerson(ctx context.Context, id string) (r5.RelatedPerson, error) {
+func (c *ClientR5) ReadRelatedPerson(ctx context.Context, id string) (r51.RelatedPerson, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "RelatedPerson", id)
-	if err != nil {
-		return r5.RelatedPerson{}, err
-	}
-	typed, ok := result.(r5.RelatedPerson)
-	if !ok {
-		return r5.RelatedPerson{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadRelatedPerson(ctx, id)
 }
 
 // UpdateRelatedPerson updates an existing RelatedPerson resource.
-func (c *ClientR5) UpdateRelatedPerson(ctx context.Context, resource r5.RelatedPerson) (update.Result[r5.RelatedPerson], error) {
+func (c *ClientR5) UpdateRelatedPerson(ctx context.Context, resource r51.RelatedPerson) (update.Result[r51.RelatedPerson], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.RelatedPerson]{}, err
-	}
-	typed, ok := result.Resource.(r5.RelatedPerson)
-	if !ok {
-		return update.Result[r5.RelatedPerson]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.RelatedPerson]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateRelatedPerson(ctx, resource)
 }
 
 // DeleteRelatedPerson deletes a RelatedPerson resource by ID.
 func (c *ClientR5) DeleteRelatedPerson(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "RelatedPerson", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteRelatedPerson(ctx, id)
+}
+
+// SearchCapabilitiesRelatedPerson returns server search capabilities for RelatedPerson.
+func (c *ClientR5) SearchCapabilitiesRelatedPerson(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesRelatedPerson(ctx)
 }
 
 // SearchRelatedPerson performs a search for RelatedPerson resources.
-func (c *ClientR5) SearchRelatedPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RelatedPerson], error) {
+func (c *ClientR5) SearchRelatedPerson(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.RelatedPerson], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "RelatedPerson", parameters, options)
-	if err != nil {
-		return search.Result[r5.RelatedPerson]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.RelatedPerson, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.RelatedPerson)
-		if !ok {
-			return search.Result[r5.RelatedPerson]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.RelatedPerson]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchRelatedPerson(ctx, parameters, options)
 }
 
+var (
+	_ r5.RequestOrchestrationCreate = (*ClientR5)(nil)
+	_ r5.RequestOrchestrationRead   = (*ClientR5)(nil)
+	_ r5.RequestOrchestrationUpdate = (*ClientR5)(nil)
+	_ r5.RequestOrchestrationDelete = (*ClientR5)(nil)
+	_ r5.RequestOrchestrationSearch = (*ClientR5)(nil)
+)
+
 // CreateRequestOrchestration creates a new RequestOrchestration resource.
-func (c *ClientR5) CreateRequestOrchestration(ctx context.Context, resource r5.RequestOrchestration) (r5.RequestOrchestration, error) {
+func (c *ClientR5) CreateRequestOrchestration(ctx context.Context, resource r51.RequestOrchestration) (r51.RequestOrchestration, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.RequestOrchestration{}, err
-	}
-	typed, ok := result.(r5.RequestOrchestration)
-	if !ok {
-		return r5.RequestOrchestration{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateRequestOrchestration(ctx, resource)
 }
 
 // ReadRequestOrchestration retrieves a RequestOrchestration resource by ID.
-func (c *ClientR5) ReadRequestOrchestration(ctx context.Context, id string) (r5.RequestOrchestration, error) {
+func (c *ClientR5) ReadRequestOrchestration(ctx context.Context, id string) (r51.RequestOrchestration, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "RequestOrchestration", id)
-	if err != nil {
-		return r5.RequestOrchestration{}, err
-	}
-	typed, ok := result.(r5.RequestOrchestration)
-	if !ok {
-		return r5.RequestOrchestration{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadRequestOrchestration(ctx, id)
 }
 
 // UpdateRequestOrchestration updates an existing RequestOrchestration resource.
-func (c *ClientR5) UpdateRequestOrchestration(ctx context.Context, resource r5.RequestOrchestration) (update.Result[r5.RequestOrchestration], error) {
+func (c *ClientR5) UpdateRequestOrchestration(ctx context.Context, resource r51.RequestOrchestration) (update.Result[r51.RequestOrchestration], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.RequestOrchestration]{}, err
-	}
-	typed, ok := result.Resource.(r5.RequestOrchestration)
-	if !ok {
-		return update.Result[r5.RequestOrchestration]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.RequestOrchestration]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateRequestOrchestration(ctx, resource)
 }
 
 // DeleteRequestOrchestration deletes a RequestOrchestration resource by ID.
 func (c *ClientR5) DeleteRequestOrchestration(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "RequestOrchestration", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteRequestOrchestration(ctx, id)
+}
+
+// SearchCapabilitiesRequestOrchestration returns server search capabilities for RequestOrchestration.
+func (c *ClientR5) SearchCapabilitiesRequestOrchestration(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesRequestOrchestration(ctx)
 }
 
 // SearchRequestOrchestration performs a search for RequestOrchestration resources.
-func (c *ClientR5) SearchRequestOrchestration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RequestOrchestration], error) {
+func (c *ClientR5) SearchRequestOrchestration(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.RequestOrchestration], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "RequestOrchestration", parameters, options)
-	if err != nil {
-		return search.Result[r5.RequestOrchestration]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.RequestOrchestration, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.RequestOrchestration)
-		if !ok {
-			return search.Result[r5.RequestOrchestration]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.RequestOrchestration]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchRequestOrchestration(ctx, parameters, options)
 }
 
+var (
+	_ r5.RequirementsCreate = (*ClientR5)(nil)
+	_ r5.RequirementsRead   = (*ClientR5)(nil)
+	_ r5.RequirementsUpdate = (*ClientR5)(nil)
+	_ r5.RequirementsDelete = (*ClientR5)(nil)
+	_ r5.RequirementsSearch = (*ClientR5)(nil)
+)
+
 // CreateRequirements creates a new Requirements resource.
-func (c *ClientR5) CreateRequirements(ctx context.Context, resource r5.Requirements) (r5.Requirements, error) {
+func (c *ClientR5) CreateRequirements(ctx context.Context, resource r51.Requirements) (r51.Requirements, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Requirements{}, err
-	}
-	typed, ok := result.(r5.Requirements)
-	if !ok {
-		return r5.Requirements{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateRequirements(ctx, resource)
 }
 
 // ReadRequirements retrieves a Requirements resource by ID.
-func (c *ClientR5) ReadRequirements(ctx context.Context, id string) (r5.Requirements, error) {
+func (c *ClientR5) ReadRequirements(ctx context.Context, id string) (r51.Requirements, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Requirements", id)
-	if err != nil {
-		return r5.Requirements{}, err
-	}
-	typed, ok := result.(r5.Requirements)
-	if !ok {
-		return r5.Requirements{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadRequirements(ctx, id)
 }
 
 // UpdateRequirements updates an existing Requirements resource.
-func (c *ClientR5) UpdateRequirements(ctx context.Context, resource r5.Requirements) (update.Result[r5.Requirements], error) {
+func (c *ClientR5) UpdateRequirements(ctx context.Context, resource r51.Requirements) (update.Result[r51.Requirements], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Requirements]{}, err
-	}
-	typed, ok := result.Resource.(r5.Requirements)
-	if !ok {
-		return update.Result[r5.Requirements]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Requirements]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateRequirements(ctx, resource)
 }
 
 // DeleteRequirements deletes a Requirements resource by ID.
 func (c *ClientR5) DeleteRequirements(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Requirements", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteRequirements(ctx, id)
+}
+
+// SearchCapabilitiesRequirements returns server search capabilities for Requirements.
+func (c *ClientR5) SearchCapabilitiesRequirements(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesRequirements(ctx)
 }
 
 // SearchRequirements performs a search for Requirements resources.
-func (c *ClientR5) SearchRequirements(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Requirements], error) {
+func (c *ClientR5) SearchRequirements(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Requirements], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Requirements", parameters, options)
-	if err != nil {
-		return search.Result[r5.Requirements]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Requirements, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Requirements)
-		if !ok {
-			return search.Result[r5.Requirements]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Requirements]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchRequirements(ctx, parameters, options)
 }
 
+var (
+	_ r5.ResearchStudyCreate = (*ClientR5)(nil)
+	_ r5.ResearchStudyRead   = (*ClientR5)(nil)
+	_ r5.ResearchStudyUpdate = (*ClientR5)(nil)
+	_ r5.ResearchStudyDelete = (*ClientR5)(nil)
+	_ r5.ResearchStudySearch = (*ClientR5)(nil)
+)
+
 // CreateResearchStudy creates a new ResearchStudy resource.
-func (c *ClientR5) CreateResearchStudy(ctx context.Context, resource r5.ResearchStudy) (r5.ResearchStudy, error) {
+func (c *ClientR5) CreateResearchStudy(ctx context.Context, resource r51.ResearchStudy) (r51.ResearchStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ResearchStudy{}, err
-	}
-	typed, ok := result.(r5.ResearchStudy)
-	if !ok {
-		return r5.ResearchStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateResearchStudy(ctx, resource)
 }
 
 // ReadResearchStudy retrieves a ResearchStudy resource by ID.
-func (c *ClientR5) ReadResearchStudy(ctx context.Context, id string) (r5.ResearchStudy, error) {
+func (c *ClientR5) ReadResearchStudy(ctx context.Context, id string) (r51.ResearchStudy, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ResearchStudy", id)
-	if err != nil {
-		return r5.ResearchStudy{}, err
-	}
-	typed, ok := result.(r5.ResearchStudy)
-	if !ok {
-		return r5.ResearchStudy{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadResearchStudy(ctx, id)
 }
 
 // UpdateResearchStudy updates an existing ResearchStudy resource.
-func (c *ClientR5) UpdateResearchStudy(ctx context.Context, resource r5.ResearchStudy) (update.Result[r5.ResearchStudy], error) {
+func (c *ClientR5) UpdateResearchStudy(ctx context.Context, resource r51.ResearchStudy) (update.Result[r51.ResearchStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ResearchStudy]{}, err
-	}
-	typed, ok := result.Resource.(r5.ResearchStudy)
-	if !ok {
-		return update.Result[r5.ResearchStudy]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ResearchStudy]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateResearchStudy(ctx, resource)
 }
 
 // DeleteResearchStudy deletes a ResearchStudy resource by ID.
 func (c *ClientR5) DeleteResearchStudy(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ResearchStudy", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteResearchStudy(ctx, id)
+}
+
+// SearchCapabilitiesResearchStudy returns server search capabilities for ResearchStudy.
+func (c *ClientR5) SearchCapabilitiesResearchStudy(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesResearchStudy(ctx)
 }
 
 // SearchResearchStudy performs a search for ResearchStudy resources.
-func (c *ClientR5) SearchResearchStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ResearchStudy], error) {
+func (c *ClientR5) SearchResearchStudy(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ResearchStudy], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ResearchStudy", parameters, options)
-	if err != nil {
-		return search.Result[r5.ResearchStudy]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ResearchStudy, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ResearchStudy)
-		if !ok {
-			return search.Result[r5.ResearchStudy]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ResearchStudy]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchResearchStudy(ctx, parameters, options)
 }
 
+var (
+	_ r5.ResearchSubjectCreate = (*ClientR5)(nil)
+	_ r5.ResearchSubjectRead   = (*ClientR5)(nil)
+	_ r5.ResearchSubjectUpdate = (*ClientR5)(nil)
+	_ r5.ResearchSubjectDelete = (*ClientR5)(nil)
+	_ r5.ResearchSubjectSearch = (*ClientR5)(nil)
+)
+
 // CreateResearchSubject creates a new ResearchSubject resource.
-func (c *ClientR5) CreateResearchSubject(ctx context.Context, resource r5.ResearchSubject) (r5.ResearchSubject, error) {
+func (c *ClientR5) CreateResearchSubject(ctx context.Context, resource r51.ResearchSubject) (r51.ResearchSubject, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ResearchSubject{}, err
-	}
-	typed, ok := result.(r5.ResearchSubject)
-	if !ok {
-		return r5.ResearchSubject{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateResearchSubject(ctx, resource)
 }
 
 // ReadResearchSubject retrieves a ResearchSubject resource by ID.
-func (c *ClientR5) ReadResearchSubject(ctx context.Context, id string) (r5.ResearchSubject, error) {
+func (c *ClientR5) ReadResearchSubject(ctx context.Context, id string) (r51.ResearchSubject, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ResearchSubject", id)
-	if err != nil {
-		return r5.ResearchSubject{}, err
-	}
-	typed, ok := result.(r5.ResearchSubject)
-	if !ok {
-		return r5.ResearchSubject{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadResearchSubject(ctx, id)
 }
 
 // UpdateResearchSubject updates an existing ResearchSubject resource.
-func (c *ClientR5) UpdateResearchSubject(ctx context.Context, resource r5.ResearchSubject) (update.Result[r5.ResearchSubject], error) {
+func (c *ClientR5) UpdateResearchSubject(ctx context.Context, resource r51.ResearchSubject) (update.Result[r51.ResearchSubject], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ResearchSubject]{}, err
-	}
-	typed, ok := result.Resource.(r5.ResearchSubject)
-	if !ok {
-		return update.Result[r5.ResearchSubject]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ResearchSubject]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateResearchSubject(ctx, resource)
 }
 
 // DeleteResearchSubject deletes a ResearchSubject resource by ID.
 func (c *ClientR5) DeleteResearchSubject(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ResearchSubject", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteResearchSubject(ctx, id)
+}
+
+// SearchCapabilitiesResearchSubject returns server search capabilities for ResearchSubject.
+func (c *ClientR5) SearchCapabilitiesResearchSubject(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesResearchSubject(ctx)
 }
 
 // SearchResearchSubject performs a search for ResearchSubject resources.
-func (c *ClientR5) SearchResearchSubject(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ResearchSubject], error) {
+func (c *ClientR5) SearchResearchSubject(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ResearchSubject], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ResearchSubject", parameters, options)
-	if err != nil {
-		return search.Result[r5.ResearchSubject]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ResearchSubject, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ResearchSubject)
-		if !ok {
-			return search.Result[r5.ResearchSubject]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ResearchSubject]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchResearchSubject(ctx, parameters, options)
 }
 
+var (
+	_ r5.RiskAssessmentCreate = (*ClientR5)(nil)
+	_ r5.RiskAssessmentRead   = (*ClientR5)(nil)
+	_ r5.RiskAssessmentUpdate = (*ClientR5)(nil)
+	_ r5.RiskAssessmentDelete = (*ClientR5)(nil)
+	_ r5.RiskAssessmentSearch = (*ClientR5)(nil)
+)
+
 // CreateRiskAssessment creates a new RiskAssessment resource.
-func (c *ClientR5) CreateRiskAssessment(ctx context.Context, resource r5.RiskAssessment) (r5.RiskAssessment, error) {
+func (c *ClientR5) CreateRiskAssessment(ctx context.Context, resource r51.RiskAssessment) (r51.RiskAssessment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.RiskAssessment{}, err
-	}
-	typed, ok := result.(r5.RiskAssessment)
-	if !ok {
-		return r5.RiskAssessment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateRiskAssessment(ctx, resource)
 }
 
 // ReadRiskAssessment retrieves a RiskAssessment resource by ID.
-func (c *ClientR5) ReadRiskAssessment(ctx context.Context, id string) (r5.RiskAssessment, error) {
+func (c *ClientR5) ReadRiskAssessment(ctx context.Context, id string) (r51.RiskAssessment, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "RiskAssessment", id)
-	if err != nil {
-		return r5.RiskAssessment{}, err
-	}
-	typed, ok := result.(r5.RiskAssessment)
-	if !ok {
-		return r5.RiskAssessment{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadRiskAssessment(ctx, id)
 }
 
 // UpdateRiskAssessment updates an existing RiskAssessment resource.
-func (c *ClientR5) UpdateRiskAssessment(ctx context.Context, resource r5.RiskAssessment) (update.Result[r5.RiskAssessment], error) {
+func (c *ClientR5) UpdateRiskAssessment(ctx context.Context, resource r51.RiskAssessment) (update.Result[r51.RiskAssessment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.RiskAssessment]{}, err
-	}
-	typed, ok := result.Resource.(r5.RiskAssessment)
-	if !ok {
-		return update.Result[r5.RiskAssessment]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.RiskAssessment]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateRiskAssessment(ctx, resource)
 }
 
 // DeleteRiskAssessment deletes a RiskAssessment resource by ID.
 func (c *ClientR5) DeleteRiskAssessment(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "RiskAssessment", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteRiskAssessment(ctx, id)
+}
+
+// SearchCapabilitiesRiskAssessment returns server search capabilities for RiskAssessment.
+func (c *ClientR5) SearchCapabilitiesRiskAssessment(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesRiskAssessment(ctx)
 }
 
 // SearchRiskAssessment performs a search for RiskAssessment resources.
-func (c *ClientR5) SearchRiskAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.RiskAssessment], error) {
+func (c *ClientR5) SearchRiskAssessment(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.RiskAssessment], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "RiskAssessment", parameters, options)
-	if err != nil {
-		return search.Result[r5.RiskAssessment]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.RiskAssessment, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.RiskAssessment)
-		if !ok {
-			return search.Result[r5.RiskAssessment]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.RiskAssessment]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchRiskAssessment(ctx, parameters, options)
 }
 
+var (
+	_ r5.ScheduleCreate = (*ClientR5)(nil)
+	_ r5.ScheduleRead   = (*ClientR5)(nil)
+	_ r5.ScheduleUpdate = (*ClientR5)(nil)
+	_ r5.ScheduleDelete = (*ClientR5)(nil)
+	_ r5.ScheduleSearch = (*ClientR5)(nil)
+)
+
 // CreateSchedule creates a new Schedule resource.
-func (c *ClientR5) CreateSchedule(ctx context.Context, resource r5.Schedule) (r5.Schedule, error) {
+func (c *ClientR5) CreateSchedule(ctx context.Context, resource r51.Schedule) (r51.Schedule, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Schedule{}, err
-	}
-	typed, ok := result.(r5.Schedule)
-	if !ok {
-		return r5.Schedule{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSchedule(ctx, resource)
 }
 
 // ReadSchedule retrieves a Schedule resource by ID.
-func (c *ClientR5) ReadSchedule(ctx context.Context, id string) (r5.Schedule, error) {
+func (c *ClientR5) ReadSchedule(ctx context.Context, id string) (r51.Schedule, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Schedule", id)
-	if err != nil {
-		return r5.Schedule{}, err
-	}
-	typed, ok := result.(r5.Schedule)
-	if !ok {
-		return r5.Schedule{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSchedule(ctx, id)
 }
 
 // UpdateSchedule updates an existing Schedule resource.
-func (c *ClientR5) UpdateSchedule(ctx context.Context, resource r5.Schedule) (update.Result[r5.Schedule], error) {
+func (c *ClientR5) UpdateSchedule(ctx context.Context, resource r51.Schedule) (update.Result[r51.Schedule], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Schedule]{}, err
-	}
-	typed, ok := result.Resource.(r5.Schedule)
-	if !ok {
-		return update.Result[r5.Schedule]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Schedule]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSchedule(ctx, resource)
 }
 
 // DeleteSchedule deletes a Schedule resource by ID.
 func (c *ClientR5) DeleteSchedule(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Schedule", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSchedule(ctx, id)
+}
+
+// SearchCapabilitiesSchedule returns server search capabilities for Schedule.
+func (c *ClientR5) SearchCapabilitiesSchedule(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSchedule(ctx)
 }
 
 // SearchSchedule performs a search for Schedule resources.
-func (c *ClientR5) SearchSchedule(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Schedule], error) {
+func (c *ClientR5) SearchSchedule(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Schedule], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Schedule", parameters, options)
-	if err != nil {
-		return search.Result[r5.Schedule]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Schedule, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Schedule)
-		if !ok {
-			return search.Result[r5.Schedule]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Schedule]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSchedule(ctx, parameters, options)
 }
 
+var (
+	_ r5.SearchParameterCreate = (*ClientR5)(nil)
+	_ r5.SearchParameterRead   = (*ClientR5)(nil)
+	_ r5.SearchParameterUpdate = (*ClientR5)(nil)
+	_ r5.SearchParameterDelete = (*ClientR5)(nil)
+	_ r5.SearchParameterSearch = (*ClientR5)(nil)
+)
+
 // CreateSearchParameter creates a new SearchParameter resource.
-func (c *ClientR5) CreateSearchParameter(ctx context.Context, resource r5.SearchParameter) (r5.SearchParameter, error) {
+func (c *ClientR5) CreateSearchParameter(ctx context.Context, resource r51.SearchParameter) (r51.SearchParameter, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SearchParameter{}, err
-	}
-	typed, ok := result.(r5.SearchParameter)
-	if !ok {
-		return r5.SearchParameter{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSearchParameter(ctx, resource)
 }
 
 // ReadSearchParameter retrieves a SearchParameter resource by ID.
-func (c *ClientR5) ReadSearchParameter(ctx context.Context, id string) (r5.SearchParameter, error) {
+func (c *ClientR5) ReadSearchParameter(ctx context.Context, id string) (r51.SearchParameter, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SearchParameter", id)
-	if err != nil {
-		return r5.SearchParameter{}, err
-	}
-	typed, ok := result.(r5.SearchParameter)
-	if !ok {
-		return r5.SearchParameter{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSearchParameter(ctx, id)
 }
 
 // UpdateSearchParameter updates an existing SearchParameter resource.
-func (c *ClientR5) UpdateSearchParameter(ctx context.Context, resource r5.SearchParameter) (update.Result[r5.SearchParameter], error) {
+func (c *ClientR5) UpdateSearchParameter(ctx context.Context, resource r51.SearchParameter) (update.Result[r51.SearchParameter], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SearchParameter]{}, err
-	}
-	typed, ok := result.Resource.(r5.SearchParameter)
-	if !ok {
-		return update.Result[r5.SearchParameter]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SearchParameter]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSearchParameter(ctx, resource)
 }
 
 // DeleteSearchParameter deletes a SearchParameter resource by ID.
 func (c *ClientR5) DeleteSearchParameter(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SearchParameter", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSearchParameter(ctx, id)
+}
+
+// SearchCapabilitiesSearchParameter returns server search capabilities for SearchParameter.
+func (c *ClientR5) SearchCapabilitiesSearchParameter(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSearchParameter(ctx)
 }
 
 // SearchSearchParameter performs a search for SearchParameter resources.
-func (c *ClientR5) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SearchParameter], error) {
+func (c *ClientR5) SearchSearchParameter(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SearchParameter], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SearchParameter", parameters, options)
-	if err != nil {
-		return search.Result[r5.SearchParameter]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SearchParameter, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SearchParameter)
-		if !ok {
-			return search.Result[r5.SearchParameter]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SearchParameter]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSearchParameter(ctx, parameters, options)
 }
 
+var (
+	_ r5.ServiceRequestCreate = (*ClientR5)(nil)
+	_ r5.ServiceRequestRead   = (*ClientR5)(nil)
+	_ r5.ServiceRequestUpdate = (*ClientR5)(nil)
+	_ r5.ServiceRequestDelete = (*ClientR5)(nil)
+	_ r5.ServiceRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateServiceRequest creates a new ServiceRequest resource.
-func (c *ClientR5) CreateServiceRequest(ctx context.Context, resource r5.ServiceRequest) (r5.ServiceRequest, error) {
+func (c *ClientR5) CreateServiceRequest(ctx context.Context, resource r51.ServiceRequest) (r51.ServiceRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ServiceRequest{}, err
-	}
-	typed, ok := result.(r5.ServiceRequest)
-	if !ok {
-		return r5.ServiceRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateServiceRequest(ctx, resource)
 }
 
 // ReadServiceRequest retrieves a ServiceRequest resource by ID.
-func (c *ClientR5) ReadServiceRequest(ctx context.Context, id string) (r5.ServiceRequest, error) {
+func (c *ClientR5) ReadServiceRequest(ctx context.Context, id string) (r51.ServiceRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ServiceRequest", id)
-	if err != nil {
-		return r5.ServiceRequest{}, err
-	}
-	typed, ok := result.(r5.ServiceRequest)
-	if !ok {
-		return r5.ServiceRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadServiceRequest(ctx, id)
 }
 
 // UpdateServiceRequest updates an existing ServiceRequest resource.
-func (c *ClientR5) UpdateServiceRequest(ctx context.Context, resource r5.ServiceRequest) (update.Result[r5.ServiceRequest], error) {
+func (c *ClientR5) UpdateServiceRequest(ctx context.Context, resource r51.ServiceRequest) (update.Result[r51.ServiceRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ServiceRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.ServiceRequest)
-	if !ok {
-		return update.Result[r5.ServiceRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ServiceRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateServiceRequest(ctx, resource)
 }
 
 // DeleteServiceRequest deletes a ServiceRequest resource by ID.
 func (c *ClientR5) DeleteServiceRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ServiceRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteServiceRequest(ctx, id)
+}
+
+// SearchCapabilitiesServiceRequest returns server search capabilities for ServiceRequest.
+func (c *ClientR5) SearchCapabilitiesServiceRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesServiceRequest(ctx)
 }
 
 // SearchServiceRequest performs a search for ServiceRequest resources.
-func (c *ClientR5) SearchServiceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ServiceRequest], error) {
+func (c *ClientR5) SearchServiceRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ServiceRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ServiceRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.ServiceRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ServiceRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ServiceRequest)
-		if !ok {
-			return search.Result[r5.ServiceRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ServiceRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchServiceRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.SlotCreate = (*ClientR5)(nil)
+	_ r5.SlotRead   = (*ClientR5)(nil)
+	_ r5.SlotUpdate = (*ClientR5)(nil)
+	_ r5.SlotDelete = (*ClientR5)(nil)
+	_ r5.SlotSearch = (*ClientR5)(nil)
+)
+
 // CreateSlot creates a new Slot resource.
-func (c *ClientR5) CreateSlot(ctx context.Context, resource r5.Slot) (r5.Slot, error) {
+func (c *ClientR5) CreateSlot(ctx context.Context, resource r51.Slot) (r51.Slot, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Slot{}, err
-	}
-	typed, ok := result.(r5.Slot)
-	if !ok {
-		return r5.Slot{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSlot(ctx, resource)
 }
 
 // ReadSlot retrieves a Slot resource by ID.
-func (c *ClientR5) ReadSlot(ctx context.Context, id string) (r5.Slot, error) {
+func (c *ClientR5) ReadSlot(ctx context.Context, id string) (r51.Slot, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Slot", id)
-	if err != nil {
-		return r5.Slot{}, err
-	}
-	typed, ok := result.(r5.Slot)
-	if !ok {
-		return r5.Slot{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSlot(ctx, id)
 }
 
 // UpdateSlot updates an existing Slot resource.
-func (c *ClientR5) UpdateSlot(ctx context.Context, resource r5.Slot) (update.Result[r5.Slot], error) {
+func (c *ClientR5) UpdateSlot(ctx context.Context, resource r51.Slot) (update.Result[r51.Slot], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Slot]{}, err
-	}
-	typed, ok := result.Resource.(r5.Slot)
-	if !ok {
-		return update.Result[r5.Slot]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Slot]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSlot(ctx, resource)
 }
 
 // DeleteSlot deletes a Slot resource by ID.
 func (c *ClientR5) DeleteSlot(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Slot", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSlot(ctx, id)
+}
+
+// SearchCapabilitiesSlot returns server search capabilities for Slot.
+func (c *ClientR5) SearchCapabilitiesSlot(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSlot(ctx)
 }
 
 // SearchSlot performs a search for Slot resources.
-func (c *ClientR5) SearchSlot(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Slot], error) {
+func (c *ClientR5) SearchSlot(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Slot], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Slot", parameters, options)
-	if err != nil {
-		return search.Result[r5.Slot]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Slot, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Slot)
-		if !ok {
-			return search.Result[r5.Slot]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Slot]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSlot(ctx, parameters, options)
 }
 
+var (
+	_ r5.SpecimenCreate = (*ClientR5)(nil)
+	_ r5.SpecimenRead   = (*ClientR5)(nil)
+	_ r5.SpecimenUpdate = (*ClientR5)(nil)
+	_ r5.SpecimenDelete = (*ClientR5)(nil)
+	_ r5.SpecimenSearch = (*ClientR5)(nil)
+)
+
 // CreateSpecimen creates a new Specimen resource.
-func (c *ClientR5) CreateSpecimen(ctx context.Context, resource r5.Specimen) (r5.Specimen, error) {
+func (c *ClientR5) CreateSpecimen(ctx context.Context, resource r51.Specimen) (r51.Specimen, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Specimen{}, err
-	}
-	typed, ok := result.(r5.Specimen)
-	if !ok {
-		return r5.Specimen{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSpecimen(ctx, resource)
 }
 
 // ReadSpecimen retrieves a Specimen resource by ID.
-func (c *ClientR5) ReadSpecimen(ctx context.Context, id string) (r5.Specimen, error) {
+func (c *ClientR5) ReadSpecimen(ctx context.Context, id string) (r51.Specimen, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Specimen", id)
-	if err != nil {
-		return r5.Specimen{}, err
-	}
-	typed, ok := result.(r5.Specimen)
-	if !ok {
-		return r5.Specimen{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSpecimen(ctx, id)
 }
 
 // UpdateSpecimen updates an existing Specimen resource.
-func (c *ClientR5) UpdateSpecimen(ctx context.Context, resource r5.Specimen) (update.Result[r5.Specimen], error) {
+func (c *ClientR5) UpdateSpecimen(ctx context.Context, resource r51.Specimen) (update.Result[r51.Specimen], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Specimen]{}, err
-	}
-	typed, ok := result.Resource.(r5.Specimen)
-	if !ok {
-		return update.Result[r5.Specimen]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Specimen]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSpecimen(ctx, resource)
 }
 
 // DeleteSpecimen deletes a Specimen resource by ID.
 func (c *ClientR5) DeleteSpecimen(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Specimen", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSpecimen(ctx, id)
+}
+
+// SearchCapabilitiesSpecimen returns server search capabilities for Specimen.
+func (c *ClientR5) SearchCapabilitiesSpecimen(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSpecimen(ctx)
 }
 
 // SearchSpecimen performs a search for Specimen resources.
-func (c *ClientR5) SearchSpecimen(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Specimen], error) {
+func (c *ClientR5) SearchSpecimen(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Specimen], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Specimen", parameters, options)
-	if err != nil {
-		return search.Result[r5.Specimen]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Specimen, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Specimen)
-		if !ok {
-			return search.Result[r5.Specimen]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Specimen]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSpecimen(ctx, parameters, options)
 }
 
+var (
+	_ r5.SpecimenDefinitionCreate = (*ClientR5)(nil)
+	_ r5.SpecimenDefinitionRead   = (*ClientR5)(nil)
+	_ r5.SpecimenDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.SpecimenDefinitionDelete = (*ClientR5)(nil)
+	_ r5.SpecimenDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateSpecimenDefinition creates a new SpecimenDefinition resource.
-func (c *ClientR5) CreateSpecimenDefinition(ctx context.Context, resource r5.SpecimenDefinition) (r5.SpecimenDefinition, error) {
+func (c *ClientR5) CreateSpecimenDefinition(ctx context.Context, resource r51.SpecimenDefinition) (r51.SpecimenDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SpecimenDefinition{}, err
-	}
-	typed, ok := result.(r5.SpecimenDefinition)
-	if !ok {
-		return r5.SpecimenDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSpecimenDefinition(ctx, resource)
 }
 
 // ReadSpecimenDefinition retrieves a SpecimenDefinition resource by ID.
-func (c *ClientR5) ReadSpecimenDefinition(ctx context.Context, id string) (r5.SpecimenDefinition, error) {
+func (c *ClientR5) ReadSpecimenDefinition(ctx context.Context, id string) (r51.SpecimenDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SpecimenDefinition", id)
-	if err != nil {
-		return r5.SpecimenDefinition{}, err
-	}
-	typed, ok := result.(r5.SpecimenDefinition)
-	if !ok {
-		return r5.SpecimenDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSpecimenDefinition(ctx, id)
 }
 
 // UpdateSpecimenDefinition updates an existing SpecimenDefinition resource.
-func (c *ClientR5) UpdateSpecimenDefinition(ctx context.Context, resource r5.SpecimenDefinition) (update.Result[r5.SpecimenDefinition], error) {
+func (c *ClientR5) UpdateSpecimenDefinition(ctx context.Context, resource r51.SpecimenDefinition) (update.Result[r51.SpecimenDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SpecimenDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.SpecimenDefinition)
-	if !ok {
-		return update.Result[r5.SpecimenDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SpecimenDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSpecimenDefinition(ctx, resource)
 }
 
 // DeleteSpecimenDefinition deletes a SpecimenDefinition resource by ID.
 func (c *ClientR5) DeleteSpecimenDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SpecimenDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSpecimenDefinition(ctx, id)
+}
+
+// SearchCapabilitiesSpecimenDefinition returns server search capabilities for SpecimenDefinition.
+func (c *ClientR5) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSpecimenDefinition(ctx)
 }
 
 // SearchSpecimenDefinition performs a search for SpecimenDefinition resources.
-func (c *ClientR5) SearchSpecimenDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SpecimenDefinition], error) {
+func (c *ClientR5) SearchSpecimenDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SpecimenDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SpecimenDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.SpecimenDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SpecimenDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SpecimenDefinition)
-		if !ok {
-			return search.Result[r5.SpecimenDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SpecimenDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSpecimenDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.StructureDefinitionCreate = (*ClientR5)(nil)
+	_ r5.StructureDefinitionRead   = (*ClientR5)(nil)
+	_ r5.StructureDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.StructureDefinitionDelete = (*ClientR5)(nil)
+	_ r5.StructureDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateStructureDefinition creates a new StructureDefinition resource.
-func (c *ClientR5) CreateStructureDefinition(ctx context.Context, resource r5.StructureDefinition) (r5.StructureDefinition, error) {
+func (c *ClientR5) CreateStructureDefinition(ctx context.Context, resource r51.StructureDefinition) (r51.StructureDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.StructureDefinition{}, err
-	}
-	typed, ok := result.(r5.StructureDefinition)
-	if !ok {
-		return r5.StructureDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateStructureDefinition(ctx, resource)
 }
 
 // ReadStructureDefinition retrieves a StructureDefinition resource by ID.
-func (c *ClientR5) ReadStructureDefinition(ctx context.Context, id string) (r5.StructureDefinition, error) {
+func (c *ClientR5) ReadStructureDefinition(ctx context.Context, id string) (r51.StructureDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "StructureDefinition", id)
-	if err != nil {
-		return r5.StructureDefinition{}, err
-	}
-	typed, ok := result.(r5.StructureDefinition)
-	if !ok {
-		return r5.StructureDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadStructureDefinition(ctx, id)
 }
 
 // UpdateStructureDefinition updates an existing StructureDefinition resource.
-func (c *ClientR5) UpdateStructureDefinition(ctx context.Context, resource r5.StructureDefinition) (update.Result[r5.StructureDefinition], error) {
+func (c *ClientR5) UpdateStructureDefinition(ctx context.Context, resource r51.StructureDefinition) (update.Result[r51.StructureDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.StructureDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.StructureDefinition)
-	if !ok {
-		return update.Result[r5.StructureDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.StructureDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateStructureDefinition(ctx, resource)
 }
 
 // DeleteStructureDefinition deletes a StructureDefinition resource by ID.
 func (c *ClientR5) DeleteStructureDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "StructureDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteStructureDefinition(ctx, id)
+}
+
+// SearchCapabilitiesStructureDefinition returns server search capabilities for StructureDefinition.
+func (c *ClientR5) SearchCapabilitiesStructureDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesStructureDefinition(ctx)
 }
 
 // SearchStructureDefinition performs a search for StructureDefinition resources.
-func (c *ClientR5) SearchStructureDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.StructureDefinition], error) {
+func (c *ClientR5) SearchStructureDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.StructureDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "StructureDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.StructureDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.StructureDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.StructureDefinition)
-		if !ok {
-			return search.Result[r5.StructureDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.StructureDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchStructureDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.StructureMapCreate = (*ClientR5)(nil)
+	_ r5.StructureMapRead   = (*ClientR5)(nil)
+	_ r5.StructureMapUpdate = (*ClientR5)(nil)
+	_ r5.StructureMapDelete = (*ClientR5)(nil)
+	_ r5.StructureMapSearch = (*ClientR5)(nil)
+)
+
 // CreateStructureMap creates a new StructureMap resource.
-func (c *ClientR5) CreateStructureMap(ctx context.Context, resource r5.StructureMap) (r5.StructureMap, error) {
+func (c *ClientR5) CreateStructureMap(ctx context.Context, resource r51.StructureMap) (r51.StructureMap, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.StructureMap{}, err
-	}
-	typed, ok := result.(r5.StructureMap)
-	if !ok {
-		return r5.StructureMap{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateStructureMap(ctx, resource)
 }
 
 // ReadStructureMap retrieves a StructureMap resource by ID.
-func (c *ClientR5) ReadStructureMap(ctx context.Context, id string) (r5.StructureMap, error) {
+func (c *ClientR5) ReadStructureMap(ctx context.Context, id string) (r51.StructureMap, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "StructureMap", id)
-	if err != nil {
-		return r5.StructureMap{}, err
-	}
-	typed, ok := result.(r5.StructureMap)
-	if !ok {
-		return r5.StructureMap{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadStructureMap(ctx, id)
 }
 
 // UpdateStructureMap updates an existing StructureMap resource.
-func (c *ClientR5) UpdateStructureMap(ctx context.Context, resource r5.StructureMap) (update.Result[r5.StructureMap], error) {
+func (c *ClientR5) UpdateStructureMap(ctx context.Context, resource r51.StructureMap) (update.Result[r51.StructureMap], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.StructureMap]{}, err
-	}
-	typed, ok := result.Resource.(r5.StructureMap)
-	if !ok {
-		return update.Result[r5.StructureMap]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.StructureMap]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateStructureMap(ctx, resource)
 }
 
 // DeleteStructureMap deletes a StructureMap resource by ID.
 func (c *ClientR5) DeleteStructureMap(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "StructureMap", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteStructureMap(ctx, id)
+}
+
+// SearchCapabilitiesStructureMap returns server search capabilities for StructureMap.
+func (c *ClientR5) SearchCapabilitiesStructureMap(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesStructureMap(ctx)
 }
 
 // SearchStructureMap performs a search for StructureMap resources.
-func (c *ClientR5) SearchStructureMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.StructureMap], error) {
+func (c *ClientR5) SearchStructureMap(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.StructureMap], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "StructureMap", parameters, options)
-	if err != nil {
-		return search.Result[r5.StructureMap]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.StructureMap, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.StructureMap)
-		if !ok {
-			return search.Result[r5.StructureMap]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.StructureMap]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchStructureMap(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubscriptionCreate = (*ClientR5)(nil)
+	_ r5.SubscriptionRead   = (*ClientR5)(nil)
+	_ r5.SubscriptionUpdate = (*ClientR5)(nil)
+	_ r5.SubscriptionDelete = (*ClientR5)(nil)
+	_ r5.SubscriptionSearch = (*ClientR5)(nil)
+)
+
 // CreateSubscription creates a new Subscription resource.
-func (c *ClientR5) CreateSubscription(ctx context.Context, resource r5.Subscription) (r5.Subscription, error) {
+func (c *ClientR5) CreateSubscription(ctx context.Context, resource r51.Subscription) (r51.Subscription, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Subscription{}, err
-	}
-	typed, ok := result.(r5.Subscription)
-	if !ok {
-		return r5.Subscription{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubscription(ctx, resource)
 }
 
 // ReadSubscription retrieves a Subscription resource by ID.
-func (c *ClientR5) ReadSubscription(ctx context.Context, id string) (r5.Subscription, error) {
+func (c *ClientR5) ReadSubscription(ctx context.Context, id string) (r51.Subscription, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Subscription", id)
-	if err != nil {
-		return r5.Subscription{}, err
-	}
-	typed, ok := result.(r5.Subscription)
-	if !ok {
-		return r5.Subscription{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubscription(ctx, id)
 }
 
 // UpdateSubscription updates an existing Subscription resource.
-func (c *ClientR5) UpdateSubscription(ctx context.Context, resource r5.Subscription) (update.Result[r5.Subscription], error) {
+func (c *ClientR5) UpdateSubscription(ctx context.Context, resource r51.Subscription) (update.Result[r51.Subscription], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Subscription]{}, err
-	}
-	typed, ok := result.Resource.(r5.Subscription)
-	if !ok {
-		return update.Result[r5.Subscription]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Subscription]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubscription(ctx, resource)
 }
 
 // DeleteSubscription deletes a Subscription resource by ID.
 func (c *ClientR5) DeleteSubscription(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Subscription", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubscription(ctx, id)
+}
+
+// SearchCapabilitiesSubscription returns server search capabilities for Subscription.
+func (c *ClientR5) SearchCapabilitiesSubscription(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubscription(ctx)
 }
 
 // SearchSubscription performs a search for Subscription resources.
-func (c *ClientR5) SearchSubscription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Subscription], error) {
+func (c *ClientR5) SearchSubscription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Subscription], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Subscription", parameters, options)
-	if err != nil {
-		return search.Result[r5.Subscription]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Subscription, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Subscription)
-		if !ok {
-			return search.Result[r5.Subscription]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Subscription]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubscription(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubscriptionStatusCreate = (*ClientR5)(nil)
+	_ r5.SubscriptionStatusRead   = (*ClientR5)(nil)
+	_ r5.SubscriptionStatusUpdate = (*ClientR5)(nil)
+	_ r5.SubscriptionStatusDelete = (*ClientR5)(nil)
+	_ r5.SubscriptionStatusSearch = (*ClientR5)(nil)
+)
+
 // CreateSubscriptionStatus creates a new SubscriptionStatus resource.
-func (c *ClientR5) CreateSubscriptionStatus(ctx context.Context, resource r5.SubscriptionStatus) (r5.SubscriptionStatus, error) {
+func (c *ClientR5) CreateSubscriptionStatus(ctx context.Context, resource r51.SubscriptionStatus) (r51.SubscriptionStatus, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubscriptionStatus{}, err
-	}
-	typed, ok := result.(r5.SubscriptionStatus)
-	if !ok {
-		return r5.SubscriptionStatus{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubscriptionStatus(ctx, resource)
 }
 
 // ReadSubscriptionStatus retrieves a SubscriptionStatus resource by ID.
-func (c *ClientR5) ReadSubscriptionStatus(ctx context.Context, id string) (r5.SubscriptionStatus, error) {
+func (c *ClientR5) ReadSubscriptionStatus(ctx context.Context, id string) (r51.SubscriptionStatus, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubscriptionStatus", id)
-	if err != nil {
-		return r5.SubscriptionStatus{}, err
-	}
-	typed, ok := result.(r5.SubscriptionStatus)
-	if !ok {
-		return r5.SubscriptionStatus{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubscriptionStatus(ctx, id)
 }
 
 // UpdateSubscriptionStatus updates an existing SubscriptionStatus resource.
-func (c *ClientR5) UpdateSubscriptionStatus(ctx context.Context, resource r5.SubscriptionStatus) (update.Result[r5.SubscriptionStatus], error) {
+func (c *ClientR5) UpdateSubscriptionStatus(ctx context.Context, resource r51.SubscriptionStatus) (update.Result[r51.SubscriptionStatus], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubscriptionStatus]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubscriptionStatus)
-	if !ok {
-		return update.Result[r5.SubscriptionStatus]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubscriptionStatus]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubscriptionStatus(ctx, resource)
 }
 
 // DeleteSubscriptionStatus deletes a SubscriptionStatus resource by ID.
 func (c *ClientR5) DeleteSubscriptionStatus(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubscriptionStatus", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubscriptionStatus(ctx, id)
+}
+
+// SearchCapabilitiesSubscriptionStatus returns server search capabilities for SubscriptionStatus.
+func (c *ClientR5) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubscriptionStatus(ctx)
 }
 
 // SearchSubscriptionStatus performs a search for SubscriptionStatus resources.
-func (c *ClientR5) SearchSubscriptionStatus(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubscriptionStatus], error) {
+func (c *ClientR5) SearchSubscriptionStatus(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubscriptionStatus], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubscriptionStatus", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubscriptionStatus]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubscriptionStatus, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubscriptionStatus)
-		if !ok {
-			return search.Result[r5.SubscriptionStatus]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubscriptionStatus]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubscriptionStatus(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubscriptionTopicCreate = (*ClientR5)(nil)
+	_ r5.SubscriptionTopicRead   = (*ClientR5)(nil)
+	_ r5.SubscriptionTopicUpdate = (*ClientR5)(nil)
+	_ r5.SubscriptionTopicDelete = (*ClientR5)(nil)
+	_ r5.SubscriptionTopicSearch = (*ClientR5)(nil)
+)
+
 // CreateSubscriptionTopic creates a new SubscriptionTopic resource.
-func (c *ClientR5) CreateSubscriptionTopic(ctx context.Context, resource r5.SubscriptionTopic) (r5.SubscriptionTopic, error) {
+func (c *ClientR5) CreateSubscriptionTopic(ctx context.Context, resource r51.SubscriptionTopic) (r51.SubscriptionTopic, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubscriptionTopic{}, err
-	}
-	typed, ok := result.(r5.SubscriptionTopic)
-	if !ok {
-		return r5.SubscriptionTopic{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubscriptionTopic(ctx, resource)
 }
 
 // ReadSubscriptionTopic retrieves a SubscriptionTopic resource by ID.
-func (c *ClientR5) ReadSubscriptionTopic(ctx context.Context, id string) (r5.SubscriptionTopic, error) {
+func (c *ClientR5) ReadSubscriptionTopic(ctx context.Context, id string) (r51.SubscriptionTopic, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubscriptionTopic", id)
-	if err != nil {
-		return r5.SubscriptionTopic{}, err
-	}
-	typed, ok := result.(r5.SubscriptionTopic)
-	if !ok {
-		return r5.SubscriptionTopic{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubscriptionTopic(ctx, id)
 }
 
 // UpdateSubscriptionTopic updates an existing SubscriptionTopic resource.
-func (c *ClientR5) UpdateSubscriptionTopic(ctx context.Context, resource r5.SubscriptionTopic) (update.Result[r5.SubscriptionTopic], error) {
+func (c *ClientR5) UpdateSubscriptionTopic(ctx context.Context, resource r51.SubscriptionTopic) (update.Result[r51.SubscriptionTopic], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubscriptionTopic]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubscriptionTopic)
-	if !ok {
-		return update.Result[r5.SubscriptionTopic]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubscriptionTopic]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubscriptionTopic(ctx, resource)
 }
 
 // DeleteSubscriptionTopic deletes a SubscriptionTopic resource by ID.
 func (c *ClientR5) DeleteSubscriptionTopic(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubscriptionTopic", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubscriptionTopic(ctx, id)
+}
+
+// SearchCapabilitiesSubscriptionTopic returns server search capabilities for SubscriptionTopic.
+func (c *ClientR5) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubscriptionTopic(ctx)
 }
 
 // SearchSubscriptionTopic performs a search for SubscriptionTopic resources.
-func (c *ClientR5) SearchSubscriptionTopic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubscriptionTopic], error) {
+func (c *ClientR5) SearchSubscriptionTopic(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubscriptionTopic], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubscriptionTopic", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubscriptionTopic]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubscriptionTopic, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubscriptionTopic)
-		if !ok {
-			return search.Result[r5.SubscriptionTopic]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubscriptionTopic]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubscriptionTopic(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceCreate = (*ClientR5)(nil)
+	_ r5.SubstanceRead   = (*ClientR5)(nil)
+	_ r5.SubstanceUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceDelete = (*ClientR5)(nil)
+	_ r5.SubstanceSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstance creates a new Substance resource.
-func (c *ClientR5) CreateSubstance(ctx context.Context, resource r5.Substance) (r5.Substance, error) {
+func (c *ClientR5) CreateSubstance(ctx context.Context, resource r51.Substance) (r51.Substance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Substance{}, err
-	}
-	typed, ok := result.(r5.Substance)
-	if !ok {
-		return r5.Substance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstance(ctx, resource)
 }
 
 // ReadSubstance retrieves a Substance resource by ID.
-func (c *ClientR5) ReadSubstance(ctx context.Context, id string) (r5.Substance, error) {
+func (c *ClientR5) ReadSubstance(ctx context.Context, id string) (r51.Substance, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Substance", id)
-	if err != nil {
-		return r5.Substance{}, err
-	}
-	typed, ok := result.(r5.Substance)
-	if !ok {
-		return r5.Substance{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstance(ctx, id)
 }
 
 // UpdateSubstance updates an existing Substance resource.
-func (c *ClientR5) UpdateSubstance(ctx context.Context, resource r5.Substance) (update.Result[r5.Substance], error) {
+func (c *ClientR5) UpdateSubstance(ctx context.Context, resource r51.Substance) (update.Result[r51.Substance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Substance]{}, err
-	}
-	typed, ok := result.Resource.(r5.Substance)
-	if !ok {
-		return update.Result[r5.Substance]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Substance]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstance(ctx, resource)
 }
 
 // DeleteSubstance deletes a Substance resource by ID.
 func (c *ClientR5) DeleteSubstance(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Substance", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstance(ctx, id)
+}
+
+// SearchCapabilitiesSubstance returns server search capabilities for Substance.
+func (c *ClientR5) SearchCapabilitiesSubstance(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstance(ctx)
 }
 
 // SearchSubstance performs a search for Substance resources.
-func (c *ClientR5) SearchSubstance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Substance], error) {
+func (c *ClientR5) SearchSubstance(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Substance], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Substance", parameters, options)
-	if err != nil {
-		return search.Result[r5.Substance]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Substance, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Substance)
-		if !ok {
-			return search.Result[r5.Substance]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Substance]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstance(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceDefinitionCreate = (*ClientR5)(nil)
+	_ r5.SubstanceDefinitionRead   = (*ClientR5)(nil)
+	_ r5.SubstanceDefinitionUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceDefinitionDelete = (*ClientR5)(nil)
+	_ r5.SubstanceDefinitionSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstanceDefinition creates a new SubstanceDefinition resource.
-func (c *ClientR5) CreateSubstanceDefinition(ctx context.Context, resource r5.SubstanceDefinition) (r5.SubstanceDefinition, error) {
+func (c *ClientR5) CreateSubstanceDefinition(ctx context.Context, resource r51.SubstanceDefinition) (r51.SubstanceDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstanceDefinition{}, err
-	}
-	typed, ok := result.(r5.SubstanceDefinition)
-	if !ok {
-		return r5.SubstanceDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstanceDefinition(ctx, resource)
 }
 
 // ReadSubstanceDefinition retrieves a SubstanceDefinition resource by ID.
-func (c *ClientR5) ReadSubstanceDefinition(ctx context.Context, id string) (r5.SubstanceDefinition, error) {
+func (c *ClientR5) ReadSubstanceDefinition(ctx context.Context, id string) (r51.SubstanceDefinition, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstanceDefinition", id)
-	if err != nil {
-		return r5.SubstanceDefinition{}, err
-	}
-	typed, ok := result.(r5.SubstanceDefinition)
-	if !ok {
-		return r5.SubstanceDefinition{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstanceDefinition(ctx, id)
 }
 
 // UpdateSubstanceDefinition updates an existing SubstanceDefinition resource.
-func (c *ClientR5) UpdateSubstanceDefinition(ctx context.Context, resource r5.SubstanceDefinition) (update.Result[r5.SubstanceDefinition], error) {
+func (c *ClientR5) UpdateSubstanceDefinition(ctx context.Context, resource r51.SubstanceDefinition) (update.Result[r51.SubstanceDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstanceDefinition]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstanceDefinition)
-	if !ok {
-		return update.Result[r5.SubstanceDefinition]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstanceDefinition]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstanceDefinition(ctx, resource)
 }
 
 // DeleteSubstanceDefinition deletes a SubstanceDefinition resource by ID.
 func (c *ClientR5) DeleteSubstanceDefinition(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstanceDefinition", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstanceDefinition(ctx, id)
+}
+
+// SearchCapabilitiesSubstanceDefinition returns server search capabilities for SubstanceDefinition.
+func (c *ClientR5) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstanceDefinition(ctx)
 }
 
 // SearchSubstanceDefinition performs a search for SubstanceDefinition resources.
-func (c *ClientR5) SearchSubstanceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceDefinition], error) {
+func (c *ClientR5) SearchSubstanceDefinition(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstanceDefinition], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstanceDefinition", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstanceDefinition]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstanceDefinition, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstanceDefinition)
-		if !ok {
-			return search.Result[r5.SubstanceDefinition]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstanceDefinition]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstanceDefinition(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceNucleicAcidCreate = (*ClientR5)(nil)
+	_ r5.SubstanceNucleicAcidRead   = (*ClientR5)(nil)
+	_ r5.SubstanceNucleicAcidUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceNucleicAcidDelete = (*ClientR5)(nil)
+	_ r5.SubstanceNucleicAcidSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstanceNucleicAcid creates a new SubstanceNucleicAcid resource.
-func (c *ClientR5) CreateSubstanceNucleicAcid(ctx context.Context, resource r5.SubstanceNucleicAcid) (r5.SubstanceNucleicAcid, error) {
+func (c *ClientR5) CreateSubstanceNucleicAcid(ctx context.Context, resource r51.SubstanceNucleicAcid) (r51.SubstanceNucleicAcid, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstanceNucleicAcid{}, err
-	}
-	typed, ok := result.(r5.SubstanceNucleicAcid)
-	if !ok {
-		return r5.SubstanceNucleicAcid{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstanceNucleicAcid(ctx, resource)
 }
 
 // ReadSubstanceNucleicAcid retrieves a SubstanceNucleicAcid resource by ID.
-func (c *ClientR5) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r5.SubstanceNucleicAcid, error) {
+func (c *ClientR5) ReadSubstanceNucleicAcid(ctx context.Context, id string) (r51.SubstanceNucleicAcid, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstanceNucleicAcid", id)
-	if err != nil {
-		return r5.SubstanceNucleicAcid{}, err
-	}
-	typed, ok := result.(r5.SubstanceNucleicAcid)
-	if !ok {
-		return r5.SubstanceNucleicAcid{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstanceNucleicAcid(ctx, id)
 }
 
 // UpdateSubstanceNucleicAcid updates an existing SubstanceNucleicAcid resource.
-func (c *ClientR5) UpdateSubstanceNucleicAcid(ctx context.Context, resource r5.SubstanceNucleicAcid) (update.Result[r5.SubstanceNucleicAcid], error) {
+func (c *ClientR5) UpdateSubstanceNucleicAcid(ctx context.Context, resource r51.SubstanceNucleicAcid) (update.Result[r51.SubstanceNucleicAcid], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstanceNucleicAcid]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstanceNucleicAcid)
-	if !ok {
-		return update.Result[r5.SubstanceNucleicAcid]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstanceNucleicAcid]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstanceNucleicAcid(ctx, resource)
 }
 
 // DeleteSubstanceNucleicAcid deletes a SubstanceNucleicAcid resource by ID.
 func (c *ClientR5) DeleteSubstanceNucleicAcid(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstanceNucleicAcid", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstanceNucleicAcid(ctx, id)
+}
+
+// SearchCapabilitiesSubstanceNucleicAcid returns server search capabilities for SubstanceNucleicAcid.
+func (c *ClientR5) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstanceNucleicAcid(ctx)
 }
 
 // SearchSubstanceNucleicAcid performs a search for SubstanceNucleicAcid resources.
-func (c *ClientR5) SearchSubstanceNucleicAcid(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceNucleicAcid], error) {
+func (c *ClientR5) SearchSubstanceNucleicAcid(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstanceNucleicAcid], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstanceNucleicAcid", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstanceNucleicAcid]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstanceNucleicAcid, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstanceNucleicAcid)
-		if !ok {
-			return search.Result[r5.SubstanceNucleicAcid]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstanceNucleicAcid]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstanceNucleicAcid(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstancePolymerCreate = (*ClientR5)(nil)
+	_ r5.SubstancePolymerRead   = (*ClientR5)(nil)
+	_ r5.SubstancePolymerUpdate = (*ClientR5)(nil)
+	_ r5.SubstancePolymerDelete = (*ClientR5)(nil)
+	_ r5.SubstancePolymerSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstancePolymer creates a new SubstancePolymer resource.
-func (c *ClientR5) CreateSubstancePolymer(ctx context.Context, resource r5.SubstancePolymer) (r5.SubstancePolymer, error) {
+func (c *ClientR5) CreateSubstancePolymer(ctx context.Context, resource r51.SubstancePolymer) (r51.SubstancePolymer, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstancePolymer{}, err
-	}
-	typed, ok := result.(r5.SubstancePolymer)
-	if !ok {
-		return r5.SubstancePolymer{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstancePolymer(ctx, resource)
 }
 
 // ReadSubstancePolymer retrieves a SubstancePolymer resource by ID.
-func (c *ClientR5) ReadSubstancePolymer(ctx context.Context, id string) (r5.SubstancePolymer, error) {
+func (c *ClientR5) ReadSubstancePolymer(ctx context.Context, id string) (r51.SubstancePolymer, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstancePolymer", id)
-	if err != nil {
-		return r5.SubstancePolymer{}, err
-	}
-	typed, ok := result.(r5.SubstancePolymer)
-	if !ok {
-		return r5.SubstancePolymer{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstancePolymer(ctx, id)
 }
 
 // UpdateSubstancePolymer updates an existing SubstancePolymer resource.
-func (c *ClientR5) UpdateSubstancePolymer(ctx context.Context, resource r5.SubstancePolymer) (update.Result[r5.SubstancePolymer], error) {
+func (c *ClientR5) UpdateSubstancePolymer(ctx context.Context, resource r51.SubstancePolymer) (update.Result[r51.SubstancePolymer], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstancePolymer]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstancePolymer)
-	if !ok {
-		return update.Result[r5.SubstancePolymer]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstancePolymer]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstancePolymer(ctx, resource)
 }
 
 // DeleteSubstancePolymer deletes a SubstancePolymer resource by ID.
 func (c *ClientR5) DeleteSubstancePolymer(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstancePolymer", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstancePolymer(ctx, id)
+}
+
+// SearchCapabilitiesSubstancePolymer returns server search capabilities for SubstancePolymer.
+func (c *ClientR5) SearchCapabilitiesSubstancePolymer(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstancePolymer(ctx)
 }
 
 // SearchSubstancePolymer performs a search for SubstancePolymer resources.
-func (c *ClientR5) SearchSubstancePolymer(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstancePolymer], error) {
+func (c *ClientR5) SearchSubstancePolymer(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstancePolymer], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstancePolymer", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstancePolymer]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstancePolymer, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstancePolymer)
-		if !ok {
-			return search.Result[r5.SubstancePolymer]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstancePolymer]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstancePolymer(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceProteinCreate = (*ClientR5)(nil)
+	_ r5.SubstanceProteinRead   = (*ClientR5)(nil)
+	_ r5.SubstanceProteinUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceProteinDelete = (*ClientR5)(nil)
+	_ r5.SubstanceProteinSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstanceProtein creates a new SubstanceProtein resource.
-func (c *ClientR5) CreateSubstanceProtein(ctx context.Context, resource r5.SubstanceProtein) (r5.SubstanceProtein, error) {
+func (c *ClientR5) CreateSubstanceProtein(ctx context.Context, resource r51.SubstanceProtein) (r51.SubstanceProtein, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstanceProtein{}, err
-	}
-	typed, ok := result.(r5.SubstanceProtein)
-	if !ok {
-		return r5.SubstanceProtein{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstanceProtein(ctx, resource)
 }
 
 // ReadSubstanceProtein retrieves a SubstanceProtein resource by ID.
-func (c *ClientR5) ReadSubstanceProtein(ctx context.Context, id string) (r5.SubstanceProtein, error) {
+func (c *ClientR5) ReadSubstanceProtein(ctx context.Context, id string) (r51.SubstanceProtein, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstanceProtein", id)
-	if err != nil {
-		return r5.SubstanceProtein{}, err
-	}
-	typed, ok := result.(r5.SubstanceProtein)
-	if !ok {
-		return r5.SubstanceProtein{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstanceProtein(ctx, id)
 }
 
 // UpdateSubstanceProtein updates an existing SubstanceProtein resource.
-func (c *ClientR5) UpdateSubstanceProtein(ctx context.Context, resource r5.SubstanceProtein) (update.Result[r5.SubstanceProtein], error) {
+func (c *ClientR5) UpdateSubstanceProtein(ctx context.Context, resource r51.SubstanceProtein) (update.Result[r51.SubstanceProtein], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstanceProtein]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstanceProtein)
-	if !ok {
-		return update.Result[r5.SubstanceProtein]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstanceProtein]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstanceProtein(ctx, resource)
 }
 
 // DeleteSubstanceProtein deletes a SubstanceProtein resource by ID.
 func (c *ClientR5) DeleteSubstanceProtein(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstanceProtein", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstanceProtein(ctx, id)
+}
+
+// SearchCapabilitiesSubstanceProtein returns server search capabilities for SubstanceProtein.
+func (c *ClientR5) SearchCapabilitiesSubstanceProtein(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstanceProtein(ctx)
 }
 
 // SearchSubstanceProtein performs a search for SubstanceProtein resources.
-func (c *ClientR5) SearchSubstanceProtein(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceProtein], error) {
+func (c *ClientR5) SearchSubstanceProtein(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstanceProtein], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstanceProtein", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstanceProtein]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstanceProtein, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstanceProtein)
-		if !ok {
-			return search.Result[r5.SubstanceProtein]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstanceProtein]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstanceProtein(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceReferenceInformationCreate = (*ClientR5)(nil)
+	_ r5.SubstanceReferenceInformationRead   = (*ClientR5)(nil)
+	_ r5.SubstanceReferenceInformationUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceReferenceInformationDelete = (*ClientR5)(nil)
+	_ r5.SubstanceReferenceInformationSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstanceReferenceInformation creates a new SubstanceReferenceInformation resource.
-func (c *ClientR5) CreateSubstanceReferenceInformation(ctx context.Context, resource r5.SubstanceReferenceInformation) (r5.SubstanceReferenceInformation, error) {
+func (c *ClientR5) CreateSubstanceReferenceInformation(ctx context.Context, resource r51.SubstanceReferenceInformation) (r51.SubstanceReferenceInformation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstanceReferenceInformation{}, err
-	}
-	typed, ok := result.(r5.SubstanceReferenceInformation)
-	if !ok {
-		return r5.SubstanceReferenceInformation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstanceReferenceInformation(ctx, resource)
 }
 
 // ReadSubstanceReferenceInformation retrieves a SubstanceReferenceInformation resource by ID.
-func (c *ClientR5) ReadSubstanceReferenceInformation(ctx context.Context, id string) (r5.SubstanceReferenceInformation, error) {
+func (c *ClientR5) ReadSubstanceReferenceInformation(ctx context.Context, id string) (r51.SubstanceReferenceInformation, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstanceReferenceInformation", id)
-	if err != nil {
-		return r5.SubstanceReferenceInformation{}, err
-	}
-	typed, ok := result.(r5.SubstanceReferenceInformation)
-	if !ok {
-		return r5.SubstanceReferenceInformation{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstanceReferenceInformation(ctx, id)
 }
 
 // UpdateSubstanceReferenceInformation updates an existing SubstanceReferenceInformation resource.
-func (c *ClientR5) UpdateSubstanceReferenceInformation(ctx context.Context, resource r5.SubstanceReferenceInformation) (update.Result[r5.SubstanceReferenceInformation], error) {
+func (c *ClientR5) UpdateSubstanceReferenceInformation(ctx context.Context, resource r51.SubstanceReferenceInformation) (update.Result[r51.SubstanceReferenceInformation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstanceReferenceInformation]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstanceReferenceInformation)
-	if !ok {
-		return update.Result[r5.SubstanceReferenceInformation]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstanceReferenceInformation]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstanceReferenceInformation(ctx, resource)
 }
 
 // DeleteSubstanceReferenceInformation deletes a SubstanceReferenceInformation resource by ID.
 func (c *ClientR5) DeleteSubstanceReferenceInformation(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstanceReferenceInformation", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstanceReferenceInformation(ctx, id)
+}
+
+// SearchCapabilitiesSubstanceReferenceInformation returns server search capabilities for SubstanceReferenceInformation.
+func (c *ClientR5) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstanceReferenceInformation(ctx)
 }
 
 // SearchSubstanceReferenceInformation performs a search for SubstanceReferenceInformation resources.
-func (c *ClientR5) SearchSubstanceReferenceInformation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceReferenceInformation], error) {
+func (c *ClientR5) SearchSubstanceReferenceInformation(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstanceReferenceInformation], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstanceReferenceInformation", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstanceReferenceInformation]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstanceReferenceInformation, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstanceReferenceInformation)
-		if !ok {
-			return search.Result[r5.SubstanceReferenceInformation]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstanceReferenceInformation]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstanceReferenceInformation(ctx, parameters, options)
 }
 
+var (
+	_ r5.SubstanceSourceMaterialCreate = (*ClientR5)(nil)
+	_ r5.SubstanceSourceMaterialRead   = (*ClientR5)(nil)
+	_ r5.SubstanceSourceMaterialUpdate = (*ClientR5)(nil)
+	_ r5.SubstanceSourceMaterialDelete = (*ClientR5)(nil)
+	_ r5.SubstanceSourceMaterialSearch = (*ClientR5)(nil)
+)
+
 // CreateSubstanceSourceMaterial creates a new SubstanceSourceMaterial resource.
-func (c *ClientR5) CreateSubstanceSourceMaterial(ctx context.Context, resource r5.SubstanceSourceMaterial) (r5.SubstanceSourceMaterial, error) {
+func (c *ClientR5) CreateSubstanceSourceMaterial(ctx context.Context, resource r51.SubstanceSourceMaterial) (r51.SubstanceSourceMaterial, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SubstanceSourceMaterial{}, err
-	}
-	typed, ok := result.(r5.SubstanceSourceMaterial)
-	if !ok {
-		return r5.SubstanceSourceMaterial{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSubstanceSourceMaterial(ctx, resource)
 }
 
 // ReadSubstanceSourceMaterial retrieves a SubstanceSourceMaterial resource by ID.
-func (c *ClientR5) ReadSubstanceSourceMaterial(ctx context.Context, id string) (r5.SubstanceSourceMaterial, error) {
+func (c *ClientR5) ReadSubstanceSourceMaterial(ctx context.Context, id string) (r51.SubstanceSourceMaterial, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SubstanceSourceMaterial", id)
-	if err != nil {
-		return r5.SubstanceSourceMaterial{}, err
-	}
-	typed, ok := result.(r5.SubstanceSourceMaterial)
-	if !ok {
-		return r5.SubstanceSourceMaterial{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSubstanceSourceMaterial(ctx, id)
 }
 
 // UpdateSubstanceSourceMaterial updates an existing SubstanceSourceMaterial resource.
-func (c *ClientR5) UpdateSubstanceSourceMaterial(ctx context.Context, resource r5.SubstanceSourceMaterial) (update.Result[r5.SubstanceSourceMaterial], error) {
+func (c *ClientR5) UpdateSubstanceSourceMaterial(ctx context.Context, resource r51.SubstanceSourceMaterial) (update.Result[r51.SubstanceSourceMaterial], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SubstanceSourceMaterial]{}, err
-	}
-	typed, ok := result.Resource.(r5.SubstanceSourceMaterial)
-	if !ok {
-		return update.Result[r5.SubstanceSourceMaterial]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SubstanceSourceMaterial]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSubstanceSourceMaterial(ctx, resource)
 }
 
 // DeleteSubstanceSourceMaterial deletes a SubstanceSourceMaterial resource by ID.
 func (c *ClientR5) DeleteSubstanceSourceMaterial(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SubstanceSourceMaterial", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSubstanceSourceMaterial(ctx, id)
+}
+
+// SearchCapabilitiesSubstanceSourceMaterial returns server search capabilities for SubstanceSourceMaterial.
+func (c *ClientR5) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSubstanceSourceMaterial(ctx)
 }
 
 // SearchSubstanceSourceMaterial performs a search for SubstanceSourceMaterial resources.
-func (c *ClientR5) SearchSubstanceSourceMaterial(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SubstanceSourceMaterial], error) {
+func (c *ClientR5) SearchSubstanceSourceMaterial(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SubstanceSourceMaterial], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SubstanceSourceMaterial", parameters, options)
-	if err != nil {
-		return search.Result[r5.SubstanceSourceMaterial]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SubstanceSourceMaterial, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SubstanceSourceMaterial)
-		if !ok {
-			return search.Result[r5.SubstanceSourceMaterial]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SubstanceSourceMaterial]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSubstanceSourceMaterial(ctx, parameters, options)
 }
 
+var (
+	_ r5.SupplyDeliveryCreate = (*ClientR5)(nil)
+	_ r5.SupplyDeliveryRead   = (*ClientR5)(nil)
+	_ r5.SupplyDeliveryUpdate = (*ClientR5)(nil)
+	_ r5.SupplyDeliveryDelete = (*ClientR5)(nil)
+	_ r5.SupplyDeliverySearch = (*ClientR5)(nil)
+)
+
 // CreateSupplyDelivery creates a new SupplyDelivery resource.
-func (c *ClientR5) CreateSupplyDelivery(ctx context.Context, resource r5.SupplyDelivery) (r5.SupplyDelivery, error) {
+func (c *ClientR5) CreateSupplyDelivery(ctx context.Context, resource r51.SupplyDelivery) (r51.SupplyDelivery, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SupplyDelivery{}, err
-	}
-	typed, ok := result.(r5.SupplyDelivery)
-	if !ok {
-		return r5.SupplyDelivery{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSupplyDelivery(ctx, resource)
 }
 
 // ReadSupplyDelivery retrieves a SupplyDelivery resource by ID.
-func (c *ClientR5) ReadSupplyDelivery(ctx context.Context, id string) (r5.SupplyDelivery, error) {
+func (c *ClientR5) ReadSupplyDelivery(ctx context.Context, id string) (r51.SupplyDelivery, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SupplyDelivery", id)
-	if err != nil {
-		return r5.SupplyDelivery{}, err
-	}
-	typed, ok := result.(r5.SupplyDelivery)
-	if !ok {
-		return r5.SupplyDelivery{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSupplyDelivery(ctx, id)
 }
 
 // UpdateSupplyDelivery updates an existing SupplyDelivery resource.
-func (c *ClientR5) UpdateSupplyDelivery(ctx context.Context, resource r5.SupplyDelivery) (update.Result[r5.SupplyDelivery], error) {
+func (c *ClientR5) UpdateSupplyDelivery(ctx context.Context, resource r51.SupplyDelivery) (update.Result[r51.SupplyDelivery], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SupplyDelivery]{}, err
-	}
-	typed, ok := result.Resource.(r5.SupplyDelivery)
-	if !ok {
-		return update.Result[r5.SupplyDelivery]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SupplyDelivery]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSupplyDelivery(ctx, resource)
 }
 
 // DeleteSupplyDelivery deletes a SupplyDelivery resource by ID.
 func (c *ClientR5) DeleteSupplyDelivery(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SupplyDelivery", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSupplyDelivery(ctx, id)
+}
+
+// SearchCapabilitiesSupplyDelivery returns server search capabilities for SupplyDelivery.
+func (c *ClientR5) SearchCapabilitiesSupplyDelivery(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSupplyDelivery(ctx)
 }
 
 // SearchSupplyDelivery performs a search for SupplyDelivery resources.
-func (c *ClientR5) SearchSupplyDelivery(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SupplyDelivery], error) {
+func (c *ClientR5) SearchSupplyDelivery(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SupplyDelivery], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SupplyDelivery", parameters, options)
-	if err != nil {
-		return search.Result[r5.SupplyDelivery]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SupplyDelivery, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SupplyDelivery)
-		if !ok {
-			return search.Result[r5.SupplyDelivery]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SupplyDelivery]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSupplyDelivery(ctx, parameters, options)
 }
 
+var (
+	_ r5.SupplyRequestCreate = (*ClientR5)(nil)
+	_ r5.SupplyRequestRead   = (*ClientR5)(nil)
+	_ r5.SupplyRequestUpdate = (*ClientR5)(nil)
+	_ r5.SupplyRequestDelete = (*ClientR5)(nil)
+	_ r5.SupplyRequestSearch = (*ClientR5)(nil)
+)
+
 // CreateSupplyRequest creates a new SupplyRequest resource.
-func (c *ClientR5) CreateSupplyRequest(ctx context.Context, resource r5.SupplyRequest) (r5.SupplyRequest, error) {
+func (c *ClientR5) CreateSupplyRequest(ctx context.Context, resource r51.SupplyRequest) (r51.SupplyRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.SupplyRequest{}, err
-	}
-	typed, ok := result.(r5.SupplyRequest)
-	if !ok {
-		return r5.SupplyRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateSupplyRequest(ctx, resource)
 }
 
 // ReadSupplyRequest retrieves a SupplyRequest resource by ID.
-func (c *ClientR5) ReadSupplyRequest(ctx context.Context, id string) (r5.SupplyRequest, error) {
+func (c *ClientR5) ReadSupplyRequest(ctx context.Context, id string) (r51.SupplyRequest, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "SupplyRequest", id)
-	if err != nil {
-		return r5.SupplyRequest{}, err
-	}
-	typed, ok := result.(r5.SupplyRequest)
-	if !ok {
-		return r5.SupplyRequest{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadSupplyRequest(ctx, id)
 }
 
 // UpdateSupplyRequest updates an existing SupplyRequest resource.
-func (c *ClientR5) UpdateSupplyRequest(ctx context.Context, resource r5.SupplyRequest) (update.Result[r5.SupplyRequest], error) {
+func (c *ClientR5) UpdateSupplyRequest(ctx context.Context, resource r51.SupplyRequest) (update.Result[r51.SupplyRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.SupplyRequest]{}, err
-	}
-	typed, ok := result.Resource.(r5.SupplyRequest)
-	if !ok {
-		return update.Result[r5.SupplyRequest]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.SupplyRequest]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateSupplyRequest(ctx, resource)
 }
 
 // DeleteSupplyRequest deletes a SupplyRequest resource by ID.
 func (c *ClientR5) DeleteSupplyRequest(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "SupplyRequest", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteSupplyRequest(ctx, id)
+}
+
+// SearchCapabilitiesSupplyRequest returns server search capabilities for SupplyRequest.
+func (c *ClientR5) SearchCapabilitiesSupplyRequest(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesSupplyRequest(ctx)
 }
 
 // SearchSupplyRequest performs a search for SupplyRequest resources.
-func (c *ClientR5) SearchSupplyRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.SupplyRequest], error) {
+func (c *ClientR5) SearchSupplyRequest(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.SupplyRequest], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "SupplyRequest", parameters, options)
-	if err != nil {
-		return search.Result[r5.SupplyRequest]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.SupplyRequest, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.SupplyRequest)
-		if !ok {
-			return search.Result[r5.SupplyRequest]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.SupplyRequest]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchSupplyRequest(ctx, parameters, options)
 }
 
+var (
+	_ r5.TaskCreate = (*ClientR5)(nil)
+	_ r5.TaskRead   = (*ClientR5)(nil)
+	_ r5.TaskUpdate = (*ClientR5)(nil)
+	_ r5.TaskDelete = (*ClientR5)(nil)
+	_ r5.TaskSearch = (*ClientR5)(nil)
+)
+
 // CreateTask creates a new Task resource.
-func (c *ClientR5) CreateTask(ctx context.Context, resource r5.Task) (r5.Task, error) {
+func (c *ClientR5) CreateTask(ctx context.Context, resource r51.Task) (r51.Task, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Task{}, err
-	}
-	typed, ok := result.(r5.Task)
-	if !ok {
-		return r5.Task{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTask(ctx, resource)
 }
 
 // ReadTask retrieves a Task resource by ID.
-func (c *ClientR5) ReadTask(ctx context.Context, id string) (r5.Task, error) {
+func (c *ClientR5) ReadTask(ctx context.Context, id string) (r51.Task, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Task", id)
-	if err != nil {
-		return r5.Task{}, err
-	}
-	typed, ok := result.(r5.Task)
-	if !ok {
-		return r5.Task{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTask(ctx, id)
 }
 
 // UpdateTask updates an existing Task resource.
-func (c *ClientR5) UpdateTask(ctx context.Context, resource r5.Task) (update.Result[r5.Task], error) {
+func (c *ClientR5) UpdateTask(ctx context.Context, resource r51.Task) (update.Result[r51.Task], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Task]{}, err
-	}
-	typed, ok := result.Resource.(r5.Task)
-	if !ok {
-		return update.Result[r5.Task]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Task]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTask(ctx, resource)
 }
 
 // DeleteTask deletes a Task resource by ID.
 func (c *ClientR5) DeleteTask(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Task", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTask(ctx, id)
+}
+
+// SearchCapabilitiesTask returns server search capabilities for Task.
+func (c *ClientR5) SearchCapabilitiesTask(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTask(ctx)
 }
 
 // SearchTask performs a search for Task resources.
-func (c *ClientR5) SearchTask(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Task], error) {
+func (c *ClientR5) SearchTask(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Task], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Task", parameters, options)
-	if err != nil {
-		return search.Result[r5.Task]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Task, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Task)
-		if !ok {
-			return search.Result[r5.Task]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Task]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTask(ctx, parameters, options)
 }
 
+var (
+	_ r5.TerminologyCapabilitiesCreate = (*ClientR5)(nil)
+	_ r5.TerminologyCapabilitiesRead   = (*ClientR5)(nil)
+	_ r5.TerminologyCapabilitiesUpdate = (*ClientR5)(nil)
+	_ r5.TerminologyCapabilitiesDelete = (*ClientR5)(nil)
+	_ r5.TerminologyCapabilitiesSearch = (*ClientR5)(nil)
+)
+
 // CreateTerminologyCapabilities creates a new TerminologyCapabilities resource.
-func (c *ClientR5) CreateTerminologyCapabilities(ctx context.Context, resource r5.TerminologyCapabilities) (r5.TerminologyCapabilities, error) {
+func (c *ClientR5) CreateTerminologyCapabilities(ctx context.Context, resource r51.TerminologyCapabilities) (r51.TerminologyCapabilities, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.TerminologyCapabilities{}, err
-	}
-	typed, ok := result.(r5.TerminologyCapabilities)
-	if !ok {
-		return r5.TerminologyCapabilities{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTerminologyCapabilities(ctx, resource)
 }
 
 // ReadTerminologyCapabilities retrieves a TerminologyCapabilities resource by ID.
-func (c *ClientR5) ReadTerminologyCapabilities(ctx context.Context, id string) (r5.TerminologyCapabilities, error) {
+func (c *ClientR5) ReadTerminologyCapabilities(ctx context.Context, id string) (r51.TerminologyCapabilities, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "TerminologyCapabilities", id)
-	if err != nil {
-		return r5.TerminologyCapabilities{}, err
-	}
-	typed, ok := result.(r5.TerminologyCapabilities)
-	if !ok {
-		return r5.TerminologyCapabilities{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTerminologyCapabilities(ctx, id)
 }
 
 // UpdateTerminologyCapabilities updates an existing TerminologyCapabilities resource.
-func (c *ClientR5) UpdateTerminologyCapabilities(ctx context.Context, resource r5.TerminologyCapabilities) (update.Result[r5.TerminologyCapabilities], error) {
+func (c *ClientR5) UpdateTerminologyCapabilities(ctx context.Context, resource r51.TerminologyCapabilities) (update.Result[r51.TerminologyCapabilities], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.TerminologyCapabilities]{}, err
-	}
-	typed, ok := result.Resource.(r5.TerminologyCapabilities)
-	if !ok {
-		return update.Result[r5.TerminologyCapabilities]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.TerminologyCapabilities]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTerminologyCapabilities(ctx, resource)
 }
 
 // DeleteTerminologyCapabilities deletes a TerminologyCapabilities resource by ID.
 func (c *ClientR5) DeleteTerminologyCapabilities(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "TerminologyCapabilities", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTerminologyCapabilities(ctx, id)
+}
+
+// SearchCapabilitiesTerminologyCapabilities returns server search capabilities for TerminologyCapabilities.
+func (c *ClientR5) SearchCapabilitiesTerminologyCapabilities(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTerminologyCapabilities(ctx)
 }
 
 // SearchTerminologyCapabilities performs a search for TerminologyCapabilities resources.
-func (c *ClientR5) SearchTerminologyCapabilities(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TerminologyCapabilities], error) {
+func (c *ClientR5) SearchTerminologyCapabilities(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.TerminologyCapabilities], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "TerminologyCapabilities", parameters, options)
-	if err != nil {
-		return search.Result[r5.TerminologyCapabilities]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.TerminologyCapabilities, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.TerminologyCapabilities)
-		if !ok {
-			return search.Result[r5.TerminologyCapabilities]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.TerminologyCapabilities]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTerminologyCapabilities(ctx, parameters, options)
 }
 
+var (
+	_ r5.TestPlanCreate = (*ClientR5)(nil)
+	_ r5.TestPlanRead   = (*ClientR5)(nil)
+	_ r5.TestPlanUpdate = (*ClientR5)(nil)
+	_ r5.TestPlanDelete = (*ClientR5)(nil)
+	_ r5.TestPlanSearch = (*ClientR5)(nil)
+)
+
 // CreateTestPlan creates a new TestPlan resource.
-func (c *ClientR5) CreateTestPlan(ctx context.Context, resource r5.TestPlan) (r5.TestPlan, error) {
+func (c *ClientR5) CreateTestPlan(ctx context.Context, resource r51.TestPlan) (r51.TestPlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.TestPlan{}, err
-	}
-	typed, ok := result.(r5.TestPlan)
-	if !ok {
-		return r5.TestPlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTestPlan(ctx, resource)
 }
 
 // ReadTestPlan retrieves a TestPlan resource by ID.
-func (c *ClientR5) ReadTestPlan(ctx context.Context, id string) (r5.TestPlan, error) {
+func (c *ClientR5) ReadTestPlan(ctx context.Context, id string) (r51.TestPlan, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "TestPlan", id)
-	if err != nil {
-		return r5.TestPlan{}, err
-	}
-	typed, ok := result.(r5.TestPlan)
-	if !ok {
-		return r5.TestPlan{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTestPlan(ctx, id)
 }
 
 // UpdateTestPlan updates an existing TestPlan resource.
-func (c *ClientR5) UpdateTestPlan(ctx context.Context, resource r5.TestPlan) (update.Result[r5.TestPlan], error) {
+func (c *ClientR5) UpdateTestPlan(ctx context.Context, resource r51.TestPlan) (update.Result[r51.TestPlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.TestPlan]{}, err
-	}
-	typed, ok := result.Resource.(r5.TestPlan)
-	if !ok {
-		return update.Result[r5.TestPlan]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.TestPlan]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTestPlan(ctx, resource)
 }
 
 // DeleteTestPlan deletes a TestPlan resource by ID.
 func (c *ClientR5) DeleteTestPlan(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "TestPlan", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTestPlan(ctx, id)
+}
+
+// SearchCapabilitiesTestPlan returns server search capabilities for TestPlan.
+func (c *ClientR5) SearchCapabilitiesTestPlan(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTestPlan(ctx)
 }
 
 // SearchTestPlan performs a search for TestPlan resources.
-func (c *ClientR5) SearchTestPlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestPlan], error) {
+func (c *ClientR5) SearchTestPlan(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.TestPlan], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "TestPlan", parameters, options)
-	if err != nil {
-		return search.Result[r5.TestPlan]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.TestPlan, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.TestPlan)
-		if !ok {
-			return search.Result[r5.TestPlan]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.TestPlan]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTestPlan(ctx, parameters, options)
 }
 
+var (
+	_ r5.TestReportCreate = (*ClientR5)(nil)
+	_ r5.TestReportRead   = (*ClientR5)(nil)
+	_ r5.TestReportUpdate = (*ClientR5)(nil)
+	_ r5.TestReportDelete = (*ClientR5)(nil)
+	_ r5.TestReportSearch = (*ClientR5)(nil)
+)
+
 // CreateTestReport creates a new TestReport resource.
-func (c *ClientR5) CreateTestReport(ctx context.Context, resource r5.TestReport) (r5.TestReport, error) {
+func (c *ClientR5) CreateTestReport(ctx context.Context, resource r51.TestReport) (r51.TestReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.TestReport{}, err
-	}
-	typed, ok := result.(r5.TestReport)
-	if !ok {
-		return r5.TestReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTestReport(ctx, resource)
 }
 
 // ReadTestReport retrieves a TestReport resource by ID.
-func (c *ClientR5) ReadTestReport(ctx context.Context, id string) (r5.TestReport, error) {
+func (c *ClientR5) ReadTestReport(ctx context.Context, id string) (r51.TestReport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "TestReport", id)
-	if err != nil {
-		return r5.TestReport{}, err
-	}
-	typed, ok := result.(r5.TestReport)
-	if !ok {
-		return r5.TestReport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTestReport(ctx, id)
 }
 
 // UpdateTestReport updates an existing TestReport resource.
-func (c *ClientR5) UpdateTestReport(ctx context.Context, resource r5.TestReport) (update.Result[r5.TestReport], error) {
+func (c *ClientR5) UpdateTestReport(ctx context.Context, resource r51.TestReport) (update.Result[r51.TestReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.TestReport]{}, err
-	}
-	typed, ok := result.Resource.(r5.TestReport)
-	if !ok {
-		return update.Result[r5.TestReport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.TestReport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTestReport(ctx, resource)
 }
 
 // DeleteTestReport deletes a TestReport resource by ID.
 func (c *ClientR5) DeleteTestReport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "TestReport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTestReport(ctx, id)
+}
+
+// SearchCapabilitiesTestReport returns server search capabilities for TestReport.
+func (c *ClientR5) SearchCapabilitiesTestReport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTestReport(ctx)
 }
 
 // SearchTestReport performs a search for TestReport resources.
-func (c *ClientR5) SearchTestReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestReport], error) {
+func (c *ClientR5) SearchTestReport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.TestReport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "TestReport", parameters, options)
-	if err != nil {
-		return search.Result[r5.TestReport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.TestReport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.TestReport)
-		if !ok {
-			return search.Result[r5.TestReport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.TestReport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTestReport(ctx, parameters, options)
 }
 
+var (
+	_ r5.TestScriptCreate = (*ClientR5)(nil)
+	_ r5.TestScriptRead   = (*ClientR5)(nil)
+	_ r5.TestScriptUpdate = (*ClientR5)(nil)
+	_ r5.TestScriptDelete = (*ClientR5)(nil)
+	_ r5.TestScriptSearch = (*ClientR5)(nil)
+)
+
 // CreateTestScript creates a new TestScript resource.
-func (c *ClientR5) CreateTestScript(ctx context.Context, resource r5.TestScript) (r5.TestScript, error) {
+func (c *ClientR5) CreateTestScript(ctx context.Context, resource r51.TestScript) (r51.TestScript, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.TestScript{}, err
-	}
-	typed, ok := result.(r5.TestScript)
-	if !ok {
-		return r5.TestScript{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTestScript(ctx, resource)
 }
 
 // ReadTestScript retrieves a TestScript resource by ID.
-func (c *ClientR5) ReadTestScript(ctx context.Context, id string) (r5.TestScript, error) {
+func (c *ClientR5) ReadTestScript(ctx context.Context, id string) (r51.TestScript, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "TestScript", id)
-	if err != nil {
-		return r5.TestScript{}, err
-	}
-	typed, ok := result.(r5.TestScript)
-	if !ok {
-		return r5.TestScript{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTestScript(ctx, id)
 }
 
 // UpdateTestScript updates an existing TestScript resource.
-func (c *ClientR5) UpdateTestScript(ctx context.Context, resource r5.TestScript) (update.Result[r5.TestScript], error) {
+func (c *ClientR5) UpdateTestScript(ctx context.Context, resource r51.TestScript) (update.Result[r51.TestScript], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.TestScript]{}, err
-	}
-	typed, ok := result.Resource.(r5.TestScript)
-	if !ok {
-		return update.Result[r5.TestScript]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.TestScript]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTestScript(ctx, resource)
 }
 
 // DeleteTestScript deletes a TestScript resource by ID.
 func (c *ClientR5) DeleteTestScript(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "TestScript", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTestScript(ctx, id)
+}
+
+// SearchCapabilitiesTestScript returns server search capabilities for TestScript.
+func (c *ClientR5) SearchCapabilitiesTestScript(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTestScript(ctx)
 }
 
 // SearchTestScript performs a search for TestScript resources.
-func (c *ClientR5) SearchTestScript(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.TestScript], error) {
+func (c *ClientR5) SearchTestScript(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.TestScript], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "TestScript", parameters, options)
-	if err != nil {
-		return search.Result[r5.TestScript]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.TestScript, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.TestScript)
-		if !ok {
-			return search.Result[r5.TestScript]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.TestScript]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTestScript(ctx, parameters, options)
 }
 
+var (
+	_ r5.TransportCreate = (*ClientR5)(nil)
+	_ r5.TransportRead   = (*ClientR5)(nil)
+	_ r5.TransportUpdate = (*ClientR5)(nil)
+	_ r5.TransportDelete = (*ClientR5)(nil)
+	_ r5.TransportSearch = (*ClientR5)(nil)
+)
+
 // CreateTransport creates a new Transport resource.
-func (c *ClientR5) CreateTransport(ctx context.Context, resource r5.Transport) (r5.Transport, error) {
+func (c *ClientR5) CreateTransport(ctx context.Context, resource r51.Transport) (r51.Transport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.Transport{}, err
-	}
-	typed, ok := result.(r5.Transport)
-	if !ok {
-		return r5.Transport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateTransport(ctx, resource)
 }
 
 // ReadTransport retrieves a Transport resource by ID.
-func (c *ClientR5) ReadTransport(ctx context.Context, id string) (r5.Transport, error) {
+func (c *ClientR5) ReadTransport(ctx context.Context, id string) (r51.Transport, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "Transport", id)
-	if err != nil {
-		return r5.Transport{}, err
-	}
-	typed, ok := result.(r5.Transport)
-	if !ok {
-		return r5.Transport{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadTransport(ctx, id)
 }
 
 // UpdateTransport updates an existing Transport resource.
-func (c *ClientR5) UpdateTransport(ctx context.Context, resource r5.Transport) (update.Result[r5.Transport], error) {
+func (c *ClientR5) UpdateTransport(ctx context.Context, resource r51.Transport) (update.Result[r51.Transport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.Transport]{}, err
-	}
-	typed, ok := result.Resource.(r5.Transport)
-	if !ok {
-		return update.Result[r5.Transport]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.Transport]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateTransport(ctx, resource)
 }
 
 // DeleteTransport deletes a Transport resource by ID.
 func (c *ClientR5) DeleteTransport(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "Transport", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteTransport(ctx, id)
+}
+
+// SearchCapabilitiesTransport returns server search capabilities for Transport.
+func (c *ClientR5) SearchCapabilitiesTransport(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesTransport(ctx)
 }
 
 // SearchTransport performs a search for Transport resources.
-func (c *ClientR5) SearchTransport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.Transport], error) {
+func (c *ClientR5) SearchTransport(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.Transport], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "Transport", parameters, options)
-	if err != nil {
-		return search.Result[r5.Transport]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.Transport, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.Transport)
-		if !ok {
-			return search.Result[r5.Transport]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.Transport]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchTransport(ctx, parameters, options)
 }
 
+var (
+	_ r5.ValueSetCreate = (*ClientR5)(nil)
+	_ r5.ValueSetRead   = (*ClientR5)(nil)
+	_ r5.ValueSetUpdate = (*ClientR5)(nil)
+	_ r5.ValueSetDelete = (*ClientR5)(nil)
+	_ r5.ValueSetSearch = (*ClientR5)(nil)
+)
+
 // CreateValueSet creates a new ValueSet resource.
-func (c *ClientR5) CreateValueSet(ctx context.Context, resource r5.ValueSet) (r5.ValueSet, error) {
+func (c *ClientR5) CreateValueSet(ctx context.Context, resource r51.ValueSet) (r51.ValueSet, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.ValueSet{}, err
-	}
-	typed, ok := result.(r5.ValueSet)
-	if !ok {
-		return r5.ValueSet{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateValueSet(ctx, resource)
 }
 
 // ReadValueSet retrieves a ValueSet resource by ID.
-func (c *ClientR5) ReadValueSet(ctx context.Context, id string) (r5.ValueSet, error) {
+func (c *ClientR5) ReadValueSet(ctx context.Context, id string) (r51.ValueSet, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "ValueSet", id)
-	if err != nil {
-		return r5.ValueSet{}, err
-	}
-	typed, ok := result.(r5.ValueSet)
-	if !ok {
-		return r5.ValueSet{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadValueSet(ctx, id)
 }
 
 // UpdateValueSet updates an existing ValueSet resource.
-func (c *ClientR5) UpdateValueSet(ctx context.Context, resource r5.ValueSet) (update.Result[r5.ValueSet], error) {
+func (c *ClientR5) UpdateValueSet(ctx context.Context, resource r51.ValueSet) (update.Result[r51.ValueSet], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.ValueSet]{}, err
-	}
-	typed, ok := result.Resource.(r5.ValueSet)
-	if !ok {
-		return update.Result[r5.ValueSet]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.ValueSet]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateValueSet(ctx, resource)
 }
 
 // DeleteValueSet deletes a ValueSet resource by ID.
 func (c *ClientR5) DeleteValueSet(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "ValueSet", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteValueSet(ctx, id)
+}
+
+// SearchCapabilitiesValueSet returns server search capabilities for ValueSet.
+func (c *ClientR5) SearchCapabilitiesValueSet(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesValueSet(ctx)
 }
 
 // SearchValueSet performs a search for ValueSet resources.
-func (c *ClientR5) SearchValueSet(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.ValueSet], error) {
+func (c *ClientR5) SearchValueSet(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.ValueSet], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "ValueSet", parameters, options)
-	if err != nil {
-		return search.Result[r5.ValueSet]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.ValueSet, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.ValueSet)
-		if !ok {
-			return search.Result[r5.ValueSet]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.ValueSet]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchValueSet(ctx, parameters, options)
 }
 
+var (
+	_ r5.VerificationResultCreate = (*ClientR5)(nil)
+	_ r5.VerificationResultRead   = (*ClientR5)(nil)
+	_ r5.VerificationResultUpdate = (*ClientR5)(nil)
+	_ r5.VerificationResultDelete = (*ClientR5)(nil)
+	_ r5.VerificationResultSearch = (*ClientR5)(nil)
+)
+
 // CreateVerificationResult creates a new VerificationResult resource.
-func (c *ClientR5) CreateVerificationResult(ctx context.Context, resource r5.VerificationResult) (r5.VerificationResult, error) {
+func (c *ClientR5) CreateVerificationResult(ctx context.Context, resource r51.VerificationResult) (r51.VerificationResult, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.VerificationResult{}, err
-	}
-	typed, ok := result.(r5.VerificationResult)
-	if !ok {
-		return r5.VerificationResult{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateVerificationResult(ctx, resource)
 }
 
 // ReadVerificationResult retrieves a VerificationResult resource by ID.
-func (c *ClientR5) ReadVerificationResult(ctx context.Context, id string) (r5.VerificationResult, error) {
+func (c *ClientR5) ReadVerificationResult(ctx context.Context, id string) (r51.VerificationResult, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "VerificationResult", id)
-	if err != nil {
-		return r5.VerificationResult{}, err
-	}
-	typed, ok := result.(r5.VerificationResult)
-	if !ok {
-		return r5.VerificationResult{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadVerificationResult(ctx, id)
 }
 
 // UpdateVerificationResult updates an existing VerificationResult resource.
-func (c *ClientR5) UpdateVerificationResult(ctx context.Context, resource r5.VerificationResult) (update.Result[r5.VerificationResult], error) {
+func (c *ClientR5) UpdateVerificationResult(ctx context.Context, resource r51.VerificationResult) (update.Result[r51.VerificationResult], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.VerificationResult]{}, err
-	}
-	typed, ok := result.Resource.(r5.VerificationResult)
-	if !ok {
-		return update.Result[r5.VerificationResult]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.VerificationResult]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateVerificationResult(ctx, resource)
 }
 
 // DeleteVerificationResult deletes a VerificationResult resource by ID.
 func (c *ClientR5) DeleteVerificationResult(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "VerificationResult", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteVerificationResult(ctx, id)
+}
+
+// SearchCapabilitiesVerificationResult returns server search capabilities for VerificationResult.
+func (c *ClientR5) SearchCapabilitiesVerificationResult(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesVerificationResult(ctx)
 }
 
 // SearchVerificationResult performs a search for VerificationResult resources.
-func (c *ClientR5) SearchVerificationResult(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.VerificationResult], error) {
+func (c *ClientR5) SearchVerificationResult(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.VerificationResult], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "VerificationResult", parameters, options)
-	if err != nil {
-		return search.Result[r5.VerificationResult]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.VerificationResult, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.VerificationResult)
-		if !ok {
-			return search.Result[r5.VerificationResult]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.VerificationResult]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchVerificationResult(ctx, parameters, options)
 }
 
+var (
+	_ r5.VisionPrescriptionCreate = (*ClientR5)(nil)
+	_ r5.VisionPrescriptionRead   = (*ClientR5)(nil)
+	_ r5.VisionPrescriptionUpdate = (*ClientR5)(nil)
+	_ r5.VisionPrescriptionDelete = (*ClientR5)(nil)
+	_ r5.VisionPrescriptionSearch = (*ClientR5)(nil)
+)
+
 // CreateVisionPrescription creates a new VisionPrescription resource.
-func (c *ClientR5) CreateVisionPrescription(ctx context.Context, resource r5.VisionPrescription) (r5.VisionPrescription, error) {
+func (c *ClientR5) CreateVisionPrescription(ctx context.Context, resource r51.VisionPrescription) (r51.VisionPrescription, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Create(ctx, resource)
-	if err != nil {
-		return r5.VisionPrescription{}, err
-	}
-	typed, ok := result.(r5.VisionPrescription)
-	if !ok {
-		return r5.VisionPrescription{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.CreateVisionPrescription(ctx, resource)
 }
 
 // ReadVisionPrescription retrieves a VisionPrescription resource by ID.
-func (c *ClientR5) ReadVisionPrescription(ctx context.Context, id string) (r5.VisionPrescription, error) {
+func (c *ClientR5) ReadVisionPrescription(ctx context.Context, id string) (r51.VisionPrescription, error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Read(ctx, "VisionPrescription", id)
-	if err != nil {
-		return r5.VisionPrescription{}, err
-	}
-	typed, ok := result.(r5.VisionPrescription)
-	if !ok {
-		return r5.VisionPrescription{}, fmt.Errorf("unexpected resource type: %T", result)
-	}
-	return typed, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.ReadVisionPrescription(ctx, id)
 }
 
 // UpdateVisionPrescription updates an existing VisionPrescription resource.
-func (c *ClientR5) UpdateVisionPrescription(ctx context.Context, resource r5.VisionPrescription) (update.Result[r5.VisionPrescription], error) {
+func (c *ClientR5) UpdateVisionPrescription(ctx context.Context, resource r51.VisionPrescription) (update.Result[r51.VisionPrescription], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Update(ctx, resource)
-	if err != nil {
-		return update.Result[r5.VisionPrescription]{}, err
-	}
-	typed, ok := result.Resource.(r5.VisionPrescription)
-	if !ok {
-		return update.Result[r5.VisionPrescription]{}, fmt.Errorf("unexpected resource type: %T", result.Resource)
-	}
-	return update.Result[r5.VisionPrescription]{Resource: typed, Created: result.Created}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.UpdateVisionPrescription(ctx, resource)
 }
 
 // DeleteVisionPrescription deletes a VisionPrescription resource by ID.
 func (c *ClientR5) DeleteVisionPrescription(ctx context.Context, id string) error {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	return client.Delete(ctx, "VisionPrescription", id)
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.DeleteVisionPrescription(ctx, id)
+}
+
+// SearchCapabilitiesVisionPrescription returns server search capabilities for VisionPrescription.
+func (c *ClientR5) SearchCapabilitiesVisionPrescription(ctx context.Context) (r51.SearchCapabilities, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchCapabilitiesVisionPrescription(ctx)
 }
 
 // SearchVisionPrescription performs a search for VisionPrescription resources.
-func (c *ClientR5) SearchVisionPrescription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r5.VisionPrescription], error) {
+func (c *ClientR5) SearchVisionPrescription(ctx context.Context, parameters search.Parameters, options search.Options) (search.Result[r51.VisionPrescription], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
-	result, err := client.Search(ctx, "VisionPrescription", parameters, options)
-	if err != nil {
-		return search.Result[r5.VisionPrescription]{}, err
-	}
-	// Convert generic resources to typed resources
-	typedResources := make([]r5.VisionPrescription, len(result.Resources))
-	for i, resource := range result.Resources {
-		typed, ok := resource.(r5.VisionPrescription)
-		if !ok {
-			return search.Result[r5.VisionPrescription]{}, fmt.Errorf("unexpected resource type in results: %T", resource)
-		}
-		typedResources[i] = typed
-	}
-	return search.Result[r5.VisionPrescription]{Resources: typedResources, Included: result.Included, Next: result.Next}, nil
+	wrapper := r5.Concrete{Generic: client}
+	return wrapper.SearchVisionPrescription(ctx, parameters, options)
 }
