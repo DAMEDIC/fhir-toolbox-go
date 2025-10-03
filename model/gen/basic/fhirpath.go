@@ -3571,5 +3571,48 @@ var allFHIRPathTypes = []fhirpath.TypeInfo{fhirpath.ClassInfo{
 	}},
 	Name:      "OperationOutcome",
 	Namespace: "FHIR",
+}, fhirpath.ClassInfo{
+	BaseType: fhirpath.TypeSpecifier{
+		Name:      "DomainResource",
+		Namespace: "FHIR",
+	},
+	Element: []fhirpath.ClassInfoElement{{
+		Name: "Id",
+		Type: fhirpath.TypeSpecifier{
+			List:      false,
+			Name:      "Id",
+			Namespace: "FHIR",
+		},
+	}, {
+		Name: "Meta",
+		Type: fhirpath.TypeSpecifier{
+			List:      false,
+			Name:      "Meta",
+			Namespace: "FHIR",
+		},
+	}, {
+		Name: "ImplicitRules",
+		Type: fhirpath.TypeSpecifier{
+			List:      false,
+			Name:      "Uri",
+			Namespace: "FHIR",
+		},
+	}, {
+		Name: "Language",
+		Type: fhirpath.TypeSpecifier{
+			List:      false,
+			Name:      "Code",
+			Namespace: "FHIR",
+		},
+	}, {
+		Name: "Parameter",
+		Type: fhirpath.TypeSpecifier{
+			List:      true,
+			Name:      "ParametersParameter",
+			Namespace: "FHIR",
+		},
+	}},
+	Name:      "Parameters",
+	Namespace: "FHIR",
 }}
 var fhirFunctions = fhirpath.Functions{}

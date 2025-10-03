@@ -224,6 +224,85 @@ func (c *internalClient[R]) Delete(ctx context.Context, resourceType, id string)
 	return nil
 }
 
+// Invoke invokes a FHIR operation at system, type, or instance level.
+// It always uses POST for safety (covers affectsState=true operations).
+// Paths:
+//   - /$code
+//   - /{resourceType}/$code
+//   - /{resourceType}/{id}/$code
+func (c *internalClient[R]) Invoke(
+	ctx context.Context,
+	resourceType, resourceID, code string,
+	parameters basic.Parameters,
+) (model.Resource, error) {
+	if c.baseURL == nil {
+		return nil, fmt.Errorf("base URL is nil")
+	}
+    }
+	if code == "" {
+		return nil, fmt.Errorf("operation code is empty")
+	}
+
+	// Build path according to level
+	// Note: JoinPath handles slashes; we append the $ segment as a path piece
+	var u *url.URL
+	switch {
+	case resourceType == "" && resourceID == "":
+		u = c.baseURL.JoinPath("$" + code)
+	case resourceType != "" && resourceID == "":
+		u = c.baseURL.JoinPath(resourceType, "$"+code)
+	case resourceType != "" && resourceID != "":
+		u = c.baseURL.JoinPath(resourceType, resourceID, "$"+code)
+	default:
+		return nil, fmt.Errorf("invalid operation target")
+	}
+
+	// Encode parameters when present
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+    requestFormat := cmp.Or(c.format, defaultClientFormat)
+	var body io.Reader
+	if len(parameters.Parameter) > 0 {
+		buf := &bytes.Buffer{}
+		if err := encoding.Encode(buf, parameters, encoding.Format(requestFormat)); err != nil {
+			return nil, fmt.Errorf("marshal parameters: %w", err)
+		}
+		body = buf
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, u.String(), body)
+	if err != nil {
+		return nil, fmt.Errorf("create request: %w", err)
+	}
+	// Content-Type only when body is present
+	if body != nil {
+		req.Header.Set("Content-Type", string(requestFormat))
+	}
+	// Accept header to negotiate response
+	req.Header.Set("Accept", string(requestFormat))
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("execute request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 204 No Content means success with no resource
+	if resp.StatusCode == http.StatusNoContent {
+		return nil, nil
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, c.handleErrorResponse(resp)
+	}
+
+	// Decode result resource using response Content-Type
+	responseFormat := c.detectResponseFormat(resp)
+	out, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
+	if err != nil {
+		return nil, fmt.Errorf("parse response: %w", err)
+	}
+	return out, nil
+}
+
 // Search performs a search operation for the given resource type with the specified options.
 func (c *internalClient[R]) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
 	if c.baseURL == nil {

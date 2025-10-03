@@ -44,3 +44,17 @@ type GenericSearch interface {
 	GenericCapabilities
 	Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error)
 }
+
+// The GenericOperation interface provides a unified way to invoke FHIR operations
+// at system, type, or instance level. The `resourceType` and `id` may be empty
+// depending on the invocation level.
+//
+// - System-level:    resourceType = "", id = ""
+// - Type-level:      resourceType = <type>, id = ""
+// - Instance-level:  resourceType = <type>, id = <id>
+//
+// The `code` is the operation name without the leading '$'.
+// The `parameters` contains the input Parameters resource.
+type GenericOperation interface {
+	Invoke(ctx context.Context, resourceType, resourceID, code string, parameters basic.Parameters) (model.Resource, error)
+}

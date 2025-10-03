@@ -22,7 +22,7 @@ var (
 	modelGenTarget        = "model/gen"
 	capabilitiesGenTarget = "capabilities/gen"
 	clientGenTarget       = "rest"
-	basicResources        = []string{"OperationOutcome", "Bundle", "CapabilityStatement"}
+	basicResources        = []string{"OperationOutcome", "Bundle", "CapabilityStatement", "Parameters"}
 )
 
 func main() {

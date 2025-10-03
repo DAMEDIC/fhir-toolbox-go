@@ -35,6 +35,7 @@ var (
 	_ capabilities.GenericRead         = (*ClientR5)(nil)
 	_ capabilities.GenericUpdate       = (*ClientR5)(nil)
 	_ capabilities.GenericDelete       = (*ClientR5)(nil)
+	_ capabilities.GenericOperation    = (*ClientR5)(nil)
 )
 
 // httpClient returns the HTTP client, using http.DefaultClient if none is set.
@@ -79,6 +80,27 @@ func (c *ClientR5) Delete(ctx context.Context, resourceType string, id string) e
 func (c *ClientR5) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
 	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
 	return client.Search(ctx, resourceType, parameters, options)
+}
+
+// Invoke invokes a FHIR operation at system, type, or instance level.
+func (c *ClientR5) Invoke(ctx context.Context, resourceType string, resourceID string, code string, parameters basic.Parameters) (model.Resource, error) {
+	client := &internalClient[model.R5]{baseURL: c.BaseURL, client: c.httpClient(), format: c.Format}
+	return client.Invoke(ctx, resourceType, resourceID, code, parameters)
+}
+
+// InvokeSystem invokes a system-level operation (/$code).
+func (c *ClientR5) InvokeSystem(ctx context.Context, code string, parameters basic.Parameters) (model.Resource, error) {
+	return c.Invoke(ctx, "", "", code, parameters)
+}
+
+// InvokeType invokes a type-level operation (/{type}/$code).
+func (c *ClientR5) InvokeType(ctx context.Context, resourceType string, code string, parameters basic.Parameters) (model.Resource, error) {
+	return c.Invoke(ctx, resourceType, "", code, parameters)
+}
+
+// InvokeInstance invokes an instance-level operation (/{type}/{id}/$code).
+func (c *ClientR5) InvokeInstance(ctx context.Context, resourceType string, id string, code string, parameters basic.Parameters) (model.Resource, error) {
+	return c.Invoke(ctx, resourceType, id, code, parameters)
 }
 
 var (

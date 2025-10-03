@@ -24,6 +24,10 @@
 //   - update: "PUT /{type}/{id}"
 //   - delete: "DELETE /{type}/{id}"
 //   - search: "GET /{type}"
+//   - operations:
+//   - system:   "GET /${code}",  "POST /${code}"
+//   - type:     "GET /{type}/${code}",  "POST /{type}/${code}"
+//   - instance: "GET /{type}/{resourceID}/${code}", "POST /{type}/{resourceID}/${code}"
 //
 // If you do not want your FHIR handlers installed at the root, use something like
 //
@@ -132,6 +136,11 @@ func (s *Server[R]) ServeHTTP(writer http.ResponseWriter, request *http.Request)
 	if s.mux == nil {
 		s.registerRoutes()
 	}
+	// Intercept operation-style routes like /$code, /{type}/$code, /{type}/{id}/$code
+	if _, _, _, _, ok := parseOperationRoute(request.URL.Path); ok {
+		s.handleOperation(writer, request)
+		return
+	}
 	s.mux.ServeHTTP(writer, request)
 }
 
@@ -146,12 +155,11 @@ func (s *Server[R]) registerRoutes() {
 
 	s.mux = http.NewServeMux()
 	s.mux.Handle("GET /metadata", http.HandlerFunc(s.handleMetadata))
-	s.mux.Handle("POST /{type}", http.HandlerFunc(s.handlerCreate))
-	s.mux.Handle("GET /{type}/{id}", http.HandlerFunc(s.handlerRead))
-	s.mux.Handle("PUT /{type}/{id}", http.HandlerFunc(s.handlerUpdate))
-	s.mux.Handle("DELETE /{type}/{id}", http.HandlerFunc(s.handlerDelete))
-	s.mux.Handle("GET /{type}", http.HandlerFunc(s.handlerSearch))
-
+	s.mux.Handle("POST /{type}", http.HandlerFunc(s.handleCreate))
+	s.mux.Handle("GET /{type}/{id}", http.HandlerFunc(s.handleRead))
+	s.mux.Handle("PUT /{type}/{id}", http.HandlerFunc(s.handleUpdate))
+	s.mux.Handle("DELETE /{type}/{id}", http.HandlerFunc(s.handleDelete))
+	s.mux.Handle("GET /{type}", http.HandlerFunc(s.handleSearch))
 }
 
 func (s *Server[R]) genericBackend() (capabilities.GenericCapabilities, error) {
@@ -191,7 +199,7 @@ func (s *Server[R]) handleMetadata(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (s *Server[R]) handlerCreate(w http.ResponseWriter, r *http.Request) {
+func (s *Server[R]) handleCreate(w http.ResponseWriter, r *http.Request) {
 	requestFormat := s.detectFormat(r, "Content-Type")
 	responseFormat := s.detectFormat(r, "Accept")
 	resourceType := r.PathValue("type")
@@ -246,7 +254,7 @@ func dispatchCreate[R model.Release](
 	return createdResource, nil
 }
 
-func (s *Server[R]) handlerRead(w http.ResponseWriter, r *http.Request) {
+func (s *Server[R]) handleRead(w http.ResponseWriter, r *http.Request) {
 	responseFormat := s.detectFormat(r, "Accept")
 	resourceType := r.PathValue("type")
 	resourceID := r.PathValue("id")
@@ -286,7 +294,7 @@ func dispatchRead(
 	return resource, nil
 }
 
-func (s *Server[R]) handlerUpdate(w http.ResponseWriter, r *http.Request) {
+func (s *Server[R]) handleUpdate(w http.ResponseWriter, r *http.Request) {
 	requestFormat := s.detectFormat(r, "Content-Type")
 	responseFormat := s.detectFormat(r, "Accept")
 	resourceType := r.PathValue("type")
@@ -358,7 +366,7 @@ func dispatchUpdate[R model.Release](
 	return result, nil
 }
 
-func (s *Server[R]) handlerDelete(w http.ResponseWriter, r *http.Request) {
+func (s *Server[R]) handleDelete(w http.ResponseWriter, r *http.Request) {
 	responseFormat := s.detectFormat(r, "Accept")
 	resourceType := r.PathValue("type")
 	resourceID := r.PathValue("id")
@@ -394,7 +402,7 @@ func dispatchDelete(
 	return backend.Delete(ctx, resourceType, resourceID)
 }
 
-func (s *Server[R]) handlerSearch(w http.ResponseWriter, r *http.Request) {
+func (s *Server[R]) handleSearch(w http.ResponseWriter, r *http.Request) {
 	responseFormat := s.detectFormat(r, "Accept")
 	resourceType := r.PathValue("type")
 
@@ -450,16 +458,16 @@ func dispatchSearch(
 		// Try to resolve SearchParameter using Read operation if available
 		if readBackend, ok := backend.(capabilities.GenericRead); ok {
 			// Extract SearchParameter ID from canonical URL
-			lastSlash := strings.LastIndex(canonical, "/")
-			if lastSlash != -1 && lastSlash < len(canonical)-1 {
-				searchParamId := canonical[lastSlash+1:]
-				resource, err := readBackend.Read(ctx, "SearchParameter", searchParamId)
-				if err != nil {
-					return nil, err
-				}
-				// Return the SearchParameter resource as a model.Element
-				return resource, nil
+			searchParamId := extractIDFromCanonical(canonical)
+			if searchParamId == "" {
+				return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 			}
+			resource, err := readBackend.Read(ctx, "SearchParameter", searchParamId)
+			if err != nil {
+				return nil, err
+			}
+			// Return the SearchParameter resource as a model.Element
+			return resource, nil
 		}
 		// Return error if SearchParameter cannot be resolved
 		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
@@ -610,6 +618,15 @@ func notImplementedError(interaction string) error {
 		"not-supported",
 		fmt.Sprintf("%s interaction not implemented", interaction),
 	)
+}
+
+// extractIDFromCanonical returns the last path segment of a canonical URL.
+func extractIDFromCanonical(canonical string) string {
+	if canonical == "" {
+		return ""
+	}
+	parts := strings.Split(strings.TrimRight(canonical, "/"), "/")
+	return parts[len(parts)-1]
 }
 
 func unexpectedResourceError(expectedType string, gotType string) basic.OperationOutcome {

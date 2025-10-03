@@ -64,6 +64,7 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericRead").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericUpdate").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericDelete").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericOperation").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 	})
 
 	// Add HTTP client helper method
@@ -187,6 +188,66 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Search").Call(Id("ctx"), Id("resourceType"), Id("parameters"), Id("options"))),
+	)
+
+	// Generic Invoke method
+	f.Comment("// Invoke invokes a FHIR operation at system, type, or instance level.")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("Invoke").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("resourceID").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
+			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
+			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
+		),
+		Return(Id("client").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Id("resourceID"), Id("code"), Id("parameters"))),
+	)
+
+	// Thin wrappers for convenience
+	f.Comment("// InvokeSystem invokes a system-level operation (/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeSystem").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Lit(""), Lit(""), Id("code"), Id("parameters"))),
+	)
+
+	f.Comment("// InvokeType invokes a type-level operation (/{type}/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeType").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Lit(""), Id("code"), Id("parameters"))),
+	)
+
+	f.Comment("// InvokeInstance invokes an instance-level operation (/{type}/{id}/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeInstance").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("id").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Id("id"), Id("code"), Id("parameters"))),
 	)
 }
 
