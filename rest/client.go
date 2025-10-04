@@ -238,13 +238,11 @@ func (c *internalClient[R]) Invoke(
 	if c.baseURL == nil {
 		return nil, fmt.Errorf("base URL is nil")
 	}
-    }
 	if code == "" {
 		return nil, fmt.Errorf("operation code is empty")
 	}
 
 	// Build path according to level
-	// Note: JoinPath handles slashes; we append the $ segment as a path piece
 	var u *url.URL
 	switch {
 	case resourceType == "" && resourceID == "":
@@ -259,7 +257,6 @@ func (c *internalClient[R]) Invoke(
 
 	// Encode parameters when present
 	requestFormat := cmp.Or(c.format, defaultClientFormat)
-    requestFormat := cmp.Or(c.format, defaultClientFormat)
 	var body io.Reader
 	if len(parameters.Parameter) > 0 {
 		buf := &bytes.Buffer{}

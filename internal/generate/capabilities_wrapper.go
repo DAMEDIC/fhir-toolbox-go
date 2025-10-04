@@ -19,8 +19,9 @@ type CapabilitiesWrapperGenerator struct {
 func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string, pkgName string) *File, release string, rt []ir.ResourceOrType) {
 	generateGenericWrapperStruct(f("generic", "capabilities"+release), release)
 	generateWrapperCapabilityStatement(f("generic", "capabilities"+release), release, ir.FilterResources(rt))
-	generatePopulateSearchParameterFn(f("generic", "capabilities"+release), release)
 	generateSearchParametersFn(f("generic", "capabilities"+release), release, ir.FilterResources(rt))
+	generatePopulateSearchParameterFn(f("generic", "capabilities"+release), release)
+	generateOperationDefinitionsFn(f("generic", "capabilities"+release), release)
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "create")
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "read")
 	generateGeneric(f("generic", "capabilities"+release), release, ir.FilterResources(rt), "update")
@@ -34,6 +35,8 @@ func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string,
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "update")
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "delete")
 	generateConcrete(f("concrete", "capabilities"+release), release, ir.FilterResources(rt), "search")
+
+	generateGenericInvokeOperation(f("generic", "capabilities"+release), release)
 }
 
 func generateGenericWrapperStruct(f *File, release string) {
@@ -138,6 +141,30 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 									Return(Id("searchParam"), Nil()),
 								)
 
+								g.Return(Nil(), notFoundError(release, r.Name, Id("id")))
+							} else if r.Name == "OperationDefinition" {
+								// Special handling for OperationDefinition - fallback to generated definitions with canonical url
+								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
+								g.If(Id("ok")).Block(
+									Return(Id("impl." + interactionName + r.Name).Call(passParams...)),
+								)
+
+								// Fallback: get baseUrl and resolve populated OperationDefinitions
+								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(Nil(), Id("err")),
+								)
+								g.Var().Id("baseUrl").String()
+								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								)
+								g.List(Id("defs"), Id("err")).Op(":=").Id("operationDefinitionsByID").Call(Id("ctx"), Id("w.Concrete"), Id("baseUrl"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(Nil(), Id("err")),
+								)
+								g.If(List(Id("od"), Id("exists")).Op(":=").Id("defs").Index(Id("id")), Id("exists")).Block(
+									Return(Id("od"), Nil()),
+								)
 								g.Return(Nil(), notFoundError(release, r.Name, Id("id")))
 							} else {
 								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
@@ -280,6 +307,97 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 									),
 								)
 
+								g.Return(returnType.Clone().Block(Dict{
+									Id("Resources"): Id("resources"),
+									Id("Included"):  Index().Qual(moduleName+"/model", "Resource").Values(),
+									Id("Next"):      Id("nextCursor"),
+								}), Nil())
+							} else if r.Name == "OperationDefinition" {
+								// Special handling for OperationDefinition - fallback to populated definitions (canonical URL) with same flow as SearchParameter
+								g.List(Id("impl"), Id("ok")).Op(":=").Id("w.Concrete").Assert(Id(r.Name + interactionName))
+								g.If(Id("ok")).Block(
+									List(Id("result"), Id("err")).Op(":=").Id("impl."+interactionName+r.Name).Call(passParams...),
+									If(Id("err").Op("!=").Nil()).Block(Return(returnType.Clone().Block(), Id("err"))),
+
+									Id("genericResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Len(Id("result.Resources"))),
+									For(List(Id("i"), Id("r")).Op(":=").Range().Id("result.Resources")).Block(
+										Id("genericResources").Index(Id("i")).Op("=").Id("r"),
+									),
+
+									Return(returnType.Clone().Block(Dict{
+										Id("Resources"): Id("genericResources"),
+										Id("Included"):  Id("result").Dot("Included"),
+										Id("Next"):      Id("result").Dot("Next"),
+									}), Nil()),
+								)
+
+								// Fallback: Get base URL and resolve populated OperationDefinitions
+								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(returnType.Clone().Block(), Id("err")),
+								)
+								g.Var().Id("baseUrl").String()
+								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								)
+								g.List(Id("defs"), Id("err")).Op(":=").Id("operationDefinitionsByID").Call(Id("ctx"), Id("w.Concrete"), Id("baseUrl"))
+								g.If(Id("err").Op("!=").Nil()).Block(
+									Return(returnType.Clone().Block(), Id("err")),
+								)
+
+								// Filter based on _id similar to SearchParameter
+								g.Id("filtered").Op(":=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"))
+								g.For(List(Id("id"), Id("od")).Op(":=").Range().Id("defs")).Block(
+									Id("filtered").Index(Id("id")).Op("=").Id("od"),
+								)
+								g.If(List(Id("idParams"), Id("ok")).Op(":=").Id("parameters.Map()").Index(Qual(moduleName+"/capabilities/search", "ParameterKey").Values(Dict{Id("Name"): Lit("_id")})), Id("ok")).Block(
+									Id("filtered").Op("=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition")),
+									For(List(Id("_"), Id("idValues")).Op(":=").Range().Id("idParams")).Block(
+										For(List(Id("_"), Id("idValue")).Op(":=").Range().Id("idValues")).Block(
+											Id("idStr").Op(":=").Id("idValue").Dot("String").Call(),
+											If(List(Id("od"), Id("exists")).Op(":=").Id("defs").Index(Id("idStr")), Id("exists")).Block(
+												Id("filtered").Index(Id("idStr")).Op("=").Id("od"),
+											),
+										),
+									),
+								)
+
+								// Sort IDs for deterministic ordering
+								g.Id("sortedIds").Op(":=").Make(Index().String(), Lit(0), Len(Id("filtered")))
+								g.For(List(Id("id"), Id("_")).Op(":=").Range().Id("filtered")).Block(
+									Id("sortedIds").Op("=").Append(Id("sortedIds"), Id("id")),
+								)
+								g.Qual("sort", "Strings").Call(Id("sortedIds"))
+
+								// Build results and apply pagination like SearchParameter fallback
+								g.Id("allResources").Op(":=").Make(Index().Qual(moduleName+"/model", "Resource"), Lit(0), Len(Id("filtered")))
+								g.For(List(Id("_"), Id("id")).Op(":=").Range().Id("sortedIds")).Block(
+									Id("allResources").Op("=").Append(Id("allResources"), Id("filtered").Index(Id("id"))),
+								)
+								g.Var().Id("offset").Int()
+								g.Id("opts").Op(":=").Id("options")
+								g.If(Id("opts.Cursor").Op("!=").Lit("")).Block(
+									List(Id("parsedOffset"), Id("err")).Op(":=").Qual("strconv", "Atoi").Call(String().Call(Id("opts.Cursor"))),
+									If(Id("err").Op("!=").Nil()).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: %w"), Id("err"))),
+									),
+									If(Id("parsedOffset").Op("<").Lit(0)).Block(
+										Return(returnType.Clone().Block(), Qual("fmt", "Errorf").Call(Lit("invalid cursor: offset must be non-negative"))),
+									),
+									Id("offset").Op("=").Id("parsedOffset"),
+								)
+								g.Var().Id("resources").Index().Qual(moduleName+"/model", "Resource")
+								g.If(Id("offset").Op("<").Len(Id("allResources"))).Block(
+									Id("resources").Op("=").Id("allResources").Index(Id("offset").Op(":")),
+								)
+								g.Var().Id("nextCursor").Qual(moduleName+"/capabilities/search", "Cursor")
+								g.If(Id("opts.Count").Op(">").Lit(0).Op("&&").Len(Id("resources")).Op(">").Id("opts.Count")).Block(
+									Id("resources").Op("=").Id("resources").Index(Op(":").Id("opts.Count")),
+									Id("nextOffset").Op(":=").Id("offset").Op("+").Id("opts.Count"),
+									If(Id("nextOffset").Op("<").Len(Id("allResources")).Block(
+										Id("nextCursor").Op("=").Qual(moduleName+"/capabilities/search", "Cursor").Call(Qual("strconv", "Itoa").Call(Id("nextOffset"))),
+									)),
+								)
 								g.Return(returnType.Clone().Block(Dict{
 									Id("Resources"): Id("resources"),
 									Id("Included"):  Index().Qual(moduleName+"/model", "Resource").Values(),
@@ -507,58 +625,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Qual("errors", "Join").Call(Id("errs").Op("..."))),
 			)
 
-			// Convert map to slice and sort
-			g.Id("resourcesList").Op(":=").Make(Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"), Lit(0), Len(Id("resourcesMap")))
-
-			g.For(List(Id("_"), Id("r")).Op(":=").Range().Id("resourcesMap")).Block(
-				// Sort search params by name
-				Qual("slices", "SortStableFunc").Call(
-					Id("r").Dot("SearchParam"),
-					Func().Params(
-						Id("a"),
-						Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam"),
-					).Int().Block(
-						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
-					),
-				),
-				// Sort interactions in standard order: create, read, update, delete, search-type
-				Qual("slices", "SortStableFunc").Call(
-					Id("r").Dot("Interaction"),
-					Func().Params(
-						Id("a"),
-						Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceInteraction"),
-					).Int().Block(
-						Id("order").Op(":=").Map(String()).Int().Values(Dict{
-							Lit("create"):      Lit(1),
-							Lit("read"):        Lit(2),
-							Lit("update"):      Lit(3),
-							Lit("delete"):      Lit(4),
-							Lit("search-type"): Lit(5),
-						}),
-						Id("aCode").Op(":=").Lit(""),
-						If(Id("a").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
-							Id("aCode").Op("=").Op("*").Id("a").Dot("Code").Dot("Value"),
-						),
-						Id("bCode").Op(":=").Lit(""),
-						If(Id("b").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
-							Id("bCode").Op("=").Op("*").Id("b").Dot("Code").Dot("Value"),
-						),
-						Return(Qual("cmp", "Compare").Call(Id("order").Index(Id("aCode")), Id("order").Index(Id("bCode")))),
-					),
-				),
-				Id("resourcesList").Op("=").Append(Id("resourcesList"), Id("r")),
-			)
-
-			// Sort resources by type
-			g.Qual("slices", "SortFunc").Call(
-				Id("resourcesList"),
-				Func().Params(
-					Id("a"),
-					Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"),
-				).Int().Block(
-					Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Type").Dot("Value"), Op("*").Id("b").Dot("Type").Dot("Value"))),
-				),
-			)
+			// Defer building resources list until after operations are attached
 
 			// Update CapabilityStatement with detected capabilities
 			g.Id("capabilityStatement").Op(":=").Id("baseCapabilityStatement")
@@ -591,11 +658,227 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				),
 			)
 
-			// Update the first REST entry with detected resources
+			// Defer assigning resources until after operation definitions are added
+
+			// Populate operations using operationDefinitionsByCode helper
+			// Note: function signature includes context, codegen will pass ctx
+			g.Id("defs").Op(":=").Id("operationDefinitionsByCode").Call(Id("ctx"), Id("w.Concrete"))
+			g.Var().Id("sysOps").Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation")
+			g.For(List(Id("code"), Id("entry")).Op(":=").Range().Id("defs")).BlockFunc(func(g *Group) {
+				g.Id("id").Op(":=").Id("code")
+				g.If(Id("entry.Def.Id").Op("!=").Nil().Op("&&").Id("entry.Def.Id.Value").Op("!=").Nil()).Block(
+					Id("id").Op("=").Op("*").Id("entry.Def.Id.Value"),
+				)
+				g.Id("canonical").Op(":=").Id("baseUrl").Op("+").Lit("/OperationDefinition/").Op("+").Id("id")
+				g.If(Id("entry.Def.System").Dot("Value").Op("!=").Nil().Op("&&").Op("*").Id("entry.Def.System").Dot("Value")).Block(
+					Id("sysOps").Op("=").Append(Id("sysOps"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					})),
+				)
+				g.For(List(Id("_"), Id("rt")).Op(":=").Range().Id("entry.Def.Resource")).BlockFunc(func(g *Group) {
+					g.If(Id("rt").Dot("Value").Op("==").Nil()).Block(Continue())
+					g.Id("rtype").Op(":=").Op("*").Id("rt").Dot("Value")
+					g.List(Id("r"), Id("ok")).Op(":=").Id("resourcesMap").Index(Id("rtype"))
+					g.If(Op("!").Id("ok")).Block(
+						Id("r").Op("=").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource").Values(Dict{
+							Id("Type"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Op("&").Id("rtype")}),
+						}),
+					)
+					// Append operation to resource
+					g.Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					}))
+					// Store back in map
+					g.Id("resourcesMap").Index(Id("rtype")).Op("=").Id("r")
+					Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					}))
+					Id("resourcesMap").Index(Id("rtype")).Op("=").Id("r")
+				})
+			})
+			// Sort system-level operations by name for deterministic output
+			Qual("slices", "SortStableFunc").Call(
+				Id("sysOps"),
+				Func().Params(
+					Id("a"),
+					Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation"),
+				).Int().Block(
+					Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
+				),
+			)
+			g.Id("capabilityStatement.Rest").Index(Lit(0)).Dot("Operation").Op("=").Id("sysOps")
+
+			// Build resourcesList from resourcesMap
+			g.Id("resourcesList").Op(":=").Make(Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"), Lit(0), Len(Id("resourcesMap")))
+			g.For(List(Id("_"), Id("r")).Op(":=").Range().Id("resourcesMap")).Block(
+				// Sort search params by name
+				Qual("slices", "SortStableFunc").Call(
+					Id("r").Dot("SearchParam"),
+					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam")).Int().Block(
+						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
+					),
+				),
+				// Sort interactions in standard order: create, read, update, delete, search-type
+				Qual("slices", "SortStableFunc").Call(
+					Id("r").Dot("Interaction"),
+					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceInteraction")).Int().Block(
+						Id("order").Op(":=").Map(String()).Int().Values(Dict{
+							Lit("create"):      Lit(1),
+							Lit("read"):        Lit(2),
+							Lit("update"):      Lit(3),
+							Lit("delete"):      Lit(4),
+							Lit("search-type"): Lit(5),
+						}),
+						Id("aCode").Op(":=").Lit(""),
+						If(Id("a").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+							Id("aCode").Op("=").Op("*").Id("a").Dot("Code").Dot("Value"),
+						),
+						Id("bCode").Op(":=").Lit(""),
+						If(Id("b").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+							Id("bCode").Op("=").Op("*").Id("b").Dot("Code").Dot("Value"),
+						),
+						Return(Qual("cmp", "Compare").Call(Id("order").Index(Id("aCode")), Id("order").Index(Id("bCode")))),
+					),
+				),
+				// Sort resource-level operations by name
+				Qual("slices", "SortStableFunc").Call(
+					Id("r").Dot("Operation"),
+					Func().Params(
+						Id("a"),
+						Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation"),
+					).Int().Block(
+						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
+					),
+				),
+				Id("resourcesList").Op("=").Append(Id("resourcesList"), Id("r")),
+			)
+			// Sort resources by type
+			g.Qual("slices", "SortFunc").Call(
+				Id("resourcesList"),
+				Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource")).Int().Block(
+					Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Type").Dot("Value"), Op("*").Id("b").Dot("Type").Dot("Value"))),
+				),
+			)
 			g.Id("capabilityStatement.Rest").Index(Lit(0)).Dot("Resource").Op("=").Id("resourcesList")
 
 			g.Return(Id("capabilityStatement"), Nil())
 		})
+}
+
+// generateOperationDefinitionsFn emits helpers that discover concrete
+// operation definition methods and return maps:
+//   - by code: code -> (base name, OperationDefinition)
+//   - by id:   id  -> (base name, OperationDefinition)
+func generateOperationDefinitionsFn(f *File, release string) {
+	entryType := Struct(
+		Id("Base").String(),
+		Id("Def").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"),
+	)
+	f.Func().Id("operationDefinitionsByCode").
+		Params(
+			Id("ctx").Qual("context", "Context"),
+			Id("api").Any(),
+		).
+		Params(
+			Map(String()).Add(entryType),
+		).
+		BlockFunc(func(g *Group) {
+			g.Id("defs").Op(":=").Make(Map(String()).Add(entryType))
+			// reflect type for context.Context
+			g.Id("ctxT").Op(":=").Qual("reflect", "TypeOf").Call(Parens(Op("*").Qual("context", "Context")).Parens(Nil())).Dot("Elem").Call()
+			g.Id("t").Op(":=").Qual("reflect", "TypeOf").Call(Id("api"))
+			g.Id("v").Op(":=").Qual("reflect", "ValueOf").Call(Id("api"))
+			g.For(Id("i").Op(":=").Lit(0), Id("i").Op("<").Id("t").Dot("NumMethod").Call(), Id("i").Op("++")).BlockFunc(func(g *Group) {
+				g.Id("m").Op(":=").Id("t").Dot("Method").Call(Id("i"))
+				g.Id("name").Op(":=").Id("m").Dot("Name")
+				g.If(Op("!").Qual("strings", "HasSuffix").Call(Id("name"), Lit("Definition")).Op("&&").Op("!").Qual("strings", "HasSuffix").Call(Id("name"), Lit("OperationDefinition"))).Block(Continue())
+				g.Id("mv").Op(":=").Id("v").Dot("MethodByName").Call(Id("name"))
+				g.Id("mt").Op(":=").Id("mv").Dot("Type").Call()
+				// Allow optional context.Context argument
+				g.If(Parens(Id("mt").Dot("NumIn").Call().Op("!=").Lit(0)).Op("&&").Parens(Id("mt").Dot("NumIn").Call().Op("!=").Lit(1))).Block(Continue())
+				g.If(Id("mt").Dot("NumOut").Call().Op("!=").Lit(1)).Block(Continue())
+				g.If(Id("mt").Dot("Out").Call(Lit(0)).Op("!=").Qual("reflect", "TypeOf").Call(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition").Values())).Block(Continue())
+				// Build call args depending on signature
+				g.Id("args").Op(":=").Index().Qual("reflect", "Value").Values()
+				g.If(Id("mt").Dot("NumIn").Call().Op("==").Lit(1)).BlockFunc(func(g *Group) {
+					// Verify the single argument is context.Context
+					g.If(Id("mt").Dot("In").Call(Lit(0)).Op("!=").Id("ctxT")).Block(Continue())
+					g.Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("ctx")))
+				})
+				g.List(Id("out")).Op(":=").Id("mv").Dot("Call").Call(Id("args"))
+				g.Id("od").Op(":=").Id("out").Index(Lit(0)).Dot("Interface").Call().Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"))
+				g.Id("base").Op(":=").Id("name")
+				g.Id("base").Op("=").Qual("strings", "TrimSuffix").Call(Id("base"), Lit("OperationDefinition"))
+				g.Id("base").Op("=").Qual("strings", "TrimSuffix").Call(Id("base"), Lit("Definition"))
+				g.Id("code").Op(":=").Qual("strings", "ToLower").Call(Id("base"))
+				g.If(Id("od").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+					Id("code").Op("=").Qual("strings", "ToLower").Call(Op("*").Id("od").Dot("Code").Dot("Value")),
+				)
+				g.Id("defs").Index(Id("code")).Op("=").Add(entryType).Values(Dict{Id("Base"): Id("base"), Id("Def"): Id("od")})
+			})
+			g.Return(Id("defs"))
+		})
+
+		// Index by ID (prefers explicit Id.value, falls back to code)
+	f.Func().Id("operationDefinitionsByID").
+		Params(
+			Id("ctx").Qual("context", "Context"),
+			Id("api").Any(),
+			Id("baseUrl").String(),
+		).
+		Params(
+			Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"),
+			Error(),
+		).
+		BlockFunc(func(g *Group) {
+			g.Id("defs").Op(":=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"))
+			// reflect type for context.Context
+			g.Id("ctxT").Op(":=").Qual("reflect", "TypeOf").Call(Parens(Op("*").Qual("context", "Context")).Parens(Nil())).Dot("Elem").Call()
+			g.Id("t").Op(":=").Qual("reflect", "TypeOf").Call(Id("api"))
+			g.Id("v").Op(":=").Qual("reflect", "ValueOf").Call(Id("api"))
+			g.For(Id("i").Op(":=").Lit(0), Id("i").Op("<").Id("t").Dot("NumMethod").Call(), Id("i").Op("++")).BlockFunc(func(g *Group) {
+				g.Id("m").Op(":=").Id("t").Dot("Method").Call(Id("i"))
+				g.Id("name").Op(":=").Id("m").Dot("Name")
+				g.If(Op("!").Qual("strings", "HasSuffix").Call(Id("name"), Lit("Definition")).Op("&&").Op("!").Qual("strings", "HasSuffix").Call(Id("name"), Lit("OperationDefinition"))).Block(Continue())
+				g.Id("mv").Op(":=").Id("v").Dot("MethodByName").Call(Id("name"))
+				g.Id("mt").Op(":=").Id("mv").Dot("Type").Call()
+				// Allow 0 or 1 argument (context.Context)
+				g.If(Parens(Id("mt").Dot("NumIn").Call().Op("!=").Lit(0)).Op("&&").Parens(Id("mt").Dot("NumIn").Call().Op("!=").Lit(1))).Block(Continue())
+				g.If(Id("mt").Dot("NumOut").Call().Op("!=").Lit(1)).Block(Continue())
+				g.If(Id("mt").Dot("Out").Call(Lit(0)).Op("!=").Qual("reflect", "TypeOf").Call(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition").Values())).Block(Continue())
+				// Build call args depending on signature
+				g.Id("args").Op(":=").Index().Qual("reflect", "Value").Values()
+				g.If(Id("mt").Dot("NumIn").Call().Op("==").Lit(1)).BlockFunc(func(g *Group) {
+					g.If(Id("mt").Dot("In").Call(Lit(0)).Op("!=").Id("ctxT")).Block(Continue())
+					g.Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("ctx")))
+				})
+				g.List(Id("out")).Op(":=").Id("mv").Dot("Call").Call(Id("args"))
+				g.Id("od").Op(":=").Id("out").Index(Lit(0)).Dot("Interface").Call().Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition"))
+				g.Id("base").Op(":=").Id("name")
+				g.Id("base").Op("=").Qual("strings", "TrimSuffix").Call(Id("base"), Lit("OperationDefinition"))
+				g.Id("base").Op("=").Qual("strings", "TrimSuffix").Call(Id("base"), Lit("Definition"))
+				g.Id("code").Op(":=").Qual("strings", "ToLower").Call(Id("base"))
+				g.If(Id("od").Dot("Code").Dot("Value").Op("!=").Nil()).Block(
+					Id("code").Op("=").Qual("strings", "ToLower").Call(Op("*").Id("od").Dot("Code").Dot("Value")),
+				)
+				g.Id("id").Op(":=").Id("code")
+				g.If(Id("od").Dot("Id").Op("!=").Nil().Op("&&").Id("od").Dot("Id").Dot("Value").Op("!=").Nil()).Block(
+					Id("id").Op("=").Op("*").Id("od").Dot("Id").Dot("Value"),
+				).Else().Block(
+					Id("od.Id").Op("=").Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Id").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("id"))}),
+				)
+				g.If(Id("baseUrl").Op("!=").Lit("")).Block(
+					Id("canonical").Op(":=").Id("baseUrl").Op("+").Lit("/OperationDefinition/").Op("+").Id("id"),
+					Id("od.Url").Op("=").Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Uri").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("canonical"))}),
+				)
+				g.Id("defs").Index(Id("id")).Op("=").Id("od")
+			})
+			g.Return(Id("defs"), Nil())
+		})
+
 }
 
 func generateConcreteWrapperStruct(f *File, release string) {
@@ -1082,4 +1365,229 @@ func generateSearchParametersFn(f *File, release string, resources []ir.Resource
 
 		g.Return(Id("searchParameters"), Nil())
 	})
+}
+
+// generateGenericInvokeOperation generates a reflection-based implementation of
+// capabilities.GenericOperation on the generic wrapper. It looks for concrete
+// methods named like Invoke{Name} or Invoke{Name}Operation and dispatches based
+// on system/type/instance argument shapes.
+func generateGenericInvokeOperation(f *File, release string) {
+	// Ensure needed imports by referencing them
+	f.ImportName("context", "context")
+	f.ImportName("reflect", "reflect")
+	f.ImportName("strings", "strings")
+
+	f.Func().Params(Id("w").Id(genericWrapperName)).Id("Invoke").
+		Params(
+			Id("ctx").Qual("context", "Context"),
+			Id("resourceType").String(),
+			Id("resourceID").String(),
+			Id("code").String(),
+			Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+		).
+		Params(
+			Qual(moduleName+"/model", "Resource"),
+			Error(),
+		).
+		BlockFunc(func(g *Group) {
+			// Delegate immediately if concrete implements GenericOperation
+			g.List(Id("op"), Id("ok")).Op(":=").Id("w").Dot("Concrete").Assert(Qual(moduleName+"/capabilities", "GenericOperation"))
+			g.If(Id("ok")).Block(
+				Return(Id("op").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Id("resourceID"), Id("code"), Id("parameters"))),
+			)
+			g.Id("t").Op(":=").Qual("reflect", "TypeOf").Call(Id("w").Dot("Concrete"))
+			g.Id("v").Op(":=").Qual("reflect", "ValueOf").Call(Id("w").Dot("Concrete"))
+			// Code lookup key for definitions map (definitions are indexed by lower-case code)
+			g.Id("codeKey").Op(":=").Qual("strings", "ToLower").Call(Id("code"))
+
+			// Resolve operation via helper map {code -> (base, def)}
+			g.Id("matchBase").Op(":=").Lit("")
+			g.Var().Id("opDef").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationDefinition")
+			g.Id("defs").Op(":=").Id("operationDefinitionsByCode").Call(Id("ctx"), Id("w.Concrete"))
+			g.List(Id("entry"), Id("found")).Op(":=").Id("defs").Index(Id("codeKey"))
+			g.If(Id("found")).Block(
+				Id("matchBase").Op("=").Id("entry.Base"),
+				Id("opDef").Op("=").Id("entry.Def"),
+			)
+
+			// If no matching operation definition was found, do not fall back to name matching
+			g.If(Op("!").Id("found")).Block(
+				Return(
+					Nil(),
+					Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+							Values(Dict{
+								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition not found for code "))}),
+							}),
+						),
+					}),
+				),
+			)
+
+			// Validate level using OperationDefinition if available
+			g.If(Id("matchBase").Op("!=").Lit("")).BlockFunc(func(g *Group) {
+				// system
+				g.If(Id("resourceType").Op("==").Lit("").Op("&&").Parens(Id("opDef").Dot("System").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("System").Dot("Value"))).Block(
+					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+							Values(Dict{
+								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at system level"))}),
+							}),
+						),
+					})),
+				)
+				// type
+				g.If(Id("resourceType").Op("!=").Lit("").Op("&&").Id("resourceID").Op("==").Lit("").Op("&&").Parens(Id("opDef").Dot("Type").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("Type").Dot("Value"))).Block(
+					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+							Values(Dict{
+								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at type level"))}),
+							}),
+						),
+					})),
+				)
+				// instance
+				g.If(Id("resourceType").Op("!=").Lit("").Op("&&").Id("resourceID").Op("!=").Lit("").Op("&&").Parens(Id("opDef").Dot("Instance").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("Instance").Dot("Value"))).Block(
+					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+							Values(Dict{
+								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at instance level"))}),
+							}),
+						),
+					})),
+				)
+				// type/instance allowed resource list check
+				g.If(Id("resourceType").Op("!=").Lit("")).BlockFunc(func(g *Group) {
+					g.Id("allowed").Op(":=").Lit(false)
+					g.For(List(Id("_"), Id("rt")).Op(":=").Range().Id("opDef").Dot("Resource")).Block(
+						If(Id("rt").Dot("Value").Op("!=").Nil().Op("&&").Op("*").Id("rt").Dot("Value").Op("==").Id("resourceType")).Block(
+							Id("allowed").Op("=").Lit(true),
+							Break(),
+						),
+					)
+					g.If(Parens(Len(Id("opDef").Dot("Resource")).Op("!=").Lit(0)).Op("&&").Op("!").Id("allowed")).Block(
+						Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+							Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+								Values(Dict{
+									Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+									Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+									Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed for resource type"))}),
+								}),
+							),
+						})),
+					)
+				})
+			})
+
+			// Determine desired arity by level (without code string in concrete signatures)
+			g.Id("need").Op(":=").Lit(2) // system: ctx, parameters
+			g.If(Id("resourceType").Op("!=").Lit("")).Block(
+				Id("need").Op("=").Lit(3), // type: ctx, resourceType, parameters
+				If(Id("resourceID").Op("!=").Lit("")).Block(
+					Id("need").Op("=").Lit(4), // instance: ctx, resourceType, resourceID, parameters
+				),
+			)
+
+			// reflect types
+			g.Id("ctxT").Op(":=").Qual("reflect", "TypeOf").Call(Parens(Op("*").Qual("context", "Context")).Parens(Nil())).Dot("Elem").Call()
+			g.Id("paramT").Op(":=").Qual("reflect", "TypeOf").Call(Qual(moduleName+"/model/gen/basic", "Parameters").Values())
+
+			// Build preferred arity list: exact need first, then more specific if available
+			g.Var().Id("tryList").Index().Int()
+			g.If(Id("need").Op("==").Lit(2)).Block(
+				Id("tryList").Op("=").Index().Int().Values(Lit(2), Lit(3), Lit(4)),
+			).Else().If(Id("need").Op("==").Lit(3)).Block(
+				Id("tryList").Op("=").Index().Int().Values(Lit(3), Lit(4)),
+			).Else().Block(
+				Id("tryList").Op("=").Index().Int().Values(Lit(4)),
+			)
+
+			// Try candidates in preference order
+			g.For(List(Id("_"), Id("tryN")).Op(":=").Range().Id("tryList")).Block(
+				// Iterate methods and find matching Invoke{Name}[Operation] for the matched base
+				For(Id("i").Op(":=").Lit(0), Id("i").Op("<").Id("t").Dot("NumMethod").Call(), Id("i").Op("++")).Block(
+					Id("m").Op(":=").Id("t").Dot("Method").Call(Id("i")),
+					Id("name").Op(":=").Id("m").Dot("Name"),
+					If(Op("!").Qual("strings", "HasPrefix").Call(Id("name"), Lit("Invoke"))).Block(Continue()),
+					Id("base").Op(":=").Qual("strings", "TrimPrefix").Call(Id("name"), Lit("Invoke")),
+					Id("base").Op("=").Qual("strings", "TrimSuffix").Call(Id("base"), Lit("Operation")),
+					// Require exact base match from OperationDefinition
+					If(Id("base").Op("!=").Id("matchBase")).Block(Continue()),
+
+					// Candidate found, validate signature and call. Use bound method from value to avoid name lookup.
+					Id("mv").Op(":=").Id("v").Dot("Method").Call(Id("i")),
+					Id("mt").Op(":=").Id("mv").Dot("Type").Call(),
+					If(Id("mt").Dot("NumIn").Call().Op("!=").Id("tryN")).Block(Continue()),
+					If(Id("mt").Dot("NumOut").Call().Op("!=").Lit(2)).Block(Continue()),
+					// Ensure the second return value implements error to avoid panics on assertion
+					Id("errorT").Op(":=").Qual("reflect", "TypeOf").Call(Parens(Op("*").Id("error")).Parens(Nil())).Dot("Elem").Call(),
+					If(Op("!").Id("mt").Dot("Out").Call(Lit(1)).Dot("Implements").Call(Id("errorT"))).Block(Continue()),
+					If(Id("mt").Dot("In").Call(Lit(0)).Op("!=").Id("ctxT")).Block(Continue()),
+					// Validate parameter types according to arity
+					If(Id("tryN").Op("==").Lit(2)).Block(
+						// system: (ctx, parameters)
+						If(Id("mt").Dot("In").Call(Lit(1)).Op("!=").Id("paramT")).Block(Continue()),
+					).Else().If(Id("tryN").Op("==").Lit(3)).Block(
+						// type: (ctx, resourceType, parameters)
+						If(Id("mt").Dot("In").Call(Lit(1)).Dot("Kind").Call().Op("!=").Qual("reflect", "String")).Block(Continue()),
+						If(Id("mt").Dot("In").Call(Lit(2)).Op("!=").Id("paramT")).Block(Continue()),
+					).Else().Block(
+						// instance: (ctx, resourceType, resourceID, parameters)
+						If(Id("mt").Dot("In").Call(Lit(1)).Dot("Kind").Call().Op("!=").Qual("reflect", "String")).Block(Continue()),
+						If(Id("mt").Dot("In").Call(Lit(2)).Dot("Kind").Call().Op("!=").Qual("reflect", "String")).Block(Continue()),
+						If(Id("mt").Dot("In").Call(Lit(3)).Op("!=").Id("paramT")).Block(Continue()),
+					),
+
+					// Build args (no code argument)
+					Id("args").Op(":=").Index().Qual("reflect", "Value").Values(Qual("reflect", "ValueOf").Call(Id("ctx"))),
+					If(Id("tryN").Op("==").Lit(2)).Block(
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+					).Else().If(Id("tryN").Op("==").Lit(3)).Block(
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceType"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+					).Else().Block(
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceType"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceID"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+					),
+
+					// Call and map result
+					List(Id("out")).Op(":=").Id("mv").Dot("Call").Call(Id("args")),
+					Id("rv").Op(":=").Id("out").Index(Lit(0)).Dot("Interface").Call(),
+					Id("errv").Op(":=").Id("out").Index(Lit(1)).Dot("Interface").Call(),
+					If(Id("errv").Op("!=").Nil()).Block(
+						Return(Nil(), Id("errv").Assert(Error())),
+					),
+					// Prefer unwrapping ContainedResource first
+					List(Id("cr"), Id("ok")).Op(":=").Id("rv").Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "ContainedResource")),
+					If(Id("ok")).Block(
+						Return(Id("cr").Dot("Resource"), Nil()),
+					),
+					// Then accept plain model.Resource
+					List(Id("res"), Id("ok")).Op(":=").Id("rv").Assert(Qual(moduleName+"/model", "Resource")),
+					If(Id("ok")).Block(
+						Return(Id("res"), Nil()),
+					),
+				),
+			)
+
+			// Not implemented: return OperationOutcome (basic)
+			g.Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
+				Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+					Values(Dict{
+						Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+						Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+						Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition but no implementation found"))}),
+					}),
+				),
+			}))
+		})
 }

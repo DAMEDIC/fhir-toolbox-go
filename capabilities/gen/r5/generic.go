@@ -17,6 +17,7 @@ import (
 	basic "github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	ptr "github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	"reflect"
 	"slices"
 	"sort"
 	"strconv"
@@ -9398,6 +9399,44 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 	if len(errs) > 0 {
 		return basic.CapabilityStatement{}, errors.Join(errs...)
 	}
+	capabilityStatement := baseCapabilityStatement
+	if capabilityStatement.FhirVersion.Value == nil {
+		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("5.0")}
+	}
+	if len(capabilityStatement.Rest) == 0 {
+		capabilityStatement.Rest = []basic.CapabilityStatementRest{{Mode: basic.Code{Value: ptr.To("server")}}}
+	}
+	defs := operationDefinitionsByCode(ctx, w.Concrete)
+	var sysOps []basic.CapabilityStatementRestResourceOperation
+	for code, entry := range defs {
+		id := code
+		if entry.Def.Id != nil && entry.Def.Id.Value != nil {
+			id = *entry.Def.Id.Value
+		}
+		canonical := baseUrl + "/OperationDefinition/" + id
+		if entry.Def.System.Value != nil && *entry.Def.System.Value {
+			sysOps = append(sysOps, basic.CapabilityStatementRestResourceOperation{
+				Definition: basic.Canonical{Value: &canonical},
+				Name:       basic.String{Value: &code},
+			})
+		}
+		for _, rt := range entry.Def.Resource {
+			if rt.Value == nil {
+				continue
+			}
+			rtype := *rt.Value
+			r, ok := resourcesMap[rtype]
+			if !ok {
+				r = basic.CapabilityStatementRestResource{Type: basic.Code{Value: &rtype}}
+			}
+			r.Operation = append(r.Operation, basic.CapabilityStatementRestResourceOperation{
+				Definition: basic.Canonical{Value: &canonical},
+				Name:       basic.String{Value: &code},
+			})
+			resourcesMap[rtype] = r
+		}
+	}
+	capabilityStatement.Rest[0].Operation = sysOps
 	resourcesList := make([]basic.CapabilityStatementRestResource, 0, len(resourcesMap))
 	for _, r := range resourcesMap {
 		slices.SortStableFunc(r.SearchParam, func(a, b basic.CapabilityStatementRestResourceSearchParam) int {
@@ -9421,65 +9460,16 @@ func (w Generic) CapabilityStatement(ctx context.Context) (basic.CapabilityState
 			}
 			return cmp.Compare(order[aCode], order[bCode])
 		})
+		slices.SortStableFunc(r.Operation, func(a, b basic.CapabilityStatementRestResourceOperation) int {
+			return cmp.Compare(*a.Name.Value, *b.Name.Value)
+		})
 		resourcesList = append(resourcesList, r)
 	}
 	slices.SortFunc(resourcesList, func(a, b basic.CapabilityStatementRestResource) int {
 		return cmp.Compare(*a.Type.Value, *b.Type.Value)
 	})
-	capabilityStatement := baseCapabilityStatement
-	if capabilityStatement.FhirVersion.Value == nil {
-		capabilityStatement.FhirVersion = basic.Code{Value: ptr.To("5.0")}
-	}
-	if len(capabilityStatement.Rest) == 0 {
-		capabilityStatement.Rest = []basic.CapabilityStatementRest{{Mode: basic.Code{Value: ptr.To("server")}}}
-	}
 	capabilityStatement.Rest[0].Resource = resourcesList
 	return capabilityStatement, nil
-}
-func sanitizeIdentifier(input string) string {
-	result := strings.ReplaceAll(input, "_", "")
-	return result
-}
-func populateSearchParameter(searchParam r5.SearchParameter, resourceType string, paramName string, baseUrl string) r5.SearchParameter {
-	_, idOk, idErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("id"))
-	if !idOk || idErr != nil {
-		// Set auto-generated ID using pattern {resourceType}-{name} (FHIR-compliant)
-		id := sanitizeIdentifier(resourceType + "-" + paramName)
-		searchParam.Id = &r5.Id{Value: ptr.To(id)}
-	}
-	_, urlOk, urlErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("url"))
-	if !urlOk || urlErr != nil {
-		// Set canonical URL using sanitized ID
-		canonicalUrl := baseUrl + "/SearchParameter/" + *searchParam.Id.Value
-		searchParam.Url = r5.Uri{Value: ptr.To(canonicalUrl)}
-	}
-	_, nameOk, nameErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("name"))
-	if !nameOk || nameErr != nil {
-		// Set name based on parameter name
-		searchParam.Name = r5.String{Value: ptr.To(paramName)}
-	}
-	_, statusOk, statusErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("status"))
-	if !statusOk || statusErr != nil {
-		// Set default status to active
-		searchParam.Status = r5.Code{Value: ptr.To("active")}
-	}
-	_, codeOk, codeErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("code"))
-	if !codeOk || codeErr != nil {
-		// Set code based on parameter name
-		searchParam.Code = r5.Code{Value: ptr.To(paramName)}
-	}
-	baseElements := searchParam.Children("base")
-	if len(baseElements) == 0 {
-		// Set base resource type
-		searchParam.Base = []r5.Code{{Value: ptr.To(resourceType)}}
-	}
-	_, descOk, descErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("description"))
-	if !descOk || descErr != nil {
-		// Set default description
-		description := "Search parameter " + paramName + " for " + resourceType + " resource"
-		searchParam.Description = r5.Markdown{Value: ptr.To(description)}
-	}
-	return searchParam
 }
 func searchParameters(ctx context.Context, api any, baseUrl string) (map[string]r5.SearchParameter, error) {
 	searchParameters := make(map[string]r5.SearchParameter)
@@ -12189,6 +12179,157 @@ func searchParameters(ctx context.Context, api any, baseUrl string) (map[string]
 	}
 	return searchParameters, nil
 }
+func sanitizeIdentifier(input string) string {
+	result := strings.ReplaceAll(input, "_", "")
+	return result
+}
+func populateSearchParameter(searchParam r5.SearchParameter, resourceType string, paramName string, baseUrl string) r5.SearchParameter {
+	_, idOk, idErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("id"))
+	if !idOk || idErr != nil {
+		// Set auto-generated ID using pattern {resourceType}-{name} (FHIR-compliant)
+		id := sanitizeIdentifier(resourceType + "-" + paramName)
+		searchParam.Id = &r5.Id{Value: ptr.To(id)}
+	}
+	_, urlOk, urlErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("url"))
+	if !urlOk || urlErr != nil {
+		// Set canonical URL using sanitized ID
+		canonicalUrl := baseUrl + "/SearchParameter/" + *searchParam.Id.Value
+		searchParam.Url = r5.Uri{Value: ptr.To(canonicalUrl)}
+	}
+	_, nameOk, nameErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("name"))
+	if !nameOk || nameErr != nil {
+		// Set name based on parameter name
+		searchParam.Name = r5.String{Value: ptr.To(paramName)}
+	}
+	_, statusOk, statusErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("status"))
+	if !statusOk || statusErr != nil {
+		// Set default status to active
+		searchParam.Status = r5.Code{Value: ptr.To("active")}
+	}
+	_, codeOk, codeErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("code"))
+	if !codeOk || codeErr != nil {
+		// Set code based on parameter name
+		searchParam.Code = r5.Code{Value: ptr.To(paramName)}
+	}
+	baseElements := searchParam.Children("base")
+	if len(baseElements) == 0 {
+		// Set base resource type
+		searchParam.Base = []r5.Code{{Value: ptr.To(resourceType)}}
+	}
+	_, descOk, descErr := fhirpath.Singleton[fhirpath.String](searchParam.Children("description"))
+	if !descOk || descErr != nil {
+		// Set default description
+		description := "Search parameter " + paramName + " for " + resourceType + " resource"
+		searchParam.Description = r5.Markdown{Value: ptr.To(description)}
+	}
+	return searchParam
+}
+func operationDefinitionsByCode(ctx context.Context, api any) map[string]struct {
+	Base string
+	Def  r5.OperationDefinition
+} {
+	defs := make(map[string]struct {
+		Base string
+		Def  r5.OperationDefinition
+	})
+	ctxT := reflect.TypeOf((*context.Context)(nil)).Elem()
+	t := reflect.TypeOf(api)
+	v := reflect.ValueOf(api)
+	for i := 0; i < t.NumMethod(); i++ {
+		m := t.Method(i)
+		name := m.Name
+		if !strings.HasSuffix(name, "Definition") && !strings.HasSuffix(name, "OperationDefinition") {
+			continue
+		}
+		mv := v.MethodByName(name)
+		mt := mv.Type()
+		if (mt.NumIn() != 0) && (mt.NumIn() != 1) {
+			continue
+		}
+		if mt.NumOut() != 1 {
+			continue
+		}
+		if mt.Out(0) != reflect.TypeOf(r5.OperationDefinition{}) {
+			continue
+		}
+		args := []reflect.Value{}
+		if mt.NumIn() == 1 {
+			if mt.In(0) != ctxT {
+				continue
+			}
+			args = append(args, reflect.ValueOf(ctx))
+		}
+		out := mv.Call(args)
+		od := out[0].Interface().(r5.OperationDefinition)
+		base := name
+		base = strings.TrimSuffix(base, "OperationDefinition")
+		base = strings.TrimSuffix(base, "Definition")
+		code := strings.ToLower(base)
+		if od.Code.Value != nil {
+			code = strings.ToLower(*od.Code.Value)
+		}
+		defs[code] = struct {
+			Base string
+			Def  r5.OperationDefinition
+		}{
+			Base: base,
+			Def:  od,
+		}
+	}
+	return defs
+}
+func operationDefinitionsByID(ctx context.Context, api any, baseUrl string) (map[string]r5.OperationDefinition, error) {
+	defs := make(map[string]r5.OperationDefinition)
+	ctxT := reflect.TypeOf((*context.Context)(nil)).Elem()
+	t := reflect.TypeOf(api)
+	v := reflect.ValueOf(api)
+	for i := 0; i < t.NumMethod(); i++ {
+		m := t.Method(i)
+		name := m.Name
+		if !strings.HasSuffix(name, "Definition") && !strings.HasSuffix(name, "OperationDefinition") {
+			continue
+		}
+		mv := v.MethodByName(name)
+		mt := mv.Type()
+		if (mt.NumIn() != 0) && (mt.NumIn() != 1) {
+			continue
+		}
+		if mt.NumOut() != 1 {
+			continue
+		}
+		if mt.Out(0) != reflect.TypeOf(r5.OperationDefinition{}) {
+			continue
+		}
+		args := []reflect.Value{}
+		if mt.NumIn() == 1 {
+			if mt.In(0) != ctxT {
+				continue
+			}
+			args = append(args, reflect.ValueOf(ctx))
+		}
+		out := mv.Call(args)
+		od := out[0].Interface().(r5.OperationDefinition)
+		base := name
+		base = strings.TrimSuffix(base, "OperationDefinition")
+		base = strings.TrimSuffix(base, "Definition")
+		code := strings.ToLower(base)
+		if od.Code.Value != nil {
+			code = strings.ToLower(*od.Code.Value)
+		}
+		id := code
+		if od.Id != nil && od.Id.Value != nil {
+			id = *od.Id.Value
+		} else {
+			od.Id = &r5.Id{Value: ptr.To(id)}
+		}
+		if baseUrl != "" {
+			canonical := baseUrl + "/OperationDefinition/" + id
+			od.Url = &r5.Uri{Value: ptr.To(canonical)}
+		}
+		defs[id] = od
+	}
+	return defs, nil
+}
 func (w Generic) Create(ctx context.Context, resource model.Resource) (model.Resource, error) {
 	g, ok := w.Concrete.(capabilities.GenericCreate)
 	if ok {
@@ -14833,14 +14974,29 @@ func (w Generic) Read(ctx context.Context, resourceType string, id string) (mode
 		return impl.ReadObservationDefinition(ctx, id)
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionRead)
-		if !ok {
-			return nil, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
-				Code:        r5.Code{Value: ptr.To("not-supported")},
-				Diagnostics: &r5.String{Value: ptr.To("read not implemented for OperationDefinition")},
-				Severity:    r5.Code{Value: ptr.To("fatal")},
-			}}}
+		if ok {
+			return impl.ReadOperationDefinition(ctx, id)
 		}
-		return impl.ReadOperationDefinition(ctx, id)
+		capabilityStatement, err := w.Concrete.CapabilityBase(ctx)
+		if err != nil {
+			return nil, err
+		}
+		var baseUrl string
+		if capabilityStatement.Implementation != nil && capabilityStatement.Implementation.Url != nil && capabilityStatement.Implementation.Url.Value != nil {
+			baseUrl = *capabilityStatement.Implementation.Url.Value
+		}
+		defs, err := operationDefinitionsByID(ctx, w.Concrete, baseUrl)
+		if err != nil {
+			return nil, err
+		}
+		if od, exists := defs[id]; exists {
+			return od, nil
+		}
+		return nil, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
+			Code:        r5.Code{Value: ptr.To("not-found")},
+			Diagnostics: &r5.String{Value: ptr.To("OperationDefinition with ID " + id + " not found")},
+			Severity:    r5.Code{Value: ptr.To("error")},
+		}}}
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeRead)
 		if !ok {
@@ -22252,26 +22408,87 @@ func (w Generic) Search(ctx context.Context, resourceType string, parameters sea
 		}, nil
 	case "OperationDefinition":
 		impl, ok := w.Concrete.(OperationDefinitionSearch)
-		if !ok {
-			return search.Result[model.Resource]{}, r5.OperationOutcome{Issue: []r5.OperationOutcomeIssue{{
-				Code:        r5.Code{Value: ptr.To("not-supported")},
-				Diagnostics: &r5.String{Value: ptr.To("search not implemented for OperationDefinition")},
-				Severity:    r5.Code{Value: ptr.To("fatal")},
-			}}}
+		if ok {
+			result, err := impl.SearchOperationDefinition(ctx, parameters, options)
+			if err != nil {
+				return search.Result[model.Resource]{}, err
+			}
+			genericResources := make([]model.Resource, len(result.Resources))
+			for i, r := range result.Resources {
+				genericResources[i] = r
+			}
+			return search.Result[model.Resource]{
+
+				Included:  result.Included,
+				Next:      result.Next,
+				Resources: genericResources,
+			}, nil
 		}
-		result, err := impl.SearchOperationDefinition(ctx, parameters, options)
+		capabilityStatement, err := w.Concrete.CapabilityBase(ctx)
 		if err != nil {
 			return search.Result[model.Resource]{}, err
 		}
-		genericResources := make([]model.Resource, len(result.Resources))
-		for i, r := range result.Resources {
-			genericResources[i] = r
+		var baseUrl string
+		if capabilityStatement.Implementation != nil && capabilityStatement.Implementation.Url != nil && capabilityStatement.Implementation.Url.Value != nil {
+			baseUrl = *capabilityStatement.Implementation.Url.Value
+		}
+		defs, err := operationDefinitionsByID(ctx, w.Concrete, baseUrl)
+		if err != nil {
+			return search.Result[model.Resource]{}, err
+		}
+		filtered := make(map[string]r5.OperationDefinition)
+		for id, od := range defs {
+			filtered[id] = od
+		}
+		if idParams, ok := parameters.Map()[search.ParameterKey{Name: "_id"}]; ok {
+			filtered = make(map[string]r5.OperationDefinition)
+			for _, idValues := range idParams {
+				for _, idValue := range idValues {
+					idStr := idValue.String()
+					if od, exists := defs[idStr]; exists {
+						filtered[idStr] = od
+					}
+				}
+			}
+		}
+		sortedIds := make([]string, 0, len(filtered))
+		for id, _ := range filtered {
+			sortedIds = append(sortedIds, id)
+		}
+		sort.Strings(sortedIds)
+		allResources := make([]model.Resource, 0, len(filtered))
+		for _, id := range sortedIds {
+			allResources = append(allResources, filtered[id])
+		}
+		var offset int
+		opts := options
+		if opts.Cursor != "" {
+			parsedOffset, err := strconv.Atoi(string(opts.Cursor))
+			if err != nil {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor: %w", err)
+			}
+			if parsedOffset < 0 {
+				return search.Result[model.Resource]{}, fmt.Errorf("invalid cursor: offset must be non-negative")
+			}
+			offset = parsedOffset
+		}
+		var resources []model.Resource
+		if offset < len(allResources) {
+			resources = allResources[offset:]
+		}
+		var nextCursor search.Cursor
+		if opts.Count > 0 && len(resources) > opts.Count {
+			resources = resources[:opts.Count]
+			nextOffset := offset + opts.Count
+			if nextOffset < len(allResources) {
+				nextCursor = search.Cursor(strconv.Itoa(nextOffset))
+			}
 		}
 		return search.Result[model.Resource]{
 
-			Included:  result.Included,
-			Next:      result.Next,
-			Resources: genericResources,
+			Included:  []model.Resource{},
+			Next:      nextCursor,
+			Resources: resources,
 		}, nil
 	case "OperationOutcome":
 		impl, ok := w.Concrete.(OperationOutcomeSearch)
@@ -23563,4 +23780,165 @@ func (w Generic) Search(ctx context.Context, resourceType string, parameters sea
 			Severity:    r5.Code{Value: ptr.To("fatal")},
 		}}}
 	}
+}
+func (w Generic) Invoke(ctx context.Context, resourceType string, resourceID string, code string, parameters basic.Parameters) (model.Resource, error) {
+	op, ok := w.Concrete.(capabilities.GenericOperation)
+	if ok {
+		return op.Invoke(ctx, resourceType, resourceID, code, parameters)
+	}
+	t := reflect.TypeOf(w.Concrete)
+	v := reflect.ValueOf(w.Concrete)
+	codeKey := strings.ToLower(code)
+	matchBase := ""
+	var opDef r5.OperationDefinition
+	defs := operationDefinitionsByCode(ctx, w.Concrete)
+	entry, found := defs[codeKey]
+	if found {
+		matchBase = entry.Base
+		opDef = entry.Def
+	}
+	if !found {
+		return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+			Code:        basic.Code{Value: ptr.To("not-supported")},
+			Diagnostics: &basic.String{Value: ptr.To("OperationDefinition not found for code ")},
+			Severity:    basic.Code{Value: ptr.To("fatal")},
+		}}}
+	}
+	if matchBase != "" {
+		if resourceType == "" && (opDef.System.Value == nil || !*opDef.System.Value) {
+			return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+				Code:        basic.Code{Value: ptr.To("not-supported")},
+				Diagnostics: &basic.String{Value: ptr.To("operation not allowed at system level")},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+			}}}
+		}
+		if resourceType != "" && resourceID == "" && (opDef.Type.Value == nil || !*opDef.Type.Value) {
+			return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+				Code:        basic.Code{Value: ptr.To("not-supported")},
+				Diagnostics: &basic.String{Value: ptr.To("operation not allowed at type level")},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+			}}}
+		}
+		if resourceType != "" && resourceID != "" && (opDef.Instance.Value == nil || !*opDef.Instance.Value) {
+			return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+				Code:        basic.Code{Value: ptr.To("not-supported")},
+				Diagnostics: &basic.String{Value: ptr.To("operation not allowed at instance level")},
+				Severity:    basic.Code{Value: ptr.To("fatal")},
+			}}}
+		}
+		if resourceType != "" {
+			allowed := false
+			for _, rt := range opDef.Resource {
+				if rt.Value != nil && *rt.Value == resourceType {
+					allowed = true
+					break
+				}
+			}
+			if (len(opDef.Resource) != 0) && !allowed {
+				return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+					Code:        basic.Code{Value: ptr.To("not-supported")},
+					Diagnostics: &basic.String{Value: ptr.To("operation not allowed for resource type")},
+					Severity:    basic.Code{Value: ptr.To("fatal")},
+				}}}
+			}
+		}
+	}
+	need := 2
+	if resourceType != "" {
+		need = 3
+		if resourceID != "" {
+			need = 4
+		}
+	}
+	ctxT := reflect.TypeOf((*context.Context)(nil)).Elem()
+	paramT := reflect.TypeOf(basic.Parameters{})
+	var tryList []int
+	if need == 2 {
+		tryList = []int{2, 3, 4}
+	} else if need == 3 {
+		tryList = []int{3, 4}
+	} else {
+		tryList = []int{4}
+	}
+	for _, tryN := range tryList {
+		for i := 0; i < t.NumMethod(); i++ {
+			m := t.Method(i)
+			name := m.Name
+			if !strings.HasPrefix(name, "Invoke") {
+				continue
+			}
+			base := strings.TrimPrefix(name, "Invoke")
+			base = strings.TrimSuffix(base, "Operation")
+			if base != matchBase {
+				continue
+			}
+			mv := v.Method(i)
+			mt := mv.Type()
+			if mt.NumIn() != tryN {
+				continue
+			}
+			if mt.NumOut() != 2 {
+				continue
+			}
+			errorT := reflect.TypeOf((*error)(nil)).Elem()
+			if !mt.Out(1).Implements(errorT) {
+				continue
+			}
+			if mt.In(0) != ctxT {
+				continue
+			}
+			if tryN == 2 {
+				if mt.In(1) != paramT {
+					continue
+				}
+			} else if tryN == 3 {
+				if mt.In(1).Kind() != reflect.String {
+					continue
+				}
+				if mt.In(2) != paramT {
+					continue
+				}
+			} else {
+				if mt.In(1).Kind() != reflect.String {
+					continue
+				}
+				if mt.In(2).Kind() != reflect.String {
+					continue
+				}
+				if mt.In(3) != paramT {
+					continue
+				}
+			}
+			args := []reflect.Value{reflect.ValueOf(ctx)}
+			if tryN == 2 {
+				args = append(args, reflect.ValueOf(parameters))
+			} else if tryN == 3 {
+				args = append(args, reflect.ValueOf(resourceType))
+				args = append(args, reflect.ValueOf(parameters))
+			} else {
+				args = append(args, reflect.ValueOf(resourceType))
+				args = append(args, reflect.ValueOf(resourceID))
+				args = append(args, reflect.ValueOf(parameters))
+			}
+			out := mv.Call(args)
+			rv := out[0].Interface()
+			errv := out[1].Interface()
+			if errv != nil {
+				return nil, errv.(error)
+			}
+			cr, ok := rv.(r5.ContainedResource)
+			if ok {
+				return cr.Resource, nil
+			}
+			res, ok := rv.(model.Resource)
+			if ok {
+				return res, nil
+			}
+		}
+	}
+	return nil, basic.OperationOutcome{Issue: []basic.OperationOutcomeIssue{{
+		Code:        basic.Code{Value: ptr.To("not-supported")},
+		Diagnostics: &basic.String{Value: ptr.To("OperationDefinition but no implementation found")},
+		Severity:    basic.Code{Value: ptr.To("fatal")},
+	}}}
 }

@@ -89,7 +89,7 @@ func (s *Server[R]) dispatchOperation(
 		return nil, err
 	}
 
-	canonical, err := resolveOperationCanonical(cs, resourceType, code)
+	canonical, err := resolveOperationCanonical(cs, level, resourceType, code)
 	if err != nil {
 		return nil, searchError(err.Error())
 	}
@@ -140,7 +140,7 @@ func affectsState(opDef model.Resource) bool {
 }
 
 // resolveOperationCanonical locates the OperationDefinition canonical URL.
-func resolveOperationCanonical(cs basic.CapabilityStatement, resourceType string, code string) (string, error) {
+func resolveOperationCanonical(cs basic.CapabilityStatement, lvl level, resourceType string, code string) (string, error) {
 	matches := func(name *string) bool {
 		if name == nil {
 			return false
@@ -148,7 +148,8 @@ func resolveOperationCanonical(cs basic.CapabilityStatement, resourceType string
 		n := *name
 		return n == code || n == "$"+code
 	}
-	if resourceType != "" {
+	// For type/instance level, look under the specific resource
+	if lvl == levelType || lvl == levelInstance {
 		for _, rest := range cs.Rest {
 			for _, res := range rest.Resource {
 				if res.Type.Value != nil && *res.Type.Value == resourceType {
@@ -160,7 +161,9 @@ func resolveOperationCanonical(cs basic.CapabilityStatement, resourceType string
 				}
 			}
 		}
+		return "", fmt.Errorf("operation '%s' not defined on %s level", code, string(lvl))
 	}
+	// For system level, search top-level operations
 	for _, rest := range cs.Rest {
 		for _, op := range rest.Operation {
 			if matches(op.Name.Value) && op.Definition.Value != nil {
@@ -168,7 +171,7 @@ func resolveOperationCanonical(cs basic.CapabilityStatement, resourceType string
 			}
 		}
 	}
-	return "", fmt.Errorf("operation '%s' not declared in CapabilityStatement", code)
+	return "", fmt.Errorf("operation '%s' not defined on %s level", code, string(lvl))
 }
 
 // parseOperationQuery assembles a basic.Parameters resource from URL query values.
