@@ -28,12 +28,12 @@ A REST server and client are provided.
     - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
         - automatic generation of `CapabilityStatements` with full SearchParameter integration
-    - Interactions: `create`, `read`, `update`, `delete`, `search` (see [Roadmap](#roadmap) for the remaining
+    - Interactions: `create`, `read`, `update`, `delete`, `search`, `$operations` (see [Roadmap](#roadmap) for the remaining
       interactions)
     - Advanced search parameter handling with full SearchParameter resource support
     - Cursor-based pagination
 - Fully typed client implementation
-    - Interactions: `create`, `read`, `update`, `delete`, `search`
+    - Interactions: `create`, `read`, `update`, `delete`, `search`, `$operations`
 - FHIRPath evaluation
     - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
 
@@ -114,6 +114,54 @@ The **concrete** API is ideal for building custom FHIR® facades where a limited
 The **generic** API is better suited for e.g. building FHIR® clients (see [
 `./examples/proxy`](./examples/proxy/main.go))
 or standalone FHIR® servers.
+
+### Operations
+
+FHIR operations are supported at system, type, and instance levels.
+You can expose operations using the concrete API by providing `XyzOperationDefinition` methods and matching `InvokeXyz` methods.
+The REST server auto-discovers these and surfaces them in the CapabilityStatement.
+
+
+#### Concrete API example
+
+```go
+// OperationDefinition declarations
+func (b *backend) PingOperationDefinition() r5.OperationDefinition {
+    return r5.OperationDefinition{Id: &r5.Id{Value: ptr.To("ping")}, Code: r5.Code{Value: ptr.To("ping")}, System: r5.Boolean{Value: ptr.To(true)}}
+}
+func (b *backend) EchoOperationDefinition() r5.OperationDefinition {
+    return r5.OperationDefinition{Id: &r5.Id{Value: ptr.To("echo")}, Code: r5.Code{Value: ptr.To("echo")}, Type: r5.Boolean{Value: ptr.To(true)}, Resource: []r5.Code{{Value: ptr.To("Patient")}}}
+}
+func (b *backend) HelloOperationDefinition() r5.OperationDefinition {
+    return r5.OperationDefinition{Id: &r5.Id{Value: ptr.To("hello")}, Code: r5.Code{Value: ptr.To("hello")}, Instance: r5.Boolean{Value: ptr.To(true)}, Resource: []r5.Code{{Value: ptr.To("Patient")}}}
+}
+
+// Invoke methods
+func (b *backend) InvokePing(ctx context.Context, params basic.Parameters) (basic.Parameters, error) { return basic.Parameters{}, nil }
+func (b *backend) InvokeEcho(ctx context.Context, resourceType string, params basic.Parameters) (r5.Patient, error) { return r5.Patient{}, nil }
+func (b *backend) InvokeHello(ctx context.Context, resourceType, id string, params basic.Parameters) (basic.Parameters, error) { return basic.Parameters{}, nil }
+```
+
+With these, the server exposes:
+- `GET|POST /$ping`
+- `GET|POST /Patient/$echo`
+- `GET|POST /Patient/{id}/$hello`
+
+And lists them in the CapabilityStatement (ping under `rest.operation`, echo/hello under Patient in `rest.resource[].operation`).
+
+#### Client invocation
+
+```go
+// Using R4/R5 client wrappers
+res, err := client.InvokeSystem(ctx, "ping", basic.Parameters{})
+res, err := client.InvokeType(ctx, "Patient", "echo", basic.Parameters{ /* name, etc. */ })
+res, err := client.InvokeInstance(ctx, "Patient", "123", "hello", basic.Parameters{})
+
+// Generic interface
+res, err := generic.Invoke(ctx, "", "", "ping", params)
+res, err := generic.Invoke(ctx, "Patient", "", "echo", params)
+res, err := generic.Invoke(ctx, "Patient", "123", "hello", params)
+```
 
 #### CapabilityBase Requirement
 
@@ -231,7 +279,6 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 ## Roadmap
 
 - interactions
-    - $operations
     - support for resource versioning (`vread`, `history`)
     - at some point `patch` and `batch/transaction`, but no priority at the moment
 - constants for code systems and/or value-sets
