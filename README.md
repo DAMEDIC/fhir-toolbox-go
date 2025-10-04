@@ -163,6 +163,34 @@ res, err := generic.Invoke(ctx, "Patient", "", "echo", params)
 res, err := generic.Invoke(ctx, "Patient", "123", "hello", params)
 ```
 
+#### Typed Invoke helpers (generated)
+
+In addition to `InvokeSystem`, `InvokeType`, and `InvokeInstance`, the client exposes generated convenience methods for spec-defined operations:
+
+- System-level: `InvokeXxx(ctx, params)` calls `/$xxx`, e.g.:
+
+  ```go
+  // R4 terminology and conformance examples
+  res, err := client.InvokeVersions(ctx, basic.Parameters{}) // /$versions
+  res, err := client.InvokeClosure(ctx, basic.Parameters{})  // /$closure
+  ```
+
+- Type/Instance-level: `Invoke{Resource}Xxx(ctx, params, id ...string)` calls `/{type}/$xxx` or `/{type}/{id}/$xxx` depending on whether `id` is provided, e.g.:
+
+  ```go
+  // Patient $everything
+  res, err := client.InvokePatientEverything(ctx, basic.Parameters{})           // /Patient/$everything
+  res, err := client.InvokePatientEverything(ctx, basic.Parameters{}, "123")   // /Patient/123/$everything
+
+  // ValueSet $expand
+  res, err := client.InvokeValueSetExpand(ctx, basic.Parameters{})              // /ValueSet/$expand
+
+  // Observation $lastn (type)
+  res, err := client.InvokeObservationLastn(ctx, basic.Parameters{})            // /Observation/$lastn
+  ```
+
+These helpers are derived from the HL7 FHIR operations list for each release (R4, R4B, R5) during code generation and are available alongside other generated client methods.
+
 #### CapabilityBase Requirement
 
 **Important**: When using the concrete API, you must implement the `CapabilityBase` method:

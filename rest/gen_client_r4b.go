@@ -7152,3 +7152,5652 @@ func (c *ClientR4B) SearchVisionPrescription(ctx context.Context, parameters sea
 	wrapper := r4b.Concrete{Generic: client}
 	return wrapper.SearchVisionPrescription(ctx, parameters, options)
 }
+
+// InvokeClosure invokes the system-level $closure operation.
+func (c *ClientR4B) InvokeClosure(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$closure", parameters)
+}
+
+// InvokeConvert invokes the system-level $convert operation.
+func (c *ClientR4B) InvokeConvert(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$convert", parameters)
+}
+
+// InvokeDataRequirements invokes the system-level $data-requirements operation.
+func (c *ClientR4B) InvokeDataRequirements(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$data-requirements", parameters)
+}
+
+// InvokeGraphql invokes the system-level $graphql operation.
+func (c *ClientR4B) InvokeGraphql(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$graphql", parameters)
+}
+
+// InvokeMeta invokes the system-level $meta operation.
+func (c *ClientR4B) InvokeMeta(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$meta", parameters)
+}
+
+// InvokeProcessMessage invokes the system-level $process-message operation.
+func (c *ClientR4B) InvokeProcessMessage(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$process-message", parameters)
+}
+
+// InvokeVersions invokes the system-level $versions operation.
+func (c *ClientR4B) InvokeVersions(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeSystem(ctx, "$versions", parameters)
+}
+
+// InvokeAccountGraph invokes $graph on Account at instance level.
+func (c *ClientR4B) InvokeAccountGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Account", id, "$graph", parameters)
+}
+
+// InvokeAccountGraphql invokes $graphql on Account at instance level.
+func (c *ClientR4B) InvokeAccountGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Account", id, "$graphql", parameters)
+}
+
+// InvokeAccountMeta invokes $meta on Account at type or instance level.
+func (c *ClientR4B) InvokeAccountMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Account", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Account", "$meta", parameters)
+	}
+}
+
+// InvokeAccountMetaAdd invokes $meta-add on Account at instance level.
+func (c *ClientR4B) InvokeAccountMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Account", id, "$meta-add", parameters)
+}
+
+// InvokeAccountMetaDelete invokes $meta-delete on Account at instance level.
+func (c *ClientR4B) InvokeAccountMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Account", id, "$meta-delete", parameters)
+}
+
+// InvokeAccountValidate invokes $validate on Account at type or instance level.
+func (c *ClientR4B) InvokeAccountValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Account", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Account", "$validate", parameters)
+	}
+}
+
+// InvokeActivityDefinitionGraph invokes $graph on ActivityDefinition at instance level.
+func (c *ClientR4B) InvokeActivityDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ActivityDefinition", id, "$graph", parameters)
+}
+
+// InvokeActivityDefinitionGraphql invokes $graphql on ActivityDefinition at instance level.
+func (c *ClientR4B) InvokeActivityDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ActivityDefinition", id, "$graphql", parameters)
+}
+
+// InvokeActivityDefinitionMeta invokes $meta on ActivityDefinition at type or instance level.
+func (c *ClientR4B) InvokeActivityDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ActivityDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ActivityDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeActivityDefinitionMetaAdd invokes $meta-add on ActivityDefinition at instance level.
+func (c *ClientR4B) InvokeActivityDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ActivityDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeActivityDefinitionMetaDelete invokes $meta-delete on ActivityDefinition at instance level.
+func (c *ClientR4B) InvokeActivityDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ActivityDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeActivityDefinitionValidate invokes $validate on ActivityDefinition at type or instance level.
+func (c *ClientR4B) InvokeActivityDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ActivityDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ActivityDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeAdministrableProductDefinitionGraph invokes $graph on AdministrableProductDefinition at instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdministrableProductDefinition", id, "$graph", parameters)
+}
+
+// InvokeAdministrableProductDefinitionGraphql invokes $graphql on AdministrableProductDefinition at instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdministrableProductDefinition", id, "$graphql", parameters)
+}
+
+// InvokeAdministrableProductDefinitionMeta invokes $meta on AdministrableProductDefinition at type or instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AdministrableProductDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "AdministrableProductDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeAdministrableProductDefinitionMetaAdd invokes $meta-add on AdministrableProductDefinition at instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdministrableProductDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeAdministrableProductDefinitionMetaDelete invokes $meta-delete on AdministrableProductDefinition at instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdministrableProductDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeAdministrableProductDefinitionValidate invokes $validate on AdministrableProductDefinition at type or instance level.
+func (c *ClientR4B) InvokeAdministrableProductDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AdministrableProductDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "AdministrableProductDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeAdverseEventGraph invokes $graph on AdverseEvent at instance level.
+func (c *ClientR4B) InvokeAdverseEventGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdverseEvent", id, "$graph", parameters)
+}
+
+// InvokeAdverseEventGraphql invokes $graphql on AdverseEvent at instance level.
+func (c *ClientR4B) InvokeAdverseEventGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdverseEvent", id, "$graphql", parameters)
+}
+
+// InvokeAdverseEventMeta invokes $meta on AdverseEvent at type or instance level.
+func (c *ClientR4B) InvokeAdverseEventMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AdverseEvent", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "AdverseEvent", "$meta", parameters)
+	}
+}
+
+// InvokeAdverseEventMetaAdd invokes $meta-add on AdverseEvent at instance level.
+func (c *ClientR4B) InvokeAdverseEventMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdverseEvent", id, "$meta-add", parameters)
+}
+
+// InvokeAdverseEventMetaDelete invokes $meta-delete on AdverseEvent at instance level.
+func (c *ClientR4B) InvokeAdverseEventMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AdverseEvent", id, "$meta-delete", parameters)
+}
+
+// InvokeAdverseEventValidate invokes $validate on AdverseEvent at type or instance level.
+func (c *ClientR4B) InvokeAdverseEventValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AdverseEvent", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "AdverseEvent", "$validate", parameters)
+	}
+}
+
+// InvokeAllergyIntoleranceGraph invokes $graph on AllergyIntolerance at instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AllergyIntolerance", id, "$graph", parameters)
+}
+
+// InvokeAllergyIntoleranceGraphql invokes $graphql on AllergyIntolerance at instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AllergyIntolerance", id, "$graphql", parameters)
+}
+
+// InvokeAllergyIntoleranceMeta invokes $meta on AllergyIntolerance at type or instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AllergyIntolerance", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "AllergyIntolerance", "$meta", parameters)
+	}
+}
+
+// InvokeAllergyIntoleranceMetaAdd invokes $meta-add on AllergyIntolerance at instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AllergyIntolerance", id, "$meta-add", parameters)
+}
+
+// InvokeAllergyIntoleranceMetaDelete invokes $meta-delete on AllergyIntolerance at instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AllergyIntolerance", id, "$meta-delete", parameters)
+}
+
+// InvokeAllergyIntoleranceValidate invokes $validate on AllergyIntolerance at type or instance level.
+func (c *ClientR4B) InvokeAllergyIntoleranceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AllergyIntolerance", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "AllergyIntolerance", "$validate", parameters)
+	}
+}
+
+// InvokeAppointmentGraph invokes $graph on Appointment at instance level.
+func (c *ClientR4B) InvokeAppointmentGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Appointment", id, "$graph", parameters)
+}
+
+// InvokeAppointmentGraphql invokes $graphql on Appointment at instance level.
+func (c *ClientR4B) InvokeAppointmentGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Appointment", id, "$graphql", parameters)
+}
+
+// InvokeAppointmentMeta invokes $meta on Appointment at type or instance level.
+func (c *ClientR4B) InvokeAppointmentMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Appointment", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Appointment", "$meta", parameters)
+	}
+}
+
+// InvokeAppointmentMetaAdd invokes $meta-add on Appointment at instance level.
+func (c *ClientR4B) InvokeAppointmentMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Appointment", id, "$meta-add", parameters)
+}
+
+// InvokeAppointmentMetaDelete invokes $meta-delete on Appointment at instance level.
+func (c *ClientR4B) InvokeAppointmentMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Appointment", id, "$meta-delete", parameters)
+}
+
+// InvokeAppointmentValidate invokes $validate on Appointment at type or instance level.
+func (c *ClientR4B) InvokeAppointmentValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Appointment", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Appointment", "$validate", parameters)
+	}
+}
+
+// InvokeAppointmentResponseGraph invokes $graph on AppointmentResponse at instance level.
+func (c *ClientR4B) InvokeAppointmentResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AppointmentResponse", id, "$graph", parameters)
+}
+
+// InvokeAppointmentResponseGraphql invokes $graphql on AppointmentResponse at instance level.
+func (c *ClientR4B) InvokeAppointmentResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AppointmentResponse", id, "$graphql", parameters)
+}
+
+// InvokeAppointmentResponseMeta invokes $meta on AppointmentResponse at type or instance level.
+func (c *ClientR4B) InvokeAppointmentResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AppointmentResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "AppointmentResponse", "$meta", parameters)
+	}
+}
+
+// InvokeAppointmentResponseMetaAdd invokes $meta-add on AppointmentResponse at instance level.
+func (c *ClientR4B) InvokeAppointmentResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AppointmentResponse", id, "$meta-add", parameters)
+}
+
+// InvokeAppointmentResponseMetaDelete invokes $meta-delete on AppointmentResponse at instance level.
+func (c *ClientR4B) InvokeAppointmentResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AppointmentResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeAppointmentResponseValidate invokes $validate on AppointmentResponse at type or instance level.
+func (c *ClientR4B) InvokeAppointmentResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AppointmentResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "AppointmentResponse", "$validate", parameters)
+	}
+}
+
+// InvokeAuditEventGraph invokes $graph on AuditEvent at instance level.
+func (c *ClientR4B) InvokeAuditEventGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AuditEvent", id, "$graph", parameters)
+}
+
+// InvokeAuditEventGraphql invokes $graphql on AuditEvent at instance level.
+func (c *ClientR4B) InvokeAuditEventGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AuditEvent", id, "$graphql", parameters)
+}
+
+// InvokeAuditEventMeta invokes $meta on AuditEvent at type or instance level.
+func (c *ClientR4B) InvokeAuditEventMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AuditEvent", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "AuditEvent", "$meta", parameters)
+	}
+}
+
+// InvokeAuditEventMetaAdd invokes $meta-add on AuditEvent at instance level.
+func (c *ClientR4B) InvokeAuditEventMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AuditEvent", id, "$meta-add", parameters)
+}
+
+// InvokeAuditEventMetaDelete invokes $meta-delete on AuditEvent at instance level.
+func (c *ClientR4B) InvokeAuditEventMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "AuditEvent", id, "$meta-delete", parameters)
+}
+
+// InvokeAuditEventValidate invokes $validate on AuditEvent at type or instance level.
+func (c *ClientR4B) InvokeAuditEventValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "AuditEvent", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "AuditEvent", "$validate", parameters)
+	}
+}
+
+// InvokeBasicGraph invokes $graph on Basic at instance level.
+func (c *ClientR4B) InvokeBasicGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Basic", id, "$graph", parameters)
+}
+
+// InvokeBasicGraphql invokes $graphql on Basic at instance level.
+func (c *ClientR4B) InvokeBasicGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Basic", id, "$graphql", parameters)
+}
+
+// InvokeBasicMeta invokes $meta on Basic at type or instance level.
+func (c *ClientR4B) InvokeBasicMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Basic", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Basic", "$meta", parameters)
+	}
+}
+
+// InvokeBasicMetaAdd invokes $meta-add on Basic at instance level.
+func (c *ClientR4B) InvokeBasicMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Basic", id, "$meta-add", parameters)
+}
+
+// InvokeBasicMetaDelete invokes $meta-delete on Basic at instance level.
+func (c *ClientR4B) InvokeBasicMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Basic", id, "$meta-delete", parameters)
+}
+
+// InvokeBasicValidate invokes $validate on Basic at type or instance level.
+func (c *ClientR4B) InvokeBasicValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Basic", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Basic", "$validate", parameters)
+	}
+}
+
+// InvokeBinaryGraph invokes $graph on Binary at instance level.
+func (c *ClientR4B) InvokeBinaryGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Binary", id, "$graph", parameters)
+}
+
+// InvokeBinaryGraphql invokes $graphql on Binary at instance level.
+func (c *ClientR4B) InvokeBinaryGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Binary", id, "$graphql", parameters)
+}
+
+// InvokeBinaryMeta invokes $meta on Binary at type or instance level.
+func (c *ClientR4B) InvokeBinaryMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Binary", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Binary", "$meta", parameters)
+	}
+}
+
+// InvokeBinaryMetaAdd invokes $meta-add on Binary at instance level.
+func (c *ClientR4B) InvokeBinaryMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Binary", id, "$meta-add", parameters)
+}
+
+// InvokeBinaryMetaDelete invokes $meta-delete on Binary at instance level.
+func (c *ClientR4B) InvokeBinaryMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Binary", id, "$meta-delete", parameters)
+}
+
+// InvokeBinaryValidate invokes $validate on Binary at type or instance level.
+func (c *ClientR4B) InvokeBinaryValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Binary", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Binary", "$validate", parameters)
+	}
+}
+
+// InvokeBiologicallyDerivedProductGraph invokes $graph on BiologicallyDerivedProduct at instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id, "$graph", parameters)
+}
+
+// InvokeBiologicallyDerivedProductGraphql invokes $graphql on BiologicallyDerivedProduct at instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id, "$graphql", parameters)
+}
+
+// InvokeBiologicallyDerivedProductMeta invokes $meta on BiologicallyDerivedProduct at type or instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "BiologicallyDerivedProduct", "$meta", parameters)
+	}
+}
+
+// InvokeBiologicallyDerivedProductMetaAdd invokes $meta-add on BiologicallyDerivedProduct at instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id, "$meta-add", parameters)
+}
+
+// InvokeBiologicallyDerivedProductMetaDelete invokes $meta-delete on BiologicallyDerivedProduct at instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id, "$meta-delete", parameters)
+}
+
+// InvokeBiologicallyDerivedProductValidate invokes $validate on BiologicallyDerivedProduct at type or instance level.
+func (c *ClientR4B) InvokeBiologicallyDerivedProductValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "BiologicallyDerivedProduct", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "BiologicallyDerivedProduct", "$validate", parameters)
+	}
+}
+
+// InvokeBodyStructureGraph invokes $graph on BodyStructure at instance level.
+func (c *ClientR4B) InvokeBodyStructureGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BodyStructure", id, "$graph", parameters)
+}
+
+// InvokeBodyStructureGraphql invokes $graphql on BodyStructure at instance level.
+func (c *ClientR4B) InvokeBodyStructureGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BodyStructure", id, "$graphql", parameters)
+}
+
+// InvokeBodyStructureMeta invokes $meta on BodyStructure at type or instance level.
+func (c *ClientR4B) InvokeBodyStructureMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "BodyStructure", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "BodyStructure", "$meta", parameters)
+	}
+}
+
+// InvokeBodyStructureMetaAdd invokes $meta-add on BodyStructure at instance level.
+func (c *ClientR4B) InvokeBodyStructureMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BodyStructure", id, "$meta-add", parameters)
+}
+
+// InvokeBodyStructureMetaDelete invokes $meta-delete on BodyStructure at instance level.
+func (c *ClientR4B) InvokeBodyStructureMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "BodyStructure", id, "$meta-delete", parameters)
+}
+
+// InvokeBodyStructureValidate invokes $validate on BodyStructure at type or instance level.
+func (c *ClientR4B) InvokeBodyStructureValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "BodyStructure", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "BodyStructure", "$validate", parameters)
+	}
+}
+
+// InvokeBundleGraph invokes $graph on Bundle at instance level.
+func (c *ClientR4B) InvokeBundleGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Bundle", id, "$graph", parameters)
+}
+
+// InvokeBundleGraphql invokes $graphql on Bundle at instance level.
+func (c *ClientR4B) InvokeBundleGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Bundle", id, "$graphql", parameters)
+}
+
+// InvokeBundleMeta invokes $meta on Bundle at type or instance level.
+func (c *ClientR4B) InvokeBundleMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Bundle", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Bundle", "$meta", parameters)
+	}
+}
+
+// InvokeBundleMetaAdd invokes $meta-add on Bundle at instance level.
+func (c *ClientR4B) InvokeBundleMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Bundle", id, "$meta-add", parameters)
+}
+
+// InvokeBundleMetaDelete invokes $meta-delete on Bundle at instance level.
+func (c *ClientR4B) InvokeBundleMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Bundle", id, "$meta-delete", parameters)
+}
+
+// InvokeBundleValidate invokes $validate on Bundle at type or instance level.
+func (c *ClientR4B) InvokeBundleValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Bundle", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Bundle", "$validate", parameters)
+	}
+}
+
+// InvokeCapabilityStatementGraph invokes $graph on CapabilityStatement at instance level.
+func (c *ClientR4B) InvokeCapabilityStatementGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CapabilityStatement", id, "$graph", parameters)
+}
+
+// InvokeCapabilityStatementGraphql invokes $graphql on CapabilityStatement at instance level.
+func (c *ClientR4B) InvokeCapabilityStatementGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CapabilityStatement", id, "$graphql", parameters)
+}
+
+// InvokeCapabilityStatementMeta invokes $meta on CapabilityStatement at type or instance level.
+func (c *ClientR4B) InvokeCapabilityStatementMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CapabilityStatement", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CapabilityStatement", "$meta", parameters)
+	}
+}
+
+// InvokeCapabilityStatementMetaAdd invokes $meta-add on CapabilityStatement at instance level.
+func (c *ClientR4B) InvokeCapabilityStatementMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CapabilityStatement", id, "$meta-add", parameters)
+}
+
+// InvokeCapabilityStatementMetaDelete invokes $meta-delete on CapabilityStatement at instance level.
+func (c *ClientR4B) InvokeCapabilityStatementMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CapabilityStatement", id, "$meta-delete", parameters)
+}
+
+// InvokeCapabilityStatementValidate invokes $validate on CapabilityStatement at type or instance level.
+func (c *ClientR4B) InvokeCapabilityStatementValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CapabilityStatement", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CapabilityStatement", "$validate", parameters)
+	}
+}
+
+// InvokeCarePlanGraph invokes $graph on CarePlan at instance level.
+func (c *ClientR4B) InvokeCarePlanGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CarePlan", id, "$graph", parameters)
+}
+
+// InvokeCarePlanGraphql invokes $graphql on CarePlan at instance level.
+func (c *ClientR4B) InvokeCarePlanGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CarePlan", id, "$graphql", parameters)
+}
+
+// InvokeCarePlanMeta invokes $meta on CarePlan at type or instance level.
+func (c *ClientR4B) InvokeCarePlanMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CarePlan", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CarePlan", "$meta", parameters)
+	}
+}
+
+// InvokeCarePlanMetaAdd invokes $meta-add on CarePlan at instance level.
+func (c *ClientR4B) InvokeCarePlanMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CarePlan", id, "$meta-add", parameters)
+}
+
+// InvokeCarePlanMetaDelete invokes $meta-delete on CarePlan at instance level.
+func (c *ClientR4B) InvokeCarePlanMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CarePlan", id, "$meta-delete", parameters)
+}
+
+// InvokeCarePlanValidate invokes $validate on CarePlan at type or instance level.
+func (c *ClientR4B) InvokeCarePlanValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CarePlan", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CarePlan", "$validate", parameters)
+	}
+}
+
+// InvokeCareTeamGraph invokes $graph on CareTeam at instance level.
+func (c *ClientR4B) InvokeCareTeamGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CareTeam", id, "$graph", parameters)
+}
+
+// InvokeCareTeamGraphql invokes $graphql on CareTeam at instance level.
+func (c *ClientR4B) InvokeCareTeamGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CareTeam", id, "$graphql", parameters)
+}
+
+// InvokeCareTeamMeta invokes $meta on CareTeam at type or instance level.
+func (c *ClientR4B) InvokeCareTeamMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CareTeam", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CareTeam", "$meta", parameters)
+	}
+}
+
+// InvokeCareTeamMetaAdd invokes $meta-add on CareTeam at instance level.
+func (c *ClientR4B) InvokeCareTeamMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CareTeam", id, "$meta-add", parameters)
+}
+
+// InvokeCareTeamMetaDelete invokes $meta-delete on CareTeam at instance level.
+func (c *ClientR4B) InvokeCareTeamMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CareTeam", id, "$meta-delete", parameters)
+}
+
+// InvokeCareTeamValidate invokes $validate on CareTeam at type or instance level.
+func (c *ClientR4B) InvokeCareTeamValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CareTeam", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CareTeam", "$validate", parameters)
+	}
+}
+
+// InvokeCatalogEntryGraph invokes $graph on CatalogEntry at instance level.
+func (c *ClientR4B) InvokeCatalogEntryGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CatalogEntry", id, "$graph", parameters)
+}
+
+// InvokeCatalogEntryGraphql invokes $graphql on CatalogEntry at instance level.
+func (c *ClientR4B) InvokeCatalogEntryGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CatalogEntry", id, "$graphql", parameters)
+}
+
+// InvokeCatalogEntryMeta invokes $meta on CatalogEntry at type or instance level.
+func (c *ClientR4B) InvokeCatalogEntryMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CatalogEntry", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CatalogEntry", "$meta", parameters)
+	}
+}
+
+// InvokeCatalogEntryMetaAdd invokes $meta-add on CatalogEntry at instance level.
+func (c *ClientR4B) InvokeCatalogEntryMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CatalogEntry", id, "$meta-add", parameters)
+}
+
+// InvokeCatalogEntryMetaDelete invokes $meta-delete on CatalogEntry at instance level.
+func (c *ClientR4B) InvokeCatalogEntryMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CatalogEntry", id, "$meta-delete", parameters)
+}
+
+// InvokeCatalogEntryValidate invokes $validate on CatalogEntry at type or instance level.
+func (c *ClientR4B) InvokeCatalogEntryValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CatalogEntry", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CatalogEntry", "$validate", parameters)
+	}
+}
+
+// InvokeChargeItemGraph invokes $graph on ChargeItem at instance level.
+func (c *ClientR4B) InvokeChargeItemGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItem", id, "$graph", parameters)
+}
+
+// InvokeChargeItemGraphql invokes $graphql on ChargeItem at instance level.
+func (c *ClientR4B) InvokeChargeItemGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItem", id, "$graphql", parameters)
+}
+
+// InvokeChargeItemMeta invokes $meta on ChargeItem at type or instance level.
+func (c *ClientR4B) InvokeChargeItemMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ChargeItem", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ChargeItem", "$meta", parameters)
+	}
+}
+
+// InvokeChargeItemMetaAdd invokes $meta-add on ChargeItem at instance level.
+func (c *ClientR4B) InvokeChargeItemMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItem", id, "$meta-add", parameters)
+}
+
+// InvokeChargeItemMetaDelete invokes $meta-delete on ChargeItem at instance level.
+func (c *ClientR4B) InvokeChargeItemMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItem", id, "$meta-delete", parameters)
+}
+
+// InvokeChargeItemValidate invokes $validate on ChargeItem at type or instance level.
+func (c *ClientR4B) InvokeChargeItemValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ChargeItem", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ChargeItem", "$validate", parameters)
+	}
+}
+
+// InvokeChargeItemDefinitionGraph invokes $graph on ChargeItemDefinition at instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItemDefinition", id, "$graph", parameters)
+}
+
+// InvokeChargeItemDefinitionGraphql invokes $graphql on ChargeItemDefinition at instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItemDefinition", id, "$graphql", parameters)
+}
+
+// InvokeChargeItemDefinitionMeta invokes $meta on ChargeItemDefinition at type or instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ChargeItemDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ChargeItemDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeChargeItemDefinitionMetaAdd invokes $meta-add on ChargeItemDefinition at instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItemDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeChargeItemDefinitionMetaDelete invokes $meta-delete on ChargeItemDefinition at instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItemDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeChargeItemDefinitionValidate invokes $validate on ChargeItemDefinition at type or instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ChargeItemDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ChargeItemDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeCitationGraph invokes $graph on Citation at instance level.
+func (c *ClientR4B) InvokeCitationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Citation", id, "$graph", parameters)
+}
+
+// InvokeCitationGraphql invokes $graphql on Citation at instance level.
+func (c *ClientR4B) InvokeCitationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Citation", id, "$graphql", parameters)
+}
+
+// InvokeCitationMeta invokes $meta on Citation at type or instance level.
+func (c *ClientR4B) InvokeCitationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Citation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Citation", "$meta", parameters)
+	}
+}
+
+// InvokeCitationMetaAdd invokes $meta-add on Citation at instance level.
+func (c *ClientR4B) InvokeCitationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Citation", id, "$meta-add", parameters)
+}
+
+// InvokeCitationMetaDelete invokes $meta-delete on Citation at instance level.
+func (c *ClientR4B) InvokeCitationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Citation", id, "$meta-delete", parameters)
+}
+
+// InvokeCitationValidate invokes $validate on Citation at type or instance level.
+func (c *ClientR4B) InvokeCitationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Citation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Citation", "$validate", parameters)
+	}
+}
+
+// InvokeClaimGraph invokes $graph on Claim at instance level.
+func (c *ClientR4B) InvokeClaimGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Claim", id, "$graph", parameters)
+}
+
+// InvokeClaimGraphql invokes $graphql on Claim at instance level.
+func (c *ClientR4B) InvokeClaimGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Claim", id, "$graphql", parameters)
+}
+
+// InvokeClaimMeta invokes $meta on Claim at type or instance level.
+func (c *ClientR4B) InvokeClaimMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Claim", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Claim", "$meta", parameters)
+	}
+}
+
+// InvokeClaimMetaAdd invokes $meta-add on Claim at instance level.
+func (c *ClientR4B) InvokeClaimMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Claim", id, "$meta-add", parameters)
+}
+
+// InvokeClaimMetaDelete invokes $meta-delete on Claim at instance level.
+func (c *ClientR4B) InvokeClaimMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Claim", id, "$meta-delete", parameters)
+}
+
+// InvokeClaimValidate invokes $validate on Claim at type or instance level.
+func (c *ClientR4B) InvokeClaimValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Claim", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Claim", "$validate", parameters)
+	}
+}
+
+// InvokeClaimResponseGraph invokes $graph on ClaimResponse at instance level.
+func (c *ClientR4B) InvokeClaimResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClaimResponse", id, "$graph", parameters)
+}
+
+// InvokeClaimResponseGraphql invokes $graphql on ClaimResponse at instance level.
+func (c *ClientR4B) InvokeClaimResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClaimResponse", id, "$graphql", parameters)
+}
+
+// InvokeClaimResponseMeta invokes $meta on ClaimResponse at type or instance level.
+func (c *ClientR4B) InvokeClaimResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClaimResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClaimResponse", "$meta", parameters)
+	}
+}
+
+// InvokeClaimResponseMetaAdd invokes $meta-add on ClaimResponse at instance level.
+func (c *ClientR4B) InvokeClaimResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClaimResponse", id, "$meta-add", parameters)
+}
+
+// InvokeClaimResponseMetaDelete invokes $meta-delete on ClaimResponse at instance level.
+func (c *ClientR4B) InvokeClaimResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClaimResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeClaimResponseValidate invokes $validate on ClaimResponse at type or instance level.
+func (c *ClientR4B) InvokeClaimResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClaimResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClaimResponse", "$validate", parameters)
+	}
+}
+
+// InvokeClinicalImpressionGraph invokes $graph on ClinicalImpression at instance level.
+func (c *ClientR4B) InvokeClinicalImpressionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalImpression", id, "$graph", parameters)
+}
+
+// InvokeClinicalImpressionGraphql invokes $graphql on ClinicalImpression at instance level.
+func (c *ClientR4B) InvokeClinicalImpressionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalImpression", id, "$graphql", parameters)
+}
+
+// InvokeClinicalImpressionMeta invokes $meta on ClinicalImpression at type or instance level.
+func (c *ClientR4B) InvokeClinicalImpressionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClinicalImpression", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClinicalImpression", "$meta", parameters)
+	}
+}
+
+// InvokeClinicalImpressionMetaAdd invokes $meta-add on ClinicalImpression at instance level.
+func (c *ClientR4B) InvokeClinicalImpressionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalImpression", id, "$meta-add", parameters)
+}
+
+// InvokeClinicalImpressionMetaDelete invokes $meta-delete on ClinicalImpression at instance level.
+func (c *ClientR4B) InvokeClinicalImpressionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalImpression", id, "$meta-delete", parameters)
+}
+
+// InvokeClinicalImpressionValidate invokes $validate on ClinicalImpression at type or instance level.
+func (c *ClientR4B) InvokeClinicalImpressionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClinicalImpression", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClinicalImpression", "$validate", parameters)
+	}
+}
+
+// InvokeClinicalUseDefinitionGraph invokes $graph on ClinicalUseDefinition at instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalUseDefinition", id, "$graph", parameters)
+}
+
+// InvokeClinicalUseDefinitionGraphql invokes $graphql on ClinicalUseDefinition at instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalUseDefinition", id, "$graphql", parameters)
+}
+
+// InvokeClinicalUseDefinitionMeta invokes $meta on ClinicalUseDefinition at type or instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClinicalUseDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClinicalUseDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeClinicalUseDefinitionMetaAdd invokes $meta-add on ClinicalUseDefinition at instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalUseDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeClinicalUseDefinitionMetaDelete invokes $meta-delete on ClinicalUseDefinition at instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ClinicalUseDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeClinicalUseDefinitionValidate invokes $validate on ClinicalUseDefinition at type or instance level.
+func (c *ClientR4B) InvokeClinicalUseDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ClinicalUseDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ClinicalUseDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeCodeSystemGraph invokes $graph on CodeSystem at instance level.
+func (c *ClientR4B) InvokeCodeSystemGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CodeSystem", id, "$graph", parameters)
+}
+
+// InvokeCodeSystemGraphql invokes $graphql on CodeSystem at instance level.
+func (c *ClientR4B) InvokeCodeSystemGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CodeSystem", id, "$graphql", parameters)
+}
+
+// InvokeCodeSystemMeta invokes $meta on CodeSystem at type or instance level.
+func (c *ClientR4B) InvokeCodeSystemMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CodeSystem", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CodeSystem", "$meta", parameters)
+	}
+}
+
+// InvokeCodeSystemMetaAdd invokes $meta-add on CodeSystem at instance level.
+func (c *ClientR4B) InvokeCodeSystemMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CodeSystem", id, "$meta-add", parameters)
+}
+
+// InvokeCodeSystemMetaDelete invokes $meta-delete on CodeSystem at instance level.
+func (c *ClientR4B) InvokeCodeSystemMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CodeSystem", id, "$meta-delete", parameters)
+}
+
+// InvokeCodeSystemValidate invokes $validate on CodeSystem at type or instance level.
+func (c *ClientR4B) InvokeCodeSystemValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CodeSystem", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CodeSystem", "$validate", parameters)
+	}
+}
+
+// InvokeCommunicationGraph invokes $graph on Communication at instance level.
+func (c *ClientR4B) InvokeCommunicationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Communication", id, "$graph", parameters)
+}
+
+// InvokeCommunicationGraphql invokes $graphql on Communication at instance level.
+func (c *ClientR4B) InvokeCommunicationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Communication", id, "$graphql", parameters)
+}
+
+// InvokeCommunicationMeta invokes $meta on Communication at type or instance level.
+func (c *ClientR4B) InvokeCommunicationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Communication", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Communication", "$meta", parameters)
+	}
+}
+
+// InvokeCommunicationMetaAdd invokes $meta-add on Communication at instance level.
+func (c *ClientR4B) InvokeCommunicationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Communication", id, "$meta-add", parameters)
+}
+
+// InvokeCommunicationMetaDelete invokes $meta-delete on Communication at instance level.
+func (c *ClientR4B) InvokeCommunicationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Communication", id, "$meta-delete", parameters)
+}
+
+// InvokeCommunicationValidate invokes $validate on Communication at type or instance level.
+func (c *ClientR4B) InvokeCommunicationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Communication", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Communication", "$validate", parameters)
+	}
+}
+
+// InvokeCommunicationRequestGraph invokes $graph on CommunicationRequest at instance level.
+func (c *ClientR4B) InvokeCommunicationRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CommunicationRequest", id, "$graph", parameters)
+}
+
+// InvokeCommunicationRequestGraphql invokes $graphql on CommunicationRequest at instance level.
+func (c *ClientR4B) InvokeCommunicationRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CommunicationRequest", id, "$graphql", parameters)
+}
+
+// InvokeCommunicationRequestMeta invokes $meta on CommunicationRequest at type or instance level.
+func (c *ClientR4B) InvokeCommunicationRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CommunicationRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CommunicationRequest", "$meta", parameters)
+	}
+}
+
+// InvokeCommunicationRequestMetaAdd invokes $meta-add on CommunicationRequest at instance level.
+func (c *ClientR4B) InvokeCommunicationRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CommunicationRequest", id, "$meta-add", parameters)
+}
+
+// InvokeCommunicationRequestMetaDelete invokes $meta-delete on CommunicationRequest at instance level.
+func (c *ClientR4B) InvokeCommunicationRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CommunicationRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeCommunicationRequestValidate invokes $validate on CommunicationRequest at type or instance level.
+func (c *ClientR4B) InvokeCommunicationRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CommunicationRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CommunicationRequest", "$validate", parameters)
+	}
+}
+
+// InvokeCompartmentDefinitionGraph invokes $graph on CompartmentDefinition at instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CompartmentDefinition", id, "$graph", parameters)
+}
+
+// InvokeCompartmentDefinitionGraphql invokes $graphql on CompartmentDefinition at instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CompartmentDefinition", id, "$graphql", parameters)
+}
+
+// InvokeCompartmentDefinitionMeta invokes $meta on CompartmentDefinition at type or instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CompartmentDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CompartmentDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeCompartmentDefinitionMetaAdd invokes $meta-add on CompartmentDefinition at instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CompartmentDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeCompartmentDefinitionMetaDelete invokes $meta-delete on CompartmentDefinition at instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CompartmentDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeCompartmentDefinitionValidate invokes $validate on CompartmentDefinition at type or instance level.
+func (c *ClientR4B) InvokeCompartmentDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CompartmentDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CompartmentDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeCompositionGraph invokes $graph on Composition at instance level.
+func (c *ClientR4B) InvokeCompositionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Composition", id, "$graph", parameters)
+}
+
+// InvokeCompositionGraphql invokes $graphql on Composition at instance level.
+func (c *ClientR4B) InvokeCompositionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Composition", id, "$graphql", parameters)
+}
+
+// InvokeCompositionMeta invokes $meta on Composition at type or instance level.
+func (c *ClientR4B) InvokeCompositionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Composition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Composition", "$meta", parameters)
+	}
+}
+
+// InvokeCompositionMetaAdd invokes $meta-add on Composition at instance level.
+func (c *ClientR4B) InvokeCompositionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Composition", id, "$meta-add", parameters)
+}
+
+// InvokeCompositionMetaDelete invokes $meta-delete on Composition at instance level.
+func (c *ClientR4B) InvokeCompositionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Composition", id, "$meta-delete", parameters)
+}
+
+// InvokeCompositionValidate invokes $validate on Composition at type or instance level.
+func (c *ClientR4B) InvokeCompositionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Composition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Composition", "$validate", parameters)
+	}
+}
+
+// InvokeConceptMapGraph invokes $graph on ConceptMap at instance level.
+func (c *ClientR4B) InvokeConceptMapGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ConceptMap", id, "$graph", parameters)
+}
+
+// InvokeConceptMapGraphql invokes $graphql on ConceptMap at instance level.
+func (c *ClientR4B) InvokeConceptMapGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ConceptMap", id, "$graphql", parameters)
+}
+
+// InvokeConceptMapMeta invokes $meta on ConceptMap at type or instance level.
+func (c *ClientR4B) InvokeConceptMapMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ConceptMap", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ConceptMap", "$meta", parameters)
+	}
+}
+
+// InvokeConceptMapMetaAdd invokes $meta-add on ConceptMap at instance level.
+func (c *ClientR4B) InvokeConceptMapMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ConceptMap", id, "$meta-add", parameters)
+}
+
+// InvokeConceptMapMetaDelete invokes $meta-delete on ConceptMap at instance level.
+func (c *ClientR4B) InvokeConceptMapMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ConceptMap", id, "$meta-delete", parameters)
+}
+
+// InvokeConceptMapValidate invokes $validate on ConceptMap at type or instance level.
+func (c *ClientR4B) InvokeConceptMapValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ConceptMap", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ConceptMap", "$validate", parameters)
+	}
+}
+
+// InvokeConditionGraph invokes $graph on Condition at instance level.
+func (c *ClientR4B) InvokeConditionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Condition", id, "$graph", parameters)
+}
+
+// InvokeConditionGraphql invokes $graphql on Condition at instance level.
+func (c *ClientR4B) InvokeConditionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Condition", id, "$graphql", parameters)
+}
+
+// InvokeConditionMeta invokes $meta on Condition at type or instance level.
+func (c *ClientR4B) InvokeConditionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Condition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Condition", "$meta", parameters)
+	}
+}
+
+// InvokeConditionMetaAdd invokes $meta-add on Condition at instance level.
+func (c *ClientR4B) InvokeConditionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Condition", id, "$meta-add", parameters)
+}
+
+// InvokeConditionMetaDelete invokes $meta-delete on Condition at instance level.
+func (c *ClientR4B) InvokeConditionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Condition", id, "$meta-delete", parameters)
+}
+
+// InvokeConditionValidate invokes $validate on Condition at type or instance level.
+func (c *ClientR4B) InvokeConditionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Condition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Condition", "$validate", parameters)
+	}
+}
+
+// InvokeConsentGraph invokes $graph on Consent at instance level.
+func (c *ClientR4B) InvokeConsentGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Consent", id, "$graph", parameters)
+}
+
+// InvokeConsentGraphql invokes $graphql on Consent at instance level.
+func (c *ClientR4B) InvokeConsentGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Consent", id, "$graphql", parameters)
+}
+
+// InvokeConsentMeta invokes $meta on Consent at type or instance level.
+func (c *ClientR4B) InvokeConsentMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Consent", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Consent", "$meta", parameters)
+	}
+}
+
+// InvokeConsentMetaAdd invokes $meta-add on Consent at instance level.
+func (c *ClientR4B) InvokeConsentMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Consent", id, "$meta-add", parameters)
+}
+
+// InvokeConsentMetaDelete invokes $meta-delete on Consent at instance level.
+func (c *ClientR4B) InvokeConsentMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Consent", id, "$meta-delete", parameters)
+}
+
+// InvokeConsentValidate invokes $validate on Consent at type or instance level.
+func (c *ClientR4B) InvokeConsentValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Consent", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Consent", "$validate", parameters)
+	}
+}
+
+// InvokeContractGraph invokes $graph on Contract at instance level.
+func (c *ClientR4B) InvokeContractGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Contract", id, "$graph", parameters)
+}
+
+// InvokeContractGraphql invokes $graphql on Contract at instance level.
+func (c *ClientR4B) InvokeContractGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Contract", id, "$graphql", parameters)
+}
+
+// InvokeContractMeta invokes $meta on Contract at type or instance level.
+func (c *ClientR4B) InvokeContractMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Contract", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Contract", "$meta", parameters)
+	}
+}
+
+// InvokeContractMetaAdd invokes $meta-add on Contract at instance level.
+func (c *ClientR4B) InvokeContractMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Contract", id, "$meta-add", parameters)
+}
+
+// InvokeContractMetaDelete invokes $meta-delete on Contract at instance level.
+func (c *ClientR4B) InvokeContractMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Contract", id, "$meta-delete", parameters)
+}
+
+// InvokeContractValidate invokes $validate on Contract at type or instance level.
+func (c *ClientR4B) InvokeContractValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Contract", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Contract", "$validate", parameters)
+	}
+}
+
+// InvokeCoverageGraph invokes $graph on Coverage at instance level.
+func (c *ClientR4B) InvokeCoverageGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Coverage", id, "$graph", parameters)
+}
+
+// InvokeCoverageGraphql invokes $graphql on Coverage at instance level.
+func (c *ClientR4B) InvokeCoverageGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Coverage", id, "$graphql", parameters)
+}
+
+// InvokeCoverageMeta invokes $meta on Coverage at type or instance level.
+func (c *ClientR4B) InvokeCoverageMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Coverage", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Coverage", "$meta", parameters)
+	}
+}
+
+// InvokeCoverageMetaAdd invokes $meta-add on Coverage at instance level.
+func (c *ClientR4B) InvokeCoverageMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Coverage", id, "$meta-add", parameters)
+}
+
+// InvokeCoverageMetaDelete invokes $meta-delete on Coverage at instance level.
+func (c *ClientR4B) InvokeCoverageMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Coverage", id, "$meta-delete", parameters)
+}
+
+// InvokeCoverageValidate invokes $validate on Coverage at type or instance level.
+func (c *ClientR4B) InvokeCoverageValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Coverage", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Coverage", "$validate", parameters)
+	}
+}
+
+// InvokeCoverageEligibilityRequestGraph invokes $graph on CoverageEligibilityRequest at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id, "$graph", parameters)
+}
+
+// InvokeCoverageEligibilityRequestGraphql invokes $graphql on CoverageEligibilityRequest at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id, "$graphql", parameters)
+}
+
+// InvokeCoverageEligibilityRequestMeta invokes $meta on CoverageEligibilityRequest at type or instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CoverageEligibilityRequest", "$meta", parameters)
+	}
+}
+
+// InvokeCoverageEligibilityRequestMetaAdd invokes $meta-add on CoverageEligibilityRequest at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id, "$meta-add", parameters)
+}
+
+// InvokeCoverageEligibilityRequestMetaDelete invokes $meta-delete on CoverageEligibilityRequest at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeCoverageEligibilityRequestValidate invokes $validate on CoverageEligibilityRequest at type or instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CoverageEligibilityRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CoverageEligibilityRequest", "$validate", parameters)
+	}
+}
+
+// InvokeCoverageEligibilityResponseGraph invokes $graph on CoverageEligibilityResponse at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id, "$graph", parameters)
+}
+
+// InvokeCoverageEligibilityResponseGraphql invokes $graphql on CoverageEligibilityResponse at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id, "$graphql", parameters)
+}
+
+// InvokeCoverageEligibilityResponseMeta invokes $meta on CoverageEligibilityResponse at type or instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "CoverageEligibilityResponse", "$meta", parameters)
+	}
+}
+
+// InvokeCoverageEligibilityResponseMetaAdd invokes $meta-add on CoverageEligibilityResponse at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id, "$meta-add", parameters)
+}
+
+// InvokeCoverageEligibilityResponseMetaDelete invokes $meta-delete on CoverageEligibilityResponse at instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeCoverageEligibilityResponseValidate invokes $validate on CoverageEligibilityResponse at type or instance level.
+func (c *ClientR4B) InvokeCoverageEligibilityResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CoverageEligibilityResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "CoverageEligibilityResponse", "$validate", parameters)
+	}
+}
+
+// InvokeDetectedIssueGraph invokes $graph on DetectedIssue at instance level.
+func (c *ClientR4B) InvokeDetectedIssueGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DetectedIssue", id, "$graph", parameters)
+}
+
+// InvokeDetectedIssueGraphql invokes $graphql on DetectedIssue at instance level.
+func (c *ClientR4B) InvokeDetectedIssueGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DetectedIssue", id, "$graphql", parameters)
+}
+
+// InvokeDetectedIssueMeta invokes $meta on DetectedIssue at type or instance level.
+func (c *ClientR4B) InvokeDetectedIssueMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DetectedIssue", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DetectedIssue", "$meta", parameters)
+	}
+}
+
+// InvokeDetectedIssueMetaAdd invokes $meta-add on DetectedIssue at instance level.
+func (c *ClientR4B) InvokeDetectedIssueMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DetectedIssue", id, "$meta-add", parameters)
+}
+
+// InvokeDetectedIssueMetaDelete invokes $meta-delete on DetectedIssue at instance level.
+func (c *ClientR4B) InvokeDetectedIssueMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DetectedIssue", id, "$meta-delete", parameters)
+}
+
+// InvokeDetectedIssueValidate invokes $validate on DetectedIssue at type or instance level.
+func (c *ClientR4B) InvokeDetectedIssueValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DetectedIssue", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DetectedIssue", "$validate", parameters)
+	}
+}
+
+// InvokeDeviceGraph invokes $graph on Device at instance level.
+func (c *ClientR4B) InvokeDeviceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Device", id, "$graph", parameters)
+}
+
+// InvokeDeviceGraphql invokes $graphql on Device at instance level.
+func (c *ClientR4B) InvokeDeviceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Device", id, "$graphql", parameters)
+}
+
+// InvokeDeviceMeta invokes $meta on Device at type or instance level.
+func (c *ClientR4B) InvokeDeviceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Device", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Device", "$meta", parameters)
+	}
+}
+
+// InvokeDeviceMetaAdd invokes $meta-add on Device at instance level.
+func (c *ClientR4B) InvokeDeviceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Device", id, "$meta-add", parameters)
+}
+
+// InvokeDeviceMetaDelete invokes $meta-delete on Device at instance level.
+func (c *ClientR4B) InvokeDeviceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Device", id, "$meta-delete", parameters)
+}
+
+// InvokeDeviceValidate invokes $validate on Device at type or instance level.
+func (c *ClientR4B) InvokeDeviceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Device", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Device", "$validate", parameters)
+	}
+}
+
+// InvokeDeviceDefinitionGraph invokes $graph on DeviceDefinition at instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceDefinition", id, "$graph", parameters)
+}
+
+// InvokeDeviceDefinitionGraphql invokes $graphql on DeviceDefinition at instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceDefinition", id, "$graphql", parameters)
+}
+
+// InvokeDeviceDefinitionMeta invokes $meta on DeviceDefinition at type or instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeDeviceDefinitionMetaAdd invokes $meta-add on DeviceDefinition at instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeDeviceDefinitionMetaDelete invokes $meta-delete on DeviceDefinition at instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeDeviceDefinitionValidate invokes $validate on DeviceDefinition at type or instance level.
+func (c *ClientR4B) InvokeDeviceDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeDeviceMetricGraph invokes $graph on DeviceMetric at instance level.
+func (c *ClientR4B) InvokeDeviceMetricGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceMetric", id, "$graph", parameters)
+}
+
+// InvokeDeviceMetricGraphql invokes $graphql on DeviceMetric at instance level.
+func (c *ClientR4B) InvokeDeviceMetricGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceMetric", id, "$graphql", parameters)
+}
+
+// InvokeDeviceMetricMeta invokes $meta on DeviceMetric at type or instance level.
+func (c *ClientR4B) InvokeDeviceMetricMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceMetric", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceMetric", "$meta", parameters)
+	}
+}
+
+// InvokeDeviceMetricMetaAdd invokes $meta-add on DeviceMetric at instance level.
+func (c *ClientR4B) InvokeDeviceMetricMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceMetric", id, "$meta-add", parameters)
+}
+
+// InvokeDeviceMetricMetaDelete invokes $meta-delete on DeviceMetric at instance level.
+func (c *ClientR4B) InvokeDeviceMetricMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceMetric", id, "$meta-delete", parameters)
+}
+
+// InvokeDeviceMetricValidate invokes $validate on DeviceMetric at type or instance level.
+func (c *ClientR4B) InvokeDeviceMetricValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceMetric", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceMetric", "$validate", parameters)
+	}
+}
+
+// InvokeDeviceRequestGraph invokes $graph on DeviceRequest at instance level.
+func (c *ClientR4B) InvokeDeviceRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceRequest", id, "$graph", parameters)
+}
+
+// InvokeDeviceRequestGraphql invokes $graphql on DeviceRequest at instance level.
+func (c *ClientR4B) InvokeDeviceRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceRequest", id, "$graphql", parameters)
+}
+
+// InvokeDeviceRequestMeta invokes $meta on DeviceRequest at type or instance level.
+func (c *ClientR4B) InvokeDeviceRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceRequest", "$meta", parameters)
+	}
+}
+
+// InvokeDeviceRequestMetaAdd invokes $meta-add on DeviceRequest at instance level.
+func (c *ClientR4B) InvokeDeviceRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceRequest", id, "$meta-add", parameters)
+}
+
+// InvokeDeviceRequestMetaDelete invokes $meta-delete on DeviceRequest at instance level.
+func (c *ClientR4B) InvokeDeviceRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeDeviceRequestValidate invokes $validate on DeviceRequest at type or instance level.
+func (c *ClientR4B) InvokeDeviceRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceRequest", "$validate", parameters)
+	}
+}
+
+// InvokeDeviceUseStatementGraph invokes $graph on DeviceUseStatement at instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceUseStatement", id, "$graph", parameters)
+}
+
+// InvokeDeviceUseStatementGraphql invokes $graphql on DeviceUseStatement at instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceUseStatement", id, "$graphql", parameters)
+}
+
+// InvokeDeviceUseStatementMeta invokes $meta on DeviceUseStatement at type or instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceUseStatement", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceUseStatement", "$meta", parameters)
+	}
+}
+
+// InvokeDeviceUseStatementMetaAdd invokes $meta-add on DeviceUseStatement at instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceUseStatement", id, "$meta-add", parameters)
+}
+
+// InvokeDeviceUseStatementMetaDelete invokes $meta-delete on DeviceUseStatement at instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DeviceUseStatement", id, "$meta-delete", parameters)
+}
+
+// InvokeDeviceUseStatementValidate invokes $validate on DeviceUseStatement at type or instance level.
+func (c *ClientR4B) InvokeDeviceUseStatementValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DeviceUseStatement", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DeviceUseStatement", "$validate", parameters)
+	}
+}
+
+// InvokeDiagnosticReportGraph invokes $graph on DiagnosticReport at instance level.
+func (c *ClientR4B) InvokeDiagnosticReportGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DiagnosticReport", id, "$graph", parameters)
+}
+
+// InvokeDiagnosticReportGraphql invokes $graphql on DiagnosticReport at instance level.
+func (c *ClientR4B) InvokeDiagnosticReportGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DiagnosticReport", id, "$graphql", parameters)
+}
+
+// InvokeDiagnosticReportMeta invokes $meta on DiagnosticReport at type or instance level.
+func (c *ClientR4B) InvokeDiagnosticReportMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DiagnosticReport", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DiagnosticReport", "$meta", parameters)
+	}
+}
+
+// InvokeDiagnosticReportMetaAdd invokes $meta-add on DiagnosticReport at instance level.
+func (c *ClientR4B) InvokeDiagnosticReportMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DiagnosticReport", id, "$meta-add", parameters)
+}
+
+// InvokeDiagnosticReportMetaDelete invokes $meta-delete on DiagnosticReport at instance level.
+func (c *ClientR4B) InvokeDiagnosticReportMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DiagnosticReport", id, "$meta-delete", parameters)
+}
+
+// InvokeDiagnosticReportValidate invokes $validate on DiagnosticReport at type or instance level.
+func (c *ClientR4B) InvokeDiagnosticReportValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DiagnosticReport", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DiagnosticReport", "$validate", parameters)
+	}
+}
+
+// InvokeDocumentManifestGraph invokes $graph on DocumentManifest at instance level.
+func (c *ClientR4B) InvokeDocumentManifestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentManifest", id, "$graph", parameters)
+}
+
+// InvokeDocumentManifestGraphql invokes $graphql on DocumentManifest at instance level.
+func (c *ClientR4B) InvokeDocumentManifestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentManifest", id, "$graphql", parameters)
+}
+
+// InvokeDocumentManifestMeta invokes $meta on DocumentManifest at type or instance level.
+func (c *ClientR4B) InvokeDocumentManifestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DocumentManifest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DocumentManifest", "$meta", parameters)
+	}
+}
+
+// InvokeDocumentManifestMetaAdd invokes $meta-add on DocumentManifest at instance level.
+func (c *ClientR4B) InvokeDocumentManifestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentManifest", id, "$meta-add", parameters)
+}
+
+// InvokeDocumentManifestMetaDelete invokes $meta-delete on DocumentManifest at instance level.
+func (c *ClientR4B) InvokeDocumentManifestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentManifest", id, "$meta-delete", parameters)
+}
+
+// InvokeDocumentManifestValidate invokes $validate on DocumentManifest at type or instance level.
+func (c *ClientR4B) InvokeDocumentManifestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DocumentManifest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DocumentManifest", "$validate", parameters)
+	}
+}
+
+// InvokeDocumentReferenceGraph invokes $graph on DocumentReference at instance level.
+func (c *ClientR4B) InvokeDocumentReferenceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentReference", id, "$graph", parameters)
+}
+
+// InvokeDocumentReferenceGraphql invokes $graphql on DocumentReference at instance level.
+func (c *ClientR4B) InvokeDocumentReferenceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentReference", id, "$graphql", parameters)
+}
+
+// InvokeDocumentReferenceMeta invokes $meta on DocumentReference at type or instance level.
+func (c *ClientR4B) InvokeDocumentReferenceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DocumentReference", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "DocumentReference", "$meta", parameters)
+	}
+}
+
+// InvokeDocumentReferenceMetaAdd invokes $meta-add on DocumentReference at instance level.
+func (c *ClientR4B) InvokeDocumentReferenceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentReference", id, "$meta-add", parameters)
+}
+
+// InvokeDocumentReferenceMetaDelete invokes $meta-delete on DocumentReference at instance level.
+func (c *ClientR4B) InvokeDocumentReferenceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "DocumentReference", id, "$meta-delete", parameters)
+}
+
+// InvokeDocumentReferenceValidate invokes $validate on DocumentReference at type or instance level.
+func (c *ClientR4B) InvokeDocumentReferenceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "DocumentReference", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "DocumentReference", "$validate", parameters)
+	}
+}
+
+// InvokeEncounterGraph invokes $graph on Encounter at instance level.
+func (c *ClientR4B) InvokeEncounterGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Encounter", id, "$graph", parameters)
+}
+
+// InvokeEncounterGraphql invokes $graphql on Encounter at instance level.
+func (c *ClientR4B) InvokeEncounterGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Encounter", id, "$graphql", parameters)
+}
+
+// InvokeEncounterMeta invokes $meta on Encounter at type or instance level.
+func (c *ClientR4B) InvokeEncounterMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Encounter", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Encounter", "$meta", parameters)
+	}
+}
+
+// InvokeEncounterMetaAdd invokes $meta-add on Encounter at instance level.
+func (c *ClientR4B) InvokeEncounterMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Encounter", id, "$meta-add", parameters)
+}
+
+// InvokeEncounterMetaDelete invokes $meta-delete on Encounter at instance level.
+func (c *ClientR4B) InvokeEncounterMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Encounter", id, "$meta-delete", parameters)
+}
+
+// InvokeEncounterValidate invokes $validate on Encounter at type or instance level.
+func (c *ClientR4B) InvokeEncounterValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Encounter", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Encounter", "$validate", parameters)
+	}
+}
+
+// InvokeEndpointGraph invokes $graph on Endpoint at instance level.
+func (c *ClientR4B) InvokeEndpointGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Endpoint", id, "$graph", parameters)
+}
+
+// InvokeEndpointGraphql invokes $graphql on Endpoint at instance level.
+func (c *ClientR4B) InvokeEndpointGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Endpoint", id, "$graphql", parameters)
+}
+
+// InvokeEndpointMeta invokes $meta on Endpoint at type or instance level.
+func (c *ClientR4B) InvokeEndpointMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Endpoint", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Endpoint", "$meta", parameters)
+	}
+}
+
+// InvokeEndpointMetaAdd invokes $meta-add on Endpoint at instance level.
+func (c *ClientR4B) InvokeEndpointMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Endpoint", id, "$meta-add", parameters)
+}
+
+// InvokeEndpointMetaDelete invokes $meta-delete on Endpoint at instance level.
+func (c *ClientR4B) InvokeEndpointMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Endpoint", id, "$meta-delete", parameters)
+}
+
+// InvokeEndpointValidate invokes $validate on Endpoint at type or instance level.
+func (c *ClientR4B) InvokeEndpointValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Endpoint", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Endpoint", "$validate", parameters)
+	}
+}
+
+// InvokeEnrollmentRequestGraph invokes $graph on EnrollmentRequest at instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentRequest", id, "$graph", parameters)
+}
+
+// InvokeEnrollmentRequestGraphql invokes $graphql on EnrollmentRequest at instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentRequest", id, "$graphql", parameters)
+}
+
+// InvokeEnrollmentRequestMeta invokes $meta on EnrollmentRequest at type or instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EnrollmentRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EnrollmentRequest", "$meta", parameters)
+	}
+}
+
+// InvokeEnrollmentRequestMetaAdd invokes $meta-add on EnrollmentRequest at instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentRequest", id, "$meta-add", parameters)
+}
+
+// InvokeEnrollmentRequestMetaDelete invokes $meta-delete on EnrollmentRequest at instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeEnrollmentRequestValidate invokes $validate on EnrollmentRequest at type or instance level.
+func (c *ClientR4B) InvokeEnrollmentRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EnrollmentRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EnrollmentRequest", "$validate", parameters)
+	}
+}
+
+// InvokeEnrollmentResponseGraph invokes $graph on EnrollmentResponse at instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentResponse", id, "$graph", parameters)
+}
+
+// InvokeEnrollmentResponseGraphql invokes $graphql on EnrollmentResponse at instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentResponse", id, "$graphql", parameters)
+}
+
+// InvokeEnrollmentResponseMeta invokes $meta on EnrollmentResponse at type or instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EnrollmentResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EnrollmentResponse", "$meta", parameters)
+	}
+}
+
+// InvokeEnrollmentResponseMetaAdd invokes $meta-add on EnrollmentResponse at instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentResponse", id, "$meta-add", parameters)
+}
+
+// InvokeEnrollmentResponseMetaDelete invokes $meta-delete on EnrollmentResponse at instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EnrollmentResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeEnrollmentResponseValidate invokes $validate on EnrollmentResponse at type or instance level.
+func (c *ClientR4B) InvokeEnrollmentResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EnrollmentResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EnrollmentResponse", "$validate", parameters)
+	}
+}
+
+// InvokeEpisodeOfCareGraph invokes $graph on EpisodeOfCare at instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EpisodeOfCare", id, "$graph", parameters)
+}
+
+// InvokeEpisodeOfCareGraphql invokes $graphql on EpisodeOfCare at instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EpisodeOfCare", id, "$graphql", parameters)
+}
+
+// InvokeEpisodeOfCareMeta invokes $meta on EpisodeOfCare at type or instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EpisodeOfCare", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EpisodeOfCare", "$meta", parameters)
+	}
+}
+
+// InvokeEpisodeOfCareMetaAdd invokes $meta-add on EpisodeOfCare at instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EpisodeOfCare", id, "$meta-add", parameters)
+}
+
+// InvokeEpisodeOfCareMetaDelete invokes $meta-delete on EpisodeOfCare at instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EpisodeOfCare", id, "$meta-delete", parameters)
+}
+
+// InvokeEpisodeOfCareValidate invokes $validate on EpisodeOfCare at type or instance level.
+func (c *ClientR4B) InvokeEpisodeOfCareValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EpisodeOfCare", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EpisodeOfCare", "$validate", parameters)
+	}
+}
+
+// InvokeEventDefinitionGraph invokes $graph on EventDefinition at instance level.
+func (c *ClientR4B) InvokeEventDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EventDefinition", id, "$graph", parameters)
+}
+
+// InvokeEventDefinitionGraphql invokes $graphql on EventDefinition at instance level.
+func (c *ClientR4B) InvokeEventDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EventDefinition", id, "$graphql", parameters)
+}
+
+// InvokeEventDefinitionMeta invokes $meta on EventDefinition at type or instance level.
+func (c *ClientR4B) InvokeEventDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EventDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EventDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeEventDefinitionMetaAdd invokes $meta-add on EventDefinition at instance level.
+func (c *ClientR4B) InvokeEventDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EventDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeEventDefinitionMetaDelete invokes $meta-delete on EventDefinition at instance level.
+func (c *ClientR4B) InvokeEventDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EventDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeEventDefinitionValidate invokes $validate on EventDefinition at type or instance level.
+func (c *ClientR4B) InvokeEventDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EventDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EventDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeEvidenceGraph invokes $graph on Evidence at instance level.
+func (c *ClientR4B) InvokeEvidenceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Evidence", id, "$graph", parameters)
+}
+
+// InvokeEvidenceGraphql invokes $graphql on Evidence at instance level.
+func (c *ClientR4B) InvokeEvidenceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Evidence", id, "$graphql", parameters)
+}
+
+// InvokeEvidenceMeta invokes $meta on Evidence at type or instance level.
+func (c *ClientR4B) InvokeEvidenceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Evidence", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Evidence", "$meta", parameters)
+	}
+}
+
+// InvokeEvidenceMetaAdd invokes $meta-add on Evidence at instance level.
+func (c *ClientR4B) InvokeEvidenceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Evidence", id, "$meta-add", parameters)
+}
+
+// InvokeEvidenceMetaDelete invokes $meta-delete on Evidence at instance level.
+func (c *ClientR4B) InvokeEvidenceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Evidence", id, "$meta-delete", parameters)
+}
+
+// InvokeEvidenceValidate invokes $validate on Evidence at type or instance level.
+func (c *ClientR4B) InvokeEvidenceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Evidence", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Evidence", "$validate", parameters)
+	}
+}
+
+// InvokeEvidenceReportGraph invokes $graph on EvidenceReport at instance level.
+func (c *ClientR4B) InvokeEvidenceReportGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceReport", id, "$graph", parameters)
+}
+
+// InvokeEvidenceReportGraphql invokes $graphql on EvidenceReport at instance level.
+func (c *ClientR4B) InvokeEvidenceReportGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceReport", id, "$graphql", parameters)
+}
+
+// InvokeEvidenceReportMeta invokes $meta on EvidenceReport at type or instance level.
+func (c *ClientR4B) InvokeEvidenceReportMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EvidenceReport", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EvidenceReport", "$meta", parameters)
+	}
+}
+
+// InvokeEvidenceReportMetaAdd invokes $meta-add on EvidenceReport at instance level.
+func (c *ClientR4B) InvokeEvidenceReportMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceReport", id, "$meta-add", parameters)
+}
+
+// InvokeEvidenceReportMetaDelete invokes $meta-delete on EvidenceReport at instance level.
+func (c *ClientR4B) InvokeEvidenceReportMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceReport", id, "$meta-delete", parameters)
+}
+
+// InvokeEvidenceReportValidate invokes $validate on EvidenceReport at type or instance level.
+func (c *ClientR4B) InvokeEvidenceReportValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EvidenceReport", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EvidenceReport", "$validate", parameters)
+	}
+}
+
+// InvokeEvidenceVariableGraph invokes $graph on EvidenceVariable at instance level.
+func (c *ClientR4B) InvokeEvidenceVariableGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceVariable", id, "$graph", parameters)
+}
+
+// InvokeEvidenceVariableGraphql invokes $graphql on EvidenceVariable at instance level.
+func (c *ClientR4B) InvokeEvidenceVariableGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceVariable", id, "$graphql", parameters)
+}
+
+// InvokeEvidenceVariableMeta invokes $meta on EvidenceVariable at type or instance level.
+func (c *ClientR4B) InvokeEvidenceVariableMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EvidenceVariable", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "EvidenceVariable", "$meta", parameters)
+	}
+}
+
+// InvokeEvidenceVariableMetaAdd invokes $meta-add on EvidenceVariable at instance level.
+func (c *ClientR4B) InvokeEvidenceVariableMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceVariable", id, "$meta-add", parameters)
+}
+
+// InvokeEvidenceVariableMetaDelete invokes $meta-delete on EvidenceVariable at instance level.
+func (c *ClientR4B) InvokeEvidenceVariableMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "EvidenceVariable", id, "$meta-delete", parameters)
+}
+
+// InvokeEvidenceVariableValidate invokes $validate on EvidenceVariable at type or instance level.
+func (c *ClientR4B) InvokeEvidenceVariableValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "EvidenceVariable", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "EvidenceVariable", "$validate", parameters)
+	}
+}
+
+// InvokeExampleScenarioGraph invokes $graph on ExampleScenario at instance level.
+func (c *ClientR4B) InvokeExampleScenarioGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExampleScenario", id, "$graph", parameters)
+}
+
+// InvokeExampleScenarioGraphql invokes $graphql on ExampleScenario at instance level.
+func (c *ClientR4B) InvokeExampleScenarioGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExampleScenario", id, "$graphql", parameters)
+}
+
+// InvokeExampleScenarioMeta invokes $meta on ExampleScenario at type or instance level.
+func (c *ClientR4B) InvokeExampleScenarioMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ExampleScenario", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ExampleScenario", "$meta", parameters)
+	}
+}
+
+// InvokeExampleScenarioMetaAdd invokes $meta-add on ExampleScenario at instance level.
+func (c *ClientR4B) InvokeExampleScenarioMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExampleScenario", id, "$meta-add", parameters)
+}
+
+// InvokeExampleScenarioMetaDelete invokes $meta-delete on ExampleScenario at instance level.
+func (c *ClientR4B) InvokeExampleScenarioMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExampleScenario", id, "$meta-delete", parameters)
+}
+
+// InvokeExampleScenarioValidate invokes $validate on ExampleScenario at type or instance level.
+func (c *ClientR4B) InvokeExampleScenarioValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ExampleScenario", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ExampleScenario", "$validate", parameters)
+	}
+}
+
+// InvokeExplanationOfBenefitGraph invokes $graph on ExplanationOfBenefit at instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExplanationOfBenefit", id, "$graph", parameters)
+}
+
+// InvokeExplanationOfBenefitGraphql invokes $graphql on ExplanationOfBenefit at instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExplanationOfBenefit", id, "$graphql", parameters)
+}
+
+// InvokeExplanationOfBenefitMeta invokes $meta on ExplanationOfBenefit at type or instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ExplanationOfBenefit", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ExplanationOfBenefit", "$meta", parameters)
+	}
+}
+
+// InvokeExplanationOfBenefitMetaAdd invokes $meta-add on ExplanationOfBenefit at instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExplanationOfBenefit", id, "$meta-add", parameters)
+}
+
+// InvokeExplanationOfBenefitMetaDelete invokes $meta-delete on ExplanationOfBenefit at instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ExplanationOfBenefit", id, "$meta-delete", parameters)
+}
+
+// InvokeExplanationOfBenefitValidate invokes $validate on ExplanationOfBenefit at type or instance level.
+func (c *ClientR4B) InvokeExplanationOfBenefitValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ExplanationOfBenefit", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ExplanationOfBenefit", "$validate", parameters)
+	}
+}
+
+// InvokeFamilyMemberHistoryGraph invokes $graph on FamilyMemberHistory at instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "FamilyMemberHistory", id, "$graph", parameters)
+}
+
+// InvokeFamilyMemberHistoryGraphql invokes $graphql on FamilyMemberHistory at instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "FamilyMemberHistory", id, "$graphql", parameters)
+}
+
+// InvokeFamilyMemberHistoryMeta invokes $meta on FamilyMemberHistory at type or instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "FamilyMemberHistory", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "FamilyMemberHistory", "$meta", parameters)
+	}
+}
+
+// InvokeFamilyMemberHistoryMetaAdd invokes $meta-add on FamilyMemberHistory at instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "FamilyMemberHistory", id, "$meta-add", parameters)
+}
+
+// InvokeFamilyMemberHistoryMetaDelete invokes $meta-delete on FamilyMemberHistory at instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "FamilyMemberHistory", id, "$meta-delete", parameters)
+}
+
+// InvokeFamilyMemberHistoryValidate invokes $validate on FamilyMemberHistory at type or instance level.
+func (c *ClientR4B) InvokeFamilyMemberHistoryValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "FamilyMemberHistory", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "FamilyMemberHistory", "$validate", parameters)
+	}
+}
+
+// InvokeFlagGraph invokes $graph on Flag at instance level.
+func (c *ClientR4B) InvokeFlagGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Flag", id, "$graph", parameters)
+}
+
+// InvokeFlagGraphql invokes $graphql on Flag at instance level.
+func (c *ClientR4B) InvokeFlagGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Flag", id, "$graphql", parameters)
+}
+
+// InvokeFlagMeta invokes $meta on Flag at type or instance level.
+func (c *ClientR4B) InvokeFlagMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Flag", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Flag", "$meta", parameters)
+	}
+}
+
+// InvokeFlagMetaAdd invokes $meta-add on Flag at instance level.
+func (c *ClientR4B) InvokeFlagMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Flag", id, "$meta-add", parameters)
+}
+
+// InvokeFlagMetaDelete invokes $meta-delete on Flag at instance level.
+func (c *ClientR4B) InvokeFlagMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Flag", id, "$meta-delete", parameters)
+}
+
+// InvokeFlagValidate invokes $validate on Flag at type or instance level.
+func (c *ClientR4B) InvokeFlagValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Flag", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Flag", "$validate", parameters)
+	}
+}
+
+// InvokeGoalGraph invokes $graph on Goal at instance level.
+func (c *ClientR4B) InvokeGoalGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Goal", id, "$graph", parameters)
+}
+
+// InvokeGoalGraphql invokes $graphql on Goal at instance level.
+func (c *ClientR4B) InvokeGoalGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Goal", id, "$graphql", parameters)
+}
+
+// InvokeGoalMeta invokes $meta on Goal at type or instance level.
+func (c *ClientR4B) InvokeGoalMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Goal", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Goal", "$meta", parameters)
+	}
+}
+
+// InvokeGoalMetaAdd invokes $meta-add on Goal at instance level.
+func (c *ClientR4B) InvokeGoalMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Goal", id, "$meta-add", parameters)
+}
+
+// InvokeGoalMetaDelete invokes $meta-delete on Goal at instance level.
+func (c *ClientR4B) InvokeGoalMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Goal", id, "$meta-delete", parameters)
+}
+
+// InvokeGoalValidate invokes $validate on Goal at type or instance level.
+func (c *ClientR4B) InvokeGoalValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Goal", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Goal", "$validate", parameters)
+	}
+}
+
+// InvokeGraphDefinitionGraph invokes $graph on GraphDefinition at instance level.
+func (c *ClientR4B) InvokeGraphDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GraphDefinition", id, "$graph", parameters)
+}
+
+// InvokeGraphDefinitionGraphql invokes $graphql on GraphDefinition at instance level.
+func (c *ClientR4B) InvokeGraphDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GraphDefinition", id, "$graphql", parameters)
+}
+
+// InvokeGraphDefinitionMeta invokes $meta on GraphDefinition at type or instance level.
+func (c *ClientR4B) InvokeGraphDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "GraphDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "GraphDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeGraphDefinitionMetaAdd invokes $meta-add on GraphDefinition at instance level.
+func (c *ClientR4B) InvokeGraphDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GraphDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeGraphDefinitionMetaDelete invokes $meta-delete on GraphDefinition at instance level.
+func (c *ClientR4B) InvokeGraphDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GraphDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeGraphDefinitionValidate invokes $validate on GraphDefinition at type or instance level.
+func (c *ClientR4B) InvokeGraphDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "GraphDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "GraphDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeGroupGraph invokes $graph on Group at instance level.
+func (c *ClientR4B) InvokeGroupGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Group", id, "$graph", parameters)
+}
+
+// InvokeGroupGraphql invokes $graphql on Group at instance level.
+func (c *ClientR4B) InvokeGroupGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Group", id, "$graphql", parameters)
+}
+
+// InvokeGroupMeta invokes $meta on Group at type or instance level.
+func (c *ClientR4B) InvokeGroupMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Group", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Group", "$meta", parameters)
+	}
+}
+
+// InvokeGroupMetaAdd invokes $meta-add on Group at instance level.
+func (c *ClientR4B) InvokeGroupMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Group", id, "$meta-add", parameters)
+}
+
+// InvokeGroupMetaDelete invokes $meta-delete on Group at instance level.
+func (c *ClientR4B) InvokeGroupMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Group", id, "$meta-delete", parameters)
+}
+
+// InvokeGroupValidate invokes $validate on Group at type or instance level.
+func (c *ClientR4B) InvokeGroupValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Group", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Group", "$validate", parameters)
+	}
+}
+
+// InvokeGuidanceResponseGraph invokes $graph on GuidanceResponse at instance level.
+func (c *ClientR4B) InvokeGuidanceResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GuidanceResponse", id, "$graph", parameters)
+}
+
+// InvokeGuidanceResponseGraphql invokes $graphql on GuidanceResponse at instance level.
+func (c *ClientR4B) InvokeGuidanceResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GuidanceResponse", id, "$graphql", parameters)
+}
+
+// InvokeGuidanceResponseMeta invokes $meta on GuidanceResponse at type or instance level.
+func (c *ClientR4B) InvokeGuidanceResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "GuidanceResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "GuidanceResponse", "$meta", parameters)
+	}
+}
+
+// InvokeGuidanceResponseMetaAdd invokes $meta-add on GuidanceResponse at instance level.
+func (c *ClientR4B) InvokeGuidanceResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GuidanceResponse", id, "$meta-add", parameters)
+}
+
+// InvokeGuidanceResponseMetaDelete invokes $meta-delete on GuidanceResponse at instance level.
+func (c *ClientR4B) InvokeGuidanceResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "GuidanceResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeGuidanceResponseValidate invokes $validate on GuidanceResponse at type or instance level.
+func (c *ClientR4B) InvokeGuidanceResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "GuidanceResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "GuidanceResponse", "$validate", parameters)
+	}
+}
+
+// InvokeHealthcareServiceGraph invokes $graph on HealthcareService at instance level.
+func (c *ClientR4B) InvokeHealthcareServiceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "HealthcareService", id, "$graph", parameters)
+}
+
+// InvokeHealthcareServiceGraphql invokes $graphql on HealthcareService at instance level.
+func (c *ClientR4B) InvokeHealthcareServiceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "HealthcareService", id, "$graphql", parameters)
+}
+
+// InvokeHealthcareServiceMeta invokes $meta on HealthcareService at type or instance level.
+func (c *ClientR4B) InvokeHealthcareServiceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "HealthcareService", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "HealthcareService", "$meta", parameters)
+	}
+}
+
+// InvokeHealthcareServiceMetaAdd invokes $meta-add on HealthcareService at instance level.
+func (c *ClientR4B) InvokeHealthcareServiceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "HealthcareService", id, "$meta-add", parameters)
+}
+
+// InvokeHealthcareServiceMetaDelete invokes $meta-delete on HealthcareService at instance level.
+func (c *ClientR4B) InvokeHealthcareServiceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "HealthcareService", id, "$meta-delete", parameters)
+}
+
+// InvokeHealthcareServiceValidate invokes $validate on HealthcareService at type or instance level.
+func (c *ClientR4B) InvokeHealthcareServiceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "HealthcareService", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "HealthcareService", "$validate", parameters)
+	}
+}
+
+// InvokeImagingStudyGraph invokes $graph on ImagingStudy at instance level.
+func (c *ClientR4B) InvokeImagingStudyGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImagingStudy", id, "$graph", parameters)
+}
+
+// InvokeImagingStudyGraphql invokes $graphql on ImagingStudy at instance level.
+func (c *ClientR4B) InvokeImagingStudyGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImagingStudy", id, "$graphql", parameters)
+}
+
+// InvokeImagingStudyMeta invokes $meta on ImagingStudy at type or instance level.
+func (c *ClientR4B) InvokeImagingStudyMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImagingStudy", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImagingStudy", "$meta", parameters)
+	}
+}
+
+// InvokeImagingStudyMetaAdd invokes $meta-add on ImagingStudy at instance level.
+func (c *ClientR4B) InvokeImagingStudyMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImagingStudy", id, "$meta-add", parameters)
+}
+
+// InvokeImagingStudyMetaDelete invokes $meta-delete on ImagingStudy at instance level.
+func (c *ClientR4B) InvokeImagingStudyMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImagingStudy", id, "$meta-delete", parameters)
+}
+
+// InvokeImagingStudyValidate invokes $validate on ImagingStudy at type or instance level.
+func (c *ClientR4B) InvokeImagingStudyValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImagingStudy", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImagingStudy", "$validate", parameters)
+	}
+}
+
+// InvokeImmunizationGraph invokes $graph on Immunization at instance level.
+func (c *ClientR4B) InvokeImmunizationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Immunization", id, "$graph", parameters)
+}
+
+// InvokeImmunizationGraphql invokes $graphql on Immunization at instance level.
+func (c *ClientR4B) InvokeImmunizationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Immunization", id, "$graphql", parameters)
+}
+
+// InvokeImmunizationMeta invokes $meta on Immunization at type or instance level.
+func (c *ClientR4B) InvokeImmunizationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Immunization", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Immunization", "$meta", parameters)
+	}
+}
+
+// InvokeImmunizationMetaAdd invokes $meta-add on Immunization at instance level.
+func (c *ClientR4B) InvokeImmunizationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Immunization", id, "$meta-add", parameters)
+}
+
+// InvokeImmunizationMetaDelete invokes $meta-delete on Immunization at instance level.
+func (c *ClientR4B) InvokeImmunizationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Immunization", id, "$meta-delete", parameters)
+}
+
+// InvokeImmunizationValidate invokes $validate on Immunization at type or instance level.
+func (c *ClientR4B) InvokeImmunizationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Immunization", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Immunization", "$validate", parameters)
+	}
+}
+
+// InvokeImmunizationEvaluationGraph invokes $graph on ImmunizationEvaluation at instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationEvaluation", id, "$graph", parameters)
+}
+
+// InvokeImmunizationEvaluationGraphql invokes $graphql on ImmunizationEvaluation at instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationEvaluation", id, "$graphql", parameters)
+}
+
+// InvokeImmunizationEvaluationMeta invokes $meta on ImmunizationEvaluation at type or instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImmunizationEvaluation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImmunizationEvaluation", "$meta", parameters)
+	}
+}
+
+// InvokeImmunizationEvaluationMetaAdd invokes $meta-add on ImmunizationEvaluation at instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationEvaluation", id, "$meta-add", parameters)
+}
+
+// InvokeImmunizationEvaluationMetaDelete invokes $meta-delete on ImmunizationEvaluation at instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationEvaluation", id, "$meta-delete", parameters)
+}
+
+// InvokeImmunizationEvaluationValidate invokes $validate on ImmunizationEvaluation at type or instance level.
+func (c *ClientR4B) InvokeImmunizationEvaluationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImmunizationEvaluation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImmunizationEvaluation", "$validate", parameters)
+	}
+}
+
+// InvokeImmunizationRecommendationGraph invokes $graph on ImmunizationRecommendation at instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationRecommendation", id, "$graph", parameters)
+}
+
+// InvokeImmunizationRecommendationGraphql invokes $graphql on ImmunizationRecommendation at instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationRecommendation", id, "$graphql", parameters)
+}
+
+// InvokeImmunizationRecommendationMeta invokes $meta on ImmunizationRecommendation at type or instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImmunizationRecommendation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImmunizationRecommendation", "$meta", parameters)
+	}
+}
+
+// InvokeImmunizationRecommendationMetaAdd invokes $meta-add on ImmunizationRecommendation at instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationRecommendation", id, "$meta-add", parameters)
+}
+
+// InvokeImmunizationRecommendationMetaDelete invokes $meta-delete on ImmunizationRecommendation at instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImmunizationRecommendation", id, "$meta-delete", parameters)
+}
+
+// InvokeImmunizationRecommendationValidate invokes $validate on ImmunizationRecommendation at type or instance level.
+func (c *ClientR4B) InvokeImmunizationRecommendationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImmunizationRecommendation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImmunizationRecommendation", "$validate", parameters)
+	}
+}
+
+// InvokeImplementationGuideGraph invokes $graph on ImplementationGuide at instance level.
+func (c *ClientR4B) InvokeImplementationGuideGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImplementationGuide", id, "$graph", parameters)
+}
+
+// InvokeImplementationGuideGraphql invokes $graphql on ImplementationGuide at instance level.
+func (c *ClientR4B) InvokeImplementationGuideGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImplementationGuide", id, "$graphql", parameters)
+}
+
+// InvokeImplementationGuideMeta invokes $meta on ImplementationGuide at type or instance level.
+func (c *ClientR4B) InvokeImplementationGuideMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImplementationGuide", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImplementationGuide", "$meta", parameters)
+	}
+}
+
+// InvokeImplementationGuideMetaAdd invokes $meta-add on ImplementationGuide at instance level.
+func (c *ClientR4B) InvokeImplementationGuideMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImplementationGuide", id, "$meta-add", parameters)
+}
+
+// InvokeImplementationGuideMetaDelete invokes $meta-delete on ImplementationGuide at instance level.
+func (c *ClientR4B) InvokeImplementationGuideMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ImplementationGuide", id, "$meta-delete", parameters)
+}
+
+// InvokeImplementationGuideValidate invokes $validate on ImplementationGuide at type or instance level.
+func (c *ClientR4B) InvokeImplementationGuideValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ImplementationGuide", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ImplementationGuide", "$validate", parameters)
+	}
+}
+
+// InvokeIngredientGraph invokes $graph on Ingredient at instance level.
+func (c *ClientR4B) InvokeIngredientGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Ingredient", id, "$graph", parameters)
+}
+
+// InvokeIngredientGraphql invokes $graphql on Ingredient at instance level.
+func (c *ClientR4B) InvokeIngredientGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Ingredient", id, "$graphql", parameters)
+}
+
+// InvokeIngredientMeta invokes $meta on Ingredient at type or instance level.
+func (c *ClientR4B) InvokeIngredientMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Ingredient", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Ingredient", "$meta", parameters)
+	}
+}
+
+// InvokeIngredientMetaAdd invokes $meta-add on Ingredient at instance level.
+func (c *ClientR4B) InvokeIngredientMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Ingredient", id, "$meta-add", parameters)
+}
+
+// InvokeIngredientMetaDelete invokes $meta-delete on Ingredient at instance level.
+func (c *ClientR4B) InvokeIngredientMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Ingredient", id, "$meta-delete", parameters)
+}
+
+// InvokeIngredientValidate invokes $validate on Ingredient at type or instance level.
+func (c *ClientR4B) InvokeIngredientValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Ingredient", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Ingredient", "$validate", parameters)
+	}
+}
+
+// InvokeInsurancePlanGraph invokes $graph on InsurancePlan at instance level.
+func (c *ClientR4B) InvokeInsurancePlanGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "InsurancePlan", id, "$graph", parameters)
+}
+
+// InvokeInsurancePlanGraphql invokes $graphql on InsurancePlan at instance level.
+func (c *ClientR4B) InvokeInsurancePlanGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "InsurancePlan", id, "$graphql", parameters)
+}
+
+// InvokeInsurancePlanMeta invokes $meta on InsurancePlan at type or instance level.
+func (c *ClientR4B) InvokeInsurancePlanMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "InsurancePlan", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "InsurancePlan", "$meta", parameters)
+	}
+}
+
+// InvokeInsurancePlanMetaAdd invokes $meta-add on InsurancePlan at instance level.
+func (c *ClientR4B) InvokeInsurancePlanMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "InsurancePlan", id, "$meta-add", parameters)
+}
+
+// InvokeInsurancePlanMetaDelete invokes $meta-delete on InsurancePlan at instance level.
+func (c *ClientR4B) InvokeInsurancePlanMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "InsurancePlan", id, "$meta-delete", parameters)
+}
+
+// InvokeInsurancePlanValidate invokes $validate on InsurancePlan at type or instance level.
+func (c *ClientR4B) InvokeInsurancePlanValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "InsurancePlan", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "InsurancePlan", "$validate", parameters)
+	}
+}
+
+// InvokeInvoiceGraph invokes $graph on Invoice at instance level.
+func (c *ClientR4B) InvokeInvoiceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Invoice", id, "$graph", parameters)
+}
+
+// InvokeInvoiceGraphql invokes $graphql on Invoice at instance level.
+func (c *ClientR4B) InvokeInvoiceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Invoice", id, "$graphql", parameters)
+}
+
+// InvokeInvoiceMeta invokes $meta on Invoice at type or instance level.
+func (c *ClientR4B) InvokeInvoiceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Invoice", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Invoice", "$meta", parameters)
+	}
+}
+
+// InvokeInvoiceMetaAdd invokes $meta-add on Invoice at instance level.
+func (c *ClientR4B) InvokeInvoiceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Invoice", id, "$meta-add", parameters)
+}
+
+// InvokeInvoiceMetaDelete invokes $meta-delete on Invoice at instance level.
+func (c *ClientR4B) InvokeInvoiceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Invoice", id, "$meta-delete", parameters)
+}
+
+// InvokeInvoiceValidate invokes $validate on Invoice at type or instance level.
+func (c *ClientR4B) InvokeInvoiceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Invoice", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Invoice", "$validate", parameters)
+	}
+}
+
+// InvokeLibraryGraph invokes $graph on Library at instance level.
+func (c *ClientR4B) InvokeLibraryGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Library", id, "$graph", parameters)
+}
+
+// InvokeLibraryGraphql invokes $graphql on Library at instance level.
+func (c *ClientR4B) InvokeLibraryGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Library", id, "$graphql", parameters)
+}
+
+// InvokeLibraryMeta invokes $meta on Library at type or instance level.
+func (c *ClientR4B) InvokeLibraryMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Library", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Library", "$meta", parameters)
+	}
+}
+
+// InvokeLibraryMetaAdd invokes $meta-add on Library at instance level.
+func (c *ClientR4B) InvokeLibraryMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Library", id, "$meta-add", parameters)
+}
+
+// InvokeLibraryMetaDelete invokes $meta-delete on Library at instance level.
+func (c *ClientR4B) InvokeLibraryMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Library", id, "$meta-delete", parameters)
+}
+
+// InvokeLibraryValidate invokes $validate on Library at type or instance level.
+func (c *ClientR4B) InvokeLibraryValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Library", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Library", "$validate", parameters)
+	}
+}
+
+// InvokeLinkageGraph invokes $graph on Linkage at instance level.
+func (c *ClientR4B) InvokeLinkageGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Linkage", id, "$graph", parameters)
+}
+
+// InvokeLinkageGraphql invokes $graphql on Linkage at instance level.
+func (c *ClientR4B) InvokeLinkageGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Linkage", id, "$graphql", parameters)
+}
+
+// InvokeLinkageMeta invokes $meta on Linkage at type or instance level.
+func (c *ClientR4B) InvokeLinkageMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Linkage", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Linkage", "$meta", parameters)
+	}
+}
+
+// InvokeLinkageMetaAdd invokes $meta-add on Linkage at instance level.
+func (c *ClientR4B) InvokeLinkageMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Linkage", id, "$meta-add", parameters)
+}
+
+// InvokeLinkageMetaDelete invokes $meta-delete on Linkage at instance level.
+func (c *ClientR4B) InvokeLinkageMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Linkage", id, "$meta-delete", parameters)
+}
+
+// InvokeLinkageValidate invokes $validate on Linkage at type or instance level.
+func (c *ClientR4B) InvokeLinkageValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Linkage", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Linkage", "$validate", parameters)
+	}
+}
+
+// InvokeListGraph invokes $graph on List at instance level.
+func (c *ClientR4B) InvokeListGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "List", id, "$graph", parameters)
+}
+
+// InvokeListGraphql invokes $graphql on List at instance level.
+func (c *ClientR4B) InvokeListGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "List", id, "$graphql", parameters)
+}
+
+// InvokeListMeta invokes $meta on List at type or instance level.
+func (c *ClientR4B) InvokeListMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "List", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "List", "$meta", parameters)
+	}
+}
+
+// InvokeListMetaAdd invokes $meta-add on List at instance level.
+func (c *ClientR4B) InvokeListMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "List", id, "$meta-add", parameters)
+}
+
+// InvokeListMetaDelete invokes $meta-delete on List at instance level.
+func (c *ClientR4B) InvokeListMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "List", id, "$meta-delete", parameters)
+}
+
+// InvokeListValidate invokes $validate on List at type or instance level.
+func (c *ClientR4B) InvokeListValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "List", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "List", "$validate", parameters)
+	}
+}
+
+// InvokeLocationGraph invokes $graph on Location at instance level.
+func (c *ClientR4B) InvokeLocationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Location", id, "$graph", parameters)
+}
+
+// InvokeLocationGraphql invokes $graphql on Location at instance level.
+func (c *ClientR4B) InvokeLocationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Location", id, "$graphql", parameters)
+}
+
+// InvokeLocationMeta invokes $meta on Location at type or instance level.
+func (c *ClientR4B) InvokeLocationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Location", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Location", "$meta", parameters)
+	}
+}
+
+// InvokeLocationMetaAdd invokes $meta-add on Location at instance level.
+func (c *ClientR4B) InvokeLocationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Location", id, "$meta-add", parameters)
+}
+
+// InvokeLocationMetaDelete invokes $meta-delete on Location at instance level.
+func (c *ClientR4B) InvokeLocationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Location", id, "$meta-delete", parameters)
+}
+
+// InvokeLocationValidate invokes $validate on Location at type or instance level.
+func (c *ClientR4B) InvokeLocationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Location", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Location", "$validate", parameters)
+	}
+}
+
+// InvokeManufacturedItemDefinitionGraph invokes $graph on ManufacturedItemDefinition at instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id, "$graph", parameters)
+}
+
+// InvokeManufacturedItemDefinitionGraphql invokes $graphql on ManufacturedItemDefinition at instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id, "$graphql", parameters)
+}
+
+// InvokeManufacturedItemDefinitionMeta invokes $meta on ManufacturedItemDefinition at type or instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ManufacturedItemDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeManufacturedItemDefinitionMetaAdd invokes $meta-add on ManufacturedItemDefinition at instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeManufacturedItemDefinitionMetaDelete invokes $meta-delete on ManufacturedItemDefinition at instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeManufacturedItemDefinitionValidate invokes $validate on ManufacturedItemDefinition at type or instance level.
+func (c *ClientR4B) InvokeManufacturedItemDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ManufacturedItemDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ManufacturedItemDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeMeasureGraph invokes $graph on Measure at instance level.
+func (c *ClientR4B) InvokeMeasureGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Measure", id, "$graph", parameters)
+}
+
+// InvokeMeasureGraphql invokes $graphql on Measure at instance level.
+func (c *ClientR4B) InvokeMeasureGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Measure", id, "$graphql", parameters)
+}
+
+// InvokeMeasureMeta invokes $meta on Measure at type or instance level.
+func (c *ClientR4B) InvokeMeasureMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Measure", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Measure", "$meta", parameters)
+	}
+}
+
+// InvokeMeasureMetaAdd invokes $meta-add on Measure at instance level.
+func (c *ClientR4B) InvokeMeasureMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Measure", id, "$meta-add", parameters)
+}
+
+// InvokeMeasureMetaDelete invokes $meta-delete on Measure at instance level.
+func (c *ClientR4B) InvokeMeasureMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Measure", id, "$meta-delete", parameters)
+}
+
+// InvokeMeasureValidate invokes $validate on Measure at type or instance level.
+func (c *ClientR4B) InvokeMeasureValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Measure", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Measure", "$validate", parameters)
+	}
+}
+
+// InvokeMeasureReportGraph invokes $graph on MeasureReport at instance level.
+func (c *ClientR4B) InvokeMeasureReportGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MeasureReport", id, "$graph", parameters)
+}
+
+// InvokeMeasureReportGraphql invokes $graphql on MeasureReport at instance level.
+func (c *ClientR4B) InvokeMeasureReportGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MeasureReport", id, "$graphql", parameters)
+}
+
+// InvokeMeasureReportMeta invokes $meta on MeasureReport at type or instance level.
+func (c *ClientR4B) InvokeMeasureReportMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MeasureReport", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MeasureReport", "$meta", parameters)
+	}
+}
+
+// InvokeMeasureReportMetaAdd invokes $meta-add on MeasureReport at instance level.
+func (c *ClientR4B) InvokeMeasureReportMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MeasureReport", id, "$meta-add", parameters)
+}
+
+// InvokeMeasureReportMetaDelete invokes $meta-delete on MeasureReport at instance level.
+func (c *ClientR4B) InvokeMeasureReportMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MeasureReport", id, "$meta-delete", parameters)
+}
+
+// InvokeMeasureReportValidate invokes $validate on MeasureReport at type or instance level.
+func (c *ClientR4B) InvokeMeasureReportValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MeasureReport", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MeasureReport", "$validate", parameters)
+	}
+}
+
+// InvokeMediaGraph invokes $graph on Media at instance level.
+func (c *ClientR4B) InvokeMediaGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Media", id, "$graph", parameters)
+}
+
+// InvokeMediaGraphql invokes $graphql on Media at instance level.
+func (c *ClientR4B) InvokeMediaGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Media", id, "$graphql", parameters)
+}
+
+// InvokeMediaMeta invokes $meta on Media at type or instance level.
+func (c *ClientR4B) InvokeMediaMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Media", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Media", "$meta", parameters)
+	}
+}
+
+// InvokeMediaMetaAdd invokes $meta-add on Media at instance level.
+func (c *ClientR4B) InvokeMediaMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Media", id, "$meta-add", parameters)
+}
+
+// InvokeMediaMetaDelete invokes $meta-delete on Media at instance level.
+func (c *ClientR4B) InvokeMediaMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Media", id, "$meta-delete", parameters)
+}
+
+// InvokeMediaValidate invokes $validate on Media at type or instance level.
+func (c *ClientR4B) InvokeMediaValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Media", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Media", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationGraph invokes $graph on Medication at instance level.
+func (c *ClientR4B) InvokeMedicationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Medication", id, "$graph", parameters)
+}
+
+// InvokeMedicationGraphql invokes $graphql on Medication at instance level.
+func (c *ClientR4B) InvokeMedicationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Medication", id, "$graphql", parameters)
+}
+
+// InvokeMedicationMeta invokes $meta on Medication at type or instance level.
+func (c *ClientR4B) InvokeMedicationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Medication", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Medication", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationMetaAdd invokes $meta-add on Medication at instance level.
+func (c *ClientR4B) InvokeMedicationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Medication", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationMetaDelete invokes $meta-delete on Medication at instance level.
+func (c *ClientR4B) InvokeMedicationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Medication", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationValidate invokes $validate on Medication at type or instance level.
+func (c *ClientR4B) InvokeMedicationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Medication", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Medication", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationAdministrationGraph invokes $graph on MedicationAdministration at instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationAdministration", id, "$graph", parameters)
+}
+
+// InvokeMedicationAdministrationGraphql invokes $graphql on MedicationAdministration at instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationAdministration", id, "$graphql", parameters)
+}
+
+// InvokeMedicationAdministrationMeta invokes $meta on MedicationAdministration at type or instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationAdministration", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationAdministration", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationAdministrationMetaAdd invokes $meta-add on MedicationAdministration at instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationAdministration", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationAdministrationMetaDelete invokes $meta-delete on MedicationAdministration at instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationAdministration", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationAdministrationValidate invokes $validate on MedicationAdministration at type or instance level.
+func (c *ClientR4B) InvokeMedicationAdministrationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationAdministration", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationAdministration", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationDispenseGraph invokes $graph on MedicationDispense at instance level.
+func (c *ClientR4B) InvokeMedicationDispenseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationDispense", id, "$graph", parameters)
+}
+
+// InvokeMedicationDispenseGraphql invokes $graphql on MedicationDispense at instance level.
+func (c *ClientR4B) InvokeMedicationDispenseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationDispense", id, "$graphql", parameters)
+}
+
+// InvokeMedicationDispenseMeta invokes $meta on MedicationDispense at type or instance level.
+func (c *ClientR4B) InvokeMedicationDispenseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationDispense", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationDispense", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationDispenseMetaAdd invokes $meta-add on MedicationDispense at instance level.
+func (c *ClientR4B) InvokeMedicationDispenseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationDispense", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationDispenseMetaDelete invokes $meta-delete on MedicationDispense at instance level.
+func (c *ClientR4B) InvokeMedicationDispenseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationDispense", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationDispenseValidate invokes $validate on MedicationDispense at type or instance level.
+func (c *ClientR4B) InvokeMedicationDispenseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationDispense", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationDispense", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationKnowledgeGraph invokes $graph on MedicationKnowledge at instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationKnowledge", id, "$graph", parameters)
+}
+
+// InvokeMedicationKnowledgeGraphql invokes $graphql on MedicationKnowledge at instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationKnowledge", id, "$graphql", parameters)
+}
+
+// InvokeMedicationKnowledgeMeta invokes $meta on MedicationKnowledge at type or instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationKnowledge", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationKnowledge", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationKnowledgeMetaAdd invokes $meta-add on MedicationKnowledge at instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationKnowledge", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationKnowledgeMetaDelete invokes $meta-delete on MedicationKnowledge at instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationKnowledge", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationKnowledgeValidate invokes $validate on MedicationKnowledge at type or instance level.
+func (c *ClientR4B) InvokeMedicationKnowledgeValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationKnowledge", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationKnowledge", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationRequestGraph invokes $graph on MedicationRequest at instance level.
+func (c *ClientR4B) InvokeMedicationRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationRequest", id, "$graph", parameters)
+}
+
+// InvokeMedicationRequestGraphql invokes $graphql on MedicationRequest at instance level.
+func (c *ClientR4B) InvokeMedicationRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationRequest", id, "$graphql", parameters)
+}
+
+// InvokeMedicationRequestMeta invokes $meta on MedicationRequest at type or instance level.
+func (c *ClientR4B) InvokeMedicationRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationRequest", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationRequestMetaAdd invokes $meta-add on MedicationRequest at instance level.
+func (c *ClientR4B) InvokeMedicationRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationRequest", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationRequestMetaDelete invokes $meta-delete on MedicationRequest at instance level.
+func (c *ClientR4B) InvokeMedicationRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationRequestValidate invokes $validate on MedicationRequest at type or instance level.
+func (c *ClientR4B) InvokeMedicationRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationRequest", "$validate", parameters)
+	}
+}
+
+// InvokeMedicationStatementGraph invokes $graph on MedicationStatement at instance level.
+func (c *ClientR4B) InvokeMedicationStatementGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationStatement", id, "$graph", parameters)
+}
+
+// InvokeMedicationStatementGraphql invokes $graphql on MedicationStatement at instance level.
+func (c *ClientR4B) InvokeMedicationStatementGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationStatement", id, "$graphql", parameters)
+}
+
+// InvokeMedicationStatementMeta invokes $meta on MedicationStatement at type or instance level.
+func (c *ClientR4B) InvokeMedicationStatementMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationStatement", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationStatement", "$meta", parameters)
+	}
+}
+
+// InvokeMedicationStatementMetaAdd invokes $meta-add on MedicationStatement at instance level.
+func (c *ClientR4B) InvokeMedicationStatementMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationStatement", id, "$meta-add", parameters)
+}
+
+// InvokeMedicationStatementMetaDelete invokes $meta-delete on MedicationStatement at instance level.
+func (c *ClientR4B) InvokeMedicationStatementMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicationStatement", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicationStatementValidate invokes $validate on MedicationStatement at type or instance level.
+func (c *ClientR4B) InvokeMedicationStatementValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicationStatement", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicationStatement", "$validate", parameters)
+	}
+}
+
+// InvokeMedicinalProductDefinitionGraph invokes $graph on MedicinalProductDefinition at instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicinalProductDefinition", id, "$graph", parameters)
+}
+
+// InvokeMedicinalProductDefinitionGraphql invokes $graphql on MedicinalProductDefinition at instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicinalProductDefinition", id, "$graphql", parameters)
+}
+
+// InvokeMedicinalProductDefinitionMeta invokes $meta on MedicinalProductDefinition at type or instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicinalProductDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicinalProductDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeMedicinalProductDefinitionMetaAdd invokes $meta-add on MedicinalProductDefinition at instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicinalProductDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeMedicinalProductDefinitionMetaDelete invokes $meta-delete on MedicinalProductDefinition at instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MedicinalProductDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeMedicinalProductDefinitionValidate invokes $validate on MedicinalProductDefinition at type or instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicinalProductDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicinalProductDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeMessageDefinitionGraph invokes $graph on MessageDefinition at instance level.
+func (c *ClientR4B) InvokeMessageDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageDefinition", id, "$graph", parameters)
+}
+
+// InvokeMessageDefinitionGraphql invokes $graphql on MessageDefinition at instance level.
+func (c *ClientR4B) InvokeMessageDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageDefinition", id, "$graphql", parameters)
+}
+
+// InvokeMessageDefinitionMeta invokes $meta on MessageDefinition at type or instance level.
+func (c *ClientR4B) InvokeMessageDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MessageDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MessageDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeMessageDefinitionMetaAdd invokes $meta-add on MessageDefinition at instance level.
+func (c *ClientR4B) InvokeMessageDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeMessageDefinitionMetaDelete invokes $meta-delete on MessageDefinition at instance level.
+func (c *ClientR4B) InvokeMessageDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeMessageDefinitionValidate invokes $validate on MessageDefinition at type or instance level.
+func (c *ClientR4B) InvokeMessageDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MessageDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MessageDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeMessageHeaderGraph invokes $graph on MessageHeader at instance level.
+func (c *ClientR4B) InvokeMessageHeaderGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageHeader", id, "$graph", parameters)
+}
+
+// InvokeMessageHeaderGraphql invokes $graphql on MessageHeader at instance level.
+func (c *ClientR4B) InvokeMessageHeaderGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageHeader", id, "$graphql", parameters)
+}
+
+// InvokeMessageHeaderMeta invokes $meta on MessageHeader at type or instance level.
+func (c *ClientR4B) InvokeMessageHeaderMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MessageHeader", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MessageHeader", "$meta", parameters)
+	}
+}
+
+// InvokeMessageHeaderMetaAdd invokes $meta-add on MessageHeader at instance level.
+func (c *ClientR4B) InvokeMessageHeaderMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageHeader", id, "$meta-add", parameters)
+}
+
+// InvokeMessageHeaderMetaDelete invokes $meta-delete on MessageHeader at instance level.
+func (c *ClientR4B) InvokeMessageHeaderMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MessageHeader", id, "$meta-delete", parameters)
+}
+
+// InvokeMessageHeaderValidate invokes $validate on MessageHeader at type or instance level.
+func (c *ClientR4B) InvokeMessageHeaderValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MessageHeader", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MessageHeader", "$validate", parameters)
+	}
+}
+
+// InvokeMolecularSequenceGraph invokes $graph on MolecularSequence at instance level.
+func (c *ClientR4B) InvokeMolecularSequenceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MolecularSequence", id, "$graph", parameters)
+}
+
+// InvokeMolecularSequenceGraphql invokes $graphql on MolecularSequence at instance level.
+func (c *ClientR4B) InvokeMolecularSequenceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MolecularSequence", id, "$graphql", parameters)
+}
+
+// InvokeMolecularSequenceMeta invokes $meta on MolecularSequence at type or instance level.
+func (c *ClientR4B) InvokeMolecularSequenceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MolecularSequence", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "MolecularSequence", "$meta", parameters)
+	}
+}
+
+// InvokeMolecularSequenceMetaAdd invokes $meta-add on MolecularSequence at instance level.
+func (c *ClientR4B) InvokeMolecularSequenceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MolecularSequence", id, "$meta-add", parameters)
+}
+
+// InvokeMolecularSequenceMetaDelete invokes $meta-delete on MolecularSequence at instance level.
+func (c *ClientR4B) InvokeMolecularSequenceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "MolecularSequence", id, "$meta-delete", parameters)
+}
+
+// InvokeMolecularSequenceValidate invokes $validate on MolecularSequence at type or instance level.
+func (c *ClientR4B) InvokeMolecularSequenceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MolecularSequence", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "MolecularSequence", "$validate", parameters)
+	}
+}
+
+// InvokeNamingSystemGraph invokes $graph on NamingSystem at instance level.
+func (c *ClientR4B) InvokeNamingSystemGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NamingSystem", id, "$graph", parameters)
+}
+
+// InvokeNamingSystemGraphql invokes $graphql on NamingSystem at instance level.
+func (c *ClientR4B) InvokeNamingSystemGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NamingSystem", id, "$graphql", parameters)
+}
+
+// InvokeNamingSystemMeta invokes $meta on NamingSystem at type or instance level.
+func (c *ClientR4B) InvokeNamingSystemMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NamingSystem", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "NamingSystem", "$meta", parameters)
+	}
+}
+
+// InvokeNamingSystemMetaAdd invokes $meta-add on NamingSystem at instance level.
+func (c *ClientR4B) InvokeNamingSystemMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NamingSystem", id, "$meta-add", parameters)
+}
+
+// InvokeNamingSystemMetaDelete invokes $meta-delete on NamingSystem at instance level.
+func (c *ClientR4B) InvokeNamingSystemMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NamingSystem", id, "$meta-delete", parameters)
+}
+
+// InvokeNamingSystemValidate invokes $validate on NamingSystem at type or instance level.
+func (c *ClientR4B) InvokeNamingSystemValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NamingSystem", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "NamingSystem", "$validate", parameters)
+	}
+}
+
+// InvokeNutritionOrderGraph invokes $graph on NutritionOrder at instance level.
+func (c *ClientR4B) InvokeNutritionOrderGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionOrder", id, "$graph", parameters)
+}
+
+// InvokeNutritionOrderGraphql invokes $graphql on NutritionOrder at instance level.
+func (c *ClientR4B) InvokeNutritionOrderGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionOrder", id, "$graphql", parameters)
+}
+
+// InvokeNutritionOrderMeta invokes $meta on NutritionOrder at type or instance level.
+func (c *ClientR4B) InvokeNutritionOrderMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NutritionOrder", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "NutritionOrder", "$meta", parameters)
+	}
+}
+
+// InvokeNutritionOrderMetaAdd invokes $meta-add on NutritionOrder at instance level.
+func (c *ClientR4B) InvokeNutritionOrderMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionOrder", id, "$meta-add", parameters)
+}
+
+// InvokeNutritionOrderMetaDelete invokes $meta-delete on NutritionOrder at instance level.
+func (c *ClientR4B) InvokeNutritionOrderMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionOrder", id, "$meta-delete", parameters)
+}
+
+// InvokeNutritionOrderValidate invokes $validate on NutritionOrder at type or instance level.
+func (c *ClientR4B) InvokeNutritionOrderValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NutritionOrder", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "NutritionOrder", "$validate", parameters)
+	}
+}
+
+// InvokeNutritionProductGraph invokes $graph on NutritionProduct at instance level.
+func (c *ClientR4B) InvokeNutritionProductGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionProduct", id, "$graph", parameters)
+}
+
+// InvokeNutritionProductGraphql invokes $graphql on NutritionProduct at instance level.
+func (c *ClientR4B) InvokeNutritionProductGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionProduct", id, "$graphql", parameters)
+}
+
+// InvokeNutritionProductMeta invokes $meta on NutritionProduct at type or instance level.
+func (c *ClientR4B) InvokeNutritionProductMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NutritionProduct", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "NutritionProduct", "$meta", parameters)
+	}
+}
+
+// InvokeNutritionProductMetaAdd invokes $meta-add on NutritionProduct at instance level.
+func (c *ClientR4B) InvokeNutritionProductMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionProduct", id, "$meta-add", parameters)
+}
+
+// InvokeNutritionProductMetaDelete invokes $meta-delete on NutritionProduct at instance level.
+func (c *ClientR4B) InvokeNutritionProductMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "NutritionProduct", id, "$meta-delete", parameters)
+}
+
+// InvokeNutritionProductValidate invokes $validate on NutritionProduct at type or instance level.
+func (c *ClientR4B) InvokeNutritionProductValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "NutritionProduct", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "NutritionProduct", "$validate", parameters)
+	}
+}
+
+// InvokeObservationGraph invokes $graph on Observation at instance level.
+func (c *ClientR4B) InvokeObservationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Observation", id, "$graph", parameters)
+}
+
+// InvokeObservationGraphql invokes $graphql on Observation at instance level.
+func (c *ClientR4B) InvokeObservationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Observation", id, "$graphql", parameters)
+}
+
+// InvokeObservationMeta invokes $meta on Observation at type or instance level.
+func (c *ClientR4B) InvokeObservationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Observation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Observation", "$meta", parameters)
+	}
+}
+
+// InvokeObservationMetaAdd invokes $meta-add on Observation at instance level.
+func (c *ClientR4B) InvokeObservationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Observation", id, "$meta-add", parameters)
+}
+
+// InvokeObservationMetaDelete invokes $meta-delete on Observation at instance level.
+func (c *ClientR4B) InvokeObservationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Observation", id, "$meta-delete", parameters)
+}
+
+// InvokeObservationValidate invokes $validate on Observation at type or instance level.
+func (c *ClientR4B) InvokeObservationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Observation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Observation", "$validate", parameters)
+	}
+}
+
+// InvokeObservationDefinitionGraph invokes $graph on ObservationDefinition at instance level.
+func (c *ClientR4B) InvokeObservationDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ObservationDefinition", id, "$graph", parameters)
+}
+
+// InvokeObservationDefinitionGraphql invokes $graphql on ObservationDefinition at instance level.
+func (c *ClientR4B) InvokeObservationDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ObservationDefinition", id, "$graphql", parameters)
+}
+
+// InvokeObservationDefinitionMeta invokes $meta on ObservationDefinition at type or instance level.
+func (c *ClientR4B) InvokeObservationDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ObservationDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ObservationDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeObservationDefinitionMetaAdd invokes $meta-add on ObservationDefinition at instance level.
+func (c *ClientR4B) InvokeObservationDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ObservationDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeObservationDefinitionMetaDelete invokes $meta-delete on ObservationDefinition at instance level.
+func (c *ClientR4B) InvokeObservationDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ObservationDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeObservationDefinitionValidate invokes $validate on ObservationDefinition at type or instance level.
+func (c *ClientR4B) InvokeObservationDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ObservationDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ObservationDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeOperationDefinitionGraph invokes $graph on OperationDefinition at instance level.
+func (c *ClientR4B) InvokeOperationDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationDefinition", id, "$graph", parameters)
+}
+
+// InvokeOperationDefinitionGraphql invokes $graphql on OperationDefinition at instance level.
+func (c *ClientR4B) InvokeOperationDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationDefinition", id, "$graphql", parameters)
+}
+
+// InvokeOperationDefinitionMeta invokes $meta on OperationDefinition at type or instance level.
+func (c *ClientR4B) InvokeOperationDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OperationDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "OperationDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeOperationDefinitionMetaAdd invokes $meta-add on OperationDefinition at instance level.
+func (c *ClientR4B) InvokeOperationDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeOperationDefinitionMetaDelete invokes $meta-delete on OperationDefinition at instance level.
+func (c *ClientR4B) InvokeOperationDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeOperationDefinitionValidate invokes $validate on OperationDefinition at type or instance level.
+func (c *ClientR4B) InvokeOperationDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OperationDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "OperationDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeOperationOutcomeGraph invokes $graph on OperationOutcome at instance level.
+func (c *ClientR4B) InvokeOperationOutcomeGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationOutcome", id, "$graph", parameters)
+}
+
+// InvokeOperationOutcomeGraphql invokes $graphql on OperationOutcome at instance level.
+func (c *ClientR4B) InvokeOperationOutcomeGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationOutcome", id, "$graphql", parameters)
+}
+
+// InvokeOperationOutcomeMeta invokes $meta on OperationOutcome at type or instance level.
+func (c *ClientR4B) InvokeOperationOutcomeMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OperationOutcome", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "OperationOutcome", "$meta", parameters)
+	}
+}
+
+// InvokeOperationOutcomeMetaAdd invokes $meta-add on OperationOutcome at instance level.
+func (c *ClientR4B) InvokeOperationOutcomeMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationOutcome", id, "$meta-add", parameters)
+}
+
+// InvokeOperationOutcomeMetaDelete invokes $meta-delete on OperationOutcome at instance level.
+func (c *ClientR4B) InvokeOperationOutcomeMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OperationOutcome", id, "$meta-delete", parameters)
+}
+
+// InvokeOperationOutcomeValidate invokes $validate on OperationOutcome at type or instance level.
+func (c *ClientR4B) InvokeOperationOutcomeValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OperationOutcome", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "OperationOutcome", "$validate", parameters)
+	}
+}
+
+// InvokeOrganizationGraph invokes $graph on Organization at instance level.
+func (c *ClientR4B) InvokeOrganizationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Organization", id, "$graph", parameters)
+}
+
+// InvokeOrganizationGraphql invokes $graphql on Organization at instance level.
+func (c *ClientR4B) InvokeOrganizationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Organization", id, "$graphql", parameters)
+}
+
+// InvokeOrganizationMeta invokes $meta on Organization at type or instance level.
+func (c *ClientR4B) InvokeOrganizationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Organization", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Organization", "$meta", parameters)
+	}
+}
+
+// InvokeOrganizationMetaAdd invokes $meta-add on Organization at instance level.
+func (c *ClientR4B) InvokeOrganizationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Organization", id, "$meta-add", parameters)
+}
+
+// InvokeOrganizationMetaDelete invokes $meta-delete on Organization at instance level.
+func (c *ClientR4B) InvokeOrganizationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Organization", id, "$meta-delete", parameters)
+}
+
+// InvokeOrganizationValidate invokes $validate on Organization at type or instance level.
+func (c *ClientR4B) InvokeOrganizationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Organization", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Organization", "$validate", parameters)
+	}
+}
+
+// InvokeOrganizationAffiliationGraph invokes $graph on OrganizationAffiliation at instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OrganizationAffiliation", id, "$graph", parameters)
+}
+
+// InvokeOrganizationAffiliationGraphql invokes $graphql on OrganizationAffiliation at instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OrganizationAffiliation", id, "$graphql", parameters)
+}
+
+// InvokeOrganizationAffiliationMeta invokes $meta on OrganizationAffiliation at type or instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OrganizationAffiliation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "OrganizationAffiliation", "$meta", parameters)
+	}
+}
+
+// InvokeOrganizationAffiliationMetaAdd invokes $meta-add on OrganizationAffiliation at instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OrganizationAffiliation", id, "$meta-add", parameters)
+}
+
+// InvokeOrganizationAffiliationMetaDelete invokes $meta-delete on OrganizationAffiliation at instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "OrganizationAffiliation", id, "$meta-delete", parameters)
+}
+
+// InvokeOrganizationAffiliationValidate invokes $validate on OrganizationAffiliation at type or instance level.
+func (c *ClientR4B) InvokeOrganizationAffiliationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "OrganizationAffiliation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "OrganizationAffiliation", "$validate", parameters)
+	}
+}
+
+// InvokePackagedProductDefinitionGraph invokes $graph on PackagedProductDefinition at instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PackagedProductDefinition", id, "$graph", parameters)
+}
+
+// InvokePackagedProductDefinitionGraphql invokes $graphql on PackagedProductDefinition at instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PackagedProductDefinition", id, "$graphql", parameters)
+}
+
+// InvokePackagedProductDefinitionMeta invokes $meta on PackagedProductDefinition at type or instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PackagedProductDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "PackagedProductDefinition", "$meta", parameters)
+	}
+}
+
+// InvokePackagedProductDefinitionMetaAdd invokes $meta-add on PackagedProductDefinition at instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PackagedProductDefinition", id, "$meta-add", parameters)
+}
+
+// InvokePackagedProductDefinitionMetaDelete invokes $meta-delete on PackagedProductDefinition at instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PackagedProductDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokePackagedProductDefinitionValidate invokes $validate on PackagedProductDefinition at type or instance level.
+func (c *ClientR4B) InvokePackagedProductDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PackagedProductDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "PackagedProductDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeParametersGraph invokes $graph on Parameters at instance level.
+func (c *ClientR4B) InvokeParametersGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Parameters", id, "$graph", parameters)
+}
+
+// InvokeParametersGraphql invokes $graphql on Parameters at instance level.
+func (c *ClientR4B) InvokeParametersGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Parameters", id, "$graphql", parameters)
+}
+
+// InvokeParametersMeta invokes $meta on Parameters at type or instance level.
+func (c *ClientR4B) InvokeParametersMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Parameters", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Parameters", "$meta", parameters)
+	}
+}
+
+// InvokeParametersMetaAdd invokes $meta-add on Parameters at instance level.
+func (c *ClientR4B) InvokeParametersMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Parameters", id, "$meta-add", parameters)
+}
+
+// InvokeParametersMetaDelete invokes $meta-delete on Parameters at instance level.
+func (c *ClientR4B) InvokeParametersMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Parameters", id, "$meta-delete", parameters)
+}
+
+// InvokeParametersValidate invokes $validate on Parameters at type or instance level.
+func (c *ClientR4B) InvokeParametersValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Parameters", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Parameters", "$validate", parameters)
+	}
+}
+
+// InvokePatientGraph invokes $graph on Patient at instance level.
+func (c *ClientR4B) InvokePatientGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Patient", id, "$graph", parameters)
+}
+
+// InvokePatientGraphql invokes $graphql on Patient at instance level.
+func (c *ClientR4B) InvokePatientGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Patient", id, "$graphql", parameters)
+}
+
+// InvokePatientMeta invokes $meta on Patient at type or instance level.
+func (c *ClientR4B) InvokePatientMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Patient", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Patient", "$meta", parameters)
+	}
+}
+
+// InvokePatientMetaAdd invokes $meta-add on Patient at instance level.
+func (c *ClientR4B) InvokePatientMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Patient", id, "$meta-add", parameters)
+}
+
+// InvokePatientMetaDelete invokes $meta-delete on Patient at instance level.
+func (c *ClientR4B) InvokePatientMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Patient", id, "$meta-delete", parameters)
+}
+
+// InvokePatientValidate invokes $validate on Patient at type or instance level.
+func (c *ClientR4B) InvokePatientValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Patient", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Patient", "$validate", parameters)
+	}
+}
+
+// InvokePaymentNoticeGraph invokes $graph on PaymentNotice at instance level.
+func (c *ClientR4B) InvokePaymentNoticeGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentNotice", id, "$graph", parameters)
+}
+
+// InvokePaymentNoticeGraphql invokes $graphql on PaymentNotice at instance level.
+func (c *ClientR4B) InvokePaymentNoticeGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentNotice", id, "$graphql", parameters)
+}
+
+// InvokePaymentNoticeMeta invokes $meta on PaymentNotice at type or instance level.
+func (c *ClientR4B) InvokePaymentNoticeMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PaymentNotice", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "PaymentNotice", "$meta", parameters)
+	}
+}
+
+// InvokePaymentNoticeMetaAdd invokes $meta-add on PaymentNotice at instance level.
+func (c *ClientR4B) InvokePaymentNoticeMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentNotice", id, "$meta-add", parameters)
+}
+
+// InvokePaymentNoticeMetaDelete invokes $meta-delete on PaymentNotice at instance level.
+func (c *ClientR4B) InvokePaymentNoticeMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentNotice", id, "$meta-delete", parameters)
+}
+
+// InvokePaymentNoticeValidate invokes $validate on PaymentNotice at type or instance level.
+func (c *ClientR4B) InvokePaymentNoticeValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PaymentNotice", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "PaymentNotice", "$validate", parameters)
+	}
+}
+
+// InvokePaymentReconciliationGraph invokes $graph on PaymentReconciliation at instance level.
+func (c *ClientR4B) InvokePaymentReconciliationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentReconciliation", id, "$graph", parameters)
+}
+
+// InvokePaymentReconciliationGraphql invokes $graphql on PaymentReconciliation at instance level.
+func (c *ClientR4B) InvokePaymentReconciliationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentReconciliation", id, "$graphql", parameters)
+}
+
+// InvokePaymentReconciliationMeta invokes $meta on PaymentReconciliation at type or instance level.
+func (c *ClientR4B) InvokePaymentReconciliationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PaymentReconciliation", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "PaymentReconciliation", "$meta", parameters)
+	}
+}
+
+// InvokePaymentReconciliationMetaAdd invokes $meta-add on PaymentReconciliation at instance level.
+func (c *ClientR4B) InvokePaymentReconciliationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentReconciliation", id, "$meta-add", parameters)
+}
+
+// InvokePaymentReconciliationMetaDelete invokes $meta-delete on PaymentReconciliation at instance level.
+func (c *ClientR4B) InvokePaymentReconciliationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PaymentReconciliation", id, "$meta-delete", parameters)
+}
+
+// InvokePaymentReconciliationValidate invokes $validate on PaymentReconciliation at type or instance level.
+func (c *ClientR4B) InvokePaymentReconciliationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PaymentReconciliation", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "PaymentReconciliation", "$validate", parameters)
+	}
+}
+
+// InvokePersonGraph invokes $graph on Person at instance level.
+func (c *ClientR4B) InvokePersonGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Person", id, "$graph", parameters)
+}
+
+// InvokePersonGraphql invokes $graphql on Person at instance level.
+func (c *ClientR4B) InvokePersonGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Person", id, "$graphql", parameters)
+}
+
+// InvokePersonMeta invokes $meta on Person at type or instance level.
+func (c *ClientR4B) InvokePersonMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Person", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Person", "$meta", parameters)
+	}
+}
+
+// InvokePersonMetaAdd invokes $meta-add on Person at instance level.
+func (c *ClientR4B) InvokePersonMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Person", id, "$meta-add", parameters)
+}
+
+// InvokePersonMetaDelete invokes $meta-delete on Person at instance level.
+func (c *ClientR4B) InvokePersonMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Person", id, "$meta-delete", parameters)
+}
+
+// InvokePersonValidate invokes $validate on Person at type or instance level.
+func (c *ClientR4B) InvokePersonValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Person", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Person", "$validate", parameters)
+	}
+}
+
+// InvokePlanDefinitionGraph invokes $graph on PlanDefinition at instance level.
+func (c *ClientR4B) InvokePlanDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PlanDefinition", id, "$graph", parameters)
+}
+
+// InvokePlanDefinitionGraphql invokes $graphql on PlanDefinition at instance level.
+func (c *ClientR4B) InvokePlanDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PlanDefinition", id, "$graphql", parameters)
+}
+
+// InvokePlanDefinitionMeta invokes $meta on PlanDefinition at type or instance level.
+func (c *ClientR4B) InvokePlanDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PlanDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "PlanDefinition", "$meta", parameters)
+	}
+}
+
+// InvokePlanDefinitionMetaAdd invokes $meta-add on PlanDefinition at instance level.
+func (c *ClientR4B) InvokePlanDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PlanDefinition", id, "$meta-add", parameters)
+}
+
+// InvokePlanDefinitionMetaDelete invokes $meta-delete on PlanDefinition at instance level.
+func (c *ClientR4B) InvokePlanDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PlanDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokePlanDefinitionValidate invokes $validate on PlanDefinition at type or instance level.
+func (c *ClientR4B) InvokePlanDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PlanDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "PlanDefinition", "$validate", parameters)
+	}
+}
+
+// InvokePractitionerGraph invokes $graph on Practitioner at instance level.
+func (c *ClientR4B) InvokePractitionerGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Practitioner", id, "$graph", parameters)
+}
+
+// InvokePractitionerGraphql invokes $graphql on Practitioner at instance level.
+func (c *ClientR4B) InvokePractitionerGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Practitioner", id, "$graphql", parameters)
+}
+
+// InvokePractitionerMeta invokes $meta on Practitioner at type or instance level.
+func (c *ClientR4B) InvokePractitionerMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Practitioner", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Practitioner", "$meta", parameters)
+	}
+}
+
+// InvokePractitionerMetaAdd invokes $meta-add on Practitioner at instance level.
+func (c *ClientR4B) InvokePractitionerMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Practitioner", id, "$meta-add", parameters)
+}
+
+// InvokePractitionerMetaDelete invokes $meta-delete on Practitioner at instance level.
+func (c *ClientR4B) InvokePractitionerMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Practitioner", id, "$meta-delete", parameters)
+}
+
+// InvokePractitionerValidate invokes $validate on Practitioner at type or instance level.
+func (c *ClientR4B) InvokePractitionerValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Practitioner", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Practitioner", "$validate", parameters)
+	}
+}
+
+// InvokePractitionerRoleGraph invokes $graph on PractitionerRole at instance level.
+func (c *ClientR4B) InvokePractitionerRoleGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PractitionerRole", id, "$graph", parameters)
+}
+
+// InvokePractitionerRoleGraphql invokes $graphql on PractitionerRole at instance level.
+func (c *ClientR4B) InvokePractitionerRoleGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PractitionerRole", id, "$graphql", parameters)
+}
+
+// InvokePractitionerRoleMeta invokes $meta on PractitionerRole at type or instance level.
+func (c *ClientR4B) InvokePractitionerRoleMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PractitionerRole", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "PractitionerRole", "$meta", parameters)
+	}
+}
+
+// InvokePractitionerRoleMetaAdd invokes $meta-add on PractitionerRole at instance level.
+func (c *ClientR4B) InvokePractitionerRoleMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PractitionerRole", id, "$meta-add", parameters)
+}
+
+// InvokePractitionerRoleMetaDelete invokes $meta-delete on PractitionerRole at instance level.
+func (c *ClientR4B) InvokePractitionerRoleMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PractitionerRole", id, "$meta-delete", parameters)
+}
+
+// InvokePractitionerRoleValidate invokes $validate on PractitionerRole at type or instance level.
+func (c *ClientR4B) InvokePractitionerRoleValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PractitionerRole", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "PractitionerRole", "$validate", parameters)
+	}
+}
+
+// InvokeProcedureGraph invokes $graph on Procedure at instance level.
+func (c *ClientR4B) InvokeProcedureGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Procedure", id, "$graph", parameters)
+}
+
+// InvokeProcedureGraphql invokes $graphql on Procedure at instance level.
+func (c *ClientR4B) InvokeProcedureGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Procedure", id, "$graphql", parameters)
+}
+
+// InvokeProcedureMeta invokes $meta on Procedure at type or instance level.
+func (c *ClientR4B) InvokeProcedureMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Procedure", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Procedure", "$meta", parameters)
+	}
+}
+
+// InvokeProcedureMetaAdd invokes $meta-add on Procedure at instance level.
+func (c *ClientR4B) InvokeProcedureMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Procedure", id, "$meta-add", parameters)
+}
+
+// InvokeProcedureMetaDelete invokes $meta-delete on Procedure at instance level.
+func (c *ClientR4B) InvokeProcedureMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Procedure", id, "$meta-delete", parameters)
+}
+
+// InvokeProcedureValidate invokes $validate on Procedure at type or instance level.
+func (c *ClientR4B) InvokeProcedureValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Procedure", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Procedure", "$validate", parameters)
+	}
+}
+
+// InvokeProvenanceGraph invokes $graph on Provenance at instance level.
+func (c *ClientR4B) InvokeProvenanceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Provenance", id, "$graph", parameters)
+}
+
+// InvokeProvenanceGraphql invokes $graphql on Provenance at instance level.
+func (c *ClientR4B) InvokeProvenanceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Provenance", id, "$graphql", parameters)
+}
+
+// InvokeProvenanceMeta invokes $meta on Provenance at type or instance level.
+func (c *ClientR4B) InvokeProvenanceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Provenance", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Provenance", "$meta", parameters)
+	}
+}
+
+// InvokeProvenanceMetaAdd invokes $meta-add on Provenance at instance level.
+func (c *ClientR4B) InvokeProvenanceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Provenance", id, "$meta-add", parameters)
+}
+
+// InvokeProvenanceMetaDelete invokes $meta-delete on Provenance at instance level.
+func (c *ClientR4B) InvokeProvenanceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Provenance", id, "$meta-delete", parameters)
+}
+
+// InvokeProvenanceValidate invokes $validate on Provenance at type or instance level.
+func (c *ClientR4B) InvokeProvenanceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Provenance", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Provenance", "$validate", parameters)
+	}
+}
+
+// InvokeQuestionnaireGraph invokes $graph on Questionnaire at instance level.
+func (c *ClientR4B) InvokeQuestionnaireGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Questionnaire", id, "$graph", parameters)
+}
+
+// InvokeQuestionnaireGraphql invokes $graphql on Questionnaire at instance level.
+func (c *ClientR4B) InvokeQuestionnaireGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Questionnaire", id, "$graphql", parameters)
+}
+
+// InvokeQuestionnaireMeta invokes $meta on Questionnaire at type or instance level.
+func (c *ClientR4B) InvokeQuestionnaireMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Questionnaire", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Questionnaire", "$meta", parameters)
+	}
+}
+
+// InvokeQuestionnaireMetaAdd invokes $meta-add on Questionnaire at instance level.
+func (c *ClientR4B) InvokeQuestionnaireMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Questionnaire", id, "$meta-add", parameters)
+}
+
+// InvokeQuestionnaireMetaDelete invokes $meta-delete on Questionnaire at instance level.
+func (c *ClientR4B) InvokeQuestionnaireMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Questionnaire", id, "$meta-delete", parameters)
+}
+
+// InvokeQuestionnaireValidate invokes $validate on Questionnaire at type or instance level.
+func (c *ClientR4B) InvokeQuestionnaireValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Questionnaire", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Questionnaire", "$validate", parameters)
+	}
+}
+
+// InvokeQuestionnaireResponseGraph invokes $graph on QuestionnaireResponse at instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "QuestionnaireResponse", id, "$graph", parameters)
+}
+
+// InvokeQuestionnaireResponseGraphql invokes $graphql on QuestionnaireResponse at instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "QuestionnaireResponse", id, "$graphql", parameters)
+}
+
+// InvokeQuestionnaireResponseMeta invokes $meta on QuestionnaireResponse at type or instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "QuestionnaireResponse", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "QuestionnaireResponse", "$meta", parameters)
+	}
+}
+
+// InvokeQuestionnaireResponseMetaAdd invokes $meta-add on QuestionnaireResponse at instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "QuestionnaireResponse", id, "$meta-add", parameters)
+}
+
+// InvokeQuestionnaireResponseMetaDelete invokes $meta-delete on QuestionnaireResponse at instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "QuestionnaireResponse", id, "$meta-delete", parameters)
+}
+
+// InvokeQuestionnaireResponseValidate invokes $validate on QuestionnaireResponse at type or instance level.
+func (c *ClientR4B) InvokeQuestionnaireResponseValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "QuestionnaireResponse", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "QuestionnaireResponse", "$validate", parameters)
+	}
+}
+
+// InvokeRegulatedAuthorizationGraph invokes $graph on RegulatedAuthorization at instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RegulatedAuthorization", id, "$graph", parameters)
+}
+
+// InvokeRegulatedAuthorizationGraphql invokes $graphql on RegulatedAuthorization at instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RegulatedAuthorization", id, "$graphql", parameters)
+}
+
+// InvokeRegulatedAuthorizationMeta invokes $meta on RegulatedAuthorization at type or instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RegulatedAuthorization", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "RegulatedAuthorization", "$meta", parameters)
+	}
+}
+
+// InvokeRegulatedAuthorizationMetaAdd invokes $meta-add on RegulatedAuthorization at instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RegulatedAuthorization", id, "$meta-add", parameters)
+}
+
+// InvokeRegulatedAuthorizationMetaDelete invokes $meta-delete on RegulatedAuthorization at instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RegulatedAuthorization", id, "$meta-delete", parameters)
+}
+
+// InvokeRegulatedAuthorizationValidate invokes $validate on RegulatedAuthorization at type or instance level.
+func (c *ClientR4B) InvokeRegulatedAuthorizationValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RegulatedAuthorization", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "RegulatedAuthorization", "$validate", parameters)
+	}
+}
+
+// InvokeRelatedPersonGraph invokes $graph on RelatedPerson at instance level.
+func (c *ClientR4B) InvokeRelatedPersonGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RelatedPerson", id, "$graph", parameters)
+}
+
+// InvokeRelatedPersonGraphql invokes $graphql on RelatedPerson at instance level.
+func (c *ClientR4B) InvokeRelatedPersonGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RelatedPerson", id, "$graphql", parameters)
+}
+
+// InvokeRelatedPersonMeta invokes $meta on RelatedPerson at type or instance level.
+func (c *ClientR4B) InvokeRelatedPersonMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RelatedPerson", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "RelatedPerson", "$meta", parameters)
+	}
+}
+
+// InvokeRelatedPersonMetaAdd invokes $meta-add on RelatedPerson at instance level.
+func (c *ClientR4B) InvokeRelatedPersonMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RelatedPerson", id, "$meta-add", parameters)
+}
+
+// InvokeRelatedPersonMetaDelete invokes $meta-delete on RelatedPerson at instance level.
+func (c *ClientR4B) InvokeRelatedPersonMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RelatedPerson", id, "$meta-delete", parameters)
+}
+
+// InvokeRelatedPersonValidate invokes $validate on RelatedPerson at type or instance level.
+func (c *ClientR4B) InvokeRelatedPersonValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RelatedPerson", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "RelatedPerson", "$validate", parameters)
+	}
+}
+
+// InvokeRequestGroupGraph invokes $graph on RequestGroup at instance level.
+func (c *ClientR4B) InvokeRequestGroupGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RequestGroup", id, "$graph", parameters)
+}
+
+// InvokeRequestGroupGraphql invokes $graphql on RequestGroup at instance level.
+func (c *ClientR4B) InvokeRequestGroupGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RequestGroup", id, "$graphql", parameters)
+}
+
+// InvokeRequestGroupMeta invokes $meta on RequestGroup at type or instance level.
+func (c *ClientR4B) InvokeRequestGroupMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RequestGroup", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "RequestGroup", "$meta", parameters)
+	}
+}
+
+// InvokeRequestGroupMetaAdd invokes $meta-add on RequestGroup at instance level.
+func (c *ClientR4B) InvokeRequestGroupMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RequestGroup", id, "$meta-add", parameters)
+}
+
+// InvokeRequestGroupMetaDelete invokes $meta-delete on RequestGroup at instance level.
+func (c *ClientR4B) InvokeRequestGroupMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RequestGroup", id, "$meta-delete", parameters)
+}
+
+// InvokeRequestGroupValidate invokes $validate on RequestGroup at type or instance level.
+func (c *ClientR4B) InvokeRequestGroupValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RequestGroup", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "RequestGroup", "$validate", parameters)
+	}
+}
+
+// InvokeResearchDefinitionGraph invokes $graph on ResearchDefinition at instance level.
+func (c *ClientR4B) InvokeResearchDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchDefinition", id, "$graph", parameters)
+}
+
+// InvokeResearchDefinitionGraphql invokes $graphql on ResearchDefinition at instance level.
+func (c *ClientR4B) InvokeResearchDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchDefinition", id, "$graphql", parameters)
+}
+
+// InvokeResearchDefinitionMeta invokes $meta on ResearchDefinition at type or instance level.
+func (c *ClientR4B) InvokeResearchDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeResearchDefinitionMetaAdd invokes $meta-add on ResearchDefinition at instance level.
+func (c *ClientR4B) InvokeResearchDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeResearchDefinitionMetaDelete invokes $meta-delete on ResearchDefinition at instance level.
+func (c *ClientR4B) InvokeResearchDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeResearchDefinitionValidate invokes $validate on ResearchDefinition at type or instance level.
+func (c *ClientR4B) InvokeResearchDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeResearchElementDefinitionGraph invokes $graph on ResearchElementDefinition at instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchElementDefinition", id, "$graph", parameters)
+}
+
+// InvokeResearchElementDefinitionGraphql invokes $graphql on ResearchElementDefinition at instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchElementDefinition", id, "$graphql", parameters)
+}
+
+// InvokeResearchElementDefinitionMeta invokes $meta on ResearchElementDefinition at type or instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchElementDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchElementDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeResearchElementDefinitionMetaAdd invokes $meta-add on ResearchElementDefinition at instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchElementDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeResearchElementDefinitionMetaDelete invokes $meta-delete on ResearchElementDefinition at instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchElementDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeResearchElementDefinitionValidate invokes $validate on ResearchElementDefinition at type or instance level.
+func (c *ClientR4B) InvokeResearchElementDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchElementDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchElementDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeResearchStudyGraph invokes $graph on ResearchStudy at instance level.
+func (c *ClientR4B) InvokeResearchStudyGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchStudy", id, "$graph", parameters)
+}
+
+// InvokeResearchStudyGraphql invokes $graphql on ResearchStudy at instance level.
+func (c *ClientR4B) InvokeResearchStudyGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchStudy", id, "$graphql", parameters)
+}
+
+// InvokeResearchStudyMeta invokes $meta on ResearchStudy at type or instance level.
+func (c *ClientR4B) InvokeResearchStudyMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchStudy", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchStudy", "$meta", parameters)
+	}
+}
+
+// InvokeResearchStudyMetaAdd invokes $meta-add on ResearchStudy at instance level.
+func (c *ClientR4B) InvokeResearchStudyMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchStudy", id, "$meta-add", parameters)
+}
+
+// InvokeResearchStudyMetaDelete invokes $meta-delete on ResearchStudy at instance level.
+func (c *ClientR4B) InvokeResearchStudyMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchStudy", id, "$meta-delete", parameters)
+}
+
+// InvokeResearchStudyValidate invokes $validate on ResearchStudy at type or instance level.
+func (c *ClientR4B) InvokeResearchStudyValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchStudy", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchStudy", "$validate", parameters)
+	}
+}
+
+// InvokeResearchSubjectGraph invokes $graph on ResearchSubject at instance level.
+func (c *ClientR4B) InvokeResearchSubjectGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchSubject", id, "$graph", parameters)
+}
+
+// InvokeResearchSubjectGraphql invokes $graphql on ResearchSubject at instance level.
+func (c *ClientR4B) InvokeResearchSubjectGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchSubject", id, "$graphql", parameters)
+}
+
+// InvokeResearchSubjectMeta invokes $meta on ResearchSubject at type or instance level.
+func (c *ClientR4B) InvokeResearchSubjectMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchSubject", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchSubject", "$meta", parameters)
+	}
+}
+
+// InvokeResearchSubjectMetaAdd invokes $meta-add on ResearchSubject at instance level.
+func (c *ClientR4B) InvokeResearchSubjectMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchSubject", id, "$meta-add", parameters)
+}
+
+// InvokeResearchSubjectMetaDelete invokes $meta-delete on ResearchSubject at instance level.
+func (c *ClientR4B) InvokeResearchSubjectMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ResearchSubject", id, "$meta-delete", parameters)
+}
+
+// InvokeResearchSubjectValidate invokes $validate on ResearchSubject at type or instance level.
+func (c *ClientR4B) InvokeResearchSubjectValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ResearchSubject", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ResearchSubject", "$validate", parameters)
+	}
+}
+
+// InvokeRiskAssessmentGraph invokes $graph on RiskAssessment at instance level.
+func (c *ClientR4B) InvokeRiskAssessmentGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RiskAssessment", id, "$graph", parameters)
+}
+
+// InvokeRiskAssessmentGraphql invokes $graphql on RiskAssessment at instance level.
+func (c *ClientR4B) InvokeRiskAssessmentGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RiskAssessment", id, "$graphql", parameters)
+}
+
+// InvokeRiskAssessmentMeta invokes $meta on RiskAssessment at type or instance level.
+func (c *ClientR4B) InvokeRiskAssessmentMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RiskAssessment", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "RiskAssessment", "$meta", parameters)
+	}
+}
+
+// InvokeRiskAssessmentMetaAdd invokes $meta-add on RiskAssessment at instance level.
+func (c *ClientR4B) InvokeRiskAssessmentMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RiskAssessment", id, "$meta-add", parameters)
+}
+
+// InvokeRiskAssessmentMetaDelete invokes $meta-delete on RiskAssessment at instance level.
+func (c *ClientR4B) InvokeRiskAssessmentMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "RiskAssessment", id, "$meta-delete", parameters)
+}
+
+// InvokeRiskAssessmentValidate invokes $validate on RiskAssessment at type or instance level.
+func (c *ClientR4B) InvokeRiskAssessmentValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "RiskAssessment", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "RiskAssessment", "$validate", parameters)
+	}
+}
+
+// InvokeScheduleGraph invokes $graph on Schedule at instance level.
+func (c *ClientR4B) InvokeScheduleGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Schedule", id, "$graph", parameters)
+}
+
+// InvokeScheduleGraphql invokes $graphql on Schedule at instance level.
+func (c *ClientR4B) InvokeScheduleGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Schedule", id, "$graphql", parameters)
+}
+
+// InvokeScheduleMeta invokes $meta on Schedule at type or instance level.
+func (c *ClientR4B) InvokeScheduleMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Schedule", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Schedule", "$meta", parameters)
+	}
+}
+
+// InvokeScheduleMetaAdd invokes $meta-add on Schedule at instance level.
+func (c *ClientR4B) InvokeScheduleMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Schedule", id, "$meta-add", parameters)
+}
+
+// InvokeScheduleMetaDelete invokes $meta-delete on Schedule at instance level.
+func (c *ClientR4B) InvokeScheduleMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Schedule", id, "$meta-delete", parameters)
+}
+
+// InvokeScheduleValidate invokes $validate on Schedule at type or instance level.
+func (c *ClientR4B) InvokeScheduleValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Schedule", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Schedule", "$validate", parameters)
+	}
+}
+
+// InvokeSearchParameterGraph invokes $graph on SearchParameter at instance level.
+func (c *ClientR4B) InvokeSearchParameterGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SearchParameter", id, "$graph", parameters)
+}
+
+// InvokeSearchParameterGraphql invokes $graphql on SearchParameter at instance level.
+func (c *ClientR4B) InvokeSearchParameterGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SearchParameter", id, "$graphql", parameters)
+}
+
+// InvokeSearchParameterMeta invokes $meta on SearchParameter at type or instance level.
+func (c *ClientR4B) InvokeSearchParameterMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SearchParameter", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SearchParameter", "$meta", parameters)
+	}
+}
+
+// InvokeSearchParameterMetaAdd invokes $meta-add on SearchParameter at instance level.
+func (c *ClientR4B) InvokeSearchParameterMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SearchParameter", id, "$meta-add", parameters)
+}
+
+// InvokeSearchParameterMetaDelete invokes $meta-delete on SearchParameter at instance level.
+func (c *ClientR4B) InvokeSearchParameterMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SearchParameter", id, "$meta-delete", parameters)
+}
+
+// InvokeSearchParameterValidate invokes $validate on SearchParameter at type or instance level.
+func (c *ClientR4B) InvokeSearchParameterValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SearchParameter", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SearchParameter", "$validate", parameters)
+	}
+}
+
+// InvokeServiceRequestGraph invokes $graph on ServiceRequest at instance level.
+func (c *ClientR4B) InvokeServiceRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ServiceRequest", id, "$graph", parameters)
+}
+
+// InvokeServiceRequestGraphql invokes $graphql on ServiceRequest at instance level.
+func (c *ClientR4B) InvokeServiceRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ServiceRequest", id, "$graphql", parameters)
+}
+
+// InvokeServiceRequestMeta invokes $meta on ServiceRequest at type or instance level.
+func (c *ClientR4B) InvokeServiceRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ServiceRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ServiceRequest", "$meta", parameters)
+	}
+}
+
+// InvokeServiceRequestMetaAdd invokes $meta-add on ServiceRequest at instance level.
+func (c *ClientR4B) InvokeServiceRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ServiceRequest", id, "$meta-add", parameters)
+}
+
+// InvokeServiceRequestMetaDelete invokes $meta-delete on ServiceRequest at instance level.
+func (c *ClientR4B) InvokeServiceRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ServiceRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeServiceRequestValidate invokes $validate on ServiceRequest at type or instance level.
+func (c *ClientR4B) InvokeServiceRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ServiceRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ServiceRequest", "$validate", parameters)
+	}
+}
+
+// InvokeSlotGraph invokes $graph on Slot at instance level.
+func (c *ClientR4B) InvokeSlotGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Slot", id, "$graph", parameters)
+}
+
+// InvokeSlotGraphql invokes $graphql on Slot at instance level.
+func (c *ClientR4B) InvokeSlotGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Slot", id, "$graphql", parameters)
+}
+
+// InvokeSlotMeta invokes $meta on Slot at type or instance level.
+func (c *ClientR4B) InvokeSlotMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Slot", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Slot", "$meta", parameters)
+	}
+}
+
+// InvokeSlotMetaAdd invokes $meta-add on Slot at instance level.
+func (c *ClientR4B) InvokeSlotMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Slot", id, "$meta-add", parameters)
+}
+
+// InvokeSlotMetaDelete invokes $meta-delete on Slot at instance level.
+func (c *ClientR4B) InvokeSlotMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Slot", id, "$meta-delete", parameters)
+}
+
+// InvokeSlotValidate invokes $validate on Slot at type or instance level.
+func (c *ClientR4B) InvokeSlotValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Slot", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Slot", "$validate", parameters)
+	}
+}
+
+// InvokeSpecimenGraph invokes $graph on Specimen at instance level.
+func (c *ClientR4B) InvokeSpecimenGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Specimen", id, "$graph", parameters)
+}
+
+// InvokeSpecimenGraphql invokes $graphql on Specimen at instance level.
+func (c *ClientR4B) InvokeSpecimenGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Specimen", id, "$graphql", parameters)
+}
+
+// InvokeSpecimenMeta invokes $meta on Specimen at type or instance level.
+func (c *ClientR4B) InvokeSpecimenMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Specimen", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Specimen", "$meta", parameters)
+	}
+}
+
+// InvokeSpecimenMetaAdd invokes $meta-add on Specimen at instance level.
+func (c *ClientR4B) InvokeSpecimenMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Specimen", id, "$meta-add", parameters)
+}
+
+// InvokeSpecimenMetaDelete invokes $meta-delete on Specimen at instance level.
+func (c *ClientR4B) InvokeSpecimenMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Specimen", id, "$meta-delete", parameters)
+}
+
+// InvokeSpecimenValidate invokes $validate on Specimen at type or instance level.
+func (c *ClientR4B) InvokeSpecimenValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Specimen", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Specimen", "$validate", parameters)
+	}
+}
+
+// InvokeSpecimenDefinitionGraph invokes $graph on SpecimenDefinition at instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SpecimenDefinition", id, "$graph", parameters)
+}
+
+// InvokeSpecimenDefinitionGraphql invokes $graphql on SpecimenDefinition at instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SpecimenDefinition", id, "$graphql", parameters)
+}
+
+// InvokeSpecimenDefinitionMeta invokes $meta on SpecimenDefinition at type or instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SpecimenDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SpecimenDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeSpecimenDefinitionMetaAdd invokes $meta-add on SpecimenDefinition at instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SpecimenDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeSpecimenDefinitionMetaDelete invokes $meta-delete on SpecimenDefinition at instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SpecimenDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeSpecimenDefinitionValidate invokes $validate on SpecimenDefinition at type or instance level.
+func (c *ClientR4B) InvokeSpecimenDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SpecimenDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SpecimenDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeStructureDefinitionGraph invokes $graph on StructureDefinition at instance level.
+func (c *ClientR4B) InvokeStructureDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureDefinition", id, "$graph", parameters)
+}
+
+// InvokeStructureDefinitionGraphql invokes $graphql on StructureDefinition at instance level.
+func (c *ClientR4B) InvokeStructureDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureDefinition", id, "$graphql", parameters)
+}
+
+// InvokeStructureDefinitionMeta invokes $meta on StructureDefinition at type or instance level.
+func (c *ClientR4B) InvokeStructureDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeStructureDefinitionMetaAdd invokes $meta-add on StructureDefinition at instance level.
+func (c *ClientR4B) InvokeStructureDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeStructureDefinitionMetaDelete invokes $meta-delete on StructureDefinition at instance level.
+func (c *ClientR4B) InvokeStructureDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeStructureDefinitionValidate invokes $validate on StructureDefinition at type or instance level.
+func (c *ClientR4B) InvokeStructureDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeStructureMapGraph invokes $graph on StructureMap at instance level.
+func (c *ClientR4B) InvokeStructureMapGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureMap", id, "$graph", parameters)
+}
+
+// InvokeStructureMapGraphql invokes $graphql on StructureMap at instance level.
+func (c *ClientR4B) InvokeStructureMapGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureMap", id, "$graphql", parameters)
+}
+
+// InvokeStructureMapMeta invokes $meta on StructureMap at type or instance level.
+func (c *ClientR4B) InvokeStructureMapMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureMap", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureMap", "$meta", parameters)
+	}
+}
+
+// InvokeStructureMapMetaAdd invokes $meta-add on StructureMap at instance level.
+func (c *ClientR4B) InvokeStructureMapMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureMap", id, "$meta-add", parameters)
+}
+
+// InvokeStructureMapMetaDelete invokes $meta-delete on StructureMap at instance level.
+func (c *ClientR4B) InvokeStructureMapMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "StructureMap", id, "$meta-delete", parameters)
+}
+
+// InvokeStructureMapValidate invokes $validate on StructureMap at type or instance level.
+func (c *ClientR4B) InvokeStructureMapValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureMap", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureMap", "$validate", parameters)
+	}
+}
+
+// InvokeSubscriptionGraph invokes $graph on Subscription at instance level.
+func (c *ClientR4B) InvokeSubscriptionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Subscription", id, "$graph", parameters)
+}
+
+// InvokeSubscriptionGraphql invokes $graphql on Subscription at instance level.
+func (c *ClientR4B) InvokeSubscriptionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Subscription", id, "$graphql", parameters)
+}
+
+// InvokeSubscriptionMeta invokes $meta on Subscription at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Subscription", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Subscription", "$meta", parameters)
+	}
+}
+
+// InvokeSubscriptionMetaAdd invokes $meta-add on Subscription at instance level.
+func (c *ClientR4B) InvokeSubscriptionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Subscription", id, "$meta-add", parameters)
+}
+
+// InvokeSubscriptionMetaDelete invokes $meta-delete on Subscription at instance level.
+func (c *ClientR4B) InvokeSubscriptionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Subscription", id, "$meta-delete", parameters)
+}
+
+// InvokeSubscriptionValidate invokes $validate on Subscription at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Subscription", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Subscription", "$validate", parameters)
+	}
+}
+
+// InvokeSubscriptionStatusGraph invokes $graph on SubscriptionStatus at instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionStatus", id, "$graph", parameters)
+}
+
+// InvokeSubscriptionStatusGraphql invokes $graphql on SubscriptionStatus at instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionStatus", id, "$graphql", parameters)
+}
+
+// InvokeSubscriptionStatusMeta invokes $meta on SubscriptionStatus at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubscriptionStatus", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubscriptionStatus", "$meta", parameters)
+	}
+}
+
+// InvokeSubscriptionStatusMetaAdd invokes $meta-add on SubscriptionStatus at instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionStatus", id, "$meta-add", parameters)
+}
+
+// InvokeSubscriptionStatusMetaDelete invokes $meta-delete on SubscriptionStatus at instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionStatus", id, "$meta-delete", parameters)
+}
+
+// InvokeSubscriptionStatusValidate invokes $validate on SubscriptionStatus at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionStatusValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubscriptionStatus", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubscriptionStatus", "$validate", parameters)
+	}
+}
+
+// InvokeSubscriptionTopicGraph invokes $graph on SubscriptionTopic at instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionTopic", id, "$graph", parameters)
+}
+
+// InvokeSubscriptionTopicGraphql invokes $graphql on SubscriptionTopic at instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionTopic", id, "$graphql", parameters)
+}
+
+// InvokeSubscriptionTopicMeta invokes $meta on SubscriptionTopic at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubscriptionTopic", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubscriptionTopic", "$meta", parameters)
+	}
+}
+
+// InvokeSubscriptionTopicMetaAdd invokes $meta-add on SubscriptionTopic at instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionTopic", id, "$meta-add", parameters)
+}
+
+// InvokeSubscriptionTopicMetaDelete invokes $meta-delete on SubscriptionTopic at instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubscriptionTopic", id, "$meta-delete", parameters)
+}
+
+// InvokeSubscriptionTopicValidate invokes $validate on SubscriptionTopic at type or instance level.
+func (c *ClientR4B) InvokeSubscriptionTopicValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubscriptionTopic", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubscriptionTopic", "$validate", parameters)
+	}
+}
+
+// InvokeSubstanceGraph invokes $graph on Substance at instance level.
+func (c *ClientR4B) InvokeSubstanceGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Substance", id, "$graph", parameters)
+}
+
+// InvokeSubstanceGraphql invokes $graphql on Substance at instance level.
+func (c *ClientR4B) InvokeSubstanceGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Substance", id, "$graphql", parameters)
+}
+
+// InvokeSubstanceMeta invokes $meta on Substance at type or instance level.
+func (c *ClientR4B) InvokeSubstanceMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Substance", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Substance", "$meta", parameters)
+	}
+}
+
+// InvokeSubstanceMetaAdd invokes $meta-add on Substance at instance level.
+func (c *ClientR4B) InvokeSubstanceMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Substance", id, "$meta-add", parameters)
+}
+
+// InvokeSubstanceMetaDelete invokes $meta-delete on Substance at instance level.
+func (c *ClientR4B) InvokeSubstanceMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Substance", id, "$meta-delete", parameters)
+}
+
+// InvokeSubstanceValidate invokes $validate on Substance at type or instance level.
+func (c *ClientR4B) InvokeSubstanceValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Substance", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Substance", "$validate", parameters)
+	}
+}
+
+// InvokeSubstanceDefinitionGraph invokes $graph on SubstanceDefinition at instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubstanceDefinition", id, "$graph", parameters)
+}
+
+// InvokeSubstanceDefinitionGraphql invokes $graphql on SubstanceDefinition at instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubstanceDefinition", id, "$graphql", parameters)
+}
+
+// InvokeSubstanceDefinitionMeta invokes $meta on SubstanceDefinition at type or instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubstanceDefinition", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubstanceDefinition", "$meta", parameters)
+	}
+}
+
+// InvokeSubstanceDefinitionMetaAdd invokes $meta-add on SubstanceDefinition at instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubstanceDefinition", id, "$meta-add", parameters)
+}
+
+// InvokeSubstanceDefinitionMetaDelete invokes $meta-delete on SubstanceDefinition at instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SubstanceDefinition", id, "$meta-delete", parameters)
+}
+
+// InvokeSubstanceDefinitionValidate invokes $validate on SubstanceDefinition at type or instance level.
+func (c *ClientR4B) InvokeSubstanceDefinitionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SubstanceDefinition", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SubstanceDefinition", "$validate", parameters)
+	}
+}
+
+// InvokeSupplyDeliveryGraph invokes $graph on SupplyDelivery at instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyDelivery", id, "$graph", parameters)
+}
+
+// InvokeSupplyDeliveryGraphql invokes $graphql on SupplyDelivery at instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyDelivery", id, "$graphql", parameters)
+}
+
+// InvokeSupplyDeliveryMeta invokes $meta on SupplyDelivery at type or instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SupplyDelivery", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SupplyDelivery", "$meta", parameters)
+	}
+}
+
+// InvokeSupplyDeliveryMetaAdd invokes $meta-add on SupplyDelivery at instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyDelivery", id, "$meta-add", parameters)
+}
+
+// InvokeSupplyDeliveryMetaDelete invokes $meta-delete on SupplyDelivery at instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyDelivery", id, "$meta-delete", parameters)
+}
+
+// InvokeSupplyDeliveryValidate invokes $validate on SupplyDelivery at type or instance level.
+func (c *ClientR4B) InvokeSupplyDeliveryValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SupplyDelivery", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SupplyDelivery", "$validate", parameters)
+	}
+}
+
+// InvokeSupplyRequestGraph invokes $graph on SupplyRequest at instance level.
+func (c *ClientR4B) InvokeSupplyRequestGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyRequest", id, "$graph", parameters)
+}
+
+// InvokeSupplyRequestGraphql invokes $graphql on SupplyRequest at instance level.
+func (c *ClientR4B) InvokeSupplyRequestGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyRequest", id, "$graphql", parameters)
+}
+
+// InvokeSupplyRequestMeta invokes $meta on SupplyRequest at type or instance level.
+func (c *ClientR4B) InvokeSupplyRequestMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SupplyRequest", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "SupplyRequest", "$meta", parameters)
+	}
+}
+
+// InvokeSupplyRequestMetaAdd invokes $meta-add on SupplyRequest at instance level.
+func (c *ClientR4B) InvokeSupplyRequestMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyRequest", id, "$meta-add", parameters)
+}
+
+// InvokeSupplyRequestMetaDelete invokes $meta-delete on SupplyRequest at instance level.
+func (c *ClientR4B) InvokeSupplyRequestMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "SupplyRequest", id, "$meta-delete", parameters)
+}
+
+// InvokeSupplyRequestValidate invokes $validate on SupplyRequest at type or instance level.
+func (c *ClientR4B) InvokeSupplyRequestValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "SupplyRequest", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "SupplyRequest", "$validate", parameters)
+	}
+}
+
+// InvokeTaskGraph invokes $graph on Task at instance level.
+func (c *ClientR4B) InvokeTaskGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Task", id, "$graph", parameters)
+}
+
+// InvokeTaskGraphql invokes $graphql on Task at instance level.
+func (c *ClientR4B) InvokeTaskGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Task", id, "$graphql", parameters)
+}
+
+// InvokeTaskMeta invokes $meta on Task at type or instance level.
+func (c *ClientR4B) InvokeTaskMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Task", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "Task", "$meta", parameters)
+	}
+}
+
+// InvokeTaskMetaAdd invokes $meta-add on Task at instance level.
+func (c *ClientR4B) InvokeTaskMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Task", id, "$meta-add", parameters)
+}
+
+// InvokeTaskMetaDelete invokes $meta-delete on Task at instance level.
+func (c *ClientR4B) InvokeTaskMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Task", id, "$meta-delete", parameters)
+}
+
+// InvokeTaskValidate invokes $validate on Task at type or instance level.
+func (c *ClientR4B) InvokeTaskValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Task", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "Task", "$validate", parameters)
+	}
+}
+
+// InvokeTerminologyCapabilitiesGraph invokes $graph on TerminologyCapabilities at instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TerminologyCapabilities", id, "$graph", parameters)
+}
+
+// InvokeTerminologyCapabilitiesGraphql invokes $graphql on TerminologyCapabilities at instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TerminologyCapabilities", id, "$graphql", parameters)
+}
+
+// InvokeTerminologyCapabilitiesMeta invokes $meta on TerminologyCapabilities at type or instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TerminologyCapabilities", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "TerminologyCapabilities", "$meta", parameters)
+	}
+}
+
+// InvokeTerminologyCapabilitiesMetaAdd invokes $meta-add on TerminologyCapabilities at instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TerminologyCapabilities", id, "$meta-add", parameters)
+}
+
+// InvokeTerminologyCapabilitiesMetaDelete invokes $meta-delete on TerminologyCapabilities at instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TerminologyCapabilities", id, "$meta-delete", parameters)
+}
+
+// InvokeTerminologyCapabilitiesValidate invokes $validate on TerminologyCapabilities at type or instance level.
+func (c *ClientR4B) InvokeTerminologyCapabilitiesValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TerminologyCapabilities", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "TerminologyCapabilities", "$validate", parameters)
+	}
+}
+
+// InvokeTestReportGraph invokes $graph on TestReport at instance level.
+func (c *ClientR4B) InvokeTestReportGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestReport", id, "$graph", parameters)
+}
+
+// InvokeTestReportGraphql invokes $graphql on TestReport at instance level.
+func (c *ClientR4B) InvokeTestReportGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestReport", id, "$graphql", parameters)
+}
+
+// InvokeTestReportMeta invokes $meta on TestReport at type or instance level.
+func (c *ClientR4B) InvokeTestReportMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TestReport", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "TestReport", "$meta", parameters)
+	}
+}
+
+// InvokeTestReportMetaAdd invokes $meta-add on TestReport at instance level.
+func (c *ClientR4B) InvokeTestReportMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestReport", id, "$meta-add", parameters)
+}
+
+// InvokeTestReportMetaDelete invokes $meta-delete on TestReport at instance level.
+func (c *ClientR4B) InvokeTestReportMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestReport", id, "$meta-delete", parameters)
+}
+
+// InvokeTestReportValidate invokes $validate on TestReport at type or instance level.
+func (c *ClientR4B) InvokeTestReportValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TestReport", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "TestReport", "$validate", parameters)
+	}
+}
+
+// InvokeTestScriptGraph invokes $graph on TestScript at instance level.
+func (c *ClientR4B) InvokeTestScriptGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestScript", id, "$graph", parameters)
+}
+
+// InvokeTestScriptGraphql invokes $graphql on TestScript at instance level.
+func (c *ClientR4B) InvokeTestScriptGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestScript", id, "$graphql", parameters)
+}
+
+// InvokeTestScriptMeta invokes $meta on TestScript at type or instance level.
+func (c *ClientR4B) InvokeTestScriptMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TestScript", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "TestScript", "$meta", parameters)
+	}
+}
+
+// InvokeTestScriptMetaAdd invokes $meta-add on TestScript at instance level.
+func (c *ClientR4B) InvokeTestScriptMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestScript", id, "$meta-add", parameters)
+}
+
+// InvokeTestScriptMetaDelete invokes $meta-delete on TestScript at instance level.
+func (c *ClientR4B) InvokeTestScriptMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "TestScript", id, "$meta-delete", parameters)
+}
+
+// InvokeTestScriptValidate invokes $validate on TestScript at type or instance level.
+func (c *ClientR4B) InvokeTestScriptValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "TestScript", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "TestScript", "$validate", parameters)
+	}
+}
+
+// InvokeValueSetGraph invokes $graph on ValueSet at instance level.
+func (c *ClientR4B) InvokeValueSetGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ValueSet", id, "$graph", parameters)
+}
+
+// InvokeValueSetGraphql invokes $graphql on ValueSet at instance level.
+func (c *ClientR4B) InvokeValueSetGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ValueSet", id, "$graphql", parameters)
+}
+
+// InvokeValueSetMeta invokes $meta on ValueSet at type or instance level.
+func (c *ClientR4B) InvokeValueSetMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ValueSet", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "ValueSet", "$meta", parameters)
+	}
+}
+
+// InvokeValueSetMetaAdd invokes $meta-add on ValueSet at instance level.
+func (c *ClientR4B) InvokeValueSetMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ValueSet", id, "$meta-add", parameters)
+}
+
+// InvokeValueSetMetaDelete invokes $meta-delete on ValueSet at instance level.
+func (c *ClientR4B) InvokeValueSetMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ValueSet", id, "$meta-delete", parameters)
+}
+
+// InvokeValueSetValidate invokes $validate on ValueSet at type or instance level.
+func (c *ClientR4B) InvokeValueSetValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ValueSet", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ValueSet", "$validate", parameters)
+	}
+}
+
+// InvokeVerificationResultGraph invokes $graph on VerificationResult at instance level.
+func (c *ClientR4B) InvokeVerificationResultGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VerificationResult", id, "$graph", parameters)
+}
+
+// InvokeVerificationResultGraphql invokes $graphql on VerificationResult at instance level.
+func (c *ClientR4B) InvokeVerificationResultGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VerificationResult", id, "$graphql", parameters)
+}
+
+// InvokeVerificationResultMeta invokes $meta on VerificationResult at type or instance level.
+func (c *ClientR4B) InvokeVerificationResultMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "VerificationResult", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "VerificationResult", "$meta", parameters)
+	}
+}
+
+// InvokeVerificationResultMetaAdd invokes $meta-add on VerificationResult at instance level.
+func (c *ClientR4B) InvokeVerificationResultMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VerificationResult", id, "$meta-add", parameters)
+}
+
+// InvokeVerificationResultMetaDelete invokes $meta-delete on VerificationResult at instance level.
+func (c *ClientR4B) InvokeVerificationResultMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VerificationResult", id, "$meta-delete", parameters)
+}
+
+// InvokeVerificationResultValidate invokes $validate on VerificationResult at type or instance level.
+func (c *ClientR4B) InvokeVerificationResultValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "VerificationResult", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "VerificationResult", "$validate", parameters)
+	}
+}
+
+// InvokeVisionPrescriptionGraph invokes $graph on VisionPrescription at instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionGraph(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VisionPrescription", id, "$graph", parameters)
+}
+
+// InvokeVisionPrescriptionGraphql invokes $graphql on VisionPrescription at instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionGraphql(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VisionPrescription", id, "$graphql", parameters)
+}
+
+// InvokeVisionPrescriptionMeta invokes $meta on VisionPrescription at type or instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionMeta(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "VisionPrescription", id[0], "$meta", parameters)
+	} else {
+		return c.InvokeType(ctx, "VisionPrescription", "$meta", parameters)
+	}
+}
+
+// InvokeVisionPrescriptionMetaAdd invokes $meta-add on VisionPrescription at instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionMetaAdd(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VisionPrescription", id, "$meta-add", parameters)
+}
+
+// InvokeVisionPrescriptionMetaDelete invokes $meta-delete on VisionPrescription at instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionMetaDelete(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "VisionPrescription", id, "$meta-delete", parameters)
+}
+
+// InvokeVisionPrescriptionValidate invokes $validate on VisionPrescription at type or instance level.
+func (c *ClientR4B) InvokeVisionPrescriptionValidate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "VisionPrescription", id[0], "$validate", parameters)
+	} else {
+		return c.InvokeType(ctx, "VisionPrescription", "$validate", parameters)
+	}
+}
+
+// InvokeActivityDefinitionApply invokes $apply on ActivityDefinition at type or instance level.
+func (c *ClientR4B) InvokeActivityDefinitionApply(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ActivityDefinition", id[0], "$apply", parameters)
+	} else {
+		return c.InvokeType(ctx, "ActivityDefinition", "$apply", parameters)
+	}
+}
+
+// InvokeActivityDefinitionDataRequirements invokes $data-requirements on ActivityDefinition at instance level.
+func (c *ClientR4B) InvokeActivityDefinitionDataRequirements(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ActivityDefinition", id, "$data-requirements", parameters)
+}
+
+// InvokeCapabilityStatementConforms invokes $conforms on CapabilityStatement at type level.
+func (c *ClientR4B) InvokeCapabilityStatementConforms(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "CapabilityStatement", "$conforms", parameters)
+}
+
+// InvokeCapabilityStatementImplements invokes $implements on CapabilityStatement at type or instance level.
+func (c *ClientR4B) InvokeCapabilityStatementImplements(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CapabilityStatement", id[0], "$implements", parameters)
+	} else {
+		return c.InvokeType(ctx, "CapabilityStatement", "$implements", parameters)
+	}
+}
+
+// InvokeCapabilityStatementSubset invokes $subset on CapabilityStatement at type or instance level.
+func (c *ClientR4B) InvokeCapabilityStatementSubset(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CapabilityStatement", id[0], "$subset", parameters)
+	} else {
+		return c.InvokeType(ctx, "CapabilityStatement", "$subset", parameters)
+	}
+}
+
+// InvokeChargeItemDefinitionApply invokes $apply on ChargeItemDefinition at instance level.
+func (c *ClientR4B) InvokeChargeItemDefinitionApply(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "ChargeItemDefinition", id, "$apply", parameters)
+}
+
+// InvokeClaimSubmit invokes $submit on Claim at type level.
+func (c *ClientR4B) InvokeClaimSubmit(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "Claim", "$submit", parameters)
+}
+
+// InvokeCodeSystemFindMatches invokes $find-matches on CodeSystem at type or instance level.
+func (c *ClientR4B) InvokeCodeSystemFindMatches(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CodeSystem", id[0], "$find-matches", parameters)
+	} else {
+		return c.InvokeType(ctx, "CodeSystem", "$find-matches", parameters)
+	}
+}
+
+// InvokeCodeSystemLookup invokes $lookup on CodeSystem at type level.
+func (c *ClientR4B) InvokeCodeSystemLookup(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "CodeSystem", "$lookup", parameters)
+}
+
+// InvokeCodeSystemSubsumes invokes $subsumes on CodeSystem at type or instance level.
+func (c *ClientR4B) InvokeCodeSystemSubsumes(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CodeSystem", id[0], "$subsumes", parameters)
+	} else {
+		return c.InvokeType(ctx, "CodeSystem", "$subsumes", parameters)
+	}
+}
+
+// InvokeCodeSystemValidateCode invokes $validate-code on CodeSystem at type or instance level.
+func (c *ClientR4B) InvokeCodeSystemValidateCode(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "CodeSystem", id[0], "$validate-code", parameters)
+	} else {
+		return c.InvokeType(ctx, "CodeSystem", "$validate-code", parameters)
+	}
+}
+
+// InvokeCompositionDocument invokes $document on Composition at type or instance level.
+func (c *ClientR4B) InvokeCompositionDocument(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Composition", id[0], "$document", parameters)
+	} else {
+		return c.InvokeType(ctx, "Composition", "$document", parameters)
+	}
+}
+
+// InvokeConceptMapTranslate invokes $translate on ConceptMap at type or instance level.
+func (c *ClientR4B) InvokeConceptMapTranslate(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ConceptMap", id[0], "$translate", parameters)
+	} else {
+		return c.InvokeType(ctx, "ConceptMap", "$translate", parameters)
+	}
+}
+
+// InvokeCoverageEligibilityRequestSubmit invokes $submit on CoverageEligibilityRequest at type level.
+func (c *ClientR4B) InvokeCoverageEligibilityRequestSubmit(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "CoverageEligibilityRequest", "$submit", parameters)
+}
+
+// InvokeEncounterEverything invokes $everything on Encounter at instance level.
+func (c *ClientR4B) InvokeEncounterEverything(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Encounter", id, "$everything", parameters)
+}
+
+// InvokeGroupEverything invokes $everything on Group at instance level.
+func (c *ClientR4B) InvokeGroupEverything(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Group", id, "$everything", parameters)
+}
+
+// InvokeLibraryDataRequirements invokes $data-requirements on Library at instance level.
+func (c *ClientR4B) InvokeLibraryDataRequirements(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Library", id, "$data-requirements", parameters)
+}
+
+// InvokeListFind invokes $find on List at type level.
+func (c *ClientR4B) InvokeListFind(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "List", "$find", parameters)
+}
+
+// InvokeMeasureCareGaps invokes $care-gaps on Measure at type level.
+func (c *ClientR4B) InvokeMeasureCareGaps(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "Measure", "$care-gaps", parameters)
+}
+
+// InvokeMeasureCollectData invokes $collect-data on Measure at type or instance level.
+func (c *ClientR4B) InvokeMeasureCollectData(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Measure", id[0], "$collect-data", parameters)
+	} else {
+		return c.InvokeType(ctx, "Measure", "$collect-data", parameters)
+	}
+}
+
+// InvokeMeasureDataRequirements invokes $data-requirements on Measure at instance level.
+func (c *ClientR4B) InvokeMeasureDataRequirements(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "Measure", id, "$data-requirements", parameters)
+}
+
+// InvokeMeasureEvaluateMeasure invokes $evaluate-measure on Measure at type or instance level.
+func (c *ClientR4B) InvokeMeasureEvaluateMeasure(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Measure", id[0], "$evaluate-measure", parameters)
+	} else {
+		return c.InvokeType(ctx, "Measure", "$evaluate-measure", parameters)
+	}
+}
+
+// InvokeMeasureSubmitData invokes $submit-data on Measure at type or instance level.
+func (c *ClientR4B) InvokeMeasureSubmitData(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Measure", id[0], "$submit-data", parameters)
+	} else {
+		return c.InvokeType(ctx, "Measure", "$submit-data", parameters)
+	}
+}
+
+// InvokeMedicinalProductDefinitionEverything invokes $everything on MedicinalProductDefinition at type or instance level.
+func (c *ClientR4B) InvokeMedicinalProductDefinitionEverything(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "MedicinalProductDefinition", id[0], "$everything", parameters)
+	} else {
+		return c.InvokeType(ctx, "MedicinalProductDefinition", "$everything", parameters)
+	}
+}
+
+// InvokeNamingSystemPreferredId invokes $preferred-id on NamingSystem at type level.
+func (c *ClientR4B) InvokeNamingSystemPreferredId(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "NamingSystem", "$preferred-id", parameters)
+}
+
+// InvokeObservationLastn invokes $lastn on Observation at type level.
+func (c *ClientR4B) InvokeObservationLastn(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "Observation", "$lastn", parameters)
+}
+
+// InvokeObservationStats invokes $stats on Observation at type level.
+func (c *ClientR4B) InvokeObservationStats(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "Observation", "$stats", parameters)
+}
+
+// InvokePatientEverything invokes $everything on Patient at type or instance level.
+func (c *ClientR4B) InvokePatientEverything(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "Patient", id[0], "$everything", parameters)
+	} else {
+		return c.InvokeType(ctx, "Patient", "$everything", parameters)
+	}
+}
+
+// InvokePatientMatch invokes $match on Patient at type level.
+func (c *ClientR4B) InvokePatientMatch(ctx context.Context, parameters basic.Parameters) (model.Resource, error) {
+	return c.InvokeType(ctx, "Patient", "$match", parameters)
+}
+
+// InvokePlanDefinitionApply invokes $apply on PlanDefinition at type or instance level.
+func (c *ClientR4B) InvokePlanDefinitionApply(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "PlanDefinition", id[0], "$apply", parameters)
+	} else {
+		return c.InvokeType(ctx, "PlanDefinition", "$apply", parameters)
+	}
+}
+
+// InvokePlanDefinitionDataRequirements invokes $data-requirements on PlanDefinition at instance level.
+func (c *ClientR4B) InvokePlanDefinitionDataRequirements(ctx context.Context, parameters basic.Parameters, id string) (model.Resource, error) {
+	return c.InvokeInstance(ctx, "PlanDefinition", id, "$data-requirements", parameters)
+}
+
+// InvokeStructureDefinitionQuestionnaire invokes $questionnaire on StructureDefinition at type or instance level.
+func (c *ClientR4B) InvokeStructureDefinitionQuestionnaire(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureDefinition", id[0], "$questionnaire", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureDefinition", "$questionnaire", parameters)
+	}
+}
+
+// InvokeStructureDefinitionSnapshot invokes $snapshot on StructureDefinition at type or instance level.
+func (c *ClientR4B) InvokeStructureDefinitionSnapshot(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureDefinition", id[0], "$snapshot", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureDefinition", "$snapshot", parameters)
+	}
+}
+
+// InvokeStructureMapTransform invokes $transform on StructureMap at type or instance level.
+func (c *ClientR4B) InvokeStructureMapTransform(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "StructureMap", id[0], "$transform", parameters)
+	} else {
+		return c.InvokeType(ctx, "StructureMap", "$transform", parameters)
+	}
+}
+
+// InvokeValueSetExpand invokes $expand on ValueSet at type or instance level.
+func (c *ClientR4B) InvokeValueSetExpand(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ValueSet", id[0], "$expand", parameters)
+	} else {
+		return c.InvokeType(ctx, "ValueSet", "$expand", parameters)
+	}
+}
+
+// InvokeValueSetValidateCode invokes $validate-code on ValueSet at type or instance level.
+func (c *ClientR4B) InvokeValueSetValidateCode(ctx context.Context, parameters basic.Parameters, id ...string) (model.Resource, error) {
+	if len(id) > 0 {
+		return c.InvokeInstance(ctx, "ValueSet", id[0], "$validate-code", parameters)
+	} else {
+		return c.InvokeType(ctx, "ValueSet", "$validate-code", parameters)
+	}
+}
