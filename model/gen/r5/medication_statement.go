@@ -54,7 +54,7 @@ type MedicationStatement struct {
 	// The encounter that establishes the context for this MedicationStatement.
 	Encounter *Reference
 	// The interval of time during which it is being asserted that the patient is/was/will be taking the medication (or was not taking, when the MedicationStatement.adherence element is Not Taking).
-	Effective isMedicationStatementEffective
+	Effective MedicationStatementEffective
 	// The date when the Medication Statement was asserted by the information source.
 	DateAsserted *DateTime
 	// The person or organization that provided the information about the taking of this medication. Note: Use derivedFrom when a MedicationStatement is derived from other resources, e.g. Claim or MedicationRequest.
@@ -74,7 +74,7 @@ type MedicationStatement struct {
 	// Indicates whether the medication is or is not being consumed or administered.
 	Adherence *MedicationStatementAdherence
 }
-type isMedicationStatementEffective interface {
+type MedicationStatementEffective interface {
 	model.Element
 	isMedicationStatementEffective()
 }

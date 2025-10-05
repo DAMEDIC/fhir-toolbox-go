@@ -64,9 +64,9 @@ type MedicinalProductInteractionInteractant struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The specific medication, food or laboratory test that interacts.
-	Item isMedicinalProductInteractionInteractantItem
+	Item MedicinalProductInteractionInteractantItem
 }
-type isMedicinalProductInteractionInteractantItem interface {
+type MedicinalProductInteractionInteractantItem interface {
 	model.Element
 	isMedicinalProductInteractionInteractantItem()
 }

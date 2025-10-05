@@ -152,9 +152,9 @@ type QuestionnaireItemEnableWhen struct {
 	// Specifies the criteria by which the question is enabled.
 	Operator Code
 	// A value that the referenced question is tested using the specified operator in order for the item to be enabled.
-	Answer isQuestionnaireItemEnableWhenAnswer
+	Answer QuestionnaireItemEnableWhenAnswer
 }
-type isQuestionnaireItemEnableWhenAnswer interface {
+type QuestionnaireItemEnableWhenAnswer interface {
 	model.Element
 	isQuestionnaireItemEnableWhenAnswer()
 }
@@ -181,11 +181,11 @@ type QuestionnaireItemAnswerOption struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// A potential answer that's allowed as the answer to this question.
-	Value isQuestionnaireItemAnswerOptionValue
+	Value QuestionnaireItemAnswerOptionValue
 	// Indicates whether the answer value is selected when the list of possible answers is initially shown.
 	InitialSelected *Boolean
 }
-type isQuestionnaireItemAnswerOptionValue interface {
+type QuestionnaireItemAnswerOptionValue interface {
 	model.Element
 	isQuestionnaireItemAnswerOptionValue()
 }
@@ -208,9 +208,9 @@ type QuestionnaireItemInitial struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The actual value to for an initial answer.
-	Value isQuestionnaireItemInitialValue
+	Value QuestionnaireItemInitialValue
 }
-type isQuestionnaireItemInitialValue interface {
+type QuestionnaireItemInitialValue interface {
 	model.Element
 	isQuestionnaireItemInitialValue()
 }

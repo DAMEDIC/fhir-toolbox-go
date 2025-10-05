@@ -44,7 +44,7 @@ type CapabilityStatement struct {
 	// The identifier that is used to identify this version of the capability statement when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the capability statement author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isCapabilityStatementVersionAlgorithm
+	VersionAlgorithm CapabilityStatementVersionAlgorithm
 	// A natural language name identifying the capability statement. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the capability statement.
@@ -98,7 +98,7 @@ type CapabilityStatement struct {
 	// A document definition.
 	Document []CapabilityStatementDocument
 }
-type isCapabilityStatementVersionAlgorithm interface {
+type CapabilityStatementVersionAlgorithm interface {
 	model.Element
 	isCapabilityStatementVersionAlgorithm()
 }

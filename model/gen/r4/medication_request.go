@@ -52,9 +52,9 @@ type MedicationRequest struct {
 	// If true indicates that the provider is asking for the medication request not to occur.
 	DoNotPerform *Boolean
 	// Indicates if this record was captured as a secondary 'reported' record rather than as an original primary source-of-truth record.  It may also indicate the source of the report.
-	Reported isMedicationRequestReported
+	Reported MedicationRequestReported
 	// Identifies the medication being requested. This is a link to a resource that represents the medication which may be the details of the medication or simply an attribute carrying a code that identifies the medication from a known list of medications.
-	Medication isMedicationRequestMedication
+	Medication MedicationRequestMedication
 	// A link to a resource representing the person or set of individuals to whom the medication will be given.
 	Subject Reference
 	// The Encounter during which this [x] was created or to which the creation of this record is tightly associated.
@@ -102,7 +102,7 @@ type MedicationRequest struct {
 	// Links to Provenance records for past versions of this resource or fulfilling request or event resources that identify key state transitions or updates that are likely to be relevant to a user looking at the current version of the resource.
 	EventHistory []Reference
 }
-type isMedicationRequestReported interface {
+type MedicationRequestReported interface {
 	model.Element
 	isMedicationRequestReported()
 }
@@ -110,7 +110,7 @@ type isMedicationRequestReported interface {
 func (r Boolean) isMedicationRequestReported()   {}
 func (r Reference) isMedicationRequestReported() {}
 
-type isMedicationRequestMedication interface {
+type MedicationRequestMedication interface {
 	model.Element
 	isMedicationRequestMedication()
 }
@@ -171,11 +171,11 @@ type MedicationRequestSubstitution struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// True if the prescriber allows a different drug to be dispensed from what was prescribed.
-	Allowed isMedicationRequestSubstitutionAllowed
+	Allowed MedicationRequestSubstitutionAllowed
 	// Indicates the reason for the substitution, or why substitution must or must not be performed.
 	Reason *CodeableConcept
 }
-type isMedicationRequestSubstitutionAllowed interface {
+type MedicationRequestSubstitutionAllowed interface {
 	model.Element
 	isMedicationRequestSubstitutionAllowed()
 }

@@ -46,7 +46,7 @@ type Evidence struct {
 	// A short, descriptive, user-friendly title for the summary.
 	Title *String
 	// Citation Resource or display of suggested citation for this evidence.
-	CiteAs isEvidenceCiteAs
+	CiteAs EvidenceCiteAs
 	// The status of this summary. Enables tracking the life-cycle of the content.
 	Status Code
 	// The date  (and optionally time) when the summary was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the summary changes.
@@ -88,7 +88,7 @@ type Evidence struct {
 	// Assessment of certainty, confidence in the estimates, or quality of the evidence.
 	Certainty []EvidenceCertainty
 }
-type isEvidenceCiteAs interface {
+type EvidenceCiteAs interface {
 	model.Element
 	isEvidenceCiteAs()
 }

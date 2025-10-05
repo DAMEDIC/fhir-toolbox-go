@@ -66,9 +66,9 @@ type ManufacturedItemDefinitionProperty struct {
 	// A code expressing the type of characteristic.
 	Type CodeableConcept
 	// A value for the characteristic.
-	Value isManufacturedItemDefinitionPropertyValue
+	Value ManufacturedItemDefinitionPropertyValue
 }
-type isManufacturedItemDefinitionPropertyValue interface {
+type ManufacturedItemDefinitionPropertyValue interface {
 	model.Element
 	isManufacturedItemDefinitionPropertyValue()
 }

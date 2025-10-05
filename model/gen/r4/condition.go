@@ -56,9 +56,9 @@ type Condition struct {
 	// The Encounter during which this Condition was created or to which the creation of this record is tightly associated.
 	Encounter *Reference
 	// Estimated or actual date or date-time  the condition began, in the opinion of the clinician.
-	Onset isConditionOnset
+	Onset ConditionOnset
 	// The date or estimated date that the condition resolved or went into remission. This is called "abatement" because of the many overloaded connotations associated with "remission" or "resolution" - Conditions are never really resolved, but they can abate.
-	Abatement isConditionAbatement
+	Abatement ConditionAbatement
 	// The recordedDate represents when this particular Condition record was created in the system, which is often a system-generated date.
 	RecordedDate *DateTime
 	// Individual who recorded the record and takes responsibility for its content.
@@ -72,7 +72,7 @@ type Condition struct {
 	// Additional information about the Condition. This is a general notes/comments entry  for description of the Condition, its diagnosis and prognosis.
 	Note []Annotation
 }
-type isConditionOnset interface {
+type ConditionOnset interface {
 	model.Element
 	isConditionOnset()
 }
@@ -83,7 +83,7 @@ func (r Period) isConditionOnset()   {}
 func (r Range) isConditionOnset()    {}
 func (r String) isConditionOnset()   {}
 
-type isConditionAbatement interface {
+type ConditionAbatement interface {
 	model.Element
 	isConditionAbatement()
 }

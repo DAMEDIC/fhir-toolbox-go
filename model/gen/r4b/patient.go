@@ -57,13 +57,13 @@ type Patient struct {
 	// The date of birth for the individual.
 	BirthDate *Date
 	// Indicates if the individual is deceased or not.
-	Deceased isPatientDeceased
+	Deceased PatientDeceased
 	// An address for the individual.
 	Address []Address
 	// This field contains a patient's most recent marital (civil) status.
 	MaritalStatus *CodeableConcept
 	// Indicates whether the patient is part of a multiple (boolean) or indicates the actual birth order (integer).
-	MultipleBirth isPatientMultipleBirth
+	MultipleBirth PatientMultipleBirth
 	// Image of the patient.
 	Photo []Attachment
 	// A contact party (e.g. guardian, partner, friend) for the patient.
@@ -77,7 +77,7 @@ type Patient struct {
 	// Link to another patient resource that concerns the same actual patient.
 	Link []PatientLink
 }
-type isPatientDeceased interface {
+type PatientDeceased interface {
 	model.Element
 	isPatientDeceased()
 }
@@ -85,7 +85,7 @@ type isPatientDeceased interface {
 func (r Boolean) isPatientDeceased()  {}
 func (r DateTime) isPatientDeceased() {}
 
-type isPatientMultipleBirth interface {
+type PatientMultipleBirth interface {
 	model.Element
 	isPatientMultipleBirth()
 }

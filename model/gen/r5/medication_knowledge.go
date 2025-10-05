@@ -128,9 +128,9 @@ type MedicationKnowledgeCost struct {
 	// The source or owner that assigns the price to the medication.
 	Source *String
 	// The price or representation of the cost (for example, Band A, Band B or $, $$) of the medication.
-	Cost isMedicationKnowledgeCostCost
+	Cost MedicationKnowledgeCostCost
 }
-type isMedicationKnowledgeCostCost interface {
+type MedicationKnowledgeCostCost interface {
 	model.Element
 	isMedicationKnowledgeCostCost()
 }
@@ -219,9 +219,9 @@ type MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic 
 	// The categorization of the specific characteristic that is relevant to the administration guideline (e.g. height, weight, gender).
 	Type CodeableConcept
 	// The specific characteristic (e.g. height, weight, gender, etc.).
-	Value isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue
+	Value MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue
 }
-type isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue interface {
+type MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue interface {
 	model.Element
 	isMedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristicValue()
 }
@@ -245,11 +245,11 @@ type MedicationKnowledgeMedicineClassification struct {
 	// The type of category for the medication (for example, therapeutic classification, therapeutic sub-classification).
 	Type CodeableConcept
 	// Either a textual source of the classification or a reference to an online source.
-	Source isMedicationKnowledgeMedicineClassificationSource
+	Source MedicationKnowledgeMedicineClassificationSource
 	// Specific category assigned to the medication (e.g. anti-infective, anti-hypertensive, antibiotic, etc.).
 	Classification []CodeableConcept
 }
-type isMedicationKnowledgeMedicineClassificationSource interface {
+type MedicationKnowledgeMedicineClassificationSource interface {
 	model.Element
 	isMedicationKnowledgeMedicineClassificationSource()
 }
@@ -306,9 +306,9 @@ type MedicationKnowledgeStorageGuidelineEnvironmentalSetting struct {
 	// Identifies the category or type of setting (e.g., type of location, temperature, humidity).
 	Type CodeableConcept
 	// Value associated to the setting. E.g., 40° – 50°F for temperature.
-	Value isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue
+	Value MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue
 }
-type isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue interface {
+type MedicationKnowledgeStorageGuidelineEnvironmentalSettingValue interface {
 	model.Element
 	isMedicationKnowledgeStorageGuidelineEnvironmentalSettingValue()
 }
@@ -406,9 +406,9 @@ type MedicationKnowledgeDefinitionalIngredient struct {
 	// Indication of whether this ingredient affects the therapeutic action of the drug.
 	Type *CodeableConcept
 	// Specifies how many (or how much) of the items there are in this Medication.  For example, 250 mg per tablet.  This is expressed as a ratio where the numerator is 250mg and the denominator is 1 tablet but can also be expressed a quantity when the denominator is assumed to be 1 tablet.
-	Strength isMedicationKnowledgeDefinitionalIngredientStrength
+	Strength MedicationKnowledgeDefinitionalIngredientStrength
 }
-type isMedicationKnowledgeDefinitionalIngredientStrength interface {
+type MedicationKnowledgeDefinitionalIngredientStrength interface {
 	model.Element
 	isMedicationKnowledgeDefinitionalIngredientStrength()
 }
@@ -430,9 +430,9 @@ type MedicationKnowledgeDefinitionalDrugCharacteristic struct {
 	// A code specifying which characteristic of the medicine is being described (for example, colour, shape, imprint).
 	Type *CodeableConcept
 	// Description of the characteristic.
-	Value isMedicationKnowledgeDefinitionalDrugCharacteristicValue
+	Value MedicationKnowledgeDefinitionalDrugCharacteristicValue
 }
-type isMedicationKnowledgeDefinitionalDrugCharacteristicValue interface {
+type MedicationKnowledgeDefinitionalDrugCharacteristicValue interface {
 	model.Element
 	isMedicationKnowledgeDefinitionalDrugCharacteristicValue()
 }

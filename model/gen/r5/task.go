@@ -152,9 +152,9 @@ type TaskInput struct {
 	// A code or description indicating how the input is intended to be used as part of the task execution.
 	Type CodeableConcept
 	// The value of the input parameter as a basic type.
-	Value isTaskInputValue
+	Value TaskInputValue
 }
-type isTaskInputValue interface {
+type TaskInputValue interface {
 	model.Element
 	isTaskInputValue()
 }
@@ -227,9 +227,9 @@ type TaskOutput struct {
 	// The name of the Output parameter.
 	Type CodeableConcept
 	// The value of the Output parameter as a basic type.
-	Value isTaskOutputValue
+	Value TaskOutputValue
 }
-type isTaskOutputValue interface {
+type TaskOutputValue interface {
 	model.Element
 	isTaskOutputValue()
 }

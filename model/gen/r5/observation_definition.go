@@ -46,7 +46,7 @@ type ObservationDefinition struct {
 	// The identifier that is used to identify this version of the ObservationDefinition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the ObservationDefinition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions are orderable.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isObservationDefinitionVersionAlgorithm
+	VersionAlgorithm ObservationDefinitionVersionAlgorithm
 	// A natural language name identifying the ObservationDefinition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the ObservationDefinition.
@@ -114,7 +114,7 @@ type ObservationDefinition struct {
 	// Some observations have multiple component observations, expressed as separate code value pairs.
 	Component []ObservationDefinitionComponent
 }
-type isObservationDefinitionVersionAlgorithm interface {
+type ObservationDefinitionVersionAlgorithm interface {
 	model.Element
 	isObservationDefinitionVersionAlgorithm()
 }

@@ -40,7 +40,7 @@ type MessageHeader struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification have the system value "http://terminology.hl7.org/CodeSystem/message-events".  Alternatively uri to the EventDefinition.
-	Event isMessageHeaderEvent
+	Event MessageHeaderEvent
 	// The destination application which the message is intended for.
 	Destination []MessageHeaderDestination
 	// Identifies the sending system to allow the use of a trust relationship.
@@ -62,7 +62,7 @@ type MessageHeader struct {
 	// Permanent link to the MessageDefinition for this message.
 	Definition *Canonical
 }
-type isMessageHeaderEvent interface {
+type MessageHeaderEvent interface {
 	model.Element
 	isMessageHeaderEvent()
 }

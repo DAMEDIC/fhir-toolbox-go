@@ -48,7 +48,7 @@ type DetectedIssue struct {
 	// Indicates the patient whose record the detected issue is associated with.
 	Patient *Reference
 	// The date or period when the detected issue was initially identified.
-	Identified isDetectedIssueIdentified
+	Identified DetectedIssueIdentified
 	// Individual or device responsible for the issue being raised.  For example, a decision support application or a pharmacist conducting a medication review.
 	Author *Reference
 	// Indicates the resource representing the current activity or proposed activity that is potentially problematic.
@@ -62,7 +62,7 @@ type DetectedIssue struct {
 	// Indicates an action that has been taken or is committed to reduce or eliminate the likelihood of the risk identified by the detected issue from manifesting.  Can also reflect an observation of known mitigating factors that may reduce/eliminate the need for any action.
 	Mitigation []DetectedIssueMitigation
 }
-type isDetectedIssueIdentified interface {
+type DetectedIssueIdentified interface {
 	model.Element
 	isDetectedIssueIdentified()
 }

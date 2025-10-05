@@ -108,19 +108,19 @@ type EvidenceVariableCharacteristic struct {
 	// A short, natural language description of the characteristic that could be used to communicate the criteria to an end-user.
 	Description *String
 	// Define members of the evidence element using Codes (such as condition, medication, or observation), Expressions ( using an expression language such as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in the last year).
-	Definition isEvidenceVariableCharacteristicDefinition
+	Definition EvidenceVariableCharacteristicDefinition
 	// Use UsageContext to define the members of the population, such as Age Ranges, Genders, Settings.
 	UsageContext []UsageContext
 	// When true, members with this characteristic are excluded from the element.
 	Exclude *Boolean
 	// Indicates what effective period the study covers.
-	ParticipantEffective isEvidenceVariableCharacteristicParticipantEffective
+	ParticipantEffective EvidenceVariableCharacteristicParticipantEffective
 	// Indicates duration from the participant's study entry.
 	TimeFromStart *Duration
 	// Indicates how elements are aggregated within the study effective period.
 	GroupMeasure *Code
 }
-type isEvidenceVariableCharacteristicDefinition interface {
+type EvidenceVariableCharacteristicDefinition interface {
 	model.Element
 	isEvidenceVariableCharacteristicDefinition()
 }
@@ -132,7 +132,7 @@ func (r Expression) isEvidenceVariableCharacteristicDefinition()        {}
 func (r DataRequirement) isEvidenceVariableCharacteristicDefinition()   {}
 func (r TriggerDefinition) isEvidenceVariableCharacteristicDefinition() {}
 
-type isEvidenceVariableCharacteristicParticipantEffective interface {
+type EvidenceVariableCharacteristicParticipantEffective interface {
 	model.Element
 	isEvidenceVariableCharacteristicParticipantEffective()
 }

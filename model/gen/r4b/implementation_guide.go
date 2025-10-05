@@ -172,11 +172,11 @@ type ImplementationGuideDefinitionResource struct {
 	// A description of the reason that a resource has been included in the implementation guide.
 	Description *String
 	// If true or a reference, indicates the resource is an example instance.  If a reference is present, indicates that the example is an example of the specified profile.
-	Example isImplementationGuideDefinitionResourceExample
+	Example ImplementationGuideDefinitionResourceExample
 	// Reference to the id of the grouping this resource appears in.
 	GroupingId *Id
 }
-type isImplementationGuideDefinitionResourceExample interface {
+type ImplementationGuideDefinitionResourceExample interface {
 	model.Element
 	isImplementationGuideDefinitionResourceExample()
 }
@@ -195,7 +195,7 @@ type ImplementationGuideDefinitionPage struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The source address for the page.
-	Name isImplementationGuideDefinitionPageName
+	Name ImplementationGuideDefinitionPageName
 	// A short title used to represent this page in navigational structures such as table of contents, bread crumbs, etc.
 	Title String
 	// A code that indicates how the page is generated.
@@ -203,7 +203,7 @@ type ImplementationGuideDefinitionPage struct {
 	// Nested Pages/Sections under this page.
 	Page []ImplementationGuideDefinitionPage
 }
-type isImplementationGuideDefinitionPageName interface {
+type ImplementationGuideDefinitionPageName interface {
 	model.Element
 	isImplementationGuideDefinitionPageName()
 }
@@ -280,11 +280,11 @@ type ImplementationGuideManifestResource struct {
 	// Where this resource is found.
 	Reference Reference
 	// If true or a reference, indicates the resource is an example instance.  If a reference is present, indicates that the example is an example of the specified profile.
-	Example isImplementationGuideManifestResourceExample
+	Example ImplementationGuideManifestResourceExample
 	// The relative path for primary page for this resource within the IG.
 	RelativePath *Url
 }
-type isImplementationGuideManifestResourceExample interface {
+type ImplementationGuideManifestResourceExample interface {
 	model.Element
 	isImplementationGuideManifestResourceExample()
 }

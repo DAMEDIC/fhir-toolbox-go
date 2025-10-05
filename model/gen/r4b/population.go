@@ -28,7 +28,7 @@ type Population struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The age of the specific population.
-	Age isPopulationAge
+	Age PopulationAge
 	// The gender of the specific population.
 	Gender *CodeableConcept
 	// Race of the specific population.
@@ -36,7 +36,7 @@ type Population struct {
 	// The existing physiological conditions of the specific population to which this applies.
 	PhysiologicalCondition *CodeableConcept
 }
-type isPopulationAge interface {
+type PopulationAge interface {
 	model.Element
 	isPopulationAge()
 }

@@ -56,7 +56,7 @@ type Media struct {
 	// The encounter that establishes the context for this media.
 	Encounter *Reference
 	// The date and time(s) at which the media was collected.
-	Created isMediaCreated
+	Created MediaCreated
 	// The date and time this version of the media was made available to providers, typically after having been reviewed.
 	Issued *Instant
 	// The person who administered the collection of the image.
@@ -82,7 +82,7 @@ type Media struct {
 	// Comments made about the media by the performer, subject or other participants.
 	Note []Annotation
 }
-type isMediaCreated interface {
+type MediaCreated interface {
 	model.Element
 	isMediaCreated()
 }

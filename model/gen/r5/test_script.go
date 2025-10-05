@@ -44,7 +44,7 @@ type TestScript struct {
 	// The identifier that is used to identify this version of the test script when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the test script author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isTestScriptVersionAlgorithm
+	VersionAlgorithm TestScriptVersionAlgorithm
 	// A natural language name identifying the test script. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name String
 	// A short, descriptive, user-friendly title for the test script.
@@ -92,7 +92,7 @@ type TestScript struct {
 	// A series of operations required to clean up after all the tests are executed (successfully or otherwise).
 	Teardown *TestScriptTeardown
 }
-type isTestScriptVersionAlgorithm interface {
+type TestScriptVersionAlgorithm interface {
 	model.Element
 	isTestScriptVersionAlgorithm()
 }
@@ -423,9 +423,9 @@ type TestScriptSetupActionAssertRequirement struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Link or reference providing traceability to the testing requirement for this test.
-	Link isTestScriptSetupActionAssertRequirementLink
+	Link TestScriptSetupActionAssertRequirementLink
 }
-type isTestScriptSetupActionAssertRequirementLink interface {
+type TestScriptSetupActionAssertRequirementLink interface {
 	model.Element
 	isTestScriptSetupActionAssertRequirementLink()
 }

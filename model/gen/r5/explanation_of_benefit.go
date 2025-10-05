@@ -168,9 +168,9 @@ type ExplanationOfBenefitEvent struct {
 	// A coded event such as when a service is expected or a card printed.
 	Type CodeableConcept
 	// A date or period in the past or future indicating when the event occurred or is expectd to occur.
-	When isExplanationOfBenefitEventWhen
+	When ExplanationOfBenefitEventWhen
 }
-type isExplanationOfBenefitEventWhen interface {
+type ExplanationOfBenefitEventWhen interface {
 	model.Element
 	isExplanationOfBenefitEventWhen()
 }
@@ -233,13 +233,13 @@ type ExplanationOfBenefitSupportingInfo struct {
 	// System and code pertaining to the specific information regarding special conditions relating to the setting, treatment or patient  for which care is sought.
 	Code *CodeableConcept
 	// The date when or period to which this information refers.
-	Timing isExplanationOfBenefitSupportingInfoTiming
+	Timing ExplanationOfBenefitSupportingInfoTiming
 	// Additional data or information such as resources, documents, images etc. including references to the data or the actual inclusion of the data.
-	Value isExplanationOfBenefitSupportingInfoValue
+	Value ExplanationOfBenefitSupportingInfoValue
 	// Provides the reason in the situation where a reason code is required in addition to the content.
 	Reason *Coding
 }
-type isExplanationOfBenefitSupportingInfoTiming interface {
+type ExplanationOfBenefitSupportingInfoTiming interface {
 	model.Element
 	isExplanationOfBenefitSupportingInfoTiming()
 }
@@ -247,7 +247,7 @@ type isExplanationOfBenefitSupportingInfoTiming interface {
 func (r Date) isExplanationOfBenefitSupportingInfoTiming()   {}
 func (r Period) isExplanationOfBenefitSupportingInfoTiming() {}
 
-type isExplanationOfBenefitSupportingInfoValue interface {
+type ExplanationOfBenefitSupportingInfoValue interface {
 	model.Element
 	isExplanationOfBenefitSupportingInfoValue()
 }
@@ -272,13 +272,13 @@ type ExplanationOfBenefitDiagnosis struct {
 	// A number to uniquely identify diagnosis entries.
 	Sequence PositiveInt
 	// The nature of illness or problem in a coded form or as a reference to an external defined Condition.
-	Diagnosis isExplanationOfBenefitDiagnosisDiagnosis
+	Diagnosis ExplanationOfBenefitDiagnosisDiagnosis
 	// When the condition was observed or the relative ranking.
 	Type []CodeableConcept
 	// Indication of whether the diagnosis was present on admission to a facility.
 	OnAdmission *CodeableConcept
 }
-type isExplanationOfBenefitDiagnosisDiagnosis interface {
+type ExplanationOfBenefitDiagnosisDiagnosis interface {
 	model.Element
 	isExplanationOfBenefitDiagnosisDiagnosis()
 }
@@ -303,11 +303,11 @@ type ExplanationOfBenefitProcedure struct {
 	// Date and optionally time the procedure was performed.
 	Date *DateTime
 	// The code or reference to a Procedure resource which identifies the clinical intervention performed.
-	Procedure isExplanationOfBenefitProcedureProcedure
+	Procedure ExplanationOfBenefitProcedureProcedure
 	// Unique Device Identifiers associated with this line item.
 	Udi []Reference
 }
-type isExplanationOfBenefitProcedureProcedure interface {
+type ExplanationOfBenefitProcedureProcedure interface {
 	model.Element
 	isExplanationOfBenefitProcedureProcedure()
 }
@@ -348,9 +348,9 @@ type ExplanationOfBenefitAccident struct {
 	// The type or context of the accident event for the purposes of selection of potential insurance coverages and determination of coordination between insurers.
 	Type *CodeableConcept
 	// The physical location of the accident event.
-	Location isExplanationOfBenefitAccidentLocation
+	Location ExplanationOfBenefitAccidentLocation
 }
-type isExplanationOfBenefitAccidentLocation interface {
+type ExplanationOfBenefitAccidentLocation interface {
 	model.Element
 	isExplanationOfBenefitAccidentLocation()
 }
@@ -395,9 +395,9 @@ type ExplanationOfBenefitItem struct {
 	// Identifies the program under which this may be recovered.
 	ProgramCode []CodeableConcept
 	// The date or dates when the service or product was supplied, performed or completed.
-	Serviced isExplanationOfBenefitItemServiced
+	Serviced ExplanationOfBenefitItemServiced
 	// Where the product or service was provided.
-	Location isExplanationOfBenefitItemLocation
+	Location ExplanationOfBenefitItemLocation
 	// The amount paid by the patient, in total at the claim claim level or specifically for the item and detail level, to the provider for goods and services.
 	PatientPaid *Money
 	// The number of repetitions of a service or product.
@@ -425,7 +425,7 @@ type ExplanationOfBenefitItem struct {
 	// Second-tier of goods and services.
 	Detail []ExplanationOfBenefitItemDetail
 }
-type isExplanationOfBenefitItemServiced interface {
+type ExplanationOfBenefitItemServiced interface {
 	model.Element
 	isExplanationOfBenefitItemServiced()
 }
@@ -433,7 +433,7 @@ type isExplanationOfBenefitItemServiced interface {
 func (r Date) isExplanationOfBenefitItemServiced()   {}
 func (r Period) isExplanationOfBenefitItemServiced() {}
 
-type isExplanationOfBenefitItemLocation interface {
+type ExplanationOfBenefitItemLocation interface {
 	model.Element
 	isExplanationOfBenefitItemLocation()
 }
@@ -629,9 +629,9 @@ type ExplanationOfBenefitAddItem struct {
 	// Identifies the program under which this may be recovered.
 	ProgramCode []CodeableConcept
 	// The date or dates when the service or product was supplied, performed or completed.
-	Serviced isExplanationOfBenefitAddItemServiced
+	Serviced ExplanationOfBenefitAddItemServiced
 	// Where the product or service was provided.
-	Location isExplanationOfBenefitAddItemLocation
+	Location ExplanationOfBenefitAddItemLocation
 	// The amount paid by the patient, in total at the claim claim level or specifically for the item and detail level, to the provider for goods and services.
 	PatientPaid *Money
 	// The number of repetitions of a service or product.
@@ -655,7 +655,7 @@ type ExplanationOfBenefitAddItem struct {
 	// The second-tier service adjudications for payor added services.
 	Detail []ExplanationOfBenefitAddItemDetail
 }
-type isExplanationOfBenefitAddItemServiced interface {
+type ExplanationOfBenefitAddItemServiced interface {
 	model.Element
 	isExplanationOfBenefitAddItemServiced()
 }
@@ -663,7 +663,7 @@ type isExplanationOfBenefitAddItemServiced interface {
 func (r Date) isExplanationOfBenefitAddItemServiced()   {}
 func (r Period) isExplanationOfBenefitAddItemServiced() {}
 
-type isExplanationOfBenefitAddItemLocation interface {
+type ExplanationOfBenefitAddItemLocation interface {
 	model.Element
 	isExplanationOfBenefitAddItemLocation()
 }
@@ -871,11 +871,11 @@ type ExplanationOfBenefitBenefitBalanceFinancial struct {
 	// Classification of benefit being provided.
 	Type CodeableConcept
 	// The quantity of the benefit which is permitted under the coverage.
-	Allowed isExplanationOfBenefitBenefitBalanceFinancialAllowed
+	Allowed ExplanationOfBenefitBenefitBalanceFinancialAllowed
 	// The quantity of the benefit which have been consumed to date.
-	Used isExplanationOfBenefitBenefitBalanceFinancialUsed
+	Used ExplanationOfBenefitBenefitBalanceFinancialUsed
 }
-type isExplanationOfBenefitBenefitBalanceFinancialAllowed interface {
+type ExplanationOfBenefitBenefitBalanceFinancialAllowed interface {
 	model.Element
 	isExplanationOfBenefitBenefitBalanceFinancialAllowed()
 }
@@ -884,7 +884,7 @@ func (r UnsignedInt) isExplanationOfBenefitBenefitBalanceFinancialAllowed() {}
 func (r String) isExplanationOfBenefitBenefitBalanceFinancialAllowed()      {}
 func (r Money) isExplanationOfBenefitBenefitBalanceFinancialAllowed()       {}
 
-type isExplanationOfBenefitBenefitBalanceFinancialUsed interface {
+type ExplanationOfBenefitBenefitBalanceFinancialUsed interface {
 	model.Element
 	isExplanationOfBenefitBenefitBalanceFinancialUsed()
 }

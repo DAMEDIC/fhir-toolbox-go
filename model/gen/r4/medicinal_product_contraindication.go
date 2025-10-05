@@ -66,9 +66,9 @@ type MedicinalProductContraindicationOtherTherapy struct {
 	// The type of relationship between the medicinal product indication or contraindication and another therapy.
 	TherapyRelationshipType CodeableConcept
 	// Reference to a specific medication (active substance, medicinal product or class of products) as part of an indication or contraindication.
-	Medication isMedicinalProductContraindicationOtherTherapyMedication
+	Medication MedicinalProductContraindicationOtherTherapyMedication
 }
-type isMedicinalProductContraindicationOtherTherapyMedication interface {
+type MedicinalProductContraindicationOtherTherapyMedication interface {
 	model.Element
 	isMedicinalProductContraindicationOtherTherapyMedication()
 }

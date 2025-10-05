@@ -44,7 +44,7 @@ type SearchParameter struct {
 	// The identifier that is used to identify this version of the search parameter when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the search parameter author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isSearchParameterVersionAlgorithm
+	VersionAlgorithm SearchParameterVersionAlgorithm
 	// A natural language name identifying the search parameter. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name String
 	// A short, descriptive, user-friendly title for the search parameter.
@@ -100,7 +100,7 @@ type SearchParameter struct {
 	// Used to define the parts of a composite search parameter.
 	Component []SearchParameterComponent
 }
-type isSearchParameterVersionAlgorithm interface {
+type SearchParameterVersionAlgorithm interface {
 	model.Element
 	isSearchParameterVersionAlgorithm()
 }

@@ -42,7 +42,7 @@ type Observation struct {
 	// A unique identifier assigned to this observation.
 	Identifier []Identifier
 	// The reference to a FHIR ObservationDefinition resource that provides the definition that is adhered to in whole or in part by this Observation instance.
-	Instantiates isObservationInstantiates
+	Instantiates ObservationInstantiates
 	// A plan, proposal or order that is fulfilled in whole or in part by this event.  For example, a MedicationRequest may require a patient to have laboratory test performed before  it is dispensed.
 	BasedOn []Reference
 	// Identifies the observation(s) that triggered the performance of this observation.
@@ -62,13 +62,13 @@ type Observation struct {
 	// The healthcare event  (e.g. a patient and healthcare provider interaction) during which this observation is made.
 	Encounter *Reference
 	// The time or time-period the observed value is asserted as being true. For biological subjects - e.g. human patients - this is usually called the "physiologically relevant time". This is usually either the time of the procedure or of specimen collection, but very often the source of the date/time is not known, only the date/time itself.
-	Effective isObservationEffective
+	Effective ObservationEffective
 	// The date and time this version of the observation was made available to providers, typically after the results have been reviewed and verified.
 	Issued *Instant
 	// Who was responsible for asserting the observed value as "true".
 	Performer []Reference
 	// The information determined as a result of making the observation, if the information has a simple value.
-	Value isObservationValue
+	Value ObservationValue
 	// Provides a reason why the expected value in the element Observation.value[x] is missing.
 	DataAbsentReason *CodeableConcept
 	// A categorical assessment of an observation value.  For example, high, low, normal.
@@ -94,7 +94,7 @@ type Observation struct {
 	// Some observations have multiple component observations.  These component observations are expressed as separate code value pairs that share the same attributes.  Examples include systolic and diastolic component observations for blood pressure measurement and multiple component observations for genetics observations.
 	Component []ObservationComponent
 }
-type isObservationInstantiates interface {
+type ObservationInstantiates interface {
 	model.Element
 	isObservationInstantiates()
 }
@@ -102,7 +102,7 @@ type isObservationInstantiates interface {
 func (r Canonical) isObservationInstantiates() {}
 func (r Reference) isObservationInstantiates() {}
 
-type isObservationEffective interface {
+type ObservationEffective interface {
 	model.Element
 	isObservationEffective()
 }
@@ -112,7 +112,7 @@ func (r Period) isObservationEffective()   {}
 func (r Timing) isObservationEffective()   {}
 func (r Instant) isObservationEffective()  {}
 
-type isObservationValue interface {
+type ObservationValue interface {
 	model.Element
 	isObservationValue()
 }
@@ -189,7 +189,7 @@ type ObservationComponent struct {
 	// Describes what was observed. Sometimes this is called the observation "code".
 	Code CodeableConcept
 	// The information determined as a result of making the observation, if the information has a simple value.
-	Value isObservationComponentValue
+	Value ObservationComponentValue
 	// Provides a reason why the expected value in the element Observation.component.value[x] is missing.
 	DataAbsentReason *CodeableConcept
 	// A categorical assessment of an observation value.  For example, high, low, normal.
@@ -197,7 +197,7 @@ type ObservationComponent struct {
 	// Guidance on how to interpret the value by comparison to a normal or recommended range.
 	ReferenceRange []ObservationReferenceRange
 }
-type isObservationComponentValue interface {
+type ObservationComponentValue interface {
 	model.Element
 	isObservationComponentValue()
 }

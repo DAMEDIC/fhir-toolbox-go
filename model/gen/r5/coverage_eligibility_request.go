@@ -50,7 +50,7 @@ type CoverageEligibilityRequest struct {
 	// Information code for an event with a corresponding date or period.
 	Event []CoverageEligibilityRequestEvent
 	// The date or dates when the enclosed suite of services were performed or completed.
-	Serviced isCoverageEligibilityRequestServiced
+	Serviced CoverageEligibilityRequestServiced
 	// The date when this resource was created.
 	Created DateTime
 	// Person who created the request.
@@ -68,7 +68,7 @@ type CoverageEligibilityRequest struct {
 	// Service categories or billable services for which benefit details and/or an authorization prior to service delivery may be required by the payor.
 	Item []CoverageEligibilityRequestItem
 }
-type isCoverageEligibilityRequestServiced interface {
+type CoverageEligibilityRequestServiced interface {
 	model.Element
 	isCoverageEligibilityRequestServiced()
 }
@@ -89,9 +89,9 @@ type CoverageEligibilityRequestEvent struct {
 	// A coded event such as when a service is expected or a card printed.
 	Type CodeableConcept
 	// A date or period in the past or future indicating when the event occurred or is expectd to occur.
-	When isCoverageEligibilityRequestEventWhen
+	When CoverageEligibilityRequestEventWhen
 }
-type isCoverageEligibilityRequestEventWhen interface {
+type CoverageEligibilityRequestEventWhen interface {
 	model.Element
 	isCoverageEligibilityRequestEventWhen()
 }
@@ -178,9 +178,9 @@ type CoverageEligibilityRequestItemDiagnosis struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The nature of illness or problem in a coded form or as a reference to an external defined Condition.
-	Diagnosis isCoverageEligibilityRequestItemDiagnosisDiagnosis
+	Diagnosis CoverageEligibilityRequestItemDiagnosisDiagnosis
 }
-type isCoverageEligibilityRequestItemDiagnosisDiagnosis interface {
+type CoverageEligibilityRequestItemDiagnosisDiagnosis interface {
 	model.Element
 	isCoverageEligibilityRequestItemDiagnosisDiagnosis()
 }

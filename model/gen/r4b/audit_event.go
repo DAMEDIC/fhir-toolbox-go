@@ -172,9 +172,9 @@ type AuditEventEntityDetail struct {
 	// The type of extra detail provided in the value.
 	Type String
 	// The  value of the extra detail.
-	Value isAuditEventEntityDetailValue
+	Value AuditEventEntityDetailValue
 }
-type isAuditEventEntityDetailValue interface {
+type AuditEventEntityDetailValue interface {
 	model.Element
 	isAuditEventEntityDetailValue()
 }

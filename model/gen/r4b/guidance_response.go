@@ -44,7 +44,7 @@ type GuidanceResponse struct {
 	// Allows a service to provide  unique, business identifiers for the response.
 	Identifier []Identifier
 	// An identifier, CodeableConcept or canonical reference to the guidance that was requested.
-	Module isGuidanceResponseModule
+	Module GuidanceResponseModule
 	// The status of the response. If the evaluation is completed successfully, the status will indicate success. However, in order to complete the evaluation, the engine may require more information. In this case, the status will be data-required, and the response will contain a description of the additional required information. If the evaluation completed successfully, but the engine determines that a potentially more accurate response could be provided if more data was available, the status will be data-requested, and the response will contain a description of the additional requested information.
 	Status Code
 	// The patient for which the request was processed.
@@ -70,7 +70,7 @@ type GuidanceResponse struct {
 	// If the evaluation could not be completed due to lack of information, or additional information would potentially result in a more accurate response, this element will a description of the data required in order to proceed with the evaluation. A subsequent request to the service should include this data.
 	DataRequirement []DataRequirement
 }
-type isGuidanceResponseModule interface {
+type GuidanceResponseModule interface {
 	model.Element
 	isGuidanceResponseModule()
 }

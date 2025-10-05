@@ -58,11 +58,11 @@ type NutritionIntake struct {
 	// The encounter that establishes the context for this NutritionIntake.
 	Encounter *Reference
 	// The interval of time during which it is being asserted that the patient is/was consuming the food or fluid.
-	Occurrence isNutritionIntakeOccurrence
+	Occurrence NutritionIntakeOccurrence
 	// The date when the Nutrition Intake was asserted by the information source.
 	Recorded *DateTime
 	// The person or organization that provided the information about the consumption of this food or fluid. Note: Use derivedFrom when a NutritionIntake is derived from other resources.
-	Reported isNutritionIntakeReported
+	Reported NutritionIntakeReported
 	// What food or fluid product or item was consumed.
 	ConsumedItem []NutritionIntakeConsumedItem
 	// Total nutrient amounts for the whole meal, product, serving, etc.
@@ -78,7 +78,7 @@ type NutritionIntake struct {
 	// Provides extra information about the Nutrition Intake that is not conveyed by the other attributes.
 	Note []Annotation
 }
-type isNutritionIntakeOccurrence interface {
+type NutritionIntakeOccurrence interface {
 	model.Element
 	isNutritionIntakeOccurrence()
 }
@@ -86,7 +86,7 @@ type isNutritionIntakeOccurrence interface {
 func (r DateTime) isNutritionIntakeOccurrence() {}
 func (r Period) isNutritionIntakeOccurrence()   {}
 
-type isNutritionIntakeReported interface {
+type NutritionIntakeReported interface {
 	model.Element
 	isNutritionIntakeReported()
 }

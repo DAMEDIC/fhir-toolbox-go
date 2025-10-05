@@ -62,7 +62,7 @@ type Immunization struct {
 	// Additional information that is relevant to the immunization (e.g. for a vaccine recipient who is pregnant, the gestational age of the fetus). The reason why a vaccine was given (e.g. occupation, underlying medical condition) should be conveyed in Immunization.reason, not as supporting information. The reason why a vaccine was not given (e.g. contraindication) should be conveyed in Immunization.statusReason, not as supporting information.
 	SupportingInformation []Reference
 	// Date vaccine administered or was to be administered.
-	Occurrence isImmunizationOccurrence
+	Occurrence ImmunizationOccurrence
 	// Indicates whether the data contained in the resource was captured by the individual/organization which was responsible for the administration of the vaccine rather than as 'secondary reported' data documented by a third party. A value of 'true' means this data originated with the individual/organization which was responsible for the administration of the vaccine.
 	PrimarySource *Boolean
 	// Typically the source of the data when the report of the immunization event is not based on information from the person who administered the vaccine.
@@ -94,7 +94,7 @@ type Immunization struct {
 	// The protocol (set of recommendations) being followed by the provider who administered the dose.
 	ProtocolApplied []ImmunizationProtocolApplied
 }
-type isImmunizationOccurrence interface {
+type ImmunizationOccurrence interface {
 	model.Element
 	isImmunizationOccurrence()
 }

@@ -44,7 +44,7 @@ type StructureDefinition struct {
 	// The identifier that is used to identify this version of the structure definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the structure definition author and is not expected to be globally unique. There is no expectation that versions can be placed in a lexicographical sequence, so authors are encouraged to populate the StructureDefinition.versionAlgorithm[x] element to enable comparisons. If there is no managed version available, authors can consider using ISO date/time syntax (e.g., '2023-01-01').
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isStructureDefinitionVersionAlgorithm
+	VersionAlgorithm StructureDefinitionVersionAlgorithm
 	// A natural language name identifying the structure definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name String
 	// A short, descriptive, user-friendly title for the structure definition.
@@ -96,7 +96,7 @@ type StructureDefinition struct {
 	// A differential view is expressed relative to the base StructureDefinition - a statement of differences that it applies.
 	Differential *StructureDefinitionDifferential
 }
-type isStructureDefinitionVersionAlgorithm interface {
+type StructureDefinitionVersionAlgorithm interface {
 	model.Element
 	isStructureDefinitionVersionAlgorithm()
 }

@@ -46,7 +46,7 @@ type EvidenceVariable struct {
 	// The identifier that is used to identify this version of the evidence variable when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the evidence variable author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active artifacts.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isEvidenceVariableVersionAlgorithm
+	VersionAlgorithm EvidenceVariableVersionAlgorithm
 	// A natural language name identifying the evidence variable. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the evidence variable.
@@ -102,7 +102,7 @@ type EvidenceVariable struct {
 	// A grouping for ordinal or polychotomous variables.
 	Category []EvidenceVariableCategory
 }
-type isEvidenceVariableVersionAlgorithm interface {
+type EvidenceVariableVersionAlgorithm interface {
 	model.Element
 	isEvidenceVariableVersionAlgorithm()
 }
@@ -143,13 +143,13 @@ type EvidenceVariableCharacteristic struct {
 	// Defines the characteristic as a combination of two or more characteristics.
 	DefinitionByCombination *EvidenceVariableCharacteristicDefinitionByCombination
 	// Number of occurrences meeting the characteristic.
-	Instances isEvidenceVariableCharacteristicInstances
+	Instances EvidenceVariableCharacteristicInstances
 	// Length of time in which the characteristic is met.
-	Duration isEvidenceVariableCharacteristicDuration
+	Duration EvidenceVariableCharacteristicDuration
 	// Timing in which the characteristic is determined.
 	TimeFromEvent []EvidenceVariableCharacteristicTimeFromEvent
 }
-type isEvidenceVariableCharacteristicInstances interface {
+type EvidenceVariableCharacteristicInstances interface {
 	model.Element
 	isEvidenceVariableCharacteristicInstances()
 }
@@ -157,7 +157,7 @@ type isEvidenceVariableCharacteristicInstances interface {
 func (r Quantity) isEvidenceVariableCharacteristicInstances() {}
 func (r Range) isEvidenceVariableCharacteristicInstances()    {}
 
-type isEvidenceVariableCharacteristicDuration interface {
+type EvidenceVariableCharacteristicDuration interface {
 	model.Element
 	isEvidenceVariableCharacteristicDuration()
 }
@@ -182,11 +182,11 @@ type EvidenceVariableCharacteristicDefinitionByTypeAndValue struct {
 	// Device used for determining characteristic.
 	Device *Reference
 	// Defines the characteristic when paired with characteristic.type.
-	Value isEvidenceVariableCharacteristicDefinitionByTypeAndValueValue
+	Value EvidenceVariableCharacteristicDefinitionByTypeAndValueValue
 	// Defines the reference point for comparison when valueQuantity or valueRange is not compared to zero.
 	Offset *CodeableConcept
 }
-type isEvidenceVariableCharacteristicDefinitionByTypeAndValueValue interface {
+type EvidenceVariableCharacteristicDefinitionByTypeAndValueValue interface {
 	model.Element
 	isEvidenceVariableCharacteristicDefinitionByTypeAndValueValue()
 }
@@ -231,13 +231,13 @@ type EvidenceVariableCharacteristicTimeFromEvent struct {
 	// A human-readable string to clarify or explain concepts about the timeFromEvent.
 	Note []Annotation
 	// The event used as a base point (reference point) in time.
-	Event isEvidenceVariableCharacteristicTimeFromEventEvent
+	Event EvidenceVariableCharacteristicTimeFromEventEvent
 	// Used to express the observation at a defined amount of time before or after the event.
 	Quantity *Quantity
 	// Used to express the observation within a period before and/or after the event.
 	Range *Range
 }
-type isEvidenceVariableCharacteristicTimeFromEventEvent interface {
+type EvidenceVariableCharacteristicTimeFromEventEvent interface {
 	model.Element
 	isEvidenceVariableCharacteristicTimeFromEventEvent()
 }
@@ -260,9 +260,9 @@ type EvidenceVariableCategory struct {
 	// Description of the grouping.
 	Name *String
 	// Definition of the grouping.
-	Value isEvidenceVariableCategoryValue
+	Value EvidenceVariableCategoryValue
 }
-type isEvidenceVariableCategoryValue interface {
+type EvidenceVariableCategoryValue interface {
 	model.Element
 	isEvidenceVariableCategoryValue()
 }

@@ -54,7 +54,7 @@ type EventDefinition struct {
 	// A Boolean value to indicate that this event definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code or group definition that describes the intended subject of the event definition.
-	Subject isEventDefinitionSubject
+	Subject EventDefinitionSubject
 	// The date  (and optionally time) when the event definition was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the event definition changes.
 	Date *DateTime
 	// The name of the organization or individual that published the event definition.
@@ -94,7 +94,7 @@ type EventDefinition struct {
 	// The trigger element defines when the event occurs. If more than one trigger condition is specified, the event fires whenever any one of the trigger conditions is met.
 	Trigger []TriggerDefinition
 }
-type isEventDefinitionSubject interface {
+type EventDefinitionSubject interface {
 	model.Element
 	isEventDefinitionSubject()
 }

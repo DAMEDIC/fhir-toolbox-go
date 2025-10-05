@@ -168,13 +168,13 @@ type ClaimSupportingInfo struct {
 	// System and code pertaining to the specific information regarding special conditions relating to the setting, treatment or patient  for which care is sought.
 	Code *CodeableConcept
 	// The date when or period to which this information refers.
-	Timing isClaimSupportingInfoTiming
+	Timing ClaimSupportingInfoTiming
 	// Additional data or information such as resources, documents, images etc. including references to the data or the actual inclusion of the data.
-	Value isClaimSupportingInfoValue
+	Value ClaimSupportingInfoValue
 	// Provides the reason in the situation where a reason code is required in addition to the content.
 	Reason *CodeableConcept
 }
-type isClaimSupportingInfoTiming interface {
+type ClaimSupportingInfoTiming interface {
 	model.Element
 	isClaimSupportingInfoTiming()
 }
@@ -182,7 +182,7 @@ type isClaimSupportingInfoTiming interface {
 func (r Date) isClaimSupportingInfoTiming()   {}
 func (r Period) isClaimSupportingInfoTiming() {}
 
-type isClaimSupportingInfoValue interface {
+type ClaimSupportingInfoValue interface {
 	model.Element
 	isClaimSupportingInfoValue()
 }
@@ -206,7 +206,7 @@ type ClaimDiagnosis struct {
 	// A number to uniquely identify diagnosis entries.
 	Sequence PositiveInt
 	// The nature of illness or problem in a coded form or as a reference to an external defined Condition.
-	Diagnosis isClaimDiagnosisDiagnosis
+	Diagnosis ClaimDiagnosisDiagnosis
 	// When the condition was observed or the relative ranking.
 	Type []CodeableConcept
 	// Indication of whether the diagnosis was present on admission to a facility.
@@ -214,7 +214,7 @@ type ClaimDiagnosis struct {
 	// A package billing code or bundle code used to group products and services to a particular health condition (such as heart attack) which is based on a predetermined grouping code system.
 	PackageCode *CodeableConcept
 }
-type isClaimDiagnosisDiagnosis interface {
+type ClaimDiagnosisDiagnosis interface {
 	model.Element
 	isClaimDiagnosisDiagnosis()
 }
@@ -239,11 +239,11 @@ type ClaimProcedure struct {
 	// Date and optionally time the procedure was performed.
 	Date *DateTime
 	// The code or reference to a Procedure resource which identifies the clinical intervention performed.
-	Procedure isClaimProcedureProcedure
+	Procedure ClaimProcedureProcedure
 	// Unique Device Identifiers associated with this line item.
 	Udi []Reference
 }
-type isClaimProcedureProcedure interface {
+type ClaimProcedureProcedure interface {
 	model.Element
 	isClaimProcedureProcedure()
 }
@@ -292,9 +292,9 @@ type ClaimAccident struct {
 	// The type or context of the accident event for the purposes of selection of potential insurance coverages and determination of coordination between insurers.
 	Type *CodeableConcept
 	// The physical location of the accident event.
-	Location isClaimAccidentLocation
+	Location ClaimAccidentLocation
 }
-type isClaimAccidentLocation interface {
+type ClaimAccidentLocation interface {
 	model.Element
 	isClaimAccidentLocation()
 }
@@ -333,9 +333,9 @@ type ClaimItem struct {
 	// Identifies the program under which this may be recovered.
 	ProgramCode []CodeableConcept
 	// The date or dates when the service or product was supplied, performed or completed.
-	Serviced isClaimItemServiced
+	Serviced ClaimItemServiced
 	// Where the product or service was provided.
-	Location isClaimItemLocation
+	Location ClaimItemLocation
 	// The number of repetitions of a service or product.
 	Quantity *Quantity
 	// If the item is not a group then this is the fee for the product or service, otherwise this is the total of the fees for the details of the group.
@@ -355,7 +355,7 @@ type ClaimItem struct {
 	// A claim detail line. Either a simple (a product or service) or a 'group' of sub-details which are simple items.
 	Detail []ClaimItemDetail
 }
-type isClaimItemServiced interface {
+type ClaimItemServiced interface {
 	model.Element
 	isClaimItemServiced()
 }
@@ -363,7 +363,7 @@ type isClaimItemServiced interface {
 func (r Date) isClaimItemServiced()   {}
 func (r Period) isClaimItemServiced() {}
 
-type isClaimItemLocation interface {
+type ClaimItemLocation interface {
 	model.Element
 	isClaimItemLocation()
 }

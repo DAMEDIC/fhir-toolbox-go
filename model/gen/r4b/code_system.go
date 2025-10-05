@@ -186,9 +186,9 @@ type CodeSystemConceptProperty struct {
 	// A code that is a reference to CodeSystem.property.code.
 	Code Code
 	// The value of this property.
-	Value isCodeSystemConceptPropertyValue
+	Value CodeSystemConceptPropertyValue
 }
-type isCodeSystemConceptPropertyValue interface {
+type CodeSystemConceptPropertyValue interface {
 	model.Element
 	isCodeSystemConceptPropertyValue()
 }

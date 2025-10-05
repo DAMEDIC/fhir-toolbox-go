@@ -44,7 +44,7 @@ type Library struct {
 	// The identifier that is used to identify this version of the library when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the library author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active artifacts.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isLibraryVersionAlgorithm
+	VersionAlgorithm LibraryVersionAlgorithm
 	// A natural language name identifying the library. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the library.
@@ -58,7 +58,7 @@ type Library struct {
 	// Identifies the type of library such as a Logic Library, Model Definition, Asset Collection, or Module Definition.
 	Type CodeableConcept
 	// A code or group definition that describes the intended subject of the contents of the library.
-	Subject isLibrarySubject
+	Subject LibrarySubject
 	// The date  (and optionally time) when the library was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the library changes.
 	Date *DateTime
 	// The name of the organization or individual responsible for the release and ongoing maintenance of the library.
@@ -104,7 +104,7 @@ type Library struct {
 	// The content of the library as an Attachment. The content may be a reference to a url, or may be directly embedded as a base-64 string. Either way, the contentType of the attachment determines how to interpret the content.
 	Content []Attachment
 }
-type isLibraryVersionAlgorithm interface {
+type LibraryVersionAlgorithm interface {
 	model.Element
 	isLibraryVersionAlgorithm()
 }
@@ -112,7 +112,7 @@ type isLibraryVersionAlgorithm interface {
 func (r String) isLibraryVersionAlgorithm() {}
 func (r Coding) isLibraryVersionAlgorithm() {}
 
-type isLibrarySubject interface {
+type LibrarySubject interface {
 	model.Element
 	isLibrarySubject()
 }

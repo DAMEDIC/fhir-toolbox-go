@@ -40,7 +40,7 @@ type MessageHeader struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Code that identifies the event this message represents and connects it with its definition. Events defined as part of the FHIR specification are defined by the implementation.  Alternatively a canonical uri to the EventDefinition.
-	Event isMessageHeaderEvent
+	Event MessageHeaderEvent
 	// The destination application which the message is intended for.
 	Destination []MessageHeaderDestination
 	// Identifies the sending system to allow the use of a trust relationship.
@@ -60,7 +60,7 @@ type MessageHeader struct {
 	// Permanent link to the MessageDefinition for this message.
 	Definition *Canonical
 }
-type isMessageHeaderEvent interface {
+type MessageHeaderEvent interface {
 	model.Element
 	isMessageHeaderEvent()
 }
@@ -79,7 +79,7 @@ type MessageHeaderDestination struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Indicates where the message should be routed.
-	Endpoint isMessageHeaderDestinationEndpoint
+	Endpoint MessageHeaderDestinationEndpoint
 	// Human-readable name for the target system.
 	Name *String
 	// Identifies the target end system in situations where the initial message transmission is to an intermediary system.
@@ -87,7 +87,7 @@ type MessageHeaderDestination struct {
 	// Allows data conveyed by a message to be addressed to a particular person or department when routing to a specific application isn't sufficient.
 	Receiver *Reference
 }
-type isMessageHeaderDestinationEndpoint interface {
+type MessageHeaderDestinationEndpoint interface {
 	model.Element
 	isMessageHeaderDestinationEndpoint()
 }
@@ -106,7 +106,7 @@ type MessageHeaderSource struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Identifies the routing target to send acknowledgements to.
-	Endpoint isMessageHeaderSourceEndpoint
+	Endpoint MessageHeaderSourceEndpoint
 	// Human-readable name for the source system.
 	Name *String
 	// May include configuration or other information useful in debugging.
@@ -116,7 +116,7 @@ type MessageHeaderSource struct {
 	// An e-mail, phone, website or other contact point to use to resolve issues with message communications.
 	Contact *ContactPoint
 }
-type isMessageHeaderSourceEndpoint interface {
+type MessageHeaderSourceEndpoint interface {
 	model.Element
 	isMessageHeaderSourceEndpoint()
 }

@@ -100,13 +100,13 @@ type SpecimenDefinitionTypeTestedContainer struct {
 	// The capacity (volume or other measure) of this kind of container.
 	Capacity *Quantity
 	// The minimum volume to be conditioned in the container.
-	MinimumVolume isSpecimenDefinitionTypeTestedContainerMinimumVolume
+	MinimumVolume SpecimenDefinitionTypeTestedContainerMinimumVolume
 	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.
 	Additive []SpecimenDefinitionTypeTestedContainerAdditive
 	// Special processing that should be applied to the container for this kind of specimen.
 	Preparation *String
 }
-type isSpecimenDefinitionTypeTestedContainerMinimumVolume interface {
+type SpecimenDefinitionTypeTestedContainerMinimumVolume interface {
 	model.Element
 	isSpecimenDefinitionTypeTestedContainerMinimumVolume()
 }
@@ -125,9 +125,9 @@ type SpecimenDefinitionTypeTestedContainerAdditive struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.
-	Additive isSpecimenDefinitionTypeTestedContainerAdditiveAdditive
+	Additive SpecimenDefinitionTypeTestedContainerAdditiveAdditive
 }
-type isSpecimenDefinitionTypeTestedContainerAdditiveAdditive interface {
+type SpecimenDefinitionTypeTestedContainerAdditiveAdditive interface {
 	model.Element
 	isSpecimenDefinitionTypeTestedContainerAdditiveAdditive()
 }

@@ -44,7 +44,7 @@ type ConceptMap struct {
 	// The identifier that is used to identify this version of the concept map when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the concept map author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which ConceptMap is more current.
-	VersionAlgorithm isConceptMapVersionAlgorithm
+	VersionAlgorithm ConceptMapVersionAlgorithm
 	// A natural language name identifying the concept map. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the concept map.
@@ -94,13 +94,13 @@ type ConceptMap struct {
 	// An additionalAttribute defines an additional data element found in the source or target data model where the data will come from or be mapped to. Some mappings are based on data in addition to the source data element, where codes in multiple fields are combined to a single field (or vice versa).
 	AdditionalAttribute []ConceptMapAdditionalAttribute
 	// Identifier for the source value set that contains the concepts that are being mapped and provides context for the mappings.  Limits the scope of the map to source codes (ConceptMap.group.element code or valueSet) that are members of this value set.
-	SourceScope isConceptMapSourceScope
+	SourceScope ConceptMapSourceScope
 	// Identifier for the target value set that provides important context about how the mapping choices are made.  Limits the scope of the map to target codes (ConceptMap.group.element.target code or valueSet) that are members of this value set.
-	TargetScope isConceptMapTargetScope
+	TargetScope ConceptMapTargetScope
 	// A group of mappings that all have the same source and target system.
 	Group []ConceptMapGroup
 }
-type isConceptMapVersionAlgorithm interface {
+type ConceptMapVersionAlgorithm interface {
 	model.Element
 	isConceptMapVersionAlgorithm()
 }
@@ -108,7 +108,7 @@ type isConceptMapVersionAlgorithm interface {
 func (r String) isConceptMapVersionAlgorithm() {}
 func (r Coding) isConceptMapVersionAlgorithm() {}
 
-type isConceptMapSourceScope interface {
+type ConceptMapSourceScope interface {
 	model.Element
 	isConceptMapSourceScope()
 }
@@ -116,7 +116,7 @@ type isConceptMapSourceScope interface {
 func (r Uri) isConceptMapSourceScope()       {}
 func (r Canonical) isConceptMapSourceScope() {}
 
-type isConceptMapTargetScope interface {
+type ConceptMapTargetScope interface {
 	model.Element
 	isConceptMapTargetScope()
 }
@@ -249,9 +249,9 @@ type ConceptMapGroupElementTargetProperty struct {
 	// A reference to a mapping property defined in ConceptMap.property.
 	Code Code
 	// The value of this property. If the type chosen for this element is 'code', then the property SHALL be defined in a ConceptMap.property element.
-	Value isConceptMapGroupElementTargetPropertyValue
+	Value ConceptMapGroupElementTargetPropertyValue
 }
-type isConceptMapGroupElementTargetPropertyValue interface {
+type ConceptMapGroupElementTargetPropertyValue interface {
 	model.Element
 	isConceptMapGroupElementTargetPropertyValue()
 }
@@ -277,11 +277,11 @@ type ConceptMapGroupElementTargetDependsOn struct {
 	// A reference to the additional attribute that holds a value the map depends on.
 	Attribute Code
 	// Data element value that the map depends on / produces.
-	Value isConceptMapGroupElementTargetDependsOnValue
+	Value ConceptMapGroupElementTargetDependsOnValue
 	// This mapping applies if the data element value is a code from this value set.
 	ValueSet *Canonical
 }
-type isConceptMapGroupElementTargetDependsOnValue interface {
+type ConceptMapGroupElementTargetDependsOnValue interface {
 	model.Element
 	isConceptMapGroupElementTargetDependsOnValue()
 }

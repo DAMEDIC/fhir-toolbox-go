@@ -44,7 +44,7 @@ type ActorDefinition struct {
 	// The identifier that is used to identify this version of the actor definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the actor definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isActorDefinitionVersionAlgorithm
+	VersionAlgorithm ActorDefinitionVersionAlgorithm
 	// A natural language name identifying the actor definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the actor definition.
@@ -82,7 +82,7 @@ type ActorDefinition struct {
 	// A url that identifies the definition of this actor in another IG (which IG must be listed in the dependencies). This actor inherits all the obligations etc. as defined in the other IG.
 	DerivedFrom []Canonical
 }
-type isActorDefinitionVersionAlgorithm interface {
+type ActorDefinitionVersionAlgorithm interface {
 	model.Element
 	isActorDefinitionVersionAlgorithm()
 }

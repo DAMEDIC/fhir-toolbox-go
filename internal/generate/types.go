@@ -44,7 +44,7 @@ func generateStruct(f *File, s ir.Struct) {
 			stmt := g.Id(f.Name)
 
 			if f.Polymorph {
-				stmt.Id("is" + s.Name + f.Name)
+				stmt.Id(s.Name + f.Name)
 			} else {
 				t := f.PossibleTypes[0]
 
@@ -72,7 +72,7 @@ func generatePrimitiveEnums(f *File, s ir.Struct) {
 			continue
 		}
 
-		f.Type().Id("is"+s.Name+sf.Name).Interface(
+		f.Type().Id(s.Name+sf.Name).Interface(
 			Qual(moduleName+"/model", "Element"),
 			Id("is"+s.Name+sf.Name).Params(),
 		)

@@ -76,7 +76,7 @@ type MessageDefinition struct {
 	// Identifies a protocol or workflow that this MessageDefinition represents a step in.
 	Parent []Canonical
 	// Event code or link to the EventDefinition.
-	Event isMessageDefinitionEvent
+	Event MessageDefinitionEvent
 	// The impact of the content of the message.
 	Category *Code
 	// Identifies the resource (or resources) that are being addressed by the event.  For example, the Encounter for an admit message or two Account records for a merge.
@@ -88,7 +88,7 @@ type MessageDefinition struct {
 	// Canonical reference to a GraphDefinition. If a URL is provided, it is the canonical reference to a [GraphDefinition](graphdefinition.html) that it controls what resources are to be added to the bundle when building the document. The GraphDefinition can also specify profiles that apply to the various resources.
 	Graph []Canonical
 }
-type isMessageDefinitionEvent interface {
+type MessageDefinitionEvent interface {
 	model.Element
 	isMessageDefinitionEvent()
 }

@@ -46,13 +46,13 @@ type SupplyRequest struct {
 	// Indicates how quickly this SupplyRequest should be addressed with respect to other requests.
 	Priority *Code
 	// The item that is requested to be supplied. This is either a link to a resource representing the details of the item or a code that identifies the item from a known list.
-	Item isSupplyRequestItem
+	Item SupplyRequestItem
 	// The amount that is being ordered of the indicated item.
 	Quantity Quantity
 	// Specific parameters for the ordered item.  For example, the size of the indicated item.
 	Parameter []SupplyRequestParameter
 	// When the request should be fulfilled.
-	Occurrence isSupplyRequestOccurrence
+	Occurrence SupplyRequestOccurrence
 	// When the request was made.
 	AuthoredOn *DateTime
 	// The device, practitioner, etc. who initiated the request.
@@ -68,7 +68,7 @@ type SupplyRequest struct {
 	// Where the supply is destined to go.
 	DeliverTo *Reference
 }
-type isSupplyRequestItem interface {
+type SupplyRequestItem interface {
 	model.Element
 	isSupplyRequestItem()
 }
@@ -76,7 +76,7 @@ type isSupplyRequestItem interface {
 func (r CodeableConcept) isSupplyRequestItem() {}
 func (r Reference) isSupplyRequestItem()       {}
 
-type isSupplyRequestOccurrence interface {
+type SupplyRequestOccurrence interface {
 	model.Element
 	isSupplyRequestOccurrence()
 }
@@ -98,9 +98,9 @@ type SupplyRequestParameter struct {
 	// A code or string that identifies the device detail being asserted.
 	Code *CodeableConcept
 	// The value of the device detail.
-	Value isSupplyRequestParameterValue
+	Value SupplyRequestParameterValue
 }
-type isSupplyRequestParameterValue interface {
+type SupplyRequestParameterValue interface {
 	model.Element
 	isSupplyRequestParameterValue()
 }

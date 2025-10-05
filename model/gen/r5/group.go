@@ -77,13 +77,13 @@ type GroupCharacteristic struct {
 	// A code that identifies the kind of trait being asserted.
 	Code CodeableConcept
 	// The value of the trait that holds (or does not hold - see 'exclude') for members of the group.
-	Value isGroupCharacteristicValue
+	Value GroupCharacteristicValue
 	// If true, indicates the characteristic is one that is NOT held by members of the group.
 	Exclude Boolean
 	// The period over which the characteristic is tested; e.g. the patient had an operation during the month of June.
 	Period *Period
 }
-type isGroupCharacteristicValue interface {
+type GroupCharacteristicValue interface {
 	model.Element
 	isGroupCharacteristicValue()
 }

@@ -56,7 +56,7 @@ type PlanDefinition struct {
 	// A Boolean value to indicate that this plan definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code or group definition that describes the intended subject of the plan definition.
-	Subject isPlanDefinitionSubject
+	Subject PlanDefinitionSubject
 	// The date  (and optionally time) when the plan definition was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the plan definition changes.
 	Date *DateTime
 	// The name of the organization or individual that published the plan definition.
@@ -100,7 +100,7 @@ type PlanDefinition struct {
 	// An action or group of actions to be taken as part of the plan.
 	Action []PlanDefinitionAction
 }
-type isPlanDefinitionSubject interface {
+type PlanDefinitionSubject interface {
 	model.Element
 	isPlanDefinitionSubject()
 }
@@ -147,11 +147,11 @@ type PlanDefinitionGoalTarget struct {
 	// The parameter whose value is to be tracked, e.g. body weight, blood pressure, or hemoglobin A1c level.
 	Measure *CodeableConcept
 	// The target value of the measure to be achieved to signify fulfillment of the goal, e.g. 150 pounds or 7.0%. Either the high or low or both values of the range can be specified. When a low value is missing, it indicates that the goal is achieved at any value at or below the high value. Similarly, if the high value is missing, it indicates that the goal is achieved at any value at or above the low value.
-	Detail isPlanDefinitionGoalTargetDetail
+	Detail PlanDefinitionGoalTargetDetail
 	// Indicates the timeframe after the start of the goal in which the goal should be met.
 	Due *Duration
 }
-type isPlanDefinitionGoalTargetDetail interface {
+type PlanDefinitionGoalTargetDetail interface {
 	model.Element
 	isPlanDefinitionGoalTargetDetail()
 }
@@ -189,7 +189,7 @@ type PlanDefinitionAction struct {
 	// Identifies goals that this action supports. The reference must be to a goal element defined within this plan definition.
 	GoalId []Id
 	// A code or group definition that describes the intended subject of the action and its children, if any.
-	Subject isPlanDefinitionActionSubject
+	Subject PlanDefinitionActionSubject
 	// A description of when the action should be triggered.
 	Trigger []TriggerDefinition
 	// An expression that describes applicability criteria or start/stop conditions for the action.
@@ -201,7 +201,7 @@ type PlanDefinitionAction struct {
 	// A relationship to another action such as "before" or "30-60 minutes after start of".
 	RelatedAction []PlanDefinitionActionRelatedAction
 	// An optional value describing when the action should be performed.
-	Timing isPlanDefinitionActionTiming
+	Timing PlanDefinitionActionTiming
 	// Indicates who should participate in performing the action described.
 	Participant []PlanDefinitionActionParticipant
 	// The type of action to perform (create, update, remove).
@@ -217,7 +217,7 @@ type PlanDefinitionAction struct {
 	// Defines whether the action can be selected multiple times.
 	CardinalityBehavior *Code
 	// A reference to an ActivityDefinition that describes the action to be taken in detail, or a PlanDefinition that describes a series of actions to be taken.
-	Definition isPlanDefinitionActionDefinition
+	Definition PlanDefinitionActionDefinition
 	// A reference to a StructureMap resource that defines a transform that can be executed to produce the intent resource using the ActivityDefinition instance as the input.
 	Transform *Canonical
 	// Customizations that should be applied to the statically defined resource. For example, if the dosage of a medication must be computed based on the patient's weight, a customization would be used to specify an expression that calculated the weight, and the path on the resource that would contain the result.
@@ -225,7 +225,7 @@ type PlanDefinitionAction struct {
 	// Sub actions that are contained within the action. The behavior of this action determines the functionality of the sub-actions. For example, a selection behavior of at-most-one indicates that of the sub-actions, at most one may be chosen as part of realizing the action definition.
 	Action []PlanDefinitionAction
 }
-type isPlanDefinitionActionSubject interface {
+type PlanDefinitionActionSubject interface {
 	model.Element
 	isPlanDefinitionActionSubject()
 }
@@ -233,7 +233,7 @@ type isPlanDefinitionActionSubject interface {
 func (r CodeableConcept) isPlanDefinitionActionSubject() {}
 func (r Reference) isPlanDefinitionActionSubject()       {}
 
-type isPlanDefinitionActionTiming interface {
+type PlanDefinitionActionTiming interface {
 	model.Element
 	isPlanDefinitionActionTiming()
 }
@@ -245,7 +245,7 @@ func (r Duration) isPlanDefinitionActionTiming() {}
 func (r Range) isPlanDefinitionActionTiming()    {}
 func (r Timing) isPlanDefinitionActionTiming()   {}
 
-type isPlanDefinitionActionDefinition interface {
+type PlanDefinitionActionDefinition interface {
 	model.Element
 	isPlanDefinitionActionDefinition()
 }
@@ -284,9 +284,9 @@ type PlanDefinitionActionRelatedAction struct {
 	// The relationship of this action to the related action.
 	Relationship Code
 	// A duration or range of durations to apply to the relationship. For example, 30-60 minutes before.
-	Offset isPlanDefinitionActionRelatedActionOffset
+	Offset PlanDefinitionActionRelatedActionOffset
 }
-type isPlanDefinitionActionRelatedActionOffset interface {
+type PlanDefinitionActionRelatedActionOffset interface {
 	model.Element
 	isPlanDefinitionActionRelatedActionOffset()
 }

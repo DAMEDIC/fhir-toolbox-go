@@ -196,9 +196,9 @@ type ClaimResponseAddItem struct {
 	// Identifies the program under which this may be recovered.
 	ProgramCode []CodeableConcept
 	// The date or dates when the service or product was supplied, performed or completed.
-	Serviced isClaimResponseAddItemServiced
+	Serviced ClaimResponseAddItemServiced
 	// Where the product or service was provided.
-	Location isClaimResponseAddItemLocation
+	Location ClaimResponseAddItemLocation
 	// The number of repetitions of a service or product.
 	Quantity *Quantity
 	// If the item is not a group then this is the fee for the product or service, otherwise this is the total of the fees for the details of the group.
@@ -218,7 +218,7 @@ type ClaimResponseAddItem struct {
 	// The second-tier service adjudications for payor added services.
 	Detail []ClaimResponseAddItemDetail
 }
-type isClaimResponseAddItemServiced interface {
+type ClaimResponseAddItemServiced interface {
 	model.Element
 	isClaimResponseAddItemServiced()
 }
@@ -226,7 +226,7 @@ type isClaimResponseAddItemServiced interface {
 func (r Date) isClaimResponseAddItemServiced()   {}
 func (r Period) isClaimResponseAddItemServiced() {}
 
-type isClaimResponseAddItemLocation interface {
+type ClaimResponseAddItemLocation interface {
 	model.Element
 	isClaimResponseAddItemLocation()
 }

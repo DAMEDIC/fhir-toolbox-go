@@ -46,7 +46,7 @@ type Questionnaire struct {
 	// The identifier that is used to identify this version of the questionnaire when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the questionnaire author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isQuestionnaireVersionAlgorithm
+	VersionAlgorithm QuestionnaireVersionAlgorithm
 	// A natural language name identifying the questionnaire. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the questionnaire.
@@ -88,7 +88,7 @@ type Questionnaire struct {
 	// A particular question, question grouping or display text that is part of the questionnaire.
 	Item []QuestionnaireItem
 }
-type isQuestionnaireVersionAlgorithm interface {
+type QuestionnaireVersionAlgorithm interface {
 	model.Element
 	isQuestionnaireVersionAlgorithm()
 }
@@ -159,9 +159,9 @@ type QuestionnaireItemEnableWhen struct {
 	// Specifies the criteria by which the question is enabled.
 	Operator Code
 	// A value that the referenced question is tested using the specified operator in order for the item to be enabled.  If there are multiple answers, a match on any of the answers suffices.  If different behavior is desired (all must match, at least 2 must match, etc.), consider using the enableWhenExpression extension.
-	Answer isQuestionnaireItemEnableWhenAnswer
+	Answer QuestionnaireItemEnableWhenAnswer
 }
-type isQuestionnaireItemEnableWhenAnswer interface {
+type QuestionnaireItemEnableWhenAnswer interface {
 	model.Element
 	isQuestionnaireItemEnableWhenAnswer()
 }
@@ -188,11 +188,11 @@ type QuestionnaireItemAnswerOption struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// A potential answer that's allowed as the answer to this question.
-	Value isQuestionnaireItemAnswerOptionValue
+	Value QuestionnaireItemAnswerOptionValue
 	// Indicates whether the answer value is selected when the list of possible answers is initially shown.
 	InitialSelected *Boolean
 }
-type isQuestionnaireItemAnswerOptionValue interface {
+type QuestionnaireItemAnswerOptionValue interface {
 	model.Element
 	isQuestionnaireItemAnswerOptionValue()
 }
@@ -215,9 +215,9 @@ type QuestionnaireItemInitial struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The actual value to for an initial answer.
-	Value isQuestionnaireItemInitialValue
+	Value QuestionnaireItemInitialValue
 }
-type isQuestionnaireItemInitialValue interface {
+type QuestionnaireItemInitialValue interface {
 	model.Element
 	isQuestionnaireItemInitialValue()
 }

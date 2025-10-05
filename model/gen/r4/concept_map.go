@@ -68,13 +68,13 @@ type ConceptMap struct {
 	// A copyright statement relating to the concept map and/or its contents. Copyright statements are generally legal restrictions on the use and publishing of the concept map.
 	Copyright *Markdown
 	// Identifier for the source value set that contains the concepts that are being mapped and provides context for the mappings.
-	Source isConceptMapSource
+	Source ConceptMapSource
 	// The target value set provides context for the mappings. Note that the mapping is made between concepts, not between value sets, but the value set provides important context about how the concept mapping choices are made.
-	Target isConceptMapTarget
+	Target ConceptMapTarget
 	// A group of mappings that all have the same source and target system.
 	Group []ConceptMapGroup
 }
-type isConceptMapSource interface {
+type ConceptMapSource interface {
 	model.Element
 	isConceptMapSource()
 }
@@ -82,7 +82,7 @@ type isConceptMapSource interface {
 func (r Uri) isConceptMapSource()       {}
 func (r Canonical) isConceptMapSource() {}
 
-type isConceptMapTarget interface {
+type ConceptMapTarget interface {
 	model.Element
 	isConceptMapTarget()
 }

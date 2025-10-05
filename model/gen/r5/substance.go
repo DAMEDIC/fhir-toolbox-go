@@ -70,9 +70,9 @@ type SubstanceIngredient struct {
 	// The amount of the ingredient in the substance - a concentration ratio.
 	Quantity *Ratio
 	// Another substance that is a component of this substance.
-	Substance isSubstanceIngredientSubstance
+	Substance SubstanceIngredientSubstance
 }
-type isSubstanceIngredientSubstance interface {
+type SubstanceIngredientSubstance interface {
 	model.Element
 	isSubstanceIngredientSubstance()
 }

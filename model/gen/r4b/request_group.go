@@ -104,7 +104,7 @@ type RequestGroupAction struct {
 	// A relationship to another action such as "before" or "30-60 minutes after start of".
 	RelatedAction []RequestGroupActionRelatedAction
 	// An optional value describing when the action should be performed.
-	Timing isRequestGroupActionTiming
+	Timing RequestGroupActionTiming
 	// The participant that should perform or be responsible for this action.
 	Participant []Reference
 	// The type of action to perform (create, update, remove).
@@ -124,7 +124,7 @@ type RequestGroupAction struct {
 	// Sub actions.
 	Action []RequestGroupAction
 }
-type isRequestGroupActionTiming interface {
+type RequestGroupActionTiming interface {
 	model.Element
 	isRequestGroupActionTiming()
 }
@@ -167,9 +167,9 @@ type RequestGroupActionRelatedAction struct {
 	// The relationship of this action to the related action.
 	Relationship Code
 	// A duration or range of durations to apply to the relationship. For example, 30-60 minutes before.
-	Offset isRequestGroupActionRelatedActionOffset
+	Offset RequestGroupActionRelatedActionOffset
 }
-type isRequestGroupActionRelatedActionOffset interface {
+type RequestGroupActionRelatedActionOffset interface {
 	model.Element
 	isRequestGroupActionRelatedActionOffset()
 }

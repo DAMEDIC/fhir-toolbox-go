@@ -44,7 +44,7 @@ type TestPlan struct {
 	// The identifier that is used to identify this version of the test plan when it is referenced in a specification, model, design or instance.  This is an arbitrary value managed by the test plan author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isTestPlanVersionAlgorithm
+	VersionAlgorithm TestPlanVersionAlgorithm
 	// A natural language name identifying the test plan. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the test plan.
@@ -84,7 +84,7 @@ type TestPlan struct {
 	// The individual test cases that are part of this plan, when they they are made explicit.
 	TestCase []TestPlanTestCase
 }
-type isTestPlanVersionAlgorithm interface {
+type TestPlanVersionAlgorithm interface {
 	model.Element
 	isTestPlanVersionAlgorithm()
 }
@@ -177,9 +177,9 @@ type TestPlanTestCaseTestRunScript struct {
 	// The language for the test cases e.g. 'gherkin', 'testscript'.
 	Language *CodeableConcept
 	// The actual content of the cases - references to TestScripts or externally defined content.
-	Source isTestPlanTestCaseTestRunScriptSource
+	Source TestPlanTestCaseTestRunScriptSource
 }
-type isTestPlanTestCaseTestRunScriptSource interface {
+type TestPlanTestCaseTestRunScriptSource interface {
 	model.Element
 	isTestPlanTestCaseTestRunScriptSource()
 }
@@ -202,9 +202,9 @@ type TestPlanTestCaseTestData struct {
 	// The actual test resources when they exist.
 	Content *Reference
 	// Pointer to a definition of test resources - narrative or structured e.g. synthetic data generation, etc.
-	Source isTestPlanTestCaseTestDataSource
+	Source TestPlanTestCaseTestDataSource
 }
-type isTestPlanTestCaseTestDataSource interface {
+type TestPlanTestCaseTestDataSource interface {
 	model.Element
 	isTestPlanTestCaseTestDataSource()
 }

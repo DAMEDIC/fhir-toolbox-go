@@ -138,13 +138,13 @@ type CarePlanActivityDetail struct {
 	// If true, indicates that the described activity is one that must NOT be engaged in when following the plan.  If false, or missing, indicates that the described activity is one that should be engaged in when following the plan.
 	DoNotPerform *Boolean
 	// The period, timing or frequency upon which the described activity is to occur.
-	Scheduled isCarePlanActivityDetailScheduled
+	Scheduled CarePlanActivityDetailScheduled
 	// Identifies the facility where the activity will occur; e.g. home, hospital, specific clinic, etc.
 	Location *Reference
 	// Identifies who's expected to be involved in the activity.
 	Performer []Reference
 	// Identifies the food, drug or other product to be consumed or supplied in the activity.
-	Product isCarePlanActivityDetailProduct
+	Product CarePlanActivityDetailProduct
 	// Identifies the quantity expected to be consumed in a given day.
 	DailyAmount *Quantity
 	// Identifies the quantity expected to be supplied, administered or consumed by the subject.
@@ -152,7 +152,7 @@ type CarePlanActivityDetail struct {
 	// This provides a textual description of constraints on the intended activity occurrence, including relation to other activities.  It may also include objectives, pre-conditions and end-conditions.  Finally, it may convey specifics about the activity such as body site, method, route, etc.
 	Description *String
 }
-type isCarePlanActivityDetailScheduled interface {
+type CarePlanActivityDetailScheduled interface {
 	model.Element
 	isCarePlanActivityDetailScheduled()
 }
@@ -161,7 +161,7 @@ func (r Timing) isCarePlanActivityDetailScheduled() {}
 func (r Period) isCarePlanActivityDetailScheduled() {}
 func (r String) isCarePlanActivityDetailScheduled() {}
 
-type isCarePlanActivityDetailProduct interface {
+type CarePlanActivityDetailProduct interface {
 	model.Element
 	isCarePlanActivityDetailProduct()
 }

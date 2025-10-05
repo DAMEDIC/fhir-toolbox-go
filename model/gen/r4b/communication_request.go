@@ -66,7 +66,7 @@ type CommunicationRequest struct {
 	// Text, attachment(s), or resource(s) to be communicated to the recipient.
 	Payload []CommunicationRequestPayload
 	// The time when this communication is to occur.
-	Occurrence isCommunicationRequestOccurrence
+	Occurrence CommunicationRequestOccurrence
 	// For draft requests, indicates the date of initial creation.  For requests with other statuses, indicates the date of activation.
 	AuthoredOn *DateTime
 	// The device, individual, or organization who initiated the request and has responsibility for its activation.
@@ -82,7 +82,7 @@ type CommunicationRequest struct {
 	// Comments made about the request by the requester, sender, recipient, subject or other participants.
 	Note []Annotation
 }
-type isCommunicationRequestOccurrence interface {
+type CommunicationRequestOccurrence interface {
 	model.Element
 	isCommunicationRequestOccurrence()
 }
@@ -101,9 +101,9 @@ type CommunicationRequestPayload struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The communicated content (or for multi-part communications, one portion of the communication).
-	Content isCommunicationRequestPayloadContent
+	Content CommunicationRequestPayloadContent
 }
-type isCommunicationRequestPayloadContent interface {
+type CommunicationRequestPayloadContent interface {
 	model.Element
 	isCommunicationRequestPayloadContent()
 }

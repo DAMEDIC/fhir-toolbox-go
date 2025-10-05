@@ -44,7 +44,7 @@ type SpecimenDefinition struct {
 	// The identifier that is used to identify this version of the SpecimenDefinition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the SpecimenDefinition author and is not expected to be globally unique.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isSpecimenDefinitionVersionAlgorithm
+	VersionAlgorithm SpecimenDefinitionVersionAlgorithm
 	// A natural language name identifying the {{title}}. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the SpecimenDefinition.
@@ -58,7 +58,7 @@ type SpecimenDefinition struct {
 	// A flag to indicate that this SpecimenDefinition is not authored for  genuine usage.
 	Experimental *Boolean
 	// A code or group definition that describes the intended subject  from which this kind of specimen is to be collected.
-	Subject isSpecimenDefinitionSubject
+	Subject SpecimenDefinitionSubject
 	// For draft definitions, indicates the date of initial creation. For active definitions, represents the date of activation. For withdrawn definitions, indicates the date of withdrawal.
 	Date *DateTime
 	// Helps establish the "authority/credibility" of the SpecimenDefinition. May also allow for contact.
@@ -94,7 +94,7 @@ type SpecimenDefinition struct {
 	// Specimen conditioned in a container as expected by the testing laboratory.
 	TypeTested []SpecimenDefinitionTypeTested
 }
-type isSpecimenDefinitionVersionAlgorithm interface {
+type SpecimenDefinitionVersionAlgorithm interface {
 	model.Element
 	isSpecimenDefinitionVersionAlgorithm()
 }
@@ -102,7 +102,7 @@ type isSpecimenDefinitionVersionAlgorithm interface {
 func (r String) isSpecimenDefinitionVersionAlgorithm() {}
 func (r Coding) isSpecimenDefinitionVersionAlgorithm() {}
 
-type isSpecimenDefinitionSubject interface {
+type SpecimenDefinitionSubject interface {
 	model.Element
 	isSpecimenDefinitionSubject()
 }
@@ -163,13 +163,13 @@ type SpecimenDefinitionTypeTestedContainer struct {
 	// The capacity (volume or other measure) of this kind of container.
 	Capacity *Quantity
 	// The minimum volume to be conditioned in the container.
-	MinimumVolume isSpecimenDefinitionTypeTestedContainerMinimumVolume
+	MinimumVolume SpecimenDefinitionTypeTestedContainerMinimumVolume
 	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.
 	Additive []SpecimenDefinitionTypeTestedContainerAdditive
 	// Special processing that should be applied to the container for this kind of specimen.
 	Preparation *Markdown
 }
-type isSpecimenDefinitionTypeTestedContainerMinimumVolume interface {
+type SpecimenDefinitionTypeTestedContainerMinimumVolume interface {
 	model.Element
 	isSpecimenDefinitionTypeTestedContainerMinimumVolume()
 }
@@ -188,9 +188,9 @@ type SpecimenDefinitionTypeTestedContainerAdditive struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Substance introduced in the kind of container to preserve, maintain or enhance the specimen. Examples: Formalin, Citrate, EDTA.
-	Additive isSpecimenDefinitionTypeTestedContainerAdditiveAdditive
+	Additive SpecimenDefinitionTypeTestedContainerAdditiveAdditive
 }
-type isSpecimenDefinitionTypeTestedContainerAdditiveAdditive interface {
+type SpecimenDefinitionTypeTestedContainerAdditiveAdditive interface {
 	model.Element
 	isSpecimenDefinitionTypeTestedContainerAdditiveAdditive()
 }

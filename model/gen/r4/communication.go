@@ -96,9 +96,9 @@ type CommunicationPayload struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// A communicated content (or for multi-part communications, one portion of the communication).
-	Content isCommunicationPayloadContent
+	Content CommunicationPayloadContent
 }
-type isCommunicationPayloadContent interface {
+type CommunicationPayloadContent interface {
 	model.Element
 	isCommunicationPayloadContent()
 }

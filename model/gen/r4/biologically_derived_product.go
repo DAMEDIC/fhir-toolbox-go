@@ -77,9 +77,9 @@ type BiologicallyDerivedProductCollection struct {
 	// The patient or entity, such as a hospital or vendor in the case of a processed/manipulated/manufactured product, providing the product.
 	Source *Reference
 	// Time of product collection.
-	Collected isBiologicallyDerivedProductCollectionCollected
+	Collected BiologicallyDerivedProductCollectionCollected
 }
-type isBiologicallyDerivedProductCollectionCollected interface {
+type BiologicallyDerivedProductCollectionCollected interface {
 	model.Element
 	isBiologicallyDerivedProductCollectionCollected()
 }
@@ -104,9 +104,9 @@ type BiologicallyDerivedProductProcessing struct {
 	// Substance added during processing.
 	Additive *Reference
 	// Time of processing.
-	Time isBiologicallyDerivedProductProcessingTime
+	Time BiologicallyDerivedProductProcessingTime
 }
-type isBiologicallyDerivedProductProcessingTime interface {
+type BiologicallyDerivedProductProcessingTime interface {
 	model.Element
 	isBiologicallyDerivedProductProcessingTime()
 }
@@ -127,9 +127,9 @@ type BiologicallyDerivedProductManipulation struct {
 	// Description of manipulation.
 	Description *String
 	// Time of manipulation.
-	Time isBiologicallyDerivedProductManipulationTime
+	Time BiologicallyDerivedProductManipulationTime
 }
-type isBiologicallyDerivedProductManipulationTime interface {
+type BiologicallyDerivedProductManipulationTime interface {
 	model.Element
 	isBiologicallyDerivedProductManipulationTime()
 }

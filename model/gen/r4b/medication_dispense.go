@@ -44,11 +44,11 @@ type MedicationDispense struct {
 	// A code specifying the state of the set of dispense events.
 	Status Code
 	// Indicates the reason why a dispense was not performed.
-	StatusReason isMedicationDispenseStatusReason
+	StatusReason MedicationDispenseStatusReason
 	// Indicates the type of medication dispense (for example, where the medication is expected to be consumed or administered (i.e. inpatient or outpatient)).
 	Category *CodeableConcept
 	// Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications.
-	Medication isMedicationDispenseMedication
+	Medication MedicationDispenseMedication
 	// A link to a resource representing the person or the group to whom the medication will be given.
 	Subject *Reference
 	// The encounter or episode of care that establishes the context for this event.
@@ -86,7 +86,7 @@ type MedicationDispense struct {
 	// A summary of the events of interest that have occurred, such as when the dispense was verified.
 	EventHistory []Reference
 }
-type isMedicationDispenseStatusReason interface {
+type MedicationDispenseStatusReason interface {
 	model.Element
 	isMedicationDispenseStatusReason()
 }
@@ -94,7 +94,7 @@ type isMedicationDispenseStatusReason interface {
 func (r CodeableConcept) isMedicationDispenseStatusReason() {}
 func (r Reference) isMedicationDispenseStatusReason()       {}
 
-type isMedicationDispenseMedication interface {
+type MedicationDispenseMedication interface {
 	model.Element
 	isMedicationDispenseMedication()
 }

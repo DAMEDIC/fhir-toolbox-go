@@ -60,7 +60,7 @@ type Procedure struct {
 	// The Encounter during which this Procedure was created or performed or to which the creation of this record is tightly associated.
 	Encounter *Reference
 	// Estimated or actual date, date-time, period, or age when the procedure was performed.  Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured.
-	Performed isProcedurePerformed
+	Performed ProcedurePerformed
 	// Individual who recorded the record and takes responsibility for its content.
 	Recorder *Reference
 	// Individual who is making the procedure statement.
@@ -94,7 +94,7 @@ type Procedure struct {
 	// Identifies coded items that were used as part of the procedure.
 	UsedCode []CodeableConcept
 }
-type isProcedurePerformed interface {
+type ProcedurePerformed interface {
 	model.Element
 	isProcedurePerformed()
 }

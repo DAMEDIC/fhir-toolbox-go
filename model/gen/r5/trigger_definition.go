@@ -32,13 +32,13 @@ type TriggerDefinition struct {
 	// A reference to a SubscriptionTopic resource that defines the event. If this element is provided, no other information about the trigger definition may be supplied.
 	SubscriptionTopic *Canonical
 	// The timing of the event (if this is a periodic trigger).
-	Timing isTriggerDefinitionTiming
+	Timing TriggerDefinitionTiming
 	// The triggering data of the event (if this is a data trigger). If more than one data is requirement is specified, then all the data requirements must be true.
 	Data []DataRequirement
 	// A boolean-valued expression that is evaluated in the context of the container of the trigger definition and returns whether or not the trigger fires.
 	Condition *Expression
 }
-type isTriggerDefinitionTiming interface {
+type TriggerDefinitionTiming interface {
 	model.Element
 	isTriggerDefinitionTiming()
 }

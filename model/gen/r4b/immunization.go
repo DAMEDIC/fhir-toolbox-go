@@ -50,7 +50,7 @@ type Immunization struct {
 	// The visit or admission or other contact between patient and health care provider the immunization was performed as part of.
 	Encounter *Reference
 	// Date vaccine administered or was to be administered.
-	Occurrence isImmunizationOccurrence
+	Occurrence ImmunizationOccurrence
 	// The date the occurrence of the immunization was first captured in the record - potentially significantly after the occurrence of the event.
 	Recorded *DateTime
 	// An indication that the content of the record is based on information from the person who administered the vaccine. This reflects the context under which the data was originally recorded.
@@ -94,7 +94,7 @@ type Immunization struct {
 	// The protocol (set of recommendations) being followed by the provider who administered the dose.
 	ProtocolApplied []ImmunizationProtocolApplied
 }
-type isImmunizationOccurrence interface {
+type ImmunizationOccurrence interface {
 	model.Element
 	isImmunizationOccurrence()
 }
@@ -173,11 +173,11 @@ type ImmunizationProtocolApplied struct {
 	// The vaccine preventable disease the dose is being administered against.
 	TargetDisease []CodeableConcept
 	// Nominal position in a series.
-	DoseNumber isImmunizationProtocolAppliedDoseNumber
+	DoseNumber ImmunizationProtocolAppliedDoseNumber
 	// The recommended number of doses to achieve immunity.
-	SeriesDoses isImmunizationProtocolAppliedSeriesDoses
+	SeriesDoses ImmunizationProtocolAppliedSeriesDoses
 }
-type isImmunizationProtocolAppliedDoseNumber interface {
+type ImmunizationProtocolAppliedDoseNumber interface {
 	model.Element
 	isImmunizationProtocolAppliedDoseNumber()
 }
@@ -185,7 +185,7 @@ type isImmunizationProtocolAppliedDoseNumber interface {
 func (r PositiveInt) isImmunizationProtocolAppliedDoseNumber() {}
 func (r String) isImmunizationProtocolAppliedDoseNumber()      {}
 
-type isImmunizationProtocolAppliedSeriesDoses interface {
+type ImmunizationProtocolAppliedSeriesDoses interface {
 	model.Element
 	isImmunizationProtocolAppliedSeriesDoses()
 }

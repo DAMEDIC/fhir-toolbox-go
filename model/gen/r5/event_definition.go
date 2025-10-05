@@ -44,7 +44,7 @@ type EventDefinition struct {
 	// The identifier that is used to identify this version of the event definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the event definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isEventDefinitionVersionAlgorithm
+	VersionAlgorithm EventDefinitionVersionAlgorithm
 	// A natural language name identifying the event definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the event definition.
@@ -56,7 +56,7 @@ type EventDefinition struct {
 	// A Boolean value to indicate that this event definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code or group definition that describes the intended subject of the event definition.
-	Subject isEventDefinitionSubject
+	Subject EventDefinitionSubject
 	// The date  (and optionally time) when the event definition was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the event definition changes.
 	Date *DateTime
 	// The name of the organization or individual responsible for the release and ongoing maintenance of the event definition.
@@ -98,7 +98,7 @@ type EventDefinition struct {
 	// The trigger element defines when the event occurs. If more than one trigger condition is specified, the event fires whenever any one of the trigger conditions is met.
 	Trigger []TriggerDefinition
 }
-type isEventDefinitionVersionAlgorithm interface {
+type EventDefinitionVersionAlgorithm interface {
 	model.Element
 	isEventDefinitionVersionAlgorithm()
 }
@@ -106,7 +106,7 @@ type isEventDefinitionVersionAlgorithm interface {
 func (r String) isEventDefinitionVersionAlgorithm() {}
 func (r Coding) isEventDefinitionVersionAlgorithm() {}
 
-type isEventDefinitionSubject interface {
+type EventDefinitionSubject interface {
 	model.Element
 	isEventDefinitionSubject()
 }

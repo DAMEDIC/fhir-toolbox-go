@@ -66,11 +66,11 @@ type DosageDoseAndRate struct {
 	// The kind of dose or rate specified, for example, ordered or calculated.
 	Type *CodeableConcept
 	// Amount of medication per dose.
-	Dose isDosageDoseAndRateDose
+	Dose DosageDoseAndRateDose
 	// Amount of medication per unit of time.
-	Rate isDosageDoseAndRateRate
+	Rate DosageDoseAndRateRate
 }
-type isDosageDoseAndRateDose interface {
+type DosageDoseAndRateDose interface {
 	model.Element
 	isDosageDoseAndRateDose()
 }
@@ -78,7 +78,7 @@ type isDosageDoseAndRateDose interface {
 func (r Range) isDosageDoseAndRateDose()    {}
 func (r Quantity) isDosageDoseAndRateDose() {}
 
-type isDosageDoseAndRateRate interface {
+type DosageDoseAndRateRate interface {
 	model.Element
 	isDosageDoseAndRateRate()
 }

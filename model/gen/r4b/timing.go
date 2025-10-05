@@ -44,7 +44,7 @@ type TimingRepeat struct {
 	// May be used to represent additional information that is not part of the basic definition of the element. To make the use of extensions safe and manageable, there is a strict set of governance  applied to the definition and use of extensions. Though any implementer can define an extension, there is a set of requirements that SHALL be met as part of the definition of the extension.
 	Extension []Extension
 	// Either a duration for the length of the timing schedule, a range of possible length, or outer bounds for start and/or end limits of the timing schedule.
-	Bounds isTimingRepeatBounds
+	Bounds TimingRepeatBounds
 	// A total count of the desired number of repetitions across the duration of the entire timing specification. If countMax is present, this element indicates the lower bound of the allowed range of count values.
 	Count *PositiveInt
 	// If present, indicates that the count is a range - so to perform the action between [count] and [countMax] times.
@@ -74,7 +74,7 @@ type TimingRepeat struct {
 	// The number of minutes from the event. If the event code does not indicate whether the minutes is before or after the event, then the offset is assumed to be after the event.
 	Offset *UnsignedInt
 }
-type isTimingRepeatBounds interface {
+type TimingRepeatBounds interface {
 	model.Element
 	isTimingRepeatBounds()
 }

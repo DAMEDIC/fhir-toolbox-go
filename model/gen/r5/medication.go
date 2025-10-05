@@ -72,9 +72,9 @@ type MedicationIngredient struct {
 	// Indication of whether this ingredient affects the therapeutic action of the drug.
 	IsActive *Boolean
 	// Specifies how many (or how much) of the items there are in this Medication.  For example, 250 mg per tablet.  This is expressed as a ratio where the numerator is 250mg and the denominator is 1 tablet but can also be expressed a quantity when the denominator is assumed to be 1 tablet.
-	Strength isMedicationIngredientStrength
+	Strength MedicationIngredientStrength
 }
-type isMedicationIngredientStrength interface {
+type MedicationIngredientStrength interface {
 	model.Element
 	isMedicationIngredientStrength()
 }

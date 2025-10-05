@@ -196,9 +196,9 @@ type NutritionOrderEnteralFormulaAdministration struct {
 	// The volume of formula to provide to the patient per the specified administration schedule.
 	Quantity *Quantity
 	// The rate of administration of formula via a feeding pump, e.g. 60 mL per hour, according to the specified schedule.
-	Rate isNutritionOrderEnteralFormulaAdministrationRate
+	Rate NutritionOrderEnteralFormulaAdministrationRate
 }
-type isNutritionOrderEnteralFormulaAdministrationRate interface {
+type NutritionOrderEnteralFormulaAdministrationRate interface {
 	model.Element
 	isNutritionOrderEnteralFormulaAdministrationRate()
 }

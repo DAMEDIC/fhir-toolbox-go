@@ -148,9 +148,9 @@ type InventoryItemCharacteristic struct {
 	// The type of characteristic that is being defined.
 	CharacteristicType CodeableConcept
 	// The value of the attribute.
-	Value isInventoryItemCharacteristicValue
+	Value InventoryItemCharacteristicValue
 }
-type isInventoryItemCharacteristicValue interface {
+type InventoryItemCharacteristicValue interface {
 	model.Element
 	isInventoryItemCharacteristicValue()
 }

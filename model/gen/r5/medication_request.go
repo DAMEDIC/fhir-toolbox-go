@@ -162,11 +162,11 @@ type MedicationRequestSubstitution struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// True if the prescriber allows a different drug to be dispensed from what was prescribed.
-	Allowed isMedicationRequestSubstitutionAllowed
+	Allowed MedicationRequestSubstitutionAllowed
 	// Indicates the reason for the substitution, or why substitution must or must not be performed.
 	Reason *CodeableConcept
 }
-type isMedicationRequestSubstitutionAllowed interface {
+type MedicationRequestSubstitutionAllowed interface {
 	model.Element
 	isMedicationRequestSubstitutionAllowed()
 }

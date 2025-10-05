@@ -44,7 +44,7 @@ type ExampleScenario struct {
 	// The identifier that is used to identify this version of the example scenario when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the example scenario author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isExampleScenarioVersionAlgorithm
+	VersionAlgorithm ExampleScenarioVersionAlgorithm
 	// Temporarily retained for tooling purposes.
 	Name *String
 	// A short, descriptive, user-friendly title for the ExampleScenario.
@@ -78,7 +78,7 @@ type ExampleScenario struct {
 	// A group of operations that represents a significant step within a scenario.
 	Process []ExampleScenarioProcess
 }
-type isExampleScenarioVersionAlgorithm interface {
+type ExampleScenarioVersionAlgorithm interface {
 	model.Element
 	isExampleScenarioVersionAlgorithm()
 }
@@ -123,7 +123,7 @@ type ExampleScenarioInstance struct {
 	// Conveys the version of the data structure instantiated.  I.e. what release of FHIR, X12, OpenEHR, etc. is instance compliant with.
 	StructureVersion *String
 	// Refers to a profile, template or other ruleset the instance adheres to.
-	StructureProfile isExampleScenarioInstanceStructureProfile
+	StructureProfile ExampleScenarioInstanceStructureProfile
 	// A short descriptive label the instance to be used in tables or diagrams.
 	Title String
 	// An explanation of what the instance contains and what it's for.
@@ -135,7 +135,7 @@ type ExampleScenarioInstance struct {
 	// References to other instances that can be found within this instance (e.g. the observations contained in a bundle).
 	ContainedInstance []ExampleScenarioInstanceContainedInstance
 }
-type isExampleScenarioInstanceStructureProfile interface {
+type ExampleScenarioInstanceStructureProfile interface {
 	model.Element
 	isExampleScenarioInstanceStructureProfile()
 }

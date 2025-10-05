@@ -160,9 +160,9 @@ type TestReportSetupActionAssertRequirement struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Link or reference providing traceability to the testing requirement for this test.
-	Link isTestReportSetupActionAssertRequirementLink
+	Link TestReportSetupActionAssertRequirementLink
 }
-type isTestReportSetupActionAssertRequirementLink interface {
+type TestReportSetupActionAssertRequirementLink interface {
 	model.Element
 	isTestReportSetupActionAssertRequirementLink()
 }

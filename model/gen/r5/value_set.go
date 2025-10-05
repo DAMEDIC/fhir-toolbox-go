@@ -44,7 +44,7 @@ type ValueSet struct {
 	// The identifier that is used to identify this version of the value set when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the value set author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which ValueSet is more current.
-	VersionAlgorithm isValueSetVersionAlgorithm
+	VersionAlgorithm ValueSetVersionAlgorithm
 	// A natural language name identifying the value set. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the value set.
@@ -98,7 +98,7 @@ type ValueSet struct {
 	// Description of the semantic space the Value Set Expansion is intended to cover and should further clarify the text in ValueSet.description.
 	Scope *ValueSetScope
 }
-type isValueSetVersionAlgorithm interface {
+type ValueSetVersionAlgorithm interface {
 	model.Element
 	isValueSetVersionAlgorithm()
 }
@@ -249,9 +249,9 @@ type ValueSetExpansionParameter struct {
 	// Name of the input parameter to the $expand operation; may be a server-assigned name for additional default or other server-supplied parameters used to control the expansion process.
 	Name String
 	// The value of the parameter.
-	Value isValueSetExpansionParameterValue
+	Value ValueSetExpansionParameterValue
 }
-type isValueSetExpansionParameterValue interface {
+type ValueSetExpansionParameterValue interface {
 	model.Element
 	isValueSetExpansionParameterValue()
 }
@@ -323,11 +323,11 @@ type ValueSetExpansionContainsProperty struct {
 	// A code that is a reference to ValueSet.expansion.property.code.
 	Code Code
 	// The value of this property.
-	Value isValueSetExpansionContainsPropertyValue
+	Value ValueSetExpansionContainsPropertyValue
 	// A subproperty value for this concept.
 	SubProperty []ValueSetExpansionContainsPropertySubProperty
 }
-type isValueSetExpansionContainsPropertyValue interface {
+type ValueSetExpansionContainsPropertyValue interface {
 	model.Element
 	isValueSetExpansionContainsPropertyValue()
 }
@@ -353,9 +353,9 @@ type ValueSetExpansionContainsPropertySubProperty struct {
 	// A code that is a reference to ValueSet.expansion.property.code.
 	Code Code
 	// The value of this subproperty.
-	Value isValueSetExpansionContainsPropertySubPropertyValue
+	Value ValueSetExpansionContainsPropertySubPropertyValue
 }
-type isValueSetExpansionContainsPropertySubPropertyValue interface {
+type ValueSetExpansionContainsPropertySubPropertyValue interface {
 	model.Element
 	isValueSetExpansionContainsPropertySubPropertyValue()
 }

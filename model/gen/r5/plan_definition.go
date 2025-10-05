@@ -44,7 +44,7 @@ type PlanDefinition struct {
 	// The identifier that is used to identify this version of the plan definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the plan definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active artifacts.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isPlanDefinitionVersionAlgorithm
+	VersionAlgorithm PlanDefinitionVersionAlgorithm
 	// A natural language name identifying the plan definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the plan definition.
@@ -58,7 +58,7 @@ type PlanDefinition struct {
 	// A Boolean value to indicate that this plan definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code, group definition, or canonical reference that describes  or identifies the intended subject of the plan definition. Canonical references are allowed to support the definition of protocols for drug and substance quality specifications, and is allowed to reference a MedicinalProductDefinition, SubstanceDefinition, AdministrableProductDefinition, ManufacturedItemDefinition, or PackagedProductDefinition resource.
-	Subject isPlanDefinitionSubject
+	Subject PlanDefinitionSubject
 	// The date  (and optionally time) when the plan definition was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the plan definition changes.
 	Date *DateTime
 	// The name of the organization or individual responsible for the release and ongoing maintenance of the plan definition.
@@ -106,9 +106,9 @@ type PlanDefinition struct {
 	// An action or group of actions to be taken as part of the plan. For example, in clinical care, an action would be to prescribe a particular indicated medication, or perform a particular test as appropriate. In pharmaceutical quality, an action would be the test that needs to be performed on a drug product as defined in the quality specification.
 	Action []PlanDefinitionAction
 	// If a CodeableConcept is present, it indicates the pre-condition for performing the service.  For example "pain", "on flare-up", etc.
-	AsNeeded isPlanDefinitionAsNeeded
+	AsNeeded PlanDefinitionAsNeeded
 }
-type isPlanDefinitionVersionAlgorithm interface {
+type PlanDefinitionVersionAlgorithm interface {
 	model.Element
 	isPlanDefinitionVersionAlgorithm()
 }
@@ -116,7 +116,7 @@ type isPlanDefinitionVersionAlgorithm interface {
 func (r String) isPlanDefinitionVersionAlgorithm() {}
 func (r Coding) isPlanDefinitionVersionAlgorithm() {}
 
-type isPlanDefinitionSubject interface {
+type PlanDefinitionSubject interface {
 	model.Element
 	isPlanDefinitionSubject()
 }
@@ -125,7 +125,7 @@ func (r CodeableConcept) isPlanDefinitionSubject() {}
 func (r Reference) isPlanDefinitionSubject()       {}
 func (r Canonical) isPlanDefinitionSubject()       {}
 
-type isPlanDefinitionAsNeeded interface {
+type PlanDefinitionAsNeeded interface {
 	model.Element
 	isPlanDefinitionAsNeeded()
 }
@@ -172,11 +172,11 @@ type PlanDefinitionGoalTarget struct {
 	// The parameter whose value is to be tracked, e.g. body weight, blood pressure, or hemoglobin A1c level.
 	Measure *CodeableConcept
 	// The target value of the measure to be achieved to signify fulfillment of the goal, e.g. 150 pounds or 7.0%, or in the case of pharmaceutical quality - NMT 0.6%, Clear solution, etc. Either the high or low or both values of the range can be specified. When a low value is missing, it indicates that the goal is achieved at any value at or below the high value. Similarly, if the high value is missing, it indicates that the goal is achieved at any value at or above the low value.
-	Detail isPlanDefinitionGoalTargetDetail
+	Detail PlanDefinitionGoalTargetDetail
 	// Indicates the timeframe after the start of the goal in which the goal should be met.
 	Due *Duration
 }
-type isPlanDefinitionGoalTargetDetail interface {
+type PlanDefinitionGoalTargetDetail interface {
 	model.Element
 	isPlanDefinitionGoalTargetDetail()
 }
@@ -258,7 +258,7 @@ type PlanDefinitionAction struct {
 	// Identifies goals that this action supports. The reference must be to a goal element defined within this plan definition. In pharmaceutical quality, a goal represents acceptance criteria (Goal) for a given action (Test), so the goalId would be the unique id of a defined goal element establishing the acceptance criteria for the action.
 	GoalId []Id
 	// A code, group definition, or canonical reference that describes the intended subject of the action and its children, if any. Canonical references are allowed to support the definition of protocols for drug and substance quality specifications, and is allowed to reference a MedicinalProductDefinition, SubstanceDefinition, AdministrableProductDefinition, ManufacturedItemDefinition, or PackagedProductDefinition resource.
-	Subject isPlanDefinitionActionSubject
+	Subject PlanDefinitionActionSubject
 	// A description of when the action should be triggered. When multiple triggers are specified on an action, any triggering event invokes the action.
 	Trigger []TriggerDefinition
 	// An expression that describes applicability criteria or start/stop conditions for the action.
@@ -270,7 +270,7 @@ type PlanDefinitionAction struct {
 	// A relationship to another action such as "before" or "30-60 minutes after start of".
 	RelatedAction []PlanDefinitionActionRelatedAction
 	// An optional value describing when the action should be performed.
-	Timing isPlanDefinitionActionTiming
+	Timing PlanDefinitionActionTiming
 	// Identifies the facility where the action will occur; e.g. home, hospital, specific clinic, etc.
 	Location *CodeableReference
 	// Indicates who should participate in performing the action described.
@@ -288,7 +288,7 @@ type PlanDefinitionAction struct {
 	// Defines whether the action can be selected multiple times.
 	CardinalityBehavior *Code
 	// A reference to an ActivityDefinition that describes the action to be taken in detail, a MessageDefinition describing a message to be snet, a PlanDefinition that describes a series of actions to be taken, a Questionnaire that should be filled out, a SpecimenDefinition describing a specimen to be collected, or an ObservationDefinition that specifies what observation should be captured.
-	Definition isPlanDefinitionActionDefinition
+	Definition PlanDefinitionActionDefinition
 	// A reference to a StructureMap resource that defines a transform that can be executed to produce the intent resource using the ActivityDefinition instance as the input.
 	Transform *Canonical
 	// Customizations that should be applied to the statically defined resource. For example, if the dosage of a medication must be computed based on the patient's weight, a customization would be used to specify an expression that calculated the weight, and the path on the resource that would contain the result.
@@ -296,7 +296,7 @@ type PlanDefinitionAction struct {
 	// Sub actions that are contained within the action. The behavior of this action determines the functionality of the sub-actions. For example, a selection behavior of at-most-one indicates that of the sub-actions, at most one may be chosen as part of realizing the action definition.
 	Action []PlanDefinitionAction
 }
-type isPlanDefinitionActionSubject interface {
+type PlanDefinitionActionSubject interface {
 	model.Element
 	isPlanDefinitionActionSubject()
 }
@@ -305,7 +305,7 @@ func (r CodeableConcept) isPlanDefinitionActionSubject() {}
 func (r Reference) isPlanDefinitionActionSubject()       {}
 func (r Canonical) isPlanDefinitionActionSubject()       {}
 
-type isPlanDefinitionActionTiming interface {
+type PlanDefinitionActionTiming interface {
 	model.Element
 	isPlanDefinitionActionTiming()
 }
@@ -315,7 +315,7 @@ func (r Duration) isPlanDefinitionActionTiming() {}
 func (r Range) isPlanDefinitionActionTiming()    {}
 func (r Timing) isPlanDefinitionActionTiming()   {}
 
-type isPlanDefinitionActionDefinition interface {
+type PlanDefinitionActionDefinition interface {
 	model.Element
 	isPlanDefinitionActionDefinition()
 }
@@ -392,9 +392,9 @@ type PlanDefinitionActionRelatedAction struct {
 	// The relationship of the end of this action to the related action.
 	EndRelationship *Code
 	// A duration or range of durations to apply to the relationship. For example, 30-60 minutes before.
-	Offset isPlanDefinitionActionRelatedActionOffset
+	Offset PlanDefinitionActionRelatedActionOffset
 }
-type isPlanDefinitionActionRelatedActionOffset interface {
+type PlanDefinitionActionRelatedActionOffset interface {
 	model.Element
 	isPlanDefinitionActionRelatedActionOffset()
 }

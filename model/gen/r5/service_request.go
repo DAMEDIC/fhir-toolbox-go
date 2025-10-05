@@ -64,7 +64,7 @@ type ServiceRequest struct {
 	// Additional details and instructions about the how the services are to be delivered.   For example, and order for a urinary catheter may have an order detail for an external or indwelling catheter, or an order for a bandage may require additional instructions specifying how the bandage should be applied.
 	OrderDetail []ServiceRequestOrderDetail
 	// An amount of service being requested which can be a quantity ( for example $1,500 home modification), a ratio ( for example, 20 half day visits per month), or a range (2.0 to 1.8 Gy per fraction).
-	Quantity isServiceRequestQuantity
+	Quantity ServiceRequestQuantity
 	// On whom or what the service is to be performed. This is usually a human patient, but can also be requested on animals, groups of humans or animals, devices such as dialysis machines, or even locations (typically for environmental scans).
 	Subject Reference
 	// The actual focus of a service request when it is not the subject of record representing something or someone associated with the subject such as a spouse, parent, fetus, or donor. The focus of a service request could also be an existing condition,  an intervention, the subject's diet,  another service request on the subject,  or a body structure such as tumor or implanted device.
@@ -72,9 +72,9 @@ type ServiceRequest struct {
 	// An encounter that provides additional information about the healthcare context in which this request is made.
 	Encounter *Reference
 	// The date/time at which the requested service should occur.
-	Occurrence isServiceRequestOccurrence
+	Occurrence ServiceRequestOccurrence
 	// If a CodeableConcept is present, it indicates the pre-condition for performing the service.  For example "pain", "on flare-up", etc.
-	AsNeeded isServiceRequestAsNeeded
+	AsNeeded ServiceRequestAsNeeded
 	// When the request transitioned to being actionable.
 	AuthoredOn *DateTime
 	// The individual who initiated the request and has responsibility for its activation.
@@ -104,7 +104,7 @@ type ServiceRequest struct {
 	// Key events in the history of the request.
 	RelevantHistory []Reference
 }
-type isServiceRequestQuantity interface {
+type ServiceRequestQuantity interface {
 	model.Element
 	isServiceRequestQuantity()
 }
@@ -113,7 +113,7 @@ func (r Quantity) isServiceRequestQuantity() {}
 func (r Ratio) isServiceRequestQuantity()    {}
 func (r Range) isServiceRequestQuantity()    {}
 
-type isServiceRequestOccurrence interface {
+type ServiceRequestOccurrence interface {
 	model.Element
 	isServiceRequestOccurrence()
 }
@@ -122,7 +122,7 @@ func (r DateTime) isServiceRequestOccurrence() {}
 func (r Period) isServiceRequestOccurrence()   {}
 func (r Timing) isServiceRequestOccurrence()   {}
 
-type isServiceRequestAsNeeded interface {
+type ServiceRequestAsNeeded interface {
 	model.Element
 	isServiceRequestAsNeeded()
 }
@@ -159,9 +159,9 @@ type ServiceRequestOrderDetailParameter struct {
 	// A value representing the additional detail or instructions for the order (e.g., catheter insertion, body elevation, descriptive device configuration and/or setting instructions).
 	Code CodeableConcept
 	// Indicates a value for the order detail.
-	Value isServiceRequestOrderDetailParameterValue
+	Value ServiceRequestOrderDetailParameterValue
 }
-type isServiceRequestOrderDetailParameterValue interface {
+type ServiceRequestOrderDetailParameterValue interface {
 	model.Element
 	isServiceRequestOrderDetailParameterValue()
 }
@@ -185,9 +185,9 @@ type ServiceRequestPatientInstruction struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Instructions in terms that are understood by the patient or consumer.
-	Instruction isServiceRequestPatientInstructionInstruction
+	Instruction ServiceRequestPatientInstructionInstruction
 }
-type isServiceRequestPatientInstructionInstruction interface {
+type ServiceRequestPatientInstructionInstruction interface {
 	model.Element
 	isServiceRequestPatientInstructionInstruction()
 }

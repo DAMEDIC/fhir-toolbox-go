@@ -80,9 +80,9 @@ type BiologicallyDerivedProductCollection struct {
 	// The patient or entity, such as a hospital or vendor in the case of a processed/manipulated/manufactured product, providing the product.
 	Source *Reference
 	// Time of product collection.
-	Collected isBiologicallyDerivedProductCollectionCollected
+	Collected BiologicallyDerivedProductCollectionCollected
 }
-type isBiologicallyDerivedProductCollectionCollected interface {
+type BiologicallyDerivedProductCollectionCollected interface {
 	model.Element
 	isBiologicallyDerivedProductCollectionCollected()
 }
@@ -103,9 +103,9 @@ type BiologicallyDerivedProductProperty struct {
 	// Code that specifies the property. It should reference an established coding system.
 	Type CodeableConcept
 	// Property values.
-	Value isBiologicallyDerivedProductPropertyValue
+	Value BiologicallyDerivedProductPropertyValue
 }
-type isBiologicallyDerivedProductPropertyValue interface {
+type BiologicallyDerivedProductPropertyValue interface {
 	model.Element
 	isBiologicallyDerivedProductPropertyValue()
 }

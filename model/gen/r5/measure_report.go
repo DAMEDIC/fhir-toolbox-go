@@ -92,11 +92,11 @@ type MeasureReportGroup struct {
 	// The populations that make up the population group, one for each type of population appropriate for the measure.
 	Population []MeasureReportGroupPopulation
 	// The measure score for this population group, calculated as appropriate for the measure type and scoring method, and based on the contents of the populations defined in the group.
-	MeasureScore isMeasureReportGroupMeasureScore
+	MeasureScore MeasureReportGroupMeasureScore
 	// When a measure includes multiple stratifiers, there will be a stratifier group for each stratifier defined by the measure.
 	Stratifier []MeasureReportGroupStratifier
 }
-type isMeasureReportGroupMeasureScore interface {
+type MeasureReportGroupMeasureScore interface {
 	model.Element
 	isMeasureReportGroupMeasureScore()
 }
@@ -161,15 +161,15 @@ type MeasureReportGroupStratifierStratum struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The value for this stratum, expressed as a CodeableConcept. When defining stratifiers on complex values, the value must be rendered such that the value for each stratum within the stratifier is unique.
-	Value isMeasureReportGroupStratifierStratumValue
+	Value MeasureReportGroupStratifierStratumValue
 	// A stratifier component value.
 	Component []MeasureReportGroupStratifierStratumComponent
 	// The populations that make up the stratum, one for each type of population appropriate to the measure.
 	Population []MeasureReportGroupStratifierStratumPopulation
 	// The measure score for this stratum, calculated as appropriate for the measure type and scoring method, and based on only the members of this stratum.
-	MeasureScore isMeasureReportGroupStratifierStratumMeasureScore
+	MeasureScore MeasureReportGroupStratifierStratumMeasureScore
 }
-type isMeasureReportGroupStratifierStratumValue interface {
+type MeasureReportGroupStratifierStratumValue interface {
 	model.Element
 	isMeasureReportGroupStratifierStratumValue()
 }
@@ -180,7 +180,7 @@ func (r Quantity) isMeasureReportGroupStratifierStratumValue()        {}
 func (r Range) isMeasureReportGroupStratifierStratumValue()           {}
 func (r Reference) isMeasureReportGroupStratifierStratumValue()       {}
 
-type isMeasureReportGroupStratifierStratumMeasureScore interface {
+type MeasureReportGroupStratifierStratumMeasureScore interface {
 	model.Element
 	isMeasureReportGroupStratifierStratumMeasureScore()
 }
@@ -207,9 +207,9 @@ type MeasureReportGroupStratifierStratumComponent struct {
 	// The code for the stratum component value.
 	Code CodeableConcept
 	// The stratum component value.
-	Value isMeasureReportGroupStratifierStratumComponentValue
+	Value MeasureReportGroupStratifierStratumComponentValue
 }
-type isMeasureReportGroupStratifierStratumComponentValue interface {
+type MeasureReportGroupStratifierStratumComponentValue interface {
 	model.Element
 	isMeasureReportGroupStratifierStratumComponentValue()
 }

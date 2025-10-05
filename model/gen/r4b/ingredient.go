@@ -98,11 +98,11 @@ type IngredientSubstanceStrength struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The quantity of substance in the unit of presentation, or in the volume (or mass) of the single pharmaceutical product or manufactured item. Unit of presentation refers to the quantity that the item occurs in e.g. a strength per tablet size, perhaps 'per 20mg' (the size of the tablet). It is not generally normalized as a unitary unit, which would be 'per mg').
-	Presentation isIngredientSubstanceStrengthPresentation
+	Presentation IngredientSubstanceStrengthPresentation
 	// A textual represention of either the whole of the presentation strength or a part of it - with the rest being in Strength.presentation as a ratio.
 	TextPresentation *String
 	// The strength per unitary volume (or mass).
-	Concentration isIngredientSubstanceStrengthConcentration
+	Concentration IngredientSubstanceStrengthConcentration
 	// A textual represention of either the whole of the concentration strength or a part of it - with the rest being in Strength.concentration as a ratio.
 	TextConcentration *String
 	// For when strength is measured at a particular point or distance. There are products where strength is measured at a particular point. For example, the strength of the ingredient in some inhalers is measured at a particular position relative to the point of aerosolization.
@@ -112,7 +112,7 @@ type IngredientSubstanceStrength struct {
 	// Strength expressed in terms of a reference substance. For when the ingredient strength is additionally expressed as equivalent to the strength of some other closely related substance (e.g. salt vs. base). Reference strength represents the strength (quantitative composition) of the active moiety of the active substance. There are situations when the active substance and active moiety are different, therefore both a strength and a reference strength are needed.
 	ReferenceStrength []IngredientSubstanceStrengthReferenceStrength
 }
-type isIngredientSubstanceStrengthPresentation interface {
+type IngredientSubstanceStrengthPresentation interface {
 	model.Element
 	isIngredientSubstanceStrengthPresentation()
 }
@@ -120,7 +120,7 @@ type isIngredientSubstanceStrengthPresentation interface {
 func (r Ratio) isIngredientSubstanceStrengthPresentation()      {}
 func (r RatioRange) isIngredientSubstanceStrengthPresentation() {}
 
-type isIngredientSubstanceStrengthConcentration interface {
+type IngredientSubstanceStrengthConcentration interface {
 	model.Element
 	isIngredientSubstanceStrengthConcentration()
 }
@@ -141,13 +141,13 @@ type IngredientSubstanceStrengthReferenceStrength struct {
 	// Relevant reference substance.
 	Substance *CodeableReference
 	// Strength expressed in terms of a reference substance.
-	Strength isIngredientSubstanceStrengthReferenceStrengthStrength
+	Strength IngredientSubstanceStrengthReferenceStrengthStrength
 	// For when strength is measured at a particular point or distance.
 	MeasurementPoint *String
 	// The country or countries for which the strength range applies.
 	Country []CodeableConcept
 }
-type isIngredientSubstanceStrengthReferenceStrengthStrength interface {
+type IngredientSubstanceStrengthReferenceStrengthStrength interface {
 	model.Element
 	isIngredientSubstanceStrengthReferenceStrengthStrength()
 }

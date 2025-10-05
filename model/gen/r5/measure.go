@@ -44,7 +44,7 @@ type Measure struct {
 	// The identifier that is used to identify this version of the measure when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the measure author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active artifacts.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isMeasureVersionAlgorithm
+	VersionAlgorithm MeasureVersionAlgorithm
 	// A natural language name identifying the measure. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the measure.
@@ -56,7 +56,7 @@ type Measure struct {
 	// A Boolean value to indicate that this measure is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// The intended subjects for the measure. If this element is not provided, a Patient subject is assumed, but the subject of the measure can be anything.
-	Subject isMeasureSubject
+	Subject MeasureSubject
 	// The population basis specifies the type of elements in the population. For a subject-based measure, this is boolean (because the subject and the population basis are the same, and the population criteria define yes/no values for each individual in the population). For measures that have a population basis that is different than the subject, this element specifies the type of the population basis. For example, an encounter-based measure has a subject of Patient and a population basis of Encounter, and the population criteria all return lists of Encounters.
 	Basis *Code
 	// The date  (and optionally time) when the measure was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the measure changes.
@@ -128,7 +128,7 @@ type Measure struct {
 	// The supplemental data criteria for the measure report, specified as either the name of a valid CQL expression within a referenced library, or a valid FHIR Resource Path.
 	SupplementalData []MeasureSupplementalData
 }
-type isMeasureVersionAlgorithm interface {
+type MeasureVersionAlgorithm interface {
 	model.Element
 	isMeasureVersionAlgorithm()
 }
@@ -136,7 +136,7 @@ type isMeasureVersionAlgorithm interface {
 func (r String) isMeasureVersionAlgorithm() {}
 func (r Coding) isMeasureVersionAlgorithm() {}
 
-type isMeasureSubject interface {
+type MeasureSubject interface {
 	model.Element
 	isMeasureSubject()
 }
@@ -179,7 +179,7 @@ type MeasureGroup struct {
 	// Indicates whether the measure is used to examine a process, an outcome over time, a patient-reported outcome, or a structure measure such as utilization.
 	Type []CodeableConcept
 	// The intended subjects for the measure. If this element is not provided, a Patient subject is assumed, but the subject of the measure can be anything.
-	Subject isMeasureGroupSubject
+	Subject MeasureGroupSubject
 	// The population basis specifies the type of elements in the population. For a subject-based measure, this is boolean (because the subject and the population basis are the same, and the population criteria define yes/no values for each individual in the population). For measures that have a population basis that is different than the subject, this element specifies the type of the population basis. For example, an encounter-based measure has a subject of Patient and a population basis of Encounter, and the population criteria all return lists of Encounters.
 	Basis *Code
 	// Indicates how the calculation is performed for the measure, including proportion, ratio, continuous-variable, and cohort. The value set is extensible, allowing additional measure scoring types to be represented.
@@ -197,7 +197,7 @@ type MeasureGroup struct {
 	// The stratifier criteria for the measure report, specified as either the name of a valid CQL expression defined within a referenced library or a valid FHIR Resource Path.
 	Stratifier []MeasureGroupStratifier
 }
-type isMeasureGroupSubject interface {
+type MeasureGroupSubject interface {
 	model.Element
 	isMeasureGroupSubject()
 }

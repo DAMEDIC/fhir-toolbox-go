@@ -56,7 +56,7 @@ type ResearchDefinition struct {
 	// A Boolean value to indicate that this research definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// The intended subjects for the ResearchDefinition. If this element is not provided, a Patient subject is assumed, but the subject of the ResearchDefinition can be anything.
-	Subject isResearchDefinitionSubject
+	Subject ResearchDefinitionSubject
 	// The date  (and optionally time) when the research definition was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the research definition changes.
 	Date *DateTime
 	// The name of the organization or individual that published the research definition.
@@ -106,7 +106,7 @@ type ResearchDefinition struct {
 	// A reference to a ResearchElementDefinition resomece that defines the outcome for the research.
 	Outcome *Reference
 }
-type isResearchDefinitionSubject interface {
+type ResearchDefinitionSubject interface {
 	model.Element
 	isResearchDefinitionSubject()
 }

@@ -182,7 +182,7 @@ type StructureMapGroupRuleSource struct {
 	// Specified type for the element. This works as a condition on the mapping - use for polymorphic elements.
 	Type *String
 	// A value to use if there is no existing value in the source object.
-	DefaultValue isStructureMapGroupRuleSourceDefaultValue
+	DefaultValue StructureMapGroupRuleSourceDefaultValue
 	// Optional field for this source.
 	Element *String
 	// How to handle the list mode for this element.
@@ -196,7 +196,7 @@ type StructureMapGroupRuleSource struct {
 	// A FHIRPath expression which specifies a message to put in the transform log when content matching the source rule is found.
 	LogMessage *String
 }
-type isStructureMapGroupRuleSourceDefaultValue interface {
+type StructureMapGroupRuleSourceDefaultValue interface {
 	model.Element
 	isStructureMapGroupRuleSourceDefaultValue()
 }
@@ -291,9 +291,9 @@ type StructureMapGroupRuleTargetParameter struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Parameter value - variable or literal.
-	Value isStructureMapGroupRuleTargetParameterValue
+	Value StructureMapGroupRuleTargetParameterValue
 }
-type isStructureMapGroupRuleTargetParameterValue interface {
+type StructureMapGroupRuleTargetParameterValue interface {
 	model.Element
 	isStructureMapGroupRuleTargetParameterValue()
 }

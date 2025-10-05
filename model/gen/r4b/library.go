@@ -56,7 +56,7 @@ type Library struct {
 	// Identifies the type of library such as a Logic Library, Model Definition, Asset Collection, or Module Definition.
 	Type CodeableConcept
 	// A code or group definition that describes the intended subject of the contents of the library.
-	Subject isLibrarySubject
+	Subject LibrarySubject
 	// The date  (and optionally time) when the library was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the library changes.
 	Date *DateTime
 	// The name of the organization or individual that published the library.
@@ -100,7 +100,7 @@ type Library struct {
 	// The content of the library as an Attachment. The content may be a reference to a url, or may be directly embedded as a base-64 string. Either way, the contentType of the attachment determines how to interpret the content.
 	Content []Attachment
 }
-type isLibrarySubject interface {
+type LibrarySubject interface {
 	model.Element
 	isLibrarySubject()
 }

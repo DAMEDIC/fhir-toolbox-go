@@ -102,7 +102,7 @@ type EvidenceVariableCharacteristic struct {
 	// A short, natural language description of the characteristic that could be used to communicate the criteria to an end-user.
 	Description *String
 	// Define members of the evidence element using Codes (such as condition, medication, or observation), Expressions ( using an expression language such as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in the last year).
-	Definition isEvidenceVariableCharacteristicDefinition
+	Definition EvidenceVariableCharacteristicDefinition
 	// Method used for describing characteristic.
 	Method *CodeableConcept
 	// Device used for determining characteristic.
@@ -114,7 +114,7 @@ type EvidenceVariableCharacteristic struct {
 	// Indicates how elements are aggregated within the study effective period.
 	GroupMeasure *Code
 }
-type isEvidenceVariableCharacteristicDefinition interface {
+type EvidenceVariableCharacteristicDefinition interface {
 	model.Element
 	isEvidenceVariableCharacteristicDefinition()
 }
@@ -157,9 +157,9 @@ type EvidenceVariableCategory struct {
 	// A human-readable title or representation of the grouping.
 	Name *String
 	// Value or set of values that define the grouping.
-	Value isEvidenceVariableCategoryValue
+	Value EvidenceVariableCategoryValue
 }
-type isEvidenceVariableCategoryValue interface {
+type EvidenceVariableCategoryValue interface {
 	model.Element
 	isEvidenceVariableCategoryValue()
 }

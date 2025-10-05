@@ -58,7 +58,7 @@ type ResearchElementDefinition struct {
 	// A Boolean value to indicate that this research element definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// The intended subjects for the ResearchElementDefinition. If this element is not provided, a Patient subject is assumed, but the subject of the ResearchElementDefinition can be anything.
-	Subject isResearchElementDefinitionSubject
+	Subject ResearchElementDefinitionSubject
 	// The date  (and optionally time) when the research element definition was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the research element definition changes.
 	Date *DateTime
 	// The name of the organization or individual that published the research element definition.
@@ -106,7 +106,7 @@ type ResearchElementDefinition struct {
 	// A characteristic that defines the members of the research element. Multiple characteristics are applied with "and" semantics.
 	Characteristic []ResearchElementDefinitionCharacteristic
 }
-type isResearchElementDefinitionSubject interface {
+type ResearchElementDefinitionSubject interface {
 	model.Element
 	isResearchElementDefinitionSubject()
 }
@@ -125,7 +125,7 @@ type ResearchElementDefinitionCharacteristic struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Define members of the research element using Codes (such as condition, medication, or observation), Expressions ( using an expression language such as FHIRPath or CQL) or DataRequirements (such as Diabetes diagnosis onset in the last year).
-	Definition isResearchElementDefinitionCharacteristicDefinition
+	Definition ResearchElementDefinitionCharacteristicDefinition
 	// Use UsageContext to define the members of the population, such as Age Ranges, Genders, Settings.
 	UsageContext []UsageContext
 	// When true, members with this characteristic are excluded from the element.
@@ -135,7 +135,7 @@ type ResearchElementDefinitionCharacteristic struct {
 	// A narrative description of the time period the study covers.
 	StudyEffectiveDescription *String
 	// Indicates what effective period the study covers.
-	StudyEffective isResearchElementDefinitionCharacteristicStudyEffective
+	StudyEffective ResearchElementDefinitionCharacteristicStudyEffective
 	// Indicates duration from the study initiation.
 	StudyEffectiveTimeFromStart *Duration
 	// Indicates how elements are aggregated within the study effective period.
@@ -143,13 +143,13 @@ type ResearchElementDefinitionCharacteristic struct {
 	// A narrative description of the time period the study covers.
 	ParticipantEffectiveDescription *String
 	// Indicates what effective period the study covers.
-	ParticipantEffective isResearchElementDefinitionCharacteristicParticipantEffective
+	ParticipantEffective ResearchElementDefinitionCharacteristicParticipantEffective
 	// Indicates duration from the participant's study entry.
 	ParticipantEffectiveTimeFromStart *Duration
 	// Indicates how elements are aggregated within the study effective period.
 	ParticipantEffectiveGroupMeasure *Code
 }
-type isResearchElementDefinitionCharacteristicDefinition interface {
+type ResearchElementDefinitionCharacteristicDefinition interface {
 	model.Element
 	isResearchElementDefinitionCharacteristicDefinition()
 }
@@ -159,7 +159,7 @@ func (r Canonical) isResearchElementDefinitionCharacteristicDefinition()       {
 func (r Expression) isResearchElementDefinitionCharacteristicDefinition()      {}
 func (r DataRequirement) isResearchElementDefinitionCharacteristicDefinition() {}
 
-type isResearchElementDefinitionCharacteristicStudyEffective interface {
+type ResearchElementDefinitionCharacteristicStudyEffective interface {
 	model.Element
 	isResearchElementDefinitionCharacteristicStudyEffective()
 }
@@ -169,7 +169,7 @@ func (r Period) isResearchElementDefinitionCharacteristicStudyEffective()   {}
 func (r Duration) isResearchElementDefinitionCharacteristicStudyEffective() {}
 func (r Timing) isResearchElementDefinitionCharacteristicStudyEffective()   {}
 
-type isResearchElementDefinitionCharacteristicParticipantEffective interface {
+type ResearchElementDefinitionCharacteristicParticipantEffective interface {
 	model.Element
 	isResearchElementDefinitionCharacteristicParticipantEffective()
 }

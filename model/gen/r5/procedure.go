@@ -62,13 +62,13 @@ type Procedure struct {
 	// The Encounter during which this Procedure was created or performed or to which the creation of this record is tightly associated.
 	Encounter *Reference
 	// Estimated or actual date, date-time, period, or age when the procedure did occur or is occurring.  Allows a period to support complex procedures that span more than one date, and also allows for the length of the procedure to be captured.
-	Occurrence isProcedureOccurrence
+	Occurrence ProcedureOccurrence
 	// The date the occurrence of the procedure was first captured in the record regardless of Procedure.status (potentially after the occurrence of the event).
 	Recorded *DateTime
 	// Individual who recorded the record and takes responsibility for its content.
 	Recorder *Reference
 	// Indicates if this record was captured as a secondary 'reported' record rather than as an original primary source-of-truth record.  It may also indicate the source of the report.
-	Reported isProcedureReported
+	Reported ProcedureReported
 	// Indicates who or what performed the procedure and how they were involved.
 	Performer []ProcedurePerformer
 	// The location where the procedure actually happened.  E.g. a newborn at home, a tracheostomy at a restaurant.
@@ -94,7 +94,7 @@ type Procedure struct {
 	// Other resources from the patient record that may be relevant to the procedure.  The information from these resources was either used to create the instance or is provided to help with its interpretation. This extension should not be used if more specific inline elements or extensions are available.
 	SupportingInfo []Reference
 }
-type isProcedureOccurrence interface {
+type ProcedureOccurrence interface {
 	model.Element
 	isProcedureOccurrence()
 }
@@ -106,7 +106,7 @@ func (r Age) isProcedureOccurrence()      {}
 func (r Range) isProcedureOccurrence()    {}
 func (r Timing) isProcedureOccurrence()   {}
 
-type isProcedureReported interface {
+type ProcedureReported interface {
 	model.Element
 	isProcedureReported()
 }

@@ -84,11 +84,11 @@ type RegulatedAuthorizationCase struct {
 	// The status associated with the case.
 	Status *CodeableConcept
 	// Relevant date for this case.
-	Date isRegulatedAuthorizationCaseDate
+	Date RegulatedAuthorizationCaseDate
 	// A regulatory submission from an organization to a regulator, as part of an assessing case. Multiple applications may occur over time, with more or different information to support or modify the submission or the authorization. The applications can be considered as steps within the longer running case or procedure for this authorization process.
 	Application []RegulatedAuthorizationCase
 }
-type isRegulatedAuthorizationCaseDate interface {
+type RegulatedAuthorizationCaseDate interface {
 	model.Element
 	isRegulatedAuthorizationCaseDate()
 }

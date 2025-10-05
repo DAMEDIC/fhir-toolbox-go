@@ -54,7 +54,7 @@ type RiskAssessment struct {
 	// The encounter where the assessment was performed.
 	Encounter *Reference
 	// The date (and possibly time) the risk assessment was performed.
-	Occurrence isRiskAssessmentOccurrence
+	Occurrence RiskAssessmentOccurrence
 	// For assessments or prognosis specific to a particular condition, indicates the condition being assessed.
 	Condition *Reference
 	// The provider, patient, related person, or software application that performed the assessment.
@@ -70,7 +70,7 @@ type RiskAssessment struct {
 	// Additional comments about the risk assessment.
 	Note []Annotation
 }
-type isRiskAssessmentOccurrence interface {
+type RiskAssessmentOccurrence interface {
 	model.Element
 	isRiskAssessmentOccurrence()
 }
@@ -91,17 +91,17 @@ type RiskAssessmentPrediction struct {
 	// One of the potential outcomes for the patient (e.g. remission, death,  a particular condition).
 	Outcome *CodeableConcept
 	// Indicates how likely the outcome is (in the specified timeframe).
-	Probability isRiskAssessmentPredictionProbability
+	Probability RiskAssessmentPredictionProbability
 	// Indicates how likely the outcome is (in the specified timeframe), expressed as a qualitative value (e.g. low, medium, or high).
 	QualitativeRisk *CodeableConcept
 	// Indicates the risk for this particular subject (with their specific characteristics) divided by the risk of the population in general.  (Numbers greater than 1 = higher risk than the population, numbers less than 1 = lower risk.).
 	RelativeRisk *Decimal
 	// Indicates the period of time or age range of the subject to which the specified probability applies.
-	When isRiskAssessmentPredictionWhen
+	When RiskAssessmentPredictionWhen
 	// Additional information explaining the basis for the prediction.
 	Rationale *String
 }
-type isRiskAssessmentPredictionProbability interface {
+type RiskAssessmentPredictionProbability interface {
 	model.Element
 	isRiskAssessmentPredictionProbability()
 }
@@ -109,7 +109,7 @@ type isRiskAssessmentPredictionProbability interface {
 func (r Decimal) isRiskAssessmentPredictionProbability() {}
 func (r Range) isRiskAssessmentPredictionProbability()   {}
 
-type isRiskAssessmentPredictionWhen interface {
+type RiskAssessmentPredictionWhen interface {
 	model.Element
 	isRiskAssessmentPredictionWhen()
 }
