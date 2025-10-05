@@ -44,7 +44,7 @@ type ActivityDefinition struct {
 	// The identifier that is used to identify this version of the activity definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the activity definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active assets.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isActivityDefinitionVersionAlgorithm
+	VersionAlgorithm ActivityDefinitionVersionAlgorithm
 	// A natural language name identifying the activity definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the activity definition.
@@ -56,7 +56,7 @@ type ActivityDefinition struct {
 	// A Boolean value to indicate that this activity definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code, group definition, or canonical reference that describes  or identifies the intended subject of the activity being defined.  Canonical references are allowed to support the definition of protocols for drug and substance quality specifications, and is allowed to reference a MedicinalProductDefinition, SubstanceDefinition, AdministrableProductDefinition, ManufacturedItemDefinition, or PackagedProductDefinition resource.
-	Subject isActivityDefinitionSubject
+	Subject ActivityDefinitionSubject
 	// The date  (and optionally time) when the activity definition was last significantly changed. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the activity definition changes.
 	Date *DateTime
 	// The name of the organization or individual responsible for the release and ongoing maintenance of the activity definition.
@@ -110,15 +110,15 @@ type ActivityDefinition struct {
 	// Set this to true if the definition is to indicate that a particular activity should NOT be performed. If true, this element should be interpreted to reinforce a negative coding. For example NPO as a code with a doNotPerform of true would still indicate to NOT perform the action.
 	DoNotPerform *Boolean
 	// The timing or frequency upon which the described activity is to occur.
-	Timing isActivityDefinitionTiming
+	Timing ActivityDefinitionTiming
 	// If a CodeableConcept is present, it indicates the pre-condition for performing the service.  For example "pain", "on flare-up", etc.
-	AsNeeded isActivityDefinitionAsNeeded
+	AsNeeded ActivityDefinitionAsNeeded
 	// Identifies the facility where the activity will occur; e.g. home, hospital, specific clinic, etc.
 	Location *CodeableReference
 	// Indicates who should participate in performing the action described.
 	Participant []ActivityDefinitionParticipant
 	// Identifies the food, drug or other product being consumed or supplied in the activity.
-	Product isActivityDefinitionProduct
+	Product ActivityDefinitionProduct
 	// Identifies the quantity expected to be consumed at once (per dose, per meal, etc.).
 	Quantity *Quantity
 	// Provides detailed dosage instructions in the same way that they are described for MedicationRequest resources.
@@ -136,7 +136,7 @@ type ActivityDefinition struct {
 	// Dynamic values that will be evaluated to produce values for elements of the resulting resource. For example, if the dosage of a medication must be computed based on the patient's weight, a dynamic value would be used to specify an expression that calculated the weight, and the path on the request resource that would contain the result.
 	DynamicValue []ActivityDefinitionDynamicValue
 }
-type isActivityDefinitionVersionAlgorithm interface {
+type ActivityDefinitionVersionAlgorithm interface {
 	model.Element
 	isActivityDefinitionVersionAlgorithm()
 }
@@ -144,7 +144,7 @@ type isActivityDefinitionVersionAlgorithm interface {
 func (r String) isActivityDefinitionVersionAlgorithm() {}
 func (r Coding) isActivityDefinitionVersionAlgorithm() {}
 
-type isActivityDefinitionSubject interface {
+type ActivityDefinitionSubject interface {
 	model.Element
 	isActivityDefinitionSubject()
 }
@@ -153,7 +153,7 @@ func (r CodeableConcept) isActivityDefinitionSubject() {}
 func (r Reference) isActivityDefinitionSubject()       {}
 func (r Canonical) isActivityDefinitionSubject()       {}
 
-type isActivityDefinitionTiming interface {
+type ActivityDefinitionTiming interface {
 	model.Element
 	isActivityDefinitionTiming()
 }
@@ -163,7 +163,7 @@ func (r Age) isActivityDefinitionTiming()      {}
 func (r Range) isActivityDefinitionTiming()    {}
 func (r Duration) isActivityDefinitionTiming() {}
 
-type isActivityDefinitionAsNeeded interface {
+type ActivityDefinitionAsNeeded interface {
 	model.Element
 	isActivityDefinitionAsNeeded()
 }
@@ -171,7 +171,7 @@ type isActivityDefinitionAsNeeded interface {
 func (r Boolean) isActivityDefinitionAsNeeded()         {}
 func (r CodeableConcept) isActivityDefinitionAsNeeded() {}
 
-type isActivityDefinitionProduct interface {
+type ActivityDefinitionProduct interface {
 	model.Element
 	isActivityDefinitionProduct()
 }

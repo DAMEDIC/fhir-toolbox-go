@@ -146,9 +146,9 @@ type DocumentReferenceContentProfile struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Code|uri|canonical.
-	Value isDocumentReferenceContentProfileValue
+	Value DocumentReferenceContentProfileValue
 }
-type isDocumentReferenceContentProfileValue interface {
+type DocumentReferenceContentProfileValue interface {
 	model.Element
 	isDocumentReferenceContentProfileValue()
 }

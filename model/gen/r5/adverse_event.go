@@ -52,7 +52,7 @@ type AdverseEvent struct {
 	// The Encounter associated with the start of the AdverseEvent.
 	Encounter *Reference
 	// The date (and perhaps time) when the adverse event occurred.
-	Occurrence isAdverseEventOccurrence
+	Occurrence AdverseEventOccurrence
 	// Estimated or actual date the AdverseEvent began, in the opinion of the reporter.
 	Detected *DateTime
 	// The date on which the existence of the AdverseEvent was first recorded.
@@ -86,7 +86,7 @@ type AdverseEvent struct {
 	// Comments made about the adverse event by the performer, subject or other participants.
 	Note []Annotation
 }
-type isAdverseEventOccurrence interface {
+type AdverseEventOccurrence interface {
 	model.Element
 	isAdverseEventOccurrence()
 }
@@ -122,11 +122,11 @@ type AdverseEventSuspectEntity struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Identifies the actual instance of what caused the adverse event.  May be a substance, medication, medication administration, medication statement or a device.
-	Instance isAdverseEventSuspectEntityInstance
+	Instance AdverseEventSuspectEntityInstance
 	// Information on the possible cause of the event.
 	Causality *AdverseEventSuspectEntityCausality
 }
-type isAdverseEventSuspectEntityInstance interface {
+type AdverseEventSuspectEntityInstance interface {
 	model.Element
 	isAdverseEventSuspectEntityInstance()
 }
@@ -163,9 +163,9 @@ type AdverseEventContributingFactor struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The item that is suspected to have increased the probability or severity of the adverse event.
-	Item isAdverseEventContributingFactorItem
+	Item AdverseEventContributingFactorItem
 }
-type isAdverseEventContributingFactorItem interface {
+type AdverseEventContributingFactorItem interface {
 	model.Element
 	isAdverseEventContributingFactorItem()
 }
@@ -184,9 +184,9 @@ type AdverseEventPreventiveAction struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The action that contributed to avoiding the adverse event.
-	Item isAdverseEventPreventiveActionItem
+	Item AdverseEventPreventiveActionItem
 }
-type isAdverseEventPreventiveActionItem interface {
+type AdverseEventPreventiveActionItem interface {
 	model.Element
 	isAdverseEventPreventiveActionItem()
 }
@@ -205,9 +205,9 @@ type AdverseEventMitigatingAction struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The ameliorating action taken after the adverse event occured in order to reduce the extent of harm.
-	Item isAdverseEventMitigatingActionItem
+	Item AdverseEventMitigatingActionItem
 }
-type isAdverseEventMitigatingActionItem interface {
+type AdverseEventMitigatingActionItem interface {
 	model.Element
 	isAdverseEventMitigatingActionItem()
 }
@@ -226,9 +226,9 @@ type AdverseEventSupportingInfo struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Relevant past history for the subject. In a clinical care context, an example being a patient had an adverse event following a pencillin administration and the patient had a previously documented penicillin allergy. In a clinical trials context, an example is a bunion or rash that was present prior to the study. Additionally, the supporting item can be a document that is relevant to this instance of the adverse event that is not part of the subject's medical history. For example, a clinical note, staff list, or material safety data sheet (MSDS).  Supporting information is not a contributing factor, preventive action, or mitigating action.
-	Item isAdverseEventSupportingInfoItem
+	Item AdverseEventSupportingInfoItem
 }
-type isAdverseEventSupportingInfoItem interface {
+type AdverseEventSupportingInfoItem interface {
 	model.Element
 	isAdverseEventSupportingInfoItem()
 }

@@ -110,11 +110,11 @@ type SubstanceDefinitionMoiety struct {
 	// Molecular formula for this moiety of this substance, typically using the Hill system.
 	MolecularFormula *String
 	// Quantitative value for this moiety.
-	Amount isSubstanceDefinitionMoietyAmount
+	Amount SubstanceDefinitionMoietyAmount
 	// The measurement type of the quantitative value. In capturing the actual relative amounts of substances or molecular fragments it may be necessary to indicate whether the amount refers to, for example, a mole ratio or weight ratio.
 	MeasurementType *CodeableConcept
 }
-type isSubstanceDefinitionMoietyAmount interface {
+type SubstanceDefinitionMoietyAmount interface {
 	model.Element
 	isSubstanceDefinitionMoietyAmount()
 }
@@ -155,9 +155,9 @@ type SubstanceDefinitionProperty struct {
 	// A code expressing the type of property.
 	Type CodeableConcept
 	// A value for the property.
-	Value isSubstanceDefinitionPropertyValue
+	Value SubstanceDefinitionPropertyValue
 }
-type isSubstanceDefinitionPropertyValue interface {
+type SubstanceDefinitionPropertyValue interface {
 	model.Element
 	isSubstanceDefinitionPropertyValue()
 }
@@ -319,13 +319,13 @@ type SubstanceDefinitionRelationship struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// A pointer to another substance, as a resource or just a representational code.
-	SubstanceDefinition isSubstanceDefinitionRelationshipSubstanceDefinition
+	SubstanceDefinition SubstanceDefinitionRelationshipSubstanceDefinition
 	// For example "salt to parent", "active moiety", "starting material", "polymorph", "impurity of".
 	Type CodeableConcept
 	// For example where an enzyme strongly bonds with a particular substance, this is a defining relationship for that enzyme, out of several possible substance relationships.
 	IsDefining *Boolean
 	// A numeric factor for the relationship, for instance to express that the salt of a substance has some percentage of the active substance in relation to some other.
-	Amount isSubstanceDefinitionRelationshipAmount
+	Amount SubstanceDefinitionRelationshipAmount
 	// For use when the numeric has an uncertain range.
 	RatioHighLimitAmount *Ratio
 	// An operator for the amount, for example "average", "approximately", "less than".
@@ -333,7 +333,7 @@ type SubstanceDefinitionRelationship struct {
 	// Supporting literature.
 	Source []Reference
 }
-type isSubstanceDefinitionRelationshipSubstanceDefinition interface {
+type SubstanceDefinitionRelationshipSubstanceDefinition interface {
 	model.Element
 	isSubstanceDefinitionRelationshipSubstanceDefinition()
 }
@@ -341,7 +341,7 @@ type isSubstanceDefinitionRelationshipSubstanceDefinition interface {
 func (r Reference) isSubstanceDefinitionRelationshipSubstanceDefinition()       {}
 func (r CodeableConcept) isSubstanceDefinitionRelationshipSubstanceDefinition() {}
 
-type isSubstanceDefinitionRelationshipAmount interface {
+type SubstanceDefinitionRelationshipAmount interface {
 	model.Element
 	isSubstanceDefinitionRelationshipAmount()
 }

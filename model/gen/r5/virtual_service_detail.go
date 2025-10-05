@@ -26,7 +26,7 @@ type VirtualServiceDetail struct {
 	// The type of virtual service to connect to (i.e. Teams, Zoom, Specific VMR technology, WhatsApp).
 	ChannelType *Coding
 	// What address or number needs to be used for a user to connect to the virtual service to join. The channelType informs as to which datatype is appropriate to use (requires knowledge of the specific type).
-	Address isVirtualServiceDetailAddress
+	Address VirtualServiceDetailAddress
 	// Address to see alternative connection details.
 	AdditionalInfo []Url
 	// Maximum number of participants supported by the virtual service.
@@ -34,7 +34,7 @@ type VirtualServiceDetail struct {
 	// Session Key required by the virtual service.
 	SessionKey *String
 }
-type isVirtualServiceDetailAddress interface {
+type VirtualServiceDetailAddress interface {
 	model.Element
 	isVirtualServiceDetailAddress()
 }

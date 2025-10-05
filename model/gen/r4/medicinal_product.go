@@ -172,7 +172,7 @@ type MedicinalProductSpecialDesignation struct {
 	// The intended use of the product, e.g. prevention, treatment.
 	IntendedUse *CodeableConcept
 	// Condition for which the medicinal use applies.
-	Indication isMedicinalProductSpecialDesignationIndication
+	Indication MedicinalProductSpecialDesignationIndication
 	// For example granted, pending, expired or withdrawn.
 	Status *CodeableConcept
 	// Date when the designation was granted.
@@ -180,7 +180,7 @@ type MedicinalProductSpecialDesignation struct {
 	// Animal species for which this applies.
 	Species *CodeableConcept
 }
-type isMedicinalProductSpecialDesignationIndication interface {
+type MedicinalProductSpecialDesignationIndication interface {
 	model.Element
 	isMedicinalProductSpecialDesignationIndication()
 }

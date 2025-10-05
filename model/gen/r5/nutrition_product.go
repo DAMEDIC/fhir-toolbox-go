@@ -104,9 +104,9 @@ type NutritionProductCharacteristic struct {
 	// A code specifying which characteristic of the product is being described (for example, colour, shape).
 	Type CodeableConcept
 	// The actual characteristic value corresponding to the type.
-	Value isNutritionProductCharacteristicValue
+	Value NutritionProductCharacteristicValue
 }
-type isNutritionProductCharacteristicValue interface {
+type NutritionProductCharacteristicValue interface {
 	model.Element
 	isNutritionProductCharacteristicValue()
 }

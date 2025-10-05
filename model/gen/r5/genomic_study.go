@@ -132,9 +132,9 @@ type GenomicStudyAnalysisInput struct {
 	// Type of input data, e.g., BAM, CRAM, or FASTA.
 	Type *CodeableConcept
 	// The analysis event or other GenomicStudy that generated this input file.
-	GeneratedBy isGenomicStudyAnalysisInputGeneratedBy
+	GeneratedBy GenomicStudyAnalysisInputGeneratedBy
 }
-type isGenomicStudyAnalysisInputGeneratedBy interface {
+type GenomicStudyAnalysisInputGeneratedBy interface {
 	model.Element
 	isGenomicStudyAnalysisInputGeneratedBy()
 }

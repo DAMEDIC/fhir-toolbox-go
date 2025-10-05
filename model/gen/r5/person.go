@@ -52,7 +52,7 @@ type Person struct {
 	// The birth date for the person.
 	BirthDate *Date
 	// Indicates if the individual is deceased or not.
-	Deceased isPersonDeceased
+	Deceased PersonDeceased
 	// One or more addresses for the person.
 	Address []Address
 	// This field contains a person's most recent marital (civil) status.
@@ -66,7 +66,7 @@ type Person struct {
 	// Link to a resource that concerns the same actual person.
 	Link []PersonLink
 }
-type isPersonDeceased interface {
+type PersonDeceased interface {
 	model.Element
 	isPersonDeceased()
 }

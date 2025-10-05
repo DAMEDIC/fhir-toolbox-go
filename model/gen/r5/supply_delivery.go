@@ -52,7 +52,7 @@ type SupplyDelivery struct {
 	// The item that is being delivered or has been supplied.
 	SuppliedItem []SupplyDeliverySuppliedItem
 	// The date or time(s) the activity occurred.
-	Occurrence isSupplyDeliveryOccurrence
+	Occurrence SupplyDeliveryOccurrence
 	// The individual or organization responsible for supplying the delivery.
 	Supplier *Reference
 	// Identification of the facility/location where the delivery was shipped to.
@@ -60,7 +60,7 @@ type SupplyDelivery struct {
 	// Identifies the individual or organization that received the delivery.
 	Receiver []Reference
 }
-type isSupplyDeliveryOccurrence interface {
+type SupplyDeliveryOccurrence interface {
 	model.Element
 	isSupplyDeliveryOccurrence()
 }
@@ -82,9 +82,9 @@ type SupplyDeliverySuppliedItem struct {
 	// The amount of the item that has been supplied.  Unit of measure may be included.
 	Quantity *Quantity
 	// Identifies the medication, substance, device or biologically derived product being supplied. This is either a link to a resource representing the details of the item or a code that identifies the item from a known list.
-	Item isSupplyDeliverySuppliedItemItem
+	Item SupplyDeliverySuppliedItemItem
 }
-type isSupplyDeliverySuppliedItemItem interface {
+type SupplyDeliverySuppliedItemItem interface {
 	model.Element
 	isSupplyDeliverySuppliedItemItem()
 }

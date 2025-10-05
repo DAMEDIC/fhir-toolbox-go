@@ -100,9 +100,9 @@ type SubstanceSpecificationMoiety struct {
 	// Molecular formula.
 	MolecularFormula *String
 	// Quantitative value for this moiety.
-	Amount isSubstanceSpecificationMoietyAmount
+	Amount SubstanceSpecificationMoietyAmount
 }
-type isSubstanceSpecificationMoietyAmount interface {
+type SubstanceSpecificationMoietyAmount interface {
 	model.Element
 	isSubstanceSpecificationMoietyAmount()
 }
@@ -127,11 +127,11 @@ type SubstanceSpecificationProperty struct {
 	// Parameters that were used in the measurement of a property (e.g. for viscosity: measured at 20C with a pH of 7.1).
 	Parameters *String
 	// A substance upon which a defining property depends (e.g. for solubility: in water, in alcohol).
-	DefiningSubstance isSubstanceSpecificationPropertyDefiningSubstance
+	DefiningSubstance SubstanceSpecificationPropertyDefiningSubstance
 	// Quantitative value for this property.
-	Amount isSubstanceSpecificationPropertyAmount
+	Amount SubstanceSpecificationPropertyAmount
 }
-type isSubstanceSpecificationPropertyDefiningSubstance interface {
+type SubstanceSpecificationPropertyDefiningSubstance interface {
 	model.Element
 	isSubstanceSpecificationPropertyDefiningSubstance()
 }
@@ -139,7 +139,7 @@ type isSubstanceSpecificationPropertyDefiningSubstance interface {
 func (r Reference) isSubstanceSpecificationPropertyDefiningSubstance()       {}
 func (r CodeableConcept) isSubstanceSpecificationPropertyDefiningSubstance() {}
 
-type isSubstanceSpecificationPropertyAmount interface {
+type SubstanceSpecificationPropertyAmount interface {
 	model.Element
 	isSubstanceSpecificationPropertyAmount()
 }
@@ -318,13 +318,13 @@ type SubstanceSpecificationRelationship struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// A pointer to another substance, as a resource or just a representational code.
-	Substance isSubstanceSpecificationRelationshipSubstance
+	Substance SubstanceSpecificationRelationshipSubstance
 	// For example "salt to parent", "active moiety", "starting material".
 	Relationship *CodeableConcept
 	// For example where an enzyme strongly bonds with a particular substance, this is a defining relationship for that enzyme, out of several possible substance relationships.
 	IsDefining *Boolean
 	// A numeric factor for the relationship, for instance to express that the salt of a substance has some percentage of the active substance in relation to some other.
-	Amount isSubstanceSpecificationRelationshipAmount
+	Amount SubstanceSpecificationRelationshipAmount
 	// For use when the numeric.
 	AmountRatioLowLimit *Ratio
 	// An operator for the amount, for example "average", "approximately", "less than".
@@ -332,7 +332,7 @@ type SubstanceSpecificationRelationship struct {
 	// Supporting literature.
 	Source []Reference
 }
-type isSubstanceSpecificationRelationshipSubstance interface {
+type SubstanceSpecificationRelationshipSubstance interface {
 	model.Element
 	isSubstanceSpecificationRelationshipSubstance()
 }
@@ -340,7 +340,7 @@ type isSubstanceSpecificationRelationshipSubstance interface {
 func (r Reference) isSubstanceSpecificationRelationshipSubstance()       {}
 func (r CodeableConcept) isSubstanceSpecificationRelationshipSubstance() {}
 
-type isSubstanceSpecificationRelationshipAmount interface {
+type SubstanceSpecificationRelationshipAmount interface {
 	model.Element
 	isSubstanceSpecificationRelationshipAmount()
 }

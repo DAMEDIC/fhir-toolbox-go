@@ -208,9 +208,9 @@ type ValueSetExpansionParameter struct {
 	// Name of the input parameter to the $expand operation; may be a server-assigned name for additional default or other server-supplied parameters used to control the expansion process.
 	Name String
 	// The value of the parameter.
-	Value isValueSetExpansionParameterValue
+	Value ValueSetExpansionParameterValue
 }
-type isValueSetExpansionParameterValue interface {
+type ValueSetExpansionParameterValue interface {
 	model.Element
 	isValueSetExpansionParameterValue()
 }

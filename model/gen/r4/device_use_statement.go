@@ -48,7 +48,7 @@ type DeviceUseStatement struct {
 	// Allows linking the DeviceUseStatement to the underlying Request, or to other information that supports or is used to derive the DeviceUseStatement.
 	DerivedFrom []Reference
 	// How often the device was used.
-	Timing isDeviceUseStatementTiming
+	Timing DeviceUseStatementTiming
 	// The time at which the statement was made/recorded.
 	RecordedOn *DateTime
 	// Who reported the device was being used by the patient.
@@ -64,7 +64,7 @@ type DeviceUseStatement struct {
 	// Details about the device statement that were not represented at all or sufficiently in one of the attributes provided in a class. These may include for example a comment, an instruction, or a note associated with the statement.
 	Note []Annotation
 }
-type isDeviceUseStatementTiming interface {
+type DeviceUseStatementTiming interface {
 	model.Element
 	isDeviceUseStatementTiming()
 }

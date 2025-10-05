@@ -52,7 +52,7 @@ type ClinicalImpression struct {
 	// The Encounter during which this ClinicalImpression was created or to which the creation of this record is tightly associated.
 	Encounter *Reference
 	// The point in time or period over which the subject was assessed.
-	Effective isClinicalImpressionEffective
+	Effective ClinicalImpressionEffective
 	// Indicates when the documentation of the assessment was complete.
 	Date *DateTime
 	// The clinician performing the assessment.
@@ -78,7 +78,7 @@ type ClinicalImpression struct {
 	// Commentary about the impression, typically recorded after the impression itself was made, though supplemental notes by the original author could also appear.
 	Note []Annotation
 }
-type isClinicalImpressionEffective interface {
+type ClinicalImpressionEffective interface {
 	model.Element
 	isClinicalImpressionEffective()
 }

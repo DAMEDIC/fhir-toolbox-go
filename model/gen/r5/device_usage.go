@@ -52,7 +52,7 @@ type DeviceUsage struct {
 	// The encounter or episode of care that establishes the context for this device use statement.
 	Context *Reference
 	// How often the device was used.
-	Timing isDeviceUsageTiming
+	Timing DeviceUsageTiming
 	// The time at which the statement was recorded by informationSource.
 	DateAsserted *DateTime
 	// The status of the device usage, for example always, sometimes, never. This is not the same as the status of the statement.
@@ -72,7 +72,7 @@ type DeviceUsage struct {
 	// Details about the device statement that were not represented at all or sufficiently in one of the attributes provided in a class. These may include for example a comment, an instruction, or a note associated with the statement.
 	Note []Annotation
 }
-type isDeviceUsageTiming interface {
+type DeviceUsageTiming interface {
 	model.Element
 	isDeviceUsageTiming()
 }

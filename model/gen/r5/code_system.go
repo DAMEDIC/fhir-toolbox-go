@@ -44,7 +44,7 @@ type CodeSystem struct {
 	// The identifier that is used to identify this version of the code system when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the code system author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. This is used in [Coding](datatypes.html#Coding).version.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which CodeSystem is more current.
-	VersionAlgorithm isCodeSystemVersionAlgorithm
+	VersionAlgorithm CodeSystemVersionAlgorithm
 	// A natural language name identifying the code system. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the code system.
@@ -112,7 +112,7 @@ type CodeSystem struct {
 	// Concepts that are in the code system. The concept definitions are inherently hierarchical, but the definitions must be consulted to determine what the meanings of the hierarchical relationships are.
 	Concept []CodeSystemConcept
 }
-type isCodeSystemVersionAlgorithm interface {
+type CodeSystemVersionAlgorithm interface {
 	model.Element
 	isCodeSystemVersionAlgorithm()
 }
@@ -217,9 +217,9 @@ type CodeSystemConceptProperty struct {
 	// A code that is a reference to CodeSystem.property.code.
 	Code Code
 	// The value of this property.
-	Value isCodeSystemConceptPropertyValue
+	Value CodeSystemConceptPropertyValue
 }
-type isCodeSystemConceptPropertyValue interface {
+type CodeSystemConceptPropertyValue interface {
 	model.Element
 	isCodeSystemConceptPropertyValue()
 }

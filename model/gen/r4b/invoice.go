@@ -100,11 +100,11 @@ type InvoiceLineItem struct {
 	// Sequence in which the items appear on the invoice.
 	Sequence *PositiveInt
 	// The ChargeItem contains information such as the billing code, date, amount etc. If no further details are required for the lineItem, inline billing codes can be added using the CodeableConcept data type instead of the Reference.
-	ChargeItem isInvoiceLineItemChargeItem
+	ChargeItem InvoiceLineItemChargeItem
 	// The price for a ChargeItem may be calculated as a base price with surcharges/deductions that apply in certain conditions. A ChargeItemDefinition resource that defines the prices, factors and conditions that apply to a billing code is currently under development. The priceComponent element can be used to offer transparency to the recipient of the Invoice as to how the prices have been calculated.
 	PriceComponent []InvoiceLineItemPriceComponent
 }
-type isInvoiceLineItemChargeItem interface {
+type InvoiceLineItemChargeItem interface {
 	model.Element
 	isInvoiceLineItemChargeItem()
 }

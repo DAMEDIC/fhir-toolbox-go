@@ -44,7 +44,7 @@ type ChargeItemDefinition struct {
 	// The identifier that is used to identify this version of the charge item definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the charge item definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence. To provide a version consistent with the Decision Support Service specification, use the format Major.Minor.Revision (e.g. 1.0.0). For more information on versioning knowledge assets, refer to the Decision Support Service specification. Note that a version is required for non-experimental active assets.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isChargeItemDefinitionVersionAlgorithm
+	VersionAlgorithm ChargeItemDefinitionVersionAlgorithm
 	// A natural language name identifying the ChargeItemDefinition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the charge item definition.
@@ -90,7 +90,7 @@ type ChargeItemDefinition struct {
 	// Group of properties which are applicable under the same conditions. If no applicability rules are established for the group, then all properties always apply.
 	PropertyGroup []ChargeItemDefinitionPropertyGroup
 }
-type isChargeItemDefinitionVersionAlgorithm interface {
+type ChargeItemDefinitionVersionAlgorithm interface {
 	model.Element
 	isChargeItemDefinitionVersionAlgorithm()
 }

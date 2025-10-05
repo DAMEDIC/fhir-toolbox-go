@@ -54,7 +54,7 @@ type Consent struct {
 	// The organization that manages the consent, and the framework within which it is executed.
 	Organization []Reference
 	// The source on which this consent statement is based. The source might be a scanned original paper form, or a reference to a consent that links back to such a source, a reference to a document repository (e.g. XDS) that stores the original consent document.
-	Source isConsentSource
+	Source ConsentSource
 	// The references to the policies that are included in this consent scope. Policies may be organizational, but are often defined jurisdictionally, or in law.
 	Policy []ConsentPolicy
 	// A reference to the specific base computable regulation or policy.
@@ -64,7 +64,7 @@ type Consent struct {
 	// An exception to the base policy of this consent. An exception can be an addition or removal of access permissions.
 	Provision *ConsentProvision
 }
-type isConsentSource interface {
+type ConsentSource interface {
 	model.Element
 	isConsentSource()
 }

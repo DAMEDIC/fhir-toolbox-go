@@ -214,9 +214,9 @@ type MedicinalProductDefinitionCharacteristic struct {
 	// A code expressing the type of characteristic.
 	Type CodeableConcept
 	// A value for the characteristic.
-	Value isMedicinalProductDefinitionCharacteristicValue
+	Value MedicinalProductDefinitionCharacteristicValue
 }
-type isMedicinalProductDefinitionCharacteristicValue interface {
+type MedicinalProductDefinitionCharacteristicValue interface {
 	model.Element
 	isMedicinalProductDefinitionCharacteristicValue()
 }

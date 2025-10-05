@@ -106,11 +106,11 @@ type CoverageCostToBeneficiary struct {
 	// The category of patient centric costs associated with treatment.
 	Type *CodeableConcept
 	// The amount due from the patient for the cost category.
-	Value isCoverageCostToBeneficiaryValue
+	Value CoverageCostToBeneficiaryValue
 	// A suite of codes indicating exceptions or reductions to patient costs and their effective periods.
 	Exception []CoverageCostToBeneficiaryException
 }
-type isCoverageCostToBeneficiaryValue interface {
+type CoverageCostToBeneficiaryValue interface {
 	model.Element
 	isCoverageCostToBeneficiaryValue()
 }

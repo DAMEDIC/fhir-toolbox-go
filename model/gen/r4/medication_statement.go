@@ -52,13 +52,13 @@ type MedicationStatement struct {
 	// Indicates where the medication is expected to be consumed or administered.
 	Category *CodeableConcept
 	// Identifies the medication being administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications.
-	Medication isMedicationStatementMedication
+	Medication MedicationStatementMedication
 	// The person, animal or group who is/was taking the medication.
 	Subject Reference
 	// The encounter or episode of care that establishes the context for this MedicationStatement.
 	Context *Reference
 	// The interval of time during which it is being asserted that the patient is/was/will be taking the medication (or was not taking, when the MedicationStatement.taken element is No).
-	Effective isMedicationStatementEffective
+	Effective MedicationStatementEffective
 	// The date when the medication statement was asserted by the information source.
 	DateAsserted *DateTime
 	// The person or organization that provided the information about the taking of this medication. Note: Use derivedFrom when a MedicationStatement is derived from other resources, e.g. Claim or MedicationRequest.
@@ -74,7 +74,7 @@ type MedicationStatement struct {
 	// Indicates how the medication is/was or should be taken by the patient.
 	Dosage []Dosage
 }
-type isMedicationStatementMedication interface {
+type MedicationStatementMedication interface {
 	model.Element
 	isMedicationStatementMedication()
 }
@@ -82,7 +82,7 @@ type isMedicationStatementMedication interface {
 func (r CodeableConcept) isMedicationStatementMedication() {}
 func (r Reference) isMedicationStatementMedication()       {}
 
-type isMedicationStatementEffective interface {
+type MedicationStatementEffective interface {
 	model.Element
 	isMedicationStatementEffective()
 }

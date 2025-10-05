@@ -48,7 +48,7 @@ type CoverageEligibilityResponse struct {
 	// Information code for an event with a corresponding date or period.
 	Event []CoverageEligibilityResponseEvent
 	// The date or dates when the enclosed suite of services were performed or completed.
-	Serviced isCoverageEligibilityResponseServiced
+	Serviced CoverageEligibilityResponseServiced
 	// The date this resource was created.
 	Created DateTime
 	// The provider which is responsible for the request.
@@ -70,7 +70,7 @@ type CoverageEligibilityResponse struct {
 	// Errors encountered during the processing of the request.
 	Error []CoverageEligibilityResponseError
 }
-type isCoverageEligibilityResponseServiced interface {
+type CoverageEligibilityResponseServiced interface {
 	model.Element
 	isCoverageEligibilityResponseServiced()
 }
@@ -91,9 +91,9 @@ type CoverageEligibilityResponseEvent struct {
 	// A coded event such as when a service is expected or a card printed.
 	Type CodeableConcept
 	// A date or period in the past or future indicating when the event occurred or is expectd to occur.
-	When isCoverageEligibilityResponseEventWhen
+	When CoverageEligibilityResponseEventWhen
 }
-type isCoverageEligibilityResponseEventWhen interface {
+type CoverageEligibilityResponseEventWhen interface {
 	model.Element
 	isCoverageEligibilityResponseEventWhen()
 }
@@ -174,11 +174,11 @@ type CoverageEligibilityResponseInsuranceItemBenefit struct {
 	// Classification of benefit being provided.
 	Type CodeableConcept
 	// The quantity of the benefit which is permitted under the coverage.
-	Allowed isCoverageEligibilityResponseInsuranceItemBenefitAllowed
+	Allowed CoverageEligibilityResponseInsuranceItemBenefitAllowed
 	// The quantity of the benefit which have been consumed to date.
-	Used isCoverageEligibilityResponseInsuranceItemBenefitUsed
+	Used CoverageEligibilityResponseInsuranceItemBenefitUsed
 }
-type isCoverageEligibilityResponseInsuranceItemBenefitAllowed interface {
+type CoverageEligibilityResponseInsuranceItemBenefitAllowed interface {
 	model.Element
 	isCoverageEligibilityResponseInsuranceItemBenefitAllowed()
 }
@@ -187,7 +187,7 @@ func (r UnsignedInt) isCoverageEligibilityResponseInsuranceItemBenefitAllowed() 
 func (r String) isCoverageEligibilityResponseInsuranceItemBenefitAllowed()      {}
 func (r Money) isCoverageEligibilityResponseInsuranceItemBenefitAllowed()       {}
 
-type isCoverageEligibilityResponseInsuranceItemBenefitUsed interface {
+type CoverageEligibilityResponseInsuranceItemBenefitUsed interface {
 	model.Element
 	isCoverageEligibilityResponseInsuranceItemBenefitUsed()
 }

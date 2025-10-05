@@ -66,13 +66,13 @@ type MedicationIngredient struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The actual ingredient - either a substance (simple ingredient) or another medication of a medication.
-	Item isMedicationIngredientItem
+	Item MedicationIngredientItem
 	// Indication of whether this ingredient affects the therapeutic action of the drug.
 	IsActive *Boolean
 	// Specifies how many (or how much) of the items there are in this Medication.  For example, 250 mg per tablet.  This is expressed as a ratio where the numerator is 250mg and the denominator is 1 tablet.
 	Strength *Ratio
 }
-type isMedicationIngredientItem interface {
+type MedicationIngredientItem interface {
 	model.Element
 	isMedicationIngredientItem()
 }

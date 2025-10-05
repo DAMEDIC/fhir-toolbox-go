@@ -40,7 +40,7 @@ type Provenance struct {
 	// The Reference(s) that were generated or updated by  the activity described in this resource. A provenance can point to more than one target if multiple resources were created/updated by the same activity.
 	Target []Reference
 	// The period during which the activity occurred.
-	Occurred isProvenanceOccurred
+	Occurred ProvenanceOccurred
 	// The instant of time at which the activity was recorded.
 	Recorded *Instant
 	// Policy or plan the activity was defined by. Typically, a single activity may have multiple applicable policy documents, such as patient consent, guarantor funding, etc.
@@ -64,7 +64,7 @@ type Provenance struct {
 	// A digital signature on the target Reference(s). The signer should match a Provenance.agent. The purpose of the signature is indicated.
 	Signature []Signature
 }
-type isProvenanceOccurred interface {
+type ProvenanceOccurred interface {
 	model.Element
 	isProvenanceOccurred()
 }

@@ -48,7 +48,7 @@ type CoverageEligibilityRequest struct {
 	// The party who is the beneficiary of the supplied coverage and for whom eligibility is sought.
 	Patient Reference
 	// The date or dates when the enclosed suite of services were performed or completed.
-	Serviced isCoverageEligibilityRequestServiced
+	Serviced CoverageEligibilityRequestServiced
 	// The date when this resource was created.
 	Created DateTime
 	// Person who created the request.
@@ -66,7 +66,7 @@ type CoverageEligibilityRequest struct {
 	// Service categories or billable services for which benefit details and/or an authorization prior to service delivery may be required by the payor.
 	Item []CoverageEligibilityRequestItem
 }
-type isCoverageEligibilityRequestServiced interface {
+type CoverageEligibilityRequestServiced interface {
 	model.Element
 	isCoverageEligibilityRequestServiced()
 }
@@ -153,9 +153,9 @@ type CoverageEligibilityRequestItemDiagnosis struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The nature of illness or problem in a coded form or as a reference to an external defined Condition.
-	Diagnosis isCoverageEligibilityRequestItemDiagnosisDiagnosis
+	Diagnosis CoverageEligibilityRequestItemDiagnosisDiagnosis
 }
-type isCoverageEligibilityRequestItemDiagnosisDiagnosis interface {
+type CoverageEligibilityRequestItemDiagnosisDiagnosis interface {
 	model.Element
 	isCoverageEligibilityRequestItemDiagnosisDiagnosis()
 }

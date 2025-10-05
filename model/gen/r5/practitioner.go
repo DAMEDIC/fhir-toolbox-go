@@ -52,7 +52,7 @@ type Practitioner struct {
 	// The date of birth for the practitioner.
 	BirthDate *Date
 	// Indicates if the practitioner is deceased or not.
-	Deceased isPractitionerDeceased
+	Deceased PractitionerDeceased
 	// Address(es) of the practitioner that are not role specific (typically home address). Work addresses are not typically entered in this property as they are usually role dependent.
 	Address []Address
 	// Image of the person.
@@ -62,7 +62,7 @@ type Practitioner struct {
 	// A language which may be used to communicate with the practitioner, often for correspondence/administrative purposes.The `PractitionerRole.communication` property should be used for publishing the languages that a practitioner is able to communicate with patients (on a per Organization/Role basis).
 	Communication []PractitionerCommunication
 }
-type isPractitionerDeceased interface {
+type PractitionerDeceased interface {
 	model.Element
 	isPractitionerDeceased()
 }

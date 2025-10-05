@@ -56,7 +56,7 @@ type DeviceRequest struct {
 	// Indicates how quickly the {{title}} should be addressed with respect to other requests.
 	Priority *Code
 	// The details of the device to be used.
-	Code isDeviceRequestCode
+	Code DeviceRequestCode
 	// Specific parameters for the ordered item.  For example, the prism value for lenses.
 	Parameter []DeviceRequestParameter
 	// The patient who will use the device.
@@ -64,7 +64,7 @@ type DeviceRequest struct {
 	// An encounter that provides additional context in which this request is made.
 	Encounter *Reference
 	// The timing schedule for the use of the device. The Schedule data type allows many different expressions, for example. "Every 8 hours"; "Three times a day"; "1/2 an hour before breakfast for 10 days from 23-Dec 2011:"; "15 Oct 2013, 17 Oct 2013 and 1 Nov 2013".
-	Occurrence isDeviceRequestOccurrence
+	Occurrence DeviceRequestOccurrence
 	// When the request transitioned to being actionable.
 	AuthoredOn *DateTime
 	// The individual who initiated the request and has responsibility for its activation.
@@ -86,7 +86,7 @@ type DeviceRequest struct {
 	// Key events in the history of the request.
 	RelevantHistory []Reference
 }
-type isDeviceRequestCode interface {
+type DeviceRequestCode interface {
 	model.Element
 	isDeviceRequestCode()
 }
@@ -94,7 +94,7 @@ type isDeviceRequestCode interface {
 func (r Reference) isDeviceRequestCode()       {}
 func (r CodeableConcept) isDeviceRequestCode() {}
 
-type isDeviceRequestOccurrence interface {
+type DeviceRequestOccurrence interface {
 	model.Element
 	isDeviceRequestOccurrence()
 }
@@ -116,9 +116,9 @@ type DeviceRequestParameter struct {
 	// A code or string that identifies the device detail being asserted.
 	Code *CodeableConcept
 	// The value of the device detail.
-	Value isDeviceRequestParameterValue
+	Value DeviceRequestParameterValue
 }
-type isDeviceRequestParameterValue interface {
+type DeviceRequestParameterValue interface {
 	model.Element
 	isDeviceRequestParameterValue()
 }

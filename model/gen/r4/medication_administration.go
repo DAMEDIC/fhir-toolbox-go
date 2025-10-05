@@ -50,7 +50,7 @@ type MedicationAdministration struct {
 	// Indicates where the medication is expected to be consumed or administered.
 	Category *CodeableConcept
 	// Identifies the medication that was administered. This is either a link to a resource representing the details of the medication or a simple attribute carrying a code that identifies the medication from a known list of medications.
-	Medication isMedicationAdministrationMedication
+	Medication MedicationAdministrationMedication
 	// The person or animal or group receiving the medication.
 	Subject Reference
 	// The visit, admission, or other contact between patient and health care provider during which the medication administration was performed.
@@ -58,7 +58,7 @@ type MedicationAdministration struct {
 	// Additional information (for example, patient height and weight) that supports the administration of the medication.
 	SupportingInformation []Reference
 	// A specific date/time or interval of time during which the administration took place (or did not take place, when the 'notGiven' attribute is true). For many administrations, such as swallowing a tablet the use of dateTime is more appropriate.
-	Effective isMedicationAdministrationEffective
+	Effective MedicationAdministrationEffective
 	// Indicates who or what performed the medication administration and how they were involved.
 	Performer []MedicationAdministrationPerformer
 	// A code indicating why the medication was given.
@@ -76,7 +76,7 @@ type MedicationAdministration struct {
 	// A summary of the events of interest that have occurred, such as when the administration was verified.
 	EventHistory []Reference
 }
-type isMedicationAdministrationMedication interface {
+type MedicationAdministrationMedication interface {
 	model.Element
 	isMedicationAdministrationMedication()
 }
@@ -84,7 +84,7 @@ type isMedicationAdministrationMedication interface {
 func (r CodeableConcept) isMedicationAdministrationMedication() {}
 func (r Reference) isMedicationAdministrationMedication()       {}
 
-type isMedicationAdministrationEffective interface {
+type MedicationAdministrationEffective interface {
 	model.Element
 	isMedicationAdministrationEffective()
 }
@@ -129,9 +129,9 @@ type MedicationAdministrationDosage struct {
 	// The amount of the medication given at one administration event.   Use this value when the administration is essentially an instantaneous event such as a swallowing a tablet or giving an injection.
 	Dose *Quantity
 	// Identifies the speed with which the medication was or will be introduced into the patient.  Typically, the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time, e.g. 500 ml per 2 hours.  Other examples:  200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.
-	Rate isMedicationAdministrationDosageRate
+	Rate MedicationAdministrationDosageRate
 }
-type isMedicationAdministrationDosageRate interface {
+type MedicationAdministrationDosageRate interface {
 	model.Element
 	isMedicationAdministrationDosageRate()
 }

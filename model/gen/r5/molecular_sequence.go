@@ -96,7 +96,7 @@ type MolecularSequenceRelativeStartingSequence struct {
 	// Structural unit composed of a nucleic acid molecule which controls its own replication through the interaction of specific proteins at one or more origins of replication ([SO:0000340](http://www.sequenceontology.org/browser/current_svn/term/SO:0000340)).
 	Chromosome *CodeableConcept
 	// The reference sequence that represents the starting sequence.
-	Sequence isMolecularSequenceRelativeStartingSequenceSequence
+	Sequence MolecularSequenceRelativeStartingSequenceSequence
 	// Start position of the window on the starting sequence. This value should honor the rules of the coordinateSystem.
 	WindowStart *Integer
 	// End position of the window on the starting sequence. This value should honor the rules of the  coordinateSystem.
@@ -106,7 +106,7 @@ type MolecularSequenceRelativeStartingSequence struct {
 	// An absolute reference to a strand. The Watson strand is the strand whose 5'-end is on the short arm of the chromosome, and the Crick strand as the one whose 5'-end is on the long arm.
 	Strand *Code
 }
-type isMolecularSequenceRelativeStartingSequenceSequence interface {
+type MolecularSequenceRelativeStartingSequenceSequence interface {
 	model.Element
 	isMolecularSequenceRelativeStartingSequenceSequence()
 }

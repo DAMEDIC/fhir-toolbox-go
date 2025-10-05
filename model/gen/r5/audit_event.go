@@ -46,7 +46,7 @@ type AuditEvent struct {
 	// Indicates and enables segmentation of various severity including debugging from critical.
 	Severity *Code
 	// The time or period during which the activity occurred.
-	Occurred isAuditEventOccurred
+	Occurred AuditEventOccurred
 	// The time when the event was recorded.
 	Recorded Instant
 	// Indicates whether the event succeeded or failed. A free text descripiton can be given in outcome.text.
@@ -66,7 +66,7 @@ type AuditEvent struct {
 	// Specific instances of data or objects that have been accessed.
 	Entity []AuditEventEntity
 }
-type isAuditEventOccurred interface {
+type AuditEventOccurred interface {
 	model.Element
 	isAuditEventOccurred()
 }
@@ -113,11 +113,11 @@ type AuditEventAgent struct {
 	// Where the policy(ies) are known that authorized the agent participation in the event. Typically, a single activity may have multiple applicable policies, such as patient consent, guarantor funding, etc. The policy would also indicate the security token used.
 	Policy []Uri
 	// When the event utilizes a network there should be an agent describing the local system, and an agent describing remote system, with the network interface details.
-	Network isAuditEventAgentNetwork
+	Network AuditEventAgentNetwork
 	// The authorization (e.g., PurposeOfUse) that was used during the event being recorded.
 	Authorization []CodeableConcept
 }
-type isAuditEventAgentNetwork interface {
+type AuditEventAgentNetwork interface {
 	model.Element
 	isAuditEventAgentNetwork()
 }
@@ -181,9 +181,9 @@ type AuditEventEntityDetail struct {
 	// The type of extra detail provided in the value.
 	Type CodeableConcept
 	// The  value of the extra detail.
-	Value isAuditEventEntityDetailValue
+	Value AuditEventEntityDetailValue
 }
-type isAuditEventEntityDetailValue interface {
+type AuditEventEntityDetailValue interface {
 	model.Element
 	isAuditEventEntityDetailValue()
 }

@@ -162,9 +162,9 @@ type CitationRelatesTo struct {
 	// The clasification of the related artifact.
 	TargetClassifier []CodeableConcept
 	// The article or artifact that the Citation Resource is related to.
-	Target isCitationRelatesToTarget
+	Target CitationRelatesToTarget
 }
-type isCitationRelatesToTarget interface {
+type CitationRelatesToTarget interface {
 	model.Element
 	isCitationRelatesToTarget()
 }
@@ -321,9 +321,9 @@ type CitationCitedArtifactRelatesTo struct {
 	// The clasification of the related artifact.
 	TargetClassifier []CodeableConcept
 	// The article or artifact that the cited artifact is related to.
-	Target isCitationCitedArtifactRelatesToTarget
+	Target CitationCitedArtifactRelatesToTarget
 }
-type isCitationCitedArtifactRelatesToTarget interface {
+type CitationCitedArtifactRelatesToTarget interface {
 	model.Element
 	isCitationCitedArtifactRelatesToTarget()
 }

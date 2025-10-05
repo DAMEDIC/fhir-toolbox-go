@@ -54,7 +54,7 @@ type ChargeItem struct {
 	// This ChargeItem has the details of how the associated Encounter should be billed or otherwise be handled by finance systems.
 	Encounter *Reference
 	// Date/time(s) or duration when the charged service was applied.
-	Occurrence isChargeItemOccurrence
+	Occurrence ChargeItemOccurrence
 	// Indicates who or what performed or participated in the charged service.
 	Performer []ChargeItemPerformer
 	// The organization performing the service.
@@ -90,7 +90,7 @@ type ChargeItem struct {
 	// Further information supporting this charge.
 	SupportingInformation []Reference
 }
-type isChargeItemOccurrence interface {
+type ChargeItemOccurrence interface {
 	model.Element
 	isChargeItemOccurrence()
 }

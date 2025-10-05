@@ -287,9 +287,9 @@ type DeviceDefinitionProperty struct {
 	// Code that specifies the property such as a resolution or color being represented.
 	Type CodeableConcept
 	// The value of the property specified by the associated property.type code.
-	Value isDeviceDefinitionPropertyValue
+	Value DeviceDefinitionPropertyValue
 }
-type isDeviceDefinitionPropertyValue interface {
+type DeviceDefinitionPropertyValue interface {
 	model.Element
 	isDeviceDefinitionPropertyValue()
 }

@@ -150,7 +150,12 @@ func (r Canonical) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
 	return false, false, errors.New("can not convert Canonical to Boolean")
 }
 func (r Canonical) ToString(explicit bool) (fhirpath.String, bool, error) {
-	return "", false, errors.New("can not convert Canonical to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return v, true, nil
+	} else {
+		return "", false, nil
+	}
 }
 func (r Canonical) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Canonical to Integer")
@@ -171,14 +176,15 @@ func (r Canonical) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Canonical to Quantity")
 }
 func (r Canonical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	o, ok := other.(Canonical)
-	if !ok {
+	a, ok, err := r.ToString(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	if r.Value == nil || o.Value == nil {
+	b, ok, err := other.ToString(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	return *r.Value == *o.Value, true
+	return a.Equal(b)
 }
 func (r Canonical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
 	eq, ok := r.Equal(other)

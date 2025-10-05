@@ -60,11 +60,11 @@ type ImmunizationEvaluation struct {
 	// One possible path to achieve presumed immunity against a disease - within the context of an authority.
 	Series *String
 	// Nominal position in a series.
-	DoseNumber isImmunizationEvaluationDoseNumber
+	DoseNumber ImmunizationEvaluationDoseNumber
 	// The recommended number of doses to achieve immunity.
-	SeriesDoses isImmunizationEvaluationSeriesDoses
+	SeriesDoses ImmunizationEvaluationSeriesDoses
 }
-type isImmunizationEvaluationDoseNumber interface {
+type ImmunizationEvaluationDoseNumber interface {
 	model.Element
 	isImmunizationEvaluationDoseNumber()
 }
@@ -72,7 +72,7 @@ type isImmunizationEvaluationDoseNumber interface {
 func (r PositiveInt) isImmunizationEvaluationDoseNumber() {}
 func (r String) isImmunizationEvaluationDoseNumber()      {}
 
-type isImmunizationEvaluationSeriesDoses interface {
+type ImmunizationEvaluationSeriesDoses interface {
 	model.Element
 	isImmunizationEvaluationSeriesDoses()
 }

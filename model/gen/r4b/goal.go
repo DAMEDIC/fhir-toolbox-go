@@ -52,7 +52,7 @@ type Goal struct {
 	// Identifies the patient, group or organization for whom the goal is being established.
 	Subject Reference
 	// The date or event after which the goal should begin being pursued.
-	Start isGoalStart
+	Start GoalStart
 	// Indicates what should be done by when.
 	Target []GoalTarget
 	// Identifies when the current status.  I.e. When initially created, when achieved, when cancelled, etc.
@@ -70,7 +70,7 @@ type Goal struct {
 	// Details of what's changed (or not changed).
 	OutcomeReference []Reference
 }
-type isGoalStart interface {
+type GoalStart interface {
 	model.Element
 	isGoalStart()
 }
@@ -91,11 +91,11 @@ type GoalTarget struct {
 	// The parameter whose value is being tracked, e.g. body weight, blood pressure, or hemoglobin A1c level.
 	Measure *CodeableConcept
 	// The target value of the focus to be achieved to signify the fulfillment of the goal, e.g. 150 pounds, 7.0%. Either the high or low or both values of the range can be specified. When a low value is missing, it indicates that the goal is achieved at any focus value at or below the high value. Similarly, if the high value is missing, it indicates that the goal is achieved at any focus value at or above the low value.
-	Detail isGoalTargetDetail
+	Detail GoalTargetDetail
 	// Indicates either the date or the duration after start by which the goal should be met.
-	Due isGoalTargetDue
+	Due GoalTargetDue
 }
-type isGoalTargetDetail interface {
+type GoalTargetDetail interface {
 	model.Element
 	isGoalTargetDetail()
 }
@@ -108,7 +108,7 @@ func (r Boolean) isGoalTargetDetail()         {}
 func (r Integer) isGoalTargetDetail()         {}
 func (r Ratio) isGoalTargetDetail()           {}
 
-type isGoalTargetDue interface {
+type GoalTargetDue interface {
 	model.Element
 	isGoalTargetDue()
 }

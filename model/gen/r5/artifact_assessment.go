@@ -42,7 +42,7 @@ type ArtifactAssessment struct {
 	// A short title for the assessment for use in displaying and selecting.
 	Title *String
 	// Display of or reference to the bibliographic citation of the comment, classifier, or rating.
-	CiteAs isArtifactAssessmentCiteAs
+	CiteAs ArtifactAssessmentCiteAs
 	// The date  (and optionally time) when the artifact assessment was published. The date must change when the disposition changes and it must change if the workflow status code changes. In addition, it should change when the substantive content of the artifact assessment changes.
 	Date *DateTime
 	// A copyright statement relating to the artifact assessment and/or its contents. Copyright statements are generally legal restrictions on the use and publishing of the artifact assessment.
@@ -52,7 +52,7 @@ type ArtifactAssessment struct {
 	// The date on which the resource content was last reviewed. Review happens periodically after approval but does not change the original approval date.
 	LastReviewDate *Date
 	// A reference to a resource, canonical resource, or non-FHIR resource which the comment or assessment is about.
-	Artifact isArtifactAssessmentArtifact
+	Artifact ArtifactAssessmentArtifact
 	// A component comment, classifier, or rating of the artifact.
 	Content []ArtifactAssessmentContent
 	// Indicates the workflow status of the comment or change request.
@@ -60,7 +60,7 @@ type ArtifactAssessment struct {
 	// Indicates the disposition of the responsible party to the comment or change request.
 	Disposition *Code
 }
-type isArtifactAssessmentCiteAs interface {
+type ArtifactAssessmentCiteAs interface {
 	model.Element
 	isArtifactAssessmentCiteAs()
 }
@@ -68,7 +68,7 @@ type isArtifactAssessmentCiteAs interface {
 func (r Reference) isArtifactAssessmentCiteAs() {}
 func (r Markdown) isArtifactAssessmentCiteAs()  {}
 
-type isArtifactAssessmentArtifact interface {
+type ArtifactAssessmentArtifact interface {
 	model.Element
 	isArtifactAssessmentArtifact()
 }

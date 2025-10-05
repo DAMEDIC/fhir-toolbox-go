@@ -28,7 +28,7 @@ type SubstanceAmount struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Used to capture quantitative values for a variety of elements. If only limits are given, the arithmetic mean would be the average. If only a single definite value for a given element is given, it would be captured in this field.
-	Amount isSubstanceAmountAmount
+	Amount SubstanceAmountAmount
 	// Most elements that require a quantitative value will also have a field called amount type. Amount type should always be specified because the actual value of the amount is often dependent on it. EXAMPLE: In capturing the actual relative amounts of substances or molecular fragments it is essential to indicate whether the amount refers to a mole ratio or weight ratio. For any given element an effort should be made to use same the amount type for all related definitional elements.
 	AmountType *CodeableConcept
 	// A textual comment on a numeric value.
@@ -36,7 +36,7 @@ type SubstanceAmount struct {
 	// Reference range of possible or expected values.
 	ReferenceRange *SubstanceAmountReferenceRange
 }
-type isSubstanceAmountAmount interface {
+type SubstanceAmountAmount interface {
 	model.Element
 	isSubstanceAmountAmount()
 }

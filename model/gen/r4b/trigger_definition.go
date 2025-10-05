@@ -28,13 +28,13 @@ type TriggerDefinition struct {
 	// A formal name for the event. This may be an absolute URI that identifies the event formally (e.g. from a trigger registry), or a simple relative URI that identifies the event in a local context.
 	Name *String
 	// The timing of the event (if this is a periodic trigger).
-	Timing isTriggerDefinitionTiming
+	Timing TriggerDefinitionTiming
 	// The triggering data of the event (if this is a data trigger). If more than one data is requirement is specified, then all the data requirements must be true.
 	Data []DataRequirement
 	// A boolean-valued expression that is evaluated in the context of the container of the trigger definition and returns whether or not the trigger fires.
 	Condition *Expression
 }
-type isTriggerDefinitionTiming interface {
+type TriggerDefinitionTiming interface {
 	model.Element
 	isTriggerDefinitionTiming()
 }

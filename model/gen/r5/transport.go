@@ -134,9 +134,9 @@ type TransportInput struct {
 	// A code or description indicating how the input is intended to be used as part of the transport execution.
 	Type CodeableConcept
 	// The value of the input parameter as a basic type.
-	Value isTransportInputValue
+	Value TransportInputValue
 }
-type isTransportInputValue interface {
+type TransportInputValue interface {
 	model.Element
 	isTransportInputValue()
 }
@@ -209,9 +209,9 @@ type TransportOutput struct {
 	// The name of the Output parameter.
 	Type CodeableConcept
 	// The value of the Output parameter as a basic type.
-	Value isTransportOutputValue
+	Value TransportOutputValue
 }
-type isTransportOutputValue interface {
+type TransportOutputValue interface {
 	model.Element
 	isTransportOutputValue()
 }

@@ -78,9 +78,9 @@ type CareTeamParticipant struct {
 	// The organization of the practitioner.
 	OnBehalfOf *Reference
 	// When the member is generally available within this care team.
-	Coverage isCareTeamParticipantCoverage
+	Coverage CareTeamParticipantCoverage
 }
-type isCareTeamParticipantCoverage interface {
+type CareTeamParticipantCoverage interface {
 	model.Element
 	isCareTeamParticipantCoverage()
 }

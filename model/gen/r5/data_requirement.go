@@ -28,7 +28,7 @@ type DataRequirement struct {
 	// The profile of the required data, specified as the uri of the profile definition.
 	Profile []Canonical
 	// The intended subjects of the data requirement. If this element is not provided, a Patient subject is assumed.
-	Subject isDataRequirementSubject
+	Subject DataRequirementSubject
 	// Indicates that specific elements of the type are referenced by the knowledge module and must be supported by the consumer in order to obtain an effective evaluation. This does not mean that a value is required for this element, only that the consuming system must understand the element and be able to provide values for it if they are available.
 	//
 	// The value of mustSupport SHALL be a FHIRPath resolvable on the type of the DataRequirement. The path SHALL consist only of identifiers, constant indexers, and .resolve() (see the [Simple FHIRPath Profile](fhirpath.html#simple) for full details).
@@ -44,7 +44,7 @@ type DataRequirement struct {
 	// Specifies the order of the results to be returned.
 	Sort []DataRequirementSort
 }
-type isDataRequirementSubject interface {
+type DataRequirementSubject interface {
 	model.Element
 	isDataRequirementSubject()
 }
@@ -79,9 +79,9 @@ type DataRequirementDateFilter struct {
 	// A date parameter that refers to a search parameter defined on the specified type of the DataRequirement, and which searches on elements of type date, dateTime, Period, Schedule, or Timing.
 	SearchParam *String
 	// The value of the filter. If period is specified, the filter will return only those data items that fall within the bounds determined by the Period, inclusive of the period boundaries. If dateTime is specified, the filter will return only those data items that are equal to the specified dateTime. If a Duration is specified, the filter will return only those data items that fall within Duration before now.
-	Value isDataRequirementDateFilterValue
+	Value DataRequirementDateFilterValue
 }
-type isDataRequirementDateFilterValue interface {
+type DataRequirementDateFilterValue interface {
 	model.Element
 	isDataRequirementDateFilterValue()
 }
@@ -103,9 +103,9 @@ type DataRequirementValueFilter struct {
 	// The comparator to be used to determine whether the value is matching.
 	Comparator *Code
 	// The value of the filter.
-	Value isDataRequirementValueFilterValue
+	Value DataRequirementValueFilterValue
 }
-type isDataRequirementValueFilterValue interface {
+type DataRequirementValueFilterValue interface {
 	model.Element
 	isDataRequirementValueFilterValue()
 }

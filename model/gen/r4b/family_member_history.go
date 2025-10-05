@@ -58,13 +58,13 @@ type FamilyMemberHistory struct {
 	// The birth sex of the family member.
 	Sex *CodeableConcept
 	// The actual or approximate date of birth of the relative.
-	Born isFamilyMemberHistoryBorn
+	Born FamilyMemberHistoryBorn
 	// The age of the relative at the time the family member history is recorded.
-	Age isFamilyMemberHistoryAge
+	Age FamilyMemberHistoryAge
 	// If true, indicates that the age value specified is an estimated value.
 	EstimatedAge *Boolean
 	// Deceased flag or the actual or approximate age of the relative at the time of death for the family member history record.
-	Deceased isFamilyMemberHistoryDeceased
+	Deceased FamilyMemberHistoryDeceased
 	// Describes why the family member history occurred in coded or textual form.
 	ReasonCode []CodeableConcept
 	// Indicates a Condition, Observation, AllergyIntolerance, or QuestionnaireResponse that justifies this family member history event.
@@ -74,7 +74,7 @@ type FamilyMemberHistory struct {
 	// The significant Conditions (or condition) that the family member had. This is a repeating section to allow a system to represent more than one condition per resource, though there is nothing stopping multiple resources - one per condition.
 	Condition []FamilyMemberHistoryCondition
 }
-type isFamilyMemberHistoryBorn interface {
+type FamilyMemberHistoryBorn interface {
 	model.Element
 	isFamilyMemberHistoryBorn()
 }
@@ -83,7 +83,7 @@ func (r Period) isFamilyMemberHistoryBorn() {}
 func (r Date) isFamilyMemberHistoryBorn()   {}
 func (r String) isFamilyMemberHistoryBorn() {}
 
-type isFamilyMemberHistoryAge interface {
+type FamilyMemberHistoryAge interface {
 	model.Element
 	isFamilyMemberHistoryAge()
 }
@@ -92,7 +92,7 @@ func (r Age) isFamilyMemberHistoryAge()    {}
 func (r Range) isFamilyMemberHistoryAge()  {}
 func (r String) isFamilyMemberHistoryAge() {}
 
-type isFamilyMemberHistoryDeceased interface {
+type FamilyMemberHistoryDeceased interface {
 	model.Element
 	isFamilyMemberHistoryDeceased()
 }
@@ -120,11 +120,11 @@ type FamilyMemberHistoryCondition struct {
 	// This condition contributed to the cause of death of the related person. If contributedToDeath is not populated, then it is unknown.
 	ContributedToDeath *Boolean
 	// Either the age of onset, range of approximate age or descriptive string can be recorded.  For conditions with multiple occurrences, this describes the first known occurrence.
-	Onset isFamilyMemberHistoryConditionOnset
+	Onset FamilyMemberHistoryConditionOnset
 	// An area where general notes can be placed about this specific condition.
 	Note []Annotation
 }
-type isFamilyMemberHistoryConditionOnset interface {
+type FamilyMemberHistoryConditionOnset interface {
 	model.Element
 	isFamilyMemberHistoryConditionOnset()
 }

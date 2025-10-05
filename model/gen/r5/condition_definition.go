@@ -44,7 +44,7 @@ type ConditionDefinition struct {
 	// The identifier that is used to identify this version of the condition definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the condition definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isConditionDefinitionVersionAlgorithm
+	VersionAlgorithm ConditionDefinitionVersionAlgorithm
 	// A natural language name identifying the condition definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the condition definition.
@@ -96,7 +96,7 @@ type ConditionDefinition struct {
 	// Plan that is appropriate.
 	Plan []ConditionDefinitionPlan
 }
-type isConditionDefinitionVersionAlgorithm interface {
+type ConditionDefinitionVersionAlgorithm interface {
 	model.Element
 	isConditionDefinitionVersionAlgorithm()
 }
@@ -151,9 +151,9 @@ type ConditionDefinitionPrecondition struct {
 	// Code for relevant Observation.
 	Code CodeableConcept
 	// Value of Observation.
-	Value isConditionDefinitionPreconditionValue
+	Value ConditionDefinitionPreconditionValue
 }
-type isConditionDefinitionPreconditionValue interface {
+type ConditionDefinitionPreconditionValue interface {
 	model.Element
 	isConditionDefinitionPreconditionValue()
 }

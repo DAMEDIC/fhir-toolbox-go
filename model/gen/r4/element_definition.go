@@ -62,13 +62,13 @@ type ElementDefinition struct {
 	// The data type or resource that the value of this element is permitted to be.
 	Type []ElementDefinitionType
 	// The value that should be used if there is no value stated in the instance (e.g. 'if not otherwise specified, the abstract is false').
-	DefaultValue isElementDefinitionDefaultValue
+	DefaultValue ElementDefinitionDefaultValue
 	// The Implicit meaning that is to be understood when this element is missing (e.g. 'when this element is missing, the period is ongoing').
 	MeaningWhenMissing *Markdown
 	// If present, indicates that the order of the repeating element has meaning and describes what that meaning is.  If absent, it means that the order of the element has no meaning.
 	OrderMeaning *String
 	// Specifies a value that SHALL be exactly the value  for this element in the instance. For purposes of comparison, non-significant whitespace is ignored, and all values must be an exact match (case and accent sensitive). Missing elements/attributes must also be missing.
-	Fixed isElementDefinitionFixed
+	Fixed ElementDefinitionFixed
 	// Specifies a value that the value in the instance SHALL follow - that is, any value in the pattern must be found in the instance. Other additional values may be found too. This is effectively constraint by example.
 	//
 	// When pattern[x] is used to constrain a primitive, it means that the value provided in the pattern[x] must match the instance value exactly.
@@ -80,13 +80,13 @@ type ElementDefinition struct {
 	// 1. If primitive: it must match exactly the pattern value
 	// 2. If a complex object: it must match (recursively) the pattern value
 	// 3. If an array: it must match (recursively) the pattern value.
-	Pattern isElementDefinitionPattern
+	Pattern ElementDefinitionPattern
 	// A sample value for this element demonstrating the type of information that would typically be found in the element.
 	Example []ElementDefinitionExample
 	// The minimum allowed value for the element. The value is inclusive. This is allowed for the types date, dateTime, instant, time, decimal, integer, and Quantity.
-	MinValue isElementDefinitionMinValue
+	MinValue ElementDefinitionMinValue
 	// The maximum allowed value for the element. The value is inclusive. This is allowed for the types date, dateTime, instant, time, decimal, integer, and Quantity.
-	MaxValue isElementDefinitionMaxValue
+	MaxValue ElementDefinitionMaxValue
 	// Indicates the maximum length in characters that is permitted to be present in conformant instances and which is expected to be supported by conformant consumers that support the element.
 	MaxLength *Integer
 	// A reference to an invariant that may make additional statements about the cardinality or value in the instance.
@@ -106,7 +106,7 @@ type ElementDefinition struct {
 	// Identifies a concept from an external specification that roughly corresponds to this element.
 	Mapping []ElementDefinitionMapping
 }
-type isElementDefinitionDefaultValue interface {
+type ElementDefinitionDefaultValue interface {
 	model.Element
 	isElementDefinitionDefaultValue()
 }
@@ -162,7 +162,7 @@ func (r UsageContext) isElementDefinitionDefaultValue()        {}
 func (r Dosage) isElementDefinitionDefaultValue()              {}
 func (r Meta) isElementDefinitionDefaultValue()                {}
 
-type isElementDefinitionFixed interface {
+type ElementDefinitionFixed interface {
 	model.Element
 	isElementDefinitionFixed()
 }
@@ -218,7 +218,7 @@ func (r UsageContext) isElementDefinitionFixed()        {}
 func (r Dosage) isElementDefinitionFixed()              {}
 func (r Meta) isElementDefinitionFixed()                {}
 
-type isElementDefinitionPattern interface {
+type ElementDefinitionPattern interface {
 	model.Element
 	isElementDefinitionPattern()
 }
@@ -274,7 +274,7 @@ func (r UsageContext) isElementDefinitionPattern()        {}
 func (r Dosage) isElementDefinitionPattern()              {}
 func (r Meta) isElementDefinitionPattern()                {}
 
-type isElementDefinitionMinValue interface {
+type ElementDefinitionMinValue interface {
 	model.Element
 	isElementDefinitionMinValue()
 }
@@ -289,7 +289,7 @@ func (r PositiveInt) isElementDefinitionMinValue() {}
 func (r UnsignedInt) isElementDefinitionMinValue() {}
 func (r Quantity) isElementDefinitionMinValue()    {}
 
-type isElementDefinitionMaxValue interface {
+type ElementDefinitionMaxValue interface {
 	model.Element
 	isElementDefinitionMaxValue()
 }
@@ -373,9 +373,9 @@ type ElementDefinitionExample struct {
 	// Describes the purpose of this example amoung the set of examples.
 	Label String
 	// The actual value for the element, which must be one of the types allowed for this element.
-	Value isElementDefinitionExampleValue
+	Value ElementDefinitionExampleValue
 }
-type isElementDefinitionExampleValue interface {
+type ElementDefinitionExampleValue interface {
 	model.Element
 	isElementDefinitionExampleValue()
 }

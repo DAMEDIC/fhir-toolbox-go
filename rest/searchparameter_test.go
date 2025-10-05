@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	// basic types removed; use r4 directly
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
@@ -220,22 +220,22 @@ func TestSearchParameterSearch(t *testing.T) {
 // Mock backend with minimal capabilities (only CapabilityBase)
 type mockBackendMinimal struct{}
 
-func (m mockBackendMinimal) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("4.0")},
-		Format: []basic.Code{
+func (m mockBackendMinimal) CapabilityBase(ctx context.Context) (r4.CapabilityStatement, error) {
+	return r4.CapabilityStatement{
+		Status:      r4.Code{Value: ptr.To("active")},
+		Date:        r4.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        r4.Code{Value: ptr.To("instance")},
+		FhirVersion: r4.Code{Value: ptr.To("4.0")},
+		Format: []r4.Code{
 			{Value: ptr.To("xml")},
 			{Value: ptr.To("json")},
 		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		Software: &r4.CapabilityStatementSoftware{
+			Name: r4.String{Value: ptr.To("fhir-toolbox-go")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		Implementation: &r4.CapabilityStatementImplementation{
+			Description: r4.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &r4.Url{Value: ptr.To("http://example.com")},
 		},
 	}, nil
 }
@@ -243,22 +243,22 @@ func (m mockBackendMinimal) CapabilityBase(ctx context.Context) (basic.Capabilit
 // Mock backend WITHOUT SearchParameterSearch implementation (fallback scenario)
 type mockBackendWithoutSearchParameterSearch struct{}
 
-func (m mockBackendWithoutSearchParameterSearch) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("4.0")},
-		Format: []basic.Code{
+func (m mockBackendWithoutSearchParameterSearch) CapabilityBase(ctx context.Context) (r4.CapabilityStatement, error) {
+	return r4.CapabilityStatement{
+		Status:      r4.Code{Value: ptr.To("active")},
+		Date:        r4.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        r4.Code{Value: ptr.To("instance")},
+		FhirVersion: r4.Code{Value: ptr.To("4.0")},
+		Format: []r4.Code{
 			{Value: ptr.To("xml")},
 			{Value: ptr.To("json")},
 		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		Software: &r4.CapabilityStatementSoftware{
+			Name: r4.String{Value: ptr.To("fhir-toolbox-go")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		Implementation: &r4.CapabilityStatementImplementation{
+			Description: r4.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &r4.Url{Value: ptr.To("http://example.com")},
 		},
 	}, nil
 }

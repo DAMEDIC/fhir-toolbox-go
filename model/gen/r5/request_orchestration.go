@@ -112,7 +112,7 @@ type RequestOrchestrationAction struct {
 	// A relationship to another action such as "before" or "30-60 minutes after start of".
 	RelatedAction []RequestOrchestrationActionRelatedAction
 	// An optional value describing when the action should be performed.
-	Timing isRequestOrchestrationActionTiming
+	Timing RequestOrchestrationActionTiming
 	// Identifies the facility where the action will occur; e.g. home, hospital, specific clinic, etc.
 	Location *CodeableReference
 	// The participant that should perform or be responsible for this action.
@@ -132,7 +132,7 @@ type RequestOrchestrationAction struct {
 	// The resource that is the target of the action (e.g. CommunicationRequest).
 	Resource *Reference
 	// A reference to an ActivityDefinition that describes the action to be taken in detail, a PlanDefinition that describes a series of actions to be taken, a Questionnaire that should be filled out, a SpecimenDefinition describing a specimen to be collected, or an ObservationDefinition that specifies what observation should be captured.
-	Definition isRequestOrchestrationActionDefinition
+	Definition RequestOrchestrationActionDefinition
 	// A reference to a StructureMap resource that defines a transform that can be executed to produce the intent resource using the ActivityDefinition instance as the input.
 	Transform *Canonical
 	// Customizations that should be applied to the statically defined resource. For example, if the dosage of a medication must be computed based on the patient's weight, a customization would be used to specify an expression that calculated the weight, and the path on the resource that would contain the result.
@@ -140,7 +140,7 @@ type RequestOrchestrationAction struct {
 	// Sub actions.
 	Action []RequestOrchestrationAction
 }
-type isRequestOrchestrationActionTiming interface {
+type RequestOrchestrationActionTiming interface {
 	model.Element
 	isRequestOrchestrationActionTiming()
 }
@@ -152,7 +152,7 @@ func (r Duration) isRequestOrchestrationActionTiming() {}
 func (r Range) isRequestOrchestrationActionTiming()    {}
 func (r Timing) isRequestOrchestrationActionTiming()   {}
 
-type isRequestOrchestrationActionDefinition interface {
+type RequestOrchestrationActionDefinition interface {
 	model.Element
 	isRequestOrchestrationActionDefinition()
 }
@@ -229,9 +229,9 @@ type RequestOrchestrationActionRelatedAction struct {
 	// The relationship of the end of this action to the related action.
 	EndRelationship *Code
 	// A duration or range of durations to apply to the relationship. For example, 30-60 minutes before.
-	Offset isRequestOrchestrationActionRelatedActionOffset
+	Offset RequestOrchestrationActionRelatedActionOffset
 }
-type isRequestOrchestrationActionRelatedActionOffset interface {
+type RequestOrchestrationActionRelatedActionOffset interface {
 	model.Element
 	isRequestOrchestrationActionRelatedActionOffset()
 }
@@ -260,9 +260,9 @@ type RequestOrchestrationActionParticipant struct {
 	// Indicates how the actor will be involved in the action - author, reviewer, witness, etc.
 	Function *CodeableConcept
 	// A reference to the actual participant.
-	Actor isRequestOrchestrationActionParticipantActor
+	Actor RequestOrchestrationActionParticipantActor
 }
-type isRequestOrchestrationActionParticipantActor interface {
+type RequestOrchestrationActionParticipantActor interface {
 	model.Element
 	isRequestOrchestrationActionParticipantActor()
 }

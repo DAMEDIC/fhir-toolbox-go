@@ -38,7 +38,7 @@ type Dosage struct {
 	// When medication should be administered.
 	Timing *Timing
 	// Indicates whether the Medication is only taken when needed within a specific dosing schedule (Boolean option), or it indicates the precondition for taking the Medication (CodeableConcept).
-	AsNeeded isDosageAsNeeded
+	AsNeeded DosageAsNeeded
 	// Body site to administer to.
 	Site *CodeableConcept
 	// How drug should enter body.
@@ -54,7 +54,7 @@ type Dosage struct {
 	// Upper limit on medication per lifetime of the patient.
 	MaxDosePerLifetime *Quantity
 }
-type isDosageAsNeeded interface {
+type DosageAsNeeded interface {
 	model.Element
 	isDosageAsNeeded()
 }
@@ -71,11 +71,11 @@ type DosageDoseAndRate struct {
 	// The kind of dose or rate specified, for example, ordered or calculated.
 	Type *CodeableConcept
 	// Amount of medication per dose.
-	Dose isDosageDoseAndRateDose
+	Dose DosageDoseAndRateDose
 	// Amount of medication per unit of time.
-	Rate isDosageDoseAndRateRate
+	Rate DosageDoseAndRateRate
 }
-type isDosageDoseAndRateDose interface {
+type DosageDoseAndRateDose interface {
 	model.Element
 	isDosageDoseAndRateDose()
 }
@@ -83,7 +83,7 @@ type isDosageDoseAndRateDose interface {
 func (r Range) isDosageDoseAndRateDose()    {}
 func (r Quantity) isDosageDoseAndRateDose() {}
 
-type isDosageDoseAndRateRate interface {
+type DosageDoseAndRateRate interface {
 	model.Element
 	isDosageDoseAndRateRate()
 }

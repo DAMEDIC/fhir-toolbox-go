@@ -54,7 +54,7 @@ type ChargeItem struct {
 	// The encounter or episode of care that establishes the context for this event.
 	Context *Reference
 	// Date/time(s) or duration when the charged service was applied.
-	Occurrence isChargeItemOccurrence
+	Occurrence ChargeItemOccurrence
 	// Indicates who or what performed or participated in the charged service.
 	Performer []ChargeItemPerformer
 	// The organization requesting the service.
@@ -82,7 +82,7 @@ type ChargeItem struct {
 	// Indicated the rendered service that caused this charge.
 	Service []Reference
 	// Identifies the device, food, drug or other product being charged either by type code or reference to an instance.
-	Product isChargeItemProduct
+	Product ChargeItemProduct
 	// Account into which this ChargeItems belongs.
 	Account []Reference
 	// Comments made about the event by the performer, subject or other participants.
@@ -90,7 +90,7 @@ type ChargeItem struct {
 	// Further information supporting this charge.
 	SupportingInformation []Reference
 }
-type isChargeItemOccurrence interface {
+type ChargeItemOccurrence interface {
 	model.Element
 	isChargeItemOccurrence()
 }
@@ -99,7 +99,7 @@ func (r DateTime) isChargeItemOccurrence() {}
 func (r Period) isChargeItemOccurrence()   {}
 func (r Timing) isChargeItemOccurrence()   {}
 
-type isChargeItemProduct interface {
+type ChargeItemProduct interface {
 	model.Element
 	isChargeItemProduct()
 }

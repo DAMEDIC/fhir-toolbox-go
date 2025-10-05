@@ -80,7 +80,7 @@ type Contract struct {
 	// A selector of legal concerns for this Contract definition, derivative, or instance in any legal state.
 	Scope *CodeableConcept
 	// Narrows the range of legal concerns to focus on the achievement of specific contractual objectives.
-	Topic isContractTopic
+	Topic ContractTopic
 	// A high-level category for the legal instrument, whether constructed as a Contract definition, derivative, or instance in any legal state.  Provides additional information about its content within the context of the Contract's scope to distinguish the kinds of systems that would be interested in the contract.
 	Type *CodeableConcept
 	// Sub-category for the Contract that distinguishes the kinds of systems that would be interested in the Contract within the context of the Contract's scope.
@@ -102,9 +102,9 @@ type Contract struct {
 	// List of Computable Policy Rule Language Representations of this Contract.
 	Rule []ContractRule
 	// Legally binding Contract: This is the signed and legally recognized representation of the Contract, which is considered the "source of truth" and which would be the basis for legal action related to enforcement of this Contract.
-	LegallyBinding isContractLegallyBinding
+	LegallyBinding ContractLegallyBinding
 }
-type isContractTopic interface {
+type ContractTopic interface {
 	model.Element
 	isContractTopic()
 }
@@ -112,7 +112,7 @@ type isContractTopic interface {
 func (r CodeableConcept) isContractTopic() {}
 func (r Reference) isContractTopic()       {}
 
-type isContractLegallyBinding interface {
+type ContractLegallyBinding interface {
 	model.Element
 	isContractLegallyBinding()
 }
@@ -161,7 +161,7 @@ type ContractTerm struct {
 	// Relevant time or time-period when this Contract Provision is applicable.
 	Applies *Period
 	// The entity that the term applies to.
-	Topic isContractTermTopic
+	Topic ContractTermTopic
 	// A legal clause or condition contained within a contract that requires one or both parties to perform a particular requirement by some specified time or prevents one or both parties from performing a particular requirement by some specified time.
 	Type *CodeableConcept
 	// A specialized legal clause or condition based on overarching contract type.
@@ -179,7 +179,7 @@ type ContractTerm struct {
 	// Nested group of Contract Provisions.
 	Group []ContractTerm
 }
-type isContractTermTopic interface {
+type ContractTermTopic interface {
 	model.Element
 	isContractTermTopic()
 }
@@ -266,9 +266,9 @@ type ContractTermOfferAnswer struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Response to an offer clause or question text,  which enables selection of values to be agreed to, e.g., the period of participation, the date of occupancy of a rental, warranty duration, or whether biospecimen may be used for further research.
-	Value isContractTermOfferAnswerValue
+	Value ContractTermOfferAnswerValue
 }
-type isContractTermOfferAnswerValue interface {
+type ContractTermOfferAnswerValue interface {
 	model.Element
 	isContractTermOfferAnswerValue()
 }
@@ -357,7 +357,7 @@ type ContractTermAssetValuedItem struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Specific type of Contract Valued Item that may be priced.
-	Entity isContractTermAssetValuedItemEntity
+	Entity ContractTermAssetValuedItemEntity
 	// Identifies a Contract Valued Item instance.
 	Identifier *Identifier
 	// Indicates the time during which this Contract ValuedItem information is effective.
@@ -385,7 +385,7 @@ type ContractTermAssetValuedItem struct {
 	// A set of security labels that define which terms are controlled by this condition.
 	SecurityLabelNumber []UnsignedInt
 }
-type isContractTermAssetValuedItemEntity interface {
+type ContractTermAssetValuedItemEntity interface {
 	model.Element
 	isContractTermAssetValuedItemEntity()
 }
@@ -420,7 +420,7 @@ type ContractTermAction struct {
 	// Id [identifier??] of the clause or question text related to the requester of this action in the referenced form or QuestionnaireResponse.
 	ContextLinkId []String
 	// When action happens.
-	Occurrence isContractTermActionOccurrence
+	Occurrence ContractTermActionOccurrence
 	// Who or what initiated the action and has responsibility for its activation.
 	Requester []Reference
 	// Id [identifier??] of the clause or question text related to the requester of this action in the referenced form or QuestionnaireResponse.
@@ -442,7 +442,7 @@ type ContractTermAction struct {
 	// Security labels that protects the action.
 	SecurityLabelNumber []UnsignedInt
 }
-type isContractTermActionOccurrence interface {
+type ContractTermActionOccurrence interface {
 	model.Element
 	isContractTermActionOccurrence()
 }
@@ -496,9 +496,9 @@ type ContractFriendly struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Human readable rendering of this Contract in a format and representation intended to enhance comprehension and ensure understandability.
-	Content isContractFriendlyContent
+	Content ContractFriendlyContent
 }
-type isContractFriendlyContent interface {
+type ContractFriendlyContent interface {
 	model.Element
 	isContractFriendlyContent()
 }
@@ -517,9 +517,9 @@ type ContractLegal struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Contract legal text in human renderable form.
-	Content isContractLegalContent
+	Content ContractLegalContent
 }
-type isContractLegalContent interface {
+type ContractLegalContent interface {
 	model.Element
 	isContractLegalContent()
 }
@@ -538,9 +538,9 @@ type ContractRule struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Computable Contract conveyed using a policy rule language (e.g. XACML, DKAL, SecPal).
-	Content isContractRuleContent
+	Content ContractRuleContent
 }
-type isContractRuleContent interface {
+type ContractRuleContent interface {
 	model.Element
 	isContractRuleContent()
 }

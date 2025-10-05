@@ -58,7 +58,7 @@ type AllergyIntolerance struct {
 	// The encounter when the allergy or intolerance was asserted.
 	Encounter *Reference
 	// Estimated or actual date,  date-time, or age when allergy or intolerance was identified.
-	Onset isAllergyIntoleranceOnset
+	Onset AllergyIntoleranceOnset
 	// The recordedDate represents when this particular AllergyIntolerance record was created in the system, which is often a system-generated date.
 	RecordedDate *DateTime
 	// Indicates who or what participated in the activities related to the allergy or intolerance and how they were involved.
@@ -70,7 +70,7 @@ type AllergyIntolerance struct {
 	// Details about each adverse reaction event linked to exposure to the identified substance.
 	Reaction []AllergyIntoleranceReaction
 }
-type isAllergyIntoleranceOnset interface {
+type AllergyIntoleranceOnset interface {
 	model.Element
 	isAllergyIntoleranceOnset()
 }

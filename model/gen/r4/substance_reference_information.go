@@ -126,13 +126,13 @@ type SubstanceReferenceInformationTarget struct {
 	// Todo.
 	OrganismType *CodeableConcept
 	// Todo.
-	Amount isSubstanceReferenceInformationTargetAmount
+	Amount SubstanceReferenceInformationTargetAmount
 	// Todo.
 	AmountType *CodeableConcept
 	// Todo.
 	Source []Reference
 }
-type isSubstanceReferenceInformationTargetAmount interface {
+type SubstanceReferenceInformationTargetAmount interface {
 	model.Element
 	isSubstanceReferenceInformationTargetAmount()
 }

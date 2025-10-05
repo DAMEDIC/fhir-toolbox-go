@@ -102,9 +102,9 @@ type CompositionRelatesTo struct {
 	// The type of relationship that this composition has with anther composition or document.
 	Code Code
 	// The target composition/document of this relationship.
-	Target isCompositionRelatesToTarget
+	Target CompositionRelatesToTarget
 }
-type isCompositionRelatesToTarget interface {
+type CompositionRelatesToTarget interface {
 	model.Element
 	isCompositionRelatesToTarget()
 }

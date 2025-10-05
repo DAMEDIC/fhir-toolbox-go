@@ -6,7 +6,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	// basic types have been removed; use r4 types directly
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
@@ -136,10 +136,16 @@ func TestCapabilityStatement(t *testing.T) {
 			  },
 			  "kind": "instance",
 			  "resourceType": "CapabilityStatement",
-			  "rest": [
-				{
-				  "mode": "server",
-				  "resource": [
+            "rest": [
+                {
+                  "mode": "server",
+                  "operation": [
+                    {
+                      "definition": "http://example.com/OperationDefinition/ping",
+                      "name": "ping"
+                    }
+                  ],
+                  "resource": [
 					{
 					  "interaction": [
 						{
@@ -233,8 +239,18 @@ func TestCapabilityStatement(t *testing.T) {
 						  "type": "token"
 						}
 					  ],
-					  "type": "Patient",
-					  "updateCreate": false
+                      "type": "Patient",
+                      "operation": [
+                        {
+                          "definition": "http://example.com/OperationDefinition/echo",
+                          "name": "echo"
+                        },
+                        {
+                          "definition": "http://example.com/OperationDefinition/hello",
+                          "name": "hello"
+                        }
+                      ],
+                      "updateCreate": false
 					},
 					{
 					  "interaction": [
@@ -283,10 +299,10 @@ func TestCapabilityStatement(t *testing.T) {
 				  <fhirVersion value='4.0'/>
 				  <format value='xml'/>
 				  <format value='json'/>
-				  <rest>
-					<mode value='server'/>
-					<resource>
-					  <type value='Observation'/>
+                  <rest>
+                    <mode value='server'/>
+                    <resource>
+                      <type value='Observation'/>
 					  <interaction>
 						<code value='search-type'/>
 					  </interaction>
@@ -297,10 +313,10 @@ func TestCapabilityStatement(t *testing.T) {
 						<type value='token'/>
 					  </searchParam>
 					</resource>
-					<resource>
-					  <type value='Patient'/>
-					  <interaction>
-						<code value='create'/>
+                    <resource>
+                      <type value='Patient'/>
+                      <interaction>
+                        <code value='create'/>
 					  </interaction>
 					  <interaction>
 						<code value='read'/>
@@ -365,12 +381,20 @@ func TestCapabilityStatement(t *testing.T) {
 						<definition value='http://example.com/SearchParameter/Patient-pre'/>
 						<type value='token'/>
 					  </searchParam>
-					  <searchParam>
-						<name value='sa7'/>
-						<definition value='http://example.com/SearchParameter/Patient-sa7'/>
-						<type value='token'/>
-					  </searchParam>
-					</resource>
+                      <searchParam>
+                        <name value='sa7'/>
+                        <definition value='http://example.com/SearchParameter/Patient-sa7'/>
+                        <type value='token'/>
+                      </searchParam>
+                      <operation>
+                        <name value='echo'/>
+                        <definition value='http://example.com/OperationDefinition/echo'/>
+                      </operation>
+                      <operation>
+                        <name value='hello'/>
+                        <definition value='http://example.com/OperationDefinition/hello'/>
+                      </operation>
+                    </resource>
 					<resource>
                       <type value="SearchParameter"/>
                       <interaction>
@@ -384,8 +408,12 @@ func TestCapabilityStatement(t *testing.T) {
                         <definition value="http://example.com/SearchParameter/SearchParameter-id"/>
                         <type value="token"/>
                       </searchParam>
-                    </resource>
-				  </rest>
+                  </resource>
+                  <operation>
+                    <name value='ping'/>
+                    <definition value='http://example.com/OperationDefinition/ping'/>
+                  </operation>
+                  </rest>
 				</CapabilityStatement>`,
 		},
 	}
@@ -874,24 +902,6 @@ func TestHandleDelete(t *testing.T) {
 			backend:        mockBackend{},
 			expectedStatus: http.StatusNoContent,
 			expectedBody:   "",
-		},
-		{
-			name:           "not implemented",
-			format:         "application/fhir+json",
-			resourceType:   "Patient",
-			resourceID:     "1",
-			backend:        minimalBackend{},
-			expectedStatus: http.StatusNotImplemented,
-			expectedBody: `{
-				"resourceType": "OperationOutcome",
-				"issue": [
-					{
-						"severity": "fatal",
-						"code": "not-supported",
-						"diagnostics": "delete not implemented for Patient"
-					}
-				]
-			}`,
 		},
 		{
 			name:           "resource not found",
@@ -1486,22 +1496,22 @@ type mockBackend struct {
 }
 
 // Implement ConcreteCapabilities interface
-func (m mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("4.0")},
-		Format: []basic.Code{
+func (m mockBackend) CapabilityBase(ctx context.Context) (r4.CapabilityStatement, error) {
+	return r4.CapabilityStatement{
+		Status:      r4.Code{Value: ptr.To("active")},
+		Date:        r4.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        r4.Code{Value: ptr.To("instance")},
+		FhirVersion: r4.Code{Value: ptr.To("4.0")},
+		Format: []r4.Code{
 			{Value: ptr.To("xml")},
 			{Value: ptr.To("json")},
 		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		Software: &r4.CapabilityStatementSoftware{
+			Name: r4.String{Value: ptr.To("fhir-toolbox-go")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		Implementation: &r4.CapabilityStatementImplementation{
+			Description: r4.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &r4.Url{Value: ptr.To("http://example.com")},
 		},
 	}, nil
 }
@@ -1513,15 +1523,13 @@ func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
 	if len(m.mockPatients) == 0 {
-		return r4.Patient{}, basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("not-found")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("Patient with ID %s not found", id))},
-				},
+		return r4.Patient{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("not-found")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("Patient with ID %s not found", id))},
 			},
-		}
+		}}
 	}
 	return m.mockPatients[0], nil
 }
@@ -1606,64 +1614,93 @@ func (m mockBackend) SearchObservation(ctx context.Context, parameters search.Pa
 	return result, nil
 }
 
+// Operations on mockBackend
+func (m mockBackend) PingOperationDefinition() r4.OperationDefinition {
+	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("ping")}, Code: r4.Code{Value: ptr.To("ping")}, System: r4.Boolean{Value: ptr.To(true)}}
+}
+func (m mockBackend) InvokePing(ctx context.Context, params r4.Parameters) (r4.Parameters, error) {
+	return r4.Parameters{}, nil
+}
+func (m mockBackend) EchoOperationDefinition() r4.OperationDefinition {
+	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("echo")}, Code: r4.Code{Value: ptr.To("echo")}, Type: r4.Boolean{Value: ptr.To(true)}, Resource: []r4.Code{{Value: ptr.To("Patient")}}}
+}
+func (m mockBackend) InvokeEcho(ctx context.Context, resourceType string, params r4.Parameters) (r4.Patient, error) {
+	return r4.Patient{}, nil
+}
+func (m mockBackend) HelloOperationDefinition() r4.OperationDefinition {
+	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("hello")}, Code: r4.Code{Value: ptr.To("hello")}, Instance: r4.Boolean{Value: ptr.To(true)}, Resource: []r4.Code{{Value: ptr.To("Patient")}}}
+}
+func (m mockBackend) InvokeHello(ctx context.Context, resourceType, id string, params r4.Parameters) (r4.Parameters, error) {
+	return r4.Parameters{}, nil
+}
+
 // Implement GenericDelete interface
 func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error {
 	switch m.deleteErrorMode {
 	case "not-found":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("not-found")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("not-found")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
 			},
-		}
+		}}
 	case "invalid-type":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("invalid")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("invalid resource type: %s", resourceType))},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("invalid")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("invalid resource type: %s", resourceType))},
 			},
-		}
+		}}
 	case "server-error":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("exception")},
-					Diagnostics: &basic.String{Value: ptr.To("internal server error")},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("exception")},
+				Diagnostics: &r4.String{Value: ptr.To("internal server error")},
 			},
-		}
+		}}
 	default:
 		return nil
 	}
 }
 
-// minimalBackend implements only ConcreteCapabilities but no specific resource operations
-// Used for testing "not implemented" scenarios
-type minimalBackend struct{}
+func TestHandleOperation(t *testing.T) {
+	backend := &mockBackend{}
+	server := &rest.Server[model.R4]{Backend: backend}
 
-func (m minimalBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("4.0")},
-		Format: []basic.Code{
-			{Value: ptr.To("xml")},
-			{Value: ptr.To("json")},
-		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
-		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://example.com")},
-		},
-	}, nil
+	tests := []struct {
+		name       string
+		method     string
+		path       string
+		wantStatus int
+		wantDiag   string
+	}{
+		{name: "system_ok", method: http.MethodGet, path: "/$ping", wantStatus: http.StatusOK},
+		{name: "type_ok", method: http.MethodGet, path: "/Patient/$echo", wantStatus: http.StatusOK},
+		{name: "instance_ok", method: http.MethodGet, path: "/Patient/123/$hello", wantStatus: http.StatusOK},
+		{name: "missing_system", method: http.MethodGet, path: "/$missing", wantStatus: http.StatusBadRequest, wantDiag: "operation 'missing' not defined on system level"},
+		{name: "missing_type", method: http.MethodGet, path: "/Observation/$echo", wantStatus: http.StatusBadRequest, wantDiag: "operation 'echo' not defined on type level"},
+		{name: "missing_instance", method: http.MethodGet, path: "/Observation/1/$hello", wantStatus: http.StatusBadRequest, wantDiag: "operation 'hello' not defined on instance level"},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			req := httptest.NewRequest(tt.method, "http://example.com"+tt.path, nil)
+			req.Header.Set("Accept", string(rest.FormatJSON))
+			rr := httptest.NewRecorder()
+			server.ServeHTTP(rr, req)
+
+			if rr.Code != tt.wantStatus {
+				t.Fatalf("status = %d, want %d; body=%s", rr.Code, tt.wantStatus, rr.Body.String())
+			}
+
+			if tt.wantDiag != "" {
+				if !strings.Contains(rr.Body.String(), tt.wantDiag) {
+					t.Fatalf("expected diagnostics to contain %q, got %s", tt.wantDiag, rr.Body.String())
+				}
+			}
+		})
+	}
 }

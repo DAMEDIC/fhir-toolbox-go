@@ -100,7 +100,7 @@ type SpecimenCollection struct {
 	// Person who collected the specimen.
 	Collector *Reference
 	// Time when specimen was collected from subject - the physiologically relevant time.
-	Collected isSpecimenCollectionCollected
+	Collected SpecimenCollectionCollected
 	// The span of time over which the collection of a specimen occurred.
 	Duration *Duration
 	// The quantity of specimen collected; for instance the volume of a blood sample, or the physical measurement of an anatomic pathology sample.
@@ -114,9 +114,9 @@ type SpecimenCollection struct {
 	// Anatomical location from which the specimen was collected (if subject is a patient). This is the target site.  This element is not used for environmental specimens.
 	BodySite *CodeableReference
 	// Abstinence or reduction from some or all food, drink, or both, for a period of time prior to sample collection.
-	FastingStatus isSpecimenCollectionFastingStatus
+	FastingStatus SpecimenCollectionFastingStatus
 }
-type isSpecimenCollectionCollected interface {
+type SpecimenCollectionCollected interface {
 	model.Element
 	isSpecimenCollectionCollected()
 }
@@ -124,7 +124,7 @@ type isSpecimenCollectionCollected interface {
 func (r DateTime) isSpecimenCollectionCollected() {}
 func (r Period) isSpecimenCollectionCollected()   {}
 
-type isSpecimenCollectionFastingStatus interface {
+type SpecimenCollectionFastingStatus interface {
 	model.Element
 	isSpecimenCollectionFastingStatus()
 }
@@ -149,9 +149,9 @@ type SpecimenProcessing struct {
 	// Material used in the processing step.
 	Additive []Reference
 	// A record of the time or period when the specimen processing occurred.  For example the time of sample fixation or the period of time the sample was in formalin.
-	Time isSpecimenProcessingTime
+	Time SpecimenProcessingTime
 }
-type isSpecimenProcessingTime interface {
+type SpecimenProcessingTime interface {
 	model.Element
 	isSpecimenProcessingTime()
 }

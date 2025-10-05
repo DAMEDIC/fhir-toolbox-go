@@ -4,28 +4,20 @@ import (
 	"errors"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	restoutcome "github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"net/http"
 	"slices"
 )
 
-func errToOperationOutcome(err error) (int, model.Resource) {
+func errToOperationOutcome[R model.Release](err error) (int, model.Resource) {
 	var oo model.Resource
 	ok := errors.As(err, &oo)
 	if ok && oo.ResourceType() == "OperationOutcome" {
 		return toHTTPErrorStatus(oo), oo
 	}
 
-	return http.StatusInternalServerError, basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: ptr.To("fatal")},
-				Code:        basic.Code{Value: ptr.To("exception")},
-				Diagnostics: &basic.String{Value: ptr.To(err.Error())},
-			},
-		},
-	}
+	res, _ := restoutcome.Build[R]("fatal", "exception", err.Error())
+	return http.StatusInternalServerError, res
 }
 
 var issueCodeToHTTPStatus = map[string]int{

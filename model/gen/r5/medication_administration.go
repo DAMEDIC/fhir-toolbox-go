@@ -58,7 +58,7 @@ type MedicationAdministration struct {
 	// Additional information (for example, patient height and weight) that supports the administration of the medication.  This attribute can be used to provide documentation of specific characteristics of the patient present at the time of administration.  For example, if the dose says "give "x" if the heartrate exceeds "y"", then the heart rate can be included using this attribute.
 	SupportingInformation []Reference
 	// A specific date/time or interval of time during which the administration took place (or did not take place). For many administrations, such as swallowing a tablet the use of dateTime is more appropriate.
-	Occurence isMedicationAdministrationOccurence
+	Occurence MedicationAdministrationOccurence
 	// The date the occurrence of the  MedicationAdministration was first captured in the record - potentially significantly after the occurrence of the event.
 	Recorded *DateTime
 	// An indication that the full dose was not administered.
@@ -80,7 +80,7 @@ type MedicationAdministration struct {
 	// A summary of the events of interest that have occurred, such as when the administration was verified.
 	EventHistory []Reference
 }
-type isMedicationAdministrationOccurence interface {
+type MedicationAdministrationOccurence interface {
 	model.Element
 	isMedicationAdministrationOccurence()
 }
@@ -126,9 +126,9 @@ type MedicationAdministrationDosage struct {
 	// The amount of the medication given at one administration event.   Use this value when the administration is essentially an instantaneous event such as a swallowing a tablet or giving an injection.
 	Dose *Quantity
 	// Identifies the speed with which the medication was or will be introduced into the patient.  Typically, the rate for an infusion e.g. 100 ml per 1 hour or 100 ml/hr.  May also be expressed as a rate per unit of time, e.g. 500 ml per 2 hours.  Other examples:  200 mcg/min or 200 mcg/1 minute; 1 liter/8 hours.
-	Rate isMedicationAdministrationDosageRate
+	Rate MedicationAdministrationDosageRate
 }
-type isMedicationAdministrationDosageRate interface {
+type MedicationAdministrationDosageRate interface {
 	model.Element
 	isMedicationAdministrationDosageRate()
 }

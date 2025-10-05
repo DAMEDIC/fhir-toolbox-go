@@ -44,13 +44,13 @@ type ParametersParameter struct {
 	// The name of the parameter (reference to the operation definition).
 	Name String
 	// Conveys the content if the parameter is a data type.
-	Value isParametersParameterValue
+	Value ParametersParameterValue
 	// Conveys the content if the parameter is a whole resource.
 	Resource model.Resource
 	// A named part of a multi-part parameter.
 	Part []ParametersParameter
 }
-type isParametersParameterValue interface {
+type ParametersParameterValue interface {
 	model.Element
 	isParametersParameterValue()
 }

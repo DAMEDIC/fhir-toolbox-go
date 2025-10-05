@@ -54,7 +54,7 @@ type Measure struct {
 	// A Boolean value to indicate that this measure is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// The intended subjects for the measure. If this element is not provided, a Patient subject is assumed, but the subject of the measure can be anything.
-	Subject isMeasureSubject
+	Subject MeasureSubject
 	// The date  (and optionally time) when the measure was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the measure changes.
 	Date *DateTime
 	// The name of the organization or individual that published the measure.
@@ -120,7 +120,7 @@ type Measure struct {
 	// The supplemental data criteria for the measure report, specified as either the name of a valid CQL expression within a referenced library, or a valid FHIR Resource Path.
 	SupplementalData []MeasureSupplementalData
 }
-type isMeasureSubject interface {
+type MeasureSubject interface {
 	model.Element
 	isMeasureSubject()
 }

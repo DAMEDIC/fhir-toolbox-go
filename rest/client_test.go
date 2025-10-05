@@ -10,7 +10,6 @@ import (
 
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 )
@@ -22,8 +21,9 @@ type mockSearchClient struct {
 	lastOptions search.Options // Track the options from the last call
 }
 
-func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{}, nil
+func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (model.CapabilityStatement, error) {
+	// Return an empty R4 capability statement to satisfy the interface
+	return r4.CapabilityStatement{}, nil
 }
 
 func (m *mockSearchClient) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
@@ -794,6 +794,125 @@ func TestClientSearchResourceIncludedBehavior(t *testing.T) {
 				if string(result.Next) != tt.expectedNextCursor {
 					t.Errorf("Expected next cursor '%s', got '%s'", tt.expectedNextCursor, string(result.Next))
 				}
+			}
+		})
+	}
+}
+
+func TestClientInvoke(t *testing.T) {
+	type reqCheck func(t *testing.T, r *http.Request)
+	makeParams := func(k, v string) r4.Parameters {
+		vv := v
+		name := k
+		return r4.Parameters{Parameter: []r4.ParametersParameter{{
+			Name:  r4.String{Value: &name},
+			Value: r4.String{Value: &vv},
+		}}}
+	}
+
+	tests := []struct {
+		name         string
+		setupServer  func(t *testing.T) *httptest.Server
+		call         func(c ClientR4) (model.Resource, error)
+		expectNilRes bool
+		expectErr    bool
+	}{
+		{
+			name: "system_invoke_post_with_body",
+			setupServer: func(t *testing.T) *httptest.Server {
+				return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					if r.Method != http.MethodPost {
+						t.Fatalf("expected POST, got %s", r.Method)
+					}
+					if r.URL.Path != "/$echo" {
+						t.Fatalf("expected path /$echo, got %s", r.URL.Path)
+					}
+					if r.Header.Get("Accept") != string(FormatJSON) {
+						t.Fatalf("expected Accept %s", FormatJSON)
+					}
+					if r.Header.Get("Content-Type") != string(FormatJSON) {
+						t.Fatalf("expected Content-Type %s", FormatJSON)
+					}
+					w.Header().Set("Content-Type", string(FormatJSON))
+					w.WriteHeader(http.StatusOK)
+					io.WriteString(w, `{"resourceType":"Patient","id":"p1"}`)
+				}))
+			},
+			call: func(c ClientR4) (model.Resource, error) {
+				return c.InvokeSystem(context.Background(), "echo", makeParams("in", "hello"))
+			},
+		},
+		{
+			name: "type_invoke_path_and_decoding",
+			setupServer: func(t *testing.T) *httptest.Server {
+				return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					if r.URL.Path != "/Patient/$validate" {
+						t.Fatalf("expected path /Patient/$validate, got %s", r.URL.Path)
+					}
+					w.Header().Set("Content-Type", string(FormatJSON))
+					w.WriteHeader(http.StatusOK)
+					io.WriteString(w, `{"resourceType":"OperationOutcome"}`)
+				}))
+			},
+			call: func(c ClientR4) (model.Resource, error) {
+				return c.InvokeType(context.Background(), "Patient", "validate", r4.Parameters{})
+			},
+		},
+		{
+			name: "instance_invoke_no_content",
+			setupServer: func(t *testing.T) *httptest.Server {
+				return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					if r.URL.Path != "/Patient/123/$everything" {
+						t.Fatalf("expected path /Patient/123/$everything, got %s", r.URL.Path)
+					}
+					w.WriteHeader(http.StatusNoContent)
+				}))
+			},
+			call: func(c ClientR4) (model.Resource, error) {
+				return c.InvokeInstance(context.Background(), "Patient", "123", "everything", r4.Parameters{})
+			},
+			expectNilRes: true,
+		},
+		{
+			name: "invoke_error_outcome",
+			setupServer: func(t *testing.T) *httptest.Server {
+				return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					w.Header().Set("Content-Type", string(FormatJSON))
+					w.WriteHeader(http.StatusBadRequest)
+					io.WriteString(w, `{"resourceType":"OperationOutcome"}`)
+				}))
+			},
+			call: func(c ClientR4) (model.Resource, error) {
+				return c.InvokeSystem(context.Background(), "broken", r4.Parameters{})
+			},
+			expectErr: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			server := tt.setupServer(t)
+			defer server.Close()
+
+			baseURL, _ := url.Parse(server.URL)
+			client := ClientR4{BaseURL: baseURL, Client: server.Client()}
+
+			res, err := tt.call(client)
+			if tt.expectErr {
+				if err == nil {
+					t.Fatalf("expected error, got nil")
+				}
+				return
+			}
+			if err != nil {
+				t.Fatalf("unexpected error: %v", err)
+			}
+			if tt.expectNilRes {
+				if res != nil {
+					t.Fatalf("expected nil resource, got %+v", res)
+				}
+			} else if res == nil {
+				t.Fatalf("expected non-nil resource")
 			}
 		})
 	}

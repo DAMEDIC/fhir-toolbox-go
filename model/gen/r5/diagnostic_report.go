@@ -54,7 +54,7 @@ type DiagnosticReport struct {
 	// The healthcare event  (e.g. a patient and healthcare provider interaction) which this DiagnosticReport is about.
 	Encounter *Reference
 	// The time or time-period the observed values are related to. When the subject of the report is a patient, this is usually either the time of the procedure or of specimen collection(s), but very often the source of the date/time is not known, only the date/time itself.
-	Effective isDiagnosticReportEffective
+	Effective DiagnosticReportEffective
 	// The date and time that this version of the report was made available to providers, typically after the report was reviewed and verified.
 	Issued *Instant
 	// The diagnostic service that is responsible for issuing the report.
@@ -82,7 +82,7 @@ type DiagnosticReport struct {
 	// Rich text representation of the entire result as issued by the diagnostic service. Multiple formats are allowed but they SHALL be semantically equivalent.
 	PresentedForm []Attachment
 }
-type isDiagnosticReportEffective interface {
+type DiagnosticReportEffective interface {
 	model.Element
 	isDiagnosticReportEffective()
 }

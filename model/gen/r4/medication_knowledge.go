@@ -126,13 +126,13 @@ type MedicationKnowledgeIngredient struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The actual ingredient - either a substance (simple ingredient) or another medication.
-	Item isMedicationKnowledgeIngredientItem
+	Item MedicationKnowledgeIngredientItem
 	// Indication of whether this ingredient affects the therapeutic action of the drug.
 	IsActive *Boolean
 	// Specifies how many (or how much) of the items there are in this Medication.  For example, 250 mg per tablet.  This is expressed as a ratio where the numerator is 250mg and the denominator is 1 tablet.
 	Strength *Ratio
 }
-type isMedicationKnowledgeIngredientItem interface {
+type MedicationKnowledgeIngredientItem interface {
 	model.Element
 	isMedicationKnowledgeIngredientItem()
 }
@@ -187,11 +187,11 @@ type MedicationKnowledgeAdministrationGuidelines struct {
 	// Dosage for the medication for the specific guidelines.
 	Dosage []MedicationKnowledgeAdministrationGuidelinesDosage
 	// Indication for use that apply to the specific administration guidelines.
-	Indication isMedicationKnowledgeAdministrationGuidelinesIndication
+	Indication MedicationKnowledgeAdministrationGuidelinesIndication
 	// Characteristics of the patient that are relevant to the administration guidelines (for example, height, weight, gender, etc.).
 	PatientCharacteristics []MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics
 }
-type isMedicationKnowledgeAdministrationGuidelinesIndication interface {
+type MedicationKnowledgeAdministrationGuidelinesIndication interface {
 	model.Element
 	isMedicationKnowledgeAdministrationGuidelinesIndication()
 }
@@ -226,11 +226,11 @@ type MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// Specific characteristic that is relevant to the administration guideline (e.g. height, weight, gender).
-	Characteristic isMedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristic
+	Characteristic MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristic
 	// The specific characteristic (e.g. height, weight, gender, etc.).
 	Value []String
 }
-type isMedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristic interface {
+type MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristic interface {
 	model.Element
 	isMedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsCharacteristic()
 }
@@ -285,9 +285,9 @@ type MedicationKnowledgeDrugCharacteristic struct {
 	// A code specifying which characteristic of the medicine is being described (for example, colour, shape, imprint).
 	Type *CodeableConcept
 	// Description of the characteristic.
-	Value isMedicationKnowledgeDrugCharacteristicValue
+	Value MedicationKnowledgeDrugCharacteristicValue
 }
-type isMedicationKnowledgeDrugCharacteristicValue interface {
+type MedicationKnowledgeDrugCharacteristicValue interface {
 	model.Element
 	isMedicationKnowledgeDrugCharacteristicValue()
 }

@@ -132,9 +132,9 @@ type PackagedProductDefinitionPackagingProperty struct {
 	// A code expressing the type of characteristic.
 	Type CodeableConcept
 	// A value for the characteristic.
-	Value isPackagedProductDefinitionPackagingPropertyValue
+	Value PackagedProductDefinitionPackagingPropertyValue
 }
-type isPackagedProductDefinitionPackagingPropertyValue interface {
+type PackagedProductDefinitionPackagingPropertyValue interface {
 	model.Element
 	isPackagedProductDefinitionPackagingPropertyValue()
 }

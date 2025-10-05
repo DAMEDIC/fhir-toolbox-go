@@ -72,11 +72,11 @@ type AdministrableProductDefinitionProperty struct {
 	// A code expressing the type of characteristic.
 	Type CodeableConcept
 	// A value for the characteristic.
-	Value isAdministrableProductDefinitionPropertyValue
+	Value AdministrableProductDefinitionPropertyValue
 	// The status of characteristic e.g. assigned or pending.
 	Status *CodeableConcept
 }
-type isAdministrableProductDefinitionPropertyValue interface {
+type AdministrableProductDefinitionPropertyValue interface {
 	model.Element
 	isAdministrableProductDefinitionPropertyValue()
 }

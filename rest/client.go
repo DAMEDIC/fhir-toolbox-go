@@ -10,7 +10,6 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
 	"io"
 	"net/http"
@@ -28,16 +27,16 @@ type internalClient[R model.Release] struct {
 }
 
 // CapabilityStatement retrieves the CapabilityStatement from the server's metadata endpoint.
-func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
+func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (model.CapabilityStatement, error) {
 	if c.baseURL == nil {
-		return basic.CapabilityStatement{}, fmt.Errorf("base URL is nil")
+		return nil, fmt.Errorf("base URL is nil")
 	}
 
 	u := c.baseURL.JoinPath("metadata")
 
 	req, err := http.NewRequestWithContext(ctx, "GET", u.String(), nil)
 	if err != nil {
-		return basic.CapabilityStatement{}, fmt.Errorf("create request: %w", err)
+		return nil, fmt.Errorf("create request: %w", err)
 	}
 
 	// Set Accept header, using configured format or default
@@ -46,23 +45,26 @@ func (c *internalClient[R]) CapabilityStatement(ctx context.Context) (basic.Capa
 
 	resp, err := c.client.Do(req)
 	if err != nil {
-		return basic.CapabilityStatement{}, fmt.Errorf("execute request: %w", err)
+		return nil, fmt.Errorf("execute request: %w", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return basic.CapabilityStatement{}, c.handleErrorResponse(resp)
+		return nil, c.handleErrorResponse(resp)
 	}
 
 	// Determine response format from Content-Type header
 	responseFormat := c.detectResponseFormat(resp)
 
-	capability, err := encoding.Decode[basic.CapabilityStatement](resp.Body, encoding.Format(responseFormat))
+	res, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 	if err != nil {
-		return basic.CapabilityStatement{}, fmt.Errorf("parse response: %w", err)
+		return nil, fmt.Errorf("parse response: %w", err)
 	}
-
-	return capability, nil
+	cs, ok := res.(model.CapabilityStatement)
+	if !ok {
+		return nil, fmt.Errorf("unexpected resource: expected CapabilityStatement, got %s", res.ResourceType())
+	}
+	return cs, nil
 }
 
 // Create creates a new resource.
@@ -224,6 +226,82 @@ func (c *internalClient[R]) Delete(ctx context.Context, resourceType, id string)
 	return nil
 }
 
+// Invoke invokes a FHIR operation at system, type, or instance level.
+// It always uses POST for safety (covers affectsState=true operations).
+// Paths:
+//   - /$code
+//   - /{resourceType}/$code
+//   - /{resourceType}/{id}/$code
+func (c *internalClient[R]) Invoke(
+	ctx context.Context,
+	resourceType, resourceID, code string,
+	parameters model.Parameters,
+) (model.Resource, error) {
+	if c.baseURL == nil {
+		return nil, fmt.Errorf("base URL is nil")
+	}
+	if code == "" {
+		return nil, fmt.Errorf("operation code is empty")
+	}
+
+	// Build path according to level
+	var u *url.URL
+	switch {
+	case resourceType == "" && resourceID == "":
+		u = c.baseURL.JoinPath("$" + code)
+	case resourceType != "" && resourceID == "":
+		u = c.baseURL.JoinPath(resourceType, "$"+code)
+	case resourceType != "" && resourceID != "":
+		u = c.baseURL.JoinPath(resourceType, resourceID, "$"+code)
+	default:
+		return nil, fmt.Errorf("invalid operation target")
+	}
+
+	// Encode parameters when present
+	requestFormat := cmp.Or(c.format, defaultClientFormat)
+	var body io.Reader
+	if parameters != nil {
+		buf := &bytes.Buffer{}
+		if err := encoding.Encode(buf, parameters, encoding.Format(requestFormat)); err != nil {
+			return nil, fmt.Errorf("marshal parameters: %w", err)
+		}
+		body = buf
+	}
+
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, u.String(), body)
+	if err != nil {
+		return nil, fmt.Errorf("create request: %w", err)
+	}
+	// Content-Type only when body is present
+	if body != nil {
+		req.Header.Set("Content-Type", string(requestFormat))
+	}
+	// Accept header to negotiate response
+	req.Header.Set("Accept", string(requestFormat))
+
+	resp, err := c.client.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("execute request: %w", err)
+	}
+	defer resp.Body.Close()
+
+	// 204 No Content means success with no resource
+	if resp.StatusCode == http.StatusNoContent {
+		return nil, nil
+	}
+	if resp.StatusCode != http.StatusOK {
+		return nil, c.handleErrorResponse(resp)
+	}
+
+	// decode result resource using response Content-Type
+	responseFormat := c.detectResponseFormat(resp)
+	out, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
+	if err != nil {
+		return nil, fmt.Errorf("parse response: %w", err)
+	}
+	return out, nil
+}
+
 // Search performs a search operation for the given resource type with the specified options.
 func (c *internalClient[R]) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
 	if c.baseURL == nil {
@@ -305,7 +383,7 @@ func (c *internalClient[R]) detectResponseFormat(resp *http.Response) Format {
 func parseSearchResponse[R model.Release](c *internalClient[R], resp *http.Response) (search.Result[model.Resource], error) {
 	// Determine response format from Content-Type header
 	responseFormat := c.detectResponseFormat(resp)
-	// Decode the bundle as a resource using the generic decode function
+	// decode the bundle as a resource using the generic decode function
 	bundle, err := encoding.DecodeResource[R](resp.Body, encoding.Format(responseFormat))
 	if err != nil {
 		return search.Result[model.Resource]{}, fmt.Errorf("parse bundle: %w", err)
@@ -406,7 +484,7 @@ func parseSearchBundle(bundle model.Resource) (search.Result[model.Resource], er
 	return result, nil
 }
 
-// handleErrorResponse attempts to unmarshal an error response into a basic.OperationOutcome
+// handleErrorResponse attempts to unmarshal an error response into an OperationOutcome
 // and returns an appropriate error. If unmarshaling fails, it returns a generic status code error.
 func (c *internalClient[R]) handleErrorResponse(resp *http.Response) error {
 	// Read the response body
@@ -418,14 +496,15 @@ func (c *internalClient[R]) handleErrorResponse(resp *http.Response) error {
 	// Try to unmarshal as OperationOutcome
 	responseFormat := c.detectResponseFormat(resp)
 
-	operationOutcome, err := encoding.Decode[basic.OperationOutcome](bytes.NewReader(body), encoding.Format(responseFormat))
+	res, err := encoding.DecodeResource[R](bytes.NewReader(body), encoding.Format(responseFormat))
 	if err != nil {
 		// If we can't unmarshal as OperationOutcome, return generic error with response body
 		return fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
 	}
-
-	// Return the OperationOutcome as an error
-	return operationOutcome
+	if e, ok := res.(error); ok {
+		return e
+	}
+	return fmt.Errorf("unexpected status code: %d, response: %s", resp.StatusCode, string(body))
 }
 
 // iterator provides pagination functionality for search results.

@@ -28,9 +28,9 @@ type UsageContext struct {
 	// A code that identifies the type of context being specified by this usage context.
 	Code Coding
 	// A value that defines the context specified in this context of use. The interpretation of the value is defined by the code.
-	Value isUsageContextValue
+	Value UsageContextValue
 }
-type isUsageContextValue interface {
+type UsageContextValue interface {
 	model.Element
 	isUsageContextValue()
 }

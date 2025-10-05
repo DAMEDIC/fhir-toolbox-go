@@ -54,7 +54,7 @@ type ActivityDefinition struct {
 	// A Boolean value to indicate that this activity definition is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
 	Experimental *Boolean
 	// A code or group definition that describes the intended subject of the activity being defined.
-	Subject isActivityDefinitionSubject
+	Subject ActivityDefinitionSubject
 	// The date  (and optionally time) when the activity definition was published. The date must change when the business version changes and it must change if the status code changes. In addition, it should change when the substantive content of the activity definition changes.
 	Date *DateTime
 	// The name of the organization or individual that published the activity definition.
@@ -106,13 +106,13 @@ type ActivityDefinition struct {
 	// Set this to true if the definition is to indicate that a particular activity should NOT be performed. If true, this element should be interpreted to reinforce a negative coding. For example NPO as a code with a doNotPerform of true would still indicate to NOT perform the action.
 	DoNotPerform *Boolean
 	// The period, timing or frequency upon which the described activity is to occur.
-	Timing isActivityDefinitionTiming
+	Timing ActivityDefinitionTiming
 	// Identifies the facility where the activity will occur; e.g. home, hospital, specific clinic, etc.
 	Location *Reference
 	// Indicates who should participate in performing the action described.
 	Participant []ActivityDefinitionParticipant
 	// Identifies the food, drug or other product being consumed or supplied in the activity.
-	Product isActivityDefinitionProduct
+	Product ActivityDefinitionProduct
 	// Identifies the quantity expected to be consumed at once (per dose, per meal, etc.).
 	Quantity *Quantity
 	// Provides detailed dosage instructions in the same way that they are described for MedicationRequest resources.
@@ -130,7 +130,7 @@ type ActivityDefinition struct {
 	// Dynamic values that will be evaluated to produce values for elements of the resulting resource. For example, if the dosage of a medication must be computed based on the patient's weight, a dynamic value would be used to specify an expression that calculated the weight, and the path on the request resource that would contain the result.
 	DynamicValue []ActivityDefinitionDynamicValue
 }
-type isActivityDefinitionSubject interface {
+type ActivityDefinitionSubject interface {
 	model.Element
 	isActivityDefinitionSubject()
 }
@@ -138,7 +138,7 @@ type isActivityDefinitionSubject interface {
 func (r CodeableConcept) isActivityDefinitionSubject() {}
 func (r Reference) isActivityDefinitionSubject()       {}
 
-type isActivityDefinitionTiming interface {
+type ActivityDefinitionTiming interface {
 	model.Element
 	isActivityDefinitionTiming()
 }
@@ -150,7 +150,7 @@ func (r Period) isActivityDefinitionTiming()   {}
 func (r Range) isActivityDefinitionTiming()    {}
 func (r Duration) isActivityDefinitionTiming() {}
 
-type isActivityDefinitionProduct interface {
+type ActivityDefinitionProduct interface {
 	model.Element
 	isActivityDefinitionProduct()
 }

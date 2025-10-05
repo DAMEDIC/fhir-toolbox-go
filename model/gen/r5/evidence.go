@@ -44,13 +44,13 @@ type Evidence struct {
 	// The identifier that is used to identify this version of the summary when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the summary author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isEvidenceVersionAlgorithm
+	VersionAlgorithm EvidenceVersionAlgorithm
 	// A natural language name identifying the evidence. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the summary.
 	Title *String
 	// Citation Resource or display of suggested citation for this evidence.
-	CiteAs isEvidenceCiteAs
+	CiteAs EvidenceCiteAs
 	// The status of this summary. Enables tracking the life-cycle of the content.
 	Status Code
 	// A Boolean value to indicate that this resource is authored for testing purposes (or education/evaluation/marketing) and is not intended to be used for genuine usage.
@@ -100,7 +100,7 @@ type Evidence struct {
 	// Assessment of certainty, confidence in the estimates, or quality of the evidence.
 	Certainty []EvidenceCertainty
 }
-type isEvidenceVersionAlgorithm interface {
+type EvidenceVersionAlgorithm interface {
 	model.Element
 	isEvidenceVersionAlgorithm()
 }
@@ -108,7 +108,7 @@ type isEvidenceVersionAlgorithm interface {
 func (r String) isEvidenceVersionAlgorithm() {}
 func (r Coding) isEvidenceVersionAlgorithm() {}
 
-type isEvidenceCiteAs interface {
+type EvidenceCiteAs interface {
 	model.Element
 	isEvidenceCiteAs()
 }

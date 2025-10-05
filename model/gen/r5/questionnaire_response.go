@@ -96,11 +96,11 @@ type QuestionnaireResponseItemAnswer struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The answer (or one of the answers) provided by the respondent to the question.
-	Value isQuestionnaireResponseItemAnswerValue
+	Value QuestionnaireResponseItemAnswerValue
 	// Nested groups and/or questions found within this particular answer.
 	Item []QuestionnaireResponseItem
 }
-type isQuestionnaireResponseItemAnswerValue interface {
+type QuestionnaireResponseItemAnswerValue interface {
 	model.Element
 	isQuestionnaireResponseItemAnswerValue()
 }

@@ -44,7 +44,7 @@ type SubscriptionTopic struct {
 	// The identifier that is used to identify this version of the subscription topic when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the Topic author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions are orderable.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isSubscriptionTopicVersionAlgorithm
+	VersionAlgorithm SubscriptionTopicVersionAlgorithm
 	// A natural language name identifying the subscription topic This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the subscription topic.  For example, "admission".
@@ -88,7 +88,7 @@ type SubscriptionTopic struct {
 	// List of properties to describe the shape (e.g., resources) included in notifications from this Subscription Topic.
 	NotificationShape []SubscriptionTopicNotificationShape
 }
-type isSubscriptionTopicVersionAlgorithm interface {
+type SubscriptionTopicVersionAlgorithm interface {
 	model.Element
 	isSubscriptionTopicVersionAlgorithm()
 }

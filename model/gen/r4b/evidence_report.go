@@ -48,7 +48,7 @@ type EvidenceReport struct {
 	// A formal identifier that is used to identify things closely related to this EvidenceReport.
 	RelatedIdentifier []Identifier
 	// Citation Resource or display of suggested citation for this report.
-	CiteAs isEvidenceReportCiteAs
+	CiteAs EvidenceReportCiteAs
 	// Specifies the kind of report, such as grouping of classifiers, search results, or human-compiled expression.
 	Type *CodeableConcept
 	// Used for footnotes and annotations.
@@ -74,7 +74,7 @@ type EvidenceReport struct {
 	// The root of the sections that make up the composition.
 	Section []EvidenceReportSection
 }
-type isEvidenceReportCiteAs interface {
+type EvidenceReportCiteAs interface {
 	model.Element
 	isEvidenceReportCiteAs()
 }
@@ -111,13 +111,13 @@ type EvidenceReportSubjectCharacteristic struct {
 	// Characteristic code.
 	Code CodeableConcept
 	// Characteristic value.
-	Value isEvidenceReportSubjectCharacteristicValue
+	Value EvidenceReportSubjectCharacteristicValue
 	// Is used to express not the characteristic.
 	Exclude *Boolean
 	// Timeframe for the characteristic.
 	Period *Period
 }
-type isEvidenceReportSubjectCharacteristicValue interface {
+type EvidenceReportSubjectCharacteristicValue interface {
 	model.Element
 	isEvidenceReportSubjectCharacteristicValue()
 }
@@ -141,9 +141,9 @@ type EvidenceReportRelatesTo struct {
 	// The type of relationship that this composition has with anther composition or document.
 	Code Code
 	// The target composition/document of this relationship.
-	Target isEvidenceReportRelatesToTarget
+	Target EvidenceReportRelatesToTarget
 }
-type isEvidenceReportRelatesToTarget interface {
+type EvidenceReportRelatesToTarget interface {
 	model.Element
 	isEvidenceReportRelatesToTarget()
 }

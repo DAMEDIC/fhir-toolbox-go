@@ -114,7 +114,7 @@ type PaymentReconciliationAllocation struct {
 	// Specific resource to which the payment/adjustment/advance applies.
 	Target *Reference
 	// Identifies the claim line item, encounter or other sub-element being paid. Note payment may be partial, that is not match the then outstanding balance or amount incurred.
-	TargetItem isPaymentReconciliationAllocationTargetItem
+	TargetItem PaymentReconciliationAllocationTargetItem
 	// The Encounter to which this payment applies, may be completed by the receiver, used for search.
 	Encounter *Reference
 	// The Account to which this payment applies, may be completed by the receiver, used for search.
@@ -134,7 +134,7 @@ type PaymentReconciliationAllocation struct {
 	// The monetary amount allocated from the total payment to the payable.
 	Amount *Money
 }
-type isPaymentReconciliationAllocationTargetItem interface {
+type PaymentReconciliationAllocationTargetItem interface {
 	model.Element
 	isPaymentReconciliationAllocationTargetItem()
 }

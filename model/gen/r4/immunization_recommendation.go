@@ -76,15 +76,15 @@ type ImmunizationRecommendationRecommendation struct {
 	// One possible path to achieve presumed immunity against a disease - within the context of an authority.
 	Series *String
 	// Nominal position of the recommended dose in a series (e.g. dose 2 is the next recommended dose).
-	DoseNumber isImmunizationRecommendationRecommendationDoseNumber
+	DoseNumber ImmunizationRecommendationRecommendationDoseNumber
 	// The recommended number of doses to achieve immunity.
-	SeriesDoses isImmunizationRecommendationRecommendationSeriesDoses
+	SeriesDoses ImmunizationRecommendationRecommendationSeriesDoses
 	// Immunization event history and/or evaluation that supports the status and recommendation.
 	SupportingImmunization []Reference
 	// Patient Information that supports the status and recommendation.  This includes patient observations, adverse reactions and allergy/intolerance information.
 	SupportingPatientInformation []Reference
 }
-type isImmunizationRecommendationRecommendationDoseNumber interface {
+type ImmunizationRecommendationRecommendationDoseNumber interface {
 	model.Element
 	isImmunizationRecommendationRecommendationDoseNumber()
 }
@@ -92,7 +92,7 @@ type isImmunizationRecommendationRecommendationDoseNumber interface {
 func (r PositiveInt) isImmunizationRecommendationRecommendationDoseNumber() {}
 func (r String) isImmunizationRecommendationRecommendationDoseNumber()      {}
 
-type isImmunizationRecommendationRecommendationSeriesDoses interface {
+type ImmunizationRecommendationRecommendationSeriesDoses interface {
 	model.Element
 	isImmunizationRecommendationRecommendationSeriesDoses()
 }

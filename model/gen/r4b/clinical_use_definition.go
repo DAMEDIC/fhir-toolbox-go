@@ -118,13 +118,13 @@ type ClinicalUseDefinitionIndication struct {
 	// The intended effect, aim or strategy to be achieved.
 	IntendedEffect *CodeableReference
 	// Timing or duration information, that may be associated with use with the indicated condition e.g. Adult patients suffering from myocardial infarction (from a few days until less than 35 days), ischaemic stroke (from 7 days until less than 6 months).
-	Duration isClinicalUseDefinitionIndicationDuration
+	Duration ClinicalUseDefinitionIndicationDuration
 	// An unwanted side effect or negative outcome that may happen if you use the drug (or other subject of this resource) for this indication.
 	UndesirableEffect []Reference
 	// Information about the use of the medicinal product in relation to other therapies described as part of the indication.
 	OtherTherapy []ClinicalUseDefinitionContraindicationOtherTherapy
 }
-type isClinicalUseDefinitionIndicationDuration interface {
+type ClinicalUseDefinitionIndicationDuration interface {
 	model.Element
 	isClinicalUseDefinitionIndicationDuration()
 }
@@ -165,9 +165,9 @@ type ClinicalUseDefinitionInteractionInteractant struct {
 	// Modifier extensions SHALL NOT change the meaning of any elements on Resource or DomainResource (including cannot change the meaning of modifierExtension itself).
 	ModifierExtension []Extension
 	// The specific medication, food or laboratory test that interacts.
-	Item isClinicalUseDefinitionInteractionInteractantItem
+	Item ClinicalUseDefinitionInteractionInteractantItem
 }
-type isClinicalUseDefinitionInteractionInteractantItem interface {
+type ClinicalUseDefinitionInteractionInteractantItem interface {
 	model.Element
 	isClinicalUseDefinitionInteractionInteractantItem()
 }

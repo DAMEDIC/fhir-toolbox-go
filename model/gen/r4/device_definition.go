@@ -42,7 +42,7 @@ type DeviceDefinition struct {
 	// Unique device identifier (UDI) assigned to device label or package.  Note that the Device may include multiple udiCarriers as it either may include just the udiCarrier for the jurisdiction it is sold, or for multiple jurisdictions it could have been sold.
 	UdiDeviceIdentifier []DeviceDefinitionUdiDeviceIdentifier
 	// A name of the manufacturer.
-	Manufacturer isDeviceDefinitionManufacturer
+	Manufacturer DeviceDefinitionManufacturer
 	// A name given to the device to identify it.
 	DeviceName []DeviceDefinitionDeviceName
 	// The model number for the device.
@@ -82,7 +82,7 @@ type DeviceDefinition struct {
 	// A substance used to create the material(s) of which the device is made.
 	Material []DeviceDefinitionMaterial
 }
-type isDeviceDefinitionManufacturer interface {
+type DeviceDefinitionManufacturer interface {
 	model.Element
 	isDeviceDefinitionManufacturer()
 }

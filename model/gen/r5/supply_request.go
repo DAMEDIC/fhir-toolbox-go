@@ -56,7 +56,7 @@ type SupplyRequest struct {
 	// Specific parameters for the ordered item.  For example, the size of the indicated item.
 	Parameter []SupplyRequestParameter
 	// When the request should be fulfilled.
-	Occurrence isSupplyRequestOccurrence
+	Occurrence SupplyRequestOccurrence
 	// When the request was made.
 	AuthoredOn *DateTime
 	// The device, practitioner, etc. who initiated the request.
@@ -70,7 +70,7 @@ type SupplyRequest struct {
 	// Where the supply is destined to go.
 	DeliverTo *Reference
 }
-type isSupplyRequestOccurrence interface {
+type SupplyRequestOccurrence interface {
 	model.Element
 	isSupplyRequestOccurrence()
 }
@@ -92,9 +92,9 @@ type SupplyRequestParameter struct {
 	// A code or string that identifies the device detail being asserted.
 	Code *CodeableConcept
 	// The value of the device detail.
-	Value isSupplyRequestParameterValue
+	Value SupplyRequestParameterValue
 }
-type isSupplyRequestParameterValue interface {
+type SupplyRequestParameterValue interface {
 	model.Element
 	isSupplyRequestParameterValue()
 }

@@ -46,7 +46,7 @@ type MessageDefinition struct {
 	// The identifier that is used to identify this version of the message definition when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the message definition author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which is more current.
-	VersionAlgorithm isMessageDefinitionVersionAlgorithm
+	VersionAlgorithm MessageDefinitionVersionAlgorithm
 	// A natural language name identifying the message definition. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name *String
 	// A short, descriptive, user-friendly title for the message definition.
@@ -80,7 +80,7 @@ type MessageDefinition struct {
 	// Identifies a protocol or workflow that this MessageDefinition represents a step in.
 	Parent []Canonical
 	// Event code or link to the EventDefinition.
-	Event isMessageDefinitionEvent
+	Event MessageDefinitionEvent
 	// The impact of the content of the message.
 	Category *Code
 	// Identifies the resource (or resources) that are being addressed by the event.  For example, the Encounter for an admit message or two Account records for a merge.
@@ -92,7 +92,7 @@ type MessageDefinition struct {
 	// Graph is Canonical reference to a GraphDefinition. If a URL is provided, it is the canonical reference to a GraphDefinition that it controls what additional resources are to be added to the Bundle when building the message. The GraphDefinition can also specify profiles that apply to the various resources.
 	Graph *Canonical
 }
-type isMessageDefinitionVersionAlgorithm interface {
+type MessageDefinitionVersionAlgorithm interface {
 	model.Element
 	isMessageDefinitionVersionAlgorithm()
 }
@@ -100,7 +100,7 @@ type isMessageDefinitionVersionAlgorithm interface {
 func (r String) isMessageDefinitionVersionAlgorithm() {}
 func (r Coding) isMessageDefinitionVersionAlgorithm() {}
 
-type isMessageDefinitionEvent interface {
+type MessageDefinitionEvent interface {
 	model.Element
 	isMessageDefinitionEvent()
 }

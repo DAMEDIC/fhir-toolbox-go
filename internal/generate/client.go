@@ -2,6 +2,8 @@ package generate
 
 import (
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate/ir"
+	"github.com/iancoleman/strcase"
+	"sort"
 	"strings"
 
 	. "github.com/dave/jennifer/jen"
@@ -37,14 +39,13 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 
 	// Add imports
 	f.ImportName("context", "context")
-	f.ImportName("fmt", "fmt")
 	f.ImportName("net/http", "http")
 	f.ImportName("net/url", "url")
 	f.ImportName(moduleName+"/capabilities", "capabilities")
 	f.ImportName(moduleName+"/capabilities/search", "search")
 	f.ImportName(moduleName+"/capabilities/update", "update")
 	f.ImportName(moduleName+"/model", "model")
-	f.ImportName(moduleName+"/model/gen/basic", "basic")
+	// no basic import for CapabilityStatement/Parameters anymore
 	f.ImportName(moduleName+"/model/gen/"+lowerRelease, lowerRelease)
 
 	// Generate client struct
@@ -64,6 +65,7 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericRead").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericUpdate").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 		g.Id("_").Qual(moduleName+"/capabilities", "GenericDelete").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
+		g.Id("_").Qual(moduleName+"/capabilities", "GenericOperation").Op("=").Parens(Op("*").Id(clientName)).Parens(Nil())
 	})
 
 	// Add HTTP client helper method
@@ -82,6 +84,9 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 	for _, resource := range resources {
 		generateUnifiedConcreteResourceMethods(f, resource, release, releaseType, clientName)
 	}
+
+	// Generate operation helpers derived from the spec
+	generateOperationHelpers(f, resources, release, releaseType, clientName)
 }
 
 func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
@@ -90,7 +95,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("CapabilityStatement").Params(
 		Id("ctx").Qual("context", "Context"),
 	).Params(
-		Qual(moduleName+"/model/gen/basic", "CapabilityStatement"),
+		Qual(moduleName+"/model", "CapabilityStatement"),
 		Error(),
 	).Block(
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
@@ -187,6 +192,66 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 			Id("format").Op(":").Id("c").Dot("Format"),
 		),
 		Return(Id("client").Dot("Search").Call(Id("ctx"), Id("resourceType"), Id("parameters"), Id("options"))),
+	)
+
+	// Generic Invoke method
+	f.Comment("// Invoke invokes a FHIR operation at system, type, or instance level.")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("Invoke").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("resourceID").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
+			Id("baseURL").Op(":").Id("c").Dot("BaseURL"),
+			Id("client").Op(":").Id("c").Dot("httpClient").Call(),
+			Id("format").Op(":").Id("c").Dot("Format"),
+		),
+		Return(Id("client").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Id("resourceID"), Id("code"), Id("parameters"))),
+	)
+
+	// Thin wrappers for convenience
+	f.Comment("// InvokeSystem invokes a system-level operation (/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeSystem").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Lit(""), Lit(""), Id("code"), Id("parameters"))),
+	)
+
+	f.Comment("// InvokeType invokes a type-level operation (/{type}/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeType").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Lit(""), Id("code"), Id("parameters"))),
+	)
+
+	f.Comment("// InvokeInstance invokes an instance-level operation (/{type}/{id}/$code).")
+	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeInstance").Params(
+		Id("ctx").Qual("context", "Context"),
+		Id("resourceType").String(),
+		Id("id").String(),
+		Id("code").String(),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
+	).Params(
+		Qual(moduleName+"/model", "Resource"),
+		Error(),
+	).Block(
+		Return(Id("c").Dot("Invoke").Call(Id("ctx"), Id("resourceType"), Id("id"), Id("code"), Id("parameters"))),
 	)
 }
 
@@ -321,4 +386,133 @@ func generateUnifiedConcreteResourceMethods(f *File, resource ir.ResourceOrType,
 		),
 		Return(Id("wrapper").Dot("Search"+resourceName).Call(Id("ctx"), Id("parameters"), Id("options"))),
 	)
+}
+
+// generateOperationHelpers adds convenience wrappers for spec-defined operations.
+// It derives available operations by scraping the FHIR operations list for the given release
+// and emits system-level helpers (InvokeXxx) and type/instance helpers (Invoke{Resource}Xxx).
+func generateOperationHelpers(f *File, resources []ir.ResourceOrType, release, releaseType, clientName string) {
+	ops, err := FetchOperationsForRelease(release)
+	if err != nil {
+		// Fall back silently: if fetching fails, skip generating helpers
+		return
+	}
+
+	// System-level helpers: one per op with system=true
+	for _, op := range ops.System {
+		methodSuffix := strcase.ToCamel(op)
+		f.Comment("// Invoke" + methodSuffix + " invokes the system-level $" + op + " operation.")
+		f.Func().Params(Id("c").Op("*").Id(clientName)).Id("Invoke"+methodSuffix).Params(
+			Id("ctx").Qual("context", "Context"),
+			Id("parameters").Qual(moduleName+"/model", "Parameters"),
+		).Params(
+			Qual(moduleName+"/model", "Resource"),
+			Error(),
+		).Block(
+			Return(Id("c").Dot("InvokeSystem").Call(Id("ctx"), Lit("$"+op), Id("parameters"))),
+		)
+		f.Line()
+	}
+
+	// Build a lookup for resources present in this release
+	resNames := map[string]bool{}
+	var present []string
+	for _, r := range resources {
+		resNames[r.Name] = true
+		present = append(present, r.Name)
+	}
+	sort.Strings(present)
+
+	// Helper to emit one resource+op with level info
+	emitResOp := func(res string, op string, lvls resOpLevels) {
+		methodSuffix := strcase.ToCamel(op)
+		methodName := "Invoke" + res + methodSuffix
+		// Choose signature based on supported levels
+		switch {
+		case lvls.HasType && lvls.HasInstance:
+			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at type or instance level.")
+			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
+				Id("ctx").Qual("context", "Context"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
+				Id("id").Op("...").String(),
+			).Params(
+				Qual(moduleName+"/model", "Resource"),
+				Error(),
+			).Block(
+				If(Len(Id("id")).Op(">").Lit(0)).Block(
+					Return(Id("c").Dot("InvokeInstance").Call(Id("ctx"), Lit(res), Id("id").Index(Lit(0)), Lit("$"+op), Id("parameters"))),
+				).Else().Block(
+					Return(Id("c").Dot("InvokeType").Call(Id("ctx"), Lit(res), Lit("$"+op), Id("parameters"))),
+				),
+			)
+			f.Line()
+		case lvls.HasInstance:
+			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at instance level.")
+			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
+				Id("ctx").Qual("context", "Context"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
+				Id("id").String(),
+			).Params(
+				Qual(moduleName+"/model", "Resource"),
+				Error(),
+			).Block(
+				Return(Id("c").Dot("InvokeInstance").Call(Id("ctx"), Lit(res), Id("id"), Lit("$"+op), Id("parameters"))),
+			)
+			f.Line()
+		case lvls.HasType:
+			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at type level.")
+			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
+				Id("ctx").Qual("context", "Context"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
+			).Params(
+				Qual(moduleName+"/model", "Resource"),
+				Error(),
+			).Block(
+				Return(Id("c").Dot("InvokeType").Call(Id("ctx"), Lit(res), Lit("$"+op), Id("parameters"))),
+			)
+			f.Line()
+		default:
+			// No supported level found; skip emitting
+		}
+	}
+
+	// Expand generic placeholder "*" to all resources present
+	if generic, ok := ops.ByResource["*"]; ok {
+		// sort operation codes for deterministic order
+		var genOps []string
+		for op := range generic {
+			genOps = append(genOps, op)
+		}
+		sort.Strings(genOps)
+		for _, res := range present {
+			for _, op := range genOps {
+				emitResOp(res, op, generic[op])
+			}
+		}
+	}
+
+	// Emit explicit resource mappings
+	// sort resource names for deterministic order
+	var explicitRes []string
+	for res := range ops.ByResource {
+		if res == "*" {
+			continue
+		}
+		if !resNames[res] {
+			continue
+		}
+		explicitRes = append(explicitRes, res)
+	}
+	sort.Strings(explicitRes)
+	for _, res := range explicitRes {
+		perRes := ops.ByResource[res]
+		var opsForRes []string
+		for op := range perRes {
+			opsForRes = append(opsForRes, op)
+		}
+		sort.Strings(opsForRes)
+		for _, op := range opsForRes {
+			emitResOp(res, op, perRes[op])
+		}
+	}
 }

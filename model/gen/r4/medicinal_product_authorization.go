@@ -108,11 +108,11 @@ type MedicinalProductAuthorizationProcedure struct {
 	// Type of procedure.
 	Type CodeableConcept
 	// Date of procedure.
-	Date isMedicinalProductAuthorizationProcedureDate
+	Date MedicinalProductAuthorizationProcedureDate
 	// Applcations submitted to obtain a marketing authorization.
 	Application []MedicinalProductAuthorizationProcedure
 }
-type isMedicinalProductAuthorizationProcedureDate interface {
+type MedicinalProductAuthorizationProcedureDate interface {
 	model.Element
 	isMedicinalProductAuthorizationProcedureDate()
 }

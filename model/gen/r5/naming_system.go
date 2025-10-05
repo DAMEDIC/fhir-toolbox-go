@@ -44,7 +44,7 @@ type NamingSystem struct {
 	// The identifier that is used to identify this version of the naming system when it is referenced in a specification, model, design or instance. This is an arbitrary value managed by the naming system author and is not expected to be globally unique. For example, it might be a timestamp (e.g. yyyymmdd) if a managed version is not available. There is also no expectation that versions can be placed in a lexicographical sequence.
 	Version *String
 	// Indicates the mechanism used to compare versions to determine which NamingSystem is more current.
-	VersionAlgorithm isNamingSystemVersionAlgorithm
+	VersionAlgorithm NamingSystemVersionAlgorithm
 	// A natural language name identifying the naming system. This name should be usable as an identifier for the module by machine processing applications such as code generation.
 	Name String
 	// A short, descriptive, user-friendly title for the naming system.
@@ -100,7 +100,7 @@ type NamingSystem struct {
 	// Indicates how the system may be identified when referenced in electronic exchange.
 	UniqueId []NamingSystemUniqueId
 }
-type isNamingSystemVersionAlgorithm interface {
+type NamingSystemVersionAlgorithm interface {
 	model.Element
 	isNamingSystemVersionAlgorithm()
 }
