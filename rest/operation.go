@@ -1,13 +1,15 @@
 package rest
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
+	restoutcome "github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -30,30 +32,46 @@ func (s *Server[R]) handleOperation(w http.ResponseWriter, r *http.Request) {
 
 	level, resourceType, resourceID, code, _ := parseOperationRoute(r.URL.Path)
 
-	// Build Parameters from request
-	var params basic.Parameters
+	// build Parameters from request
+	var params model.Parameters
 	switch r.Method {
 	case http.MethodGet:
-		params = parseOperationQuery(r.URL.Query())
+		p, err := buildParametersFromQuery[R](r.URL.Query())
+		if err != nil {
+			returnErr[R](w, err, responseFormat)
+			return
+		}
+		params = p
 	case http.MethodPost:
 		if r.ContentLength == 0 {
-			params = basic.Parameters{}
-		} else {
-			p, err := encoding.Decode[basic.Parameters](r.Body, encoding.Format(requestFormat))
+			// empty parameters
+			p, err := buildParametersFromQuery[R](url.Values{})
 			if err != nil {
-				returnErr(w, err, responseFormat)
+				returnErr[R](w, err, responseFormat)
+				return
+			}
+			params = p
+		} else {
+			res, err := encoding.DecodeResource[R](r.Body, encoding.Format(requestFormat))
+			if err != nil {
+				returnErr[R](w, err, responseFormat)
+				return
+			}
+			p, ok := res.(model.Parameters)
+			if !ok {
+				returnErr[R](w, fmt.Errorf("invalid Parameters resource"), responseFormat)
 				return
 			}
 			params = p
 		}
 	default:
-		returnErr(w, createOperationOutcome("fatal", "processing", "unsupported method for operation"), responseFormat)
+		returnErr[R](w, restoutcome.Error[R]("fatal", "processing", "unsupported method for operation"), responseFormat)
 		return
 	}
 
 	out, err := s.dispatchOperation(r.Context(), r.Method, level, resourceType, resourceID, code, params)
 	if err != nil {
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	if out == nil {
@@ -69,7 +87,7 @@ func (s *Server[R]) dispatchOperation(
 	method string,
 	level level,
 	resourceType, resourceID, code string,
-	params basic.Parameters,
+	params model.Parameters,
 ) (model.Resource, error) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
@@ -79,26 +97,27 @@ func (s *Server[R]) dispatchOperation(
 
 	backend, impl := anyBackend.(capabilities.GenericOperation)
 	if !impl {
-		return nil, notImplementedError("operation")
+		return nil, notImplementedError[R]("operation")
 	}
 
 	// Get CapabilityStatement and resolve OperationDefinition
-	cs, err := anyBackend.CapabilityStatement(ctx)
+	csw, err := anyBackend.CapabilityStatement(ctx)
 	if err != nil {
 		slog.Error("error getting metadata", "err", err)
 		return nil, err
 	}
+	cs := csw
 
 	canonical, err := resolveOperationCanonical(cs, level, resourceType, code)
 	if err != nil {
-		return nil, searchError(err.Error())
+		return nil, restoutcome.Error[R]("fatal", "processing", err.Error())
 	}
 	opID := extractIDFromCanonical(canonical)
 
 	// We need GenericRead to fetch the OperationDefinition
 	readBackend, ok := anyBackend.(capabilities.GenericRead)
 	if !ok {
-		return nil, notImplementedError("read for OperationDefinition")
+		return nil, notImplementedError[R]("read for OperationDefinition")
 	}
 	opDef, err := readBackend.Read(ctx, "OperationDefinition", opID)
 	if err != nil {
@@ -107,13 +126,13 @@ func (s *Server[R]) dispatchOperation(
 
 	// Validate allowed level
 	if err := checkAllowedLevel(opDef, level, resourceType); err != nil {
-		return nil, createOperationOutcome("fatal", "not-supported", err.Error())
+		return nil, restoutcome.Error[R]("fatal", "not-supported", err.Error())
 	}
 
 	// If GET is used for an operation that affects state, reject
 	if method == http.MethodGet {
 		if affectsState(opDef) {
-			return nil, createOperationOutcome("fatal", "not-supported", "operation with affectsState=true must be invoked via POST")
+			return nil, restoutcome.Error[R]("fatal", "not-supported", "operation with affectsState=true must be invoked via POST")
 		}
 	}
 
@@ -140,22 +159,26 @@ func affectsState(opDef model.Resource) bool {
 }
 
 // resolveOperationCanonical locates the OperationDefinition canonical URL.
-func resolveOperationCanonical(cs basic.CapabilityStatement, lvl level, resourceType string, code string) (string, error) {
-	matches := func(name *string) bool {
-		if name == nil {
-			return false
-		}
-		n := *name
-		return n == code || n == "$"+code
-	}
-	// For type/instance level, look under the specific resource
+func resolveOperationCanonical(cs model.CapabilityStatement, lvl level, resourceType string, code string) (string, error) {
+	// For type/instance level, look under the specific resource via FHIRPath traversal
 	if lvl == levelType || lvl == levelInstance {
-		for _, rest := range cs.Rest {
-			for _, res := range rest.Resource {
-				if res.Type.Value != nil && *res.Type.Value == resourceType {
-					for _, op := range res.Operation {
-						if matches(op.Name.Value) && op.Definition.Value != nil {
-							return *op.Definition.Value, nil
+		for _, rest := range cs.Children("rest") {
+			for _, res := range rest.Children("resource") {
+				t, ok, err := fhirpath.Singleton[fhirpath.String](res.Children("type"))
+				if err != nil || !ok || string(t) != resourceType {
+					continue
+				}
+				for _, op := range res.Children("operation") {
+					name, okN, errN := fhirpath.Singleton[fhirpath.String](op.Children("name"))
+					if errN != nil || !okN {
+						continue
+					}
+					if string(name) == code || string(name) == "$"+code {
+						defElts := op.Children("definition")
+						if len(defElts) > 0 {
+							if def, okD, errD := defElts[0].ToString(false); errD == nil && okD {
+								return string(def), nil
+							}
 						}
 					}
 				}
@@ -164,38 +187,75 @@ func resolveOperationCanonical(cs basic.CapabilityStatement, lvl level, resource
 		return "", fmt.Errorf("operation '%s' not defined on %s level", code, string(lvl))
 	}
 	// For system level, search top-level operations
-	for _, rest := range cs.Rest {
-		for _, op := range rest.Operation {
-			if matches(op.Name.Value) && op.Definition.Value != nil {
-				return *op.Definition.Value, nil
+	for _, rest := range cs.Children("rest") {
+		for _, op := range rest.Children("operation") {
+			name, okN, errN := fhirpath.Singleton[fhirpath.String](op.Children("name"))
+			if errN != nil || !okN {
+				continue
+			}
+			if string(name) == code || string(name) == "$"+code {
+				defElts := op.Children("definition")
+				if len(defElts) > 0 {
+					if def, okD, errD := defElts[0].ToString(false); errD == nil && okD {
+						return string(def), nil
+					}
+				}
 			}
 		}
 	}
 	return "", fmt.Errorf("operation '%s' not defined on %s level", code, string(lvl))
 }
 
-// parseOperationQuery assembles a basic.Parameters resource from URL query values.
-//
+// buildParametersFromQuery creates a release-specific Parameters resource from URL query values.
 // Values are captured as valueString entries. Repeating parameters are represented
-// by multiple Parameter entries with the same Name.
-// Modifiers (e.g., ":in") are kept as part of the Name to match FHIR rules.
-func parseOperationQuery(query url.Values) basic.Parameters {
-	var params []basic.ParametersParameter
+// by multiple Parameter entries with the same Name. Modifiers are kept as part of the Name.
+func buildParametersFromQuery[R model.Release](query url.Values) (model.Parameters, error) {
+	var buf bytes.Buffer
+	enc := json.NewEncoder(&buf)
+	// We'll compose JSON manually to ensure correct field names for parameters
+	buf.WriteString(`{"resourceType":"Parameters","parameter":[`)
+	first := true
 	for k, values := range query {
-		// Skip special result-modifying or formatting parameters if present
 		if k == "_format" {
 			continue
 		}
 		for _, v := range values {
-			vv := v // create stable pointer
-			name := k
-			params = append(params, basic.ParametersParameter{
-				Name:  basic.String{Value: &name},
-				Value: basic.String{Value: &vv},
-			})
+			if !first {
+				buf.WriteByte(',')
+			}
+			first = false
+			// {"name": <k>, "valueString": <v>}
+			buf.WriteString("{\"name\":")
+			if err := enc.Encode(k); err != nil { // enc.Encode writes trailing newline; we can trim it by removing last byte if newline
+				return nil, fmt.Errorf("encode name: %w", err)
+			}
+			// Remove the newline added by Encode
+			b := buf.Bytes()
+			if l := len(b); l > 0 && b[l-1] == '\n' {
+				buf.Truncate(l - 1)
+			}
+			buf.WriteString(",\"valueString\":")
+			if err := enc.Encode(v); err != nil {
+				return nil, fmt.Errorf("encode value: %w", err)
+			}
+			b = buf.Bytes()
+			if l := len(b); l > 0 && b[l-1] == '\n' {
+				buf.Truncate(l - 1)
+			}
+			buf.WriteByte('}')
 		}
 	}
-	return basic.Parameters{Parameter: params}
+	buf.WriteString("]}")
+
+	res, err := encoding.DecodeResource[R](&buf, encoding.Format(FormatJSON))
+	if err != nil {
+		return nil, err
+	}
+	p, ok := res.(model.Parameters)
+	if !ok {
+		return nil, fmt.Errorf("decoded non-Parameters resource: %s", res.ResourceType())
+	}
+	return p, nil
 }
 
 // parseOperationRoute extracts operation invocation info from a URL path.

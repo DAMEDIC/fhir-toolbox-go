@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"time"
 
-	basic "github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 )
@@ -21,21 +20,21 @@ import (
 type opBackend struct{}
 
 // CapabilityBase declares system/type/instance operations via CapabilityStatement.
-func (b *opBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+func (b *opBackend) CapabilityBase(ctx context.Context) (r5.CapabilityStatement, error) {
 	// Keep base metadata minimal; operations are detected via Definition methods.
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("5.0")},
-		Format:      []basic.Code{{Value: ptr.To("json")}},
-		Software: &basic.CapabilityStatementSoftware{
-			Name:    basic.String{Value: ptr.To("operations-demo")},
-			Version: &basic.String{Value: ptr.To("0.0.1")},
+	return r5.CapabilityStatement{
+		Status:      r5.Code{Value: ptr.To("active")},
+		Date:        r5.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
+		Kind:        r5.Code{Value: ptr.To("instance")},
+		FhirVersion: r5.Code{Value: ptr.To("5.0")},
+		Format:      []r5.Code{{Value: ptr.To("json")}},
+		Software: &r5.CapabilityStatementSoftware{
+			Name:    r5.String{Value: ptr.To("operations-demo")},
+			Version: &r5.String{Value: ptr.To("0.0.1")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("Demo operations server (concrete API)")},
-			Url:         &basic.Url{Value: ptr.To("http://localhost:8080")},
+		Implementation: &r5.CapabilityStatementImplementation{
+			Description: r5.Markdown{Value: ptr.To("Demo operations server (concrete API)")},
+			Url:         &r5.Url{Value: ptr.To("http://localhost")},
 		},
 	}, nil
 }
@@ -50,12 +49,12 @@ func (b *opBackend) PingOperationDefinition(ctx context.Context /* is optional *
 }
 
 // System: POST/GET /$ping -> returns Parameters echoing inputs and a server timestamp.
-func (b *opBackend) InvokePing(ctx context.Context, parameters basic.Parameters) (basic.Parameters, error) {
+func (b *opBackend) InvokePing(ctx context.Context, parameters r5.Parameters) (r5.Parameters, error) {
 	now := time.Now().Format(time.RFC3339)
-	ps := append([]basic.ParametersParameter{}, parameters.Parameter...)
+	ps := append([]r5.ParametersParameter{}, parameters.Parameter...)
 	name := "timestamp"
-	ps = append(ps, basic.ParametersParameter{Name: basic.String{Value: &name}, Value: basic.String{Value: &now}})
-	return basic.Parameters{Parameter: ps}, nil
+	ps = append(ps, r5.ParametersParameter{Name: r5.String{Value: &name}, Value: r5.String{Value: &now}})
+	return r5.Parameters{Parameter: ps}, nil
 }
 
 func (b *opBackend) EchoOperationDefinition() r5.OperationDefinition {
@@ -68,7 +67,7 @@ func (b *opBackend) EchoOperationDefinition() r5.OperationDefinition {
 }
 
 // Type: POST/GET /Patient/$echo -> returns a Patient with name from parameters["name"].
-func (b *opBackend) InvokeEcho(ctx context.Context, resourceType string, parameters basic.Parameters) (r5.Patient, error) {
+func (b *opBackend) InvokeEcho(ctx context.Context, resourceType string, parameters r5.Parameters) (r5.Patient, error) {
 	var given string
 	for _, p := range parameters.Parameter {
 		if p.Name.Value != nil && *p.Name.Value == "name" {
@@ -96,12 +95,12 @@ func (b *opBackend) HelloOperationDefinition() r5.OperationDefinition {
 }
 
 // Instance: POST/GET /Patient/{id}/$hello -> returns Parameters greeting the id.
-func (b *opBackend) InvokeHello(ctx context.Context, resourceType string, resourceID string, parameters basic.Parameters) (basic.Parameters, error) {
+func (b *opBackend) InvokeHello(ctx context.Context, resourceType string, resourceID string, parameters r5.Parameters) (r5.Parameters, error) {
 	msg := "hello, " + resourceType + " " + resourceID
 	name := "message"
-	return basic.Parameters{Parameter: []basic.ParametersParameter{{
-		Name:  basic.String{Value: &name},
-		Value: basic.String{Value: &msg},
+	return r5.Parameters{Parameter: []r5.ParametersParameter{{
+		Name:  r5.String{Value: &name},
+		Value: r5.String{Value: &msg},
 	}}}, nil
 }
 
@@ -109,6 +108,6 @@ func main() {
 	backend := &opBackend{}
 	server := &rest.Server[model.R5]{Backend: backend}
 
-	log.Println("listening on http://localhost:8080")
-	log.Fatal(http.ListenAndServe(":8080", server))
+	log.Println("listening on http://localhost")
+	log.Fatal(http.ListenAndServe(":80", server))
 }

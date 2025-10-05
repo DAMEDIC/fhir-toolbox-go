@@ -150,7 +150,12 @@ func (r Url) ToBoolean(explicit bool) (fhirpath.Boolean, bool, error) {
 	return false, false, errors.New("can not convert Url to Boolean")
 }
 func (r Url) ToString(explicit bool) (fhirpath.String, bool, error) {
-	return "", false, errors.New("can not convert Url to String")
+	if r.Value != nil {
+		v := fhirpath.String(*r.Value)
+		return v, true, nil
+	} else {
+		return "", false, nil
+	}
 }
 func (r Url) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Url to Integer")
@@ -171,14 +176,15 @@ func (r Url) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Url to Quantity")
 }
 func (r Url) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	o, ok := other.(Url)
-	if !ok {
+	a, ok, err := r.ToString(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	if r.Value == nil || o.Value == nil {
+	b, ok, err := other.ToString(false)
+	if err != nil || !ok {
 		return false, true
 	}
-	return *r.Value == *o.Value, true
+	return a.Equal(b)
 }
 func (r Url) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
 	eq, ok := r.Equal(other)

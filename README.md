@@ -105,7 +105,7 @@ func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, e
 
 func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
 
-func (a myAPI) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {}
+func (a myAPI) CapabilityStatement(ctx context.Context) (r5.CapabilityStatement, error) {}
 ```
 
 You can implement your custom backend or client either way.
@@ -137,9 +137,9 @@ func (b *backend) HelloOperationDefinition() r5.OperationDefinition {
 }
 
 // Invoke methods
-func (b *backend) InvokePing(ctx context.Context, params basic.Parameters) (basic.Parameters, error) { return basic.Parameters{}, nil }
-func (b *backend) InvokeEcho(ctx context.Context, resourceType string, params basic.Parameters) (r5.Patient, error) { return r5.Patient{}, nil }
-func (b *backend) InvokeHello(ctx context.Context, resourceType, id string, params basic.Parameters) (basic.Parameters, error) { return basic.Parameters{}, nil }
+func (b *backend) InvokePing(ctx context.Context, params r5.Parameters) (r5.Parameters, error) { return r5.Parameters{}, nil }
+func (b *backend) InvokeEcho(ctx context.Context, resourceType string, params r5.Parameters) (r5.Patient, error) { return r5.Patient{}, nil }
+func (b *backend) InvokeHello(ctx context.Context, resourceType, id string, params r5.Parameters) (r5.Parameters, error) { return r5.Parameters{}, nil }
 ```
 
 With these, the server exposes:
@@ -153,9 +153,9 @@ And lists them in the CapabilityStatement (ping under `rest.operation`, echo/hel
 
 ```go
 // Using R4/R5 client wrappers
-res, err := client.InvokeSystem(ctx, "ping", basic.Parameters{})
-res, err := client.InvokeType(ctx, "Patient", "echo", basic.Parameters{ /* name, etc. */ })
-res, err := client.InvokeInstance(ctx, "Patient", "123", "hello", basic.Parameters{})
+res, err := client.InvokeSystem(ctx, "ping", r5.Parameters{})
+res, err := client.InvokeType(ctx, "Patient", "echo", r5.Parameters{ /* name, etc. */ })
+res, err := client.InvokeInstance(ctx, "Patient", "123", "hello", r5.Parameters{})
 
 // Generic interface
 res, err := generic.Invoke(ctx, "", "", "ping", params)
@@ -171,22 +171,22 @@ In addition to `InvokeSystem`, `InvokeType`, and `InvokeInstance`, the client ex
 
   ```go
   // R4 terminology and conformance examples
-  res, err := client.InvokeVersions(ctx, basic.Parameters{}) // /$versions
-  res, err := client.InvokeClosure(ctx, basic.Parameters{})  // /$closure
+  res, err := client.InvokeVersions(ctx, r5.Parameters{}) // /$versions
+  res, err := client.InvokeClosure(ctx, r5.Parameters{})  // /$closure
   ```
 
 - Type/Instance-level: `Invoke{Resource}Xxx(ctx, params, id ...string)` calls `/{type}/$xxx` or `/{type}/{id}/$xxx` depending on whether `id` is provided, e.g.:
 
   ```go
   // Patient $everything
-  res, err := client.InvokePatientEverything(ctx, basic.Parameters{})           // /Patient/$everything
-  res, err := client.InvokePatientEverything(ctx, basic.Parameters{}, "123")   // /Patient/123/$everything
+  res, err := client.InvokePatientEverything(ctx, r5.Parameters{})           // /Patient/$everything
+  res, err := client.InvokePatientEverything(ctx, r5.Parameters{}, "123")   // /Patient/123/$everything
 
   // ValueSet $expand
-  res, err := client.InvokeValueSetExpand(ctx, basic.Parameters{})              // /ValueSet/$expand
+  res, err := client.InvokeValueSetExpand(ctx, r5.Parameters{})              // /ValueSet/$expand
 
   // Observation $lastn (type)
-  res, err := client.InvokeObservationLastn(ctx, basic.Parameters{})            // /Observation/$lastn
+  res, err := client.InvokeObservationLastn(ctx, r5.Parameters{})            // /Observation/$lastn
   ```
 
 These helpers are derived from the HL7 FHIR operations list for each release (R4, R4B, R5) during code generation and are available alongside other generated client methods.
@@ -196,13 +196,13 @@ These helpers are derived from the HL7 FHIR operations list for each release (R4
 **Important**: When using the concrete API, you must implement the `CapabilityBase` method:
 
 ```Go
-func (a myAPI) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-    return basic.CapabilityStatement{
-        Status:         basic.Code{Value: ptr.To("active")},
-        Kind:           basic.Code{Value: ptr.To("instance")},
-        Implementation: &basic.CapabilityStatementImplementation{
-            Description: basic.String{Value: ptr.To("My FHIR Server")},
-            Url:         &basic.Url{Value: ptr.To("https://my-server.com")},
+func (a myAPI) CapabilityBase(ctx context.Context) (r5.CapabilityStatement, error) {
+    return r5.CapabilityStatement{
+        Status:          r5.Code{Value: ptr.To("active")},
+        Kind:            r5.Code{Value: ptr.To("instance")},
+        Implementation:  &r5.CapabilityStatementImplementation{
+            Description: r5.String{Value: ptr.To("My FHIR Server")},
+            Url:         &r5.Url{Value: ptr.To("https://my-server.com")},
         },
         // ... other metadata
     }, nil

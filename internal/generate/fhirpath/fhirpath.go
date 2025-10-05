@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	stringTypes   = []string{"String", "Uri", "Code", "Oid", "Id", "Uuid", "Markdown", "Base64Binary"}
+	stringTypes   = []string{"String", "Uri", "Code", "Oid", "Id", "Uuid", "Markdown", "Base64Binary", "Canonical", "Url"}
 	intTypes      = []string{"Integer", "UnsignedInt", "PositiveInt"}
 	dateTimeTypes = []string{"Date", "DateTime", "Instant"}
 )

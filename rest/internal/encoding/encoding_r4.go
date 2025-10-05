@@ -11,7 +11,7 @@ import (
 
 func init() {
 	decodeR4Resource = func(r io.Reader, format Format) (model.Resource, error) {
-		contained, err := Decode[r4.ContainedResource](r, format)
+		contained, err := decode[model.R4, r4.ContainedResource](r, format)
 		return contained.Resource, err
 	}
 }

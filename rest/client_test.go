@@ -10,7 +10,6 @@ import (
 
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 )
@@ -22,8 +21,9 @@ type mockSearchClient struct {
 	lastOptions search.Options // Track the options from the last call
 }
 
-func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{}, nil
+func (m *mockSearchClient) CapabilityStatement(ctx context.Context) (model.CapabilityStatement, error) {
+	// Return an empty R4 capability statement to satisfy the interface
+	return r4.CapabilityStatement{}, nil
 }
 
 func (m *mockSearchClient) Search(ctx context.Context, resourceType string, parameters search.Parameters, options search.Options) (search.Result[model.Resource], error) {
@@ -801,12 +801,12 @@ func TestClientSearchResourceIncludedBehavior(t *testing.T) {
 
 func TestClientInvoke(t *testing.T) {
 	type reqCheck func(t *testing.T, r *http.Request)
-	makeParams := func(k, v string) basic.Parameters {
+	makeParams := func(k, v string) r4.Parameters {
 		vv := v
 		name := k
-		return basic.Parameters{Parameter: []basic.ParametersParameter{{
-			Name:  basic.String{Value: &name},
-			Value: basic.String{Value: &vv},
+		return r4.Parameters{Parameter: []r4.ParametersParameter{{
+			Name:  r4.String{Value: &name},
+			Value: r4.String{Value: &vv},
 		}}}
 	}
 
@@ -855,7 +855,7 @@ func TestClientInvoke(t *testing.T) {
 				}))
 			},
 			call: func(c ClientR4) (model.Resource, error) {
-				return c.InvokeType(context.Background(), "Patient", "validate", basic.Parameters{})
+				return c.InvokeType(context.Background(), "Patient", "validate", r4.Parameters{})
 			},
 		},
 		{
@@ -869,7 +869,7 @@ func TestClientInvoke(t *testing.T) {
 				}))
 			},
 			call: func(c ClientR4) (model.Resource, error) {
-				return c.InvokeInstance(context.Background(), "Patient", "123", "everything", basic.Parameters{})
+				return c.InvokeInstance(context.Background(), "Patient", "123", "everything", r4.Parameters{})
 			},
 			expectNilRes: true,
 		},
@@ -883,7 +883,7 @@ func TestClientInvoke(t *testing.T) {
 				}))
 			},
 			call: func(c ClientR4) (model.Resource, error) {
-				return c.InvokeSystem(context.Background(), "broken", basic.Parameters{})
+				return c.InvokeSystem(context.Background(), "broken", r4.Parameters{})
 			},
 			expectErr: true,
 		},

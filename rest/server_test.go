@@ -6,7 +6,7 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	// basic types have been removed; use r4 types directly
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest"
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata/assert"
@@ -1496,22 +1496,22 @@ type mockBackend struct {
 }
 
 // Implement ConcreteCapabilities interface
-func (m mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("4.0")},
-		Format: []basic.Code{
+func (m mockBackend) CapabilityBase(ctx context.Context) (r4.CapabilityStatement, error) {
+	return r4.CapabilityStatement{
+		Status:      r4.Code{Value: ptr.To("active")},
+		Date:        r4.DateTime{Value: ptr.To("2024-11-28T11:25:27+01:00")},
+		Kind:        r4.Code{Value: ptr.To("instance")},
+		FhirVersion: r4.Code{Value: ptr.To("4.0")},
+		Format: []r4.Code{
 			{Value: ptr.To("xml")},
 			{Value: ptr.To("json")},
 		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name: basic.String{Value: ptr.To("fhir-toolbox-go")},
+		Software: &r4.CapabilityStatementSoftware{
+			Name: r4.String{Value: ptr.To("fhir-toolbox-go")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://example.com")},
+		Implementation: &r4.CapabilityStatementImplementation{
+			Description: r4.String{Value: ptr.To("a simple FHIR service built with fhir-toolbox-go")},
+			Url:         &r4.Url{Value: ptr.To("http://example.com")},
 		},
 	}, nil
 }
@@ -1523,15 +1523,13 @@ func (m mockBackend) CreatePatient(ctx context.Context, patient r4.Patient) (r4.
 
 func (m mockBackend) ReadPatient(ctx context.Context, id string) (r4.Patient, error) {
 	if len(m.mockPatients) == 0 {
-		return r4.Patient{}, basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("not-found")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("Patient with ID %s not found", id))},
-				},
+		return r4.Patient{}, r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("not-found")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("Patient with ID %s not found", id))},
 			},
-		}
+		}}
 	}
 	return m.mockPatients[0], nil
 }
@@ -1620,55 +1618,49 @@ func (m mockBackend) SearchObservation(ctx context.Context, parameters search.Pa
 func (m mockBackend) PingOperationDefinition() r4.OperationDefinition {
 	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("ping")}, Code: r4.Code{Value: ptr.To("ping")}, System: r4.Boolean{Value: ptr.To(true)}}
 }
-func (m mockBackend) InvokePing(ctx context.Context, params basic.Parameters) (basic.Parameters, error) {
-	return basic.Parameters{}, nil
+func (m mockBackend) InvokePing(ctx context.Context, params r4.Parameters) (r4.Parameters, error) {
+	return r4.Parameters{}, nil
 }
 func (m mockBackend) EchoOperationDefinition() r4.OperationDefinition {
 	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("echo")}, Code: r4.Code{Value: ptr.To("echo")}, Type: r4.Boolean{Value: ptr.To(true)}, Resource: []r4.Code{{Value: ptr.To("Patient")}}}
 }
-func (m mockBackend) InvokeEcho(ctx context.Context, resourceType string, params basic.Parameters) (r4.Patient, error) {
+func (m mockBackend) InvokeEcho(ctx context.Context, resourceType string, params r4.Parameters) (r4.Patient, error) {
 	return r4.Patient{}, nil
 }
 func (m mockBackend) HelloOperationDefinition() r4.OperationDefinition {
 	return r4.OperationDefinition{Id: &r4.Id{Value: ptr.To("hello")}, Code: r4.Code{Value: ptr.To("hello")}, Instance: r4.Boolean{Value: ptr.To(true)}, Resource: []r4.Code{{Value: ptr.To("Patient")}}}
 }
-func (m mockBackend) InvokeHello(ctx context.Context, resourceType, id string, params basic.Parameters) (basic.Parameters, error) {
-	return basic.Parameters{}, nil
+func (m mockBackend) InvokeHello(ctx context.Context, resourceType, id string, params r4.Parameters) (r4.Parameters, error) {
+	return r4.Parameters{}, nil
 }
 
 // Implement GenericDelete interface
 func (m mockBackend) Delete(ctx context.Context, resourceType, id string) error {
 	switch m.deleteErrorMode {
 	case "not-found":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("not-found")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("not-found")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("%s with ID %s not found", resourceType, id))},
 			},
-		}
+		}}
 	case "invalid-type":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("invalid")},
-					Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("invalid resource type: %s", resourceType))},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("invalid")},
+				Diagnostics: &r4.String{Value: ptr.To(fmt.Sprintf("invalid resource type: %s", resourceType))},
 			},
-		}
+		}}
 	case "server-error":
-		return basic.OperationOutcome{
-			Issue: []basic.OperationOutcomeIssue{
-				{
-					Severity:    basic.Code{Value: ptr.To("error")},
-					Code:        basic.Code{Value: ptr.To("exception")},
-					Diagnostics: &basic.String{Value: ptr.To("internal server error")},
-				},
+		return r4.OperationOutcome{Issue: []r4.OperationOutcomeIssue{
+			{
+				Severity:    r4.Code{Value: ptr.To("error")},
+				Code:        r4.Code{Value: ptr.To("exception")},
+				Diagnostics: &r4.String{Value: ptr.To("internal server error")},
 			},
-		}
+		}}
 	default:
 		return nil
 	}

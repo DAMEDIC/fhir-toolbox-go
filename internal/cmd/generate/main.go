@@ -4,7 +4,6 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"slices"
 	"strings"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/internal/generate"
@@ -22,7 +21,6 @@ var (
 	modelGenTarget        = "model/gen"
 	capabilitiesGenTarget = "capabilities/gen"
 	clientGenTarget       = "rest"
-	basicResources        = []string{"OperationOutcome", "Bundle", "CapabilityStatement", "Parameters"}
 )
 
 func main() {
@@ -37,7 +35,6 @@ func main() {
 	cleanupGeneratedClientFiles(clientGenTarget)
 
 	releaseTypes, releaseSearchParams, releaseValueSets := loadTypes(buildReleases)
-	basicTypes := collectBasicTypes(releaseTypes)
 
 	for _, r := range buildReleases {
 		log.Printf("Generating for FHIR %v ...\n", r)
@@ -70,21 +67,7 @@ func main() {
 		generateClientFiles(releaseTypes[r], clientGenTarget, r)
 	}
 
-	log.Println("Generating basic types...")
-
-	generate.GenerateAll(basicTypes, genDir(modelGenTarget, "basic"), "basic",
-		generate.BasicDocGenerator{},
-		generate.TypesGenerator{},
-		generate.ImplResourceGenerator{},
-		generate.ImplElementGenerator{},
-		generate.StringerGenerator{},
-		generate.OperationOutcomeErrorGenerator{},
-		json.MarshalGenerator{NotUseContainedResource: true},
-		json.UnmarshalGenerator{NotUseContainedResource: true},
-		xml.MarshalGenerator{NotUseContainedResource: true},
-		xml.UnmarshalGenerator{NotUseContainedResource: true},
-		fhirpath.FHIRPathGenerator{},
-	)
+	// basic types generation removed
 
 	log.Println("Code generation done.")
 }
@@ -114,30 +97,7 @@ func loadTypes(releases []string) (map[string][]ir.ResourceOrType, map[string]mo
 	return types, searchParams, valueSets
 }
 
-func collectBasicTypes(releaseTypes map[string][]ir.ResourceOrType) []ir.ResourceOrType {
-	var basicTypes []ir.ResourceOrType
-	for _, r4t := range releaseTypes["R4"] {
-		if !slices.Contains(basicResources, r4t.Name) && r4t.IsResource {
-			continue
-		}
-
-		var other []ir.ResourceOrType
-		for k, v := range releaseTypes {
-			if k == "R4" {
-				continue
-			}
-
-			for _, ot := range v {
-				if ot.Name == r4t.Name {
-					other = append(other, ot)
-				}
-			}
-		}
-		basicTypes = append(basicTypes, ir.CollectBasic(r4t, other))
-	}
-
-	return basicTypes
-}
+// basic types generation removed
 
 func genDir(genTarget, release string) string {
 	dir := filepath.Join(genTarget, strings.ToLower(release))

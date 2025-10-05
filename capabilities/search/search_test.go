@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
@@ -302,13 +301,13 @@ func TestParseAndToString(t *testing.T) {
 
 			// Convert old test format to new format
 			// Create a mock CapabilityStatement with SearchParam definitions
-			capabilityStatement := basic.CapabilityStatement{
-				Rest: []basic.CapabilityStatementRest{
+			capabilityStatement := r4.CapabilityStatement{
+				Rest: []r4.CapabilityStatementRest{
 					{
-						Resource: []basic.CapabilityStatementRestResource{
+						Resource: []r4.CapabilityStatementRestResource{
 							{
-								Type:        basic.Code{Value: ptr.To("TestResource")},
-								SearchParam: []basic.CapabilityStatementRestResourceSearchParam{},
+								Type:        r4.Code{Value: ptr.To("TestResource")},
+								SearchParam: []r4.CapabilityStatementRestResourceSearchParam{},
 							},
 						},
 					},
@@ -321,9 +320,9 @@ func TestParseAndToString(t *testing.T) {
 				canonical := "http://example.com/SearchParameter/" + name
 				capabilityStatement.Rest[0].Resource[0].SearchParam = append(
 					capabilityStatement.Rest[0].Resource[0].SearchParam,
-					basic.CapabilityStatementRestResourceSearchParam{
-						Name:       basic.String{Value: ptr.To(name)},
-						Definition: &basic.Canonical{Value: ptr.To(canonical)},
+					r4.CapabilityStatementRestResourceSearchParam{
+						Name:       r4.String{Value: ptr.To(name)},
+						Definition: &r4.Canonical{Value: ptr.To(canonical)},
 					},
 				)
 				searchParamMap[canonical] = param
@@ -367,17 +366,17 @@ func TestParseAndToString(t *testing.T) {
 }
 
 func TestParseQueryStrict(t *testing.T) {
-	capabilityStatement := basic.CapabilityStatement{
-		Rest: []basic.CapabilityStatementRest{
+	capabilityStatement := r4.CapabilityStatement{
+		Rest: []r4.CapabilityStatementRest{
 			{
-				Resource: []basic.CapabilityStatementRestResource{
+				Resource: []r4.CapabilityStatementRestResource{
 					{
-						Type: basic.Code{Value: ptr.To("TestResource")},
-						SearchParam: []basic.CapabilityStatementRestResourceSearchParam{
+						Type: r4.Code{Value: ptr.To("TestResource")},
+						SearchParam: []r4.CapabilityStatementRestResourceSearchParam{
 							{
-								Name:       basic.String{Value: ptr.To("supported-param")},
-								Definition: &basic.Canonical{Value: ptr.To("http://example.com/SearchParameter/supported")},
-								Type:       basic.Code{Value: ptr.To(string(search.TypeString))},
+								Name:       r4.String{Value: ptr.To("supported-param")},
+								Definition: &r4.Canonical{Value: ptr.To("http://example.com/SearchParameter/supported")},
+								Type:       r4.Code{Value: ptr.To(string(search.TypeString))},
 							},
 						},
 					},

@@ -41,7 +41,7 @@ func (g CapabilitiesWrapperGenerator) GenerateAdditional(f func(fileName string,
 
 func generateGenericWrapperStruct(f *File, release string) {
 	f.Type().Id(genericWrapperName).Struct(
-		Id("Concrete").Qual(moduleName+"/capabilities", "ConcreteCapabilities"),
+		Id("Concrete").Qual(moduleName+"/capabilities", "ConcreteCapabilities").Index(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatement")),
 	)
 }
 
@@ -123,13 +123,13 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								// Fallback: gather SearchParameter from SearchCapabilities methods
 								g.Comment("// Fallback: gather SearchParameter from SearchCapabilities methods if ReadSearchParameter not implemented")
 								g.Comment("// Get base URL from CapabilityStatement for canonical references")
-								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.List(Id("cs"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
 								g.If(Id("err").Op("!=").Nil()).Block(
 									Return(Nil(), Id("err")),
 								)
 								g.Var().Id("baseUrl").String()
-								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
-									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								g.If(Id("cs.Implementation").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("cs.Implementation.Url.Value"),
 								)
 								g.List(Id("searchParameters"), Id("err")).Op(":=").Id("searchParameters").Call(Id("ctx"), Id("w").Dot("Concrete"), Id("baseUrl"))
 								g.If(Id("err").Op("!=").Nil()).Block(
@@ -150,13 +150,13 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								)
 
 								// Fallback: get baseUrl and resolve populated OperationDefinitions
-								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.List(Id("cs"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
 								g.If(Id("err").Op("!=").Nil()).Block(
 									Return(Nil(), Id("err")),
 								)
 								g.Var().Id("baseUrl").String()
-								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
-									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								g.If(Id("cs.Implementation").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("cs.Implementation.Url.Value"),
 								)
 								g.List(Id("defs"), Id("err")).Op(":=").Id("operationDefinitionsByID").Call(Id("ctx"), Id("w.Concrete"), Id("baseUrl"))
 								g.If(Id("err").Op("!=").Nil()).Block(
@@ -232,13 +232,13 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								// Fallback: gather SearchParameter from SearchCapabilities methods
 								g.Comment("// Fallback: gather SearchParameter from SearchCapabilities methods if SearchSearchParameter not implemented")
 								g.Comment("// Get base URL from CapabilityStatement for canonical references")
-								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.List(Id("cs"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
 								g.If(Id("err").Op("!=").Nil()).Block(
 									Return(returnType.Clone().Block(), Id("err")),
 								)
 								g.Var().Id("baseUrl").String()
-								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
-									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								g.If(Id("cs.Implementation").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("cs.Implementation.Url.Value"),
 								)
 								g.List(Id("searchParameters"), Id("err")).Op(":=").Id("searchParameters").Call(Id("ctx"), Id("w").Dot("Concrete"), Id("baseUrl"))
 								g.If(Id("err").Op("!=").Nil()).Block(
@@ -332,13 +332,13 @@ func generateGeneric(f *File, release string, resources []ir.ResourceOrType, int
 								)
 
 								// Fallback: Get base URL and resolve populated OperationDefinitions
-								g.List(Id("capabilityStatement"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
+								g.List(Id("cs"), Id("err")).Op(":=").Id("w").Dot("Concrete").Dot("CapabilityBase").Call(Id("ctx"))
 								g.If(Id("err").Op("!=").Nil()).Block(
 									Return(returnType.Clone().Block(), Id("err")),
 								)
 								g.Var().Id("baseUrl").String()
-								g.If(Id("capabilityStatement.Implementation").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url").Op("!=").Nil().Op("&&").Id("capabilityStatement.Implementation.Url.Value").Op("!=").Nil()).Block(
-									Id("baseUrl").Op("=").Op("*").Id("capabilityStatement.Implementation.Url.Value"),
+								g.If(Id("cs.Implementation").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url").Op("!=").Nil().Op("&&").Id("cs.Implementation.Url.Value").Op("!=").Nil()).Block(
+									Id("baseUrl").Op("=").Op("*").Id("cs.Implementation.Url.Value"),
 								)
 								g.List(Id("defs"), Id("err")).Op(":=").Id("operationDefinitionsByID").Call(Id("ctx"), Id("w.Concrete"), Id("baseUrl"))
 								g.If(Id("err").Op("!=").Nil()).Block(
@@ -439,7 +439,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			Id("ctx").Qual("context", "Context"),
 		).
 		Params(
-			Qual(moduleName+"/model/gen/basic", "CapabilityStatement"),
+			Qual(moduleName+"/model", "CapabilityStatement"),
 			Error(),
 		).
 		BlockFunc(func(g *Group) {
@@ -454,18 +454,18 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			g.Comment("// Generate CapabilityStatement from concrete implementation")
 			g.List(Id("baseCapabilityStatement"), Id("err")).Op(":=").Id("w.Concrete.CapabilityBase").Call(Id("ctx"))
 			g.If(Id("err").Op("!=").Nil()).Block(
-				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Id("err")),
+				Return(Nil(), Id("err")),
 			)
 
 			// Extract and validate base URL for canonical references
 			g.Var().Id("baseUrl").String()
 			g.If(Id("baseCapabilityStatement.Implementation").Op("==").Nil().Op("||").Id("baseCapabilityStatement.Implementation.Url").Op("==").Nil().Op("||").Id("baseCapabilityStatement.Implementation.Url.Value").Op("==").Nil()).Block(
-				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Qual("fmt", "Errorf").Call(Lit("base CapabilityStatement must have implementation.url set for canonical SearchParameter references"))),
+				Return(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatement").Values(), Qual("fmt", "Errorf").Call(Lit("base CapabilityStatement must have implementation.url set for canonical SearchParameter references"))),
 			)
 			g.Id("baseUrl").Op("=").Op("*").Id("baseCapabilityStatement.Implementation.Url.Value")
 
 			// Initialize resourcesMap from base CapabilityStatement
-			g.Id("resourcesMap").Op(":=").Make(Map(String()).Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"))
+			g.Id("resourcesMap").Op(":=").Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource"))
 			g.For(List(Id("_"), Id("rest")).Op(":=").Range().Id("baseCapabilityStatement.Rest")).Block(
 				For(List(Id("_"), Id("resource")).Op(":=").Range().Id("rest.Resource")).Block(
 					If(Id("resource.Type.Value").Op("!=").Nil()).Block(
@@ -481,18 +481,18 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				Id("name").String(),
 				Id("interactionCode").String(),
 			).Params(
-				Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"),
+				Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource"),
 			).Block(
 				List(Id("r"), Id("ok")).Op(":=").Id("resourcesMap").Index(Id("name")),
 				If(Op("!").Id("ok")).Block(
-					Id("r").Op("=").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource").Values(Dict{
-						Id("Type"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Op("&").Id("name")}),
+					Id("r").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource").Values(Dict{
+						Id("Type"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Op("&").Id("name")}),
 					}),
 				),
 				Id("r").Dot("Interaction").Op("=").Append(
 					Id("r").Dot("Interaction"),
-					Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceInteraction").Values(Dict{
-						Id("Code"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("interactionCode"))}),
+					Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceInteraction").Values(Dict{
+						Id("Code"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("interactionCode"))}),
 					}),
 				),
 				Return(Id("r")),
@@ -526,7 +526,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 						If(Err().Op("!=").Nil()).Block(
 							Id("errs").Op("=").Append(Id("errs"), Err()),
 						).Else().Block(
-							Id("r").Dot("UpdateCreate").Op("=").Op("&").Qual(moduleName+"/model/gen/basic", "Boolean").Values(Dict{
+							Id("r").Dot("UpdateCreate").Op("=").Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Boolean").Values(Dict{
 								Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Id("c").Dot("UpdateCreate")),
 							}),
 						),
@@ -551,7 +551,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 						For(List(Id("_"), Id("include")).Op(":=").Range().Id("c").Dot("Includes")).Block(
 							Id("r").Dot("SearchInclude").Op("=").Append(
 								Id("r").Dot("SearchInclude"),
-								Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("include")}),
+								Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Op("&").Id("include")}),
 							),
 						),
 
@@ -564,7 +564,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 							Id("resolvedType").Op(":=").String().Call(Id("fhirpathType")),
 
 							// Extract SearchParameter ID for canonical reference
-							Var().Id("definition").Op("*").Qual(moduleName+"/model/gen/basic", "Canonical"),
+							Var().Id("definition").Op("*").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical"),
 							If(Id("baseUrl").Op("!=").Lit("")).Block(
 								Id("searchParameterId").Op(":=").Lit(""),
 								List(Id("fhirpathId"), Id("idOk"), Id("idErr")).Op(":=").Qual(moduleName+"/fhirpath", "Singleton").Index(Qual(moduleName+"/fhirpath", "String")).Call(Id("p").Dot("Children").Call(Lit("id"))),
@@ -575,14 +575,14 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 									Id("searchParameterId").Op("=").Id("sanitizeIdentifier").Call(Lit(r.Name+"-").Op("+").Id("n")),
 								),
 								Id("canonicalUrl").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/").Op("+").Id("searchParameterId"),
-								Id("definition").Op("=").Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonicalUrl")}),
+								Id("definition").Op("=").Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonicalUrl")}),
 							),
 
 							Id("r").Dot("SearchParam").Op("=").Append(
 								Id("r").Dot("SearchParam"),
-								Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam").Values(Dict{
-									Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("n")}),
-									Id("Type"):       Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Op("&").Id("resolvedType")}),
+								Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceSearchParam").Values(Dict{
+									Id("Name"):       Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Op("&").Id("n")}),
+									Id("Type"):       Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Op("&").Id("resolvedType")}),
 									Id("Definition"): Id("definition"),
 								}),
 							),
@@ -605,14 +605,14 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				Id("idDefinition").Op(":=").Id("baseUrl").Op("+").Lit("/SearchParameter/SearchParameter-id"),
 				Id("spResource").Dot("SearchParam").Op("=").Append(
 					Id("spResource").Dot("SearchParam"),
-					Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam").Values(Dict{
-						Id("Name"): Qual(moduleName+"/model/gen/basic", "String").Values(Dict{
+					Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceSearchParam").Values(Dict{
+						Id("Name"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{
 							Id("Value"): Op("&").Id("idParam"),
 						}),
-						Id("Type"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{
+						Id("Type"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
 							Id("Value"): Op("&").Id("tokenType"),
 						}),
-						Id("Definition"): Op("&").Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{
+						Id("Definition"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical").Values(Dict{
 							Id("Value"): Op("&").Id("idDefinition"),
 						}),
 					}),
@@ -622,7 +622,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 
 			// Check for errors before proceeding
 			g.If(Len(Id("errs")).Op(">").Lit(0)).Block(
-				Return(Qual(moduleName+"/model/gen/basic", "CapabilityStatement").Values(), Qual("errors", "Join").Call(Id("errs").Op("..."))),
+				Return(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatement").Values(), Qual("errors", "Join").Call(Id("errs").Op("..."))),
 			)
 
 			// Defer building resources list until after operations are attached
@@ -644,16 +644,16 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			}
 
 			g.If(Id("capabilityStatement.FhirVersion.Value").Op("==").Nil()).Block(
-				Id("capabilityStatement.FhirVersion").Op("=").Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{
+				Id("capabilityStatement.FhirVersion").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{
 					Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit(fhirVersion)),
 				}),
 			)
 
 			// Ensure REST section exists
 			g.If(Len(Id("capabilityStatement.Rest")).Op("==").Lit(0)).Block(
-				Id("capabilityStatement.Rest").Op("=").Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRest").Values(
+				Id("capabilityStatement.Rest").Op("=").Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRest").Values(
 					Values(Dict{
-						Id("Mode"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("server"))}),
+						Id("Mode"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("server"))}),
 					}),
 				),
 			)
@@ -663,7 +663,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			// Populate operations using operationDefinitionsByCode helper
 			// Note: function signature includes context, codegen will pass ctx
 			g.Id("defs").Op(":=").Id("operationDefinitionsByCode").Call(Id("ctx"), Id("w.Concrete"))
-			g.Var().Id("sysOps").Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation")
+			g.Var().Id("sysOps").Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation")
 			g.For(List(Id("code"), Id("entry")).Op(":=").Range().Id("defs")).BlockFunc(func(g *Group) {
 				g.Id("id").Op(":=").Id("code")
 				g.If(Id("entry.Def.Id").Op("!=").Nil().Op("&&").Id("entry.Def.Id.Value").Op("!=").Nil()).Block(
@@ -671,9 +671,9 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				)
 				g.Id("canonical").Op(":=").Id("baseUrl").Op("+").Lit("/OperationDefinition/").Op("+").Id("id")
 				g.If(Id("entry.Def.System").Dot("Value").Op("!=").Nil().Op("&&").Op("*").Id("entry.Def.System").Dot("Value")).Block(
-					Id("sysOps").Op("=").Append(Id("sysOps"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
-						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
-						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					Id("sysOps").Op("=").Append(Id("sysOps"), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
 					})),
 				)
 				g.For(List(Id("_"), Id("rt")).Op(":=").Range().Id("entry.Def.Resource")).BlockFunc(func(g *Group) {
@@ -681,20 +681,20 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 					g.Id("rtype").Op(":=").Op("*").Id("rt").Dot("Value")
 					g.List(Id("r"), Id("ok")).Op(":=").Id("resourcesMap").Index(Id("rtype"))
 					g.If(Op("!").Id("ok")).Block(
-						Id("r").Op("=").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource").Values(Dict{
-							Id("Type"): Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Op("&").Id("rtype")}),
+						Id("r").Op("=").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource").Values(Dict{
+							Id("Type"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Op("&").Id("rtype")}),
 						}),
 					)
 					// Append operation to resource
-					g.Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
-						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
-						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					g.Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
 					}))
 					// Store back in map
 					g.Id("resourcesMap").Index(Id("rtype")).Op("=").Id("r")
-					Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation").Values(Dict{
-						Id("Name"):       Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
-						Id("Definition"): Qual(moduleName+"/model/gen/basic", "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
+					Id("r").Dot("Operation").Op("=").Append(Id("r").Dot("Operation"), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation").Values(Dict{
+						Id("Name"):       Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Op("&").Id("code")}),
+						Id("Definition"): Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Canonical").Values(Dict{Id("Value"): Op("&").Id("canonical")}),
 					}))
 					Id("resourcesMap").Index(Id("rtype")).Op("=").Id("r")
 				})
@@ -704,7 +704,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 				Id("sysOps"),
 				Func().Params(
 					Id("a"),
-					Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation"),
+					Id("b").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation"),
 				).Int().Block(
 					Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
 				),
@@ -712,19 +712,19 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			g.Id("capabilityStatement.Rest").Index(Lit(0)).Dot("Operation").Op("=").Id("sysOps")
 
 			// Build resourcesList from resourcesMap
-			g.Id("resourcesList").Op(":=").Make(Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource"), Lit(0), Len(Id("resourcesMap")))
+			g.Id("resourcesList").Op(":=").Make(Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource"), Lit(0), Len(Id("resourcesMap")))
 			g.For(List(Id("_"), Id("r")).Op(":=").Range().Id("resourcesMap")).Block(
 				// Sort search params by name
 				Qual("slices", "SortStableFunc").Call(
 					Id("r").Dot("SearchParam"),
-					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam")).Int().Block(
+					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceSearchParam")).Int().Block(
 						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
 					),
 				),
 				// Sort interactions in standard order: create, read, update, delete, search-type
 				Qual("slices", "SortStableFunc").Call(
 					Id("r").Dot("Interaction"),
-					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceInteraction")).Int().Block(
+					Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceInteraction")).Int().Block(
 						Id("order").Op(":=").Map(String()).Int().Values(Dict{
 							Lit("create"):      Lit(1),
 							Lit("read"):        Lit(2),
@@ -748,7 +748,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 					Id("r").Dot("Operation"),
 					Func().Params(
 						Id("a"),
-						Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceOperation"),
+						Id("b").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceOperation"),
 					).Int().Block(
 						Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Name").Dot("Value"), Op("*").Id("b").Dot("Name").Dot("Value"))),
 					),
@@ -758,7 +758,7 @@ func generateWrapperCapabilityStatement(f *File, release string, resources []ir.
 			// Sort resources by type
 			g.Qual("slices", "SortFunc").Call(
 				Id("resourcesList"),
-				Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResource")).Int().Block(
+				Func().Params(Id("a"), Id("b").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResource")).Int().Block(
 					Return(Qual("cmp", "Compare").Call(Op("*").Id("a").Dot("Type").Dot("Value"), Op("*").Id("b").Dot("Type").Dot("Value"))),
 				),
 			)
@@ -891,7 +891,7 @@ func generateConcreteCapabilityBase(f *File, release string) {
 	f.Func().Params(Id("w").Id(concreteWrapperName)).Id("CapabilityBase").
 		Params(Id("ctx").Qual("context", "Context")).
 		Params(
-			Qual(moduleName+"/model/gen/basic", "CapabilityStatement"),
+			Qual(moduleName+"/model", "CapabilityStatement"),
 			Error(),
 		).
 		Block(
@@ -1041,10 +1041,18 @@ func generateConcreteCapabilities(r ir.ResourceOrType, release, interaction stri
 						Id("Parameters"): Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
 					}), Id("err")),
 				)
+				// Cast to release-specific CapabilityStatement
+				g.List(Id("cs"), Id("okCs")).Op(":=").Id("capabilityStatement").Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatement"))
+				g.If(Op("!").Id("okCs")).Block(
+					Return(searchCapabilitiesType(release).Values(Dict{
+						Id("Includes"):   Index().String().Values(),
+						Id("Parameters"): Make(Map(String()).Qual(moduleName+"/model/gen/"+strings.ToLower(release), "SearchParameter")),
+					}), Qual("fmt", "Errorf").Call(Lit("CapabilityStatement type does not match release"))),
+				)
 
 				// Find the resource in the CapabilityStatement
-				g.Var().Id("searchParams").Index().Qual(moduleName+"/model/gen/basic", "CapabilityStatementRestResourceSearchParam")
-				g.For(List(Id("_"), Id("rest")).Op(":=").Range().Id("capabilityStatement.Rest")).Block(
+				g.Var().Id("searchParams").Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "CapabilityStatementRestResourceSearchParam")
+				g.For(List(Id("_"), Id("rest")).Op(":=").Range().Id("cs.Rest")).Block(
 					For(List(Id("_"), Id("resource")).Op(":=").Range().Id("rest.Resource")).Block(
 						If(Id("resource.Type.Value").Op("!=").Nil().Op("&&").Op("*").Id("resource.Type.Value").Op("==").Lit(r.Name)).Block(
 							Id("searchParams").Op("=").Id("resource.SearchParam"),
@@ -1383,13 +1391,18 @@ func generateGenericInvokeOperation(f *File, release string) {
 			Id("resourceType").String(),
 			Id("resourceID").String(),
 			Id("code").String(),
-			Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+			Id("parameters").Qual(moduleName+"/model", "Parameters"),
 		).
 		Params(
 			Qual(moduleName+"/model", "Resource"),
 			Error(),
 		).
 		BlockFunc(func(g *Group) {
+			// If parameters is a ContainedResource, unwrap
+			g.List(Id("crp"), Id("okCrp")).Op(":=").Id("parameters").Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "ContainedResource"))
+			g.If(Id("okCrp")).Block(Id("parameters").Op("=").Id("crp").Dot("Resource"))
+			// Try cast to release-specific Parameters
+			g.List(Id("typedParams"), Id("_")).Op(":=").Id("parameters").Assert(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Parameters"))
 			// Delegate immediately if concrete implements GenericOperation
 			g.List(Id("op"), Id("ok")).Op(":=").Id("w").Dot("Concrete").Assert(Qual(moduleName+"/capabilities", "GenericOperation"))
 			g.If(Id("ok")).Block(
@@ -1414,12 +1427,12 @@ func generateGenericInvokeOperation(f *File, release string) {
 			g.If(Op("!").Id("found")).Block(
 				Return(
 					Nil(),
-					Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+					Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 							Values(Dict{
-								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition not found for code "))}),
+								Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition not found for code "))}),
 							}),
 						),
 					}),
@@ -1430,36 +1443,36 @@ func generateGenericInvokeOperation(f *File, release string) {
 			g.If(Id("matchBase").Op("!=").Lit("")).BlockFunc(func(g *Group) {
 				// system
 				g.If(Id("resourceType").Op("==").Lit("").Op("&&").Parens(Id("opDef").Dot("System").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("System").Dot("Value"))).Block(
-					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+					Return(Nil(), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 							Values(Dict{
-								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at system level"))}),
+								Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at system level"))}),
 							}),
 						),
 					})),
 				)
 				// type
 				g.If(Id("resourceType").Op("!=").Lit("").Op("&&").Id("resourceID").Op("==").Lit("").Op("&&").Parens(Id("opDef").Dot("Type").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("Type").Dot("Value"))).Block(
-					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+					Return(Nil(), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 							Values(Dict{
-								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at type level"))}),
+								Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at type level"))}),
 							}),
 						),
 					})),
 				)
 				// instance
 				g.If(Id("resourceType").Op("!=").Lit("").Op("&&").Id("resourceID").Op("!=").Lit("").Op("&&").Parens(Id("opDef").Dot("Instance").Dot("Value").Op("==").Nil().Op("||").Op("!").Op("*").Id("opDef").Dot("Instance").Dot("Value"))).Block(
-					Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-						Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+					Return(Nil(), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+						Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 							Values(Dict{
-								Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-								Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at instance level"))}),
+								Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+								Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+								Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed at instance level"))}),
 							}),
 						),
 					})),
@@ -1474,12 +1487,12 @@ func generateGenericInvokeOperation(f *File, release string) {
 						),
 					)
 					g.If(Parens(Len(Id("opDef").Dot("Resource")).Op("!=").Lit(0)).Op("&&").Op("!").Id("allowed")).Block(
-						Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-							Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+						Return(Nil(), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+							Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 								Values(Dict{
-									Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-									Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-									Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed for resource type"))}),
+									Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+									Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+									Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("operation not allowed for resource type"))}),
 								}),
 							),
 						})),
@@ -1498,7 +1511,7 @@ func generateGenericInvokeOperation(f *File, release string) {
 
 			// reflect types
 			g.Id("ctxT").Op(":=").Qual("reflect", "TypeOf").Call(Parens(Op("*").Qual("context", "Context")).Parens(Nil())).Dot("Elem").Call()
-			g.Id("paramT").Op(":=").Qual("reflect", "TypeOf").Call(Qual(moduleName+"/model/gen/basic", "Parameters").Values())
+			g.Id("paramT").Op(":=").Qual("reflect", "TypeOf").Call(Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Parameters").Values())
 
 			// Build preferred arity list: exact need first, then more specific if available
 			g.Var().Id("tryList").Index().Int()
@@ -1549,14 +1562,14 @@ func generateGenericInvokeOperation(f *File, release string) {
 					// Build args (no code argument)
 					Id("args").Op(":=").Index().Qual("reflect", "Value").Values(Qual("reflect", "ValueOf").Call(Id("ctx"))),
 					If(Id("tryN").Op("==").Lit(2)).Block(
-						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("typedParams"))),
 					).Else().If(Id("tryN").Op("==").Lit(3)).Block(
 						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceType"))),
-						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("typedParams"))),
 					).Else().Block(
 						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceType"))),
 						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("resourceID"))),
-						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("parameters"))),
+						Id("args").Op("=").Append(Id("args"), Qual("reflect", "ValueOf").Call(Id("typedParams"))),
 					),
 
 					// Call and map result
@@ -1579,13 +1592,13 @@ func generateGenericInvokeOperation(f *File, release string) {
 				),
 			)
 
-			// Not implemented: return OperationOutcome (basic)
-			g.Return(Nil(), Qual(moduleName+"/model/gen/basic", "OperationOutcome").Values(Dict{
-				Id("Issue"): Index().Qual(moduleName+"/model/gen/basic", "OperationOutcomeIssue").Values(
+			// Not implemented: return OperationOutcome (release-specific)
+			g.Return(Nil(), Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcome").Values(Dict{
+				Id("Issue"): Index().Qual(moduleName+"/model/gen/"+strings.ToLower(release), "OperationOutcomeIssue").Values(
 					Values(Dict{
-						Id("Severity"):    Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
-						Id("Code"):        Qual(moduleName+"/model/gen/basic", "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
-						Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/basic", "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition but no implementation found"))}),
+						Id("Severity"):    Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("fatal"))}),
+						Id("Code"):        Qual(moduleName+"/model/gen/"+strings.ToLower(release), "Code").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("not-supported"))}),
+						Id("Diagnostics"): Op("&").Qual(moduleName+"/model/gen/"+strings.ToLower(release), "String").Values(Dict{Id("Value"): Qual(moduleName+"/utils/ptr", "To").Call(Lit("OperationDefinition but no implementation found"))}),
 					}),
 				),
 			}))

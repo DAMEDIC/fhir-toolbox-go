@@ -36,12 +36,17 @@ package capabilities
 
 import (
 	"context"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 )
 
 // The ConcreteCapabilities interface allows concrete implementations to provide a base CapabilityStatement
 // that will be enhanced with the detected concrete capabilities. This is useful for setting implementation
 // details, base URLs, and other metadata that should be preserved in the final CapabilityStatement.
-type ConcreteCapabilities interface {
-	CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error)
+// ConcreteCapabilities is a generic interface for backends that provide a
+// base CapabilityStatement of the concrete release type C.
+//
+// C must be a release-specific type that satisfies model.CapabilityStatement
+// (e.g., r4.CapabilityStatement, r4b.CapabilityStatement, r5.CapabilityStatement).
+type ConcreteCapabilities[C model.CapabilityStatement] interface {
+	CapabilityBase(ctx context.Context) (C, error)
 }

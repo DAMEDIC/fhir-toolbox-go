@@ -51,10 +51,10 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/bundle"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/encoding"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/wrap"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"log/slog"
 	"net/http"
 	"net/url"
@@ -167,13 +167,8 @@ func (s *Server[R]) genericBackend() (capabilities.GenericCapabilities, error) {
 	if ok {
 		return genericBackend, nil
 	}
-
-	concreteBackend, ok := s.Backend.(capabilities.ConcreteCapabilities)
-	if !ok {
-		return nil, fmt.Errorf("backend does not implement capabilities.GenericCapabilities or capabilities.ConcreteCapabilities")
-	}
-
-	return wrap.Generic[R](concreteBackend)
+	// Attempt to wrap a concrete backend for the current release R
+	return wrap.Generic[R](s.Backend)
 }
 
 func (s *Server[R]) handleMetadata(w http.ResponseWriter, r *http.Request) {
@@ -182,19 +177,19 @@ func (s *Server[R]) handleMetadata(w http.ResponseWriter, r *http.Request) {
 	backend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
 	capabilityStatement, err := backend.CapabilityStatement(r.Context())
 	if err != nil {
 		slog.Error("error getting metadata", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
 	// The CapabilityStatement comes fully configured from the backend
-	// No additional modification needed
+	// Unwrap and return the concrete resource
 	returnResult(w, capabilityStatement, http.StatusOK, responseFormat)
 
 }
@@ -207,19 +202,19 @@ func (s *Server[R]) handleCreate(w http.ResponseWriter, r *http.Request) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	backend, impl := anyBackend.(capabilities.GenericCreate)
 
-	if !checkInteractionImplemented(impl, "create", w, responseFormat) {
+	if !checkInteractionImplemented[R](impl, "create", w, responseFormat) {
 		return
 	}
 
 	resource, err := dispatchCreate[R](r, backend, requestFormat, resourceType)
 	if err != nil {
 		slog.Error("error creating resource", "resourceType", resourceType, "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
@@ -243,7 +238,7 @@ func dispatchCreate[R model.Release](
 	}
 
 	if resourceType != resource.ResourceType() {
-		return nil, unexpectedResourceError(resourceType, resource.ResourceType())
+		return nil, unexpectedResourceError[R](resourceType, resource.ResourceType())
 	}
 
 	createdResource, err := backend.Create(r.Context(), resource)
@@ -262,19 +257,19 @@ func (s *Server[R]) handleRead(w http.ResponseWriter, r *http.Request) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	backend, impl := anyBackend.(capabilities.GenericRead)
 
-	if !checkInteractionImplemented(impl, "read", w, responseFormat) {
+	if !checkInteractionImplemented[R](impl, "read", w, responseFormat) {
 		return
 	}
 
 	resource, err := dispatchRead(r.Context(), backend, resourceType, resourceID)
 	if err != nil {
 		slog.Error("error reading resource", "resourceType", resourceType, "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
@@ -303,19 +298,19 @@ func (s *Server[R]) handleUpdate(w http.ResponseWriter, r *http.Request) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	backend, impl := anyBackend.(capabilities.GenericUpdate)
 
-	if !checkInteractionImplemented(impl, "update", w, responseFormat) {
+	if !checkInteractionImplemented[R](impl, "update", w, responseFormat) {
 		return
 	}
 
 	result, err := dispatchUpdate[R](r, backend, requestFormat, resourceType, resourceID)
 	if err != nil {
 		slog.Error("error updating resource", "resourceType", resourceType, "id", resourceID, "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
@@ -345,13 +340,13 @@ func dispatchUpdate[R model.Release](
 	}
 
 	if resourceType != resource.ResourceType() {
-		return update.Result[model.Resource]{}, unexpectedResourceError(resourceType, resource.ResourceType())
+		return update.Result[model.Resource]{}, unexpectedResourceError[R](resourceType, resource.ResourceType())
 	}
 
 	// Verify that the resource ID in the URL matches the resource ID in the body
 	id, ok := resource.ResourceId()
 	if !ok || id != resourceID {
-		return update.Result[model.Resource]{}, createOperationOutcome(
+		return update.Result[model.Resource]{}, outcome.Error[R](
 			"fatal",
 			"processing",
 			fmt.Sprintf("resource ID in URL (%s) does not match resource ID in body (%s)", resourceID, id),
@@ -374,19 +369,19 @@ func (s *Server[R]) handleDelete(w http.ResponseWriter, r *http.Request) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	backend, impl := anyBackend.(capabilities.GenericDelete)
 
-	if !checkInteractionImplemented(impl, "delete", w, responseFormat) {
+	if !checkInteractionImplemented[R](impl, "delete", w, responseFormat) {
 		return
 	}
 
 	err = dispatchDelete(r.Context(), backend, resourceType, resourceID)
 	if err != nil {
 		slog.Error("error deleting resource", "resourceType", resourceType, "id", resourceID, "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
@@ -409,16 +404,16 @@ func (s *Server[R]) handleSearch(w http.ResponseWriter, r *http.Request) {
 	anyBackend, err := s.genericBackend()
 	if err != nil {
 		slog.Error("error in backend configuration", "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 	backend, impl := anyBackend.(capabilities.GenericSearch)
 
-	if !checkInteractionImplemented(impl, "search-type", w, responseFormat) {
+	if !checkInteractionImplemented[R](impl, "search-type", w, responseFormat) {
 		return
 	}
 
-	resource, err := dispatchSearch(
+	resource, err := dispatchSearch[R](
 		r,
 		backend,
 		resourceType,
@@ -430,14 +425,14 @@ func (s *Server[R]) handleSearch(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		slog.Error("error reading searching", "resourceType", resourceType, "err", err)
-		returnErr(w, err, responseFormat)
+		returnErr[R](w, err, responseFormat)
 		return
 	}
 
 	returnResult(w, resource, http.StatusOK, responseFormat)
 }
 
-func dispatchSearch(
+func dispatchSearch[R model.Release](
 	r *http.Request,
 	backend capabilities.GenericSearch,
 	resourceType string,
@@ -448,10 +443,11 @@ func dispatchSearch(
 ) (model.Resource, error) {
 	ctx := r.Context()
 	// Get CapabilityStatement to extract SearchParameter information
-	capabilityStatement, err := backend.CapabilityStatement(ctx)
+	csWrapper, err := backend.CapabilityStatement(ctx)
 	if err != nil {
 		return nil, err
 	}
+	capabilityStatement := csWrapper
 
 	// Create a SearchParameter resolver function
 	resolveSearchParameter := func(canonical string) (model.Element, error) {
@@ -473,7 +469,7 @@ func dispatchSearch(
 		return nil, fmt.Errorf("cannot resolve SearchParameter from canonical URL: %s", canonical)
 	}
 
-	searchParameters, options, err := parseSearchOptions(
+	searchParameters, options, err := parseSearchOptions[R](
 		capabilityStatement,
 		resourceType,
 		resolveSearchParameter,
@@ -490,7 +486,7 @@ func dispatchSearch(
 		return nil, err
 	}
 
-	bundle, err := buildSearchBundle(resourceType, resources, searchParameters, options, capabilityStatement, resolveSearchParameter)
+	bundle, err := bundle.BuildSearchBundle[R](resourceType, resources, searchParameters, options, capabilityStatement, resolveSearchParameter)
 	if err != nil {
 		return nil, err
 	}
@@ -498,8 +494,8 @@ func dispatchSearch(
 	return bundle, nil
 }
 
-func parseSearchOptions(
-	capabilityStatement basic.CapabilityStatement,
+func parseSearchOptions[R model.Release](
+	capabilityStatement model.CapabilityStatement,
 	resourceType string,
 	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
@@ -508,7 +504,7 @@ func parseSearchOptions(
 	strict bool) (search.Parameters, search.Options, error) {
 	parameters, options, err := search.ParseQuery(capabilityStatement, resourceType, resolveSearchParameter, params, tz, maxCount, defaultCount, strict)
 	if err != nil {
-		return nil, search.Options{}, searchError(err.Error())
+		return nil, search.Options{}, searchError[R](err.Error())
 	}
 	return parameters, options, nil
 }
@@ -570,8 +566,8 @@ func matchFormat(contentType string) Format {
 	return ""
 }
 
-func returnErr(w http.ResponseWriter, err error, format Format) {
-	status, oo := errToOperationOutcome(err)
+func returnErr[R model.Release](w http.ResponseWriter, err error, format Format) {
+	status, oo := errToOperationOutcome[R](err)
 	returnResult(w, oo, status, format)
 }
 
@@ -586,19 +582,7 @@ func returnResult[T any](w http.ResponseWriter, r T, status int, format Format) 
 	}
 }
 
-func createOperationOutcome(severity, code, diagnostics string) basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: ptr.To(severity)},
-				Code:        basic.Code{Value: ptr.To(code)},
-				Diagnostics: &basic.String{Value: ptr.To(diagnostics)},
-			},
-		},
-	}
-}
-
-func checkInteractionImplemented(
+func checkInteractionImplemented[R model.Release](
 	implemented bool,
 	interaction string,
 	w http.ResponseWriter,
@@ -606,14 +590,14 @@ func checkInteractionImplemented(
 ) bool {
 	if !implemented {
 		slog.Error("interaction not implemented by backend", "interaction", interaction)
-		returnErr(w, notImplementedError(interaction), format)
+		returnErr[R](w, notImplementedError[R](interaction), format)
 		return false
 	}
 	return true
 }
 
-func notImplementedError(interaction string) error {
-	return createOperationOutcome(
+func notImplementedError[R model.Release](interaction string) error {
+	return outcome.Error[R](
 		"fatal",
 		"not-supported",
 		fmt.Sprintf("%s interaction not implemented", interaction),
@@ -629,16 +613,16 @@ func extractIDFromCanonical(canonical string) string {
 	return parts[len(parts)-1]
 }
 
-func unexpectedResourceError(expectedType string, gotType string) basic.OperationOutcome {
-	return createOperationOutcome(
+func unexpectedResourceError[R model.Release](expectedType string, gotType string) error {
+	return outcome.Error[R](
 		"fatal",
 		"processing",
 		fmt.Sprintf("unexpected resource: expected %s, got %s", expectedType, gotType),
 	)
 }
 
-func searchError(msg string) basic.OperationOutcome {
-	return createOperationOutcome("fatal", "processing", msg)
+func searchError[R model.Release](msg string) error {
+	return outcome.Error[R]("fatal", "processing", msg)
 }
 
 // getBaseURL extracts the base URL from the request

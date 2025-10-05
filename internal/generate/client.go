@@ -45,7 +45,7 @@ func GenerateUnifiedClient(f *File, resources []ir.ResourceOrType, release strin
 	f.ImportName(moduleName+"/capabilities/search", "search")
 	f.ImportName(moduleName+"/capabilities/update", "update")
 	f.ImportName(moduleName+"/model", "model")
-	f.ImportName(moduleName+"/model/gen/basic", "basic")
+	// no basic import for CapabilityStatement/Parameters anymore
 	f.ImportName(moduleName+"/model/gen/"+lowerRelease, lowerRelease)
 
 	// Generate client struct
@@ -95,7 +95,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("CapabilityStatement").Params(
 		Id("ctx").Qual("context", "Context"),
 	).Params(
-		Qual(moduleName+"/model/gen/basic", "CapabilityStatement"),
+		Qual(moduleName+"/model", "CapabilityStatement"),
 		Error(),
 	).Block(
 		Id("client").Op(":=").Op("&").Id("internalClient").Index(Qual(moduleName+"/model", releaseType)).Values(
@@ -201,7 +201,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("resourceType").String(),
 		Id("resourceID").String(),
 		Id("code").String(),
-		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
 	).Params(
 		Qual(moduleName+"/model", "Resource"),
 		Error(),
@@ -219,7 +219,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 	f.Func().Params(Id("c").Op("*").Id(clientName)).Id("InvokeSystem").Params(
 		Id("ctx").Qual("context", "Context"),
 		Id("code").String(),
-		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
 	).Params(
 		Qual(moduleName+"/model", "Resource"),
 		Error(),
@@ -232,7 +232,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("ctx").Qual("context", "Context"),
 		Id("resourceType").String(),
 		Id("code").String(),
-		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
 	).Params(
 		Qual(moduleName+"/model", "Resource"),
 		Error(),
@@ -246,7 +246,7 @@ func generateUnifiedGenericMethods(f *File, clientName, releaseType string) {
 		Id("resourceType").String(),
 		Id("id").String(),
 		Id("code").String(),
-		Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+		Id("parameters").Qual(moduleName+"/model", "Parameters"),
 	).Params(
 		Qual(moduleName+"/model", "Resource"),
 		Error(),
@@ -404,7 +404,7 @@ func generateOperationHelpers(f *File, resources []ir.ResourceOrType, release, r
 		f.Comment("// Invoke" + methodSuffix + " invokes the system-level $" + op + " operation.")
 		f.Func().Params(Id("c").Op("*").Id(clientName)).Id("Invoke"+methodSuffix).Params(
 			Id("ctx").Qual("context", "Context"),
-			Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+			Id("parameters").Qual(moduleName+"/model", "Parameters"),
 		).Params(
 			Qual(moduleName+"/model", "Resource"),
 			Error(),
@@ -433,7 +433,7 @@ func generateOperationHelpers(f *File, resources []ir.ResourceOrType, release, r
 			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at type or instance level.")
 			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
 				Id("ctx").Qual("context", "Context"),
-				Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
 				Id("id").Op("...").String(),
 			).Params(
 				Qual(moduleName+"/model", "Resource"),
@@ -450,7 +450,7 @@ func generateOperationHelpers(f *File, resources []ir.ResourceOrType, release, r
 			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at instance level.")
 			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
 				Id("ctx").Qual("context", "Context"),
-				Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
 				Id("id").String(),
 			).Params(
 				Qual(moduleName+"/model", "Resource"),
@@ -463,7 +463,7 @@ func generateOperationHelpers(f *File, resources []ir.ResourceOrType, release, r
 			f.Comment("// " + methodName + " invokes $" + op + " on " + res + " at type level.")
 			f.Func().Params(Id("c").Op("*").Id(clientName)).Id(methodName).Params(
 				Id("ctx").Qual("context", "Context"),
-				Id("parameters").Qual(moduleName+"/model/gen/basic", "Parameters"),
+				Id("parameters").Qual(moduleName+"/model", "Parameters"),
 			).Params(
 				Qual(moduleName+"/model", "Resource"),
 				Error(),

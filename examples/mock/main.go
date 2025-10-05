@@ -5,7 +5,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"github.com/cockroachdb/apd/v3"
@@ -42,23 +41,23 @@ func main() {
 type mockBackend struct{}
 
 // CapabilityBase provides the base CapabilityStatement (required for ConcreteCapabilities interface)
-func (b *mockBackend) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
-	return basic.CapabilityStatement{
-		Status:      basic.Code{Value: ptr.To("active")},
-		Date:        basic.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
-		Kind:        basic.Code{Value: ptr.To("instance")},
-		FhirVersion: basic.Code{Value: ptr.To("5.0")},
-		Format: []basic.Code{
+func (b *mockBackend) CapabilityBase(ctx context.Context) (r5.CapabilityStatement, error) {
+	return r5.CapabilityStatement{
+		Status:      r5.Code{Value: ptr.To("active")},
+		Date:        r5.DateTime{Value: ptr.To(time.Now().Format(time.RFC3339))},
+		Kind:        r5.Code{Value: ptr.To("instance")},
+		FhirVersion: r5.Code{Value: ptr.To("5.0")},
+		Format: []r5.Code{
 			{Value: ptr.To("xml")},
 			{Value: ptr.To("json")},
 		},
-		Software: &basic.CapabilityStatementSoftware{
-			Name:    basic.String{Value: ptr.To("fhir-toolbox-go mock server")},
-			Version: &basic.String{Value: ptr.To("1.0.0")},
+		Software: &r5.CapabilityStatementSoftware{
+			Name:    r5.String{Value: ptr.To("fhir-toolbox-go mock server")},
+			Version: &r5.String{Value: ptr.To("1.0.0")},
 		},
-		Implementation: &basic.CapabilityStatementImplementation{
-			Description: basic.String{Value: ptr.To("Mock FHIR server built with fhir-toolbox-go")},
-			Url:         &basic.Url{Value: ptr.To("http://localhost")},
+		Implementation: &r5.CapabilityStatementImplementation{
+			Description: r5.Markdown{Value: ptr.To("Mock FHIR server built with fhir-toolbox-go")},
+			Url:         &r5.Url{Value: ptr.To("http://localhost")},
 		},
 	}, nil
 }

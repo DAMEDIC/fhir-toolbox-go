@@ -5,8 +5,7 @@ import (
 	"encoding/xml"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
-	"github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
+	"github.com/DAMEDIC/fhir-toolbox-go/rest/internal/outcome"
 	"io"
 )
 
@@ -48,24 +47,16 @@ var decodeR5Resource = func(r io.Reader, format Format) (model.Resource, error) 
 	return nil, disabledErr[model.R5]()
 }
 
-func decodingError(encoding string) basic.OperationOutcome {
-	return basic.OperationOutcome{
-		Issue: []basic.OperationOutcomeIssue{
-			{
-				Severity:    basic.Code{Value: ptr.To("fatal")},
-				Code:        basic.Code{Value: ptr.To("processing")},
-				Diagnostics: &basic.String{Value: ptr.To(fmt.Sprintf("error parsing %s body", encoding))},
-			},
-		},
-	}
+func decodingError[R model.Release](encoding string) error {
+	return outcome.Error[R]("fatal", "processing", "error parsing "+encoding+" body")
 }
 
-func Decode[T any](r io.Reader, format Format) (T, error) {
+func decode[R model.Release, T any](r io.Reader, format Format) (T, error) {
 	switch format {
 	case FormatJSON:
-		return decodeJSON[T](r)
+		return decodeJSON[R, T](r)
 	case FormatXML:
-		return decodeXML[T](r)
+		return decodeXML[R, T](r)
 	default:
 		return *new(T), fmt.Errorf("unsupported format: %s", format)
 	}
@@ -89,10 +80,10 @@ func encodeJSON[T any](w io.Writer, v T) error {
 	return encoder.Encode(v)
 }
 
-func decodeJSON[T any](r io.Reader) (T, error) {
+func decodeJSON[R model.Release, T any](r io.Reader) (T, error) {
 	var v T
 	if err := json.NewDecoder(r).Decode(&v); err != nil {
-		return v, decodingError("json")
+		return v, decodingError[R]("json")
 	}
 	return v, nil
 }
@@ -104,10 +95,10 @@ func encodeXML[T any](w io.Writer, v T) error {
 	return xml.NewEncoder(w).Encode(v)
 }
 
-func decodeXML[T any](r io.Reader) (T, error) {
+func decodeXML[R model.Release, T any](r io.Reader) (T, error) {
 	var v T
 	if err := xml.NewDecoder(r).Decode(&v); err != nil {
-		return v, decodingError("xml")
+		return v, decodingError[R]("xml")
 	}
 	return v, nil
 }

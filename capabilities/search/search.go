@@ -29,7 +29,6 @@ import (
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 	"github.com/cockroachdb/apd/v3"
 	"net/url"
 	"slices"
@@ -182,7 +181,7 @@ var allPrefixes = []Prefix{
 //
 // [Result modifying parameters]: https://hl7.org/fhir/search.html#modifyingresults
 func ParseQuery(
-	capabilityStatement basic.CapabilityStatement,
+	capabilityStatement model.CapabilityStatement,
 	resourceType string,
 	resolveSearchParameter func(canonical string) (model.Element, error),
 	params url.Values,
@@ -195,24 +194,46 @@ func ParseQuery(
 		Count: min(defaultCount, maxCount),
 	}
 
-	// Find the search parameters for the given resource type from the CapabilityStatement
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
-		for _, resource := range rest.Resource {
-			if resource.Type.Value != nil && *resource.Type.Value == resourceType {
-				searchParams = resource.SearchParam
-				break
+	// Build a map of parameter names to their canonical URLs for quick lookup via FHIRPath
+	parameterDefinitions := make(map[string]string)
+	// Iterate rest.resource where type == resourceType and collect searchParam
+	rests := capabilityStatement.Children("rest")
+	for _, rest := range rests {
+		for _, res := range rest.Children("resource") {
+			// In release-specific models, "type" is usually a Code, not a raw string.
+			// Use ToString on the first element to extract it robustly across releases.
+			typeElts := res.Children("type")
+			if len(typeElts) == 0 {
+				continue
+			}
+			tStr, ok, err := typeElts[0].ToString(false)
+			if err != nil || !ok {
+				continue
+			}
+			if string(tStr) != resourceType {
+				continue
+			}
+			for _, sp := range res.Children("searchParam") {
+				// name
+				name, okN, errN := fhirpath.Singleton[fhirpath.String](sp.Children("name"))
+				if errN != nil || !okN {
+					continue
+				}
+				// definition canonical string
+				defElt := sp.Children("definition")
+				if len(defElt) == 0 {
+					continue
+				}
+				defStr, okD, errD := defElt[0].ToString(false)
+				if errD != nil || !okD {
+					continue
+				}
+				parameterDefinitions[string(name)] = string(defStr)
 			}
 		}
 	}
-
-	// Build a map of parameter names to their canonical URLs for quick lookup
-	parameterDefinitions := make(map[string]string)
-	for _, searchParam := range searchParams {
-		if searchParam.Name.Value != nil && searchParam.Definition != nil && searchParam.Definition.Value != nil {
-			parameterDefinitions[*searchParam.Name.Value] = *searchParam.Definition.Value
-		}
-	}
+	// DEBUG: remove after fixing tests
+	// for k, v := range parameterDefinitions { fmt.Println("DEF:", k, v) }
 
 	for k, v := range params {
 		switch k {

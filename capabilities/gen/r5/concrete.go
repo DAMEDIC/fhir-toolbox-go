@@ -6,10 +6,11 @@ package capabilitiesR5
 
 import (
 	"context"
+	"fmt"
 	capabilities "github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	search "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	update "github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
-	basic "github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
+	model "github.com/DAMEDIC/fhir-toolbox-go/model"
 	r5 "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	ptr "github.com/DAMEDIC/fhir-toolbox-go/utils/ptr"
 	"strings"
@@ -19,7 +20,7 @@ type Concrete struct {
 	Generic capabilities.GenericCapabilities
 }
 
-func (w Concrete) CapabilityBase(ctx context.Context) (basic.CapabilityStatement, error) {
+func (w Concrete) CapabilityBase(ctx context.Context) (model.CapabilityStatement, error) {
 	// Delegate to the generic CapabilityStatement method
 	return w.Generic.CapabilityStatement(ctx)
 }
@@ -16499,8 +16500,15 @@ func (w Concrete) SearchCapabilitiesAccount(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Account" {
 				searchParams = resource.SearchParam
@@ -16579,8 +16587,15 @@ func (w Concrete) SearchCapabilitiesActivityDefinition(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ActivityDefinition" {
 				searchParams = resource.SearchParam
@@ -16659,8 +16674,15 @@ func (w Concrete) SearchCapabilitiesActorDefinition(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ActorDefinition" {
 				searchParams = resource.SearchParam
@@ -16739,8 +16761,15 @@ func (w Concrete) SearchCapabilitiesAdministrableProductDefinition(ctx context.C
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "AdministrableProductDefinition" {
 				searchParams = resource.SearchParam
@@ -16819,8 +16848,15 @@ func (w Concrete) SearchCapabilitiesAdverseEvent(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "AdverseEvent" {
 				searchParams = resource.SearchParam
@@ -16899,8 +16935,15 @@ func (w Concrete) SearchCapabilitiesAllergyIntolerance(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "AllergyIntolerance" {
 				searchParams = resource.SearchParam
@@ -16979,8 +17022,15 @@ func (w Concrete) SearchCapabilitiesAppointment(ctx context.Context) (r5.SearchC
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Appointment" {
 				searchParams = resource.SearchParam
@@ -17059,8 +17109,15 @@ func (w Concrete) SearchCapabilitiesAppointmentResponse(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "AppointmentResponse" {
 				searchParams = resource.SearchParam
@@ -17139,8 +17196,15 @@ func (w Concrete) SearchCapabilitiesArtifactAssessment(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ArtifactAssessment" {
 				searchParams = resource.SearchParam
@@ -17219,8 +17283,15 @@ func (w Concrete) SearchCapabilitiesAuditEvent(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "AuditEvent" {
 				searchParams = resource.SearchParam
@@ -17299,8 +17370,15 @@ func (w Concrete) SearchCapabilitiesBasic(ctx context.Context) (r5.SearchCapabil
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Basic" {
 				searchParams = resource.SearchParam
@@ -17379,8 +17457,15 @@ func (w Concrete) SearchCapabilitiesBinary(ctx context.Context) (r5.SearchCapabi
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Binary" {
 				searchParams = resource.SearchParam
@@ -17459,8 +17544,15 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProduct(ctx context.Conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "BiologicallyDerivedProduct" {
 				searchParams = resource.SearchParam
@@ -17539,8 +17631,15 @@ func (w Concrete) SearchCapabilitiesBiologicallyDerivedProductDispense(ctx conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "BiologicallyDerivedProductDispense" {
 				searchParams = resource.SearchParam
@@ -17619,8 +17718,15 @@ func (w Concrete) SearchCapabilitiesBodyStructure(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "BodyStructure" {
 				searchParams = resource.SearchParam
@@ -17699,8 +17805,15 @@ func (w Concrete) SearchCapabilitiesBundle(ctx context.Context) (r5.SearchCapabi
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Bundle" {
 				searchParams = resource.SearchParam
@@ -17779,8 +17892,15 @@ func (w Concrete) SearchCapabilitiesCapabilityStatement(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CapabilityStatement" {
 				searchParams = resource.SearchParam
@@ -17859,8 +17979,15 @@ func (w Concrete) SearchCapabilitiesCarePlan(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CarePlan" {
 				searchParams = resource.SearchParam
@@ -17939,8 +18066,15 @@ func (w Concrete) SearchCapabilitiesCareTeam(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CareTeam" {
 				searchParams = resource.SearchParam
@@ -18019,8 +18153,15 @@ func (w Concrete) SearchCapabilitiesChargeItem(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ChargeItem" {
 				searchParams = resource.SearchParam
@@ -18099,8 +18240,15 @@ func (w Concrete) SearchCapabilitiesChargeItemDefinition(ctx context.Context) (r
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ChargeItemDefinition" {
 				searchParams = resource.SearchParam
@@ -18179,8 +18327,15 @@ func (w Concrete) SearchCapabilitiesCitation(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Citation" {
 				searchParams = resource.SearchParam
@@ -18259,8 +18414,15 @@ func (w Concrete) SearchCapabilitiesClaim(ctx context.Context) (r5.SearchCapabil
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Claim" {
 				searchParams = resource.SearchParam
@@ -18339,8 +18501,15 @@ func (w Concrete) SearchCapabilitiesClaimResponse(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ClaimResponse" {
 				searchParams = resource.SearchParam
@@ -18419,8 +18588,15 @@ func (w Concrete) SearchCapabilitiesClinicalImpression(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ClinicalImpression" {
 				searchParams = resource.SearchParam
@@ -18499,8 +18675,15 @@ func (w Concrete) SearchCapabilitiesClinicalUseDefinition(ctx context.Context) (
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ClinicalUseDefinition" {
 				searchParams = resource.SearchParam
@@ -18579,8 +18762,15 @@ func (w Concrete) SearchCapabilitiesCodeSystem(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CodeSystem" {
 				searchParams = resource.SearchParam
@@ -18659,8 +18849,15 @@ func (w Concrete) SearchCapabilitiesCommunication(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Communication" {
 				searchParams = resource.SearchParam
@@ -18739,8 +18936,15 @@ func (w Concrete) SearchCapabilitiesCommunicationRequest(ctx context.Context) (r
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CommunicationRequest" {
 				searchParams = resource.SearchParam
@@ -18819,8 +19023,15 @@ func (w Concrete) SearchCapabilitiesCompartmentDefinition(ctx context.Context) (
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CompartmentDefinition" {
 				searchParams = resource.SearchParam
@@ -18899,8 +19110,15 @@ func (w Concrete) SearchCapabilitiesComposition(ctx context.Context) (r5.SearchC
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Composition" {
 				searchParams = resource.SearchParam
@@ -18979,8 +19197,15 @@ func (w Concrete) SearchCapabilitiesConceptMap(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ConceptMap" {
 				searchParams = resource.SearchParam
@@ -19059,8 +19284,15 @@ func (w Concrete) SearchCapabilitiesCondition(ctx context.Context) (r5.SearchCap
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Condition" {
 				searchParams = resource.SearchParam
@@ -19139,8 +19371,15 @@ func (w Concrete) SearchCapabilitiesConditionDefinition(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ConditionDefinition" {
 				searchParams = resource.SearchParam
@@ -19219,8 +19458,15 @@ func (w Concrete) SearchCapabilitiesConsent(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Consent" {
 				searchParams = resource.SearchParam
@@ -19299,8 +19545,15 @@ func (w Concrete) SearchCapabilitiesContract(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Contract" {
 				searchParams = resource.SearchParam
@@ -19379,8 +19632,15 @@ func (w Concrete) SearchCapabilitiesCoverage(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Coverage" {
 				searchParams = resource.SearchParam
@@ -19459,8 +19719,15 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityRequest(ctx context.Conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CoverageEligibilityRequest" {
 				searchParams = resource.SearchParam
@@ -19539,8 +19806,15 @@ func (w Concrete) SearchCapabilitiesCoverageEligibilityResponse(ctx context.Cont
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "CoverageEligibilityResponse" {
 				searchParams = resource.SearchParam
@@ -19619,8 +19893,15 @@ func (w Concrete) SearchCapabilitiesDetectedIssue(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DetectedIssue" {
 				searchParams = resource.SearchParam
@@ -19699,8 +19980,15 @@ func (w Concrete) SearchCapabilitiesDevice(ctx context.Context) (r5.SearchCapabi
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Device" {
 				searchParams = resource.SearchParam
@@ -19779,8 +20067,15 @@ func (w Concrete) SearchCapabilitiesDeviceAssociation(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceAssociation" {
 				searchParams = resource.SearchParam
@@ -19859,8 +20154,15 @@ func (w Concrete) SearchCapabilitiesDeviceDefinition(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceDefinition" {
 				searchParams = resource.SearchParam
@@ -19939,8 +20241,15 @@ func (w Concrete) SearchCapabilitiesDeviceDispense(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceDispense" {
 				searchParams = resource.SearchParam
@@ -20019,8 +20328,15 @@ func (w Concrete) SearchCapabilitiesDeviceMetric(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceMetric" {
 				searchParams = resource.SearchParam
@@ -20099,8 +20415,15 @@ func (w Concrete) SearchCapabilitiesDeviceRequest(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceRequest" {
 				searchParams = resource.SearchParam
@@ -20179,8 +20502,15 @@ func (w Concrete) SearchCapabilitiesDeviceUsage(ctx context.Context) (r5.SearchC
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DeviceUsage" {
 				searchParams = resource.SearchParam
@@ -20259,8 +20589,15 @@ func (w Concrete) SearchCapabilitiesDiagnosticReport(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DiagnosticReport" {
 				searchParams = resource.SearchParam
@@ -20339,8 +20676,15 @@ func (w Concrete) SearchCapabilitiesDocumentReference(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "DocumentReference" {
 				searchParams = resource.SearchParam
@@ -20419,8 +20763,15 @@ func (w Concrete) SearchCapabilitiesEncounter(ctx context.Context) (r5.SearchCap
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Encounter" {
 				searchParams = resource.SearchParam
@@ -20499,8 +20850,15 @@ func (w Concrete) SearchCapabilitiesEncounterHistory(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EncounterHistory" {
 				searchParams = resource.SearchParam
@@ -20579,8 +20937,15 @@ func (w Concrete) SearchCapabilitiesEndpoint(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Endpoint" {
 				searchParams = resource.SearchParam
@@ -20659,8 +21024,15 @@ func (w Concrete) SearchCapabilitiesEnrollmentRequest(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EnrollmentRequest" {
 				searchParams = resource.SearchParam
@@ -20739,8 +21111,15 @@ func (w Concrete) SearchCapabilitiesEnrollmentResponse(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EnrollmentResponse" {
 				searchParams = resource.SearchParam
@@ -20819,8 +21198,15 @@ func (w Concrete) SearchCapabilitiesEpisodeOfCare(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EpisodeOfCare" {
 				searchParams = resource.SearchParam
@@ -20899,8 +21285,15 @@ func (w Concrete) SearchCapabilitiesEventDefinition(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EventDefinition" {
 				searchParams = resource.SearchParam
@@ -20979,8 +21372,15 @@ func (w Concrete) SearchCapabilitiesEvidence(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Evidence" {
 				searchParams = resource.SearchParam
@@ -21059,8 +21459,15 @@ func (w Concrete) SearchCapabilitiesEvidenceReport(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EvidenceReport" {
 				searchParams = resource.SearchParam
@@ -21139,8 +21546,15 @@ func (w Concrete) SearchCapabilitiesEvidenceVariable(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "EvidenceVariable" {
 				searchParams = resource.SearchParam
@@ -21219,8 +21633,15 @@ func (w Concrete) SearchCapabilitiesExampleScenario(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ExampleScenario" {
 				searchParams = resource.SearchParam
@@ -21299,8 +21720,15 @@ func (w Concrete) SearchCapabilitiesExplanationOfBenefit(ctx context.Context) (r
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ExplanationOfBenefit" {
 				searchParams = resource.SearchParam
@@ -21379,8 +21807,15 @@ func (w Concrete) SearchCapabilitiesFamilyMemberHistory(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "FamilyMemberHistory" {
 				searchParams = resource.SearchParam
@@ -21459,8 +21894,15 @@ func (w Concrete) SearchCapabilitiesFlag(ctx context.Context) (r5.SearchCapabili
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Flag" {
 				searchParams = resource.SearchParam
@@ -21539,8 +21981,15 @@ func (w Concrete) SearchCapabilitiesFormularyItem(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "FormularyItem" {
 				searchParams = resource.SearchParam
@@ -21619,8 +22068,15 @@ func (w Concrete) SearchCapabilitiesGenomicStudy(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "GenomicStudy" {
 				searchParams = resource.SearchParam
@@ -21699,8 +22155,15 @@ func (w Concrete) SearchCapabilitiesGoal(ctx context.Context) (r5.SearchCapabili
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Goal" {
 				searchParams = resource.SearchParam
@@ -21779,8 +22242,15 @@ func (w Concrete) SearchCapabilitiesGraphDefinition(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "GraphDefinition" {
 				searchParams = resource.SearchParam
@@ -21859,8 +22329,15 @@ func (w Concrete) SearchCapabilitiesGroup(ctx context.Context) (r5.SearchCapabil
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Group" {
 				searchParams = resource.SearchParam
@@ -21939,8 +22416,15 @@ func (w Concrete) SearchCapabilitiesGuidanceResponse(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "GuidanceResponse" {
 				searchParams = resource.SearchParam
@@ -22019,8 +22503,15 @@ func (w Concrete) SearchCapabilitiesHealthcareService(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "HealthcareService" {
 				searchParams = resource.SearchParam
@@ -22099,8 +22590,15 @@ func (w Concrete) SearchCapabilitiesImagingSelection(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ImagingSelection" {
 				searchParams = resource.SearchParam
@@ -22179,8 +22677,15 @@ func (w Concrete) SearchCapabilitiesImagingStudy(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ImagingStudy" {
 				searchParams = resource.SearchParam
@@ -22259,8 +22764,15 @@ func (w Concrete) SearchCapabilitiesImmunization(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Immunization" {
 				searchParams = resource.SearchParam
@@ -22339,8 +22851,15 @@ func (w Concrete) SearchCapabilitiesImmunizationEvaluation(ctx context.Context) 
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ImmunizationEvaluation" {
 				searchParams = resource.SearchParam
@@ -22419,8 +22938,15 @@ func (w Concrete) SearchCapabilitiesImmunizationRecommendation(ctx context.Conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ImmunizationRecommendation" {
 				searchParams = resource.SearchParam
@@ -22499,8 +23025,15 @@ func (w Concrete) SearchCapabilitiesImplementationGuide(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ImplementationGuide" {
 				searchParams = resource.SearchParam
@@ -22579,8 +23112,15 @@ func (w Concrete) SearchCapabilitiesIngredient(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Ingredient" {
 				searchParams = resource.SearchParam
@@ -22659,8 +23199,15 @@ func (w Concrete) SearchCapabilitiesInsurancePlan(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "InsurancePlan" {
 				searchParams = resource.SearchParam
@@ -22739,8 +23286,15 @@ func (w Concrete) SearchCapabilitiesInventoryItem(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "InventoryItem" {
 				searchParams = resource.SearchParam
@@ -22819,8 +23373,15 @@ func (w Concrete) SearchCapabilitiesInventoryReport(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "InventoryReport" {
 				searchParams = resource.SearchParam
@@ -22899,8 +23460,15 @@ func (w Concrete) SearchCapabilitiesInvoice(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Invoice" {
 				searchParams = resource.SearchParam
@@ -22979,8 +23547,15 @@ func (w Concrete) SearchCapabilitiesLibrary(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Library" {
 				searchParams = resource.SearchParam
@@ -23059,8 +23634,15 @@ func (w Concrete) SearchCapabilitiesLinkage(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Linkage" {
 				searchParams = resource.SearchParam
@@ -23139,8 +23721,15 @@ func (w Concrete) SearchCapabilitiesList(ctx context.Context) (r5.SearchCapabili
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "List" {
 				searchParams = resource.SearchParam
@@ -23219,8 +23808,15 @@ func (w Concrete) SearchCapabilitiesLocation(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Location" {
 				searchParams = resource.SearchParam
@@ -23299,8 +23895,15 @@ func (w Concrete) SearchCapabilitiesManufacturedItemDefinition(ctx context.Conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ManufacturedItemDefinition" {
 				searchParams = resource.SearchParam
@@ -23379,8 +23982,15 @@ func (w Concrete) SearchCapabilitiesMeasure(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Measure" {
 				searchParams = resource.SearchParam
@@ -23459,8 +24069,15 @@ func (w Concrete) SearchCapabilitiesMeasureReport(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MeasureReport" {
 				searchParams = resource.SearchParam
@@ -23539,8 +24156,15 @@ func (w Concrete) SearchCapabilitiesMedication(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Medication" {
 				searchParams = resource.SearchParam
@@ -23619,8 +24243,15 @@ func (w Concrete) SearchCapabilitiesMedicationAdministration(ctx context.Context
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicationAdministration" {
 				searchParams = resource.SearchParam
@@ -23699,8 +24330,15 @@ func (w Concrete) SearchCapabilitiesMedicationDispense(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicationDispense" {
 				searchParams = resource.SearchParam
@@ -23779,8 +24417,15 @@ func (w Concrete) SearchCapabilitiesMedicationKnowledge(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicationKnowledge" {
 				searchParams = resource.SearchParam
@@ -23859,8 +24504,15 @@ func (w Concrete) SearchCapabilitiesMedicationRequest(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicationRequest" {
 				searchParams = resource.SearchParam
@@ -23939,8 +24591,15 @@ func (w Concrete) SearchCapabilitiesMedicationStatement(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicationStatement" {
 				searchParams = resource.SearchParam
@@ -24019,8 +24678,15 @@ func (w Concrete) SearchCapabilitiesMedicinalProductDefinition(ctx context.Conte
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MedicinalProductDefinition" {
 				searchParams = resource.SearchParam
@@ -24099,8 +24765,15 @@ func (w Concrete) SearchCapabilitiesMessageDefinition(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MessageDefinition" {
 				searchParams = resource.SearchParam
@@ -24179,8 +24852,15 @@ func (w Concrete) SearchCapabilitiesMessageHeader(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MessageHeader" {
 				searchParams = resource.SearchParam
@@ -24259,8 +24939,15 @@ func (w Concrete) SearchCapabilitiesMolecularSequence(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "MolecularSequence" {
 				searchParams = resource.SearchParam
@@ -24339,8 +25026,15 @@ func (w Concrete) SearchCapabilitiesNamingSystem(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "NamingSystem" {
 				searchParams = resource.SearchParam
@@ -24419,8 +25113,15 @@ func (w Concrete) SearchCapabilitiesNutritionIntake(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "NutritionIntake" {
 				searchParams = resource.SearchParam
@@ -24499,8 +25200,15 @@ func (w Concrete) SearchCapabilitiesNutritionOrder(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "NutritionOrder" {
 				searchParams = resource.SearchParam
@@ -24579,8 +25287,15 @@ func (w Concrete) SearchCapabilitiesNutritionProduct(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "NutritionProduct" {
 				searchParams = resource.SearchParam
@@ -24659,8 +25374,15 @@ func (w Concrete) SearchCapabilitiesObservation(ctx context.Context) (r5.SearchC
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Observation" {
 				searchParams = resource.SearchParam
@@ -24739,8 +25461,15 @@ func (w Concrete) SearchCapabilitiesObservationDefinition(ctx context.Context) (
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ObservationDefinition" {
 				searchParams = resource.SearchParam
@@ -24819,8 +25548,15 @@ func (w Concrete) SearchCapabilitiesOperationDefinition(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "OperationDefinition" {
 				searchParams = resource.SearchParam
@@ -24899,8 +25635,15 @@ func (w Concrete) SearchCapabilitiesOperationOutcome(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "OperationOutcome" {
 				searchParams = resource.SearchParam
@@ -24979,8 +25722,15 @@ func (w Concrete) SearchCapabilitiesOrganization(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Organization" {
 				searchParams = resource.SearchParam
@@ -25059,8 +25809,15 @@ func (w Concrete) SearchCapabilitiesOrganizationAffiliation(ctx context.Context)
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "OrganizationAffiliation" {
 				searchParams = resource.SearchParam
@@ -25139,8 +25896,15 @@ func (w Concrete) SearchCapabilitiesPackagedProductDefinition(ctx context.Contex
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "PackagedProductDefinition" {
 				searchParams = resource.SearchParam
@@ -25219,8 +25983,15 @@ func (w Concrete) SearchCapabilitiesParameters(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Parameters" {
 				searchParams = resource.SearchParam
@@ -25299,8 +26070,15 @@ func (w Concrete) SearchCapabilitiesPatient(ctx context.Context) (r5.SearchCapab
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Patient" {
 				searchParams = resource.SearchParam
@@ -25379,8 +26157,15 @@ func (w Concrete) SearchCapabilitiesPaymentNotice(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "PaymentNotice" {
 				searchParams = resource.SearchParam
@@ -25459,8 +26244,15 @@ func (w Concrete) SearchCapabilitiesPaymentReconciliation(ctx context.Context) (
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "PaymentReconciliation" {
 				searchParams = resource.SearchParam
@@ -25539,8 +26331,15 @@ func (w Concrete) SearchCapabilitiesPermission(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Permission" {
 				searchParams = resource.SearchParam
@@ -25619,8 +26418,15 @@ func (w Concrete) SearchCapabilitiesPerson(ctx context.Context) (r5.SearchCapabi
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Person" {
 				searchParams = resource.SearchParam
@@ -25699,8 +26505,15 @@ func (w Concrete) SearchCapabilitiesPlanDefinition(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "PlanDefinition" {
 				searchParams = resource.SearchParam
@@ -25779,8 +26592,15 @@ func (w Concrete) SearchCapabilitiesPractitioner(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Practitioner" {
 				searchParams = resource.SearchParam
@@ -25859,8 +26679,15 @@ func (w Concrete) SearchCapabilitiesPractitionerRole(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "PractitionerRole" {
 				searchParams = resource.SearchParam
@@ -25939,8 +26766,15 @@ func (w Concrete) SearchCapabilitiesProcedure(ctx context.Context) (r5.SearchCap
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Procedure" {
 				searchParams = resource.SearchParam
@@ -26019,8 +26853,15 @@ func (w Concrete) SearchCapabilitiesProvenance(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Provenance" {
 				searchParams = resource.SearchParam
@@ -26099,8 +26940,15 @@ func (w Concrete) SearchCapabilitiesQuestionnaire(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Questionnaire" {
 				searchParams = resource.SearchParam
@@ -26179,8 +27027,15 @@ func (w Concrete) SearchCapabilitiesQuestionnaireResponse(ctx context.Context) (
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "QuestionnaireResponse" {
 				searchParams = resource.SearchParam
@@ -26259,8 +27114,15 @@ func (w Concrete) SearchCapabilitiesRegulatedAuthorization(ctx context.Context) 
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "RegulatedAuthorization" {
 				searchParams = resource.SearchParam
@@ -26339,8 +27201,15 @@ func (w Concrete) SearchCapabilitiesRelatedPerson(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "RelatedPerson" {
 				searchParams = resource.SearchParam
@@ -26419,8 +27288,15 @@ func (w Concrete) SearchCapabilitiesRequestOrchestration(ctx context.Context) (r
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "RequestOrchestration" {
 				searchParams = resource.SearchParam
@@ -26499,8 +27375,15 @@ func (w Concrete) SearchCapabilitiesRequirements(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Requirements" {
 				searchParams = resource.SearchParam
@@ -26579,8 +27462,15 @@ func (w Concrete) SearchCapabilitiesResearchStudy(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ResearchStudy" {
 				searchParams = resource.SearchParam
@@ -26659,8 +27549,15 @@ func (w Concrete) SearchCapabilitiesResearchSubject(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ResearchSubject" {
 				searchParams = resource.SearchParam
@@ -26739,8 +27636,15 @@ func (w Concrete) SearchCapabilitiesRiskAssessment(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "RiskAssessment" {
 				searchParams = resource.SearchParam
@@ -26819,8 +27723,15 @@ func (w Concrete) SearchCapabilitiesSchedule(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Schedule" {
 				searchParams = resource.SearchParam
@@ -26899,8 +27810,15 @@ func (w Concrete) SearchCapabilitiesSearchParameter(ctx context.Context) (r5.Sea
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SearchParameter" {
 				searchParams = resource.SearchParam
@@ -26979,8 +27897,15 @@ func (w Concrete) SearchCapabilitiesServiceRequest(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ServiceRequest" {
 				searchParams = resource.SearchParam
@@ -27059,8 +27984,15 @@ func (w Concrete) SearchCapabilitiesSlot(ctx context.Context) (r5.SearchCapabili
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Slot" {
 				searchParams = resource.SearchParam
@@ -27139,8 +28071,15 @@ func (w Concrete) SearchCapabilitiesSpecimen(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Specimen" {
 				searchParams = resource.SearchParam
@@ -27219,8 +28158,15 @@ func (w Concrete) SearchCapabilitiesSpecimenDefinition(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SpecimenDefinition" {
 				searchParams = resource.SearchParam
@@ -27299,8 +28245,15 @@ func (w Concrete) SearchCapabilitiesStructureDefinition(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "StructureDefinition" {
 				searchParams = resource.SearchParam
@@ -27379,8 +28332,15 @@ func (w Concrete) SearchCapabilitiesStructureMap(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "StructureMap" {
 				searchParams = resource.SearchParam
@@ -27459,8 +28419,15 @@ func (w Concrete) SearchCapabilitiesSubscription(ctx context.Context) (r5.Search
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Subscription" {
 				searchParams = resource.SearchParam
@@ -27539,8 +28506,15 @@ func (w Concrete) SearchCapabilitiesSubscriptionStatus(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubscriptionStatus" {
 				searchParams = resource.SearchParam
@@ -27619,8 +28593,15 @@ func (w Concrete) SearchCapabilitiesSubscriptionTopic(ctx context.Context) (r5.S
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubscriptionTopic" {
 				searchParams = resource.SearchParam
@@ -27699,8 +28680,15 @@ func (w Concrete) SearchCapabilitiesSubstance(ctx context.Context) (r5.SearchCap
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Substance" {
 				searchParams = resource.SearchParam
@@ -27779,8 +28767,15 @@ func (w Concrete) SearchCapabilitiesSubstanceDefinition(ctx context.Context) (r5
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceDefinition" {
 				searchParams = resource.SearchParam
@@ -27859,8 +28854,15 @@ func (w Concrete) SearchCapabilitiesSubstanceNucleicAcid(ctx context.Context) (r
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceNucleicAcid" {
 				searchParams = resource.SearchParam
@@ -27939,8 +28941,15 @@ func (w Concrete) SearchCapabilitiesSubstancePolymer(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstancePolymer" {
 				searchParams = resource.SearchParam
@@ -28019,8 +29028,15 @@ func (w Concrete) SearchCapabilitiesSubstanceProtein(ctx context.Context) (r5.Se
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceProtein" {
 				searchParams = resource.SearchParam
@@ -28099,8 +29115,15 @@ func (w Concrete) SearchCapabilitiesSubstanceReferenceInformation(ctx context.Co
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceReferenceInformation" {
 				searchParams = resource.SearchParam
@@ -28179,8 +29202,15 @@ func (w Concrete) SearchCapabilitiesSubstanceSourceMaterial(ctx context.Context)
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SubstanceSourceMaterial" {
 				searchParams = resource.SearchParam
@@ -28259,8 +29289,15 @@ func (w Concrete) SearchCapabilitiesSupplyDelivery(ctx context.Context) (r5.Sear
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SupplyDelivery" {
 				searchParams = resource.SearchParam
@@ -28339,8 +29376,15 @@ func (w Concrete) SearchCapabilitiesSupplyRequest(ctx context.Context) (r5.Searc
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "SupplyRequest" {
 				searchParams = resource.SearchParam
@@ -28419,8 +29463,15 @@ func (w Concrete) SearchCapabilitiesTask(ctx context.Context) (r5.SearchCapabili
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Task" {
 				searchParams = resource.SearchParam
@@ -28499,8 +29550,15 @@ func (w Concrete) SearchCapabilitiesTerminologyCapabilities(ctx context.Context)
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "TerminologyCapabilities" {
 				searchParams = resource.SearchParam
@@ -28579,8 +29637,15 @@ func (w Concrete) SearchCapabilitiesTestPlan(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "TestPlan" {
 				searchParams = resource.SearchParam
@@ -28659,8 +29724,15 @@ func (w Concrete) SearchCapabilitiesTestReport(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "TestReport" {
 				searchParams = resource.SearchParam
@@ -28739,8 +29811,15 @@ func (w Concrete) SearchCapabilitiesTestScript(ctx context.Context) (r5.SearchCa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "TestScript" {
 				searchParams = resource.SearchParam
@@ -28819,8 +29898,15 @@ func (w Concrete) SearchCapabilitiesTransport(ctx context.Context) (r5.SearchCap
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "Transport" {
 				searchParams = resource.SearchParam
@@ -28899,8 +29985,15 @@ func (w Concrete) SearchCapabilitiesValueSet(ctx context.Context) (r5.SearchCapa
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "ValueSet" {
 				searchParams = resource.SearchParam
@@ -28979,8 +30072,15 @@ func (w Concrete) SearchCapabilitiesVerificationResult(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "VerificationResult" {
 				searchParams = resource.SearchParam
@@ -29059,8 +30159,15 @@ func (w Concrete) SearchCapabilitiesVisionPrescription(ctx context.Context) (r5.
 			Parameters: make(map[string]r5.SearchParameter),
 		}, err
 	}
-	var searchParams []basic.CapabilityStatementRestResourceSearchParam
-	for _, rest := range capabilityStatement.Rest {
+	cs, okCs := capabilityStatement.(r5.CapabilityStatement)
+	if !okCs {
+		return r5.SearchCapabilities{
+			Includes:   []string{},
+			Parameters: make(map[string]r5.SearchParameter),
+		}, fmt.Errorf("CapabilityStatement type does not match release")
+	}
+	var searchParams []r5.CapabilityStatementRestResourceSearchParam
+	for _, rest := range cs.Rest {
 		for _, resource := range rest.Resource {
 			if resource.Type.Value != nil && *resource.Type.Value == "VisionPrescription" {
 				searchParams = resource.SearchParam

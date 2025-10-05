@@ -6,12 +6,11 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities/update"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
-	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/basic"
 )
 
 // The GenericCapabilities interface provides a generic capabilities method that returns a CapabilityStatement of the underlying concrete implementation.
 type GenericCapabilities interface {
-	CapabilityStatement(ctx context.Context) (basic.CapabilityStatement, error)
+	CapabilityStatement(ctx context.Context) (model.CapabilityStatement, error)
 }
 
 // The GenericCreate interface provides a generic create capability.
@@ -56,5 +55,7 @@ type GenericSearch interface {
 // The `code` is the operation name without the leading '$'.
 // The `parameters` contains the input Parameters resource.
 type GenericOperation interface {
-	Invoke(ctx context.Context, resourceType, resourceID, code string, parameters basic.Parameters) (model.Resource, error)
+	// GenericCapabilities is required because it references OperationDefinition resources.
+	GenericCapabilities
+	Invoke(ctx context.Context, resourceType, resourceID, code string, parameters model.Parameters) (model.Resource, error)
 }

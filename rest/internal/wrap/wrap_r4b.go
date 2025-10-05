@@ -3,12 +3,18 @@
 package wrap
 
 import (
+	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/capabilities"
 	capabilitiesR4B "github.com/DAMEDIC/fhir-toolbox-go/capabilities/gen/r4b"
+	r4b "github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
 )
 
 func init() {
-	genericR4B = func(api capabilities.ConcreteCapabilities) (capabilities.GenericCapabilities, error) {
-		return capabilitiesR4B.Generic{Concrete: api}, nil
+	genericR4B = func(api any) (capabilities.GenericCapabilities, error) {
+		c, ok := api.(capabilities.ConcreteCapabilities[r4b.CapabilityStatement])
+		if !ok {
+			return nil, fmt.Errorf("backend does not implement capabilities.ConcreteCapabilities for R4B")
+		}
+		return capabilitiesR4B.Generic{Concrete: c}, nil
 	}
 }
