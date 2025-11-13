@@ -11,11 +11,10 @@
 //
 // # Base URL and routes
 //
-// You have to pass a base URL using the config.
-// This base URL is only used for building response Bundles.
+// You must pass a base URL using the config.
+// This base URL is only used for building response Bundles (e.g., for generating links and self URLs).
 // For supported interactions, the returned http.Handler has sub-routes installed.
-// These are always installed at the root of this handler.
-// The base URL from the config is not used.
+// These routes are always installed at the root of this handler, regardless of the base URL.
 //
 // Currently, installed patterns are:
 //   - capabilities: "GET /metadata"
@@ -39,7 +38,9 @@
 // # Pagination
 //
 // Cursor-based pagination can be implemented by the backend.
-// Therefor the parameters "_count" and "_cursor" are passed down to the backend.
+// Therefore the parameters "_count" and "_cursor" are passed down to the backend.
+// The backend should use the cursor to determine where to continue fetching results
+// and return a new cursor in the search.Result for the next page.
 package rest
 
 import (

@@ -47,6 +47,6 @@
 //
 // This implementation supports most features of the FHIRPath specification, with the
 // exception of full UCUM support (unit equality is asserted) and functions that involve code system resolution.
-// For a detailed overview of the implementation status, refer to the FHIRPath Implementation Status section in
+// For a detailed overview of the implementation status, refer to the FHIRPath section in
 // the project root README.md file.
 package fhirpath

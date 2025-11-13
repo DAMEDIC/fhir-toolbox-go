@@ -32,7 +32,7 @@ func main() {
 	// Search for patients using typed search parameters
 	result, err := client.SearchPatient(context.Background(),
 		r4.PatientParams{
-			Birthdate: search.String("ge2000-01-01"), // would expect search.Date but String is accepted as well for simpler use
+			Birthdate: search.String("ge2000-01-01"), // Using String for date - search parameters accept string values for convenience
 			Gender:    search.Token{Code: "female"},
 		},
 		search.Options{

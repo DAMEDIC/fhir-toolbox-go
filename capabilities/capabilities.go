@@ -2,7 +2,7 @@
 // This flexible architecture allows different use cases, such as
 //
 //   - building FHIR® facades to legacy systems by implementing a custom backend
-//   - using this library as a FHIR® client (by leveraging a - still to be build - REST backend)
+//   - using this library as a FHIR® client (via the provided REST client)
 //
 // # Concrete vs. Generic API
 //
@@ -25,7 +25,7 @@
 //
 // # Interoperability
 //
-// The [capabilities/wrap] package provides wrapper functions to wrap a concrete into the generic API:
+// Wrapper functions are available (in rest/internal/wrap) to convert between concrete and generic APIs:
 //
 //	genericAPI := wrap.Generic[model.R4](concreteAPI)
 //

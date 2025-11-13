@@ -8,10 +8,10 @@
 //
 //	import "github.com/DAMEDIC/fhir-toolbox-go/capabilities/search"
 //
-//	func (b *myAPI) SearchCapabilitiesObservation() search.Capabilities {
+//	func (b *myAPI) SearchCapabilitiesObservation() r4.SearchCapabilities {
 //		// return supported search capabilities
-//		return search.Capabilities{
-//			Parameters: ParameterDescriptions{
+//		return r4.SearchCapabilities{
+//			Parameters: map[string]r4.SearchParameter{
 //				"_id": {Type: search.TypeToken},
 //			},
 //		}

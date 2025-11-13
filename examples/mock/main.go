@@ -92,7 +92,9 @@ func (b *mockBackend) SearchCapabilitiesObservation(ctx context.Context) (r5.Sea
 	return r5.SearchCapabilities{
 		Parameters: map[string]r5.SearchParameter{
 			"_id": {
-				// This can and should actually be a full SearchParameter resource!
+				// You can provide a minimal SearchParameter (like this) with just the Type field,
+				// or a fully specified SearchParameter resource with all standard fields (url, name, etc.).
+				// The framework will automatically augment minimal parameters with default values.
 				Type: r5.SearchParamTypeToken,
 			},
 		},

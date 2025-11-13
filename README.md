@@ -12,7 +12,7 @@ This includes model types and interfaces modeling capabilities that you can use 
 A REST server and client are provided.
 
 > While used in production at DAMEDIC, this project is still in its early days
-> and the feature set is quite limit.
+> and the feature set is quite limited.
 > We will add features as we require them. We welcome external contributions.
 
 ## Features
@@ -25,7 +25,7 @@ A REST server and client are provided.
     ... = r.Resource // the actual resource of type model.Resource
   ```
 - Extensible REST API with capabilities modeled as interfaces for building server
-    - Capability detection by runtime ~~reflection~~ type assertion (see [Capabilities](#capabilities))
+    - Capability detection by runtime type assertion (note: operations use reflection) (see [Capabilities](#capabilities))
         - alternatively: generic API for building adapters
         - automatic generation of `CapabilityStatements` with full SearchParameter integration
     - Interactions: `create`, `read`, `update`, `delete`, `search`, `$operations` (see [Roadmap](#roadmap) for the remaining
@@ -83,7 +83,7 @@ Everything is designed around capabilities, represented by interfaces (e.g. `Pat
 This flexible architecture allows different use cases, such as
 
 - building FHIR® facades to legacy systems by implementing a custom backend
-- using this library as a FHIR® client (by leveraging a - still to be build - REST backend)
+- using this library as a FHIR® client (via the provided REST client)
 
 ### Concrete vs. Generic API
 
@@ -101,11 +101,11 @@ func (a myAPI) SearchCapabilitiesPatient(ctx context.Context) (search.Capabiliti
 and the **generic** API:
 
 ```Go
-func (a myAPI) Read(ctx context.Context, resourceType, id string) (r4.Patient, error) {}
+func (a myAPI) Read(ctx context.Context, resourceType, id string) (model.Resource, error) {}
 
 func (a myAPI) Search(ctx context.Context, resourceType string, options search.Options) (search.Result, error) {}
 
-func (a myAPI) CapabilityStatement(ctx context.Context) (r5.CapabilityStatement, error) {}
+func (a myAPI) CapabilityStatement(ctx context.Context) (r4.CapabilityStatement, error) {}
 ```
 
 You can implement your custom backend or client either way.
@@ -269,7 +269,7 @@ is implemented.
 
 Mostly, because these require validation which is not implemented by `fhir-toolbox-go`, yet.
 
-For a quick usaage example see  [`./examples/fhirpath`](./examples/fhirpath/main.go).
+For a quick usage example see [`./examples/fhirpath`](./examples/fhirpath/main.go).
 
 ### Decimal precision
 
