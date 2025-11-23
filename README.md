@@ -44,9 +44,7 @@ go get github.com/DAMEDIC/fhir-toolbox-go
 - Fully typed client implementation
     - Interactions: `create`, `read`, `update`, `delete`, `search`, `$operations`
 - FHIRPath evaluation
-    - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
-
-      see [below for more information](#fhirpath)
+	- [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) support, including UCUM quantity conversions (see [below for more information](#fhirpath))
 - R4, R4B & R5
 
   use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
@@ -282,9 +280,9 @@ This wraps a generic implementation and exposes the strongly typed concrete inte
 
 ## FHIRPath
 
-The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM
-support.
-For quantity comparisons and operations, the unit is only asserted for equality.
+The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented, including UCUM-based quantity
+conversions via the bundled [`github.com/iimos/ucum`](https://github.com/iimos/ucum) module.
+Functions that require terminology resolution remain unsupported for now.
 
 The 3.0.0-ballot specification introduces additional functions and semantics (see
 [FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.

@@ -73,10 +73,6 @@ func runFHIRPathSuite(t *testing.T, ctx context.Context, release model.Release) 
 		}
 
 		t.Run(name, func(t *testing.T) {
-			if group.Name == "testQuantity" {
-				t.Skip("UCUM conversions not implemented")
-			}
-
 			for _, test := range group.Tests {
 				test := test
 				name := test.Name
@@ -171,8 +167,6 @@ var unimplementedTestSkips = []skipRule{
 	{regexp.MustCompile(`^testVariables4$`), nil, "%vs variables not supported"},
 	{regexp.MustCompile(`^testExtension2$`), nil, "%ext variables not supported"},
 	{regexp.MustCompile(`^testConformsTo.*`), nil, "conformsTo() function not implemented"},
-	{regexp.MustCompile(`^testQuantityLiteralWeekToString$`), nil, "UCUM conversions not implemented"},
-	{regexp.MustCompile(`^testStringQuantity(?:Day|Month|Year)LiteralToQuantity$`), nil, "UCUM conversions not implemented"},
 	{regexp.MustCompile(`^testPolymorphismIsA3$`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
 	{regexp.MustCompile(`^testPolymorphism.*`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
 	{regexp.MustCompile(`^testRepeat\d+$`), nil, "repeat() projection semantics pending"},

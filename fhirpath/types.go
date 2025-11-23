@@ -103,11 +103,12 @@ func WithAPDContext(
 }
 
 func apdContext(ctx context.Context) *apd.Context {
-	apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context)
-	if !ok {
-		return &apd.BaseContext
+	if ctx != nil {
+		if apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context); ok && apdContext != nil {
+			return apdContext
+		}
 	}
-	return apdContext
+	return &apd.BaseContext
 }
 
 type TypeInfo interface {
@@ -2596,10 +2597,23 @@ func (q Quantity) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 func (q Quantity) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToQuantity(false)
 	if err == nil && ok {
-		left := q.dateAsUCUM()
-		right := o.dateAsUCUM()
-		eq, cmpOK := left.Value.Equal(right.Value)
-		return eq && cmpOK, left.Unit == right.Unit
+		leftOrigUnit := q.Unit
+		rightOrigUnit := o.Unit
+		left := q.canonicalizeUnit()
+		right := o.canonicalizeUnit()
+		if calendarEqualityRestricted(leftOrigUnit, rightOrigUnit, left.Unit) {
+			// Per the FHIRPath specification ("Quantity Equality" section),
+			// calendar duration quantities (years/months) are incomparable to
+			// corresponding definite UCUM durations (e.g. 'a', 'mo'), so the
+			// equality operator must return the empty collection.
+			return false, false
+		}
+		converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+		if convErr != nil {
+			return false, false
+		}
+		eq, eqOK := left.Value.Equal(converted.Value)
+		return eq && eqOK, true
 	}
 	if isStringish(other) {
 		return other.Equal(q)
@@ -2607,118 +2621,205 @@ func (q Quantity) Equal(other Element) (eq bool, ok bool) {
 	return false, true
 }
 func (q Quantity) Equivalent(other Element) bool {
-	eq, ok := q.Equal(other)
-	return ok && eq
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
+		return false
+	}
+
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
+	converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+	if convErr != nil {
+		return false
+	}
+	return left.Value.Equivalent(converted.Value)
 }
 func (q Quantity) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Quantity to %T, left: %v right: %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
-	if left.Unit != right.Unit {
-		return 0, false, fmt.Errorf("quantity units do not match, left: %v right: %v", left.Unit, right.Unit)
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
+	converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+	if convErr != nil {
+		return 0, false, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
-	return left.Value.Cmp(right.Value)
+	return left.Value.Cmp(converted.Value)
 }
 func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not multiply Quantity with %T: %v * %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
 	value, err := left.Value.Multiply(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
 
-	var unit String
-	if left.Unit == "1" {
-		unit = right.Unit
-	} else if right.Unit == "1" {
-		unit = left.Unit
-	} else {
-		unit = String(fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit))
-	}
-
-	return Quantity{Value: value.(Decimal), Unit: unit}, nil
+	return Quantity{Value: value.(Decimal), Unit: formatProductUnit(left.Unit, right.Unit)}, nil
 }
 func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not divide Quantity with %T: %v / %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
 	value, err := left.Value.Divide(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s)/(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: value.(Decimal), Unit: formatDivisionUnit(left.Unit, right.Unit)}, nil
 }
 func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Quantity and %T: %v + %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
-	if left.Unit != right.Unit {
+	converted, convErr := convertQuantityToUnit(ctx, right, left.Unit)
+	if convErr != nil {
 		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
 
-	value, err := left.Value.Add(ctx, right.Value)
+	var sum apd.Decimal
+	_, err = apdContext(ctx).Add(&sum, left.Value.Value, converted.Value.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: Decimal{Value: &sum}, Unit: left.Unit}, nil
 }
 func (q Quantity) Subtract(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract %T from Quantity: %v - %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
-	if left.Unit != right.Unit {
+	converted, convErr := convertQuantityToUnit(ctx, right, left.Unit)
+	if convErr != nil {
 		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
 
-	value, err := left.Value.Subtract(ctx, right.Value)
+	var diff apd.Decimal
+	_, err = apdContext(ctx).Sub(&diff, left.Value.Value, converted.Value.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: Decimal{Value: &diff}, Unit: left.Unit}, nil
 }
-func (q Quantity) dateAsUCUM() Quantity {
-	switch q.Unit {
-	case "year":
-		q.Unit = "a"
-	case "month":
-		q.Unit = "mo"
-	case "week":
-		q.Unit = "wk"
-	case "day":
-		q.Unit = "d"
-	case "hour":
-		q.Unit = "h"
-	case "minute":
-		q.Unit = "m"
-	case "second":
-		q.Unit = "s"
-	case "millisecond":
-		q.Unit = "ms"
-	}
+
+func (q Quantity) canonicalizeUnit() Quantity {
+	q.Unit = canonicalQuantityUnit(q.Unit)
 	return q
+}
+
+func canonicalQuantityUnit(unit String) String {
+	if unit == "" {
+		return "1"
+	}
+	canonical := canonicalUCUMUnit(string(unit))
+	if canonical == "" {
+		return "1"
+	}
+	return String(canonical)
+}
+
+// calendarEqualityRestricted returns true if the FHIRPath Quantity equality operator
+// must treat the operands as non-comparable, yielding the empty collection.
+// Reference: FHIRPath specification, "Quantity Equality" section.
+func calendarEqualityRestricted(leftOriginal, rightOriginal, canonicalUnit String) bool {
+	leftLiteral := isCalendarLiteralUnit(leftOriginal)
+	rightLiteral := isCalendarLiteralUnit(rightOriginal)
+	if leftLiteral == rightLiteral {
+		return false
+	}
+	return isVariableLengthCalendarUnit(canonicalUnit)
+}
+
+func isCalendarLiteralUnit(unit String) bool {
+	switch strings.ToLower(string(unit)) {
+	case UnitYear, UnitYears, UnitMonth, UnitMonths, UnitWeek, UnitWeeks, UnitDay, UnitDays,
+		UnitHour, UnitHours, UnitMinute, UnitMinutes, UnitSecond, UnitSeconds,
+		UnitMillisecond, UnitMilliseconds:
+		return true
+	default:
+		return false
+	}
+}
+
+func isVariableLengthCalendarUnit(unit String) bool {
+	switch strings.ToLower(string(unit)) {
+	case "a", "mo":
+		return true
+	default:
+		return false
+	}
+}
+
+func convertQuantityToUnit(ctx context.Context, q Quantity, unit String) (Quantity, error) {
+	target := canonicalQuantityUnit(unit)
+	q = q.canonicalizeUnit()
+
+	if q.Unit == target {
+		return q, nil
+	}
+
+	converted, err := convertDecimalUnit(ctx, q.Value.Value, string(q.Unit), string(target))
+	if err != nil {
+		return Quantity{}, err
+	}
+
+	return Quantity{
+		Value: Decimal{Value: converted},
+		Unit:  target,
+	}, nil
+}
+
+func formatProductUnit(left, right String) String {
+	switch {
+	case left == "1":
+		return right
+	case right == "1":
+		return left
+	}
+	return String(fmt.Sprintf("%s.%s", wrapNumerator(left), wrapNumerator(right)))
+}
+
+func formatDivisionUnit(numerator, denominator String) String {
+	switch {
+	case numerator == denominator:
+		return "1"
+	case denominator == "1":
+		return numerator
+	case numerator == "1":
+		return String(fmt.Sprintf("1/%s", wrapDenominator(denominator)))
+	}
+	return String(fmt.Sprintf("%s/%s", wrapNumerator(numerator), wrapDenominator(denominator)))
+}
+
+func wrapNumerator(u String) string {
+	s := string(u)
+	if strings.ContainsRune(s, '/') {
+		return fmt.Sprintf("(%s)", s)
+	}
+	return s
+}
+
+func wrapDenominator(u String) string {
+	s := string(u)
+	if strings.ContainsAny(s, "./") {
+		return fmt.Sprintf("(%s)", s)
+	}
+	return s
 }
 func (q Quantity) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -2731,7 +2832,15 @@ func (q Quantity) MarshalJSON() ([]byte, error) {
 	return json.Marshal(q.String())
 }
 func (q Quantity) String() string {
-	return fmt.Sprintf("%s %s", q.Value.String(), q.Unit)
+	u := strings.TrimSpace(string(q.Unit))
+	if u == "" {
+		return q.Value.String()
+	}
+	display := displayQuantityUnit(q.Unit)
+	if isCalendarLiteralUnit(q.Unit) {
+		return fmt.Sprintf("%s %s", q.Value.String(), display)
+	}
+	return fmt.Sprintf("%s '%s'", q.Value.String(), display)
 }
 
 func ParseQuantity(s string) (Quantity, error) {
