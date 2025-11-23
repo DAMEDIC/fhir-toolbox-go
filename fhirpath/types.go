@@ -2086,6 +2086,68 @@ const (
 func (dt DateTime) Children(name ...string) Collection {
 	return nil
 }
+
+func dateTimePrecisionOrder(p DateTimePrecision) int {
+	switch p {
+	case DateTimePrecisionYear:
+		return 0
+	case DateTimePrecisionMonth:
+		return 1
+	case DateTimePrecisionDay:
+		return 2
+	case DateTimePrecisionHour:
+		return 3
+	case DateTimePrecisionMinute:
+		return 4
+	default:
+		return 5
+	}
+}
+
+func minDateTimePrecision(a, b DateTimePrecision) DateTimePrecision {
+	if dateTimePrecisionOrder(a) <= dateTimePrecisionOrder(b) {
+		return a
+	}
+	return b
+}
+
+func compareInts(a, b int) int {
+	switch {
+	case a < b:
+		return -1
+	case a > b:
+		return 1
+	default:
+		return 0
+	}
+}
+
+func compareDateTimesByPrecision(a, b time.Time, precision DateTimePrecision) int {
+	switch precision {
+	case DateTimePrecisionYear:
+		return compareInts(a.Year(), b.Year())
+	case DateTimePrecisionMonth:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(int(a.Month()), int(b.Month()))
+	case DateTimePrecisionDay:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(int(a.Month()), int(b.Month())); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Day(), b.Day())
+	case DateTimePrecisionHour:
+		return a.Truncate(time.Hour).Compare(b.Truncate(time.Hour))
+	case DateTimePrecisionMinute:
+		return a.Truncate(time.Minute).Compare(b.Truncate(time.Minute))
+	default:
+		return a.Compare(b)
+	}
+}
+
 func (dt DateTime) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(dt.String()), true, nil
 }
@@ -2134,73 +2196,22 @@ func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) b
 func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToDateTime(false)
 	if err != nil || !ok {
-		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
+		return 0, false, fmt.Errorf("can not compare DateTime to %T, left: %v right: %v", other, dt, other)
 	}
-	switch dt.Precision {
-	case DateTimePrecisionYear:
-		if o.Precision != DateTimePrecisionYear {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionMonth:
-		if o.Precision != DateTimePrecisionMonth {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return -1, true, nil
-		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionDay:
-		if o.Precision != DateTimePrecisionDay {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return -1, true, nil
-		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return 1, true, nil
-		} else if dt.Value.Day() < o.Value.In(dt.Value.Location()).Day() {
-			return -1, true, nil
-		} else if dt.Value.Day() > o.Value.In(dt.Value.Location()).Day() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionHour:
-		if o.Precision != DateTimePrecisionHour {
-			return 0, false, nil
-		}
-		return dt.Value.Truncate(time.Hour).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Hour)), true, nil
-	case DateTimePrecisionMinute:
-		if o.Precision != DateTimePrecisionMinute {
-			return 0, false, nil
-		}
-		return dt.Value.Truncate(time.Minute).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Minute)), true, nil
-	default:
-		if o.Precision != dt.Precision {
-			return 0, false, nil
-		}
-		return dt.Value.Compare(
-			o.Value.In(dt.Value.Location())), true, nil
+
+	commonPrecision := minDateTimePrecision(dt.Precision, o.Precision)
+	compareTarget := o.Value.In(dt.Value.Location())
+
+	cmp = compareDateTimesByPrecision(dt.Value, compareTarget, commonPrecision)
+	if cmp != 0 {
+		return cmp, true, nil
 	}
+
+	if dt.Precision == o.Precision {
+		return 0, true, nil
+	}
+
+	return 0, false, nil
 }
 
 // Add implements date/time arithmetic for DateTime values
