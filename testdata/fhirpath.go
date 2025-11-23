@@ -5,38 +5,93 @@ import (
 	"bytes"
 	"encoding/json"
 	"encoding/xml"
+	"errors"
 	"fmt"
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"github.com/DAMEDIC/fhir-toolbox-go/model"
 	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r4b"
+	"github.com/DAMEDIC/fhir-toolbox-go/model/gen/r5"
 	"github.com/cockroachdb/apd/v3"
 	"io"
 	"log"
 	"path"
+	"regexp"
 	"strconv"
 	"strings"
 )
 
-func GetFHIRPathTests() FHIRPathTests {
-	downloadFHRIPathTests()
+type resourceDecoder func(io.Reader) (model.Resource, error)
+
+type fhirPathReleaseConfig struct {
+	testsBasePath      string
+	testsFile          string
+	decodeXMLResource  resourceDecoder
+	decodeJSONResource resourceDecoder
+	inputBases         []string
+}
+
+var fhirPathReleaseConfigs = map[string]fhirPathReleaseConfig{
+	model.R4{}.String(): {
+		testsBasePath:      path.Join("r4", "fhirpath"),
+		testsFile:          "tests-fhir-r4.xml",
+		decodeXMLResource:  decodeR4ResourceXML,
+		decodeJSONResource: decodeR4ResourceJSON,
+		inputBases: []string{
+			"r4",
+			path.Join("r4", "examples"),
+			path.Join("r4", "fhirpath", "input"),
+		},
+	},
+	model.R4B{}.String(): {
+		testsBasePath:      path.Join("r4b", "fhirpath"),
+		testsFile:          "tests-fhir-r4b.xml",
+		decodeXMLResource:  decodeR4BResourceXML,
+		decodeJSONResource: decodeR4BResourceJSON,
+		inputBases: []string{
+			"r4b",
+			path.Join("r4b", "examples"),
+			path.Join("r4b", "fhirpath", "input"),
+		},
+	},
+	model.R5{}.String(): {
+		testsBasePath:      path.Join("r5", "fhirpath"),
+		testsFile:          "tests-fhir-r5.xml",
+		decodeXMLResource:  decodeR5ResourceXML,
+		decodeJSONResource: decodeR5ResourceJSON,
+		inputBases: []string{
+			"r5",
+			path.Join("r5", "examples"),
+			path.Join("r5", "fhirpath", "input"),
+		},
+	},
+}
+
+func GetFHIRPathTests(release model.Release) FHIRPathTests {
+	releaseKey := release.String()
+	cfg, ok := fhirPathReleaseConfigs[releaseKey]
+	if !ok {
+		log.Fatalf("unsupported FHIRPath release %q", releaseKey)
+	}
+
+	downloadFHIRPathTests()
 	filePath := fhirPathTestsFilePath()
 
 	log.Println("opening zip archive...")
-	zip, err := zip.OpenReader(filePath)
+	zipReader, err := zip.OpenReader(filePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer zip.Close()
+	defer zipReader.Close()
 
-	f, err := zip.Open("r4/tests-fhir-r4.xml")
+	archive := newZipArchive(zipReader)
+
+	testFilePath := path.Join(cfg.testsBasePath, cfg.testsFile)
+	testFile, err := archive.open(testFilePath)
 	if err != nil {
 		log.Fatal(err)
 	}
-	defer f.Close()
-	testsXml, err := io.ReadAll(f)
-	if err != nil {
-		log.Fatal(err)
-	}
+	testsXml := readZipFile(testFile)
 
 	testsXml = bytes.ReplaceAll(testsXml, []byte("< "), []byte("&lt; "))
 	testsXml = bytes.ReplaceAll(testsXml, []byte("<="), []byte("&lt;="))
@@ -49,22 +104,200 @@ func GetFHIRPathTests() FHIRPathTests {
 
 	for i, g := range tests.Groups {
 		for j, t := range g.Tests {
-			input, err := zip.Open(path.Join("r4", "input", t.InputFile))
-			if err != nil {
-				log.Fatal(err)
+			if strings.TrimSpace(t.InputFile) == "" {
+				continue
 			}
-			var r r4.ContainedResource
-			err = xml.NewDecoder(input).Decode(&r)
-			if err != nil {
-				log.Fatal(err)
+			if strings.EqualFold(t.Mode, "cda") {
+				g.Tests[j] = t
+				continue
 			}
-			t.InputResource = r.Resource
+			inputFile := openInputFile(archive, cfg, t.InputFile)
+			t.InputResource = decodeInputResource(inputFile, cfg, t.InputFile)
 			g.Tests[j] = t
 		}
 		tests.Groups[i] = g
 	}
 
 	return tests
+}
+
+type zipArchive struct {
+	root  string
+	files map[string]*zip.File
+}
+
+var errZipFileNotFound = errors.New("file not found in archive")
+
+func newZipArchive(z *zip.ReadCloser) zipArchive {
+	return zipArchive{
+		root:  detectZipRoot(z.File),
+		files: indexZipFiles(z.File),
+	}
+}
+
+func detectZipRoot(files []*zip.File) string {
+	for _, f := range files {
+		name := strings.TrimSuffix(f.Name, "/")
+		if name == "" {
+			continue
+		}
+		if idx := strings.Index(name, "/"); idx > 0 {
+			return name[:idx]
+		}
+	}
+	return ""
+}
+
+func indexZipFiles(files []*zip.File) map[string]*zip.File {
+	index := make(map[string]*zip.File, len(files))
+	for _, f := range files {
+		if f.FileInfo().IsDir() {
+			continue
+		}
+		index[f.Name] = f
+	}
+	return index
+}
+
+func (a zipArchive) open(relPath string) (*zip.File, error) {
+	relPath = path.Clean(relPath)
+	if strings.HasPrefix(relPath, "..") {
+		return nil, fmt.Errorf("invalid relative path %q", relPath)
+	}
+	fullPath := relPath
+	if a.root != "" {
+		fullPath = path.Join(a.root, relPath)
+	}
+	f, ok := a.files[fullPath]
+	if !ok {
+		return nil, fmt.Errorf("%w: %s (full path %s)", errZipFileNotFound, relPath, fullPath)
+	}
+	return f, nil
+}
+
+func openInputFile(archive zipArchive, cfg fhirPathReleaseConfig, filename string) *zip.File {
+	var lastErr error
+	for _, base := range cfg.inputBases {
+		candidate := path.Join(base, filename)
+		f, err := archive.open(candidate)
+		if err == nil {
+			return f
+		}
+		if errors.Is(err, errZipFileNotFound) {
+			lastErr = err
+			continue
+		}
+		log.Fatal(err)
+	}
+	if lastErr != nil {
+		log.Fatal(lastErr)
+	}
+	log.Fatalf("input file %q not found in archive for any configured base", filename)
+	return nil
+}
+
+func readZipFile(f *zip.File) []byte {
+	rc, err := f.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rc.Close()
+
+	data, err := io.ReadAll(rc)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return data
+}
+
+func decodeInputResource(file *zip.File, cfg fhirPathReleaseConfig, filename string) model.Resource {
+	ext := strings.ToLower(path.Ext(filename))
+	switch ext {
+	case ".json":
+		if cfg.decodeJSONResource == nil {
+			log.Fatalf("no JSON decoder configured for %s input %s", filename, cfg.testsFile)
+		}
+		return decodeResourceFromZip(file, cfg.decodeJSONResource, false)
+	case ".xml":
+		fallthrough
+	default:
+		if cfg.decodeXMLResource == nil {
+			log.Fatalf("no XML decoder configured for %s input %s", filename, cfg.testsFile)
+		}
+		return decodeResourceFromZip(file, cfg.decodeXMLResource, true)
+	}
+}
+
+var (
+	prefixedXMLNSAttr = regexp.MustCompile(`\s+xmlns:[A-Za-z0-9_.-]+="[^"]*"`)
+	xsiAttr           = regexp.MustCompile(`\s+xsi:[A-Za-z0-9_.-]+="[^"]*"`)
+)
+
+func sanitizeXMLNamespaces(data []byte) []byte {
+	data = prefixedXMLNSAttr.ReplaceAll(data, []byte{})
+	data = xsiAttr.ReplaceAll(data, []byte{})
+	return data
+}
+
+func decodeResourceFromZip(f *zip.File, decode resourceDecoder, sanitizeXML bool) model.Resource {
+	rc, err := f.Open()
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer rc.Close()
+
+	var reader io.Reader = rc
+	if sanitizeXML {
+		data, err := io.ReadAll(rc)
+		if err != nil {
+			log.Fatal(err)
+		}
+		data = sanitizeXMLNamespaces(data)
+		reader = bytes.NewReader(data)
+	}
+
+	res, err := decode(reader)
+	if err != nil {
+		log.Fatalf("failed to decode %s: %v", f.Name, err)
+	}
+
+	return res
+}
+
+func decodeR4ResourceXML(r io.Reader) (model.Resource, error) {
+	var resource r4.ContainedResource
+	err := xml.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
+}
+
+func decodeR4ResourceJSON(r io.Reader) (model.Resource, error) {
+	var resource r4.ContainedResource
+	err := json.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
+}
+
+func decodeR4BResourceXML(r io.Reader) (model.Resource, error) {
+	var resource r4b.ContainedResource
+	err := xml.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
+}
+
+func decodeR4BResourceJSON(r io.Reader) (model.Resource, error) {
+	var resource r4b.ContainedResource
+	err := json.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
+}
+
+func decodeR5ResourceXML(r io.Reader) (model.Resource, error) {
+	var resource r5.ContainedResource
+	err := xml.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
+}
+
+func decodeR5ResourceJSON(r io.Reader) (model.Resource, error) {
+	var resource r5.ContainedResource
+	err := json.NewDecoder(r).Decode(&resource)
+	return resource.Resource, err
 }
 
 type FHIRPathTests struct {
@@ -83,6 +316,7 @@ type FHIRPathTest struct {
 	Name          string `xml:"name,attr"`
 	Description   string `xml:"description,attr"`
 	InputFile     string `xml:"inputfile,attr"`
+	Mode          string `xml:"mode,attr"`
 	InputResource model.Resource
 	Predicate     bool                   `xml:"predicate,attr"`
 	Invalid       string                 `xml:"invalid,attr"`

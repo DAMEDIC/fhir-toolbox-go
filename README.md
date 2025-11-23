@@ -286,6 +286,20 @@ The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented
 support.
 For quantity comparisons and operations, the unit is only asserted for equality.
 
+The 3.0.0-ballot specification introduces additional functions and semantics (see
+[FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.
+We track those gaps below so contributors know where help is wanted:
+
+| Area | Missing pieces | Notes |
+| --- | --- | --- |
+| Collection utilities | `sort`, `repeatAll`, `coalesce` | New in §4.1.26+, not implemented yet |
+| String helpers | `indexOf`, `lastIndexOf`, regex flags for `matches`/`replaceMatches`, full JSON/HTML escaping semantics | Basic versions exist but 3.0 behaviour diverges |
+| Date/Time math | `duration`, `difference`, week/min/hour literals, extended boundary precision rules | Several conformance tests fail until this lands |
+| Terminology integration | `%terminologies` variable, `txTest*` helpers | Needs connection to a terminology service |
+| `%vs-*` / `%ext-*` variables | Value set / extension scoped variables | Currently skipped in tests |
+| Additional helpers | `resolve`, `hasValue`, `conformsTo`, UCUM-aware quantity conversions | Still outstanding |
+| CDA fixtures | Tests with `mode="cda"` from the upstream suite | Skipped until CDA parsing is supported |
+
 From the additional functions defined in the FHIR specification, only
 
 * `extension(url : string) : collection`
