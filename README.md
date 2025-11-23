@@ -6,7 +6,7 @@
 > Use of the FHIR trademark does not constitute endorsement of the contents of this repository by HL7®.
 
 This project provides a set of packages for working with the HL7® FHIR® standard in Go.
-You only need to implement some interfaces and get a REST implementation out-of-the box.
+You only need to implement some interfaces and get a REST implementation out-of-the-box.
 
 This includes model types and interfaces modeling capabilities that you can use to build custom FHIR® servers.
 A REST server and client are provided.
@@ -15,14 +15,23 @@ A REST server and client are provided.
 > and the feature set is quite limited.
 > We will add features as we require them. We welcome external contributions.
 
+## Installation
+
+```sh
+go get github.com/DAMEDIC/fhir-toolbox-go
+```
+
 ## Features
 
 - FHIR® model types with JSON and XML (un)marshaling
     - generated from the FHIR® specification
-    ```Go
-    var r r4.ContainedResource // container class because json.Unmarshal can not unmarshal directly into interfaces
+    ```go
+    // Use a container struct because json.Unmarshal cannot unmarshal directly into interfaces
+    var r r4.ContainedResource
     err := json.Unmarshal(data, &r)
-    ... = r.Resource // the actual resource of type model.Resource
+
+    // Access the actual resource of type model.Resource
+    res := r.Resource
   ```
 - Extensible REST API with capabilities modeled as interfaces for building server
     - Capability detection by runtime type assertion (note: operations use reflection) (see [Capabilities](#capabilities))
@@ -114,6 +123,18 @@ The **concrete** API is ideal for building custom FHIR® facades where a limited
 The **generic** API is better suited for e.g. building FHIR® clients (see [
 `./examples/proxy`](./examples/proxy/main.go))
 or standalone FHIR® servers.
+
+```mermaid
+flowchart LR
+    Request --> REST[REST Server]
+    REST --> Generic[Generic API Interface]
+    Generic -.->|Wrapper| Concrete[Concrete API Interface]
+
+    subgraph Implementation
+    Generic -- Proxy/Forward --> Ext[External Server]
+    Concrete -- Facade --> DB[Legacy Database]
+    end
+```
 
 ### Operations
 
@@ -234,11 +255,9 @@ func (b MyBackend) SearchCapabilitiesPatient(ctx context.Context) (r4.SearchCapa
 // Available at: GET /SearchParameter/Patient-name, /SearchParameter/Patient-birthdate, etc.
 ```
 
-> **Note**: The values of the parameters map can actually be fully specified SearchParameter resources as defined in the
-> standard. If you omit certain (required) fields like in the above example, these get augmented by the framework.
+> **Note**: The values of the parameters map can be fully specified SearchParameter resources as defined in the standard. If you omit certain required fields like in the above example, these get augmented by the framework.
 
-> **Attention**: If you implement `SearchParameterSearch` (the `search` interaction for the `SearchParameter` resource),
-> you will overwrite the automatic gathering and augmentation as described above. 
+> **Attention**: If you implement `SearchParameterSearch` (the `search` interaction for the `SearchParameter` resource), you will overwrite the automatic gathering and augmentation described above.
 
 
 #### Interoperability
@@ -249,11 +268,17 @@ Wrapper structs facilitate interoperability between the generic and the concrete
 genericAPI := capabilitiesR4.Generic{Concrete: concreteAPI}
 ```
 
+This adapts an implementation of the concrete interfaces so it can be served through the generic REST layer without additional glue code.
+To host a concrete implementation using the REST layer, you do **not** have to call this sexplicitly.
+The REST handler wraps concrete implementations for you!
+
 and vice versa:
 
 ```Go
 concreteAPI := capabilitiesR4.Concrete{Generic: genericAPI}
 ```
+
+This wraps a generic implementation and exposes the strongly typed concrete interfaces (e.g. `ReadPatient`) for consumers that prefer compile-time types.
 
 ## FHIRPath
 
@@ -295,7 +320,7 @@ if err != nil {
 }
 ```
 
-> **Attention**: By default the precision is set to `0`.
+> **Attention**: By default the precision is set to `0`, meaning no rounding. Some decimal operations like dividing `1/3` will fail unless you supply a precision context.
 
 ### Testing Approach
 
@@ -319,7 +344,7 @@ the tests are modified before execution in [`fhirpath/fhirpath_test.go`](fhirpat
 |----------------------|-------------------------------------------------------------------------------|
 | `model`              | Generated FHIR® model types                                                   |
 | `capabilities/..`    | Interfaces modeling capabilities a server can provide or a client can consume |
-| `capabilites/search` | Types and helper functions for implementing search capabilities               |
+| `capabilities/search` | Types and helper functions for implementing search capabilities               |
 | `fhirpath`           | FHIRPath execution engine                                                     |                                                     
 | `rest`               | FHIR® REST server implementation                                              |
 | `testdata`           | Utils for loading test data and writing tests                                 |
