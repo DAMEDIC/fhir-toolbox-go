@@ -4597,7 +4597,7 @@ func (r Extension) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Extension) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Extension to Quantity")
 }
-func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Extension) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Extension
 	switch other := other.(type) {
 	case Extension:
@@ -4613,7 +4613,7 @@ func (r Extension) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Extension) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Extension) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Extension)
 	if !ok {
 		return false

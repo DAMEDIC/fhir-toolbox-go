@@ -2939,7 +2939,7 @@ func (r VisionPrescription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r VisionPrescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescription to Quantity")
 }
-func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescription
 	switch other := other.(type) {
 	case VisionPrescription:
@@ -2955,7 +2955,7 @@ func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescription)
 	if !ok {
 		return false
@@ -3197,7 +3197,7 @@ func (r VisionPrescriptionLensSpecification) ToDateTime(explicit bool) (fhirpath
 func (r VisionPrescriptionLensSpecification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescriptionLensSpecification to Quantity")
 }
-func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescriptionLensSpecification
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecification:
@@ -3213,7 +3213,7 @@ func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescriptionLensSpecification)
 	if !ok {
 		return false
@@ -3402,7 +3402,7 @@ func (r VisionPrescriptionLensSpecificationPrism) ToDateTime(explicit bool) (fhi
 func (r VisionPrescriptionLensSpecificationPrism) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Quantity")
 }
-func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescriptionLensSpecificationPrism
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecificationPrism:
@@ -3418,7 +3418,7 @@ func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescriptionLensSpecificationPrism)
 	if !ok {
 		return false

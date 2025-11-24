@@ -6316,7 +6316,7 @@ func (r TestPlan) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r TestPlan) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlan to Quantity")
 }
-func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlan) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlan
 	switch other := other.(type) {
 	case TestPlan:
@@ -6332,7 +6332,7 @@ func (r TestPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlan) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlan)
 	if !ok {
 		return false
@@ -6623,7 +6623,7 @@ func (r TestPlanDependency) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r TestPlanDependency) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanDependency to Quantity")
 }
-func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanDependency) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanDependency
 	switch other := other.(type) {
 	case TestPlanDependency:
@@ -6639,7 +6639,7 @@ func (r TestPlanDependency) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanDependency) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanDependency)
 	if !ok {
 		return false
@@ -6768,7 +6768,7 @@ func (r TestPlanTestCase) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r TestPlanTestCase) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCase to Quantity")
 }
-func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCase) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCase
 	switch other := other.(type) {
 	case TestPlanTestCase:
@@ -6784,7 +6784,7 @@ func (r TestPlanTestCase) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCase) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCase)
 	if !ok {
 		return false
@@ -6921,7 +6921,7 @@ func (r TestPlanTestCaseDependency) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r TestPlanTestCaseDependency) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseDependency to Quantity")
 }
-func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCaseDependency
 	switch other := other.(type) {
 	case TestPlanTestCaseDependency:
@@ -6937,7 +6937,7 @@ func (r TestPlanTestCaseDependency) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCaseDependency) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseDependency) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCaseDependency)
 	if !ok {
 		return false
@@ -7046,7 +7046,7 @@ func (r TestPlanTestCaseTestRun) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r TestPlanTestCaseTestRun) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Quantity")
 }
-func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCaseTestRun
 	switch other := other.(type) {
 	case TestPlanTestCaseTestRun:
@@ -7062,7 +7062,7 @@ func (r TestPlanTestCaseTestRun) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCaseTestRun) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestRun) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCaseTestRun)
 	if !ok {
 		return false
@@ -7171,7 +7171,7 @@ func (r TestPlanTestCaseTestRunScript) ToDateTime(explicit bool) (fhirpath.DateT
 func (r TestPlanTestCaseTestRunScript) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Quantity")
 }
-func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCaseTestRunScript
 	switch other := other.(type) {
 	case TestPlanTestCaseTestRunScript:
@@ -7187,7 +7187,7 @@ func (r TestPlanTestCaseTestRunScript) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCaseTestRunScript) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestRunScript) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCaseTestRunScript)
 	if !ok {
 		return false
@@ -7299,7 +7299,7 @@ func (r TestPlanTestCaseTestData) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r TestPlanTestCaseTestData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseTestData to Quantity")
 }
-func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCaseTestData
 	switch other := other.(type) {
 	case TestPlanTestCaseTestData:
@@ -7315,7 +7315,7 @@ func (r TestPlanTestCaseTestData) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCaseTestData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseTestData) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCaseTestData)
 	if !ok {
 		return false
@@ -7436,7 +7436,7 @@ func (r TestPlanTestCaseAssertion) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r TestPlanTestCaseAssertion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Quantity")
 }
-func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestPlanTestCaseAssertion
 	switch other := other.(type) {
 	case TestPlanTestCaseAssertion:
@@ -7452,7 +7452,7 @@ func (r TestPlanTestCaseAssertion) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestPlanTestCaseAssertion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestPlanTestCaseAssertion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestPlanTestCaseAssertion)
 	if !ok {
 		return false

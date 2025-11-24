@@ -1090,7 +1090,7 @@ func (r SubstanceAmount) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r SubstanceAmount) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmount to Quantity")
 }
-func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceAmount) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceAmount
 	switch other := other.(type) {
 	case SubstanceAmount:
@@ -1106,7 +1106,7 @@ func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceAmount) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceAmount)
 	if !ok {
 		return false
@@ -1224,7 +1224,7 @@ func (r SubstanceAmountReferenceRange) ToDateTime(explicit bool) (fhirpath.DateT
 func (r SubstanceAmountReferenceRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Quantity")
 }
-func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceAmountReferenceRange
 	switch other := other.(type) {
 	case SubstanceAmountReferenceRange:
@@ -1240,7 +1240,7 @@ func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceAmountReferenceRange)
 	if !ok {
 		return false

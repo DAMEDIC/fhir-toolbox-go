@@ -3083,7 +3083,7 @@ func (r MedicinalProductPharmaceutical) ToDateTime(explicit bool) (fhirpath.Date
 func (r MedicinalProductPharmaceutical) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPharmaceutical to Quantity")
 }
-func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPharmaceutical
 	switch other := other.(type) {
 	case MedicinalProductPharmaceutical:
@@ -3099,7 +3099,7 @@ func (r MedicinalProductPharmaceutical) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPharmaceutical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPharmaceutical) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPharmaceutical)
 	if !ok {
 		return false
@@ -3276,7 +3276,7 @@ func (r MedicinalProductPharmaceuticalCharacteristics) ToDateTime(explicit bool)
 func (r MedicinalProductPharmaceuticalCharacteristics) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Quantity")
 }
-func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPharmaceuticalCharacteristics
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalCharacteristics:
@@ -3292,7 +3292,7 @@ func (r MedicinalProductPharmaceuticalCharacteristics) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPharmaceuticalCharacteristics) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPharmaceuticalCharacteristics) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPharmaceuticalCharacteristics)
 	if !ok {
 		return false
@@ -3424,7 +3424,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToDateTime(explicit
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Quantity")
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPharmaceuticalRouteOfAdministration
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministration:
@@ -3440,7 +3440,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equal(other fhirpat
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministration)
 	if !ok {
 		return false
@@ -3582,7 +3582,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToDate
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Quantity")
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies:
@@ -3598,7 +3598,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equal(
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies)
 	if !ok {
 		return false
@@ -3708,7 +3708,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
@@ -3724,7 +3724,7 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod)
 	if !ok {
 		return false

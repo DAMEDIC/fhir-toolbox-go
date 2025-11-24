@@ -2146,7 +2146,7 @@ func (r BiologicallyDerivedProductDispense) ToDateTime(explicit bool) (fhirpath.
 func (r BiologicallyDerivedProductDispense) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Quantity")
 }
-func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductDispense
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispense:
@@ -2162,7 +2162,7 @@ func (r BiologicallyDerivedProductDispense) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductDispense) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductDispense)
 	if !ok {
 		return false
@@ -2402,7 +2402,7 @@ func (r BiologicallyDerivedProductDispensePerformer) ToDateTime(explicit bool) (
 func (r BiologicallyDerivedProductDispensePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Quantity")
 }
-func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductDispensePerformer
 	switch other := other.(type) {
 	case BiologicallyDerivedProductDispensePerformer:
@@ -2418,7 +2418,7 @@ func (r BiologicallyDerivedProductDispensePerformer) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductDispensePerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductDispensePerformer)
 	if !ok {
 		return false

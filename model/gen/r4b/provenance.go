@@ -2649,7 +2649,7 @@ func (r Provenance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Provenance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Provenance to Quantity")
 }
-func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Provenance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Provenance
 	switch other := other.(type) {
 	case Provenance:
@@ -2665,7 +2665,7 @@ func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Provenance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Provenance)
 	if !ok {
 		return false
@@ -2873,7 +2873,7 @@ func (r ProvenanceAgent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ProvenanceAgent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceAgent to Quantity")
 }
-func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProvenanceAgent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProvenanceAgent
 	switch other := other.(type) {
 	case ProvenanceAgent:
@@ -2889,7 +2889,7 @@ func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceAgent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProvenanceAgent)
 	if !ok {
 		return false
@@ -3013,7 +3013,7 @@ func (r ProvenanceEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ProvenanceEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceEntity to Quantity")
 }
-func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProvenanceEntity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProvenanceEntity
 	switch other := other.(type) {
 	case ProvenanceEntity:
@@ -3029,7 +3029,7 @@ func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceEntity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProvenanceEntity)
 	if !ok {
 		return false

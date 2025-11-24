@@ -3492,7 +3492,7 @@ func (r ResearchDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ResearchDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchDefinition to Quantity")
 }
-func (r ResearchDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ResearchDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ResearchDefinition
 	switch other := other.(type) {
 	case ResearchDefinition:
@@ -3508,7 +3508,7 @@ func (r ResearchDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ResearchDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ResearchDefinition)
 	if !ok {
 		return false

@@ -412,7 +412,7 @@ func (r RatioRange) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r RatioRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RatioRange to Quantity")
 }
-func (r RatioRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RatioRange) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RatioRange
 	switch other := other.(type) {
 	case RatioRange:
@@ -428,7 +428,7 @@ func (r RatioRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RatioRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RatioRange) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RatioRange)
 	if !ok {
 		return false

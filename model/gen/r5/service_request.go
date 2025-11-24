@@ -5511,7 +5511,7 @@ func (r ServiceRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ServiceRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequest to Quantity")
 }
-func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ServiceRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ServiceRequest
 	switch other := other.(type) {
 	case ServiceRequest:
@@ -5527,7 +5527,7 @@ func (r ServiceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ServiceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ServiceRequest)
 	if !ok {
 		return false
@@ -5888,7 +5888,7 @@ func (r ServiceRequestOrderDetail) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ServiceRequestOrderDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestOrderDetail to Quantity")
 }
-func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ServiceRequestOrderDetail
 	switch other := other.(type) {
 	case ServiceRequestOrderDetail:
@@ -5904,7 +5904,7 @@ func (r ServiceRequestOrderDetail) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestOrderDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ServiceRequestOrderDetail)
 	if !ok {
 		return false
@@ -6009,7 +6009,7 @@ func (r ServiceRequestOrderDetailParameter) ToDateTime(explicit bool) (fhirpath.
 func (r ServiceRequestOrderDetailParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Quantity")
 }
-func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ServiceRequestOrderDetailParameter
 	switch other := other.(type) {
 	case ServiceRequestOrderDetailParameter:
@@ -6025,7 +6025,7 @@ func (r ServiceRequestOrderDetailParameter) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestOrderDetailParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ServiceRequestOrderDetailParameter)
 	if !ok {
 		return false
@@ -6129,7 +6129,7 @@ func (r ServiceRequestPatientInstruction) ToDateTime(explicit bool) (fhirpath.Da
 func (r ServiceRequestPatientInstruction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Quantity")
 }
-func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ServiceRequestPatientInstruction
 	switch other := other.(type) {
 	case ServiceRequestPatientInstruction:
@@ -6145,7 +6145,7 @@ func (r ServiceRequestPatientInstruction) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ServiceRequestPatientInstruction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ServiceRequestPatientInstruction)
 	if !ok {
 		return false

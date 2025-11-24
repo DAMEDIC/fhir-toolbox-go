@@ -3985,7 +3985,7 @@ func (r Procedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Procedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Procedure to Quantity")
 }
-func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Procedure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Procedure
 	switch other := other.(type) {
 	case Procedure:
@@ -4001,7 +4001,7 @@ func (r Procedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Procedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Procedure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Procedure)
 	if !ok {
 		return false
@@ -4330,7 +4330,7 @@ func (r ProcedurePerformer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ProcedurePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProcedurePerformer to Quantity")
 }
-func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProcedurePerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProcedurePerformer
 	switch other := other.(type) {
 	case ProcedurePerformer:
@@ -4346,7 +4346,7 @@ func (r ProcedurePerformer) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProcedurePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProcedurePerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProcedurePerformer)
 	if !ok {
 		return false
@@ -4460,7 +4460,7 @@ func (r ProcedureFocalDevice) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ProcedureFocalDevice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProcedureFocalDevice to Quantity")
 }
-func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProcedureFocalDevice) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProcedureFocalDevice
 	switch other := other.(type) {
 	case ProcedureFocalDevice:
@@ -4476,7 +4476,7 @@ func (r ProcedureFocalDevice) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProcedureFocalDevice) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProcedureFocalDevice)
 	if !ok {
 		return false

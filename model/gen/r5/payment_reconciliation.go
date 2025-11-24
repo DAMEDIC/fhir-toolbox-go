@@ -4086,7 +4086,7 @@ func (r PaymentReconciliation) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r PaymentReconciliation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PaymentReconciliation to Quantity")
 }
-func (r PaymentReconciliation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PaymentReconciliation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PaymentReconciliation
 	switch other := other.(type) {
 	case PaymentReconciliation:
@@ -4102,7 +4102,7 @@ func (r PaymentReconciliation) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PaymentReconciliation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PaymentReconciliation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PaymentReconciliation)
 	if !ok {
 		return false
@@ -4490,7 +4490,7 @@ func (r PaymentReconciliationAllocation) ToDateTime(explicit bool) (fhirpath.Dat
 func (r PaymentReconciliationAllocation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PaymentReconciliationAllocation to Quantity")
 }
-func (r PaymentReconciliationAllocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PaymentReconciliationAllocation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PaymentReconciliationAllocation
 	switch other := other.(type) {
 	case PaymentReconciliationAllocation:
@@ -4506,7 +4506,7 @@ func (r PaymentReconciliationAllocation) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PaymentReconciliationAllocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PaymentReconciliationAllocation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PaymentReconciliationAllocation)
 	if !ok {
 		return false
@@ -4692,7 +4692,7 @@ func (r PaymentReconciliationProcessNote) ToDateTime(explicit bool) (fhirpath.Da
 func (r PaymentReconciliationProcessNote) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PaymentReconciliationProcessNote to Quantity")
 }
-func (r PaymentReconciliationProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PaymentReconciliationProcessNote) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PaymentReconciliationProcessNote
 	switch other := other.(type) {
 	case PaymentReconciliationProcessNote:
@@ -4708,7 +4708,7 @@ func (r PaymentReconciliationProcessNote) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PaymentReconciliationProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PaymentReconciliationProcessNote) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PaymentReconciliationProcessNote)
 	if !ok {
 		return false

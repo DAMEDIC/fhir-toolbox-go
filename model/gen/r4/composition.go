@@ -4083,7 +4083,7 @@ func (r Composition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Composition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Composition to Quantity")
 }
-func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Composition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Composition
 	switch other := other.(type) {
 	case Composition:
@@ -4099,7 +4099,7 @@ func (r Composition) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Composition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Composition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Composition)
 	if !ok {
 		return false
@@ -4337,7 +4337,7 @@ func (r CompositionAttester) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r CompositionAttester) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionAttester to Quantity")
 }
-func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompositionAttester) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompositionAttester
 	switch other := other.(type) {
 	case CompositionAttester:
@@ -4353,7 +4353,7 @@ func (r CompositionAttester) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompositionAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionAttester) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompositionAttester)
 	if !ok {
 		return false
@@ -4465,7 +4465,7 @@ func (r CompositionRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r CompositionRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionRelatesTo to Quantity")
 }
-func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompositionRelatesTo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompositionRelatesTo
 	switch other := other.(type) {
 	case CompositionRelatesTo:
@@ -4481,7 +4481,7 @@ func (r CompositionRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompositionRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionRelatesTo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompositionRelatesTo)
 	if !ok {
 		return false
@@ -4595,7 +4595,7 @@ func (r CompositionEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r CompositionEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionEvent to Quantity")
 }
-func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompositionEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompositionEvent
 	switch other := other.(type) {
 	case CompositionEvent:
@@ -4611,7 +4611,7 @@ func (r CompositionEvent) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompositionEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompositionEvent)
 	if !ok {
 		return false
@@ -4767,7 +4767,7 @@ func (r CompositionSection) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r CompositionSection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompositionSection to Quantity")
 }
-func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompositionSection) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompositionSection
 	switch other := other.(type) {
 	case CompositionSection:
@@ -4783,7 +4783,7 @@ func (r CompositionSection) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompositionSection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompositionSection) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompositionSection)
 	if !ok {
 		return false

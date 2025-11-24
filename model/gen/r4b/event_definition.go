@@ -2999,7 +2999,7 @@ func (r EventDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r EventDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EventDefinition to Quantity")
 }
-func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EventDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EventDefinition
 	switch other := other.(type) {
 	case EventDefinition:
@@ -3015,7 +3015,7 @@ func (r EventDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EventDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EventDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EventDefinition)
 	if !ok {
 		return false

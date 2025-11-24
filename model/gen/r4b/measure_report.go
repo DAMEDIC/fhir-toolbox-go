@@ -4241,7 +4241,7 @@ func (r MeasureReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r MeasureReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReport to Quantity")
 }
-func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReport) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReport
 	switch other := other.(type) {
 	case MeasureReport:
@@ -4257,7 +4257,7 @@ func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReport) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReport)
 	if !ok {
 		return false
@@ -4474,7 +4474,7 @@ func (r MeasureReportGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r MeasureReportGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroup to Quantity")
 }
-func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroup
 	switch other := other.(type) {
 	case MeasureReportGroup:
@@ -4490,7 +4490,7 @@ func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroup)
 	if !ok {
 		return false
@@ -4618,7 +4618,7 @@ func (r MeasureReportGroupPopulation) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MeasureReportGroupPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupPopulation to Quantity")
 }
-func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupPopulation:
@@ -4634,7 +4634,7 @@ func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupPopulation)
 	if !ok {
 		return false
@@ -4750,7 +4750,7 @@ func (r MeasureReportGroupStratifier) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MeasureReportGroupStratifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifier to Quantity")
 }
-func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifier
 	switch other := other.(type) {
 	case MeasureReportGroupStratifier:
@@ -4766,7 +4766,7 @@ func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifier)
 	if !ok {
 		return false
@@ -4885,7 +4885,7 @@ func (r MeasureReportGroupStratifierStratum) ToDateTime(explicit bool) (fhirpath
 func (r MeasureReportGroupStratifierStratum) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Quantity")
 }
-func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratum
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratum:
@@ -4901,7 +4901,7 @@ func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratum)
 	if !ok {
 		return false
@@ -5020,7 +5020,7 @@ func (r MeasureReportGroupStratifierStratumComponent) ToDateTime(explicit bool) 
 func (r MeasureReportGroupStratifierStratumComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Quantity")
 }
-func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratumComponent
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumComponent:
@@ -5036,7 +5036,7 @@ func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratumComponent)
 	if !ok {
 		return false
@@ -5150,7 +5150,7 @@ func (r MeasureReportGroupStratifierStratumPopulation) ToDateTime(explicit bool)
 func (r MeasureReportGroupStratifierStratumPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Quantity")
 }
-func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratumPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumPopulation:
@@ -5166,7 +5166,7 @@ func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratumPopulation)
 	if !ok {
 		return false

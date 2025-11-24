@@ -495,7 +495,7 @@ func (r Contributor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Contributor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Contributor to Quantity")
 }
-func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Contributor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Contributor
 	switch other := other.(type) {
 	case Contributor:
@@ -511,7 +511,7 @@ func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Contributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Contributor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Contributor)
 	if !ok {
 		return false

@@ -2668,7 +2668,7 @@ func (r ClinicalImpression) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ClinicalImpression) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalImpression to Quantity")
 }
-func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalImpression) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalImpression
 	switch other := other.(type) {
 	case ClinicalImpression:
@@ -2684,7 +2684,7 @@ func (r ClinicalImpression) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalImpression) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalImpression) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalImpression)
 	if !ok {
 		return false
@@ -2947,7 +2947,7 @@ func (r ClinicalImpressionFinding) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ClinicalImpressionFinding) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalImpressionFinding to Quantity")
 }
-func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalImpressionFinding) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalImpressionFinding
 	switch other := other.(type) {
 	case ClinicalImpressionFinding:
@@ -2963,7 +2963,7 @@ func (r ClinicalImpressionFinding) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalImpressionFinding) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalImpressionFinding)
 	if !ok {
 		return false

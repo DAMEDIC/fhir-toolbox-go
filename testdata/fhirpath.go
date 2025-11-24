@@ -430,31 +430,34 @@ func (o FHIRPathTestOutput) ToQuantity(explicit bool) (v fhirpath.Quantity, ok b
 	return q, true, nil
 }
 
-func (o FHIRPathTestOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (o FHIRPathTestOutput) Equal(other fhirpath.Element) (eq bool, ok bool) {
 	e, ok, err := o.toElement()
 	if err != nil || !ok {
 		return false, true
 	}
 	eq, ok = e.Equal(other)
-	if eq && ok {
+	if ok && eq {
 		return true, true
-	} else if _, ok := e.(*fhirpath.Boolean); ok {
-		// the test cases seem to assume implicit conversion to booleans to check presence
-		return other != nil, true
-	} else {
-		return false, true
 	}
+	if _, isBool := e.(*fhirpath.Boolean); isBool {
+		return other != nil, true
+	}
+	return false, ok
 }
 
-func (o FHIRPathTestOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, _ := o.Equal(other)
-	return eq
+func (o FHIRPathTestOutput) Equivalent(other fhirpath.Element) bool {
+	e, ok, err := o.toElement()
+	if err != nil || !ok {
+		return false
+	}
+	return e.Equivalent(other)
 }
 
 func (o FHIRPathTestOutput) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.SimpleTypeInfo{
 		Namespace: "System",
-		Name:      strings.Title(o.Output),
+		Name:      o.typeName(),
+		BaseType:  fhirpath.TypeSpecifier{Namespace: "System", Name: "Any"},
 	}
 }
 
@@ -488,4 +491,29 @@ func (o FHIRPathTestOutput) toElement() (v fhirpath.Element, ok bool, err error)
 		return o.ToQuantity(false)
 	}
 	panic(fmt.Sprintf("invalid type: %s", o.Type))
+}
+
+func (o FHIRPathTestOutput) typeName() string {
+	switch o.Type {
+	case "boolean":
+		return "Boolean"
+	case "string":
+		return "String"
+	case "code":
+		return "Code"
+	case "integer":
+		return "Integer"
+	case "decimal":
+		return "Decimal"
+	case "date":
+		return "Date"
+	case "time":
+		return "Time"
+	case "dateTime":
+		return "DateTime"
+	case "Quantity":
+		return "Quantity"
+	default:
+		return strings.Title(o.Output)
+	}
 }

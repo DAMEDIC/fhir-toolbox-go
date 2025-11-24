@@ -670,7 +670,7 @@ func (r MoneyQuantity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r MoneyQuantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MoneyQuantity to Quantity")
 }
-func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MoneyQuantity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MoneyQuantity
 	switch other := other.(type) {
 	case MoneyQuantity:
@@ -686,7 +686,7 @@ func (r MoneyQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MoneyQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MoneyQuantity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MoneyQuantity)
 	if !ok {
 		return false

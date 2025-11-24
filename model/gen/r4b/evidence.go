@@ -7522,7 +7522,7 @@ func (r Evidence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Evidence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Evidence to Quantity")
 }
-func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Evidence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
@@ -7538,7 +7538,7 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Evidence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Evidence)
 	if !ok {
 		return false
@@ -7861,7 +7861,7 @@ func (r EvidenceVariableDefinition) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r EvidenceVariableDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceVariableDefinition to Quantity")
 }
-func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceVariableDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceVariableDefinition
 	switch other := other.(type) {
 	case EvidenceVariableDefinition:
@@ -7877,7 +7877,7 @@ func (r EvidenceVariableDefinition) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceVariableDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceVariableDefinition)
 	if !ok {
 		return false
@@ -8054,7 +8054,7 @@ func (r EvidenceStatistic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r EvidenceStatistic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatistic to Quantity")
 }
-func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceStatistic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceStatistic
 	switch other := other.(type) {
 	case EvidenceStatistic:
@@ -8070,7 +8070,7 @@ func (r EvidenceStatistic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceStatistic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatistic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceStatistic)
 	if !ok {
 		return false
@@ -8250,7 +8250,7 @@ func (r EvidenceStatisticSampleSize) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r EvidenceStatisticSampleSize) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticSampleSize to Quantity")
 }
-func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceStatisticSampleSize
 	switch other := other.(type) {
 	case EvidenceStatisticSampleSize:
@@ -8266,7 +8266,7 @@ func (r EvidenceStatisticSampleSize) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticSampleSize) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceStatisticSampleSize)
 	if !ok {
 		return false
@@ -8421,7 +8421,7 @@ func (r EvidenceStatisticAttributeEstimate) ToDateTime(explicit bool) (fhirpath.
 func (r EvidenceStatisticAttributeEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticAttributeEstimate to Quantity")
 }
-func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceStatisticAttributeEstimate
 	switch other := other.(type) {
 	case EvidenceStatisticAttributeEstimate:
@@ -8437,7 +8437,7 @@ func (r EvidenceStatisticAttributeEstimate) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticAttributeEstimate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceStatisticAttributeEstimate)
 	if !ok {
 		return false
@@ -8589,7 +8589,7 @@ func (r EvidenceStatisticModelCharacteristic) ToDateTime(explicit bool) (fhirpat
 func (r EvidenceStatisticModelCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristic to Quantity")
 }
-func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceStatisticModelCharacteristic
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristic:
@@ -8605,7 +8605,7 @@ func (r EvidenceStatisticModelCharacteristic) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticModelCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceStatisticModelCharacteristic)
 	if !ok {
 		return false
@@ -8741,7 +8741,7 @@ func (r EvidenceStatisticModelCharacteristicVariable) ToDateTime(explicit bool) 
 func (r EvidenceStatisticModelCharacteristicVariable) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceStatisticModelCharacteristicVariable to Quantity")
 }
-func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceStatisticModelCharacteristicVariable
 	switch other := other.(type) {
 	case EvidenceStatisticModelCharacteristicVariable:
@@ -8757,7 +8757,7 @@ func (r EvidenceStatisticModelCharacteristicVariable) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceStatisticModelCharacteristicVariable) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceStatisticModelCharacteristicVariable)
 	if !ok {
 		return false
@@ -8907,7 +8907,7 @@ func (r EvidenceCertainty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r EvidenceCertainty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceCertainty to Quantity")
 }
-func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceCertainty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceCertainty
 	switch other := other.(type) {
 	case EvidenceCertainty:
@@ -8923,7 +8923,7 @@ func (r EvidenceCertainty) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceCertainty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceCertainty)
 	if !ok {
 		return false

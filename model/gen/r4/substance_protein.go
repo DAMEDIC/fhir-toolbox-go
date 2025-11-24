@@ -1915,7 +1915,7 @@ func (r SubstanceProtein) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r SubstanceProtein) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProtein to Quantity")
 }
-func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceProtein) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceProtein
 	switch other := other.(type) {
 	case SubstanceProtein:
@@ -1931,7 +1931,7 @@ func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProtein) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceProtein)
 	if !ok {
 		return false
@@ -2119,7 +2119,7 @@ func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProteinSubunit to Quantity")
 }
-func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceProteinSubunit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceProteinSubunit
 	switch other := other.(type) {
 	case SubstanceProteinSubunit:
@@ -2135,7 +2135,7 @@ func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceProteinSubunit)
 	if !ok {
 		return false

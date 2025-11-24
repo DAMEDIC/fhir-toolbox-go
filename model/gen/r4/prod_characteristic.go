@@ -1151,7 +1151,7 @@ func (r ProdCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ProdCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProdCharacteristic to Quantity")
 }
-func (r ProdCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProdCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProdCharacteristic
 	switch other := other.(type) {
 	case ProdCharacteristic:
@@ -1167,7 +1167,7 @@ func (r ProdCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProdCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProdCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProdCharacteristic)
 	if !ok {
 		return false

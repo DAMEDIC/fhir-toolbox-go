@@ -197,7 +197,7 @@ func (e testElement) ToQuantity(explicit bool) (Quantity, bool, error) {
 	}
 }
 
-func (e testElement) Equal(other Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (e testElement) Equal(other Element) (bool, bool) {
 	o, ok := other.(testElement)
 	if !ok {
 		return false, false
@@ -205,7 +205,7 @@ func (e testElement) Equal(other Element, _noReverseTypeConversion ...bool) (boo
 	return e.value == o.value, true
 }
 
-func (e testElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (e testElement) Equivalent(other Element) bool {
 	eq, _ := e.Equal(other)
 	return eq
 }

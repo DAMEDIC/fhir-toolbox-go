@@ -2770,7 +2770,7 @@ func (r ActorDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ActorDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ActorDefinition to Quantity")
 }
-func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ActorDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ActorDefinition
 	switch other := other.(type) {
 	case ActorDefinition:
@@ -2786,7 +2786,7 @@ func (r ActorDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ActorDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActorDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ActorDefinition)
 	if !ok {
 		return false

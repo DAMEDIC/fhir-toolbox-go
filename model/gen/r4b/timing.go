@@ -2300,7 +2300,7 @@ func (r Timing) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Timing) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Timing to Quantity")
 }
-func (r Timing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Timing) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Timing
 	switch other := other.(type) {
 	case Timing:
@@ -2316,7 +2316,7 @@ func (r Timing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Timing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Timing) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Timing)
 	if !ok {
 		return false
@@ -2492,7 +2492,7 @@ func (r TimingRepeat) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r TimingRepeat) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TimingRepeat to Quantity")
 }
-func (r TimingRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TimingRepeat) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TimingRepeat
 	switch other := other.(type) {
 	case TimingRepeat:
@@ -2508,7 +2508,7 @@ func (r TimingRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TimingRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TimingRepeat) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TimingRepeat)
 	if !ok {
 		return false

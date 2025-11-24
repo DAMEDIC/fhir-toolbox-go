@@ -5736,7 +5736,7 @@ func (r Observation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Observation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Observation to Quantity")
 }
-func (r Observation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Observation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Observation
 	switch other := other.(type) {
 	case Observation:
@@ -5752,7 +5752,7 @@ func (r Observation) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Observation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Observation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Observation)
 	if !ok {
 		return false
@@ -6070,7 +6070,7 @@ func (r ObservationReferenceRange) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ObservationReferenceRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationReferenceRange to Quantity")
 }
-func (r ObservationReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationReferenceRange) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationReferenceRange
 	switch other := other.(type) {
 	case ObservationReferenceRange:
@@ -6086,7 +6086,7 @@ func (r ObservationReferenceRange) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationReferenceRange) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationReferenceRange)
 	if !ok {
 		return false
@@ -6236,7 +6236,7 @@ func (r ObservationComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ObservationComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationComponent to Quantity")
 }
-func (r ObservationComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationComponent
 	switch other := other.(type) {
 	case ObservationComponent:
@@ -6252,7 +6252,7 @@ func (r ObservationComponent) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationComponent)
 	if !ok {
 		return false

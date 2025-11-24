@@ -12315,7 +12315,7 @@ func (r Task) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Task) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Task to Quantity")
 }
-func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Task) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Task
 	switch other := other.(type) {
 	case Task:
@@ -12331,7 +12331,7 @@ func (r Task) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Task) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Task) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Task)
 	if !ok {
 		return false
@@ -12683,7 +12683,7 @@ func (r TaskRestriction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r TaskRestriction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TaskRestriction to Quantity")
 }
-func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TaskRestriction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TaskRestriction
 	switch other := other.(type) {
 	case TaskRestriction:
@@ -12699,7 +12699,7 @@ func (r TaskRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TaskRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskRestriction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TaskRestriction)
 	if !ok {
 		return false
@@ -12811,7 +12811,7 @@ func (r TaskInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r TaskInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TaskInput to Quantity")
 }
-func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TaskInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TaskInput
 	switch other := other.(type) {
 	case TaskInput:
@@ -12827,7 +12827,7 @@ func (r TaskInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TaskInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TaskInput)
 	if !ok {
 		return false
@@ -12932,7 +12932,7 @@ func (r TaskOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r TaskOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TaskOutput to Quantity")
 }
-func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TaskOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TaskOutput
 	switch other := other.(type) {
 	case TaskOutput:
@@ -12948,7 +12948,7 @@ func (r TaskOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TaskOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TaskOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TaskOutput)
 	if !ok {
 		return false

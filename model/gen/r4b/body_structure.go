@@ -1290,7 +1290,7 @@ func (r BodyStructure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r BodyStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructure to Quantity")
 }
-func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BodyStructure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
@@ -1306,7 +1306,7 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BodyStructure)
 	if !ok {
 		return false

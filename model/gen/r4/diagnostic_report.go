@@ -2612,7 +2612,7 @@ func (r DiagnosticReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r DiagnosticReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DiagnosticReport to Quantity")
 }
-func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DiagnosticReport) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DiagnosticReport
 	switch other := other.(type) {
 	case DiagnosticReport:
@@ -2628,7 +2628,7 @@ func (r DiagnosticReport) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DiagnosticReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DiagnosticReport) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DiagnosticReport)
 	if !ok {
 		return false
@@ -2882,7 +2882,7 @@ func (r DiagnosticReportMedia) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r DiagnosticReportMedia) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DiagnosticReportMedia to Quantity")
 }
-func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DiagnosticReportMedia) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DiagnosticReportMedia
 	switch other := other.(type) {
 	case DiagnosticReportMedia:
@@ -2898,7 +2898,7 @@ func (r DiagnosticReportMedia) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DiagnosticReportMedia) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DiagnosticReportMedia)
 	if !ok {
 		return false

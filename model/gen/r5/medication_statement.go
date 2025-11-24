@@ -2516,7 +2516,7 @@ func (r MedicationStatement) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r MedicationStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationStatement to Quantity")
 }
-func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationStatement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationStatement
 	switch other := other.(type) {
 	case MedicationStatement:
@@ -2532,7 +2532,7 @@ func (r MedicationStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationStatement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationStatement)
 	if !ok {
 		return false
@@ -2779,7 +2779,7 @@ func (r MedicationStatementAdherence) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MedicationStatementAdherence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationStatementAdherence to Quantity")
 }
-func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationStatementAdherence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationStatementAdherence
 	switch other := other.(type) {
 	case MedicationStatementAdherence:
@@ -2795,7 +2795,7 @@ func (r MedicationStatementAdherence) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationStatementAdherence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationStatementAdherence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationStatementAdherence)
 	if !ok {
 		return false

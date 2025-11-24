@@ -4013,7 +4013,7 @@ func (r ChargeItemDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ChargeItemDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinition to Quantity")
 }
-func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ChargeItemDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ChargeItemDefinition
 	switch other := other.(type) {
 	case ChargeItemDefinition:
@@ -4029,7 +4029,7 @@ func (r ChargeItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ChargeItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ChargeItemDefinition)
 	if !ok {
 		return false
@@ -4346,7 +4346,7 @@ func (r ChargeItemDefinitionApplicability) ToDateTime(explicit bool) (fhirpath.D
 func (r ChargeItemDefinitionApplicability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Quantity")
 }
-func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ChargeItemDefinitionApplicability
 	switch other := other.(type) {
 	case ChargeItemDefinitionApplicability:
@@ -4362,7 +4362,7 @@ func (r ChargeItemDefinitionApplicability) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinitionApplicability) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ChargeItemDefinitionApplicability)
 	if !ok {
 		return false
@@ -4478,7 +4478,7 @@ func (r ChargeItemDefinitionPropertyGroup) ToDateTime(explicit bool) (fhirpath.D
 func (r ChargeItemDefinitionPropertyGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Quantity")
 }
-func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ChargeItemDefinitionPropertyGroup
 	switch other := other.(type) {
 	case ChargeItemDefinitionPropertyGroup:
@@ -4494,7 +4494,7 @@ func (r ChargeItemDefinitionPropertyGroup) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ChargeItemDefinitionPropertyGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ChargeItemDefinitionPropertyGroup)
 	if !ok {
 		return false

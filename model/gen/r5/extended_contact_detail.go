@@ -617,7 +617,7 @@ func (r ExtendedContactDetail) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r ExtendedContactDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExtendedContactDetail to Quantity")
 }
-func (r ExtendedContactDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExtendedContactDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExtendedContactDetail
 	switch other := other.(type) {
 	case ExtendedContactDetail:
@@ -633,7 +633,7 @@ func (r ExtendedContactDetail) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExtendedContactDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExtendedContactDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExtendedContactDetail)
 	if !ok {
 		return false

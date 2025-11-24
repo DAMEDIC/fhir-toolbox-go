@@ -2813,7 +2813,7 @@ func (r Group) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Group) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Group to Quantity")
 }
-func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Group) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Group
 	switch other := other.(type) {
 	case Group:
@@ -2829,7 +2829,7 @@ func (r Group) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Group) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Group) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Group)
 	if !ok {
 		return false
@@ -3040,7 +3040,7 @@ func (r GroupCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r GroupCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GroupCharacteristic to Quantity")
 }
-func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GroupCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GroupCharacteristic
 	switch other := other.(type) {
 	case GroupCharacteristic:
@@ -3056,7 +3056,7 @@ func (r GroupCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GroupCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GroupCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GroupCharacteristic)
 	if !ok {
 		return false
@@ -3182,7 +3182,7 @@ func (r GroupMember) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r GroupMember) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GroupMember to Quantity")
 }
-func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GroupMember) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GroupMember
 	switch other := other.(type) {
 	case GroupMember:
@@ -3198,7 +3198,7 @@ func (r GroupMember) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GroupMember) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GroupMember) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GroupMember)
 	if !ok {
 		return false

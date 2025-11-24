@@ -3128,7 +3128,7 @@ func (r MessageHeader) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r MessageHeader) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeader to Quantity")
 }
-func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageHeader) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageHeader
 	switch other := other.(type) {
 	case MessageHeader:
@@ -3144,7 +3144,7 @@ func (r MessageHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeader) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageHeader)
 	if !ok {
 		return false
@@ -3359,7 +3359,7 @@ func (r MessageHeaderDestination) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r MessageHeaderDestination) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderDestination to Quantity")
 }
-func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageHeaderDestination) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageHeaderDestination
 	switch other := other.(type) {
 	case MessageHeaderDestination:
@@ -3375,7 +3375,7 @@ func (r MessageHeaderDestination) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageHeaderDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderDestination) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageHeaderDestination)
 	if !ok {
 		return false
@@ -3511,7 +3511,7 @@ func (r MessageHeaderSource) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r MessageHeaderSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderSource to Quantity")
 }
-func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageHeaderSource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageHeaderSource
 	switch other := other.(type) {
 	case MessageHeaderSource:
@@ -3527,7 +3527,7 @@ func (r MessageHeaderSource) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageHeaderSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderSource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageHeaderSource)
 	if !ok {
 		return false
@@ -3658,7 +3658,7 @@ func (r MessageHeaderResponse) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r MessageHeaderResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageHeaderResponse to Quantity")
 }
-func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageHeaderResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageHeaderResponse
 	switch other := other.(type) {
 	case MessageHeaderResponse:
@@ -3674,7 +3674,7 @@ func (r MessageHeaderResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageHeaderResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageHeaderResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageHeaderResponse)
 	if !ok {
 		return false

@@ -186,7 +186,7 @@ func (r Integer64) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Integer64) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Integer64 to Quantity")
 }
-func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Integer64) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Integer64)
 	if !ok {
 		return false, true
@@ -196,9 +196,15 @@ func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	}
 	return *r.Value == *o.Value, true
 }
-func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Integer64) Equivalent(other fhirpath.Element) bool {
+	o, ok := other.(Integer64)
+	if !ok {
+		return false
+	}
+	if r.Value == nil || o.Value == nil {
+		return false
+	}
+	return *r.Value == *o.Value
 }
 func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

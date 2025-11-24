@@ -4251,7 +4251,7 @@ func (r EvidenceVariable) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r EvidenceVariable) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceVariable to Quantity")
 }
-func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceVariable) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceVariable
 	switch other := other.(type) {
 	case EvidenceVariable:
@@ -4267,7 +4267,7 @@ func (r EvidenceVariable) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceVariable) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceVariable)
 	if !ok {
 		return false
@@ -4609,7 +4609,7 @@ func (r EvidenceVariableCharacteristic) ToDateTime(explicit bool) (fhirpath.Date
 func (r EvidenceVariableCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EvidenceVariableCharacteristic to Quantity")
 }
-func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EvidenceVariableCharacteristic
 	switch other := other.(type) {
 	case EvidenceVariableCharacteristic:
@@ -4625,7 +4625,7 @@ func (r EvidenceVariableCharacteristic) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EvidenceVariableCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EvidenceVariableCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EvidenceVariableCharacteristic)
 	if !ok {
 		return false

@@ -808,7 +808,7 @@ func (r ParameterDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ParameterDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ParameterDefinition to Quantity")
 }
-func (r ParameterDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ParameterDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ParameterDefinition
 	switch other := other.(type) {
 	case ParameterDefinition:
@@ -824,7 +824,7 @@ func (r ParameterDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ParameterDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ParameterDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ParameterDefinition)
 	if !ok {
 		return false

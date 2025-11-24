@@ -16562,7 +16562,7 @@ func (r Contract) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Contract) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Contract to Quantity")
 }
-func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Contract) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Contract
 	switch other := other.(type) {
 	case Contract:
@@ -16578,7 +16578,7 @@ func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Contract) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Contract)
 	if !ok {
 		return false
@@ -16955,7 +16955,7 @@ func (r ContractContentDefinition) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractContentDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractContentDefinition to Quantity")
 }
-func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractContentDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractContentDefinition
 	switch other := other.(type) {
 	case ContractContentDefinition:
@@ -16971,7 +16971,7 @@ func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractContentDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractContentDefinition)
 	if !ok {
 		return false
@@ -17156,7 +17156,7 @@ func (r ContractTerm) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ContractTerm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTerm to Quantity")
 }
-func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTerm) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTerm
 	switch other := other.(type) {
 	case ContractTerm:
@@ -17172,7 +17172,7 @@ func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTerm) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTerm)
 	if !ok {
 		return false
@@ -17359,7 +17359,7 @@ func (r ContractTermSecurityLabel) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermSecurityLabel to Quantity")
 }
-func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermSecurityLabel) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermSecurityLabel
 	switch other := other.(type) {
 	case ContractTermSecurityLabel:
@@ -17375,7 +17375,7 @@ func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermSecurityLabel)
 	if !ok {
 		return false
@@ -17538,7 +17538,7 @@ func (r ContractTermOffer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ContractTermOffer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOffer to Quantity")
 }
-func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOffer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOffer
 	switch other := other.(type) {
 	case ContractTermOffer:
@@ -17554,7 +17554,7 @@ func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOffer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOffer)
 	if !ok {
 		return false
@@ -17717,7 +17717,7 @@ func (r ContractTermOfferParty) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ContractTermOfferParty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferParty to Quantity")
 }
-func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOfferParty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOfferParty
 	switch other := other.(type) {
 	case ContractTermOfferParty:
@@ -17733,7 +17733,7 @@ func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferParty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOfferParty)
 	if !ok {
 		return false
@@ -17835,7 +17835,7 @@ func (r ContractTermOfferAnswer) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferAnswer to Quantity")
 }
-func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOfferAnswer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOfferAnswer
 	switch other := other.(type) {
 	case ContractTermOfferAnswer:
@@ -17851,7 +17851,7 @@ func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOfferAnswer)
 	if !ok {
 		return false
@@ -18018,7 +18018,7 @@ func (r ContractTermAsset) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ContractTermAsset) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAsset to Quantity")
 }
-func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAsset) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAsset
 	switch other := other.(type) {
 	case ContractTermAsset:
@@ -18034,7 +18034,7 @@ func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAsset) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAsset)
 	if !ok {
 		return false
@@ -18239,7 +18239,7 @@ func (r ContractTermAssetContext) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ContractTermAssetContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetContext to Quantity")
 }
-func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAssetContext) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAssetContext
 	switch other := other.(type) {
 	case ContractTermAssetContext:
@@ -18255,7 +18255,7 @@ func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetContext) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAssetContext)
 	if !ok {
 		return false
@@ -18431,7 +18431,7 @@ func (r ContractTermAssetValuedItem) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
 }
-func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAssetValuedItem
 	switch other := other.(type) {
 	case ContractTermAssetValuedItem:
@@ -18447,7 +18447,7 @@ func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAssetValuedItem)
 	if !ok {
 		return false
@@ -18729,7 +18729,7 @@ func (r ContractTermAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ContractTermAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAction to Quantity")
 }
-func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAction
 	switch other := other.(type) {
 	case ContractTermAction:
@@ -18745,7 +18745,7 @@ func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAction)
 	if !ok {
 		return false
@@ -18987,7 +18987,7 @@ func (r ContractTermActionSubject) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractTermActionSubject) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermActionSubject to Quantity")
 }
-func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermActionSubject) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermActionSubject
 	switch other := other.(type) {
 	case ContractTermActionSubject:
@@ -19003,7 +19003,7 @@ func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermActionSubject) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermActionSubject)
 	if !ok {
 		return false
@@ -19113,7 +19113,7 @@ func (r ContractSigner) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ContractSigner) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractSigner to Quantity")
 }
-func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractSigner) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractSigner
 	switch other := other.(type) {
 	case ContractSigner:
@@ -19129,7 +19129,7 @@ func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractSigner) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractSigner)
 	if !ok {
 		return false
@@ -19238,7 +19238,7 @@ func (r ContractFriendly) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ContractFriendly) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractFriendly to Quantity")
 }
-func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractFriendly) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractFriendly
 	switch other := other.(type) {
 	case ContractFriendly:
@@ -19254,7 +19254,7 @@ func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractFriendly) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractFriendly)
 	if !ok {
 		return false
@@ -19349,7 +19349,7 @@ func (r ContractLegal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r ContractLegal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractLegal to Quantity")
 }
-func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractLegal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractLegal
 	switch other := other.(type) {
 	case ContractLegal:
@@ -19365,7 +19365,7 @@ func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractLegal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractLegal)
 	if !ok {
 		return false
@@ -19460,7 +19460,7 @@ func (r ContractRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ContractRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractRule to Quantity")
 }
-func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractRule) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractRule
 	switch other := other.(type) {
 	case ContractRule:
@@ -19476,7 +19476,7 @@ func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractRule) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractRule)
 	if !ok {
 		return false

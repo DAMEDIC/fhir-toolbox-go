@@ -670,7 +670,7 @@ func (r Duration) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Duration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Duration to Quantity")
 }
-func (r Duration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Duration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Duration
 	switch other := other.(type) {
 	case Duration:
@@ -686,7 +686,7 @@ func (r Duration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Duration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Duration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Duration)
 	if !ok {
 		return false

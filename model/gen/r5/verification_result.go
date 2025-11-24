@@ -3659,7 +3659,7 @@ func (r VerificationResult) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r VerificationResult) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResult to Quantity")
 }
-func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResult) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResult
 	switch other := other.(type) {
 	case VerificationResult:
@@ -3675,7 +3675,7 @@ func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResult) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResult)
 	if !ok {
 		return false
@@ -3928,7 +3928,7 @@ func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (fhirpath.Dat
 func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultPrimarySource to Quantity")
 }
-func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultPrimarySource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultPrimarySource
 	switch other := other.(type) {
 	case VerificationResultPrimarySource:
@@ -3944,7 +3944,7 @@ func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultPrimarySource)
 	if !ok {
 		return false
@@ -4118,7 +4118,7 @@ func (r VerificationResultAttestation) ToDateTime(explicit bool) (fhirpath.DateT
 func (r VerificationResultAttestation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultAttestation to Quantity")
 }
-func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultAttestation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultAttestation
 	switch other := other.(type) {
 	case VerificationResultAttestation:
@@ -4134,7 +4134,7 @@ func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultAttestation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultAttestation)
 	if !ok {
 		return false
@@ -4288,7 +4288,7 @@ func (r VerificationResultValidator) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r VerificationResultValidator) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultValidator to Quantity")
 }
-func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultValidator) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultValidator
 	switch other := other.(type) {
 	case VerificationResultValidator:
@@ -4304,7 +4304,7 @@ func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultValidator) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultValidator)
 	if !ok {
 		return false

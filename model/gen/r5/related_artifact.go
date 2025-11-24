@@ -990,7 +990,7 @@ func (r RelatedArtifact) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r RelatedArtifact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RelatedArtifact to Quantity")
 }
-func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RelatedArtifact) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RelatedArtifact
 	switch other := other.(type) {
 	case RelatedArtifact:
@@ -1006,7 +1006,7 @@ func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RelatedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RelatedArtifact) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RelatedArtifact)
 	if !ok {
 		return false

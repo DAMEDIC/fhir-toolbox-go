@@ -13476,7 +13476,7 @@ func (r Claim) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Claim) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Claim to Quantity")
 }
-func (r Claim) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Claim) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Claim
 	switch other := other.(type) {
 	case Claim:
@@ -13492,7 +13492,7 @@ func (r Claim) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Claim) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Claim) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Claim)
 	if !ok {
 		return false
@@ -13851,7 +13851,7 @@ func (r ClaimRelated) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ClaimRelated) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimRelated to Quantity")
 }
-func (r ClaimRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimRelated) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimRelated
 	switch other := other.(type) {
 	case ClaimRelated:
@@ -13867,7 +13867,7 @@ func (r ClaimRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimRelated) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimRelated)
 	if !ok {
 		return false
@@ -13981,7 +13981,7 @@ func (r ClaimPayee) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ClaimPayee) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimPayee to Quantity")
 }
-func (r ClaimPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimPayee) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimPayee
 	switch other := other.(type) {
 	case ClaimPayee:
@@ -13997,7 +13997,7 @@ func (r ClaimPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimPayee) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimPayee)
 	if !ok {
 		return false
@@ -14102,7 +14102,7 @@ func (r ClaimEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ClaimEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimEvent to Quantity")
 }
-func (r ClaimEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimEvent
 	switch other := other.(type) {
 	case ClaimEvent:
@@ -14118,7 +14118,7 @@ func (r ClaimEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimEvent)
 	if !ok {
 		return false
@@ -14238,7 +14238,7 @@ func (r ClaimCareTeam) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r ClaimCareTeam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimCareTeam to Quantity")
 }
-func (r ClaimCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimCareTeam) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimCareTeam
 	switch other := other.(type) {
 	case ClaimCareTeam:
@@ -14254,7 +14254,7 @@ func (r ClaimCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimCareTeam) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimCareTeam)
 	if !ok {
 		return false
@@ -14400,7 +14400,7 @@ func (r ClaimSupportingInfo) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ClaimSupportingInfo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimSupportingInfo to Quantity")
 }
-func (r ClaimSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimSupportingInfo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimSupportingInfo
 	switch other := other.(type) {
 	case ClaimSupportingInfo:
@@ -14416,7 +14416,7 @@ func (r ClaimSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimSupportingInfo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimSupportingInfo)
 	if !ok {
 		return false
@@ -14559,7 +14559,7 @@ func (r ClaimDiagnosis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ClaimDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimDiagnosis to Quantity")
 }
-func (r ClaimDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimDiagnosis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimDiagnosis
 	switch other := other.(type) {
 	case ClaimDiagnosis:
@@ -14575,7 +14575,7 @@ func (r ClaimDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimDiagnosis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimDiagnosis)
 	if !ok {
 		return false
@@ -14709,7 +14709,7 @@ func (r ClaimProcedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ClaimProcedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimProcedure to Quantity")
 }
-func (r ClaimProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimProcedure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimProcedure
 	switch other := other.(type) {
 	case ClaimProcedure:
@@ -14725,7 +14725,7 @@ func (r ClaimProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimProcedure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimProcedure)
 	if !ok {
 		return false
@@ -14874,7 +14874,7 @@ func (r ClaimInsurance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ClaimInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimInsurance to Quantity")
 }
-func (r ClaimInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimInsurance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimInsurance
 	switch other := other.(type) {
 	case ClaimInsurance:
@@ -14890,7 +14890,7 @@ func (r ClaimInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimInsurance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimInsurance)
 	if !ok {
 		return false
@@ -15037,7 +15037,7 @@ func (r ClaimAccident) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r ClaimAccident) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimAccident to Quantity")
 }
-func (r ClaimAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimAccident) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimAccident
 	switch other := other.(type) {
 	case ClaimAccident:
@@ -15053,7 +15053,7 @@ func (r ClaimAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimAccident) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimAccident)
 	if !ok {
 		return false
@@ -15282,7 +15282,7 @@ func (r ClaimItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ClaimItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimItem to Quantity")
 }
-func (r ClaimItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimItem
 	switch other := other.(type) {
 	case ClaimItem:
@@ -15298,7 +15298,7 @@ func (r ClaimItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimItem)
 	if !ok {
 		return false
@@ -15568,7 +15568,7 @@ func (r ClaimItemBodySite) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ClaimItemBodySite) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimItemBodySite to Quantity")
 }
-func (r ClaimItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimItemBodySite) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimItemBodySite
 	switch other := other.(type) {
 	case ClaimItemBodySite:
@@ -15584,7 +15584,7 @@ func (r ClaimItemBodySite) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimItemBodySite) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimItemBodySite) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimItemBodySite)
 	if !ok {
 		return false
@@ -15761,7 +15761,7 @@ func (r ClaimItemDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ClaimItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimItemDetail to Quantity")
 }
-func (r ClaimItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimItemDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimItemDetail
 	switch other := other.(type) {
 	case ClaimItemDetail:
@@ -15777,7 +15777,7 @@ func (r ClaimItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimItemDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimItemDetail)
 	if !ok {
 		return false
@@ -16047,7 +16047,7 @@ func (r ClaimItemDetailSubDetail) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ClaimItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClaimItemDetailSubDetail to Quantity")
 }
-func (r ClaimItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClaimItemDetailSubDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClaimItemDetailSubDetail
 	switch other := other.(type) {
 	case ClaimItemDetailSubDetail:
@@ -16063,7 +16063,7 @@ func (r ClaimItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClaimItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClaimItemDetailSubDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClaimItemDetailSubDetail)
 	if !ok {
 		return false

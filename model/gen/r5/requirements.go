@@ -4050,7 +4050,7 @@ func (r Requirements) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Requirements) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Requirements to Quantity")
 }
-func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Requirements) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Requirements
 	switch other := other.(type) {
 	case Requirements:
@@ -4066,7 +4066,7 @@ func (r Requirements) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Requirements) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Requirements) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Requirements)
 	if !ok {
 		return false
@@ -4379,7 +4379,7 @@ func (r RequirementsStatement) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r RequirementsStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequirementsStatement to Quantity")
 }
-func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequirementsStatement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequirementsStatement
 	switch other := other.(type) {
 	case RequirementsStatement:
@@ -4395,7 +4395,7 @@ func (r RequirementsStatement) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequirementsStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequirementsStatement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequirementsStatement)
 	if !ok {
 		return false

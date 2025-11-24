@@ -5553,7 +5553,7 @@ func (r Parameters) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Parameters) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Parameters to Quantity")
 }
-func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Parameters) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Parameters
 	switch other := other.(type) {
 	case Parameters:
@@ -5569,7 +5569,7 @@ func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Parameters) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Parameters) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Parameters)
 	if !ok {
 		return false
@@ -5686,7 +5686,7 @@ func (r ParametersParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ParametersParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ParametersParameter to Quantity")
 }
-func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ParametersParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ParametersParameter
 	switch other := other.(type) {
 	case ParametersParameter:
@@ -5702,7 +5702,7 @@ func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ParametersParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ParametersParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ParametersParameter)
 	if !ok {
 		return false

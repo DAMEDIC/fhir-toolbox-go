@@ -1821,7 +1821,7 @@ func (r SubscriptionStatus) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r SubscriptionStatus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionStatus to Quantity")
 }
-func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionStatus) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionStatus
 	switch other := other.(type) {
 	case SubscriptionStatus:
@@ -1837,7 +1837,7 @@ func (r SubscriptionStatus) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionStatus) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionStatus)
 	if !ok {
 		return false
@@ -2024,7 +2024,7 @@ func (r SubscriptionStatusNotificationEvent) ToDateTime(explicit bool) (fhirpath
 func (r SubscriptionStatusNotificationEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Quantity")
 }
-func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionStatusNotificationEvent
 	switch other := other.(type) {
 	case SubscriptionStatusNotificationEvent:
@@ -2040,7 +2040,7 @@ func (r SubscriptionStatusNotificationEvent) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionStatusNotificationEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionStatusNotificationEvent)
 	if !ok {
 		return false

@@ -5770,7 +5770,7 @@ func (r RiskEvidenceSynthesis) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r RiskEvidenceSynthesis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesis to Quantity")
 }
-func (r RiskEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesis
 	switch other := other.(type) {
 	case RiskEvidenceSynthesis:
@@ -5786,7 +5786,7 @@ func (r RiskEvidenceSynthesis) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesis)
 	if !ok {
 		return false
@@ -6138,7 +6138,7 @@ func (r RiskEvidenceSynthesisSampleSize) ToDateTime(explicit bool) (fhirpath.Dat
 func (r RiskEvidenceSynthesisSampleSize) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesisSampleSize to Quantity")
 }
-func (r RiskEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesisSampleSize) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesisSampleSize
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisSampleSize:
@@ -6154,7 +6154,7 @@ func (r RiskEvidenceSynthesisSampleSize) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesisSampleSize) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesisSampleSize)
 	if !ok {
 		return false
@@ -6295,7 +6295,7 @@ func (r RiskEvidenceSynthesisRiskEstimate) ToDateTime(explicit bool) (fhirpath.D
 func (r RiskEvidenceSynthesisRiskEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimate to Quantity")
 }
-func (r RiskEvidenceSynthesisRiskEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesisRiskEstimate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesisRiskEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimate:
@@ -6311,7 +6311,7 @@ func (r RiskEvidenceSynthesisRiskEstimate) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesisRiskEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesisRiskEstimate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesisRiskEstimate)
 	if !ok {
 		return false
@@ -6465,7 +6465,7 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToDateTime(explicit 
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimatePrecisionEstimate to Quantity")
 }
-func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesisRiskEstimatePrecisionEstimate
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisRiskEstimatePrecisionEstimate:
@@ -6481,7 +6481,7 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equal(other fhirpath
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesisRiskEstimatePrecisionEstimate)
 	if !ok {
 		return false
@@ -6609,7 +6609,7 @@ func (r RiskEvidenceSynthesisCertainty) ToDateTime(explicit bool) (fhirpath.Date
 func (r RiskEvidenceSynthesisCertainty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesisCertainty to Quantity")
 }
-func (r RiskEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesisCertainty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesisCertainty
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertainty:
@@ -6625,7 +6625,7 @@ func (r RiskEvidenceSynthesisCertainty) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesisCertainty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesisCertainty)
 	if !ok {
 		return false
@@ -6746,7 +6746,7 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToDateTime(explicit
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RiskEvidenceSynthesisCertaintyCertaintySubcomponent to Quantity")
 }
-func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RiskEvidenceSynthesisCertaintyCertaintySubcomponent
 	switch other := other.(type) {
 	case RiskEvidenceSynthesisCertaintyCertaintySubcomponent:
@@ -6762,7 +6762,7 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equal(other fhirpat
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RiskEvidenceSynthesisCertaintyCertaintySubcomponent)
 	if !ok {
 		return false

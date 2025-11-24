@@ -8107,7 +8107,7 @@ func (r RequestOrchestration) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r RequestOrchestration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestration to Quantity")
 }
-func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestration
 	switch other := other.(type) {
 	case RequestOrchestration:
@@ -8123,7 +8123,7 @@ func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestration)
 	if !ok {
 		return false
@@ -8504,7 +8504,7 @@ func (r RequestOrchestrationAction) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r RequestOrchestrationAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationAction to Quantity")
 }
-func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationAction
 	switch other := other.(type) {
 	case RequestOrchestrationAction:
@@ -8520,7 +8520,7 @@ func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationAction)
 	if !ok {
 		return false
@@ -8802,7 +8802,7 @@ func (r RequestOrchestrationActionCondition) ToDateTime(explicit bool) (fhirpath
 func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
 }
-func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionCondition
 	switch other := other.(type) {
 	case RequestOrchestrationActionCondition:
@@ -8818,7 +8818,7 @@ func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionCondition)
 	if !ok {
 		return false
@@ -8932,7 +8932,7 @@ func (r RequestOrchestrationActionInput) ToDateTime(explicit bool) (fhirpath.Dat
 func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
 }
-func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionInput
 	switch other := other.(type) {
 	case RequestOrchestrationActionInput:
@@ -8948,7 +8948,7 @@ func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionInput)
 	if !ok {
 		return false
@@ -9069,7 +9069,7 @@ func (r RequestOrchestrationActionOutput) ToDateTime(explicit bool) (fhirpath.Da
 func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
 }
-func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionOutput
 	switch other := other.(type) {
 	case RequestOrchestrationActionOutput:
@@ -9085,7 +9085,7 @@ func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionOutput)
 	if !ok {
 		return false
@@ -9207,7 +9207,7 @@ func (r RequestOrchestrationActionRelatedAction) ToDateTime(explicit bool) (fhir
 func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
 }
-func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionRelatedAction
 	switch other := other.(type) {
 	case RequestOrchestrationActionRelatedAction:
@@ -9223,7 +9223,7 @@ func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionRelatedAction)
 	if !ok {
 		return false
@@ -9366,7 +9366,7 @@ func (r RequestOrchestrationActionParticipant) ToDateTime(explicit bool) (fhirpa
 func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
 }
-func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionParticipant
 	switch other := other.(type) {
 	case RequestOrchestrationActionParticipant:
@@ -9382,7 +9382,7 @@ func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionParticipant)
 	if !ok {
 		return false
@@ -9519,7 +9519,7 @@ func (r RequestOrchestrationActionDynamicValue) ToDateTime(explicit bool) (fhirp
 func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
 }
-func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionDynamicValue
 	switch other := other.(type) {
 	case RequestOrchestrationActionDynamicValue:
@@ -9535,7 +9535,7 @@ func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionDynamicValue)
 	if !ok {
 		return false

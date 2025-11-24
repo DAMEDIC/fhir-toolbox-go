@@ -3839,7 +3839,7 @@ func (r NutritionProduct) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r NutritionProduct) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionProduct to Quantity")
 }
-func (r NutritionProduct) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionProduct) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionProduct
 	switch other := other.(type) {
 	case NutritionProduct:
@@ -3855,7 +3855,7 @@ func (r NutritionProduct) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionProduct) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionProduct)
 	if !ok {
 		return false
@@ -4055,7 +4055,7 @@ func (r NutritionProductNutrient) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r NutritionProductNutrient) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionProductNutrient to Quantity")
 }
-func (r NutritionProductNutrient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionProductNutrient) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionProductNutrient
 	switch other := other.(type) {
 	case NutritionProductNutrient:
@@ -4071,7 +4071,7 @@ func (r NutritionProductNutrient) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionProductNutrient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionProductNutrient) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionProductNutrient)
 	if !ok {
 		return false
@@ -4178,7 +4178,7 @@ func (r NutritionProductIngredient) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r NutritionProductIngredient) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionProductIngredient to Quantity")
 }
-func (r NutritionProductIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionProductIngredient) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionProductIngredient
 	switch other := other.(type) {
 	case NutritionProductIngredient:
@@ -4194,7 +4194,7 @@ func (r NutritionProductIngredient) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionProductIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionProductIngredient) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionProductIngredient)
 	if !ok {
 		return false
@@ -4299,7 +4299,7 @@ func (r NutritionProductProductCharacteristic) ToDateTime(explicit bool) (fhirpa
 func (r NutritionProductProductCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionProductProductCharacteristic to Quantity")
 }
-func (r NutritionProductProductCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionProductProductCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionProductProductCharacteristic
 	switch other := other.(type) {
 	case NutritionProductProductCharacteristic:
@@ -4315,7 +4315,7 @@ func (r NutritionProductProductCharacteristic) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionProductProductCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionProductProductCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionProductProductCharacteristic)
 	if !ok {
 		return false
@@ -4439,7 +4439,7 @@ func (r NutritionProductInstance) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r NutritionProductInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionProductInstance to Quantity")
 }
-func (r NutritionProductInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionProductInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionProductInstance
 	switch other := other.(type) {
 	case NutritionProductInstance:
@@ -4455,7 +4455,7 @@ func (r NutritionProductInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionProductInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionProductInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionProductInstance)
 	if !ok {
 		return false

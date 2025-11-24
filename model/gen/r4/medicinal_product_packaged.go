@@ -2871,7 +2871,7 @@ func (r MedicinalProductPackaged) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r MedicinalProductPackaged) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackaged to Quantity")
 }
-func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackaged) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackaged
 	switch other := other.(type) {
 	case MedicinalProductPackaged:
@@ -2887,7 +2887,7 @@ func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackaged)
 	if !ok {
 		return false
@@ -3078,7 +3078,7 @@ func (r MedicinalProductPackagedBatchIdentifier) ToDateTime(explicit bool) (fhir
 func (r MedicinalProductPackagedBatchIdentifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Quantity")
 }
-func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackagedBatchIdentifier
 	switch other := other.(type) {
 	case MedicinalProductPackagedBatchIdentifier:
@@ -3094,7 +3094,7 @@ func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackagedBatchIdentifier)
 	if !ok {
 		return false
@@ -3249,7 +3249,7 @@ func (r MedicinalProductPackagedPackageItem) ToDateTime(explicit bool) (fhirpath
 func (r MedicinalProductPackagedPackageItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Quantity")
 }
-func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackagedPackageItem
 	switch other := other.(type) {
 	case MedicinalProductPackagedPackageItem:
@@ -3265,7 +3265,7 @@ func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackagedPackageItem)
 	if !ok {
 		return false

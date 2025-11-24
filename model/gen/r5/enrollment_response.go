@@ -1294,7 +1294,7 @@ func (r EnrollmentResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r EnrollmentResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EnrollmentResponse to Quantity")
 }
-func (r EnrollmentResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EnrollmentResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EnrollmentResponse
 	switch other := other.(type) {
 	case EnrollmentResponse:
@@ -1310,7 +1310,7 @@ func (r EnrollmentResponse) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EnrollmentResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EnrollmentResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EnrollmentResponse)
 	if !ok {
 		return false

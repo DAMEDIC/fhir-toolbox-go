@@ -1862,7 +1862,7 @@ func (r Substance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Substance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Substance to Quantity")
 }
-func (r Substance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Substance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Substance
 	switch other := other.(type) {
 	case Substance:
@@ -1878,7 +1878,7 @@ func (r Substance) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Substance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Substance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Substance)
 	if !ok {
 		return false
@@ -2069,7 +2069,7 @@ func (r SubstanceIngredient) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r SubstanceIngredient) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceIngredient to Quantity")
 }
-func (r SubstanceIngredient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceIngredient) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceIngredient
 	switch other := other.(type) {
 	case SubstanceIngredient:
@@ -2085,7 +2085,7 @@ func (r SubstanceIngredient) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceIngredient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceIngredient) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceIngredient)
 	if !ok {
 		return false

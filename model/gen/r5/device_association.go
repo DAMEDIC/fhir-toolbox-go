@@ -1745,7 +1745,7 @@ func (r DeviceAssociation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r DeviceAssociation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceAssociation to Quantity")
 }
-func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceAssociation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceAssociation
 	switch other := other.(type) {
 	case DeviceAssociation:
@@ -1761,7 +1761,7 @@ func (r DeviceAssociation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceAssociation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceAssociation)
 	if !ok {
 		return false
@@ -1957,7 +1957,7 @@ func (r DeviceAssociationOperation) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DeviceAssociationOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceAssociationOperation to Quantity")
 }
-func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceAssociationOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceAssociationOperation
 	switch other := other.(type) {
 	case DeviceAssociationOperation:
@@ -1973,7 +1973,7 @@ func (r DeviceAssociationOperation) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceAssociationOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceAssociationOperation)
 	if !ok {
 		return false

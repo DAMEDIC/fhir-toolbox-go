@@ -1611,7 +1611,7 @@ func (r MedicinalProductInteraction) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r MedicinalProductInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductInteraction to Quantity")
 }
-func (r MedicinalProductInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductInteraction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductInteraction
 	switch other := other.(type) {
 	case MedicinalProductInteraction:
@@ -1627,7 +1627,7 @@ func (r MedicinalProductInteraction) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductInteraction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductInteraction)
 	if !ok {
 		return false
@@ -1799,7 +1799,7 @@ func (r MedicinalProductInteractionInteractant) ToDateTime(explicit bool) (fhirp
 func (r MedicinalProductInteractionInteractant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductInteractionInteractant to Quantity")
 }
-func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductInteractionInteractant
 	switch other := other.(type) {
 	case MedicinalProductInteractionInteractant:
@@ -1815,7 +1815,7 @@ func (r MedicinalProductInteractionInteractant) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductInteractionInteractant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductInteractionInteractant)
 	if !ok {
 		return false

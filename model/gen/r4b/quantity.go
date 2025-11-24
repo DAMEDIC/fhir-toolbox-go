@@ -699,20 +699,19 @@ func (r Quantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 		Value: fhirpath.Decimal{Value: r.Value.Value},
 	}, true, nil
 }
-func (r Quantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToQuantity(false)
+func (r Quantity) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToQuantity(false)
 	if err != nil || !ok {
 		return false, true
 	}
-	b, ok, err := other.ToQuantity(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+	return v.Equal(other)
 }
-func (r Quantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Quantity) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToQuantity(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Quantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

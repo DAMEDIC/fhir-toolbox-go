@@ -4733,7 +4733,7 @@ func (r SubstanceSourceMaterial) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r SubstanceSourceMaterial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterial to Quantity")
 }
-func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterial) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterial
 	switch other := other.(type) {
 	case SubstanceSourceMaterial:
@@ -4749,7 +4749,7 @@ func (r SubstanceSourceMaterial) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterial) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterial)
 	if !ok {
 		return false
@@ -4970,7 +4970,7 @@ func (r SubstanceSourceMaterialFractionDescription) ToDateTime(explicit bool) (f
 func (r SubstanceSourceMaterialFractionDescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Quantity")
 }
-func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialFractionDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialFractionDescription:
@@ -4986,7 +4986,7 @@ func (r SubstanceSourceMaterialFractionDescription) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialFractionDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialFractionDescription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialFractionDescription)
 	if !ok {
 		return false
@@ -5125,7 +5125,7 @@ func (r SubstanceSourceMaterialOrganism) ToDateTime(explicit bool) (fhirpath.Dat
 func (r SubstanceSourceMaterialOrganism) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialOrganism to Quantity")
 }
-func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialOrganism
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganism:
@@ -5141,7 +5141,7 @@ func (r SubstanceSourceMaterialOrganism) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialOrganism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialOrganism) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialOrganism)
 	if !ok {
 		return false
@@ -5292,7 +5292,7 @@ func (r SubstanceSourceMaterialOrganismAuthor) ToDateTime(explicit bool) (fhirpa
 func (r SubstanceSourceMaterialOrganismAuthor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Quantity")
 }
-func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialOrganismAuthor
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismAuthor:
@@ -5308,7 +5308,7 @@ func (r SubstanceSourceMaterialOrganismAuthor) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialOrganismAuthor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialOrganismAuthor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialOrganismAuthor)
 	if !ok {
 		return false
@@ -5432,7 +5432,7 @@ func (r SubstanceSourceMaterialOrganismHybrid) ToDateTime(explicit bool) (fhirpa
 func (r SubstanceSourceMaterialOrganismHybrid) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Quantity")
 }
-func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialOrganismHybrid
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismHybrid:
@@ -5448,7 +5448,7 @@ func (r SubstanceSourceMaterialOrganismHybrid) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialOrganismHybrid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialOrganismHybrid) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialOrganismHybrid)
 	if !ok {
 		return false
@@ -5588,7 +5588,7 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToDateTime(explicit bool
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Quantity")
 }
-func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialOrganismOrganismGeneral
 	switch other := other.(type) {
 	case SubstanceSourceMaterialOrganismOrganismGeneral:
@@ -5604,7 +5604,7 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equal(other fhirpath.Ele
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialOrganismOrganismGeneral)
 	if !ok {
 		return false
@@ -5727,7 +5727,7 @@ func (r SubstanceSourceMaterialPartDescription) ToDateTime(explicit bool) (fhirp
 func (r SubstanceSourceMaterialPartDescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceSourceMaterialPartDescription to Quantity")
 }
-func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceSourceMaterialPartDescription
 	switch other := other.(type) {
 	case SubstanceSourceMaterialPartDescription:
@@ -5743,7 +5743,7 @@ func (r SubstanceSourceMaterialPartDescription) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceSourceMaterialPartDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceSourceMaterialPartDescription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceSourceMaterialPartDescription)
 	if !ok {
 		return false

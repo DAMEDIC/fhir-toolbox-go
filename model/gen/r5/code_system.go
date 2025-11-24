@@ -7482,7 +7482,7 @@ func (r CodeSystem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r CodeSystem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystem to Quantity")
 }
-func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystem
 	switch other := other.(type) {
 	case CodeSystem:
@@ -7498,7 +7498,7 @@ func (r CodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystem)
 	if !ok {
 		return false
@@ -7893,7 +7893,7 @@ func (r CodeSystemFilter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r CodeSystemFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemFilter to Quantity")
 }
-func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystemFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystemFilter
 	switch other := other.(type) {
 	case CodeSystemFilter:
@@ -7909,7 +7909,7 @@ func (r CodeSystemFilter) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystemFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystemFilter)
 	if !ok {
 		return false
@@ -8038,7 +8038,7 @@ func (r CodeSystemProperty) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r CodeSystemProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemProperty to Quantity")
 }
-func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystemProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystemProperty
 	switch other := other.(type) {
 	case CodeSystemProperty:
@@ -8054,7 +8054,7 @@ func (r CodeSystemProperty) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystemProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystemProperty)
 	if !ok {
 		return false
@@ -8195,7 +8195,7 @@ func (r CodeSystemConcept) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r CodeSystemConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConcept to Quantity")
 }
-func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystemConcept) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystemConcept
 	switch other := other.(type) {
 	case CodeSystemConcept:
@@ -8211,7 +8211,7 @@ func (r CodeSystemConcept) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystemConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConcept) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystemConcept)
 	if !ok {
 		return false
@@ -8356,7 +8356,7 @@ func (r CodeSystemConceptDesignation) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r CodeSystemConceptDesignation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConceptDesignation to Quantity")
 }
-func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystemConceptDesignation
 	switch other := other.(type) {
 	case CodeSystemConceptDesignation:
@@ -8372,7 +8372,7 @@ func (r CodeSystemConceptDesignation) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConceptDesignation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystemConceptDesignation)
 	if !ok {
 		return false
@@ -8491,7 +8491,7 @@ func (r CodeSystemConceptProperty) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r CodeSystemConceptProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeSystemConceptProperty to Quantity")
 }
-func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeSystemConceptProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeSystemConceptProperty
 	switch other := other.(type) {
 	case CodeSystemConceptProperty:
@@ -8507,7 +8507,7 @@ func (r CodeSystemConceptProperty) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeSystemConceptProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeSystemConceptProperty)
 	if !ok {
 		return false

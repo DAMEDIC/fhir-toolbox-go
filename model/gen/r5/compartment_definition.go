@@ -2845,7 +2845,7 @@ func (r CompartmentDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r CompartmentDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompartmentDefinition to Quantity")
 }
-func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompartmentDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompartmentDefinition
 	switch other := other.(type) {
 	case CompartmentDefinition:
@@ -2861,7 +2861,7 @@ func (r CompartmentDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompartmentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompartmentDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompartmentDefinition)
 	if !ok {
 		return false
@@ -3116,7 +3116,7 @@ func (r CompartmentDefinitionResource) ToDateTime(explicit bool) (fhirpath.DateT
 func (r CompartmentDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CompartmentDefinitionResource to Quantity")
 }
-func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CompartmentDefinitionResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CompartmentDefinitionResource
 	switch other := other.(type) {
 	case CompartmentDefinitionResource:
@@ -3132,7 +3132,7 @@ func (r CompartmentDefinitionResource) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CompartmentDefinitionResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CompartmentDefinitionResource)
 	if !ok {
 		return false

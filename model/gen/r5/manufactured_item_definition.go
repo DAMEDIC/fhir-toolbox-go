@@ -3741,7 +3741,7 @@ func (r ManufacturedItemDefinition) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ManufacturedItemDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinition to Quantity")
 }
-func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ManufacturedItemDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ManufacturedItemDefinition
 	switch other := other.(type) {
 	case ManufacturedItemDefinition:
@@ -3757,7 +3757,7 @@ func (r ManufacturedItemDefinition) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ManufacturedItemDefinition)
 	if !ok {
 		return false
@@ -3955,7 +3955,7 @@ func (r ManufacturedItemDefinitionProperty) ToDateTime(explicit bool) (fhirpath.
 func (r ManufacturedItemDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Quantity")
 }
-func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ManufacturedItemDefinitionProperty
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionProperty:
@@ -3971,7 +3971,7 @@ func (r ManufacturedItemDefinitionProperty) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinitionProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ManufacturedItemDefinitionProperty)
 	if !ok {
 		return false
@@ -4098,7 +4098,7 @@ func (r ManufacturedItemDefinitionComponent) ToDateTime(explicit bool) (fhirpath
 func (r ManufacturedItemDefinitionComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinitionComponent to Quantity")
 }
-func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ManufacturedItemDefinitionComponent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponent:
@@ -4114,7 +4114,7 @@ func (r ManufacturedItemDefinitionComponent) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ManufacturedItemDefinitionComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinitionComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ManufacturedItemDefinitionComponent)
 	if !ok {
 		return false
@@ -4261,7 +4261,7 @@ func (r ManufacturedItemDefinitionComponentConstituent) ToDateTime(explicit bool
 func (r ManufacturedItemDefinitionComponentConstituent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Quantity")
 }
-func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ManufacturedItemDefinitionComponentConstituent
 	switch other := other.(type) {
 	case ManufacturedItemDefinitionComponentConstituent:
@@ -4277,7 +4277,7 @@ func (r ManufacturedItemDefinitionComponentConstituent) Equal(other fhirpath.Ele
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ManufacturedItemDefinitionComponentConstituent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ManufacturedItemDefinitionComponentConstituent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ManufacturedItemDefinitionComponentConstituent)
 	if !ok {
 		return false

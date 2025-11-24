@@ -2573,7 +2573,7 @@ func (r Location) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Location) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Location to Quantity")
 }
-func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Location) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Location
 	switch other := other.(type) {
 	case Location:
@@ -2589,7 +2589,7 @@ func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Location) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Location)
 	if !ok {
 		return false
@@ -2846,7 +2846,7 @@ func (r LocationPosition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r LocationPosition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert LocationPosition to Quantity")
 }
-func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r LocationPosition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *LocationPosition
 	switch other := other.(type) {
 	case LocationPosition:
@@ -2862,7 +2862,7 @@ func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r LocationPosition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(LocationPosition)
 	if !ok {
 		return false

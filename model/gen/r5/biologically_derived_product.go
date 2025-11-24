@@ -3243,7 +3243,7 @@ func (r BiologicallyDerivedProduct) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r BiologicallyDerivedProduct) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProduct to Quantity")
 }
-func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProduct
 	switch other := other.(type) {
 	case BiologicallyDerivedProduct:
@@ -3259,7 +3259,7 @@ func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProduct)
 	if !ok {
 		return false
@@ -3485,7 +3485,7 @@ func (r BiologicallyDerivedProductCollection) ToDateTime(explicit bool) (fhirpat
 func (r BiologicallyDerivedProductCollection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductCollection to Quantity")
 }
-func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductCollection
 	switch other := other.(type) {
 	case BiologicallyDerivedProductCollection:
@@ -3501,7 +3501,7 @@ func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductCollection)
 	if !ok {
 		return false
@@ -3613,7 +3613,7 @@ func (r BiologicallyDerivedProductProperty) ToDateTime(explicit bool) (fhirpath.
 func (r BiologicallyDerivedProductProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductProperty to Quantity")
 }
-func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductProperty
 	switch other := other.(type) {
 	case BiologicallyDerivedProductProperty:
@@ -3629,7 +3629,7 @@ func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductProperty)
 	if !ok {
 		return false

@@ -3198,7 +3198,7 @@ func (r Library) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Library) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Library to Quantity")
 }
-func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Library) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Library
 	switch other := other.(type) {
 	case Library:
@@ -3214,7 +3214,7 @@ func (r Library) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Library) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Library) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Library)
 	if !ok {
 		return false

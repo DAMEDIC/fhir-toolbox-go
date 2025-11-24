@@ -649,7 +649,7 @@ func (r Identifier) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Identifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Identifier to Quantity")
 }
-func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Identifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Identifier
 	switch other := other.(type) {
 	case Identifier:
@@ -665,7 +665,7 @@ func (r Identifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Identifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Identifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Identifier)
 	if !ok {
 		return false

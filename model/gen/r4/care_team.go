@@ -2189,7 +2189,7 @@ func (r CareTeam) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r CareTeam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CareTeam to Quantity")
 }
-func (r CareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CareTeam) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CareTeam
 	switch other := other.(type) {
 	case CareTeam:
@@ -2205,7 +2205,7 @@ func (r CareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CareTeam) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CareTeam)
 	if !ok {
 		return false
@@ -2436,7 +2436,7 @@ func (r CareTeamParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r CareTeamParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CareTeamParticipant to Quantity")
 }
-func (r CareTeamParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CareTeamParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CareTeamParticipant
 	switch other := other.(type) {
 	case CareTeamParticipant:
@@ -2452,7 +2452,7 @@ func (r CareTeamParticipant) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CareTeamParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CareTeamParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CareTeamParticipant)
 	if !ok {
 		return false

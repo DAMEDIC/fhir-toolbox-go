@@ -2126,7 +2126,7 @@ func (r List) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r List) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert List to Quantity")
 }
-func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r List) Equal(other fhirpath.Element) (bool, bool) {
 	var o *List
 	switch other := other.(type) {
 	case List:
@@ -2142,7 +2142,7 @@ func (r List) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r List) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r List) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(List)
 	if !ok {
 		return false
@@ -2371,7 +2371,7 @@ func (r ListEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ListEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ListEntry to Quantity")
 }
-func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ListEntry) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ListEntry
 	switch other := other.(type) {
 	case ListEntry:
@@ -2387,7 +2387,7 @@ func (r ListEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ListEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ListEntry) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ListEntry)
 	if !ok {
 		return false

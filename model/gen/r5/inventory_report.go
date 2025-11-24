@@ -2327,7 +2327,7 @@ func (r InventoryReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r InventoryReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryReport to Quantity")
 }
-func (r InventoryReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryReport) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryReport
 	switch other := other.(type) {
 	case InventoryReport:
@@ -2343,7 +2343,7 @@ func (r InventoryReport) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryReport) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryReport)
 	if !ok {
 		return false
@@ -2553,7 +2553,7 @@ func (r InventoryReportInventoryListing) ToDateTime(explicit bool) (fhirpath.Dat
 func (r InventoryReportInventoryListing) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryReportInventoryListing to Quantity")
 }
-func (r InventoryReportInventoryListing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryReportInventoryListing) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryReportInventoryListing
 	switch other := other.(type) {
 	case InventoryReportInventoryListing:
@@ -2569,7 +2569,7 @@ func (r InventoryReportInventoryListing) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryReportInventoryListing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryReportInventoryListing) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryReportInventoryListing)
 	if !ok {
 		return false
@@ -2693,7 +2693,7 @@ func (r InventoryReportInventoryListingItem) ToDateTime(explicit bool) (fhirpath
 func (r InventoryReportInventoryListingItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryReportInventoryListingItem to Quantity")
 }
-func (r InventoryReportInventoryListingItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryReportInventoryListingItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryReportInventoryListingItem
 	switch other := other.(type) {
 	case InventoryReportInventoryListingItem:
@@ -2709,7 +2709,7 @@ func (r InventoryReportInventoryListingItem) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryReportInventoryListingItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryReportInventoryListingItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryReportInventoryListingItem)
 	if !ok {
 		return false

@@ -12754,7 +12754,7 @@ func (r PlanDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r PlanDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinition to Quantity")
 }
-func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinition
 	switch other := other.(type) {
 	case PlanDefinition:
@@ -12770,7 +12770,7 @@ func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinition)
 	if !ok {
 		return false
@@ -13168,7 +13168,7 @@ func (r PlanDefinitionGoal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r PlanDefinitionGoal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoal to Quantity")
 }
-func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionGoal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionGoal
 	switch other := other.(type) {
 	case PlanDefinitionGoal:
@@ -13184,7 +13184,7 @@ func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionGoal)
 	if !ok {
 		return false
@@ -13333,7 +13333,7 @@ func (r PlanDefinitionGoalTarget) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r PlanDefinitionGoalTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Quantity")
 }
-func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionGoalTarget
 	switch other := other.(type) {
 	case PlanDefinitionGoalTarget:
@@ -13349,7 +13349,7 @@ func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionGoalTarget)
 	if !ok {
 		return false
@@ -13470,7 +13470,7 @@ func (r PlanDefinitionActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r PlanDefinitionActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActor to Quantity")
 }
-func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActor
 	switch other := other.(type) {
 	case PlanDefinitionActor:
@@ -13486,7 +13486,7 @@ func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActor)
 	if !ok {
 		return false
@@ -13612,7 +13612,7 @@ func (r PlanDefinitionActorOption) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PlanDefinitionActorOption) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActorOption to Quantity")
 }
-func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActorOption) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActorOption
 	switch other := other.(type) {
 	case PlanDefinitionActorOption:
@@ -13628,7 +13628,7 @@ func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActorOption)
 	if !ok {
 		return false
@@ -13886,7 +13886,7 @@ func (r PlanDefinitionAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r PlanDefinitionAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionAction to Quantity")
 }
-func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionAction
 	switch other := other.(type) {
 	case PlanDefinitionAction:
@@ -13902,7 +13902,7 @@ func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionAction)
 	if !ok {
 		return false
@@ -14198,7 +14198,7 @@ func (r PlanDefinitionActionCondition) ToDateTime(explicit bool) (fhirpath.DateT
 func (r PlanDefinitionActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionCondition to Quantity")
 }
-func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionCondition
 	switch other := other.(type) {
 	case PlanDefinitionActionCondition:
@@ -14214,7 +14214,7 @@ func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionCondition)
 	if !ok {
 		return false
@@ -14328,7 +14328,7 @@ func (r PlanDefinitionActionInput) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PlanDefinitionActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionInput to Quantity")
 }
-func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionInput
 	switch other := other.(type) {
 	case PlanDefinitionActionInput:
@@ -14344,7 +14344,7 @@ func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionInput)
 	if !ok {
 		return false
@@ -14465,7 +14465,7 @@ func (r PlanDefinitionActionOutput) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r PlanDefinitionActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionOutput to Quantity")
 }
-func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionOutput
 	switch other := other.(type) {
 	case PlanDefinitionActionOutput:
@@ -14481,7 +14481,7 @@ func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionOutput)
 	if !ok {
 		return false
@@ -14603,7 +14603,7 @@ func (r PlanDefinitionActionRelatedAction) ToDateTime(explicit bool) (fhirpath.D
 func (r PlanDefinitionActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Quantity")
 }
-func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionRelatedAction
 	switch other := other.(type) {
 	case PlanDefinitionActionRelatedAction:
@@ -14619,7 +14619,7 @@ func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionRelatedAction)
 	if !ok {
 		return false
@@ -14762,7 +14762,7 @@ func (r PlanDefinitionActionParticipant) ToDateTime(explicit bool) (fhirpath.Dat
 func (r PlanDefinitionActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Quantity")
 }
-func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionParticipant
 	switch other := other.(type) {
 	case PlanDefinitionActionParticipant:
@@ -14778,7 +14778,7 @@ func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionParticipant)
 	if !ok {
 		return false
@@ -14915,7 +14915,7 @@ func (r PlanDefinitionActionDynamicValue) ToDateTime(explicit bool) (fhirpath.Da
 func (r PlanDefinitionActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Quantity")
 }
-func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionDynamicValue
 	switch other := other.(type) {
 	case PlanDefinitionActionDynamicValue:
@@ -14931,7 +14931,7 @@ func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionDynamicValue)
 	if !ok {
 		return false

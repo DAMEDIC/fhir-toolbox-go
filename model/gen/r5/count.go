@@ -672,7 +672,7 @@ func (r Count) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Count) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Count to Quantity")
 }
-func (r Count) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Count) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Count
 	switch other := other.(type) {
 	case Count:
@@ -688,7 +688,7 @@ func (r Count) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Count) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Count) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Count)
 	if !ok {
 		return false

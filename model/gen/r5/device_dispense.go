@@ -2476,7 +2476,7 @@ func (r DeviceDispense) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r DeviceDispense) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDispense to Quantity")
 }
-func (r DeviceDispense) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDispense) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDispense
 	switch other := other.(type) {
 	case DeviceDispense:
@@ -2492,7 +2492,7 @@ func (r DeviceDispense) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDispense) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDispense) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDispense)
 	if !ok {
 		return false
@@ -2767,7 +2767,7 @@ func (r DeviceDispensePerformer) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DeviceDispensePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDispensePerformer to Quantity")
 }
-func (r DeviceDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDispensePerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDispensePerformer
 	switch other := other.(type) {
 	case DeviceDispensePerformer:
@@ -2783,7 +2783,7 @@ func (r DeviceDispensePerformer) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDispensePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDispensePerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDispensePerformer)
 	if !ok {
 		return false

@@ -1171,7 +1171,7 @@ func (r MedicinalProductManufactured) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MedicinalProductManufactured) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductManufactured to Quantity")
 }
-func (r MedicinalProductManufactured) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductManufactured) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductManufactured
 	switch other := other.(type) {
 	case MedicinalProductManufactured:
@@ -1187,7 +1187,7 @@ func (r MedicinalProductManufactured) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductManufactured) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductManufactured) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductManufactured)
 	if !ok {
 		return false

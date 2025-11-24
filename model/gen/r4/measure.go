@@ -6597,7 +6597,7 @@ func (r Measure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Measure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Measure to Quantity")
 }
-func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Measure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Measure
 	switch other := other.(type) {
 	case Measure:
@@ -6613,7 +6613,7 @@ func (r Measure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Measure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Measure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Measure)
 	if !ok {
 		return false
@@ -7040,7 +7040,7 @@ func (r MeasureGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r MeasureGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroup to Quantity")
 }
-func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureGroup
 	switch other := other.(type) {
 	case MeasureGroup:
@@ -7056,7 +7056,7 @@ func (r MeasureGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureGroup)
 	if !ok {
 		return false
@@ -7182,7 +7182,7 @@ func (r MeasureGroupPopulation) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r MeasureGroupPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupPopulation to Quantity")
 }
-func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureGroupPopulation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureGroupPopulation
 	switch other := other.(type) {
 	case MeasureGroupPopulation:
@@ -7198,7 +7198,7 @@ func (r MeasureGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupPopulation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureGroupPopulation)
 	if !ok {
 		return false
@@ -7324,7 +7324,7 @@ func (r MeasureGroupStratifier) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r MeasureGroupStratifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupStratifier to Quantity")
 }
-func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureGroupStratifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureGroupStratifier
 	switch other := other.(type) {
 	case MeasureGroupStratifier:
@@ -7340,7 +7340,7 @@ func (r MeasureGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupStratifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureGroupStratifier)
 	if !ok {
 		return false
@@ -7466,7 +7466,7 @@ func (r MeasureGroupStratifierComponent) ToDateTime(explicit bool) (fhirpath.Dat
 func (r MeasureGroupStratifierComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureGroupStratifierComponent to Quantity")
 }
-func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureGroupStratifierComponent
 	switch other := other.(type) {
 	case MeasureGroupStratifierComponent:
@@ -7482,7 +7482,7 @@ func (r MeasureGroupStratifierComponent) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureGroupStratifierComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureGroupStratifierComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureGroupStratifierComponent)
 	if !ok {
 		return false
@@ -7606,7 +7606,7 @@ func (r MeasureSupplementalData) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r MeasureSupplementalData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureSupplementalData to Quantity")
 }
-func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureSupplementalData) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureSupplementalData
 	switch other := other.(type) {
 	case MeasureSupplementalData:
@@ -7622,7 +7622,7 @@ func (r MeasureSupplementalData) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureSupplementalData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureSupplementalData) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureSupplementalData)
 	if !ok {
 		return false

@@ -3470,7 +3470,7 @@ func (r Condition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Condition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Condition to Quantity")
 }
-func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Condition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Condition
 	switch other := other.(type) {
 	case Condition:
@@ -3486,7 +3486,7 @@ func (r Condition) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Condition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Condition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Condition)
 	if !ok {
 		return false
@@ -3740,7 +3740,7 @@ func (r ConditionStage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ConditionStage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionStage to Quantity")
 }
-func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionStage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionStage
 	switch other := other.(type) {
 	case ConditionStage:
@@ -3756,7 +3756,7 @@ func (r ConditionStage) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionStage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionStage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionStage)
 	if !ok {
 		return false
@@ -3872,7 +3872,7 @@ func (r ConditionEvidence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ConditionEvidence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionEvidence to Quantity")
 }
-func (r ConditionEvidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionEvidence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionEvidence
 	switch other := other.(type) {
 	case ConditionEvidence:
@@ -3888,7 +3888,7 @@ func (r ConditionEvidence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionEvidence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionEvidence)
 	if !ok {
 		return false

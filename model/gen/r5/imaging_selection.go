@@ -4207,7 +4207,7 @@ func (r ImagingSelection) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ImagingSelection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelection to Quantity")
 }
-func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelection) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelection
 	switch other := other.(type) {
 	case ImagingSelection:
@@ -4223,7 +4223,7 @@ func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelection) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelection)
 	if !ok {
 		return false
@@ -4472,7 +4472,7 @@ func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionPerformer to Quantity")
 }
-func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionPerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionPerformer
 	switch other := other.(type) {
 	case ImagingSelectionPerformer:
@@ -4488,7 +4488,7 @@ func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionPerformer)
 	if !ok {
 		return false
@@ -4615,7 +4615,7 @@ func (r ImagingSelectionInstance) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ImagingSelectionInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstance to Quantity")
 }
-func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstance
 	switch other := other.(type) {
 	case ImagingSelectionInstance:
@@ -4631,7 +4631,7 @@ func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstance)
 	if !ok {
 		return false
@@ -4766,7 +4766,7 @@ func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (fhirpa
 func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion2D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion2D:
@@ -4782,7 +4782,7 @@ func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstanceImageRegion2D)
 	if !ok {
 		return false
@@ -4889,7 +4889,7 @@ func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (fhirpa
 func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion3D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion3D:
@@ -4905,7 +4905,7 @@ func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstanceImageRegion3D)
 	if !ok {
 		return false

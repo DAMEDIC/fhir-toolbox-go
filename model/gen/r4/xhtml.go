@@ -135,16 +135,19 @@ func (r Xhtml) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Xhtml) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Xhtml to Quantity")
 }
-func (r Xhtml) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Xhtml) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Xhtml)
 	if !ok {
 		return false, true
 	}
 	return r.Value == o.Value, true
 }
-func (r Xhtml) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Xhtml) Equivalent(other fhirpath.Element) bool {
+	o, ok := other.(Xhtml)
+	if !ok {
+		return false
+	}
+	return r.Value == o.Value
 }
 func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

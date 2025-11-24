@@ -4165,7 +4165,7 @@ func (r ImagingStudy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ImagingStudy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudy to Quantity")
 }
-func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingStudy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingStudy
 	switch other := other.(type) {
 	case ImagingStudy:
@@ -4181,7 +4181,7 @@ func (r ImagingStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingStudy)
 	if !ok {
 		return false
@@ -4497,7 +4497,7 @@ func (r ImagingStudySeries) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ImagingStudySeries) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeries to Quantity")
 }
-func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingStudySeries) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingStudySeries
 	switch other := other.(type) {
 	case ImagingStudySeries:
@@ -4513,7 +4513,7 @@ func (r ImagingStudySeries) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingStudySeries) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeries) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingStudySeries)
 	if !ok {
 		return false
@@ -4690,7 +4690,7 @@ func (r ImagingStudySeriesPerformer) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ImagingStudySeriesPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Quantity")
 }
-func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingStudySeriesPerformer
 	switch other := other.(type) {
 	case ImagingStudySeriesPerformer:
@@ -4706,7 +4706,7 @@ func (r ImagingStudySeriesPerformer) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeriesPerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingStudySeriesPerformer)
 	if !ok {
 		return false
@@ -4821,7 +4821,7 @@ func (r ImagingStudySeriesInstance) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ImagingStudySeriesInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingStudySeriesInstance to Quantity")
 }
-func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingStudySeriesInstance
 	switch other := other.(type) {
 	case ImagingStudySeriesInstance:
@@ -4837,7 +4837,7 @@ func (r ImagingStudySeriesInstance) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingStudySeriesInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingStudySeriesInstance)
 	if !ok {
 		return false

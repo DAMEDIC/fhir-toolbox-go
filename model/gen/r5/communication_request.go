@@ -2934,7 +2934,7 @@ func (r CommunicationRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r CommunicationRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CommunicationRequest to Quantity")
 }
-func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CommunicationRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CommunicationRequest
 	switch other := other.(type) {
 	case CommunicationRequest:
@@ -2950,7 +2950,7 @@ func (r CommunicationRequest) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CommunicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CommunicationRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CommunicationRequest)
 	if !ok {
 		return false
@@ -3227,7 +3227,7 @@ func (r CommunicationRequestPayload) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r CommunicationRequestPayload) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CommunicationRequestPayload to Quantity")
 }
-func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CommunicationRequestPayload) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CommunicationRequestPayload
 	switch other := other.(type) {
 	case CommunicationRequestPayload:
@@ -3243,7 +3243,7 @@ func (r CommunicationRequestPayload) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CommunicationRequestPayload) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CommunicationRequestPayload)
 	if !ok {
 		return false

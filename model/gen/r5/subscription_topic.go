@@ -6316,7 +6316,7 @@ func (r SubscriptionTopic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r SubscriptionTopic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopic to Quantity")
 }
-func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopic
 	switch other := other.(type) {
 	case SubscriptionTopic:
@@ -6332,7 +6332,7 @@ func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopic)
 	if !ok {
 		return false
@@ -6650,7 +6650,7 @@ func (r SubscriptionTopicResourceTrigger) ToDateTime(explicit bool) (fhirpath.Da
 func (r SubscriptionTopicResourceTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Quantity")
 }
-func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicResourceTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTrigger:
@@ -6666,7 +6666,7 @@ func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicResourceTrigger)
 	if !ok {
 		return false
@@ -6811,7 +6811,7 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDateTime(explicit bool)
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Quantity")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicResourceTriggerQueryCriteria
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTriggerQueryCriteria:
@@ -6827,7 +6827,7 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicResourceTriggerQueryCriteria)
 	if !ok {
 		return false
@@ -6958,7 +6958,7 @@ func (r SubscriptionTopicEventTrigger) ToDateTime(explicit bool) (fhirpath.DateT
 func (r SubscriptionTopicEventTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Quantity")
 }
-func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicEventTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicEventTrigger:
@@ -6974,7 +6974,7 @@ func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicEventTrigger)
 	if !ok {
 		return false
@@ -7108,7 +7108,7 @@ func (r SubscriptionTopicCanFilterBy) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r SubscriptionTopicCanFilterBy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Quantity")
 }
-func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicCanFilterBy
 	switch other := other.(type) {
 	case SubscriptionTopicCanFilterBy:
@@ -7124,7 +7124,7 @@ func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicCanFilterBy)
 	if !ok {
 		return false
@@ -7264,7 +7264,7 @@ func (r SubscriptionTopicNotificationShape) ToDateTime(explicit bool) (fhirpath.
 func (r SubscriptionTopicNotificationShape) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Quantity")
 }
-func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicNotificationShape
 	switch other := other.(type) {
 	case SubscriptionTopicNotificationShape:
@@ -7280,7 +7280,7 @@ func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicNotificationShape)
 	if !ok {
 		return false

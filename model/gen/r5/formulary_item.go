@@ -967,7 +967,7 @@ func (r FormularyItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r FormularyItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert FormularyItem to Quantity")
 }
-func (r FormularyItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r FormularyItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *FormularyItem
 	switch other := other.(type) {
 	case FormularyItem:
@@ -983,7 +983,7 @@ func (r FormularyItem) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r FormularyItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r FormularyItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(FormularyItem)
 	if !ok {
 		return false

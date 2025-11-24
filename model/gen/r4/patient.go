@@ -3846,7 +3846,7 @@ func (r Patient) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Patient) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Patient to Quantity")
 }
-func (r Patient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Patient) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Patient
 	switch other := other.(type) {
 	case Patient:
@@ -3862,7 +3862,7 @@ func (r Patient) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Patient) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Patient) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Patient)
 	if !ok {
 		return false
@@ -4129,7 +4129,7 @@ func (r PatientContact) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r PatientContact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PatientContact to Quantity")
 }
-func (r PatientContact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PatientContact) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PatientContact
 	switch other := other.(type) {
 	case PatientContact:
@@ -4145,7 +4145,7 @@ func (r PatientContact) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PatientContact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PatientContact) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PatientContact)
 	if !ok {
 		return false
@@ -4287,7 +4287,7 @@ func (r PatientCommunication) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r PatientCommunication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PatientCommunication to Quantity")
 }
-func (r PatientCommunication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PatientCommunication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PatientCommunication
 	switch other := other.(type) {
 	case PatientCommunication:
@@ -4303,7 +4303,7 @@ func (r PatientCommunication) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PatientCommunication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PatientCommunication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PatientCommunication)
 	if !ok {
 		return false
@@ -4408,7 +4408,7 @@ func (r PatientLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r PatientLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PatientLink to Quantity")
 }
-func (r PatientLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PatientLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PatientLink
 	switch other := other.(type) {
 	case PatientLink:
@@ -4424,7 +4424,7 @@ func (r PatientLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PatientLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PatientLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PatientLink)
 	if !ok {
 		return false

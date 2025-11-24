@@ -5179,7 +5179,7 @@ func (r ConditionDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ConditionDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinition to Quantity")
 }
-func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinition
 	switch other := other.(type) {
 	case ConditionDefinition:
@@ -5195,7 +5195,7 @@ func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinition)
 	if !ok {
 		return false
@@ -5528,7 +5528,7 @@ func (r ConditionDefinitionObservation) ToDateTime(explicit bool) (fhirpath.Date
 func (r ConditionDefinitionObservation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionObservation to Quantity")
 }
-func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionObservation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionObservation
 	switch other := other.(type) {
 	case ConditionDefinitionObservation:
@@ -5544,7 +5544,7 @@ func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionObservation)
 	if !ok {
 		return false
@@ -5653,7 +5653,7 @@ func (r ConditionDefinitionMedication) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ConditionDefinitionMedication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionMedication to Quantity")
 }
-func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionMedication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionMedication
 	switch other := other.(type) {
 	case ConditionDefinitionMedication:
@@ -5669,7 +5669,7 @@ func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionMedication)
 	if !ok {
 		return false
@@ -5779,7 +5779,7 @@ func (r ConditionDefinitionPrecondition) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ConditionDefinitionPrecondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionPrecondition to Quantity")
 }
-func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionPrecondition
 	switch other := other.(type) {
 	case ConditionDefinitionPrecondition:
@@ -5795,7 +5795,7 @@ func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionPrecondition)
 	if !ok {
 		return false
@@ -5907,7 +5907,7 @@ func (r ConditionDefinitionQuestionnaire) ToDateTime(explicit bool) (fhirpath.Da
 func (r ConditionDefinitionQuestionnaire) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Quantity")
 }
-func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionQuestionnaire
 	switch other := other.(type) {
 	case ConditionDefinitionQuestionnaire:
@@ -5923,7 +5923,7 @@ func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionQuestionnaire)
 	if !ok {
 		return false
@@ -6030,7 +6030,7 @@ func (r ConditionDefinitionPlan) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ConditionDefinitionPlan) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionPlan to Quantity")
 }
-func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionPlan) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionPlan
 	switch other := other.(type) {
 	case ConditionDefinitionPlan:
@@ -6046,7 +6046,7 @@ func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionPlan)
 	if !ok {
 		return false

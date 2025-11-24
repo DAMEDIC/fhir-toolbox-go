@@ -4736,7 +4736,7 @@ func (r MedicationRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r MedicationRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationRequest to Quantity")
 }
-func (r MedicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationRequest
 	switch other := other.(type) {
 	case MedicationRequest:
@@ -4752,7 +4752,7 @@ func (r MedicationRequest) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationRequest)
 	if !ok {
 		return false
@@ -5131,7 +5131,7 @@ func (r MedicationRequestDispenseRequest) ToDateTime(explicit bool) (fhirpath.Da
 func (r MedicationRequestDispenseRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationRequestDispenseRequest to Quantity")
 }
-func (r MedicationRequestDispenseRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationRequestDispenseRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationRequestDispenseRequest
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequest:
@@ -5147,7 +5147,7 @@ func (r MedicationRequestDispenseRequest) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationRequestDispenseRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationRequestDispenseRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationRequestDispenseRequest)
 	if !ok {
 		return false
@@ -5291,7 +5291,7 @@ func (r MedicationRequestDispenseRequestInitialFill) ToDateTime(explicit bool) (
 func (r MedicationRequestDispenseRequestInitialFill) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationRequestDispenseRequestInitialFill to Quantity")
 }
-func (r MedicationRequestDispenseRequestInitialFill) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationRequestDispenseRequestInitialFill) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationRequestDispenseRequestInitialFill
 	switch other := other.(type) {
 	case MedicationRequestDispenseRequestInitialFill:
@@ -5307,7 +5307,7 @@ func (r MedicationRequestDispenseRequestInitialFill) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationRequestDispenseRequestInitialFill) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationRequestDispenseRequestInitialFill) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationRequestDispenseRequestInitialFill)
 	if !ok {
 		return false
@@ -5414,7 +5414,7 @@ func (r MedicationRequestSubstitution) ToDateTime(explicit bool) (fhirpath.DateT
 func (r MedicationRequestSubstitution) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicationRequestSubstitution to Quantity")
 }
-func (r MedicationRequestSubstitution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicationRequestSubstitution) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicationRequestSubstitution
 	switch other := other.(type) {
 	case MedicationRequestSubstitution:
@@ -5430,7 +5430,7 @@ func (r MedicationRequestSubstitution) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicationRequestSubstitution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicationRequestSubstitution) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicationRequestSubstitution)
 	if !ok {
 		return false

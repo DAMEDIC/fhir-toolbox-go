@@ -5361,7 +5361,7 @@ func (r ResearchElementDefinition) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ResearchElementDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchElementDefinition to Quantity")
 }
-func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ResearchElementDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ResearchElementDefinition
 	switch other := other.(type) {
 	case ResearchElementDefinition:
@@ -5377,7 +5377,7 @@ func (r ResearchElementDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ResearchElementDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchElementDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ResearchElementDefinition)
 	if !ok {
 		return false
@@ -5786,7 +5786,7 @@ func (r ResearchElementDefinitionCharacteristic) ToDateTime(explicit bool) (fhir
 func (r ResearchElementDefinitionCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Quantity")
 }
-func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ResearchElementDefinitionCharacteristic
 	switch other := other.(type) {
 	case ResearchElementDefinitionCharacteristic:
@@ -5802,7 +5802,7 @@ func (r ResearchElementDefinitionCharacteristic) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchElementDefinitionCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ResearchElementDefinitionCharacteristic)
 	if !ok {
 		return false

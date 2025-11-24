@@ -2618,7 +2618,7 @@ func (r SupplyRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r SupplyRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyRequest to Quantity")
 }
-func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SupplyRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SupplyRequest
 	switch other := other.(type) {
 	case SupplyRequest:
@@ -2634,7 +2634,7 @@ func (r SupplyRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SupplyRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SupplyRequest)
 	if !ok {
 		return false
@@ -2876,7 +2876,7 @@ func (r SupplyRequestParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r SupplyRequestParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SupplyRequestParameter to Quantity")
 }
-func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SupplyRequestParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SupplyRequestParameter
 	switch other := other.(type) {
 	case SupplyRequestParameter:
@@ -2892,7 +2892,7 @@ func (r SupplyRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SupplyRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SupplyRequestParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SupplyRequestParameter)
 	if !ok {
 		return false

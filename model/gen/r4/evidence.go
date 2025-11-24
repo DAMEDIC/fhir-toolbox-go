@@ -2904,7 +2904,7 @@ func (r Evidence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Evidence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Evidence to Quantity")
 }
-func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Evidence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Evidence
 	switch other := other.(type) {
 	case Evidence:
@@ -2920,7 +2920,7 @@ func (r Evidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Evidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Evidence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Evidence)
 	if !ok {
 		return false

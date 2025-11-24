@@ -1900,7 +1900,7 @@ func (r Person) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Person) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Person to Quantity")
 }
-func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Person) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Person
 	switch other := other.(type) {
 	case Person:
@@ -1916,7 +1916,7 @@ func (r Person) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Person) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Person) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Person)
 	if !ok {
 		return false
@@ -2114,7 +2114,7 @@ func (r PersonLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r PersonLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PersonLink to Quantity")
 }
-func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PersonLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PersonLink
 	switch other := other.(type) {
 	case PersonLink:
@@ -2130,7 +2130,7 @@ func (r PersonLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PersonLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PersonLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PersonLink)
 	if !ok {
 		return false

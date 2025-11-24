@@ -569,7 +569,7 @@ func (r UsageContext) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r UsageContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert UsageContext to Quantity")
 }
-func (r UsageContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r UsageContext) Equal(other fhirpath.Element) (bool, bool) {
 	var o *UsageContext
 	switch other := other.(type) {
 	case UsageContext:
@@ -585,7 +585,7 @@ func (r UsageContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r UsageContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r UsageContext) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(UsageContext)
 	if !ok {
 		return false

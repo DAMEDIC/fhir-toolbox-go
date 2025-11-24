@@ -2406,7 +2406,7 @@ func (r RegulatedAuthorization) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r RegulatedAuthorization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RegulatedAuthorization to Quantity")
 }
-func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RegulatedAuthorization) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RegulatedAuthorization
 	switch other := other.(type) {
 	case RegulatedAuthorization:
@@ -2422,7 +2422,7 @@ func (r RegulatedAuthorization) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RegulatedAuthorization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RegulatedAuthorization) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RegulatedAuthorization)
 	if !ok {
 		return false
@@ -2672,7 +2672,7 @@ func (r RegulatedAuthorizationCase) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r RegulatedAuthorizationCase) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RegulatedAuthorizationCase to Quantity")
 }
-func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RegulatedAuthorizationCase
 	switch other := other.(type) {
 	case RegulatedAuthorizationCase:
@@ -2688,7 +2688,7 @@ func (r RegulatedAuthorizationCase) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RegulatedAuthorizationCase) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RegulatedAuthorizationCase)
 	if !ok {
 		return false

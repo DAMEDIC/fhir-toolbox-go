@@ -2338,7 +2338,7 @@ func (r NamingSystem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r NamingSystem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NamingSystem to Quantity")
 }
-func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NamingSystem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NamingSystem
 	switch other := other.(type) {
 	case NamingSystem:
@@ -2354,7 +2354,7 @@ func (r NamingSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NamingSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NamingSystem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NamingSystem)
 	if !ok {
 		return false
@@ -2586,7 +2586,7 @@ func (r NamingSystemUniqueId) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r NamingSystemUniqueId) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NamingSystemUniqueId to Quantity")
 }
-func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NamingSystemUniqueId) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NamingSystemUniqueId
 	switch other := other.(type) {
 	case NamingSystemUniqueId:
@@ -2602,7 +2602,7 @@ func (r NamingSystemUniqueId) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NamingSystemUniqueId) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NamingSystemUniqueId) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NamingSystemUniqueId)
 	if !ok {
 		return false

@@ -11327,7 +11327,7 @@ func (r CapabilityStatement) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r CapabilityStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatement to Quantity")
 }
-func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatement
 	switch other := other.(type) {
 	case CapabilityStatement:
@@ -11343,7 +11343,7 @@ func (r CapabilityStatement) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatement)
 	if !ok {
 		return false
@@ -11658,7 +11658,7 @@ func (r CapabilityStatementSoftware) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r CapabilityStatementSoftware) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementSoftware to Quantity")
 }
-func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementSoftware) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementSoftware
 	switch other := other.(type) {
 	case CapabilityStatementSoftware:
@@ -11674,7 +11674,7 @@ func (r CapabilityStatementSoftware) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementSoftware) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementSoftware)
 	if !ok {
 		return false
@@ -11793,7 +11793,7 @@ func (r CapabilityStatementImplementation) ToDateTime(explicit bool) (fhirpath.D
 func (r CapabilityStatementImplementation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementImplementation to Quantity")
 }
-func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementImplementation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementImplementation
 	switch other := other.(type) {
 	case CapabilityStatementImplementation:
@@ -11809,7 +11809,7 @@ func (r CapabilityStatementImplementation) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementImplementation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementImplementation)
 	if !ok {
 		return false
@@ -11953,7 +11953,7 @@ func (r CapabilityStatementRest) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r CapabilityStatementRest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRest to Quantity")
 }
-func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRest
 	switch other := other.(type) {
 	case CapabilityStatementRest:
@@ -11969,7 +11969,7 @@ func (r CapabilityStatementRest) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRest)
 	if !ok {
 		return false
@@ -12125,7 +12125,7 @@ func (r CapabilityStatementRestSecurity) ToDateTime(explicit bool) (fhirpath.Dat
 func (r CapabilityStatementRestSecurity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Quantity")
 }
-func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestSecurity
 	switch other := other.(type) {
 	case CapabilityStatementRestSecurity:
@@ -12141,7 +12141,7 @@ func (r CapabilityStatementRestSecurity) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestSecurity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestSecurity)
 	if !ok {
 		return false
@@ -12330,7 +12330,7 @@ func (r CapabilityStatementRestResource) ToDateTime(explicit bool) (fhirpath.Dat
 func (r CapabilityStatementRestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResource to Quantity")
 }
-func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestResource
 	switch other := other.(type) {
 	case CapabilityStatementRestResource:
@@ -12346,7 +12346,7 @@ func (r CapabilityStatementRestResource) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestResource)
 	if !ok {
 		return false
@@ -12558,7 +12558,7 @@ func (r CapabilityStatementRestResourceInteraction) ToDateTime(explicit bool) (f
 func (r CapabilityStatementRestResourceInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Quantity")
 }
-func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestResourceInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceInteraction:
@@ -12574,7 +12574,7 @@ func (r CapabilityStatementRestResourceInteraction) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceInteraction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestResourceInteraction)
 	if !ok {
 		return false
@@ -12689,7 +12689,7 @@ func (r CapabilityStatementRestResourceSearchParam) ToDateTime(explicit bool) (f
 func (r CapabilityStatementRestResourceSearchParam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Quantity")
 }
-func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestResourceSearchParam
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceSearchParam:
@@ -12705,7 +12705,7 @@ func (r CapabilityStatementRestResourceSearchParam) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceSearchParam) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestResourceSearchParam)
 	if !ok {
 		return false
@@ -12829,7 +12829,7 @@ func (r CapabilityStatementRestResourceOperation) ToDateTime(explicit bool) (fhi
 func (r CapabilityStatementRestResourceOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Quantity")
 }
-func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestResourceOperation
 	switch other := other.(type) {
 	case CapabilityStatementRestResourceOperation:
@@ -12845,7 +12845,7 @@ func (r CapabilityStatementRestResourceOperation) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestResourceOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestResourceOperation)
 	if !ok {
 		return false
@@ -12959,7 +12959,7 @@ func (r CapabilityStatementRestInteraction) ToDateTime(explicit bool) (fhirpath.
 func (r CapabilityStatementRestInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Quantity")
 }
-func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementRestInteraction
 	switch other := other.(type) {
 	case CapabilityStatementRestInteraction:
@@ -12975,7 +12975,7 @@ func (r CapabilityStatementRestInteraction) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementRestInteraction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementRestInteraction)
 	if !ok {
 		return false
@@ -13094,7 +13094,7 @@ func (r CapabilityStatementMessaging) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r CapabilityStatementMessaging) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessaging to Quantity")
 }
-func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementMessaging) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementMessaging
 	switch other := other.(type) {
 	case CapabilityStatementMessaging:
@@ -13110,7 +13110,7 @@ func (r CapabilityStatementMessaging) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessaging) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementMessaging)
 	if !ok {
 		return false
@@ -13229,7 +13229,7 @@ func (r CapabilityStatementMessagingEndpoint) ToDateTime(explicit bool) (fhirpat
 func (r CapabilityStatementMessagingEndpoint) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Quantity")
 }
-func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementMessagingEndpoint
 	switch other := other.(type) {
 	case CapabilityStatementMessagingEndpoint:
@@ -13245,7 +13245,7 @@ func (r CapabilityStatementMessagingEndpoint) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessagingEndpoint) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementMessagingEndpoint)
 	if !ok {
 		return false
@@ -13350,7 +13350,7 @@ func (r CapabilityStatementMessagingSupportedMessage) ToDateTime(explicit bool) 
 func (r CapabilityStatementMessagingSupportedMessage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Quantity")
 }
-func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementMessagingSupportedMessage
 	switch other := other.(type) {
 	case CapabilityStatementMessagingSupportedMessage:
@@ -13366,7 +13366,7 @@ func (r CapabilityStatementMessagingSupportedMessage) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementMessagingSupportedMessage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementMessagingSupportedMessage)
 	if !ok {
 		return false
@@ -13476,7 +13476,7 @@ func (r CapabilityStatementDocument) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r CapabilityStatementDocument) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CapabilityStatementDocument to Quantity")
 }
-func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CapabilityStatementDocument) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CapabilityStatementDocument
 	switch other := other.(type) {
 	case CapabilityStatementDocument:
@@ -13492,7 +13492,7 @@ func (r CapabilityStatementDocument) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CapabilityStatementDocument) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CapabilityStatementDocument)
 	if !ok {
 		return false

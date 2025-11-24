@@ -412,7 +412,7 @@ func (r Narrative) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Narrative) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Narrative to Quantity")
 }
-func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Narrative) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Narrative
 	switch other := other.(type) {
 	case Narrative:
@@ -428,7 +428,7 @@ func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Narrative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Narrative) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Narrative)
 	if !ok {
 		return false

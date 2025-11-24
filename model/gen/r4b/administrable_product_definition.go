@@ -3724,7 +3724,7 @@ func (r AdministrableProductDefinition) ToDateTime(explicit bool) (fhirpath.Date
 func (r AdministrableProductDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinition to Quantity")
 }
-func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdministrableProductDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdministrableProductDefinition
 	switch other := other.(type) {
 	case AdministrableProductDefinition:
@@ -3740,7 +3740,7 @@ func (r AdministrableProductDefinition) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdministrableProductDefinition)
 	if !ok {
 		return false
@@ -3943,7 +3943,7 @@ func (r AdministrableProductDefinitionProperty) ToDateTime(explicit bool) (fhirp
 func (r AdministrableProductDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Quantity")
 }
-func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdministrableProductDefinitionProperty
 	switch other := other.(type) {
 	case AdministrableProductDefinitionProperty:
@@ -3959,7 +3959,7 @@ func (r AdministrableProductDefinitionProperty) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdministrableProductDefinitionProperty)
 	if !ok {
 		return false
@@ -4098,7 +4098,7 @@ func (r AdministrableProductDefinitionRouteOfAdministration) ToDateTime(explicit
 func (r AdministrableProductDefinitionRouteOfAdministration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministration
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministration:
@@ -4114,7 +4114,7 @@ func (r AdministrableProductDefinitionRouteOfAdministration) Equal(other fhirpat
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdministrableProductDefinitionRouteOfAdministration)
 	if !ok {
 		return false
@@ -4256,7 +4256,7 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDate
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpecies
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpecies:
@@ -4272,7 +4272,7 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equal(
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdministrableProductDefinitionRouteOfAdministrationTargetSpecies)
 	if !ok {
 		return false
@@ -4382,7 +4382,7 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Quantity")
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod
 	switch other := other.(type) {
 	case AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod:
@@ -4398,7 +4398,7 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod)
 	if !ok {
 		return false

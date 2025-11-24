@@ -5357,7 +5357,7 @@ func (r OperationDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r OperationDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinition to Quantity")
 }
-func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationDefinition
 	switch other := other.(type) {
 	case OperationDefinition:
@@ -5373,7 +5373,7 @@ func (r OperationDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationDefinition)
 	if !ok {
 		return false
@@ -5722,7 +5722,7 @@ func (r OperationDefinitionParameter) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r OperationDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameter to Quantity")
 }
-func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationDefinitionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationDefinitionParameter
 	switch other := other.(type) {
 	case OperationDefinitionParameter:
@@ -5738,7 +5738,7 @@ func (r OperationDefinitionParameter) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationDefinitionParameter)
 	if !ok {
 		return false
@@ -5906,7 +5906,7 @@ func (r OperationDefinitionParameterBinding) ToDateTime(explicit bool) (fhirpath
 func (r OperationDefinitionParameterBinding) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Quantity")
 }
-func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationDefinitionParameterBinding
 	switch other := other.(type) {
 	case OperationDefinitionParameterBinding:
@@ -5922,7 +5922,7 @@ func (r OperationDefinitionParameterBinding) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameterBinding) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationDefinitionParameterBinding)
 	if !ok {
 		return false
@@ -6029,7 +6029,7 @@ func (r OperationDefinitionParameterReferencedFrom) ToDateTime(explicit bool) (f
 func (r OperationDefinitionParameterReferencedFrom) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Quantity")
 }
-func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationDefinitionParameterReferencedFrom
 	switch other := other.(type) {
 	case OperationDefinitionParameterReferencedFrom:
@@ -6045,7 +6045,7 @@ func (r OperationDefinitionParameterReferencedFrom) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionParameterReferencedFrom) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationDefinitionParameterReferencedFrom)
 	if !ok {
 		return false
@@ -6154,7 +6154,7 @@ func (r OperationDefinitionOverload) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r OperationDefinitionOverload) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationDefinitionOverload to Quantity")
 }
-func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationDefinitionOverload) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationDefinitionOverload
 	switch other := other.(type) {
 	case OperationDefinitionOverload:
@@ -6170,7 +6170,7 @@ func (r OperationDefinitionOverload) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationDefinitionOverload) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationDefinitionOverload)
 	if !ok {
 		return false

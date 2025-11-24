@@ -2927,7 +2927,7 @@ func (r SubstanceNucleicAcid) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r SubstanceNucleicAcid) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcid to Quantity")
 }
-func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceNucleicAcid) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceNucleicAcid
 	switch other := other.(type) {
 	case SubstanceNucleicAcid:
@@ -2943,7 +2943,7 @@ func (r SubstanceNucleicAcid) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcid) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceNucleicAcid)
 	if !ok {
 		return false
@@ -3138,7 +3138,7 @@ func (r SubstanceNucleicAcidSubunit) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r SubstanceNucleicAcidSubunit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Quantity")
 }
-func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunit
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunit:
@@ -3154,7 +3154,7 @@ func (r SubstanceNucleicAcidSubunit) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceNucleicAcidSubunit)
 	if !ok {
 		return false
@@ -3315,7 +3315,7 @@ func (r SubstanceNucleicAcidSubunitLinkage) ToDateTime(explicit bool) (fhirpath.
 func (r SubstanceNucleicAcidSubunitLinkage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Quantity")
 }
-func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunitLinkage
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitLinkage:
@@ -3331,7 +3331,7 @@ func (r SubstanceNucleicAcidSubunitLinkage) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunitLinkage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceNucleicAcidSubunitLinkage)
 	if !ok {
 		return false
@@ -3459,7 +3459,7 @@ func (r SubstanceNucleicAcidSubunitSugar) ToDateTime(explicit bool) (fhirpath.Da
 func (r SubstanceNucleicAcidSubunitSugar) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Quantity")
 }
-func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceNucleicAcidSubunitSugar
 	switch other := other.(type) {
 	case SubstanceNucleicAcidSubunitSugar:
@@ -3475,7 +3475,7 @@ func (r SubstanceNucleicAcidSubunitSugar) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceNucleicAcidSubunitSugar) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceNucleicAcidSubunitSugar)
 	if !ok {
 		return false

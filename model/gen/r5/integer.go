@@ -181,20 +181,19 @@ func (r Integer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Integer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Integer to Quantity")
 }
-func (r Integer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToInteger(false)
+func (r Integer) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToInteger(false)
 	if err != nil || !ok {
 		return false, true
 	}
-	b, ok, err := other.ToInteger(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+	return v.Equal(other)
 }
-func (r Integer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Integer) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToInteger(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Integer) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

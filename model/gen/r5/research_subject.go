@@ -1959,7 +1959,7 @@ func (r ResearchSubject) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ResearchSubject) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchSubject to Quantity")
 }
-func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ResearchSubject) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ResearchSubject
 	switch other := other.(type) {
 	case ResearchSubject:
@@ -1975,7 +1975,7 @@ func (r ResearchSubject) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ResearchSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchSubject) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ResearchSubject)
 	if !ok {
 		return false
@@ -2188,7 +2188,7 @@ func (r ResearchSubjectProgress) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ResearchSubjectProgress) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ResearchSubjectProgress to Quantity")
 }
-func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ResearchSubjectProgress) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ResearchSubjectProgress
 	switch other := other.(type) {
 	case ResearchSubjectProgress:
@@ -2204,7 +2204,7 @@ func (r ResearchSubjectProgress) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ResearchSubjectProgress) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ResearchSubjectProgress) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ResearchSubjectProgress)
 	if !ok {
 		return false

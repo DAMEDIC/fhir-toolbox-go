@@ -3080,7 +3080,7 @@ func (r CarePlan) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r CarePlan) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CarePlan to Quantity")
 }
-func (r CarePlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CarePlan) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CarePlan
 	switch other := other.(type) {
 	case CarePlan:
@@ -3096,7 +3096,7 @@ func (r CarePlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CarePlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CarePlan) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CarePlan)
 	if !ok {
 		return false
@@ -3392,7 +3392,7 @@ func (r CarePlanActivity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r CarePlanActivity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CarePlanActivity to Quantity")
 }
-func (r CarePlanActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CarePlanActivity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CarePlanActivity
 	switch other := other.(type) {
 	case CarePlanActivity:
@@ -3408,7 +3408,7 @@ func (r CarePlanActivity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CarePlanActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CarePlanActivity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CarePlanActivity)
 	if !ok {
 		return false

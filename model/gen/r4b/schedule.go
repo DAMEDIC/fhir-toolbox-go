@@ -1366,7 +1366,7 @@ func (r Schedule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Schedule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Schedule to Quantity")
 }
-func (r Schedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Schedule) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Schedule
 	switch other := other.(type) {
 	case Schedule:
@@ -1382,7 +1382,7 @@ func (r Schedule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Schedule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Schedule) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Schedule)
 	if !ok {
 		return false

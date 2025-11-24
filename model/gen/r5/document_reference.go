@@ -4225,7 +4225,7 @@ func (r DocumentReference) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r DocumentReference) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReference to Quantity")
 }
-func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentReference) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentReference
 	switch other := other.(type) {
 	case DocumentReference:
@@ -4241,7 +4241,7 @@ func (r DocumentReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReference) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentReference)
 	if !ok {
 		return false
@@ -4535,7 +4535,7 @@ func (r DocumentReferenceAttester) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DocumentReferenceAttester) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceAttester to Quantity")
 }
-func (r DocumentReferenceAttester) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentReferenceAttester) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentReferenceAttester
 	switch other := other.(type) {
 	case DocumentReferenceAttester:
@@ -4551,7 +4551,7 @@ func (r DocumentReferenceAttester) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentReferenceAttester) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceAttester) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentReferenceAttester)
 	if !ok {
 		return false
@@ -4663,7 +4663,7 @@ func (r DocumentReferenceRelatesTo) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DocumentReferenceRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Quantity")
 }
-func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentReferenceRelatesTo
 	switch other := other.(type) {
 	case DocumentReferenceRelatesTo:
@@ -4679,7 +4679,7 @@ func (r DocumentReferenceRelatesTo) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentReferenceRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceRelatesTo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentReferenceRelatesTo)
 	if !ok {
 		return false
@@ -4786,7 +4786,7 @@ func (r DocumentReferenceContent) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r DocumentReferenceContent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceContent to Quantity")
 }
-func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentReferenceContent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentReferenceContent
 	switch other := other.(type) {
 	case DocumentReferenceContent:
@@ -4802,7 +4802,7 @@ func (r DocumentReferenceContent) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentReferenceContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceContent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentReferenceContent)
 	if !ok {
 		return false
@@ -4904,7 +4904,7 @@ func (r DocumentReferenceContentProfile) ToDateTime(explicit bool) (fhirpath.Dat
 func (r DocumentReferenceContentProfile) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentReferenceContentProfile to Quantity")
 }
-func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentReferenceContentProfile
 	switch other := other.(type) {
 	case DocumentReferenceContentProfile:
@@ -4920,7 +4920,7 @@ func (r DocumentReferenceContentProfile) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentReferenceContentProfile) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentReferenceContentProfile) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentReferenceContentProfile)
 	if !ok {
 		return false

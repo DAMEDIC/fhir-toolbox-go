@@ -629,7 +629,7 @@ func (r Population) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Population) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Population to Quantity")
 }
-func (r Population) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Population) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Population
 	switch other := other.(type) {
 	case Population:
@@ -645,7 +645,7 @@ func (r Population) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Population) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Population) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Population)
 	if !ok {
 		return false

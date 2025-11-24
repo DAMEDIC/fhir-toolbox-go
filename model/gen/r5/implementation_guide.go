@@ -9722,7 +9722,7 @@ func (r ImplementationGuide) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ImplementationGuide) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuide to Quantity")
 }
-func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuide) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuide
 	switch other := other.(type) {
 	case ImplementationGuide:
@@ -9738,7 +9738,7 @@ func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuide) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuide)
 	if !ok {
 		return false
@@ -10044,7 +10044,7 @@ func (r ImplementationGuideDependsOn) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
 }
-func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDependsOn
 	switch other := other.(type) {
 	case ImplementationGuideDependsOn:
@@ -10060,7 +10060,7 @@ func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDependsOn)
 	if !ok {
 		return false
@@ -10179,7 +10179,7 @@ func (r ImplementationGuideGlobal) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideGlobal to Quantity")
 }
-func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideGlobal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideGlobal
 	switch other := other.(type) {
 	case ImplementationGuideGlobal:
@@ -10195,7 +10195,7 @@ func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideGlobal)
 	if !ok {
 		return false
@@ -10319,7 +10319,7 @@ func (r ImplementationGuideDefinition) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinition to Quantity")
 }
-func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinition
 	switch other := other.(type) {
 	case ImplementationGuideDefinition:
@@ -10335,7 +10335,7 @@ func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinition)
 	if !ok {
 		return false
@@ -10463,7 +10463,7 @@ func (r ImplementationGuideDefinitionGrouping) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
 }
-func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionGrouping
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionGrouping:
@@ -10479,7 +10479,7 @@ func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionGrouping)
 	if !ok {
 		return false
@@ -10611,7 +10611,7 @@ func (r ImplementationGuideDefinitionResource) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
 }
-func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionResource
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionResource:
@@ -10627,7 +10627,7 @@ func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionResource)
 	if !ok {
 		return false
@@ -10780,7 +10780,7 @@ func (r ImplementationGuideDefinitionPage) ToDateTime(explicit bool) (fhirpath.D
 func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
 }
-func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionPage
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionPage:
@@ -10796,7 +10796,7 @@ func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionPage)
 	if !ok {
 		return false
@@ -10922,7 +10922,7 @@ func (r ImplementationGuideDefinitionParameter) ToDateTime(explicit bool) (fhirp
 func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
 }
-func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionParameter
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionParameter:
@@ -10938,7 +10938,7 @@ func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionParameter)
 	if !ok {
 		return false
@@ -11048,7 +11048,7 @@ func (r ImplementationGuideDefinitionTemplate) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
 }
-func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionTemplate
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionTemplate:
@@ -11064,7 +11064,7 @@ func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionTemplate)
 	if !ok {
 		return false
@@ -11195,7 +11195,7 @@ func (r ImplementationGuideManifest) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ImplementationGuideManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifest to Quantity")
 }
-func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifest
 	switch other := other.(type) {
 	case ImplementationGuideManifest:
@@ -11211,7 +11211,7 @@ func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifest)
 	if !ok {
 		return false
@@ -11349,7 +11349,7 @@ func (r ImplementationGuideManifestResource) ToDateTime(explicit bool) (fhirpath
 func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
 }
-func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifestResource
 	switch other := other.(type) {
 	case ImplementationGuideManifestResource:
@@ -11365,7 +11365,7 @@ func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifestResource)
 	if !ok {
 		return false
@@ -11491,7 +11491,7 @@ func (r ImplementationGuideManifestPage) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
 }
-func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifestPage
 	switch other := other.(type) {
 	case ImplementationGuideManifestPage:
@@ -11507,7 +11507,7 @@ func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifestPage)
 	if !ok {
 		return false

@@ -436,7 +436,7 @@ func (r CodeableConcept) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r CodeableConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeableConcept to Quantity")
 }
-func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeableConcept) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeableConcept
 	switch other := other.(type) {
 	case CodeableConcept:
@@ -452,7 +452,7 @@ func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeableConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeableConcept) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeableConcept)
 	if !ok {
 		return false

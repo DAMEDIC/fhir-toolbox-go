@@ -5055,7 +5055,7 @@ func (r GenomicStudy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r GenomicStudy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudy to Quantity")
 }
-func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudy
 	switch other := other.(type) {
 	case GenomicStudy:
@@ -5071,7 +5071,7 @@ func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudy)
 	if !ok {
 		return false
@@ -5386,7 +5386,7 @@ func (r GenomicStudyAnalysis) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysis to Quantity")
 }
-func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysis
 	switch other := other.(type) {
 	case GenomicStudyAnalysis:
@@ -5402,7 +5402,7 @@ func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysis)
 	if !ok {
 		return false
@@ -5628,7 +5628,7 @@ func (r GenomicStudyAnalysisInput) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
 }
-func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisInput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisInput:
@@ -5644,7 +5644,7 @@ func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisInput)
 	if !ok {
 		return false
@@ -5760,7 +5760,7 @@ func (r GenomicStudyAnalysisOutput) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
 }
-func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisOutput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisOutput:
@@ -5776,7 +5776,7 @@ func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisOutput)
 	if !ok {
 		return false
@@ -5885,7 +5885,7 @@ func (r GenomicStudyAnalysisPerformer) ToDateTime(explicit bool) (fhirpath.DateT
 func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
 }
-func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisPerformer
 	switch other := other.(type) {
 	case GenomicStudyAnalysisPerformer:
@@ -5901,7 +5901,7 @@ func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisPerformer)
 	if !ok {
 		return false
@@ -6010,7 +6010,7 @@ func (r GenomicStudyAnalysisDevice) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
 }
-func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisDevice
 	switch other := other.(type) {
 	case GenomicStudyAnalysisDevice:
@@ -6026,7 +6026,7 @@ func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisDevice)
 	if !ok {
 		return false

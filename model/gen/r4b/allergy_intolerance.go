@@ -2986,7 +2986,7 @@ func (r AllergyIntolerance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r AllergyIntolerance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AllergyIntolerance to Quantity")
 }
-func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AllergyIntolerance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AllergyIntolerance
 	switch other := other.(type) {
 	case AllergyIntolerance:
@@ -3002,7 +3002,7 @@ func (r AllergyIntolerance) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AllergyIntolerance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AllergyIntolerance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AllergyIntolerance)
 	if !ok {
 		return false
@@ -3269,7 +3269,7 @@ func (r AllergyIntoleranceReaction) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r AllergyIntoleranceReaction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AllergyIntoleranceReaction to Quantity")
 }
-func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AllergyIntoleranceReaction
 	switch other := other.(type) {
 	case AllergyIntoleranceReaction:
@@ -3285,7 +3285,7 @@ func (r AllergyIntoleranceReaction) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AllergyIntoleranceReaction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AllergyIntoleranceReaction)
 	if !ok {
 		return false

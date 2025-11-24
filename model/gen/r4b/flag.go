@@ -1205,7 +1205,7 @@ func (r Flag) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Flag) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Flag to Quantity")
 }
-func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Flag) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Flag
 	switch other := other.(type) {
 	case Flag:
@@ -1221,7 +1221,7 @@ func (r Flag) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Flag) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Flag) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Flag)
 	if !ok {
 		return false

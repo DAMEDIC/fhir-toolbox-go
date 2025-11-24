@@ -31,8 +31,8 @@ type Element interface {
 	ToTime(explicit bool) (v Time, ok bool, err error)
 	ToDateTime(explicit bool) (v DateTime, ok bool, err error)
 	ToQuantity(explicit bool) (v Quantity, ok bool, err error)
-	Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool)
-	Equivalent(other Element, _noReverseTypeConversion ...bool) bool
+	Equal(other Element) (eq bool, ok bool)
+	Equivalent(other Element) bool
 	TypeInfo() TypeInfo
 	json.Marshaler
 	fmt.Stringer
@@ -142,10 +142,11 @@ func (i SimpleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i SimpleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+
+func (i SimpleTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i SimpleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i SimpleTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -205,7 +206,7 @@ func (i ClassInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ClassInfo) Equal(other Element) (eq bool, ok bool) {
 	o, ok := other.(ClassInfo)
 	if !ok {
 		return false, true
@@ -229,7 +230,7 @@ func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bo
 	}
 	return true, true
 }
-func (i ClassInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ClassInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -278,10 +279,10 @@ func (i ClassInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ClassInfoElement) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i ClassInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ClassInfoElement) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -327,10 +328,10 @@ func (i ListTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ListTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ListTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i ListTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ListTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -376,7 +377,7 @@ func (i TupleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i TupleTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	o, ok := other.(TupleTypeInfo)
 	if !ok {
 		return false, true
@@ -391,7 +392,7 @@ func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (e
 	}
 	return true, true
 }
-func (i TupleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i TupleTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -437,10 +438,10 @@ func (i TupleTypeInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i TupleTypeInfoElement) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i TupleTypeInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i TupleTypeInfoElement) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -497,10 +498,10 @@ func ParseTypeSpecifier(s string) TypeSpecifier {
 func (t TypeSpecifier) Children(name ...string) Collection {
 	return nil
 }
-func (t TypeSpecifier) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (t TypeSpecifier) Equal(other Element) (eq bool, ok bool) {
 	return t == other, true
 }
-func (t TypeSpecifier) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (t TypeSpecifier) Equivalent(other Element) bool {
 	eq, _ := t.Equal(other)
 	return eq
 }
@@ -1124,20 +1125,22 @@ func (b Boolean) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	}
 	return Quantity{}, false, conversionError[Boolean, Quantity]()
 }
-func (b Boolean) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (b Boolean) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToBoolean(false)
 	if err == nil && ok {
 		return b == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(b, true)
-	} else {
-		return false, true
+	if _, isString := other.(String); isString {
+		return other.Equal(b)
 	}
+	if _, isStringPtr := other.(*String); isStringPtr {
+		return other.Equal(b)
+	}
+	return false, true
 }
-func (b Boolean) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := b.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (b Boolean) Equivalent(other Element) bool {
+	eq, ok := b.Equal(other)
+	return ok && eq
 }
 func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -1231,31 +1234,23 @@ func (s String) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	}
 	return q, true, nil
 }
-func (s String) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (s String) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToString(false)
 	if err == nil && ok {
 		return s == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(s, true)
-	} else {
-		return false, true
-	}
+	return false, ok && err == nil
 }
 
 var whitespaceReplaceRegex = regexp.MustCompile("[\t\r\n]")
 
-func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (s String) Equivalent(other Element) bool {
 	o, ok, err := other.ToString(false)
 	if err == nil && ok {
 		return whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(s)), " ") ==
 			whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(o)), " ")
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equivalent(s, true)
-	} else {
-		return false
-	}
+	return false
 }
 func (s String) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToString(false)
@@ -1286,6 +1281,42 @@ func (s String) MarshalJSON() ([]byte, error) {
 }
 func (s String) String() string {
 	return fmt.Sprintf("'%s'", string(s))
+}
+
+func isStringish(e Element) bool {
+	switch e.(type) {
+	case String, *String:
+		return true
+	default:
+		return false
+	}
+}
+
+func canDelegateNumeric(e Element) bool {
+	switch e.(type) {
+	case Decimal, *Decimal, Quantity, *Quantity, String, *String:
+		return true
+	default:
+		return false
+	}
+}
+
+func canDelegateDecimal(e Element) bool {
+	switch e.(type) {
+	case Quantity, *Quantity, String, *String:
+		return true
+	default:
+		return false
+	}
+}
+
+func delegatesToDateTime(e Element) bool {
+	switch e.(type) {
+	case DateTime, *DateTime:
+		return true
+	default:
+		return false
+	}
 }
 
 var (
@@ -1348,20 +1379,19 @@ func (i Integer) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 		Unit: "1",
 	}, true, nil
 }
-func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i Integer) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToInteger(false)
 	if err == nil && ok {
 		return i == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(i, true)
-	} else {
-		return false, false
+	if canDelegateNumeric(other) {
+		return other.Equal(i)
 	}
+	return false, true
 }
-func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := i.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (i Integer) Equivalent(other Element) bool {
+	eq, ok := i.Equal(other)
+	return ok && eq
 }
 func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
 	d, _, _ := i.ToDecimal(false)
@@ -1492,18 +1522,17 @@ func (d Decimal) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 		Unit:  "1",
 	}, true, nil
 }
-func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (d Decimal) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDecimal(false)
 	if err == nil && ok {
 		return d.Value.Cmp(o.Value) == 0, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(d, true)
-	} else {
-		return false, true
+	if canDelegateDecimal(other) {
+		return other.Equal(d)
 	}
+	return false, true
 }
-func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (d Decimal) Equivalent(other Element) bool {
 	o, ok, err := other.ToDecimal(false)
 	if err == nil && ok {
 		prec := uint32(min(d.Value.NumDigits(), o.Value.NumDigits()))
@@ -1519,12 +1548,10 @@ func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) boo
 		}
 		return a.Cmp(&b) == 0
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		eq, ok := other.Equal(d, true)
-		return ok && eq
-	} else {
-		return false
+	if canDelegateDecimal(other) {
+		return other.Equivalent(d)
 	}
+	return false
 }
 func (d Decimal) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToDecimal(false)
@@ -1663,26 +1690,27 @@ func (d Date) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 		Precision: DateTimePrecisionDay,
 	}, true, nil
 }
-func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (d Date) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDate(false)
 	if err == nil && ok {
-		cmp, ok, err := d.Cmp(o)
+		cmp, cmpOK, err := d.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(d, true)
-	} else {
-		return false, true
-
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equal(d)
 	}
+	return false, true
 }
-func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (d Date) Equivalent(other Element) bool {
 	o, ok, err := other.ToDate(false)
 	if err == nil && ok && d.Precision == o.Precision {
-		eq, ok := d.Equal(other, _noReverseTypeConversion...)
-		return ok && eq == true
+		eq, ok := d.Equal(other)
+		return ok && eq
+	}
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equivalent(d)
 	}
 	return false
 }
@@ -1895,25 +1923,27 @@ func (t Time) ToString(explicit bool) (v String, ok bool, err error) {
 func (t Time) ToTime(explicit bool) (v Time, ok bool, err error) {
 	return t, true, nil
 }
-func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (t Time) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToTime(false)
 	if err == nil && ok {
-		cmp, ok, err := t.Cmp(o)
+		cmp, cmpOK, err := t.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(t, true)
-	} else {
-		return false, true
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equal(t)
 	}
+	return false, true
 }
-func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (t Time) Equivalent(other Element) bool {
 	o, ok, err := other.ToTime(false)
 	if err == nil && ok && t.Precision == o.Precision {
-		eq, ok := t.Equal(other, _noReverseTypeConversion...)
+		eq, ok := t.Equal(other)
 		return ok && eq
+	}
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equivalent(t)
 	}
 	return false
 }
@@ -2170,26 +2200,27 @@ func (dt DateTime) ToDate(explicit bool) (v Date, ok bool, err error) {
 func (dt DateTime) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	return dt, true, nil
 }
-func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (dt DateTime) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDateTime(false)
 	if err == nil && ok {
-		cmp, ok, err := dt.Cmp(o)
+		cmp, cmpOK, err := dt.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(dt, true)
-	} else {
-		return false, true
-
+	if isStringish(other) {
+		return other.Equal(dt)
 	}
+	return false, true
 }
-func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (dt DateTime) Equivalent(other Element) bool {
 	o, ok, err := other.ToDateTime(false)
 	if err == nil && ok && dt.Precision == o.Precision {
-		eq, ok := dt.Equal(other, _noReverseTypeConversion...)
+		eq, ok := dt.Equal(other)
 		return ok && eq
+	}
+	if isStringish(other) {
+		return other.Equivalent(dt)
 	}
 	return false
 }
@@ -2562,23 +2593,22 @@ func (q Quantity) ToString(explicit bool) (v String, ok bool, err error) {
 func (q Quantity) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	return q, true, nil
 }
-func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (q Quantity) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToQuantity(false)
 	if err == nil && ok {
 		left := q.dateAsUCUM()
 		right := o.dateAsUCUM()
-		eq, ok := left.Value.Equal(right.Value)
-		return ok && eq, left.Unit == right.Unit
+		eq, cmpOK := left.Value.Equal(right.Value)
+		return eq && cmpOK, left.Unit == right.Unit
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(q, true)
-	} else {
-		return false, true
+	if isStringish(other) {
+		return other.Equal(q)
 	}
+	return false, true
 }
-func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := q.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (q Quantity) Equivalent(other Element) bool {
+	eq, ok := q.Equal(other)
+	return ok && eq
 }
 func (q Quantity) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToQuantity(false)

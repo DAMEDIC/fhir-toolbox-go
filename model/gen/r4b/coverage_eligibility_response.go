@@ -4909,7 +4909,7 @@ func (r CoverageEligibilityResponse) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r CoverageEligibilityResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponse to Quantity")
 }
-func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponse
 	switch other := other.(type) {
 	case CoverageEligibilityResponse:
@@ -4925,7 +4925,7 @@ func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponse)
 	if !ok {
 		return false
@@ -5168,7 +5168,7 @@ func (r CoverageEligibilityResponseInsurance) ToDateTime(explicit bool) (fhirpat
 func (r CoverageEligibilityResponseInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Quantity")
 }
-func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsurance
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsurance:
@@ -5184,7 +5184,7 @@ func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsurance)
 	if !ok {
 		return false
@@ -5367,7 +5367,7 @@ func (r CoverageEligibilityResponseInsuranceItem) ToDateTime(explicit bool) (fhi
 func (r CoverageEligibilityResponseInsuranceItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItem
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItem:
@@ -5383,7 +5383,7 @@ func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsuranceItem)
 	if !ok {
 		return false
@@ -5579,7 +5579,7 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDateTime(explicit boo
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItemBenefit
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItemBenefit:
@@ -5595,7 +5595,7 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.El
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsuranceItemBenefit)
 	if !ok {
 		return false
@@ -5704,7 +5704,7 @@ func (r CoverageEligibilityResponseError) ToDateTime(explicit bool) (fhirpath.Da
 func (r CoverageEligibilityResponseError) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseError to Quantity")
 }
-func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseError
 	switch other := other.(type) {
 	case CoverageEligibilityResponseError:
@@ -5720,7 +5720,7 @@ func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseError)
 	if !ok {
 		return false

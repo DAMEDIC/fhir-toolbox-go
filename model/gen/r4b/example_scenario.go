@@ -7056,7 +7056,7 @@ func (r ExampleScenario) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ExampleScenario) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenario to Quantity")
 }
-func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenario) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenario
 	switch other := other.(type) {
 	case ExampleScenario:
@@ -7072,7 +7072,7 @@ func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenario) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenario) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenario)
 	if !ok {
 		return false
@@ -7327,7 +7327,7 @@ func (r ExampleScenarioActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ExampleScenarioActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioActor to Quantity")
 }
-func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioActor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioActor
 	switch other := other.(type) {
 	case ExampleScenarioActor:
@@ -7343,7 +7343,7 @@ func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioActor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioActor)
 	if !ok {
 		return false
@@ -7482,7 +7482,7 @@ func (r ExampleScenarioInstance) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ExampleScenarioInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstance to Quantity")
 }
-func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstance:
@@ -7498,7 +7498,7 @@ func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstance)
 	if !ok {
 		return false
@@ -7631,7 +7631,7 @@ func (r ExampleScenarioInstanceVersion) ToDateTime(explicit bool) (fhirpath.Date
 func (r ExampleScenarioInstanceVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstanceVersion to Quantity")
 }
-func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstanceVersion
 	switch other := other.(type) {
 	case ExampleScenarioInstanceVersion:
@@ -7647,7 +7647,7 @@ func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstanceVersion)
 	if !ok {
 		return false
@@ -7754,7 +7754,7 @@ func (r ExampleScenarioInstanceContainedInstance) ToDateTime(explicit bool) (fhi
 func (r ExampleScenarioInstanceContainedInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Quantity")
 }
-func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstanceContainedInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstanceContainedInstance:
@@ -7770,7 +7770,7 @@ func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstanceContainedInstance)
 	if !ok {
 		return false
@@ -7892,7 +7892,7 @@ func (r ExampleScenarioProcess) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ExampleScenarioProcess) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcess to Quantity")
 }
-func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcess) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcess
 	switch other := other.(type) {
 	case ExampleScenarioProcess:
@@ -7908,7 +7908,7 @@ func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcess)
 	if !ok {
 		return false
@@ -8048,7 +8048,7 @@ func (r ExampleScenarioProcessStep) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ExampleScenarioProcessStep) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStep to Quantity")
 }
-func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStep
 	switch other := other.(type) {
 	case ExampleScenarioProcessStep:
@@ -8064,7 +8064,7 @@ func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStep)
 	if !ok {
 		return false
@@ -8225,7 +8225,7 @@ func (r ExampleScenarioProcessStepOperation) ToDateTime(explicit bool) (fhirpath
 func (r ExampleScenarioProcessStepOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Quantity")
 }
-func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStepOperation
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepOperation:
@@ -8241,7 +8241,7 @@ func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStepOperation)
 	if !ok {
 		return false
@@ -8409,7 +8409,7 @@ func (r ExampleScenarioProcessStepAlternative) ToDateTime(explicit bool) (fhirpa
 func (r ExampleScenarioProcessStepAlternative) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Quantity")
 }
-func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStepAlternative
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepAlternative:
@@ -8425,7 +8425,7 @@ func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStepAlternative)
 	if !ok {
 		return false

@@ -156,8 +156,7 @@ func (g BasicDocGenerator) GenerateAdditional(f func(fileName string, pkgName st
 
 	file.Comment("Equal compares with another Element for FHIRPath")
 	file.Func().Params(Id("r").Id("RawResource")).Id("Equal").
-		Params(Id("other").Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Element"),
-			Id("_noReverseTypeConversion").Op("...").Bool()).
+		Params(Id("other").Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Element")).
 		Params(Bool(), Bool()).Block(
 		List(Id("s"), Id("ok"), Id("_")).Op(":=").Id("r").Dot("ToString").Call(False()),
 		If(Op("!").Id("ok")).Block(Return(False(), True())),
@@ -168,8 +167,7 @@ func (g BasicDocGenerator) GenerateAdditional(f func(fileName string, pkgName st
 
 	file.Comment("Equivalent checks equivalence with another Element for FHIRPath")
 	file.Func().Params(Id("r").Id("RawResource")).Id("Equivalent").
-		Params(Id("other").Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Element"),
-			Id("_noReverseTypeConversion").Op("...").Bool()).Bool().Block(
+		Params(Id("other").Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Element")).Bool().Block(
 		List(Id("eq"), Id("ok")).Op(":=").Id("r").Dot("Equal").Call(Id("other")),
 		Return(Id("eq").Op("&&").Id("ok")),
 	)

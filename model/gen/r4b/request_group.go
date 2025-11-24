@@ -5131,7 +5131,7 @@ func (r RequestGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r RequestGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroup to Quantity")
 }
-func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestGroup
 	switch other := other.(type) {
 	case RequestGroup:
@@ -5147,7 +5147,7 @@ func (r RequestGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestGroup)
 	if !ok {
 		return false
@@ -5488,7 +5488,7 @@ func (r RequestGroupAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r RequestGroupAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupAction to Quantity")
 }
-func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestGroupAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestGroupAction
 	switch other := other.(type) {
 	case RequestGroupAction:
@@ -5504,7 +5504,7 @@ func (r RequestGroupAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestGroupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestGroupAction)
 	if !ok {
 		return false
@@ -5730,7 +5730,7 @@ func (r RequestGroupActionCondition) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r RequestGroupActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupActionCondition to Quantity")
 }
-func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestGroupActionCondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestGroupActionCondition
 	switch other := other.(type) {
 	case RequestGroupActionCondition:
@@ -5746,7 +5746,7 @@ func (r RequestGroupActionCondition) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupActionCondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestGroupActionCondition)
 	if !ok {
 		return false
@@ -5856,7 +5856,7 @@ func (r RequestGroupActionRelatedAction) ToDateTime(explicit bool) (fhirpath.Dat
 func (r RequestGroupActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Quantity")
 }
-func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestGroupActionRelatedAction
 	switch other := other.(type) {
 	case RequestGroupActionRelatedAction:
@@ -5872,7 +5872,7 @@ func (r RequestGroupActionRelatedAction) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestGroupActionRelatedAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestGroupActionRelatedAction)
 	if !ok {
 		return false

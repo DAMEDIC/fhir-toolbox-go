@@ -1114,7 +1114,7 @@ func (r Address) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Address) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Address to Quantity")
 }
-func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Address) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Address
 	switch other := other.(type) {
 	case Address:
@@ -1130,7 +1130,7 @@ func (r Address) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Address) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Address) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Address)
 	if !ok {
 		return false

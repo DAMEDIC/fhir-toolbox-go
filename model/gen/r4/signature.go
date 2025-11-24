@@ -747,7 +747,7 @@ func (r Signature) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Signature) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Signature to Quantity")
 }
-func (r Signature) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Signature) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Signature
 	switch other := other.(type) {
 	case Signature:
@@ -763,7 +763,7 @@ func (r Signature) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Signature) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Signature) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Signature)
 	if !ok {
 		return false

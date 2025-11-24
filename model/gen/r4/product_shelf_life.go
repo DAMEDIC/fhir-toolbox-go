@@ -560,7 +560,7 @@ func (r ProductShelfLife) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ProductShelfLife) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProductShelfLife to Quantity")
 }
-func (r ProductShelfLife) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProductShelfLife) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProductShelfLife
 	switch other := other.(type) {
 	case ProductShelfLife:
@@ -576,7 +576,7 @@ func (r ProductShelfLife) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProductShelfLife) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProductShelfLife) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProductShelfLife)
 	if !ok {
 		return false

@@ -4230,7 +4230,7 @@ func (r MessageDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r MessageDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinition to Quantity")
 }
-func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageDefinition
 	switch other := other.(type) {
 	case MessageDefinition:
@@ -4246,7 +4246,7 @@ func (r MessageDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageDefinition)
 	if !ok {
 		return false
@@ -4564,7 +4564,7 @@ func (r MessageDefinitionFocus) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r MessageDefinitionFocus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinitionFocus to Quantity")
 }
-func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageDefinitionFocus) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageDefinitionFocus
 	switch other := other.(type) {
 	case MessageDefinitionFocus:
@@ -4580,7 +4580,7 @@ func (r MessageDefinitionFocus) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageDefinitionFocus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinitionFocus) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageDefinitionFocus)
 	if !ok {
 		return false
@@ -4701,7 +4701,7 @@ func (r MessageDefinitionAllowedResponse) ToDateTime(explicit bool) (fhirpath.Da
 func (r MessageDefinitionAllowedResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Quantity")
 }
-func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MessageDefinitionAllowedResponse
 	switch other := other.(type) {
 	case MessageDefinitionAllowedResponse:
@@ -4717,7 +4717,7 @@ func (r MessageDefinitionAllowedResponse) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MessageDefinitionAllowedResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MessageDefinitionAllowedResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MessageDefinitionAllowedResponse)
 	if !ok {
 		return false

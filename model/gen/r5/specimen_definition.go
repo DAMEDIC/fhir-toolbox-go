@@ -5946,7 +5946,7 @@ func (r SpecimenDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r SpecimenDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinition to Quantity")
 }
-func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinition
 	switch other := other.(type) {
 	case SpecimenDefinition:
@@ -5962,7 +5962,7 @@ func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinition)
 	if !ok {
 		return false
@@ -6326,7 +6326,7 @@ func (r SpecimenDefinitionTypeTested) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
 }
-func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTested
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTested:
@@ -6342,7 +6342,7 @@ func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTested)
 	if !ok {
 		return false
@@ -6537,7 +6537,7 @@ func (r SpecimenDefinitionTypeTestedContainer) ToDateTime(explicit bool) (fhirpa
 func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainer
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainer:
@@ -6553,7 +6553,7 @@ func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedContainer)
 	if !ok {
 		return false
@@ -6697,7 +6697,7 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDateTime(explicit bool)
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainerAdditive
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainerAdditive:
@@ -6713,7 +6713,7 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedContainerAdditive)
 	if !ok {
 		return false
@@ -6825,7 +6825,7 @@ func (r SpecimenDefinitionTypeTestedHandling) ToDateTime(explicit bool) (fhirpat
 func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedHandling
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedHandling:
@@ -6841,7 +6841,7 @@ func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedHandling)
 	if !ok {
 		return false

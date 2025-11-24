@@ -3766,7 +3766,7 @@ func (r QuestionnaireResponse) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r QuestionnaireResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponse to Quantity")
 }
-func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r QuestionnaireResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *QuestionnaireResponse
 	switch other := other.(type) {
 	case QuestionnaireResponse:
@@ -3782,7 +3782,7 @@ func (r QuestionnaireResponse) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r QuestionnaireResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(QuestionnaireResponse)
 	if !ok {
 		return false
@@ -4002,7 +4002,7 @@ func (r QuestionnaireResponseItem) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r QuestionnaireResponseItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponseItem to Quantity")
 }
-func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r QuestionnaireResponseItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *QuestionnaireResponseItem
 	switch other := other.(type) {
 	case QuestionnaireResponseItem:
@@ -4018,7 +4018,7 @@ func (r QuestionnaireResponseItem) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponseItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(QuestionnaireResponseItem)
 	if !ok {
 		return false
@@ -4146,7 +4146,7 @@ func (r QuestionnaireResponseItemAnswer) ToDateTime(explicit bool) (fhirpath.Dat
 func (r QuestionnaireResponseItemAnswer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Quantity")
 }
-func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *QuestionnaireResponseItemAnswer
 	switch other := other.(type) {
 	case QuestionnaireResponseItemAnswer:
@@ -4162,7 +4162,7 @@ func (r QuestionnaireResponseItemAnswer) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r QuestionnaireResponseItemAnswer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(QuestionnaireResponseItemAnswer)
 	if !ok {
 		return false

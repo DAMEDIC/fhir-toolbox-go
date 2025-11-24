@@ -12996,7 +12996,7 @@ func (r Transport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Transport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Transport to Quantity")
 }
-func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Transport) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Transport
 	switch other := other.(type) {
 	case Transport:
@@ -13012,7 +13012,7 @@ func (r Transport) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Transport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Transport) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Transport)
 	if !ok {
 		return false
@@ -13371,7 +13371,7 @@ func (r TransportRestriction) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r TransportRestriction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TransportRestriction to Quantity")
 }
-func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TransportRestriction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TransportRestriction
 	switch other := other.(type) {
 	case TransportRestriction:
@@ -13387,7 +13387,7 @@ func (r TransportRestriction) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TransportRestriction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportRestriction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TransportRestriction)
 	if !ok {
 		return false
@@ -13499,7 +13499,7 @@ func (r TransportInput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r TransportInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TransportInput to Quantity")
 }
-func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TransportInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TransportInput
 	switch other := other.(type) {
 	case TransportInput:
@@ -13515,7 +13515,7 @@ func (r TransportInput) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TransportInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TransportInput)
 	if !ok {
 		return false
@@ -13620,7 +13620,7 @@ func (r TransportOutput) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r TransportOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TransportOutput to Quantity")
 }
-func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TransportOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TransportOutput
 	switch other := other.(type) {
 	case TransportOutput:
@@ -13636,7 +13636,7 @@ func (r TransportOutput) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TransportOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TransportOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TransportOutput)
 	if !ok {
 		return false

@@ -2823,7 +2823,7 @@ func (r DetectedIssue) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r DetectedIssue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DetectedIssue to Quantity")
 }
-func (r DetectedIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DetectedIssue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DetectedIssue
 	switch other := other.(type) {
 	case DetectedIssue:
@@ -2839,7 +2839,7 @@ func (r DetectedIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DetectedIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DetectedIssue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DetectedIssue)
 	if !ok {
 		return false
@@ -3067,7 +3067,7 @@ func (r DetectedIssueEvidence) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r DetectedIssueEvidence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DetectedIssueEvidence to Quantity")
 }
-func (r DetectedIssueEvidence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DetectedIssueEvidence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DetectedIssueEvidence
 	switch other := other.(type) {
 	case DetectedIssueEvidence:
@@ -3083,7 +3083,7 @@ func (r DetectedIssueEvidence) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DetectedIssueEvidence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DetectedIssueEvidence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DetectedIssueEvidence)
 	if !ok {
 		return false
@@ -3200,7 +3200,7 @@ func (r DetectedIssueMitigation) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DetectedIssueMitigation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DetectedIssueMitigation to Quantity")
 }
-func (r DetectedIssueMitigation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DetectedIssueMitigation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DetectedIssueMitigation
 	switch other := other.(type) {
 	case DetectedIssueMitigation:
@@ -3216,7 +3216,7 @@ func (r DetectedIssueMitigation) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DetectedIssueMitigation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DetectedIssueMitigation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DetectedIssueMitigation)
 	if !ok {
 		return false

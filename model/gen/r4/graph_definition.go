@@ -3971,7 +3971,7 @@ func (r GraphDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r GraphDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinition to Quantity")
 }
-func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GraphDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GraphDefinition
 	switch other := other.(type) {
 	case GraphDefinition:
@@ -3987,7 +3987,7 @@ func (r GraphDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GraphDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GraphDefinition)
 	if !ok {
 		return false
@@ -4242,7 +4242,7 @@ func (r GraphDefinitionLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r GraphDefinitionLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLink to Quantity")
 }
-func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GraphDefinitionLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GraphDefinitionLink
 	switch other := other.(type) {
 	case GraphDefinitionLink:
@@ -4258,7 +4258,7 @@ func (r GraphDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GraphDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GraphDefinitionLink)
 	if !ok {
 		return false
@@ -4408,7 +4408,7 @@ func (r GraphDefinitionLinkTarget) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r GraphDefinitionLinkTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLinkTarget to Quantity")
 }
-func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GraphDefinitionLinkTarget
 	switch other := other.(type) {
 	case GraphDefinitionLinkTarget:
@@ -4424,7 +4424,7 @@ func (r GraphDefinitionLinkTarget) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLinkTarget) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GraphDefinitionLinkTarget)
 	if !ok {
 		return false
@@ -4563,7 +4563,7 @@ func (r GraphDefinitionLinkTargetCompartment) ToDateTime(explicit bool) (fhirpat
 func (r GraphDefinitionLinkTargetCompartment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GraphDefinitionLinkTargetCompartment to Quantity")
 }
-func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GraphDefinitionLinkTargetCompartment
 	switch other := other.(type) {
 	case GraphDefinitionLinkTargetCompartment:
@@ -4579,7 +4579,7 @@ func (r GraphDefinitionLinkTargetCompartment) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GraphDefinitionLinkTargetCompartment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GraphDefinitionLinkTargetCompartment)
 	if !ok {
 		return false

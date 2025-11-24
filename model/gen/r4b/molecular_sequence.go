@@ -8228,7 +8228,7 @@ func (r MolecularSequence) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r MolecularSequence) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequence to Quantity")
 }
-func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequence) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequence
 	switch other := other.(type) {
 	case MolecularSequence:
@@ -8244,7 +8244,7 @@ func (r MolecularSequence) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequence) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequence) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequence)
 	if !ok {
 		return false
@@ -8521,7 +8521,7 @@ func (r MolecularSequenceReferenceSeq) ToDateTime(explicit bool) (fhirpath.DateT
 func (r MolecularSequenceReferenceSeq) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Quantity")
 }
-func (r MolecularSequenceReferenceSeq) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceReferenceSeq) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceReferenceSeq
 	switch other := other.(type) {
 	case MolecularSequenceReferenceSeq:
@@ -8537,7 +8537,7 @@ func (r MolecularSequenceReferenceSeq) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceReferenceSeq) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceReferenceSeq) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceReferenceSeq)
 	if !ok {
 		return false
@@ -8715,7 +8715,7 @@ func (r MolecularSequenceVariant) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r MolecularSequenceVariant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceVariant to Quantity")
 }
-func (r MolecularSequenceVariant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceVariant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceVariant
 	switch other := other.(type) {
 	case MolecularSequenceVariant:
@@ -8731,7 +8731,7 @@ func (r MolecularSequenceVariant) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceVariant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceVariant)
 	if !ok {
 		return false
@@ -8931,7 +8931,7 @@ func (r MolecularSequenceQuality) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r MolecularSequenceQuality) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceQuality to Quantity")
 }
-func (r MolecularSequenceQuality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceQuality) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceQuality
 	switch other := other.(type) {
 	case MolecularSequenceQuality:
@@ -8947,7 +8947,7 @@ func (r MolecularSequenceQuality) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceQuality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceQuality) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceQuality)
 	if !ok {
 		return false
@@ -9172,7 +9172,7 @@ func (r MolecularSequenceQualityRoc) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r MolecularSequenceQualityRoc) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Quantity")
 }
-func (r MolecularSequenceQualityRoc) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceQualityRoc) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceQualityRoc
 	switch other := other.(type) {
 	case MolecularSequenceQualityRoc:
@@ -9188,7 +9188,7 @@ func (r MolecularSequenceQualityRoc) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceQualityRoc) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceQualityRoc) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceQualityRoc)
 	if !ok {
 		return false
@@ -9350,7 +9350,7 @@ func (r MolecularSequenceRepository) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r MolecularSequenceRepository) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceRepository to Quantity")
 }
-func (r MolecularSequenceRepository) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceRepository) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceRepository
 	switch other := other.(type) {
 	case MolecularSequenceRepository:
@@ -9366,7 +9366,7 @@ func (r MolecularSequenceRepository) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceRepository) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceRepository) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceRepository)
 	if !ok {
 		return false
@@ -9518,7 +9518,7 @@ func (r MolecularSequenceStructureVariant) ToDateTime(explicit bool) (fhirpath.D
 func (r MolecularSequenceStructureVariant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Quantity")
 }
-func (r MolecularSequenceStructureVariant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceStructureVariant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceStructureVariant
 	switch other := other.(type) {
 	case MolecularSequenceStructureVariant:
@@ -9534,7 +9534,7 @@ func (r MolecularSequenceStructureVariant) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceStructureVariant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceStructureVariant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceStructureVariant)
 	if !ok {
 		return false
@@ -9664,7 +9664,7 @@ func (r MolecularSequenceStructureVariantOuter) ToDateTime(explicit bool) (fhirp
 func (r MolecularSequenceStructureVariantOuter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Quantity")
 }
-func (r MolecularSequenceStructureVariantOuter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceStructureVariantOuter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceStructureVariantOuter
 	switch other := other.(type) {
 	case MolecularSequenceStructureVariantOuter:
@@ -9680,7 +9680,7 @@ func (r MolecularSequenceStructureVariantOuter) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceStructureVariantOuter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceStructureVariantOuter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceStructureVariantOuter)
 	if !ok {
 		return false
@@ -9789,7 +9789,7 @@ func (r MolecularSequenceStructureVariantInner) ToDateTime(explicit bool) (fhirp
 func (r MolecularSequenceStructureVariantInner) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Quantity")
 }
-func (r MolecularSequenceStructureVariantInner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MolecularSequenceStructureVariantInner) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MolecularSequenceStructureVariantInner
 	switch other := other.(type) {
 	case MolecularSequenceStructureVariantInner:
@@ -9805,7 +9805,7 @@ func (r MolecularSequenceStructureVariantInner) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MolecularSequenceStructureVariantInner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MolecularSequenceStructureVariantInner) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MolecularSequenceStructureVariantInner)
 	if !ok {
 		return false

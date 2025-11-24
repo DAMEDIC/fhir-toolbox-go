@@ -3960,7 +3960,7 @@ func (r NutritionIntake) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r NutritionIntake) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionIntake to Quantity")
 }
-func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionIntake) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionIntake
 	switch other := other.(type) {
 	case NutritionIntake:
@@ -3976,7 +3976,7 @@ func (r NutritionIntake) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionIntake) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionIntake) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionIntake)
 	if !ok {
 		return false
@@ -4267,7 +4267,7 @@ func (r NutritionIntakeConsumedItem) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r NutritionIntakeConsumedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionIntakeConsumedItem to Quantity")
 }
-func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionIntakeConsumedItem
 	switch other := other.(type) {
 	case NutritionIntakeConsumedItem:
@@ -4283,7 +4283,7 @@ func (r NutritionIntakeConsumedItem) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionIntakeConsumedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionIntakeConsumedItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionIntakeConsumedItem)
 	if !ok {
 		return false
@@ -4423,7 +4423,7 @@ func (r NutritionIntakeIngredientLabel) ToDateTime(explicit bool) (fhirpath.Date
 func (r NutritionIntakeIngredientLabel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionIntakeIngredientLabel to Quantity")
 }
-func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionIntakeIngredientLabel
 	switch other := other.(type) {
 	case NutritionIntakeIngredientLabel:
@@ -4439,7 +4439,7 @@ func (r NutritionIntakeIngredientLabel) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionIntakeIngredientLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionIntakeIngredientLabel) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionIntakeIngredientLabel)
 	if !ok {
 		return false
@@ -4546,7 +4546,7 @@ func (r NutritionIntakePerformer) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r NutritionIntakePerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert NutritionIntakePerformer to Quantity")
 }
-func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r NutritionIntakePerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *NutritionIntakePerformer
 	switch other := other.(type) {
 	case NutritionIntakePerformer:
@@ -4562,7 +4562,7 @@ func (r NutritionIntakePerformer) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r NutritionIntakePerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r NutritionIntakePerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(NutritionIntakePerformer)
 	if !ok {
 		return false

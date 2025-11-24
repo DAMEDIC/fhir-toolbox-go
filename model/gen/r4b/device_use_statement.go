@@ -1820,7 +1820,7 @@ func (r DeviceUseStatement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r DeviceUseStatement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceUseStatement to Quantity")
 }
-func (r DeviceUseStatement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceUseStatement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceUseStatement
 	switch other := other.(type) {
 	case DeviceUseStatement:
@@ -1836,7 +1836,7 @@ func (r DeviceUseStatement) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceUseStatement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceUseStatement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceUseStatement)
 	if !ok {
 		return false

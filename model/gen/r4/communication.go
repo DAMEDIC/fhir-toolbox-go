@@ -3128,7 +3128,7 @@ func (r Communication) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r Communication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Communication to Quantity")
 }
-func (r Communication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Communication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Communication
 	switch other := other.(type) {
 	case Communication:
@@ -3144,7 +3144,7 @@ func (r Communication) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Communication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Communication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Communication)
 	if !ok {
 		return false
@@ -3428,7 +3428,7 @@ func (r CommunicationPayload) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r CommunicationPayload) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CommunicationPayload to Quantity")
 }
-func (r CommunicationPayload) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CommunicationPayload) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CommunicationPayload
 	switch other := other.(type) {
 	case CommunicationPayload:
@@ -3444,7 +3444,7 @@ func (r CommunicationPayload) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CommunicationPayload) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CommunicationPayload) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CommunicationPayload)
 	if !ok {
 		return false

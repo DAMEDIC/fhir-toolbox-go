@@ -4151,7 +4151,7 @@ func (r SubstancePolymer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r SubstancePolymer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymer to Quantity")
 }
-func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymer
 	switch other := other.(type) {
 	case SubstancePolymer:
@@ -4167,7 +4167,7 @@ func (r SubstancePolymer) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymer)
 	if !ok {
 		return false
@@ -4339,7 +4339,7 @@ func (r SubstancePolymerMonomerSet) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r SubstancePolymerMonomerSet) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Quantity")
 }
-func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerMonomerSet
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSet:
@@ -4355,7 +4355,7 @@ func (r SubstancePolymerMonomerSet) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerMonomerSet) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerMonomerSet)
 	if !ok {
 		return false
@@ -4474,7 +4474,7 @@ func (r SubstancePolymerMonomerSetStartingMaterial) ToDateTime(explicit bool) (f
 func (r SubstancePolymerMonomerSetStartingMaterial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Quantity")
 }
-func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerMonomerSetStartingMaterial
 	switch other := other.(type) {
 	case SubstancePolymerMonomerSetStartingMaterial:
@@ -4490,7 +4490,7 @@ func (r SubstancePolymerMonomerSetStartingMaterial) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerMonomerSetStartingMaterial) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerMonomerSetStartingMaterial)
 	if !ok {
 		return false
@@ -4623,7 +4623,7 @@ func (r SubstancePolymerRepeat) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r SubstancePolymerRepeat) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeat to Quantity")
 }
-func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerRepeat) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerRepeat
 	switch other := other.(type) {
 	case SubstancePolymerRepeat:
@@ -4639,7 +4639,7 @@ func (r SubstancePolymerRepeat) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerRepeat) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerRepeat)
 	if !ok {
 		return false
@@ -4777,7 +4777,7 @@ func (r SubstancePolymerRepeatRepeatUnit) ToDateTime(explicit bool) (fhirpath.Da
 func (r SubstancePolymerRepeatRepeatUnit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Quantity")
 }
-func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerRepeatRepeatUnit
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnit:
@@ -4793,7 +4793,7 @@ func (r SubstancePolymerRepeatRepeatUnit) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerRepeatRepeatUnit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerRepeatRepeatUnit)
 	if !ok {
 		return false
@@ -4923,7 +4923,7 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToDateTime(expli
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Quantity")
 }
-func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation:
@@ -4939,7 +4939,7 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equal(other fhir
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation)
 	if !ok {
 		return false
@@ -5053,7 +5053,7 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToDateTime(exp
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Quantity")
 }
-func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstancePolymerRepeatRepeatUnitStructuralRepresentation
 	switch other := other.(type) {
 	case SubstancePolymerRepeatRepeatUnitStructuralRepresentation:
@@ -5069,7 +5069,7 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equal(other fh
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstancePolymerRepeatRepeatUnitStructuralRepresentation)
 	if !ok {
 		return false

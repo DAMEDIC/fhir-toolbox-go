@@ -5756,7 +5756,7 @@ func (r ActivityDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ActivityDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinition to Quantity")
 }
-func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ActivityDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ActivityDefinition
 	switch other := other.(type) {
 	case ActivityDefinition:
@@ -5772,7 +5772,7 @@ func (r ActivityDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ActivityDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ActivityDefinition)
 	if !ok {
 		return false
@@ -6222,7 +6222,7 @@ func (r ActivityDefinitionParticipant) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ActivityDefinitionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinitionParticipant to Quantity")
 }
-func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ActivityDefinitionParticipant
 	switch other := other.(type) {
 	case ActivityDefinitionParticipant:
@@ -6238,7 +6238,7 @@ func (r ActivityDefinitionParticipant) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinitionParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ActivityDefinitionParticipant)
 	if !ok {
 		return false
@@ -6343,7 +6343,7 @@ func (r ActivityDefinitionDynamicValue) ToDateTime(explicit bool) (fhirpath.Date
 func (r ActivityDefinitionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Quantity")
 }
-func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ActivityDefinitionDynamicValue
 	switch other := other.(type) {
 	case ActivityDefinitionDynamicValue:
@@ -6359,7 +6359,7 @@ func (r ActivityDefinitionDynamicValue) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ActivityDefinitionDynamicValue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ActivityDefinitionDynamicValue)
 	if !ok {
 		return false

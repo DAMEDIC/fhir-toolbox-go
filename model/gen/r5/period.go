@@ -433,7 +433,7 @@ func (r Period) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Period) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Period to Quantity")
 }
-func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Period) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Period
 	switch other := other.(type) {
 	case Period:
@@ -449,7 +449,7 @@ func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Period) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Period) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Period)
 	if !ok {
 		return false

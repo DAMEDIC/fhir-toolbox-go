@@ -2913,7 +2913,7 @@ func (r ObservationDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r ObservationDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinition to Quantity")
 }
-func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinition
 	switch other := other.(type) {
 	case ObservationDefinition:
@@ -2929,7 +2929,7 @@ func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinition)
 	if !ok {
 		return false
@@ -3160,7 +3160,7 @@ func (r ObservationDefinitionQuantitativeDetails) ToDateTime(explicit bool) (fhi
 func (r ObservationDefinitionQuantitativeDetails) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Quantity")
 }
-func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinitionQuantitativeDetails
 	switch other := other.(type) {
 	case ObservationDefinitionQuantitativeDetails:
@@ -3176,7 +3176,7 @@ func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinitionQuantitativeDetails)
 	if !ok {
 		return false
@@ -3329,7 +3329,7 @@ func (r ObservationDefinitionQualifiedInterval) ToDateTime(explicit bool) (fhirp
 func (r ObservationDefinitionQualifiedInterval) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Quantity")
 }
-func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinitionQualifiedInterval
 	switch other := other.(type) {
 	case ObservationDefinitionQualifiedInterval:
@@ -3345,7 +3345,7 @@ func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinitionQualifiedInterval)
 	if !ok {
 		return false

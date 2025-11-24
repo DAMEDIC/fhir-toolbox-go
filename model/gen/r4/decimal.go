@@ -174,20 +174,19 @@ func (r Decimal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Decimal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Decimal to Quantity")
 }
-func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToDecimal(false)
+func (r Decimal) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToDecimal(false)
 	if err != nil || !ok {
 		return false, true
 	}
-	b, ok, err := other.ToDecimal(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+	return v.Equal(other)
 }
-func (r Decimal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Decimal) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToDecimal(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Decimal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

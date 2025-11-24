@@ -3400,7 +3400,7 @@ func (r DataRequirement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r DataRequirement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirement to Quantity")
 }
-func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirement
 	switch other := other.(type) {
 	case DataRequirement:
@@ -3416,7 +3416,7 @@ func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirement)
 	if !ok {
 		return false
@@ -3572,7 +3572,7 @@ func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementCodeFilter to Quantity")
 }
-func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementCodeFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementCodeFilter
 	switch other := other.(type) {
 	case DataRequirementCodeFilter:
@@ -3588,7 +3588,7 @@ func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementCodeFilter)
 	if !ok {
 		return false
@@ -3704,7 +3704,7 @@ func (r DataRequirementDateFilter) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DataRequirementDateFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementDateFilter to Quantity")
 }
-func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementDateFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementDateFilter
 	switch other := other.(type) {
 	case DataRequirementDateFilter:
@@ -3720,7 +3720,7 @@ func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementDateFilter)
 	if !ok {
 		return false
@@ -3834,7 +3834,7 @@ func (r DataRequirementValueFilter) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DataRequirementValueFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementValueFilter to Quantity")
 }
-func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementValueFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementValueFilter
 	switch other := other.(type) {
 	case DataRequirementValueFilter:
@@ -3850,7 +3850,7 @@ func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementValueFilter)
 	if !ok {
 		return false
@@ -3957,7 +3957,7 @@ func (r DataRequirementSort) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r DataRequirementSort) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementSort to Quantity")
 }
-func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementSort) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementSort
 	switch other := other.(type) {
 	case DataRequirementSort:
@@ -3973,7 +3973,7 @@ func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementSort) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementSort)
 	if !ok {
 		return false

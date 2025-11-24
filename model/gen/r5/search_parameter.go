@@ -4116,7 +4116,7 @@ func (r SearchParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r SearchParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SearchParameter to Quantity")
 }
-func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SearchParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SearchParameter
 	switch other := other.(type) {
 	case SearchParameter:
@@ -4132,7 +4132,7 @@ func (r SearchParameter) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SearchParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SearchParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SearchParameter)
 	if !ok {
 		return false
@@ -4475,7 +4475,7 @@ func (r SearchParameterComponent) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r SearchParameterComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SearchParameterComponent to Quantity")
 }
-func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SearchParameterComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SearchParameterComponent
 	switch other := other.(type) {
 	case SearchParameterComponent:
@@ -4491,7 +4491,7 @@ func (r SearchParameterComponent) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SearchParameterComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SearchParameterComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SearchParameterComponent)
 	if !ok {
 		return false

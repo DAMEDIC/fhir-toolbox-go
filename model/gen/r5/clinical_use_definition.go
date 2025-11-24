@@ -5304,7 +5304,7 @@ func (r ClinicalUseDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r ClinicalUseDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinition to Quantity")
 }
-func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinition
 	switch other := other.(type) {
 	case ClinicalUseDefinition:
@@ -5320,7 +5320,7 @@ func (r ClinicalUseDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinition)
 	if !ok {
 		return false
@@ -5554,7 +5554,7 @@ func (r ClinicalUseDefinitionContraindication) ToDateTime(explicit bool) (fhirpa
 func (r ClinicalUseDefinitionContraindication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Quantity")
 }
-func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionContraindication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindication:
@@ -5570,7 +5570,7 @@ func (r ClinicalUseDefinitionContraindication) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionContraindication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionContraindication)
 	if !ok {
 		return false
@@ -5703,7 +5703,7 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDateTime(explicit b
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Quantity")
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionContraindicationOtherTherapy
 	switch other := other.(type) {
 	case ClinicalUseDefinitionContraindicationOtherTherapy:
@@ -5719,7 +5719,7 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equal(other fhirpath.
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionContraindicationOtherTherapy)
 	if !ok {
 		return false
@@ -5858,7 +5858,7 @@ func (r ClinicalUseDefinitionIndication) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ClinicalUseDefinitionIndication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Quantity")
 }
-func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionIndication
 	switch other := other.(type) {
 	case ClinicalUseDefinitionIndication:
@@ -5874,7 +5874,7 @@ func (r ClinicalUseDefinitionIndication) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionIndication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionIndication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionIndication)
 	if !ok {
 		return false
@@ -6040,7 +6040,7 @@ func (r ClinicalUseDefinitionInteraction) ToDateTime(explicit bool) (fhirpath.Da
 func (r ClinicalUseDefinitionInteraction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Quantity")
 }
-func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionInteraction
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteraction:
@@ -6056,7 +6056,7 @@ func (r ClinicalUseDefinitionInteraction) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionInteraction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionInteraction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionInteraction)
 	if !ok {
 		return false
@@ -6179,7 +6179,7 @@ func (r ClinicalUseDefinitionInteractionInteractant) ToDateTime(explicit bool) (
 func (r ClinicalUseDefinitionInteractionInteractant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Quantity")
 }
-func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionInteractionInteractant
 	switch other := other.(type) {
 	case ClinicalUseDefinitionInteractionInteractant:
@@ -6195,7 +6195,7 @@ func (r ClinicalUseDefinitionInteractionInteractant) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionInteractionInteractant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionInteractionInteractant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionInteractionInteractant)
 	if !ok {
 		return false
@@ -6302,7 +6302,7 @@ func (r ClinicalUseDefinitionUndesirableEffect) ToDateTime(explicit bool) (fhirp
 func (r ClinicalUseDefinitionUndesirableEffect) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Quantity")
 }
-func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionUndesirableEffect
 	switch other := other.(type) {
 	case ClinicalUseDefinitionUndesirableEffect:
@@ -6318,7 +6318,7 @@ func (r ClinicalUseDefinitionUndesirableEffect) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionUndesirableEffect) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionUndesirableEffect) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionUndesirableEffect)
 	if !ok {
 		return false
@@ -6434,7 +6434,7 @@ func (r ClinicalUseDefinitionWarning) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ClinicalUseDefinitionWarning) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Quantity")
 }
-func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ClinicalUseDefinitionWarning
 	switch other := other.(type) {
 	case ClinicalUseDefinitionWarning:
@@ -6450,7 +6450,7 @@ func (r ClinicalUseDefinitionWarning) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ClinicalUseDefinitionWarning) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ClinicalUseDefinitionWarning) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ClinicalUseDefinitionWarning)
 	if !ok {
 		return false

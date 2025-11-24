@@ -5067,7 +5067,7 @@ func (r Account) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Account) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Account to Quantity")
 }
-func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Account) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Account
 	switch other := other.(type) {
 	case Account:
@@ -5083,7 +5083,7 @@ func (r Account) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Account) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Account) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Account)
 	if !ok {
 		return false
@@ -5330,7 +5330,7 @@ func (r AccountCoverage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r AccountCoverage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountCoverage to Quantity")
 }
-func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountCoverage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountCoverage
 	switch other := other.(type) {
 	case AccountCoverage:
@@ -5346,7 +5346,7 @@ func (r AccountCoverage) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountCoverage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountCoverage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountCoverage)
 	if !ok {
 		return false
@@ -5458,7 +5458,7 @@ func (r AccountGuarantor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r AccountGuarantor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountGuarantor to Quantity")
 }
-func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountGuarantor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountGuarantor
 	switch other := other.(type) {
 	case AccountGuarantor:
@@ -5474,7 +5474,7 @@ func (r AccountGuarantor) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountGuarantor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountGuarantor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountGuarantor)
 	if !ok {
 		return false
@@ -5608,7 +5608,7 @@ func (r AccountDiagnosis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r AccountDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountDiagnosis to Quantity")
 }
-func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountDiagnosis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountDiagnosis
 	switch other := other.(type) {
 	case AccountDiagnosis:
@@ -5624,7 +5624,7 @@ func (r AccountDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountDiagnosis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountDiagnosis)
 	if !ok {
 		return false
@@ -5779,7 +5779,7 @@ func (r AccountProcedure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r AccountProcedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountProcedure to Quantity")
 }
-func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountProcedure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountProcedure
 	switch other := other.(type) {
 	case AccountProcedure:
@@ -5795,7 +5795,7 @@ func (r AccountProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountProcedure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountProcedure)
 	if !ok {
 		return false
@@ -5930,7 +5930,7 @@ func (r AccountRelatedAccount) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r AccountRelatedAccount) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountRelatedAccount to Quantity")
 }
-func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountRelatedAccount) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountRelatedAccount
 	switch other := other.(type) {
 	case AccountRelatedAccount:
@@ -5946,7 +5946,7 @@ func (r AccountRelatedAccount) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountRelatedAccount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountRelatedAccount) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountRelatedAccount)
 	if !ok {
 		return false
@@ -6063,7 +6063,7 @@ func (r AccountBalance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r AccountBalance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AccountBalance to Quantity")
 }
-func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AccountBalance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AccountBalance
 	switch other := other.(type) {
 	case AccountBalance:
@@ -6079,7 +6079,7 @@ func (r AccountBalance) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AccountBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AccountBalance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AccountBalance)
 	if !ok {
 		return false

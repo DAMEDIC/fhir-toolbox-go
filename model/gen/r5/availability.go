@@ -1368,7 +1368,7 @@ func (r Availability) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Availability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Availability to Quantity")
 }
-func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Availability) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Availability
 	switch other := other.(type) {
 	case Availability:
@@ -1384,7 +1384,7 @@ func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Availability) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Availability)
 	if !ok {
 		return false
@@ -1491,7 +1491,7 @@ func (r AvailabilityAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityAvailableTime to Quantity")
 }
-func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AvailabilityAvailableTime) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AvailabilityAvailableTime
 	switch other := other.(type) {
 	case AvailabilityAvailableTime:
@@ -1507,7 +1507,7 @@ func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AvailabilityAvailableTime)
 	if !ok {
 		return false
@@ -1618,7 +1618,7 @@ func (r AvailabilityNotAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
 }
-func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AvailabilityNotAvailableTime
 	switch other := other.(type) {
 	case AvailabilityNotAvailableTime:
@@ -1634,7 +1634,7 @@ func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AvailabilityNotAvailableTime)
 	if !ok {
 		return false

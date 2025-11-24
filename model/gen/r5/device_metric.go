@@ -1838,7 +1838,7 @@ func (r DeviceMetric) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r DeviceMetric) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceMetric to Quantity")
 }
-func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceMetric) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceMetric
 	switch other := other.(type) {
 	case DeviceMetric:
@@ -1854,7 +1854,7 @@ func (r DeviceMetric) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceMetric) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceMetric) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceMetric)
 	if !ok {
 		return false
@@ -2052,7 +2052,7 @@ func (r DeviceMetricCalibration) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DeviceMetricCalibration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceMetricCalibration to Quantity")
 }
-func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceMetricCalibration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceMetricCalibration
 	switch other := other.(type) {
 	case DeviceMetricCalibration:
@@ -2068,7 +2068,7 @@ func (r DeviceMetricCalibration) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceMetricCalibration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceMetricCalibration)
 	if !ok {
 		return false

@@ -175,20 +175,19 @@ func (r Base64Binary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Base64Binary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Base64Binary to Quantity")
 }
-func (r Base64Binary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToString(false)
+func (r Base64Binary) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToString(false)
 	if err != nil || !ok {
 		return false, true
 	}
-	b, ok, err := other.ToString(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+	return v.Equal(other)
 }
-func (r Base64Binary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Base64Binary) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Base64Binary) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{

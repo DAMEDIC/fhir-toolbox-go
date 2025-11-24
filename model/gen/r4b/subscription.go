@@ -1914,7 +1914,7 @@ func (r Subscription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Subscription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Subscription to Quantity")
 }
-func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Subscription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Subscription
 	switch other := other.(type) {
 	case Subscription:
@@ -1930,7 +1930,7 @@ func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Subscription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Subscription)
 	if !ok {
 		return false
@@ -2117,7 +2117,7 @@ func (r SubscriptionChannel) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r SubscriptionChannel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionChannel to Quantity")
 }
-func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionChannel) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionChannel
 	switch other := other.(type) {
 	case SubscriptionChannel:
@@ -2133,7 +2133,7 @@ func (r SubscriptionChannel) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionChannel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionChannel) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionChannel)
 	if !ok {
 		return false

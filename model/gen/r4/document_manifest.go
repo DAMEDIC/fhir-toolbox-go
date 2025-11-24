@@ -1982,7 +1982,7 @@ func (r DocumentManifest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r DocumentManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentManifest to Quantity")
 }
-func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentManifest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentManifest
 	switch other := other.(type) {
 	case DocumentManifest:
@@ -1998,7 +1998,7 @@ func (r DocumentManifest) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentManifest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentManifest)
 	if !ok {
 		return false
@@ -2212,7 +2212,7 @@ func (r DocumentManifestRelated) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DocumentManifestRelated) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DocumentManifestRelated to Quantity")
 }
-func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DocumentManifestRelated) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DocumentManifestRelated
 	switch other := other.(type) {
 	case DocumentManifestRelated:
@@ -2228,7 +2228,7 @@ func (r DocumentManifestRelated) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DocumentManifestRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DocumentManifestRelated) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DocumentManifestRelated)
 	if !ok {
 		return false

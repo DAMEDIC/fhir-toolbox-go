@@ -5193,7 +5193,7 @@ func (r Encounter) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Encounter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Encounter to Quantity")
 }
-func (r Encounter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Encounter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Encounter
 	switch other := other.(type) {
 	case Encounter:
@@ -5209,7 +5209,7 @@ func (r Encounter) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Encounter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Encounter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Encounter)
 	if !ok {
 		return false
@@ -5496,7 +5496,7 @@ func (r EncounterStatusHistory) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r EncounterStatusHistory) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterStatusHistory to Quantity")
 }
-func (r EncounterStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterStatusHistory) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterStatusHistory
 	switch other := other.(type) {
 	case EncounterStatusHistory:
@@ -5512,7 +5512,7 @@ func (r EncounterStatusHistory) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterStatusHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterStatusHistory) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterStatusHistory)
 	if !ok {
 		return false
@@ -5617,7 +5617,7 @@ func (r EncounterClassHistory) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r EncounterClassHistory) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterClassHistory to Quantity")
 }
-func (r EncounterClassHistory) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterClassHistory) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterClassHistory
 	switch other := other.(type) {
 	case EncounterClassHistory:
@@ -5633,7 +5633,7 @@ func (r EncounterClassHistory) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterClassHistory) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterClassHistory) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterClassHistory)
 	if !ok {
 		return false
@@ -5747,7 +5747,7 @@ func (r EncounterParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r EncounterParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterParticipant to Quantity")
 }
-func (r EncounterParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterParticipant
 	switch other := other.(type) {
 	case EncounterParticipant:
@@ -5763,7 +5763,7 @@ func (r EncounterParticipant) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterParticipant)
 	if !ok {
 		return false
@@ -5882,7 +5882,7 @@ func (r EncounterDiagnosis) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r EncounterDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterDiagnosis to Quantity")
 }
-func (r EncounterDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterDiagnosis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterDiagnosis
 	switch other := other.(type) {
 	case EncounterDiagnosis:
@@ -5898,7 +5898,7 @@ func (r EncounterDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterDiagnosis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterDiagnosis)
 	if !ok {
 		return false
@@ -6049,7 +6049,7 @@ func (r EncounterHospitalization) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r EncounterHospitalization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterHospitalization to Quantity")
 }
-func (r EncounterHospitalization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterHospitalization) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterHospitalization
 	switch other := other.(type) {
 	case EncounterHospitalization:
@@ -6065,7 +6065,7 @@ func (r EncounterHospitalization) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterHospitalization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterHospitalization) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterHospitalization)
 	if !ok {
 		return false
@@ -6231,7 +6231,7 @@ func (r EncounterLocation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r EncounterLocation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert EncounterLocation to Quantity")
 }
-func (r EncounterLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r EncounterLocation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *EncounterLocation
 	switch other := other.(type) {
 	case EncounterLocation:
@@ -6247,7 +6247,7 @@ func (r EncounterLocation) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r EncounterLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r EncounterLocation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(EncounterLocation)
 	if !ok {
 		return false

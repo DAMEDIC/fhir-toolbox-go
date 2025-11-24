@@ -4467,7 +4467,7 @@ func (r PackagedProductDefinition) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PackagedProductDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinition to Quantity")
 }
-func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinition
 	switch other := other.(type) {
 	case PackagedProductDefinition:
@@ -4483,7 +4483,7 @@ func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinition)
 	if !ok {
 		return false
@@ -4718,7 +4718,7 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) ToDateTime(explicit bool) 
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Quantity")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionLegalStatusOfSupply
 	switch other := other.(type) {
 	case PackagedProductDefinitionLegalStatusOfSupply:
@@ -4734,7 +4734,7 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionLegalStatusOfSupply)
 	if !ok {
 		return false
@@ -4888,7 +4888,7 @@ func (r PackagedProductDefinitionPackaging) ToDateTime(explicit bool) (fhirpath.
 func (r PackagedProductDefinitionPackaging) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackaging to Quantity")
 }
-func (r PackagedProductDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackaging) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackaging
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackaging:
@@ -4904,7 +4904,7 @@ func (r PackagedProductDefinitionPackaging) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackaging) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackaging)
 	if !ok {
 		return false
@@ -5074,7 +5074,7 @@ func (r PackagedProductDefinitionPackagingProperty) ToDateTime(explicit bool) (f
 func (r PackagedProductDefinitionPackagingProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackagingProperty to Quantity")
 }
-func (r PackagedProductDefinitionPackagingProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackagingProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackagingProperty
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackagingProperty:
@@ -5090,7 +5090,7 @@ func (r PackagedProductDefinitionPackagingProperty) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackagingProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackagingProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackagingProperty)
 	if !ok {
 		return false
@@ -5197,7 +5197,7 @@ func (r PackagedProductDefinitionPackagingContainedItem) ToDateTime(explicit boo
 func (r PackagedProductDefinitionPackagingContainedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackagingContainedItem to Quantity")
 }
-func (r PackagedProductDefinitionPackagingContainedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackagingContainedItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackagingContainedItem
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackagingContainedItem:
@@ -5213,7 +5213,7 @@ func (r PackagedProductDefinitionPackagingContainedItem) Equal(other fhirpath.El
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackagingContainedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackagingContainedItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackagingContainedItem)
 	if !ok {
 		return false

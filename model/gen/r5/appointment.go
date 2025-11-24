@@ -6568,7 +6568,7 @@ func (r Appointment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Appointment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Appointment to Quantity")
 }
-func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Appointment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Appointment
 	switch other := other.(type) {
 	case Appointment:
@@ -6584,7 +6584,7 @@ func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Appointment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Appointment)
 	if !ok {
 		return false
@@ -6951,7 +6951,7 @@ func (r AppointmentParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r AppointmentParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentParticipant to Quantity")
 }
-func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentParticipant
 	switch other := other.(type) {
 	case AppointmentParticipant:
@@ -6967,7 +6967,7 @@ func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentParticipant)
 	if !ok {
 		return false
@@ -7135,7 +7135,7 @@ func (r AppointmentRecurrenceTemplate) ToDateTime(explicit bool) (fhirpath.DateT
 func (r AppointmentRecurrenceTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplate:
@@ -7151,7 +7151,7 @@ func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplate)
 	if !ok {
 		return false
@@ -7346,7 +7346,7 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDateTime(explicit bool) (
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateWeeklyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateWeeklyTemplate:
@@ -7362,7 +7362,7 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateWeeklyTemplate)
 	if !ok {
 		return false
@@ -7521,7 +7521,7 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDateTime(explicit bool) 
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateMonthlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateMonthlyTemplate:
@@ -7537,7 +7537,7 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateMonthlyTemplate)
 	if !ok {
 		return false
@@ -7653,7 +7653,7 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDateTime(explicit bool) (
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateYearlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateYearlyTemplate:
@@ -7669,7 +7669,7 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateYearlyTemplate)
 	if !ok {
 		return false

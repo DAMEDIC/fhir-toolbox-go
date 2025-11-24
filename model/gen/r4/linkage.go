@@ -1367,7 +1367,7 @@ func (r Linkage) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Linkage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Linkage to Quantity")
 }
-func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Linkage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Linkage
 	switch other := other.(type) {
 	case Linkage:
@@ -1383,7 +1383,7 @@ func (r Linkage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Linkage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Linkage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Linkage)
 	if !ok {
 		return false
@@ -1530,7 +1530,7 @@ func (r LinkageItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r LinkageItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert LinkageItem to Quantity")
 }
-func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r LinkageItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *LinkageItem
 	switch other := other.(type) {
 	case LinkageItem:
@@ -1546,7 +1546,7 @@ func (r LinkageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r LinkageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r LinkageItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(LinkageItem)
 	if !ok {
 		return false

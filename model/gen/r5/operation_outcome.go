@@ -1702,7 +1702,7 @@ func (r OperationOutcome) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r OperationOutcome) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationOutcome to Quantity")
 }
-func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationOutcome) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationOutcome
 	switch other := other.(type) {
 	case OperationOutcome:
@@ -1718,7 +1718,7 @@ func (r OperationOutcome) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationOutcome) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationOutcome) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationOutcome)
 	if !ok {
 		return false
@@ -1871,7 +1871,7 @@ func (r OperationOutcomeIssue) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r OperationOutcomeIssue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert OperationOutcomeIssue to Quantity")
 }
-func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r OperationOutcomeIssue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *OperationOutcomeIssue
 	switch other := other.(type) {
 	case OperationOutcomeIssue:
@@ -1887,7 +1887,7 @@ func (r OperationOutcomeIssue) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r OperationOutcomeIssue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r OperationOutcomeIssue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(OperationOutcomeIssue)
 	if !ok {
 		return false

@@ -20485,7 +20485,7 @@ func (r ExplanationOfBenefit) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ExplanationOfBenefit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefit to Quantity")
 }
-func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefit
 	switch other := other.(type) {
 	case ExplanationOfBenefit:
@@ -20501,7 +20501,7 @@ func (r ExplanationOfBenefit) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefit)
 	if !ok {
 		return false
@@ -20937,7 +20937,7 @@ func (r ExplanationOfBenefitRelated) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ExplanationOfBenefitRelated) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Quantity")
 }
-func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitRelated
 	switch other := other.(type) {
 	case ExplanationOfBenefitRelated:
@@ -20953,7 +20953,7 @@ func (r ExplanationOfBenefitRelated) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitRelated) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitRelated) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitRelated)
 	if !ok {
 		return false
@@ -21069,7 +21069,7 @@ func (r ExplanationOfBenefitPayee) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ExplanationOfBenefitPayee) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Quantity")
 }
-func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitPayee
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayee:
@@ -21085,7 +21085,7 @@ func (r ExplanationOfBenefitPayee) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitPayee) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitPayee) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitPayee)
 	if !ok {
 		return false
@@ -21205,7 +21205,7 @@ func (r ExplanationOfBenefitCareTeam) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ExplanationOfBenefitCareTeam) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Quantity")
 }
-func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitCareTeam
 	switch other := other.(type) {
 	case ExplanationOfBenefitCareTeam:
@@ -21221,7 +21221,7 @@ func (r ExplanationOfBenefitCareTeam) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitCareTeam) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitCareTeam) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitCareTeam)
 	if !ok {
 		return false
@@ -21367,7 +21367,7 @@ func (r ExplanationOfBenefitSupportingInfo) ToDateTime(explicit bool) (fhirpath.
 func (r ExplanationOfBenefitSupportingInfo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Quantity")
 }
-func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitSupportingInfo
 	switch other := other.(type) {
 	case ExplanationOfBenefitSupportingInfo:
@@ -21383,7 +21383,7 @@ func (r ExplanationOfBenefitSupportingInfo) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitSupportingInfo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitSupportingInfo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitSupportingInfo)
 	if !ok {
 		return false
@@ -21531,7 +21531,7 @@ func (r ExplanationOfBenefitDiagnosis) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ExplanationOfBenefitDiagnosis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Quantity")
 }
-func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitDiagnosis
 	switch other := other.(type) {
 	case ExplanationOfBenefitDiagnosis:
@@ -21547,7 +21547,7 @@ func (r ExplanationOfBenefitDiagnosis) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitDiagnosis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitDiagnosis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitDiagnosis)
 	if !ok {
 		return false
@@ -21688,7 +21688,7 @@ func (r ExplanationOfBenefitProcedure) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ExplanationOfBenefitProcedure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Quantity")
 }
-func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitProcedure
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcedure:
@@ -21704,7 +21704,7 @@ func (r ExplanationOfBenefitProcedure) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitProcedure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitProcedure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitProcedure)
 	if !ok {
 		return false
@@ -21835,7 +21835,7 @@ func (r ExplanationOfBenefitInsurance) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ExplanationOfBenefitInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Quantity")
 }
-func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitInsurance
 	switch other := other.(type) {
 	case ExplanationOfBenefitInsurance:
@@ -21851,7 +21851,7 @@ func (r ExplanationOfBenefitInsurance) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitInsurance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitInsurance)
 	if !ok {
 		return false
@@ -21972,7 +21972,7 @@ func (r ExplanationOfBenefitAccident) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ExplanationOfBenefitAccident) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Quantity")
 }
-func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitAccident
 	switch other := other.(type) {
 	case ExplanationOfBenefitAccident:
@@ -21988,7 +21988,7 @@ func (r ExplanationOfBenefitAccident) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitAccident) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAccident) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitAccident)
 	if !ok {
 		return false
@@ -22205,7 +22205,7 @@ func (r ExplanationOfBenefitItem) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ExplanationOfBenefitItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItem to Quantity")
 }
-func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitItem:
@@ -22221,7 +22221,7 @@ func (r ExplanationOfBenefitItem) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitItem)
 	if !ok {
 		return false
@@ -22485,7 +22485,7 @@ func (r ExplanationOfBenefitItemAdjudication) ToDateTime(explicit bool) (fhirpat
 func (r ExplanationOfBenefitItemAdjudication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Quantity")
 }
-func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitItemAdjudication
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemAdjudication:
@@ -22501,7 +22501,7 @@ func (r ExplanationOfBenefitItemAdjudication) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitItemAdjudication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemAdjudication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitItemAdjudication)
 	if !ok {
 		return false
@@ -22680,7 +22680,7 @@ func (r ExplanationOfBenefitItemDetail) ToDateTime(explicit bool) (fhirpath.Date
 func (r ExplanationOfBenefitItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Quantity")
 }
-func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetail:
@@ -22696,7 +22696,7 @@ func (r ExplanationOfBenefitItemDetail) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitItemDetail)
 	if !ok {
 		return false
@@ -22940,7 +22940,7 @@ func (r ExplanationOfBenefitItemDetailSubDetail) ToDateTime(explicit bool) (fhir
 func (r ExplanationOfBenefitItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Quantity")
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitItemDetailSubDetail:
@@ -22956,7 +22956,7 @@ func (r ExplanationOfBenefitItemDetailSubDetail) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitItemDetailSubDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitItemDetailSubDetail)
 	if !ok {
 		return false
@@ -23220,7 +23220,7 @@ func (r ExplanationOfBenefitAddItem) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ExplanationOfBenefitAddItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Quantity")
 }
-func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitAddItem
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItem:
@@ -23236,7 +23236,7 @@ func (r ExplanationOfBenefitAddItem) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitAddItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitAddItem)
 	if !ok {
 		return false
@@ -23490,7 +23490,7 @@ func (r ExplanationOfBenefitAddItemDetail) ToDateTime(explicit bool) (fhirpath.D
 func (r ExplanationOfBenefitAddItemDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Quantity")
 }
-func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitAddItemDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetail:
@@ -23506,7 +23506,7 @@ func (r ExplanationOfBenefitAddItemDetail) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitAddItemDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItemDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitAddItemDetail)
 	if !ok {
 		return false
@@ -23692,7 +23692,7 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDateTime(explicit bool) (f
 func (r ExplanationOfBenefitAddItemDetailSubDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Quantity")
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitAddItemDetailSubDetail
 	switch other := other.(type) {
 	case ExplanationOfBenefitAddItemDetailSubDetail:
@@ -23708,7 +23708,7 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) Equal(other fhirpath.Element
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitAddItemDetailSubDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitAddItemDetailSubDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitAddItemDetailSubDetail)
 	if !ok {
 		return false
@@ -23855,7 +23855,7 @@ func (r ExplanationOfBenefitTotal) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ExplanationOfBenefitTotal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Quantity")
 }
-func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitTotal
 	switch other := other.(type) {
 	case ExplanationOfBenefitTotal:
@@ -23871,7 +23871,7 @@ func (r ExplanationOfBenefitTotal) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitTotal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitTotal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitTotal)
 	if !ok {
 		return false
@@ -24000,7 +24000,7 @@ func (r ExplanationOfBenefitPayment) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ExplanationOfBenefitPayment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Quantity")
 }
-func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitPayment
 	switch other := other.(type) {
 	case ExplanationOfBenefitPayment:
@@ -24016,7 +24016,7 @@ func (r ExplanationOfBenefitPayment) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitPayment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitPayment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitPayment)
 	if !ok {
 		return false
@@ -24163,7 +24163,7 @@ func (r ExplanationOfBenefitProcessNote) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ExplanationOfBenefitProcessNote) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Quantity")
 }
-func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitProcessNote
 	switch other := other.(type) {
 	case ExplanationOfBenefitProcessNote:
@@ -24179,7 +24179,7 @@ func (r ExplanationOfBenefitProcessNote) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitProcessNote) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitProcessNote) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitProcessNote)
 	if !ok {
 		return false
@@ -24330,7 +24330,7 @@ func (r ExplanationOfBenefitBenefitBalance) ToDateTime(explicit bool) (fhirpath.
 func (r ExplanationOfBenefitBenefitBalance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Quantity")
 }
-func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitBenefitBalance
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalance:
@@ -24346,7 +24346,7 @@ func (r ExplanationOfBenefitBenefitBalance) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitBenefitBalance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitBenefitBalance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitBenefitBalance)
 	if !ok {
 		return false
@@ -24500,7 +24500,7 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDateTime(explicit bool) (
 func (r ExplanationOfBenefitBenefitBalanceFinancial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Quantity")
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExplanationOfBenefitBenefitBalanceFinancial
 	switch other := other.(type) {
 	case ExplanationOfBenefitBenefitBalanceFinancial:
@@ -24516,7 +24516,7 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExplanationOfBenefitBenefitBalanceFinancial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExplanationOfBenefitBenefitBalanceFinancial) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExplanationOfBenefitBenefitBalanceFinancial)
 	if !ok {
 		return false

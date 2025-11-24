@@ -3102,7 +3102,7 @@ func (r Subscription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Subscription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Subscription to Quantity")
 }
-func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Subscription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Subscription
 	switch other := other.(type) {
 	case Subscription:
@@ -3118,7 +3118,7 @@ func (r Subscription) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Subscription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Subscription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Subscription)
 	if !ok {
 		return false
@@ -3378,7 +3378,7 @@ func (r SubscriptionFilterBy) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r SubscriptionFilterBy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionFilterBy to Quantity")
 }
-func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionFilterBy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionFilterBy
 	switch other := other.(type) {
 	case SubscriptionFilterBy:
@@ -3394,7 +3394,7 @@ func (r SubscriptionFilterBy) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionFilterBy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionFilterBy)
 	if !ok {
 		return false
@@ -3520,7 +3520,7 @@ func (r SubscriptionParameter) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r SubscriptionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionParameter to Quantity")
 }
-func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionParameter
 	switch other := other.(type) {
 	case SubscriptionParameter:
@@ -3536,7 +3536,7 @@ func (r SubscriptionParameter) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionParameter)
 	if !ok {
 		return false

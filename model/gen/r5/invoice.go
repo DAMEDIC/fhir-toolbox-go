@@ -3217,7 +3217,7 @@ func (r Invoice) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Invoice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Invoice to Quantity")
 }
-func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Invoice) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Invoice
 	switch other := other.(type) {
 	case Invoice:
@@ -3233,7 +3233,7 @@ func (r Invoice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool)
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Invoice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Invoice) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Invoice)
 	if !ok {
 		return false
@@ -3487,7 +3487,7 @@ func (r InvoiceParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r InvoiceParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InvoiceParticipant to Quantity")
 }
-func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InvoiceParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InvoiceParticipant
 	switch other := other.(type) {
 	case InvoiceParticipant:
@@ -3503,7 +3503,7 @@ func (r InvoiceParticipant) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InvoiceParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InvoiceParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InvoiceParticipant)
 	if !ok {
 		return false
@@ -3620,7 +3620,7 @@ func (r InvoiceLineItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r InvoiceLineItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InvoiceLineItem to Quantity")
 }
-func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InvoiceLineItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InvoiceLineItem
 	switch other := other.(type) {
 	case InvoiceLineItem:
@@ -3636,7 +3636,7 @@ func (r InvoiceLineItem) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InvoiceLineItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InvoiceLineItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InvoiceLineItem)
 	if !ok {
 		return false

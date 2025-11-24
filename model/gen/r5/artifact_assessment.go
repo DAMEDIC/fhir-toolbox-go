@@ -3026,7 +3026,7 @@ func (r ArtifactAssessment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ArtifactAssessment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ArtifactAssessment to Quantity")
 }
-func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ArtifactAssessment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ArtifactAssessment
 	switch other := other.(type) {
 	case ArtifactAssessment:
@@ -3042,7 +3042,7 @@ func (r ArtifactAssessment) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ArtifactAssessment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ArtifactAssessment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ArtifactAssessment)
 	if !ok {
 		return false
@@ -3289,7 +3289,7 @@ func (r ArtifactAssessmentContent) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ArtifactAssessmentContent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ArtifactAssessmentContent to Quantity")
 }
-func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ArtifactAssessmentContent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ArtifactAssessmentContent
 	switch other := other.(type) {
 	case ArtifactAssessmentContent:
@@ -3305,7 +3305,7 @@ func (r ArtifactAssessmentContent) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ArtifactAssessmentContent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ArtifactAssessmentContent)
 	if !ok {
 		return false

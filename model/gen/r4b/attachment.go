@@ -909,7 +909,7 @@ func (r Attachment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Attachment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Attachment to Quantity")
 }
-func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Attachment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Attachment
 	switch other := other.(type) {
 	case Attachment:
@@ -925,7 +925,7 @@ func (r Attachment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Attachment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Attachment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Attachment)
 	if !ok {
 		return false

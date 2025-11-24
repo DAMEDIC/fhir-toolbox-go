@@ -3504,7 +3504,7 @@ func (r DeviceRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r DeviceRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceRequest to Quantity")
 }
-func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceRequest
 	switch other := other.(type) {
 	case DeviceRequest:
@@ -3520,7 +3520,7 @@ func (r DeviceRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceRequest)
 	if !ok {
 		return false
@@ -3818,7 +3818,7 @@ func (r DeviceRequestParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r DeviceRequestParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceRequestParameter to Quantity")
 }
-func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceRequestParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceRequestParameter
 	switch other := other.(type) {
 	case DeviceRequestParameter:
@@ -3834,7 +3834,7 @@ func (r DeviceRequestParameter) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceRequestParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceRequestParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceRequestParameter)
 	if !ok {
 		return false

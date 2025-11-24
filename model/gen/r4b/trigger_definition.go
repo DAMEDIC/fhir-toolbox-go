@@ -935,7 +935,7 @@ func (r TriggerDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r TriggerDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TriggerDefinition to Quantity")
 }
-func (r TriggerDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TriggerDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TriggerDefinition
 	switch other := other.(type) {
 	case TriggerDefinition:
@@ -951,7 +951,7 @@ func (r TriggerDefinition) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TriggerDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TriggerDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TriggerDefinition)
 	if !ok {
 		return false

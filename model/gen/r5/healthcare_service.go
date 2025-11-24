@@ -2940,7 +2940,7 @@ func (r HealthcareService) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r HealthcareService) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert HealthcareService to Quantity")
 }
-func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r HealthcareService) Equal(other fhirpath.Element) (bool, bool) {
 	var o *HealthcareService
 	switch other := other.(type) {
 	case HealthcareService:
@@ -2956,7 +2956,7 @@ func (r HealthcareService) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r HealthcareService) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r HealthcareService) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(HealthcareService)
 	if !ok {
 		return false
@@ -3247,7 +3247,7 @@ func (r HealthcareServiceEligibility) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r HealthcareServiceEligibility) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert HealthcareServiceEligibility to Quantity")
 }
-func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r HealthcareServiceEligibility) Equal(other fhirpath.Element) (bool, bool) {
 	var o *HealthcareServiceEligibility
 	switch other := other.(type) {
 	case HealthcareServiceEligibility:
@@ -3263,7 +3263,7 @@ func (r HealthcareServiceEligibility) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r HealthcareServiceEligibility) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(HealthcareServiceEligibility)
 	if !ok {
 		return false
