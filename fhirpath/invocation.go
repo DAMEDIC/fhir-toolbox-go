@@ -159,6 +159,10 @@ func callFunc(
 			expr Expression,
 			fnScope ...FunctionScope,
 		) (result Collection, resultOrdered bool, err error) {
+			// Create isolated environment scope for ALL parameter evaluations
+			// This prevents variables defined in parameter expressions from colliding
+			ctx, _ = withNewEnvStackFrame(ctx)
+
 			if len(fnScope) > 0 {
 				// Get parent scope to preserve aggregate context
 				parentScope, hasParent := getFunctionScope(ctx)

@@ -1541,8 +1541,14 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		// Evaluate pattern and substitution parameters against the input string
+		var evalTarget Element
+		if len(target) > 0 {
+			evalTarget = target[0]
+		}
+
 		// Evaluate the pattern parameter
-		patternCollection, _, err := evaluate(ctx, nil, parameters[0])
+		patternCollection, _, err := evaluate(ctx, evalTarget, parameters[0])
 		if err != nil {
 			return nil, false, err
 		}
@@ -1557,7 +1563,7 @@ var defaultFunctions = Functions{
 		}
 
 		// Evaluate the substitution parameter
-		substitutionCollection, _, err := evaluate(ctx, nil, parameters[1])
+		substitutionCollection, _, err := evaluate(ctx, evalTarget, parameters[1])
 		if err != nil {
 			return nil, false, err
 		}
@@ -2609,7 +2615,6 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one or two parameters (name [, value])")
 		}
 
-		// Evaluate the name parameter
 		nameCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
@@ -2625,36 +2630,35 @@ var defaultFunctions = Functions{
 		}
 
 		// Protect system variables from being overwritten
-		systemVars := map[string]bool{
-			"context": true,
-			"ucum":    true,
-			"loinc":   true,
-			"sct":     true,
-		}
-		if systemVars[string(name)] {
+		if _, isSystem := systemVariables[string(name)]; isSystem {
 			return nil, false, fmt.Errorf("cannot redefine system variable '%s'", name)
+		}
+
+		// Check if variable already defined in current scope
+		if frame, ok := envStackFrame(ctx); ok {
+			if _, exists := frame[string(name)]; exists {
+				return nil, false, fmt.Errorf("variable %%%s already defined", name)
+			}
 		}
 
 		// Determine the value to store
 		// Variables in FHIRPath store the entire evaluated result (which can be a collection)
 		var value Collection
 		if len(parameters) == 2 {
-			// Evaluate the value parameter against the root context
-			var evalTarget Element
-			if len(target) > 0 {
-				evalTarget = root
+			// Evaluate for each item in the input collection and aggregate results
+			for _, item := range target {
+				itemCollection, _, err := evaluate(ctx, item, parameters[1])
+				if err != nil {
+					return nil, false, err
+				}
+				value = append(value, itemCollection...)
 			}
-			valueCollection, _, err := evaluate(ctx, evalTarget, parameters[1])
-			if err != nil {
-				return nil, false, err
-			}
-			value = valueCollection
 		} else {
 			// Use the input collection as the value
 			value = target
 		}
 
-		// Store the collection as the variable value
+		// Store the collection as the variable value in the parent context
 		ctx = WithEnv(ctx, string(name), value)
 
 		// Return the input collection (does not change input)

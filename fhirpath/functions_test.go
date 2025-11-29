@@ -1221,7 +1221,7 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{},
 			expectError: false,
 			varName:     "test",
-			varValue:    Collection{String("value")},
+			varValue:    nil, // Empty input → value expression not evaluated → empty variable (nil)
 		},
 		{
 			name:        "define_variable_using_input_collection",

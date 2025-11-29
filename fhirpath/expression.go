@@ -142,10 +142,13 @@ func parse(expr string) (parser.IExpressionContext, error) {
 //	}
 //	fmt.Println(result) // Output: [Donald]
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
-	ctx = WithEnv(ctx, "context", Collection{target})
-	ctx = WithEnv(ctx, "ucum", Collection{String("http://unitsofmeasure.org")})
-	ctx = WithEnv(ctx, "loinc", Collection{String("http://loinc.org")})
-	ctx = WithEnv(ctx, "sct", Collection{String("http://snomed.info/sct")})
+	for name, value := range systemVariables {
+		if name == "context" {
+			ctx = WithEnv(ctx, name, Collection{target})
+		} else {
+			ctx = WithEnv(ctx, name, value)
+		}
+	}
 
 	result, _, err := evalExpression(
 		ctx,
@@ -171,8 +174,6 @@ func evalExpression(
 	case *parser.TermExpressionContext:
 		return evalTerm(ctx, root, target, inputOrdered, t.Term(), isRoot)
 	case *parser.InvocationExpressionContext:
-		ctx, _ = withNewEnvStackFrame(ctx)
-
 		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
 			return nil, false, err
@@ -606,6 +607,13 @@ func evalLiteral(
 
 type envKey struct{}
 
+var systemVariables = map[string]Collection{
+	"context": nil,
+	"ucum":    Collection{String("http://unitsofmeasure.org")},
+	"loinc":   Collection{String("http://loinc.org")},
+	"sct":     Collection{String("http://snomed.info/sct")},
+}
+
 func WithEnv(ctx context.Context, name string, value Collection) context.Context {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
@@ -618,9 +626,13 @@ func WithEnv(ctx context.Context, name string, value Collection) context.Context
 func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Collection) {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
-		frame = map[string]Collection{}
+		frame = make(map[string]Collection, len(systemVariables))
+		for name, value := range systemVariables {
+			frame[name] = value
+		}
 	}
-	return context.WithValue(ctx, envKey{}, maps.Clone(frame)), frame
+	clonedFrame := maps.Clone(frame)
+	return context.WithValue(ctx, envKey{}, clonedFrame), clonedFrame
 }
 
 func envStackFrame(ctx context.Context) (map[string]Collection, bool) {
