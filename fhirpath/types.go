@@ -14,7 +14,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/overflow"
 	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
 	"github.com/cockroachdb/apd/v3"
 )
@@ -1440,7 +1440,7 @@ func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
 func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Mul32(int32(i), int32(o))
+		result, ok := overflow.Mul[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1460,7 +1460,7 @@ func (i Integer) Divide(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Div32(int32(i), int32(o))
+		result, ok := overflow.Div[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1476,7 +1476,7 @@ func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Mod32(int32(i), int32(o))
+		result, ok := overflow.Mod[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1492,7 +1492,7 @@ func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Add32(int32(i), int32(o))
+		result, ok := overflow.Add[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1508,7 +1508,7 @@ func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Subtract(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Sub32(int32(i), int32(o))
+		result, ok := overflow.Sub[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1639,13 +1639,13 @@ func (l Long) Cmp(other Element) (cmp int, ok bool, err error) {
 func (l Long) Multiply(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Long:
-		result, ok := overflow.Mul64(int64(l), int64(o))
+		result, ok := overflow.Mul[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
 		return Long(result), nil
 	case Integer:
-		result, ok := overflow.Mul64(int64(l), int64(o))
+		result, ok := overflow.Mul[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1663,13 +1663,13 @@ func (l Long) Divide(ctx context.Context, other Element) (Element, error) {
 func (l Long) Div(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Long:
-		result, ok := overflow.Div64(int64(l), int64(o))
+		result, ok := overflow.Div[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
 		return Long(result), nil
 	case Integer:
-		result, ok := overflow.Div64(int64(l), int64(o))
+		result, ok := overflow.Div[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1683,13 +1683,13 @@ func (l Long) Div(ctx context.Context, other Element) (Element, error) {
 func (l Long) Mod(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Long:
-		result, ok := overflow.Mod64(int64(l), int64(o))
+		result, ok := overflow.Mod[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
 		return Long(result), nil
 	case Integer:
-		result, ok := overflow.Mod64(int64(l), int64(o))
+		result, ok := overflow.Mod[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1703,13 +1703,13 @@ func (l Long) Mod(ctx context.Context, other Element) (Element, error) {
 func (l Long) Add(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Long:
-		result, ok := overflow.Add64(int64(l), int64(o))
+		result, ok := overflow.Add[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
 		return Long(result), nil
 	case Integer:
-		result, ok := overflow.Add64(int64(l), int64(o))
+		result, ok := overflow.Add[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
@@ -1723,13 +1723,13 @@ func (l Long) Add(ctx context.Context, other Element) (Element, error) {
 func (l Long) Subtract(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Long:
-		result, ok := overflow.Sub64(int64(l), int64(o))
+		result, ok := overflow.Sub[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
 		return Long(result), nil
 	case Integer:
-		result, ok := overflow.Sub64(int64(l), int64(o))
+		result, ok := overflow.Sub[int64](int64(l), int64(o))
 		if !ok {
 			return nil, nil
 		}
