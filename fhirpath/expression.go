@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/cockroachdb/apd/v3"
 )

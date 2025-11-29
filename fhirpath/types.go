@@ -15,7 +15,7 @@ import (
 	"time"
 
 	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/overflow"
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
 	"github.com/cockroachdb/apd/v3"
 )
 
