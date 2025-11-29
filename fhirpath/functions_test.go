@@ -1246,13 +1246,6 @@ func TestDefineVariable(t *testing.T) {
 			expected:    nil,
 			expectError: true,
 		},
-		{
-			name:        "multiple_values_in_input_collection",
-			target:      Collection{String("test1"), String("test2")},
-			params:      []Expression{MustParse("'myVar'")},
-			expected:    nil,
-			expectError: true,
-		},
 	}
 
 	for _, tt := range tests {

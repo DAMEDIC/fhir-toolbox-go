@@ -2624,6 +2624,17 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected string name parameter")
 		}
 
+		// Protect system variables from being overwritten
+		systemVars := map[string]bool{
+			"context": true,
+			"ucum":    true,
+			"loinc":   true,
+			"sct":     true,
+		}
+		if systemVars[string(name)] {
+			return nil, false, fmt.Errorf("cannot redefine system variable '%s'", name)
+		}
+
 		// Determine the value to store
 		// Variables in FHIRPath store the entire evaluated result (which can be a collection)
 		var value Collection

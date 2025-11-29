@@ -1047,14 +1047,22 @@ func (c Collection) Concat(ctx context.Context, other Collection) (Collection, e
 
 	var left, right String
 	if len(c) == 1 {
-		s, ok := c[0].(String)
+		// Use elementTo for implicit conversion (e.g., FHIR primitives to String)
+		s, ok, err := elementTo[String](c[0], false)
+		if err != nil {
+			return nil, err
+		}
 		if !ok {
 			return nil, fmt.Errorf("can only concat String, got left %T: %v", c[0], c[0])
 		}
 		left = s
 	}
 	if len(other) == 1 {
-		s, ok := other[0].(String)
+		// Use elementTo for implicit conversion (e.g., FHIR primitives to String)
+		s, ok, err := elementTo[String](other[0], false)
+		if err != nil {
+			return nil, err
+		}
 		if !ok {
 			return nil, fmt.Errorf("can only concat String, got right %T: %v", other[0], other[0])
 		}

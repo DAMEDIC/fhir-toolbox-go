@@ -23,6 +23,20 @@ func evalInvocation(
 			return nil, false, err
 		}
 
+		// Try field access first if we have target elements
+		// This prevents identifiers that happen to be type names (like "id")
+		// from being treated as type checks when they should be field accesses
+		var members Collection
+		for _, e := range target {
+			members = append(members, e.Children(ident)...)
+		}
+
+		// If field access succeeded, return the results
+		if len(members) > 0 {
+			return members, inputOrdered, nil
+		}
+
+		// Fall back to type check if isRoot and identifier resolves to a type
 		if isRoot {
 			expectedType, ok := resolveType(ctx, TypeSpecifier{Name: ident})
 			if ok {
@@ -34,10 +48,7 @@ func evalInvocation(
 			}
 		}
 
-		var members Collection
-		for _, e := range target {
-			members = append(members, e.Children(ident)...)
-		}
+		// Return empty if neither field access nor type check succeeded
 		return members, inputOrdered, nil
 	case *parser.FunctionInvocationContext:
 		return evalFunc(ctx, root, target, inputOrdered, t.Function())
