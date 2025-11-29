@@ -3381,6 +3381,9 @@ func (r MedicationDispense) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r MedicationDispense) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationDispense to Integer")
 }
+func (r MedicationDispense) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationDispense to Long")
+}
 func (r MedicationDispense) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationDispense to Decimal")
 }
@@ -3693,6 +3696,9 @@ func (r MedicationDispensePerformer) ToString(explicit bool) (fhirpath.String, b
 func (r MedicationDispensePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationDispensePerformer to Integer")
 }
+func (r MedicationDispensePerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationDispensePerformer to Long")
+}
 func (r MedicationDispensePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationDispensePerformer to Decimal")
 }
@@ -3825,6 +3831,9 @@ func (r MedicationDispenseSubstitution) ToString(explicit bool) (fhirpath.String
 }
 func (r MedicationDispenseSubstitution) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationDispenseSubstitution to Integer")
+}
+func (r MedicationDispenseSubstitution) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationDispenseSubstitution to Long")
 }
 func (r MedicationDispenseSubstitution) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationDispenseSubstitution to Decimal")

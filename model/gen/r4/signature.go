@@ -732,6 +732,9 @@ func (r Signature) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Signature) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Signature to Integer")
 }
+func (r Signature) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Signature to Long")
+}
 func (r Signature) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Signature to Decimal")
 }

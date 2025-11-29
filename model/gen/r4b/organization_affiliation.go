@@ -1604,6 +1604,9 @@ func (r OrganizationAffiliation) ToString(explicit bool) (fhirpath.String, bool,
 func (r OrganizationAffiliation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OrganizationAffiliation to Integer")
 }
+func (r OrganizationAffiliation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OrganizationAffiliation to Long")
+}
 func (r OrganizationAffiliation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OrganizationAffiliation to Decimal")
 }

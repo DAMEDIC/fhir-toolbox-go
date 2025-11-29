@@ -11499,6 +11499,9 @@ func (r MedicationKnowledge) ToString(explicit bool) (fhirpath.String, bool, err
 func (r MedicationKnowledge) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledge to Integer")
 }
+func (r MedicationKnowledge) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledge to Long")
+}
 func (r MedicationKnowledge) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledge to Decimal")
 }
@@ -11783,6 +11786,9 @@ func (r MedicationKnowledgeRelatedMedicationKnowledge) ToString(explicit bool) (
 func (r MedicationKnowledgeRelatedMedicationKnowledge) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Integer")
 }
+func (r MedicationKnowledgeRelatedMedicationKnowledge) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Long")
+}
 func (r MedicationKnowledgeRelatedMedicationKnowledge) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeRelatedMedicationKnowledge to Decimal")
 }
@@ -11907,6 +11913,9 @@ func (r MedicationKnowledgeMonograph) ToString(explicit bool) (fhirpath.String, 
 }
 func (r MedicationKnowledgeMonograph) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeMonograph to Integer")
+}
+func (r MedicationKnowledgeMonograph) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeMonograph to Long")
 }
 func (r MedicationKnowledgeMonograph) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeMonograph to Decimal")
@@ -12038,6 +12047,9 @@ func (r MedicationKnowledgeCost) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r MedicationKnowledgeCost) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeCost to Integer")
+}
+func (r MedicationKnowledgeCost) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeCost to Long")
 }
 func (r MedicationKnowledgeCost) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeCost to Decimal")
@@ -12178,6 +12190,9 @@ func (r MedicationKnowledgeMonitoringProgram) ToString(explicit bool) (fhirpath.
 func (r MedicationKnowledgeMonitoringProgram) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Integer")
 }
+func (r MedicationKnowledgeMonitoringProgram) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Long")
+}
 func (r MedicationKnowledgeMonitoringProgram) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeMonitoringProgram to Decimal")
 }
@@ -12302,6 +12317,9 @@ func (r MedicationKnowledgeIndicationGuideline) ToString(explicit bool) (fhirpat
 }
 func (r MedicationKnowledgeIndicationGuideline) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Integer")
+}
+func (r MedicationKnowledgeIndicationGuideline) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Long")
 }
 func (r MedicationKnowledgeIndicationGuideline) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeIndicationGuideline to Decimal")
@@ -12437,6 +12455,9 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToString(explicit
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Integer")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Long")
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuideline) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuideline to Decimal")
@@ -12575,6 +12596,9 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToString(ex
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Integer")
 }
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Long")
+}
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelineDosage to Decimal")
 }
@@ -12697,6 +12721,9 @@ func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacterist
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Integer")
+}
+func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Long")
 }
 func (r MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeIndicationGuidelineDosingGuidelinePatientCharacteristic to Decimal")
@@ -12825,6 +12852,9 @@ func (r MedicationKnowledgeMedicineClassification) ToString(explicit bool) (fhir
 }
 func (r MedicationKnowledgeMedicineClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeMedicineClassification to Integer")
+}
+func (r MedicationKnowledgeMedicineClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeMedicineClassification to Long")
 }
 func (r MedicationKnowledgeMedicineClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeMedicineClassification to Decimal")
@@ -12957,6 +12987,9 @@ func (r MedicationKnowledgePackaging) ToString(explicit bool) (fhirpath.String, 
 }
 func (r MedicationKnowledgePackaging) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgePackaging to Integer")
+}
+func (r MedicationKnowledgePackaging) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgePackaging to Long")
 }
 func (r MedicationKnowledgePackaging) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgePackaging to Decimal")
@@ -13093,6 +13126,9 @@ func (r MedicationKnowledgeStorageGuideline) ToString(explicit bool) (fhirpath.S
 func (r MedicationKnowledgeStorageGuideline) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeStorageGuideline to Integer")
 }
+func (r MedicationKnowledgeStorageGuideline) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeStorageGuideline to Long")
+}
 func (r MedicationKnowledgeStorageGuideline) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeStorageGuideline to Decimal")
 }
@@ -13228,6 +13264,9 @@ func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToString(explic
 func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Integer")
 }
+func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Long")
+}
 func (r MedicationKnowledgeStorageGuidelineEnvironmentalSetting) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeStorageGuidelineEnvironmentalSetting to Decimal")
 }
@@ -13360,6 +13399,9 @@ func (r MedicationKnowledgeRegulatory) ToString(explicit bool) (fhirpath.String,
 }
 func (r MedicationKnowledgeRegulatory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeRegulatory to Integer")
+}
+func (r MedicationKnowledgeRegulatory) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeRegulatory to Long")
 }
 func (r MedicationKnowledgeRegulatory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeRegulatory to Decimal")
@@ -13496,6 +13538,9 @@ func (r MedicationKnowledgeRegulatorySubstitution) ToString(explicit bool) (fhir
 func (r MedicationKnowledgeRegulatorySubstitution) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Integer")
 }
+func (r MedicationKnowledgeRegulatorySubstitution) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Long")
+}
 func (r MedicationKnowledgeRegulatorySubstitution) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeRegulatorySubstitution to Decimal")
 }
@@ -13618,6 +13663,9 @@ func (r MedicationKnowledgeRegulatoryMaxDispense) ToString(explicit bool) (fhirp
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Integer")
+}
+func (r MedicationKnowledgeRegulatoryMaxDispense) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Long")
 }
 func (r MedicationKnowledgeRegulatoryMaxDispense) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeRegulatoryMaxDispense to Decimal")
@@ -13758,6 +13806,9 @@ func (r MedicationKnowledgeDefinitional) ToString(explicit bool) (fhirpath.Strin
 }
 func (r MedicationKnowledgeDefinitional) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeDefinitional to Integer")
+}
+func (r MedicationKnowledgeDefinitional) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeDefinitional to Long")
 }
 func (r MedicationKnowledgeDefinitional) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeDefinitional to Decimal")
@@ -13908,6 +13959,9 @@ func (r MedicationKnowledgeDefinitionalIngredient) ToString(explicit bool) (fhir
 func (r MedicationKnowledgeDefinitionalIngredient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Integer")
 }
+func (r MedicationKnowledgeDefinitionalIngredient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Long")
+}
 func (r MedicationKnowledgeDefinitionalIngredient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeDefinitionalIngredient to Decimal")
 }
@@ -14039,6 +14093,9 @@ func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToString(explicit boo
 }
 func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Integer")
+}
+func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Long")
 }
 func (r MedicationKnowledgeDefinitionalDrugCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationKnowledgeDefinitionalDrugCharacteristic to Decimal")

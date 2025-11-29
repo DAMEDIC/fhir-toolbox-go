@@ -4992,6 +4992,9 @@ func (r Consent) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Consent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Consent to Integer")
 }
+func (r Consent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Consent to Long")
+}
 func (r Consent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Consent to Decimal")
 }
@@ -5264,6 +5267,9 @@ func (r ConsentPolicyBasis) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ConsentPolicyBasis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConsentPolicyBasis to Integer")
 }
+func (r ConsentPolicyBasis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConsentPolicyBasis to Long")
+}
 func (r ConsentPolicyBasis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentPolicyBasis to Decimal")
 }
@@ -5401,6 +5407,9 @@ func (r ConsentVerification) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r ConsentVerification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConsentVerification to Integer")
+}
+func (r ConsentVerification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConsentVerification to Long")
 }
 func (r ConsentVerification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentVerification to Decimal")
@@ -5598,6 +5607,9 @@ func (r ConsentProvision) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ConsentProvision) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConsentProvision to Integer")
 }
+func (r ConsentProvision) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConsentProvision to Long")
+}
 func (r ConsentProvision) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvision to Decimal")
 }
@@ -5793,6 +5805,9 @@ func (r ConsentProvisionActor) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ConsentProvisionActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConsentProvisionActor to Integer")
 }
+func (r ConsentProvisionActor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConsentProvisionActor to Long")
+}
 func (r ConsentProvisionActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvisionActor to Decimal")
 }
@@ -5913,6 +5928,9 @@ func (r ConsentProvisionData) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r ConsentProvisionData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConsentProvisionData to Integer")
+}
+func (r ConsentProvisionData) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConsentProvisionData to Long")
 }
 func (r ConsentProvisionData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConsentProvisionData to Decimal")

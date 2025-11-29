@@ -2558,6 +2558,9 @@ func (r Location) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Location) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Location to Integer")
 }
+func (r Location) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Location to Long")
+}
 func (r Location) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Location to Decimal")
 }
@@ -2830,6 +2833,9 @@ func (r LocationPosition) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r LocationPosition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert LocationPosition to Integer")
+}
+func (r LocationPosition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert LocationPosition to Long")
 }
 func (r LocationPosition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert LocationPosition to Decimal")

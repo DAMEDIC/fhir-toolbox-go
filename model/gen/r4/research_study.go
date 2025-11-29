@@ -3335,6 +3335,9 @@ func (r ResearchStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ResearchStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchStudy to Integer")
 }
+func (r ResearchStudy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchStudy to Long")
+}
 func (r ResearchStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchStudy to Decimal")
 }
@@ -3652,6 +3655,9 @@ func (r ResearchStudyArm) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ResearchStudyArm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchStudyArm to Integer")
 }
+func (r ResearchStudyArm) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchStudyArm to Long")
+}
 func (r ResearchStudyArm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchStudyArm to Decimal")
 }
@@ -3783,6 +3789,9 @@ func (r ResearchStudyObjective) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r ResearchStudyObjective) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchStudyObjective to Integer")
+}
+func (r ResearchStudyObjective) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchStudyObjective to Long")
 }
 func (r ResearchStudyObjective) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchStudyObjective to Decimal")

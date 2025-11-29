@@ -1703,6 +1703,9 @@ func (r MedicinalProductContraindication) ToString(explicit bool) (fhirpath.Stri
 func (r MedicinalProductContraindication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductContraindication to Integer")
 }
+func (r MedicinalProductContraindication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductContraindication to Long")
+}
 func (r MedicinalProductContraindication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductContraindication to Decimal")
 }
@@ -1893,6 +1896,9 @@ func (r MedicinalProductContraindicationOtherTherapy) ToString(explicit bool) (f
 }
 func (r MedicinalProductContraindicationOtherTherapy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Integer")
+}
+func (r MedicinalProductContraindicationOtherTherapy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Long")
 }
 func (r MedicinalProductContraindicationOtherTherapy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Decimal")

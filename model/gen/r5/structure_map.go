@@ -9426,6 +9426,9 @@ func (r StructureMap) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r StructureMap) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMap to Integer")
 }
+func (r StructureMap) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMap to Long")
+}
 func (r StructureMap) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMap to Decimal")
 }
@@ -9725,6 +9728,9 @@ func (r StructureMapStructure) ToString(explicit bool) (fhirpath.String, bool, e
 func (r StructureMapStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapStructure to Integer")
 }
+func (r StructureMapStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapStructure to Long")
+}
 func (r StructureMapStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapStructure to Decimal")
 }
@@ -9863,6 +9869,9 @@ func (r StructureMapConst) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r StructureMapConst) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapConst to Integer")
+}
+func (r StructureMapConst) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapConst to Long")
 }
 func (r StructureMapConst) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapConst to Decimal")
@@ -10006,6 +10015,9 @@ func (r StructureMapGroup) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r StructureMapGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroup to Integer")
+}
+func (r StructureMapGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroup to Long")
 }
 func (r StructureMapGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroup to Decimal")
@@ -10166,6 +10178,9 @@ func (r StructureMapGroupInput) ToString(explicit bool) (fhirpath.String, bool, 
 func (r StructureMapGroupInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupInput to Integer")
 }
+func (r StructureMapGroupInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupInput to Long")
+}
 func (r StructureMapGroupInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupInput to Decimal")
 }
@@ -10324,6 +10339,9 @@ func (r StructureMapGroupRule) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r StructureMapGroupRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRule to Integer")
+}
+func (r StructureMapGroupRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRule to Long")
 }
 func (r StructureMapGroupRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRule to Decimal")
@@ -10520,6 +10538,9 @@ func (r StructureMapGroupRuleSource) ToString(explicit bool) (fhirpath.String, b
 }
 func (r StructureMapGroupRuleSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleSource to Integer")
+}
+func (r StructureMapGroupRuleSource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleSource to Long")
 }
 func (r StructureMapGroupRuleSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleSource to Decimal")
@@ -10734,6 +10755,9 @@ func (r StructureMapGroupRuleTarget) ToString(explicit bool) (fhirpath.String, b
 func (r StructureMapGroupRuleTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleTarget to Integer")
 }
+func (r StructureMapGroupRuleTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleTarget to Long")
+}
 func (r StructureMapGroupRuleTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Decimal")
 }
@@ -10887,6 +10911,9 @@ func (r StructureMapGroupRuleTargetParameter) ToString(explicit bool) (fhirpath.
 func (r StructureMapGroupRuleTargetParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Integer")
 }
+func (r StructureMapGroupRuleTargetParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Long")
+}
 func (r StructureMapGroupRuleTargetParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Decimal")
 }
@@ -11002,6 +11029,9 @@ func (r StructureMapGroupRuleDependent) ToString(explicit bool) (fhirpath.String
 }
 func (r StructureMapGroupRuleDependent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleDependent to Integer")
+}
+func (r StructureMapGroupRuleDependent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleDependent to Long")
 }
 func (r StructureMapGroupRuleDependent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Decimal")

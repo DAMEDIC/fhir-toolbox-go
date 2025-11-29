@@ -544,6 +544,9 @@ func (r Reference) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Reference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Reference to Integer")
 }
+func (r Reference) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Reference to Long")
+}
 func (r Reference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Reference to Decimal")
 }

@@ -6427,6 +6427,9 @@ func (r CodeSystem) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r CodeSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystem to Integer")
 }
+func (r CodeSystem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystem to Long")
+}
 func (r CodeSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystem to Decimal")
 }
@@ -6761,6 +6764,9 @@ func (r CodeSystemFilter) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r CodeSystemFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystemFilter to Integer")
 }
+func (r CodeSystemFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystemFilter to Long")
+}
 func (r CodeSystemFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemFilter to Decimal")
 }
@@ -6905,6 +6911,9 @@ func (r CodeSystemProperty) ToString(explicit bool) (fhirpath.String, bool, erro
 }
 func (r CodeSystemProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystemProperty to Integer")
+}
+func (r CodeSystemProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystemProperty to Long")
 }
 func (r CodeSystemProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemProperty to Decimal")
@@ -7063,6 +7072,9 @@ func (r CodeSystemConcept) ToString(explicit bool) (fhirpath.String, bool, error
 func (r CodeSystemConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystemConcept to Integer")
 }
+func (r CodeSystemConcept) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystemConcept to Long")
+}
 func (r CodeSystemConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConcept to Decimal")
 }
@@ -7219,6 +7231,9 @@ func (r CodeSystemConceptDesignation) ToString(explicit bool) (fhirpath.String, 
 func (r CodeSystemConceptDesignation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystemConceptDesignation to Integer")
 }
+func (r CodeSystemConceptDesignation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystemConceptDesignation to Long")
+}
 func (r CodeSystemConceptDesignation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConceptDesignation to Decimal")
 }
@@ -7346,6 +7361,9 @@ func (r CodeSystemConceptProperty) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r CodeSystemConceptProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeSystemConceptProperty to Integer")
+}
+func (r CodeSystemConceptProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeSystemConceptProperty to Long")
 }
 func (r CodeSystemConceptProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeSystemConceptProperty to Decimal")

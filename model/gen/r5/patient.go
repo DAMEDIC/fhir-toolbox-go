@@ -3831,6 +3831,9 @@ func (r Patient) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Patient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Patient to Integer")
 }
+func (r Patient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Patient to Long")
+}
 func (r Patient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Patient to Decimal")
 }
@@ -4114,6 +4117,9 @@ func (r PatientContact) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r PatientContact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PatientContact to Integer")
 }
+func (r PatientContact) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PatientContact to Long")
+}
 func (r PatientContact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PatientContact to Decimal")
 }
@@ -4272,6 +4278,9 @@ func (r PatientCommunication) ToString(explicit bool) (fhirpath.String, bool, er
 func (r PatientCommunication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PatientCommunication to Integer")
 }
+func (r PatientCommunication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PatientCommunication to Long")
+}
 func (r PatientCommunication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PatientCommunication to Decimal")
 }
@@ -4392,6 +4401,9 @@ func (r PatientLink) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r PatientLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PatientLink to Integer")
+}
+func (r PatientLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PatientLink to Long")
 }
 func (r PatientLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PatientLink to Decimal")

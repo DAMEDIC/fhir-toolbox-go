@@ -12300,6 +12300,9 @@ func (r Task) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Task) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Task to Integer")
 }
+func (r Task) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Task to Long")
+}
 func (r Task) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Task to Decimal")
 }
@@ -12668,6 +12671,9 @@ func (r TaskRestriction) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r TaskRestriction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TaskRestriction to Integer")
 }
+func (r TaskRestriction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TaskRestriction to Long")
+}
 func (r TaskRestriction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TaskRestriction to Decimal")
 }
@@ -12796,6 +12802,9 @@ func (r TaskInput) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TaskInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TaskInput to Integer")
 }
+func (r TaskInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TaskInput to Long")
+}
 func (r TaskInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TaskInput to Decimal")
 }
@@ -12916,6 +12925,9 @@ func (r TaskOutput) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r TaskOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TaskOutput to Integer")
+}
+func (r TaskOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TaskOutput to Long")
 }
 func (r TaskOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TaskOutput to Decimal")

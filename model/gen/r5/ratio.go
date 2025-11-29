@@ -352,6 +352,9 @@ func (r Ratio) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Ratio) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Ratio to Integer")
 }
+func (r Ratio) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Ratio to Long")
+}
 func (r Ratio) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Ratio to Decimal")
 }

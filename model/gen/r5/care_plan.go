@@ -3065,6 +3065,9 @@ func (r CarePlan) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r CarePlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CarePlan to Integer")
 }
+func (r CarePlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CarePlan to Long")
+}
 func (r CarePlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CarePlan to Decimal")
 }
@@ -3376,6 +3379,9 @@ func (r CarePlanActivity) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r CarePlanActivity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CarePlanActivity to Integer")
+}
+func (r CarePlanActivity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CarePlanActivity to Long")
 }
 func (r CarePlanActivity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CarePlanActivity to Decimal")

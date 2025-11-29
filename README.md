@@ -298,6 +298,9 @@ We track those gaps below so contributors know where help is wanted:
 | Additional helpers | `resolve`, `hasValue`, `conformsTo`, UCUM-aware quantity conversions | Still outstanding |
 | CDA fixtures | Tests with `mode="cda"` from the upstream suite | Skipped until CDA parsing is supported |
 
+The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
+conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.
+
 From the additional functions defined in the FHIR specification, only
 
 * `extension(url : string) : collection`

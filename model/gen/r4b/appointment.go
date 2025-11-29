@@ -3014,6 +3014,9 @@ func (r Appointment) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Appointment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Appointment to Integer")
 }
+func (r Appointment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Appointment to Long")
+}
 func (r Appointment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Appointment to Decimal")
 }
@@ -3326,6 +3329,9 @@ func (r AppointmentParticipant) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r AppointmentParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentParticipant to Integer")
+}
+func (r AppointmentParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentParticipant to Long")
 }
 func (r AppointmentParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentParticipant to Decimal")

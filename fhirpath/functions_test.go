@@ -126,6 +126,26 @@ func (e testElement) ToInteger(explicit bool) (Integer, bool, error) {
 		return 0, false, nil
 	}
 }
+func (e testElement) ToLong(explicit bool) (Long, bool, error) {
+	switch v := e.value.(type) {
+	case int:
+		return Long(v), true, nil
+	case []int:
+		if len(v) == 0 {
+			return 0, false, nil
+		}
+		return Long(v[0]), true, nil
+	case Long:
+		return v, true, nil
+	case []Long:
+		if len(v) == 0 {
+			return 0, false, nil
+		}
+		return v[0], true, nil
+	default:
+		return 0, false, nil
+	}
+}
 
 func (e testElement) ToDecimal(explicit bool) (Decimal, bool, error) {
 	switch v := e.value.(type) {
@@ -1181,6 +1201,65 @@ func TestTypeFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, true, false)
+		})
+	}
+}
+
+func TestToLongFunction(t *testing.T) {
+	fn := defaultFunctions["toLong"]
+	testCases := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "integer input",
+			target:   Collection{Integer(5)},
+			expected: Collection{Long(5)},
+		},
+		{
+			name:     "string input",
+			target:   Collection{String("9223372036854775807")},
+			expected: Collection{Long(9223372036854775807)},
+		},
+		{
+			name:     "non-convertible",
+			target:   Collection{String("abc")},
+			expected: nil,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			testFunction(t, fn, tc.target, nil, tc.expected, true, false)
+		})
+	}
+}
+
+func TestConvertsToLongFunction(t *testing.T) {
+	fn := defaultFunctions["convertsToLong"]
+	testCases := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "convertible string",
+			target:   Collection{String("123")},
+			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "non-convertible",
+			target:   Collection{String("foo")},
+			expected: Collection{Boolean(false)},
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			testFunction(t, fn, tc.target, nil, tc.expected, true, false)
 		})
 	}
 }

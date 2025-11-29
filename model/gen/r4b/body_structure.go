@@ -1275,6 +1275,9 @@ func (r BodyStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BodyStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructure to Integer")
 }
+func (r BodyStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructure to Long")
+}
 func (r BodyStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructure to Decimal")
 }

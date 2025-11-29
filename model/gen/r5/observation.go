@@ -6801,6 +6801,9 @@ func (r Observation) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Observation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Observation to Integer")
 }
+func (r Observation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Observation to Long")
+}
 func (r Observation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Observation to Decimal")
 }
@@ -7137,6 +7140,9 @@ func (r ObservationTriggeredBy) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ObservationTriggeredBy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationTriggeredBy to Integer")
 }
+func (r ObservationTriggeredBy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationTriggeredBy to Long")
+}
 func (r ObservationTriggeredBy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationTriggeredBy to Decimal")
 }
@@ -7293,6 +7299,9 @@ func (r ObservationReferenceRange) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ObservationReferenceRange) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationReferenceRange to Integer")
+}
+func (r ObservationReferenceRange) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationReferenceRange to Long")
 }
 func (r ObservationReferenceRange) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationReferenceRange to Decimal")
@@ -7466,6 +7475,9 @@ func (r ObservationComponent) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r ObservationComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationComponent to Integer")
+}
+func (r ObservationComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationComponent to Long")
 }
 func (r ObservationComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationComponent to Decimal")

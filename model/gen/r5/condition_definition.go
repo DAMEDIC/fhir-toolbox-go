@@ -5164,6 +5164,9 @@ func (r ConditionDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ConditionDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinition to Integer")
 }
+func (r ConditionDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinition to Long")
+}
 func (r ConditionDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinition to Decimal")
 }
@@ -5513,6 +5516,9 @@ func (r ConditionDefinitionObservation) ToString(explicit bool) (fhirpath.String
 func (r ConditionDefinitionObservation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionObservation to Integer")
 }
+func (r ConditionDefinitionObservation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionObservation to Long")
+}
 func (r ConditionDefinitionObservation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionObservation to Decimal")
 }
@@ -5637,6 +5643,9 @@ func (r ConditionDefinitionMedication) ToString(explicit bool) (fhirpath.String,
 }
 func (r ConditionDefinitionMedication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionMedication to Integer")
+}
+func (r ConditionDefinitionMedication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionMedication to Long")
 }
 func (r ConditionDefinitionMedication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionMedication to Decimal")
@@ -5763,6 +5772,9 @@ func (r ConditionDefinitionPrecondition) ToString(explicit bool) (fhirpath.Strin
 }
 func (r ConditionDefinitionPrecondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionPrecondition to Integer")
+}
+func (r ConditionDefinitionPrecondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionPrecondition to Long")
 }
 func (r ConditionDefinitionPrecondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionPrecondition to Decimal")
@@ -5892,6 +5904,9 @@ func (r ConditionDefinitionQuestionnaire) ToString(explicit bool) (fhirpath.Stri
 func (r ConditionDefinitionQuestionnaire) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Integer")
 }
+func (r ConditionDefinitionQuestionnaire) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionQuestionnaire to Long")
+}
 func (r ConditionDefinitionQuestionnaire) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Decimal")
 }
@@ -6014,6 +6029,9 @@ func (r ConditionDefinitionPlan) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r ConditionDefinitionPlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionPlan to Integer")
+}
+func (r ConditionDefinitionPlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionPlan to Long")
 }
 func (r ConditionDefinitionPlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionPlan to Decimal")

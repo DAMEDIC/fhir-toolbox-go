@@ -3011,6 +3011,9 @@ func (r ArtifactAssessment) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ArtifactAssessment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ArtifactAssessment to Integer")
 }
+func (r ArtifactAssessment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ArtifactAssessment to Long")
+}
 func (r ArtifactAssessment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ArtifactAssessment to Decimal")
 }
@@ -3273,6 +3276,9 @@ func (r ArtifactAssessmentContent) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ArtifactAssessmentContent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ArtifactAssessmentContent to Integer")
+}
+func (r ArtifactAssessmentContent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ArtifactAssessmentContent to Long")
 }
 func (r ArtifactAssessmentContent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ArtifactAssessmentContent to Decimal")

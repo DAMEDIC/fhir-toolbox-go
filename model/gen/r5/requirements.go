@@ -4035,6 +4035,9 @@ func (r Requirements) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Requirements) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Requirements to Integer")
 }
+func (r Requirements) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Requirements to Long")
+}
 func (r Requirements) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Requirements to Decimal")
 }
@@ -4363,6 +4366,9 @@ func (r RequirementsStatement) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r RequirementsStatement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequirementsStatement to Integer")
+}
+func (r RequirementsStatement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequirementsStatement to Long")
 }
 func (r RequirementsStatement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequirementsStatement to Decimal")

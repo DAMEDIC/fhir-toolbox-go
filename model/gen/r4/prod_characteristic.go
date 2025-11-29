@@ -1136,6 +1136,9 @@ func (r ProdCharacteristic) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ProdCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProdCharacteristic to Integer")
 }
+func (r ProdCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProdCharacteristic to Long")
+}
 func (r ProdCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProdCharacteristic to Decimal")
 }

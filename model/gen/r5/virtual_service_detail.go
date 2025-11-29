@@ -1010,6 +1010,9 @@ func (r VirtualServiceDetail) ToString(explicit bool) (fhirpath.String, bool, er
 func (r VirtualServiceDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VirtualServiceDetail to Integer")
 }
+func (r VirtualServiceDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VirtualServiceDetail to Long")
+}
 func (r VirtualServiceDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VirtualServiceDetail to Decimal")
 }

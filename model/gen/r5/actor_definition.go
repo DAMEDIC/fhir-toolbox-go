@@ -2755,6 +2755,9 @@ func (r ActorDefinition) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ActorDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ActorDefinition to Integer")
 }
+func (r ActorDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ActorDefinition to Long")
+}
 func (r ActorDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ActorDefinition to Decimal")
 }

@@ -1552,6 +1552,9 @@ func (r Slot) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Slot) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Slot to Integer")
 }
+func (r Slot) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Slot to Long")
+}
 func (r Slot) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Slot to Decimal")
 }

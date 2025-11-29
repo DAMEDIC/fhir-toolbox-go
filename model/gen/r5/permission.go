@@ -3792,6 +3792,9 @@ func (r Permission) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Permission) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Permission to Integer")
 }
+func (r Permission) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Permission to Long")
+}
 func (r Permission) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Permission to Decimal")
 }
@@ -3987,6 +3990,9 @@ func (r PermissionJustification) ToString(explicit bool) (fhirpath.String, bool,
 func (r PermissionJustification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionJustification to Integer")
 }
+func (r PermissionJustification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionJustification to Long")
+}
 func (r PermissionJustification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionJustification to Decimal")
 }
@@ -4121,6 +4127,9 @@ func (r PermissionRule) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r PermissionRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRule to Integer")
+}
+func (r PermissionRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRule to Long")
 }
 func (r PermissionRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRule to Decimal")
@@ -4271,6 +4280,9 @@ func (r PermissionRuleData) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r PermissionRuleData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleData to Integer")
 }
+func (r PermissionRuleData) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleData to Long")
+}
 func (r PermissionRuleData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleData to Decimal")
 }
@@ -4406,6 +4418,9 @@ func (r PermissionRuleDataResource) ToString(explicit bool) (fhirpath.String, bo
 func (r PermissionRuleDataResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleDataResource to Integer")
 }
+func (r PermissionRuleDataResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleDataResource to Long")
+}
 func (r PermissionRuleDataResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleDataResource to Decimal")
 }
@@ -4535,6 +4550,9 @@ func (r PermissionRuleActivity) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r PermissionRuleActivity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleActivity to Integer")
+}
+func (r PermissionRuleActivity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleActivity to Long")
 }
 func (r PermissionRuleActivity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleActivity to Decimal")

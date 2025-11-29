@@ -3068,6 +3068,9 @@ func (r MedicinalProductPharmaceutical) ToString(explicit bool) (fhirpath.String
 func (r MedicinalProductPharmaceutical) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPharmaceutical to Integer")
 }
+func (r MedicinalProductPharmaceutical) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPharmaceutical to Long")
+}
 func (r MedicinalProductPharmaceutical) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPharmaceutical to Decimal")
 }
@@ -3261,6 +3264,9 @@ func (r MedicinalProductPharmaceuticalCharacteristics) ToString(explicit bool) (
 func (r MedicinalProductPharmaceuticalCharacteristics) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Integer")
 }
+func (r MedicinalProductPharmaceuticalCharacteristics) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Long")
+}
 func (r MedicinalProductPharmaceuticalCharacteristics) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPharmaceuticalCharacteristics to Decimal")
 }
@@ -3408,6 +3414,9 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToString(explicit b
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Integer")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Long")
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministration to Decimal")
@@ -3567,6 +3576,9 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToStri
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Integer")
 }
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Long")
+}
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpecies to Decimal")
 }
@@ -3692,6 +3704,9 @@ func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdraw
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
+}
+func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Long")
 }
 func (r MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPharmaceuticalRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")

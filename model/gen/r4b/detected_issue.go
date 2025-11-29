@@ -2608,6 +2608,9 @@ func (r DetectedIssue) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DetectedIssue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DetectedIssue to Integer")
 }
+func (r DetectedIssue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DetectedIssue to Long")
+}
 func (r DetectedIssue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DetectedIssue to Decimal")
 }
@@ -2838,6 +2841,9 @@ func (r DetectedIssueEvidence) ToString(explicit bool) (fhirpath.String, bool, e
 func (r DetectedIssueEvidence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DetectedIssueEvidence to Integer")
 }
+func (r DetectedIssueEvidence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DetectedIssueEvidence to Long")
+}
 func (r DetectedIssueEvidence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DetectedIssueEvidence to Decimal")
 }
@@ -2965,6 +2971,9 @@ func (r DetectedIssueMitigation) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r DetectedIssueMitigation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DetectedIssueMitigation to Integer")
+}
+func (r DetectedIssueMitigation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DetectedIssueMitigation to Long")
 }
 func (r DetectedIssueMitigation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DetectedIssueMitigation to Decimal")

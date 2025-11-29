@@ -5482,6 +5482,9 @@ func (r InventoryItem) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r InventoryItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItem to Integer")
 }
+func (r InventoryItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItem to Long")
+}
 func (r InventoryItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItem to Decimal")
 }
@@ -5725,6 +5728,9 @@ func (r InventoryItemName) ToString(explicit bool) (fhirpath.String, bool, error
 func (r InventoryItemName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemName to Integer")
 }
+func (r InventoryItemName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemName to Long")
+}
 func (r InventoryItemName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemName to Decimal")
 }
@@ -5853,6 +5859,9 @@ func (r InventoryItemResponsibleOrganization) ToString(explicit bool) (fhirpath.
 func (r InventoryItemResponsibleOrganization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemResponsibleOrganization to Integer")
 }
+func (r InventoryItemResponsibleOrganization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemResponsibleOrganization to Long")
+}
 func (r InventoryItemResponsibleOrganization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Decimal")
 }
@@ -5978,6 +5987,9 @@ func (r InventoryItemDescription) ToString(explicit bool) (fhirpath.String, bool
 func (r InventoryItemDescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemDescription to Integer")
 }
+func (r InventoryItemDescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemDescription to Long")
+}
 func (r InventoryItemDescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemDescription to Decimal")
 }
@@ -6101,6 +6113,9 @@ func (r InventoryItemAssociation) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r InventoryItemAssociation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemAssociation to Integer")
+}
+func (r InventoryItemAssociation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemAssociation to Long")
 }
 func (r InventoryItemAssociation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemAssociation to Decimal")
@@ -6229,6 +6244,9 @@ func (r InventoryItemCharacteristic) ToString(explicit bool) (fhirpath.String, b
 }
 func (r InventoryItemCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemCharacteristic to Integer")
+}
+func (r InventoryItemCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemCharacteristic to Long")
 }
 func (r InventoryItemCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemCharacteristic to Decimal")
@@ -6369,6 +6387,9 @@ func (r InventoryItemInstance) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r InventoryItemInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemInstance to Integer")
+}
+func (r InventoryItemInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemInstance to Long")
 }
 func (r InventoryItemInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemInstance to Decimal")

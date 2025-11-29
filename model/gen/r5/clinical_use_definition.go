@@ -5289,6 +5289,9 @@ func (r ClinicalUseDefinition) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ClinicalUseDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinition to Integer")
 }
+func (r ClinicalUseDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinition to Long")
+}
 func (r ClinicalUseDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinition to Decimal")
 }
@@ -5539,6 +5542,9 @@ func (r ClinicalUseDefinitionContraindication) ToString(explicit bool) (fhirpath
 func (r ClinicalUseDefinitionContraindication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Integer")
 }
+func (r ClinicalUseDefinitionContraindication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionContraindication to Long")
+}
 func (r ClinicalUseDefinitionContraindication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionContraindication to Decimal")
 }
@@ -5687,6 +5693,9 @@ func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToString(explicit boo
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Integer")
+}
+func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Long")
 }
 func (r ClinicalUseDefinitionContraindicationOtherTherapy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionContraindicationOtherTherapy to Decimal")
@@ -5842,6 +5851,9 @@ func (r ClinicalUseDefinitionIndication) ToString(explicit bool) (fhirpath.Strin
 }
 func (r ClinicalUseDefinitionIndication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionIndication to Integer")
+}
+func (r ClinicalUseDefinitionIndication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionIndication to Long")
 }
 func (r ClinicalUseDefinitionIndication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionIndication to Decimal")
@@ -6025,6 +6037,9 @@ func (r ClinicalUseDefinitionInteraction) ToString(explicit bool) (fhirpath.Stri
 func (r ClinicalUseDefinitionInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Integer")
 }
+func (r ClinicalUseDefinitionInteraction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionInteraction to Long")
+}
 func (r ClinicalUseDefinitionInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionInteraction to Decimal")
 }
@@ -6164,6 +6179,9 @@ func (r ClinicalUseDefinitionInteractionInteractant) ToString(explicit bool) (fh
 func (r ClinicalUseDefinitionInteractionInteractant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Integer")
 }
+func (r ClinicalUseDefinitionInteractionInteractant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Long")
+}
 func (r ClinicalUseDefinitionInteractionInteractant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionInteractionInteractant to Decimal")
 }
@@ -6286,6 +6304,9 @@ func (r ClinicalUseDefinitionUndesirableEffect) ToString(explicit bool) (fhirpat
 }
 func (r ClinicalUseDefinitionUndesirableEffect) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Integer")
+}
+func (r ClinicalUseDefinitionUndesirableEffect) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Long")
 }
 func (r ClinicalUseDefinitionUndesirableEffect) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionUndesirableEffect to Decimal")
@@ -6418,6 +6439,9 @@ func (r ClinicalUseDefinitionWarning) ToString(explicit bool) (fhirpath.String, 
 }
 func (r ClinicalUseDefinitionWarning) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalUseDefinitionWarning to Integer")
+}
+func (r ClinicalUseDefinitionWarning) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalUseDefinitionWarning to Long")
 }
 func (r ClinicalUseDefinitionWarning) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalUseDefinitionWarning to Decimal")

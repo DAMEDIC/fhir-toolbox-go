@@ -657,6 +657,9 @@ func (r Count) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Count) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Count to Integer")
 }
+func (r Count) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Count to Long")
+}
 func (r Count) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Count to Decimal")
 }

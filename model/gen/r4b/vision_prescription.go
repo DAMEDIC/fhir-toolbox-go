@@ -2924,6 +2924,9 @@ func (r VisionPrescription) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r VisionPrescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescription to Integer")
 }
+func (r VisionPrescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescription to Long")
+}
 func (r VisionPrescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescription to Decimal")
 }
@@ -3182,6 +3185,9 @@ func (r VisionPrescriptionLensSpecification) ToString(explicit bool) (fhirpath.S
 func (r VisionPrescriptionLensSpecification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescriptionLensSpecification to Integer")
 }
+func (r VisionPrescriptionLensSpecification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescriptionLensSpecification to Long")
+}
 func (r VisionPrescriptionLensSpecification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescriptionLensSpecification to Decimal")
 }
@@ -3386,6 +3392,9 @@ func (r VisionPrescriptionLensSpecificationPrism) ToString(explicit bool) (fhirp
 }
 func (r VisionPrescriptionLensSpecificationPrism) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Integer")
+}
+func (r VisionPrescriptionLensSpecificationPrism) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Long")
 }
 func (r VisionPrescriptionLensSpecificationPrism) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Decimal")

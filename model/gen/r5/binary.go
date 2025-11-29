@@ -644,6 +644,9 @@ func (r Binary) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Binary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Binary to Integer")
 }
+func (r Binary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Binary to Long")
+}
 func (r Binary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Binary to Decimal")
 }

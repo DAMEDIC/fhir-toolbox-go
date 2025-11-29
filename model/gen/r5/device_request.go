@@ -3549,6 +3549,9 @@ func (r DeviceRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DeviceRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceRequest to Integer")
 }
+func (r DeviceRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceRequest to Long")
+}
 func (r DeviceRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceRequest to Decimal")
 }
@@ -3876,6 +3879,9 @@ func (r DeviceRequestParameter) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r DeviceRequestParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceRequestParameter to Integer")
+}
+func (r DeviceRequestParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceRequestParameter to Long")
 }
 func (r DeviceRequestParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceRequestParameter to Decimal")

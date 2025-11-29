@@ -6143,6 +6143,9 @@ func (r Device) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Device) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Device to Integer")
 }
+func (r Device) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Device to Long")
+}
 func (r Device) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Device to Decimal")
 }
@@ -6529,6 +6532,9 @@ func (r DeviceUdiCarrier) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r DeviceUdiCarrier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceUdiCarrier to Integer")
 }
+func (r DeviceUdiCarrier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceUdiCarrier to Long")
+}
 func (r DeviceUdiCarrier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUdiCarrier to Decimal")
 }
@@ -6683,6 +6689,9 @@ func (r DeviceName) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DeviceName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceName to Integer")
 }
+func (r DeviceName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceName to Long")
+}
 func (r DeviceName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceName to Decimal")
 }
@@ -6822,6 +6831,9 @@ func (r DeviceVersion) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r DeviceVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceVersion to Integer")
+}
+func (r DeviceVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceVersion to Long")
 }
 func (r DeviceVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceVersion to Decimal")
@@ -6965,6 +6977,9 @@ func (r DeviceConformsTo) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r DeviceConformsTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceConformsTo to Integer")
 }
+func (r DeviceConformsTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceConformsTo to Long")
+}
 func (r DeviceConformsTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceConformsTo to Decimal")
 }
@@ -7092,6 +7107,9 @@ func (r DeviceProperty) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r DeviceProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceProperty to Integer")
+}
+func (r DeviceProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceProperty to Long")
 }
 func (r DeviceProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceProperty to Decimal")

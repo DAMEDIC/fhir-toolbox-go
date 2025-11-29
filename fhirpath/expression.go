@@ -558,8 +558,18 @@ func evalLiteral(
 			return Collection{Decimal{Value: d}}, true, err
 		}
 
-		i, err := strconv.Atoi(s)
-		return Collection{Integer(i)}, true, err
+		val, err := strconv.ParseInt(s, 10, 32)
+		if err != nil {
+			return nil, false, err
+		}
+		return Collection{Integer(val)}, true, nil
+	case *parser.LongNumberLiteralContext:
+		value := strings.TrimSuffix(s, "L")
+		v, err := strconv.ParseInt(value, 10, 64)
+		if err != nil {
+			return nil, false, err
+		}
+		return Collection{Long(v)}, true, nil
 	case *parser.DateLiteralContext:
 		d, err := ParseDate(s)
 		return Collection{d}, true, err

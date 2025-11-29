@@ -5040,6 +5040,9 @@ func (r GenomicStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r GenomicStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudy to Integer")
 }
+func (r GenomicStudy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudy to Long")
+}
 func (r GenomicStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudy to Decimal")
 }
@@ -5371,6 +5374,9 @@ func (r GenomicStudyAnalysis) ToString(explicit bool) (fhirpath.String, bool, er
 func (r GenomicStudyAnalysis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysis to Integer")
 }
+func (r GenomicStudyAnalysis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysis to Long")
+}
 func (r GenomicStudyAnalysis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysis to Decimal")
 }
@@ -5613,6 +5619,9 @@ func (r GenomicStudyAnalysisInput) ToString(explicit bool) (fhirpath.String, boo
 func (r GenomicStudyAnalysisInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisInput to Integer")
 }
+func (r GenomicStudyAnalysisInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisInput to Long")
+}
 func (r GenomicStudyAnalysisInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Decimal")
 }
@@ -5745,6 +5754,9 @@ func (r GenomicStudyAnalysisOutput) ToString(explicit bool) (fhirpath.String, bo
 func (r GenomicStudyAnalysisOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisOutput to Integer")
 }
+func (r GenomicStudyAnalysisOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisOutput to Long")
+}
 func (r GenomicStudyAnalysisOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Decimal")
 }
@@ -5870,6 +5882,9 @@ func (r GenomicStudyAnalysisPerformer) ToString(explicit bool) (fhirpath.String,
 func (r GenomicStudyAnalysisPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Integer")
 }
+func (r GenomicStudyAnalysisPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisPerformer to Long")
+}
 func (r GenomicStudyAnalysisPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Decimal")
 }
@@ -5994,6 +6009,9 @@ func (r GenomicStudyAnalysisDevice) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r GenomicStudyAnalysisDevice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisDevice to Integer")
+}
+func (r GenomicStudyAnalysisDevice) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisDevice to Long")
 }
 func (r GenomicStudyAnalysisDevice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Decimal")

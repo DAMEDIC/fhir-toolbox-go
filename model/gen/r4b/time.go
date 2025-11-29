@@ -155,6 +155,9 @@ func (r Time) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Time) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Time to Integer")
 }
+func (r Time) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Time to Long")
+}
 func (r Time) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Time to Decimal")
 }

@@ -583,6 +583,9 @@ func (r MarketingStatus) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r MarketingStatus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MarketingStatus to Integer")
 }
+func (r MarketingStatus) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MarketingStatus to Long")
+}
 func (r MarketingStatus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MarketingStatus to Decimal")
 }

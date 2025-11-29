@@ -3973,6 +3973,9 @@ func (r NutritionProduct) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r NutritionProduct) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionProduct to Integer")
 }
+func (r NutritionProduct) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionProduct to Long")
+}
 func (r NutritionProduct) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionProduct to Decimal")
 }
@@ -4189,6 +4192,9 @@ func (r NutritionProductNutrient) ToString(explicit bool) (fhirpath.String, bool
 func (r NutritionProductNutrient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionProductNutrient to Integer")
 }
+func (r NutritionProductNutrient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionProductNutrient to Long")
+}
 func (r NutritionProductNutrient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionProductNutrient to Decimal")
 }
@@ -4312,6 +4318,9 @@ func (r NutritionProductIngredient) ToString(explicit bool) (fhirpath.String, bo
 func (r NutritionProductIngredient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionProductIngredient to Integer")
 }
+func (r NutritionProductIngredient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionProductIngredient to Long")
+}
 func (r NutritionProductIngredient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionProductIngredient to Decimal")
 }
@@ -4432,6 +4441,9 @@ func (r NutritionProductCharacteristic) ToString(explicit bool) (fhirpath.String
 }
 func (r NutritionProductCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionProductCharacteristic to Integer")
+}
+func (r NutritionProductCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionProductCharacteristic to Long")
 }
 func (r NutritionProductCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionProductCharacteristic to Decimal")
@@ -4582,6 +4594,9 @@ func (r NutritionProductInstance) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r NutritionProductInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionProductInstance to Integer")
+}
+func (r NutritionProductInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionProductInstance to Long")
 }
 func (r NutritionProductInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionProductInstance to Decimal")

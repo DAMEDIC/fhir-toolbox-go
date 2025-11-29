@@ -3301,6 +3301,9 @@ func (r AllergyIntolerance) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r AllergyIntolerance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AllergyIntolerance to Integer")
 }
+func (r AllergyIntolerance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AllergyIntolerance to Long")
+}
 func (r AllergyIntolerance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntolerance to Decimal")
 }
@@ -3550,6 +3553,9 @@ func (r AllergyIntoleranceParticipant) ToString(explicit bool) (fhirpath.String,
 func (r AllergyIntoleranceParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AllergyIntoleranceParticipant to Integer")
 }
+func (r AllergyIntoleranceParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AllergyIntoleranceParticipant to Long")
+}
 func (r AllergyIntoleranceParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntoleranceParticipant to Decimal")
 }
@@ -3699,6 +3705,9 @@ func (r AllergyIntoleranceReaction) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r AllergyIntoleranceReaction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AllergyIntoleranceReaction to Integer")
+}
+func (r AllergyIntoleranceReaction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AllergyIntoleranceReaction to Long")
 }
 func (r AllergyIntoleranceReaction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AllergyIntoleranceReaction to Decimal")

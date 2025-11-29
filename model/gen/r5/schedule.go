@@ -1430,6 +1430,9 @@ func (r Schedule) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Schedule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Schedule to Integer")
 }
+func (r Schedule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Schedule to Long")
+}
 func (r Schedule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Schedule to Decimal")
 }

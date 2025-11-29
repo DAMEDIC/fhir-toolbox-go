@@ -5440,6 +5440,9 @@ func (r EvidenceReport) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r EvidenceReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReport to Integer")
 }
+func (r EvidenceReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReport to Long")
+}
 func (r EvidenceReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReport to Decimal")
 }
@@ -5712,6 +5715,9 @@ func (r EvidenceReportSubject) ToString(explicit bool) (fhirpath.String, bool, e
 func (r EvidenceReportSubject) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReportSubject to Integer")
 }
+func (r EvidenceReportSubject) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReportSubject to Long")
+}
 func (r EvidenceReportSubject) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReportSubject to Decimal")
 }
@@ -5842,6 +5848,9 @@ func (r EvidenceReportSubjectCharacteristic) ToString(explicit bool) (fhirpath.S
 }
 func (r EvidenceReportSubjectCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReportSubjectCharacteristic to Integer")
+}
+func (r EvidenceReportSubjectCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReportSubjectCharacteristic to Long")
 }
 func (r EvidenceReportSubjectCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReportSubjectCharacteristic to Decimal")
@@ -5978,6 +5987,9 @@ func (r EvidenceReportRelatesTo) ToString(explicit bool) (fhirpath.String, bool,
 func (r EvidenceReportRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReportRelatesTo to Integer")
 }
+func (r EvidenceReportRelatesTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReportRelatesTo to Long")
+}
 func (r EvidenceReportRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReportRelatesTo to Decimal")
 }
@@ -6112,6 +6124,9 @@ func (r EvidenceReportRelatesToTarget) ToString(explicit bool) (fhirpath.String,
 }
 func (r EvidenceReportRelatesToTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReportRelatesToTarget to Integer")
+}
+func (r EvidenceReportRelatesToTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReportRelatesToTarget to Long")
 }
 func (r EvidenceReportRelatesToTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReportRelatesToTarget to Decimal")
@@ -6301,6 +6316,9 @@ func (r EvidenceReportSection) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r EvidenceReportSection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceReportSection to Integer")
+}
+func (r EvidenceReportSection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceReportSection to Long")
 }
 func (r EvidenceReportSection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceReportSection to Decimal")

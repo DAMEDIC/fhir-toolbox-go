@@ -155,6 +155,9 @@ func (r Date) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Date) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Date to Integer")
 }
+func (r Date) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Date to Long")
+}
 func (r Date) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Date to Decimal")
 }

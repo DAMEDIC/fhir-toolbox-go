@@ -4083,6 +4083,9 @@ func (r HealthcareService) ToString(explicit bool) (fhirpath.String, bool, error
 func (r HealthcareService) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert HealthcareService to Integer")
 }
+func (r HealthcareService) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert HealthcareService to Long")
+}
 func (r HealthcareService) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareService to Decimal")
 }
@@ -4397,6 +4400,9 @@ func (r HealthcareServiceEligibility) ToString(explicit bool) (fhirpath.String, 
 func (r HealthcareServiceEligibility) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert HealthcareServiceEligibility to Integer")
 }
+func (r HealthcareServiceEligibility) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert HealthcareServiceEligibility to Long")
+}
 func (r HealthcareServiceEligibility) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareServiceEligibility to Decimal")
 }
@@ -4531,6 +4537,9 @@ func (r HealthcareServiceAvailableTime) ToString(explicit bool) (fhirpath.String
 }
 func (r HealthcareServiceAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert HealthcareServiceAvailableTime to Integer")
+}
+func (r HealthcareServiceAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert HealthcareServiceAvailableTime to Long")
 }
 func (r HealthcareServiceAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareServiceAvailableTime to Decimal")
@@ -4668,6 +4677,9 @@ func (r HealthcareServiceNotAvailable) ToString(explicit bool) (fhirpath.String,
 }
 func (r HealthcareServiceNotAvailable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert HealthcareServiceNotAvailable to Integer")
+}
+func (r HealthcareServiceNotAvailable) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert HealthcareServiceNotAvailable to Long")
 }
 func (r HealthcareServiceNotAvailable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert HealthcareServiceNotAvailable to Decimal")

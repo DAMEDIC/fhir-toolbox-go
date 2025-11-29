@@ -7870,6 +7870,9 @@ func (r TerminologyCapabilities) ToString(explicit bool) (fhirpath.String, bool,
 func (r TerminologyCapabilities) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilities to Integer")
 }
+func (r TerminologyCapabilities) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilities to Long")
+}
 func (r TerminologyCapabilities) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilities to Decimal")
 }
@@ -8203,6 +8206,9 @@ func (r TerminologyCapabilitiesSoftware) ToString(explicit bool) (fhirpath.Strin
 func (r TerminologyCapabilitiesSoftware) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesSoftware to Integer")
 }
+func (r TerminologyCapabilitiesSoftware) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesSoftware to Long")
+}
 func (r TerminologyCapabilitiesSoftware) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesSoftware to Decimal")
 }
@@ -8325,6 +8331,9 @@ func (r TerminologyCapabilitiesImplementation) ToString(explicit bool) (fhirpath
 }
 func (r TerminologyCapabilitiesImplementation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesImplementation to Integer")
+}
+func (r TerminologyCapabilitiesImplementation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesImplementation to Long")
 }
 func (r TerminologyCapabilitiesImplementation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesImplementation to Decimal")
@@ -8458,6 +8467,9 @@ func (r TerminologyCapabilitiesCodeSystem) ToString(explicit bool) (fhirpath.Str
 }
 func (r TerminologyCapabilitiesCodeSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Integer")
+}
+func (r TerminologyCapabilitiesCodeSystem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Long")
 }
 func (r TerminologyCapabilitiesCodeSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Decimal")
@@ -8618,6 +8630,9 @@ func (r TerminologyCapabilitiesCodeSystemVersion) ToString(explicit bool) (fhirp
 func (r TerminologyCapabilitiesCodeSystemVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Integer")
 }
+func (r TerminologyCapabilitiesCodeSystemVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Long")
+}
 func (r TerminologyCapabilitiesCodeSystemVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Decimal")
 }
@@ -8769,6 +8784,9 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToString(explicit bool) 
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Integer")
 }
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Long")
+}
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Decimal")
 }
@@ -8908,6 +8926,9 @@ func (r TerminologyCapabilitiesExpansion) ToString(explicit bool) (fhirpath.Stri
 }
 func (r TerminologyCapabilitiesExpansion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesExpansion to Integer")
+}
+func (r TerminologyCapabilitiesExpansion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesExpansion to Long")
 }
 func (r TerminologyCapabilitiesExpansion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesExpansion to Decimal")
@@ -9053,6 +9074,9 @@ func (r TerminologyCapabilitiesExpansionParameter) ToString(explicit bool) (fhir
 func (r TerminologyCapabilitiesExpansionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Integer")
 }
+func (r TerminologyCapabilitiesExpansionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Long")
+}
 func (r TerminologyCapabilitiesExpansionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Decimal")
 }
@@ -9171,6 +9195,9 @@ func (r TerminologyCapabilitiesValidateCode) ToString(explicit bool) (fhirpath.S
 func (r TerminologyCapabilitiesValidateCode) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Integer")
 }
+func (r TerminologyCapabilitiesValidateCode) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Long")
+}
 func (r TerminologyCapabilitiesValidateCode) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Decimal")
 }
@@ -9281,6 +9308,9 @@ func (r TerminologyCapabilitiesTranslation) ToString(explicit bool) (fhirpath.St
 }
 func (r TerminologyCapabilitiesTranslation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesTranslation to Integer")
+}
+func (r TerminologyCapabilitiesTranslation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesTranslation to Long")
 }
 func (r TerminologyCapabilitiesTranslation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesTranslation to Decimal")
@@ -9394,6 +9424,9 @@ func (r TerminologyCapabilitiesClosure) ToString(explicit bool) (fhirpath.String
 }
 func (r TerminologyCapabilitiesClosure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesClosure to Integer")
+}
+func (r TerminologyCapabilitiesClosure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesClosure to Long")
 }
 func (r TerminologyCapabilitiesClosure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesClosure to Decimal")

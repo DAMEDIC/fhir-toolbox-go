@@ -3172,6 +3172,9 @@ func (r DiagnosticReport) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r DiagnosticReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DiagnosticReport to Integer")
 }
+func (r DiagnosticReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DiagnosticReport to Long")
+}
 func (r DiagnosticReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DiagnosticReport to Decimal")
 }
@@ -3461,6 +3464,9 @@ func (r DiagnosticReportSupportingInfo) ToString(explicit bool) (fhirpath.String
 func (r DiagnosticReportSupportingInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DiagnosticReportSupportingInfo to Integer")
 }
+func (r DiagnosticReportSupportingInfo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DiagnosticReportSupportingInfo to Long")
+}
 func (r DiagnosticReportSupportingInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DiagnosticReportSupportingInfo to Decimal")
 }
@@ -3583,6 +3589,9 @@ func (r DiagnosticReportMedia) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r DiagnosticReportMedia) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DiagnosticReportMedia to Integer")
+}
+func (r DiagnosticReportMedia) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DiagnosticReportMedia to Long")
 }
 func (r DiagnosticReportMedia) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DiagnosticReportMedia to Decimal")

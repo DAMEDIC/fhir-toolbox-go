@@ -5931,6 +5931,9 @@ func (r SpecimenDefinition) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r SpecimenDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinition to Integer")
 }
+func (r SpecimenDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinition to Long")
+}
 func (r SpecimenDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinition to Decimal")
 }
@@ -6311,6 +6314,9 @@ func (r SpecimenDefinitionTypeTested) ToString(explicit bool) (fhirpath.String, 
 func (r SpecimenDefinitionTypeTested) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTested to Integer")
 }
+func (r SpecimenDefinitionTypeTested) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTested to Long")
+}
 func (r SpecimenDefinitionTypeTested) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Decimal")
 }
@@ -6522,6 +6528,9 @@ func (r SpecimenDefinitionTypeTestedContainer) ToString(explicit bool) (fhirpath
 func (r SpecimenDefinitionTypeTestedContainer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Integer")
 }
+func (r SpecimenDefinitionTypeTestedContainer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Long")
+}
 func (r SpecimenDefinitionTypeTestedContainer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Decimal")
 }
@@ -6682,6 +6691,9 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) ToString(explicit bool) (
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Integer")
 }
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Long")
+}
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Decimal")
 }
@@ -6809,6 +6821,9 @@ func (r SpecimenDefinitionTypeTestedHandling) ToString(explicit bool) (fhirpath.
 }
 func (r SpecimenDefinitionTypeTestedHandling) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Integer")
+}
+func (r SpecimenDefinitionTypeTestedHandling) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Long")
 }
 func (r SpecimenDefinitionTypeTestedHandling) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Decimal")

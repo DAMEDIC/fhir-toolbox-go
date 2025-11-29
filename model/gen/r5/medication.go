@@ -2302,6 +2302,9 @@ func (r Medication) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Medication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Medication to Integer")
 }
+func (r Medication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Medication to Long")
+}
 func (r Medication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Medication to Decimal")
 }
@@ -2514,6 +2517,9 @@ func (r MedicationIngredient) ToString(explicit bool) (fhirpath.String, bool, er
 func (r MedicationIngredient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationIngredient to Integer")
 }
+func (r MedicationIngredient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationIngredient to Long")
+}
 func (r MedicationIngredient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationIngredient to Decimal")
 }
@@ -2645,6 +2651,9 @@ func (r MedicationBatch) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r MedicationBatch) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationBatch to Integer")
+}
+func (r MedicationBatch) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationBatch to Long")
 }
 func (r MedicationBatch) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationBatch to Decimal")

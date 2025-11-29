@@ -2603,6 +2603,9 @@ func (r SupplyRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r SupplyRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SupplyRequest to Integer")
 }
+func (r SupplyRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SupplyRequest to Long")
+}
 func (r SupplyRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyRequest to Decimal")
 }
@@ -2860,6 +2863,9 @@ func (r SupplyRequestParameter) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r SupplyRequestParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SupplyRequestParameter to Integer")
+}
+func (r SupplyRequestParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SupplyRequestParameter to Long")
 }
 func (r SupplyRequestParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyRequestParameter to Decimal")

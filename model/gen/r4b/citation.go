@@ -16704,6 +16704,9 @@ func (r Citation) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Citation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Citation to Integer")
 }
+func (r Citation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Citation to Long")
+}
 func (r Citation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Citation to Decimal")
 }
@@ -17051,6 +17054,9 @@ func (r CitationSummary) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r CitationSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationSummary to Integer")
 }
+func (r CitationSummary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationSummary to Long")
+}
 func (r CitationSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationSummary to Decimal")
 }
@@ -17175,6 +17181,9 @@ func (r CitationClassification) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r CitationClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationClassification to Integer")
+}
+func (r CitationClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationClassification to Long")
 }
 func (r CitationClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationClassification to Decimal")
@@ -17301,6 +17310,9 @@ func (r CitationStatusDate) ToString(explicit bool) (fhirpath.String, bool, erro
 }
 func (r CitationStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationStatusDate to Integer")
+}
+func (r CitationStatusDate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationStatusDate to Long")
 }
 func (r CitationStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationStatusDate to Decimal")
@@ -17434,6 +17446,9 @@ func (r CitationRelatesTo) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r CitationRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationRelatesTo to Integer")
+}
+func (r CitationRelatesTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationRelatesTo to Long")
 }
 func (r CitationRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationRelatesTo to Decimal")
@@ -17631,6 +17646,9 @@ func (r CitationCitedArtifact) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r CitationCitedArtifact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifact to Integer")
+}
+func (r CitationCitedArtifact) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifact to Long")
 }
 func (r CitationCitedArtifact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifact to Decimal")
@@ -17846,6 +17864,9 @@ func (r CitationCitedArtifactVersion) ToString(explicit bool) (fhirpath.String, 
 func (r CitationCitedArtifactVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactVersion to Integer")
 }
+func (r CitationCitedArtifactVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactVersion to Long")
+}
 func (r CitationCitedArtifactVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactVersion to Decimal")
 }
@@ -17971,6 +17992,9 @@ func (r CitationCitedArtifactStatusDate) ToString(explicit bool) (fhirpath.Strin
 }
 func (r CitationCitedArtifactStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactStatusDate to Integer")
+}
+func (r CitationCitedArtifactStatusDate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactStatusDate to Long")
 }
 func (r CitationCitedArtifactStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Decimal")
@@ -18106,6 +18130,9 @@ func (r CitationCitedArtifactTitle) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r CitationCitedArtifactTitle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactTitle to Integer")
+}
+func (r CitationCitedArtifactTitle) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactTitle to Long")
 }
 func (r CitationCitedArtifactTitle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactTitle to Decimal")
@@ -18246,6 +18273,9 @@ func (r CitationCitedArtifactAbstract) ToString(explicit bool) (fhirpath.String,
 }
 func (r CitationCitedArtifactAbstract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactAbstract to Integer")
+}
+func (r CitationCitedArtifactAbstract) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactAbstract to Long")
 }
 func (r CitationCitedArtifactAbstract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Decimal")
@@ -18391,6 +18421,9 @@ func (r CitationCitedArtifactPart) ToString(explicit bool) (fhirpath.String, boo
 func (r CitationCitedArtifactPart) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPart to Integer")
 }
+func (r CitationCitedArtifactPart) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPart to Long")
+}
 func (r CitationCitedArtifactPart) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPart to Decimal")
 }
@@ -18523,6 +18556,9 @@ func (r CitationCitedArtifactRelatesTo) ToString(explicit bool) (fhirpath.String
 }
 func (r CitationCitedArtifactRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Integer")
+}
+func (r CitationCitedArtifactRelatesTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactRelatesTo to Long")
 }
 func (r CitationCitedArtifactRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Decimal")
@@ -18700,6 +18736,9 @@ func (r CitationCitedArtifactPublicationForm) ToString(explicit bool) (fhirpath.
 }
 func (r CitationCitedArtifactPublicationForm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Integer")
+}
+func (r CitationCitedArtifactPublicationForm) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationForm to Long")
 }
 func (r CitationCitedArtifactPublicationForm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Decimal")
@@ -18904,6 +18943,9 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) ToString(explicit bool)
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Integer")
 }
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Long")
+}
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Decimal")
 }
@@ -19059,6 +19101,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToString(explicit b
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Integer")
+}
+func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Long")
 }
 func (r CitationCitedArtifactPublicationFormPeriodicRelease) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicRelease to Decimal")
@@ -19219,6 +19264,9 @@ func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) To
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Integer")
 }
+func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Long")
+}
 func (r CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPeriodicReleaseDateOfPublication to Decimal")
 }
@@ -19372,6 +19420,9 @@ func (r CitationCitedArtifactWebLocation) ToString(explicit bool) (fhirpath.Stri
 func (r CitationCitedArtifactWebLocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactWebLocation to Integer")
 }
+func (r CitationCitedArtifactWebLocation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactWebLocation to Long")
+}
 func (r CitationCitedArtifactWebLocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Decimal")
 }
@@ -19501,6 +19552,9 @@ func (r CitationCitedArtifactClassification) ToString(explicit bool) (fhirpath.S
 }
 func (r CitationCitedArtifactClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactClassification to Integer")
+}
+func (r CitationCitedArtifactClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactClassification to Long")
 }
 func (r CitationCitedArtifactClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactClassification to Decimal")
@@ -19648,6 +19702,9 @@ func (r CitationCitedArtifactClassificationWhoClassified) ToString(explicit bool
 }
 func (r CitationCitedArtifactClassificationWhoClassified) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Integer")
+}
+func (r CitationCitedArtifactClassificationWhoClassified) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Long")
 }
 func (r CitationCitedArtifactClassificationWhoClassified) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactClassificationWhoClassified to Decimal")
@@ -19799,6 +19856,9 @@ func (r CitationCitedArtifactContributorship) ToString(explicit bool) (fhirpath.
 }
 func (r CitationCitedArtifactContributorship) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorship to Integer")
+}
+func (r CitationCitedArtifactContributorship) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorship to Long")
 }
 func (r CitationCitedArtifactContributorship) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Decimal")
@@ -19981,6 +20041,9 @@ func (r CitationCitedArtifactContributorshipEntry) ToString(explicit bool) (fhir
 }
 func (r CitationCitedArtifactContributorshipEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Integer")
+}
+func (r CitationCitedArtifactContributorshipEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Long")
 }
 func (r CitationCitedArtifactContributorshipEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Decimal")
@@ -20182,6 +20245,9 @@ func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToString(expli
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Integer")
 }
+func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Long")
+}
 func (r CitationCitedArtifactContributorshipEntryAffiliationInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryAffiliationInfo to Decimal")
 }
@@ -20311,6 +20377,9 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToString(
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Integer")
+}
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Long")
 }
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Decimal")
@@ -20444,6 +20513,9 @@ func (r CitationCitedArtifactContributorshipSummary) ToString(explicit bool) (fh
 }
 func (r CitationCitedArtifactContributorshipSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Integer")
+}
+func (r CitationCitedArtifactContributorshipSummary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Long")
 }
 func (r CitationCitedArtifactContributorshipSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Decimal")

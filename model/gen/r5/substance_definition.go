@@ -9812,6 +9812,9 @@ func (r SubstanceDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r SubstanceDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinition to Integer")
 }
+func (r SubstanceDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinition to Long")
+}
 func (r SubstanceDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinition to Decimal")
 }
@@ -10156,6 +10159,9 @@ func (r SubstanceDefinitionMoiety) ToString(explicit bool) (fhirpath.String, boo
 func (r SubstanceDefinitionMoiety) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionMoiety to Integer")
 }
+func (r SubstanceDefinitionMoiety) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionMoiety to Long")
+}
 func (r SubstanceDefinitionMoiety) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionMoiety to Decimal")
 }
@@ -10333,6 +10339,9 @@ func (r SubstanceDefinitionCharacterization) ToString(explicit bool) (fhirpath.S
 func (r SubstanceDefinitionCharacterization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionCharacterization to Integer")
 }
+func (r SubstanceDefinitionCharacterization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionCharacterization to Long")
+}
 func (r SubstanceDefinitionCharacterization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionCharacterization to Decimal")
 }
@@ -10470,6 +10479,9 @@ func (r SubstanceDefinitionProperty) ToString(explicit bool) (fhirpath.String, b
 func (r SubstanceDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionProperty to Integer")
 }
+func (r SubstanceDefinitionProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionProperty to Long")
+}
 func (r SubstanceDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionProperty to Decimal")
 }
@@ -10597,6 +10609,9 @@ func (r SubstanceDefinitionMolecularWeight) ToString(explicit bool) (fhirpath.St
 }
 func (r SubstanceDefinitionMolecularWeight) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Integer")
+}
+func (r SubstanceDefinitionMolecularWeight) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Long")
 }
 func (r SubstanceDefinitionMolecularWeight) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionMolecularWeight to Decimal")
@@ -10759,6 +10774,9 @@ func (r SubstanceDefinitionStructure) ToString(explicit bool) (fhirpath.String, 
 }
 func (r SubstanceDefinitionStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionStructure to Integer")
+}
+func (r SubstanceDefinitionStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionStructure to Long")
 }
 func (r SubstanceDefinitionStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionStructure to Decimal")
@@ -10937,6 +10955,9 @@ func (r SubstanceDefinitionStructureRepresentation) ToString(explicit bool) (fhi
 func (r SubstanceDefinitionStructureRepresentation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Integer")
 }
+func (r SubstanceDefinitionStructureRepresentation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Long")
+}
 func (r SubstanceDefinitionStructureRepresentation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionStructureRepresentation to Decimal")
 }
@@ -11090,6 +11111,9 @@ func (r SubstanceDefinitionCode) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r SubstanceDefinitionCode) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionCode to Integer")
+}
+func (r SubstanceDefinitionCode) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionCode to Long")
 }
 func (r SubstanceDefinitionCode) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionCode to Decimal")
@@ -11279,6 +11303,9 @@ func (r SubstanceDefinitionName) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r SubstanceDefinitionName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionName to Integer")
+}
+func (r SubstanceDefinitionName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionName to Long")
 }
 func (r SubstanceDefinitionName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionName to Decimal")
@@ -11473,6 +11500,9 @@ func (r SubstanceDefinitionNameOfficial) ToString(explicit bool) (fhirpath.Strin
 func (r SubstanceDefinitionNameOfficial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Integer")
 }
+func (r SubstanceDefinitionNameOfficial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionNameOfficial to Long")
+}
 func (r SubstanceDefinitionNameOfficial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionNameOfficial to Decimal")
 }
@@ -11627,6 +11657,9 @@ func (r SubstanceDefinitionRelationship) ToString(explicit bool) (fhirpath.Strin
 }
 func (r SubstanceDefinitionRelationship) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionRelationship to Integer")
+}
+func (r SubstanceDefinitionRelationship) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionRelationship to Long")
 }
 func (r SubstanceDefinitionRelationship) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionRelationship to Decimal")
@@ -11802,6 +11835,9 @@ func (r SubstanceDefinitionSourceMaterial) ToString(explicit bool) (fhirpath.Str
 }
 func (r SubstanceDefinitionSourceMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Integer")
+}
+func (r SubstanceDefinitionSourceMaterial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Long")
 }
 func (r SubstanceDefinitionSourceMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceDefinitionSourceMaterial to Decimal")

@@ -3445,6 +3445,9 @@ func (r MedicationAdministration) ToString(explicit bool) (fhirpath.String, bool
 func (r MedicationAdministration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationAdministration to Integer")
 }
+func (r MedicationAdministration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationAdministration to Long")
+}
 func (r MedicationAdministration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationAdministration to Decimal")
 }
@@ -3736,6 +3739,9 @@ func (r MedicationAdministrationPerformer) ToString(explicit bool) (fhirpath.Str
 func (r MedicationAdministrationPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationAdministrationPerformer to Integer")
 }
+func (r MedicationAdministrationPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationAdministrationPerformer to Long")
+}
 func (r MedicationAdministrationPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationAdministrationPerformer to Decimal")
 }
@@ -3880,6 +3886,9 @@ func (r MedicationAdministrationDosage) ToString(explicit bool) (fhirpath.String
 }
 func (r MedicationAdministrationDosage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationAdministrationDosage to Integer")
+}
+func (r MedicationAdministrationDosage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationAdministrationDosage to Long")
 }
 func (r MedicationAdministrationDosage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationAdministrationDosage to Decimal")

@@ -1953,6 +1953,9 @@ func (r ImmunizationEvaluation) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ImmunizationEvaluation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationEvaluation to Integer")
 }
+func (r ImmunizationEvaluation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationEvaluation to Long")
+}
 func (r ImmunizationEvaluation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationEvaluation to Decimal")
 }

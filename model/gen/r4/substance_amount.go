@@ -1075,6 +1075,9 @@ func (r SubstanceAmount) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r SubstanceAmount) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceAmount to Integer")
 }
+func (r SubstanceAmount) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceAmount to Long")
+}
 func (r SubstanceAmount) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmount to Decimal")
 }
@@ -1208,6 +1211,9 @@ func (r SubstanceAmountReferenceRange) ToString(explicit bool) (fhirpath.String,
 }
 func (r SubstanceAmountReferenceRange) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceAmountReferenceRange to Integer")
+}
+func (r SubstanceAmountReferenceRange) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceAmountReferenceRange to Long")
 }
 func (r SubstanceAmountReferenceRange) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Decimal")

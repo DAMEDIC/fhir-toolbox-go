@@ -4213,6 +4213,9 @@ func (r ChargeItemDefinition) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ChargeItemDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItemDefinition to Integer")
 }
+func (r ChargeItemDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItemDefinition to Long")
+}
 func (r ChargeItemDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinition to Decimal")
 }
@@ -4525,6 +4528,9 @@ func (r ChargeItemDefinitionApplicability) ToString(explicit bool) (fhirpath.Str
 func (r ChargeItemDefinitionApplicability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItemDefinitionApplicability to Integer")
 }
+func (r ChargeItemDefinitionApplicability) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItemDefinitionApplicability to Long")
+}
 func (r ChargeItemDefinitionApplicability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionApplicability to Decimal")
 }
@@ -4656,6 +4662,9 @@ func (r ChargeItemDefinitionPropertyGroup) ToString(explicit bool) (fhirpath.Str
 }
 func (r ChargeItemDefinitionPropertyGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Integer")
+}
+func (r ChargeItemDefinitionPropertyGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Long")
 }
 func (r ChargeItemDefinitionPropertyGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroup to Decimal")
@@ -4789,6 +4798,9 @@ func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToString(explicit bool)
 }
 func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Integer")
+}
+func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Long")
 }
 func (r ChargeItemDefinitionPropertyGroupPriceComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemDefinitionPropertyGroupPriceComponent to Decimal")

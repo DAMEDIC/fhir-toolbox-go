@@ -4452,6 +4452,9 @@ func (r PackagedProductDefinition) ToString(explicit bool) (fhirpath.String, boo
 func (r PackagedProductDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinition to Integer")
 }
+func (r PackagedProductDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinition to Long")
+}
 func (r PackagedProductDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinition to Decimal")
 }
@@ -4703,6 +4706,9 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) ToString(explicit bool) (f
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Integer")
 }
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Long")
+}
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Decimal")
 }
@@ -4872,6 +4878,9 @@ func (r PackagedProductDefinitionPackaging) ToString(explicit bool) (fhirpath.St
 }
 func (r PackagedProductDefinitionPackaging) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackaging to Integer")
+}
+func (r PackagedProductDefinitionPackaging) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackaging to Long")
 }
 func (r PackagedProductDefinitionPackaging) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackaging to Decimal")
@@ -5059,6 +5068,9 @@ func (r PackagedProductDefinitionPackagingProperty) ToString(explicit bool) (fhi
 func (r PackagedProductDefinitionPackagingProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackagingProperty to Integer")
 }
+func (r PackagedProductDefinitionPackagingProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackagingProperty to Long")
+}
 func (r PackagedProductDefinitionPackagingProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackagingProperty to Decimal")
 }
@@ -5181,6 +5193,9 @@ func (r PackagedProductDefinitionPackagingContainedItem) ToString(explicit bool)
 }
 func (r PackagedProductDefinitionPackagingContainedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackagingContainedItem to Integer")
+}
+func (r PackagedProductDefinitionPackagingContainedItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackagingContainedItem to Long")
 }
 func (r PackagedProductDefinitionPackagingContainedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackagingContainedItem to Decimal")

@@ -2912,6 +2912,9 @@ func (r SubstanceNucleicAcid) ToString(explicit bool) (fhirpath.String, bool, er
 func (r SubstanceNucleicAcid) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceNucleicAcid to Integer")
 }
+func (r SubstanceNucleicAcid) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceNucleicAcid to Long")
+}
 func (r SubstanceNucleicAcid) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcid to Decimal")
 }
@@ -3123,6 +3126,9 @@ func (r SubstanceNucleicAcidSubunit) ToString(explicit bool) (fhirpath.String, b
 func (r SubstanceNucleicAcidSubunit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Integer")
 }
+func (r SubstanceNucleicAcidSubunit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceNucleicAcidSubunit to Long")
+}
 func (r SubstanceNucleicAcidSubunit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunit to Decimal")
 }
@@ -3300,6 +3306,9 @@ func (r SubstanceNucleicAcidSubunitLinkage) ToString(explicit bool) (fhirpath.St
 func (r SubstanceNucleicAcidSubunitLinkage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Integer")
 }
+func (r SubstanceNucleicAcidSubunitLinkage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Long")
+}
 func (r SubstanceNucleicAcidSubunitLinkage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitLinkage to Decimal")
 }
@@ -3443,6 +3452,9 @@ func (r SubstanceNucleicAcidSubunitSugar) ToString(explicit bool) (fhirpath.Stri
 }
 func (r SubstanceNucleicAcidSubunitSugar) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Integer")
+}
+func (r SubstanceNucleicAcidSubunitSugar) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Long")
 }
 func (r SubstanceNucleicAcidSubunitSugar) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceNucleicAcidSubunitSugar to Decimal")

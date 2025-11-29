@@ -375,6 +375,17 @@ func (o FHIRPathTestOutput) ToInteger(explicit bool) (v fhirpath.Integer, ok boo
 	return fhirpath.Integer(i), true, nil
 }
 
+func (o FHIRPathTestOutput) ToLong(explicit bool) (v fhirpath.Long, ok bool, err error) {
+	if o.Type != "integer" && o.Type != "long" {
+		panic("not a long")
+	}
+	i, err := strconv.ParseInt(o.Output, 10, 64)
+	if err != nil {
+		panic(err)
+	}
+	return fhirpath.Long(i), true, nil
+}
+
 func (o FHIRPathTestOutput) ToDecimal(explicit bool) (v fhirpath.Decimal, ok bool, err error) {
 	if o.Type != "decimal" {
 		panic("not a decimal")

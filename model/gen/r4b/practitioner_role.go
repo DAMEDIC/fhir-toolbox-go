@@ -2842,6 +2842,9 @@ func (r PractitionerRole) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r PractitionerRole) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PractitionerRole to Integer")
 }
+func (r PractitionerRole) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PractitionerRole to Long")
+}
 func (r PractitionerRole) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRole to Decimal")
 }
@@ -3096,6 +3099,9 @@ func (r PractitionerRoleAvailableTime) ToString(explicit bool) (fhirpath.String,
 func (r PractitionerRoleAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PractitionerRoleAvailableTime to Integer")
 }
+func (r PractitionerRoleAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PractitionerRoleAvailableTime to Long")
+}
 func (r PractitionerRoleAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRoleAvailableTime to Decimal")
 }
@@ -3232,6 +3238,9 @@ func (r PractitionerRoleNotAvailable) ToString(explicit bool) (fhirpath.String, 
 }
 func (r PractitionerRoleNotAvailable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PractitionerRoleNotAvailable to Integer")
+}
+func (r PractitionerRoleNotAvailable) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PractitionerRoleNotAvailable to Long")
 }
 func (r PractitionerRoleNotAvailable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRoleNotAvailable to Decimal")

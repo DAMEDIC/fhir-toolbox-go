@@ -5346,6 +5346,9 @@ func (r ResearchElementDefinition) ToString(explicit bool) (fhirpath.String, boo
 func (r ResearchElementDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchElementDefinition to Integer")
 }
+func (r ResearchElementDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchElementDefinition to Long")
+}
 func (r ResearchElementDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchElementDefinition to Decimal")
 }
@@ -5770,6 +5773,9 @@ func (r ResearchElementDefinitionCharacteristic) ToString(explicit bool) (fhirpa
 }
 func (r ResearchElementDefinitionCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Integer")
+}
+func (r ResearchElementDefinitionCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Long")
 }
 func (r ResearchElementDefinitionCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchElementDefinitionCharacteristic to Decimal")

@@ -3087,6 +3087,9 @@ func (r Subscription) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Subscription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Subscription to Integer")
 }
+func (r Subscription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Subscription to Long")
+}
 func (r Subscription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Subscription to Decimal")
 }
@@ -3363,6 +3366,9 @@ func (r SubscriptionFilterBy) ToString(explicit bool) (fhirpath.String, bool, er
 func (r SubscriptionFilterBy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionFilterBy to Integer")
 }
+func (r SubscriptionFilterBy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionFilterBy to Long")
+}
 func (r SubscriptionFilterBy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionFilterBy to Decimal")
 }
@@ -3504,6 +3510,9 @@ func (r SubscriptionParameter) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r SubscriptionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionParameter to Integer")
+}
+func (r SubscriptionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionParameter to Long")
 }
 func (r SubscriptionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionParameter to Decimal")

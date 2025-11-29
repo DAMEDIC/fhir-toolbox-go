@@ -2955,6 +2955,9 @@ func (r BodyStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BodyStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructure to Integer")
 }
+func (r BodyStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructure to Long")
+}
 func (r BodyStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructure to Decimal")
 }
@@ -3170,6 +3173,9 @@ func (r BodyStructureIncludedStructure) ToString(explicit bool) (fhirpath.String
 func (r BodyStructureIncludedStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructure to Integer")
 }
+func (r BodyStructureIncludedStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructure to Long")
+}
 func (r BodyStructureIncludedStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructure to Decimal")
 }
@@ -3326,6 +3332,9 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToString(explicit
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Integer")
 }
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Long")
+}
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Decimal")
 }
@@ -3464,6 +3473,9 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Integer")
+}
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Long")
 }
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Decimal")

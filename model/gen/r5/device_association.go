@@ -1730,6 +1730,9 @@ func (r DeviceAssociation) ToString(explicit bool) (fhirpath.String, bool, error
 func (r DeviceAssociation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceAssociation to Integer")
 }
+func (r DeviceAssociation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceAssociation to Long")
+}
 func (r DeviceAssociation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceAssociation to Decimal")
 }
@@ -1941,6 +1944,9 @@ func (r DeviceAssociationOperation) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r DeviceAssociationOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceAssociationOperation to Integer")
+}
+func (r DeviceAssociationOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceAssociationOperation to Long")
 }
 func (r DeviceAssociationOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceAssociationOperation to Decimal")

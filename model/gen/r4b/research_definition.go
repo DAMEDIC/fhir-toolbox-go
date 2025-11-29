@@ -3477,6 +3477,9 @@ func (r ResearchDefinition) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ResearchDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ResearchDefinition to Integer")
 }
+func (r ResearchDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ResearchDefinition to Long")
+}
 func (r ResearchDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ResearchDefinition to Decimal")
 }

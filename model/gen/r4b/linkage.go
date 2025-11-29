@@ -1352,6 +1352,9 @@ func (r Linkage) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Linkage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Linkage to Integer")
 }
+func (r Linkage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Linkage to Long")
+}
 func (r Linkage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Linkage to Decimal")
 }
@@ -1514,6 +1517,9 @@ func (r LinkageItem) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r LinkageItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert LinkageItem to Integer")
+}
+func (r LinkageItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert LinkageItem to Long")
 }
 func (r LinkageItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert LinkageItem to Decimal")

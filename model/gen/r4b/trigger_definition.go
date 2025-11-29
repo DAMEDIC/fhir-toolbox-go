@@ -920,6 +920,9 @@ func (r TriggerDefinition) ToString(explicit bool) (fhirpath.String, bool, error
 func (r TriggerDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TriggerDefinition to Integer")
 }
+func (r TriggerDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TriggerDefinition to Long")
+}
 func (r TriggerDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TriggerDefinition to Decimal")
 }

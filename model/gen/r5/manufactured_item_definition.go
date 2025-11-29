@@ -3726,6 +3726,9 @@ func (r ManufacturedItemDefinition) ToString(explicit bool) (fhirpath.String, bo
 func (r ManufacturedItemDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ManufacturedItemDefinition to Integer")
 }
+func (r ManufacturedItemDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ManufacturedItemDefinition to Long")
+}
 func (r ManufacturedItemDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinition to Decimal")
 }
@@ -3940,6 +3943,9 @@ func (r ManufacturedItemDefinitionProperty) ToString(explicit bool) (fhirpath.St
 func (r ManufacturedItemDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Integer")
 }
+func (r ManufacturedItemDefinitionProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ManufacturedItemDefinitionProperty to Long")
+}
 func (r ManufacturedItemDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinitionProperty to Decimal")
 }
@@ -4082,6 +4088,9 @@ func (r ManufacturedItemDefinitionComponent) ToString(explicit bool) (fhirpath.S
 }
 func (r ManufacturedItemDefinitionComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ManufacturedItemDefinitionComponent to Integer")
+}
+func (r ManufacturedItemDefinitionComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ManufacturedItemDefinitionComponent to Long")
 }
 func (r ManufacturedItemDefinitionComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinitionComponent to Decimal")
@@ -4245,6 +4254,9 @@ func (r ManufacturedItemDefinitionComponentConstituent) ToString(explicit bool) 
 }
 func (r ManufacturedItemDefinitionComponentConstituent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Integer")
+}
+func (r ManufacturedItemDefinitionComponentConstituent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Long")
 }
 func (r ManufacturedItemDefinitionComponentConstituent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ManufacturedItemDefinitionComponentConstituent to Decimal")

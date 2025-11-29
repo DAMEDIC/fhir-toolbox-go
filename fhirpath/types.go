@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"math"
 	"regexp"
 	"slices"
 	"strconv"
@@ -26,6 +27,7 @@ type Element interface {
 	ToBoolean(explicit bool) (v Boolean, ok bool, err error)
 	ToString(explicit bool) (v String, ok bool, err error)
 	ToInteger(explicit bool) (v Integer, ok bool, err error)
+	ToLong(explicit bool) (v Long, ok bool, err error)
 	ToDecimal(explicit bool) (v Decimal, ok bool, err error)
 	ToDate(explicit bool) (v Date, ok bool, err error)
 	ToTime(explicit bool) (v Time, ok bool, err error)
@@ -704,6 +706,14 @@ func toPrimitive(e Element) (Element, bool) {
 	if p, ok, err := e.ToInteger(false); err == nil && ok {
 		return p, true
 	}
+	switch v := e.(type) {
+	case Long:
+		return v, true
+	case *Long:
+		if v != nil {
+			return *v, true
+		}
+	}
 	if p, ok, err := e.ToDecimal(false); err == nil && ok {
 		return p, true
 	}
@@ -864,7 +874,7 @@ func (c Collection) Multiply(ctx context.Context, other Collection) (Collection,
 		left, ok = primitive.(multiplyElement)
 	}
 	if !ok {
-		return nil, errors.New("can only multiply Integer, Decimal or Quantity")
+		return nil, errors.New("can only multiply Integer, Long, Decimal or Quantity")
 	}
 	right := other[0]
 
@@ -892,7 +902,7 @@ func (c Collection) Divide(ctx context.Context, other Collection) (Collection, e
 		left, ok = primitive.(divideElement)
 	}
 	if !ok {
-		return nil, errors.New("can only divide Integer, Decimal or Quantity")
+		return nil, errors.New("can only divide Integer, Long, Decimal or Quantity")
 	}
 	right := other[0]
 
@@ -923,7 +933,7 @@ func (c Collection) Div(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(divElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal")
+		return nil, errors.New("can only div Integer, Long, Decimal")
 	}
 	right := other[0]
 
@@ -954,7 +964,7 @@ func (c Collection) Mod(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(modElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal")
+		return nil, errors.New("can only div Integer, Long, Decimal")
 	}
 	right := other[0]
 
@@ -985,7 +995,7 @@ func (c Collection) Add(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(addElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal, Quantity and String")
+		return nil, errors.New("can only div Integer, Long, Decimal, Quantity and String")
 	}
 	right := other[0]
 
@@ -1013,7 +1023,7 @@ func (c Collection) Subtract(ctx context.Context, other Collection) (Collection,
 		left, ok = primitive.(subtractElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal, Quantity")
+		return nil, errors.New("can only div Integer, Long, Decimal, Quantity")
 	}
 	right := other[0]
 
@@ -1095,6 +1105,15 @@ func (b Boolean) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 		}
 	}
 	return 0, false, implicitConversionError[Boolean, Integer](b)
+}
+func (b Boolean) ToLong(explicit bool) (v Long, ok bool, err error) {
+	if explicit {
+		if b {
+			return 1, true, nil
+		}
+		return 0, true, nil
+	}
+	return 0, false, implicitConversionError[Boolean, Long](b)
 }
 func (b Boolean) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
@@ -1180,13 +1199,23 @@ func (s String) ToString(explicit bool) (v String, ok bool, err error) {
 }
 func (s String) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	if explicit {
-		i, err := strconv.Atoi(string(s))
+		val, err := strconv.ParseInt(string(s), 10, 32)
 		if err != nil {
 			return 0, false, nil
 		}
-		return Integer(i), true, nil
+		return Integer(val), true, nil
 	}
 	return 0, false, implicitConversionError[String, Integer](s)
+}
+func (s String) ToLong(explicit bool) (v Long, ok bool, err error) {
+	if explicit {
+		val, err := strconv.ParseInt(string(s), 10, 64)
+		if err != nil {
+			return 0, false, nil
+		}
+		return Long(val), true, nil
+	}
+	return 0, false, implicitConversionError[String, Long](s)
 }
 func (s String) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
@@ -1295,7 +1324,7 @@ func isStringish(e Element) bool {
 
 func canDelegateNumeric(e Element) bool {
 	switch e.(type) {
-	case Decimal, *Decimal, Quantity, *Quantity, String, *String:
+	case Decimal, *Decimal, Quantity, *Quantity, String, *String, Long, *Long:
 		return true
 	default:
 		return false
@@ -1304,7 +1333,7 @@ func canDelegateNumeric(e Element) bool {
 
 func canDelegateDecimal(e Element) bool {
 	switch e.(type) {
-	case Quantity, *Quantity, String, *String:
+	case Quantity, *Quantity, String, *String, Long, *Long:
 		return true
 	default:
 		return false
@@ -1360,6 +1389,9 @@ func (i Integer) ToString(explicit bool) (v String, ok bool, err error) {
 func (i Integer) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	return i, true, nil
 }
+func (i Integer) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return Long(i), true, nil
+}
 func (i Integer) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	return Decimal{Value: apd.New(int64(i), 0)}, true, nil
 }
@@ -1396,6 +1428,9 @@ func (i Integer) Equivalent(other Element) bool {
 }
 func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
 	d, _, _ := i.ToDecimal(false)
+	if _, isLong := other.(Long); isLong {
+		return Long(i).Cmp(other)
+	}
 	cmp, ok, err = d.Cmp(other)
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Integer to %T, left: %v right: %v", other, i, other)
@@ -1410,6 +1445,8 @@ func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Multiply(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Multiply(ctx, o)
@@ -1428,6 +1465,8 @@ func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Div(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Div(ctx, o)
@@ -1442,6 +1481,8 @@ func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Mod(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Mod(ctx, o)
@@ -1456,6 +1497,8 @@ func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Add(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Add(ctx, o)
@@ -1470,6 +1513,8 @@ func (i Integer) Subtract(ctx context.Context, other Element) (Element, error) {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Subtract(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Subtract(ctx, o)
@@ -1488,6 +1533,225 @@ func (i Integer) MarshalJSON() ([]byte, error) {
 }
 func (i Integer) String() string {
 	return strconv.Itoa(int(i))
+}
+
+type Long int64
+
+func (l Long) Children(name ...string) Collection {
+	return nil
+}
+func (l Long) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
+	if explicit {
+		switch l {
+		case 0:
+			return false, true, nil
+		case 1:
+			return true, true, nil
+		default:
+			return false, false, nil
+		}
+	}
+	return false, false, implicitConversionError[Long, Boolean](l)
+}
+func (l Long) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(strconv.FormatInt(int64(l), 10)), true, nil
+}
+func (l Long) ToInteger(explicit bool) (v Integer, ok bool, err error) {
+	if !explicit {
+		return 0, false, implicitConversionError[Long, Integer](l)
+	}
+	if l < math.MinInt32 || l > math.MaxInt32 {
+		return 0, false, fmt.Errorf("long %d cannot be represented as Integer", l)
+	}
+	return Integer(l), true, nil
+}
+func (l Long) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return l, true, nil
+}
+func (l Long) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	return Decimal{Value: apd.New(int64(l), 0)}, true, nil
+}
+func (l Long) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return Date{}, false, conversionError[Long, Date]()
+}
+func (l Long) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return Time{}, false, conversionError[Long, Time]()
+}
+func (l Long) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{}, false, conversionError[Long, DateTime]()
+}
+func (l Long) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return Quantity{
+		Value: Decimal{Value: apd.New(int64(l), 0)},
+		Unit:  "1",
+	}, true, nil
+}
+func (l Long) Equal(other Element) (eq bool, ok bool) {
+	switch o := other.(type) {
+	case Long:
+		return l == o, true
+	case *Long:
+		if o == nil {
+			return false, true
+		}
+		return l == *o, true
+	case Integer:
+		return l == Long(o), true
+	case *Integer:
+		if o == nil {
+			return false, true
+		}
+		return l == Long(*o), true
+	}
+	if canDelegateNumeric(other) {
+		return other.Equal(l)
+	}
+	return false, true
+}
+func (l Long) Equivalent(other Element) bool {
+	eq, ok := l.Equal(other)
+	return ok && eq
+}
+func (l Long) Cmp(other Element) (cmp int, ok bool, err error) {
+	switch o := other.(type) {
+	case Long:
+		switch {
+		case l < o:
+			return -1, true, nil
+		case l > o:
+			return 1, true, nil
+		default:
+			return 0, true, nil
+		}
+	case Integer:
+		switch {
+		case l < Long(o):
+			return -1, true, nil
+		case l > Long(o):
+			return 1, true, nil
+		default:
+			return 0, true, nil
+		}
+	}
+	d, _, _ := l.ToDecimal(false)
+	return d.Cmp(other)
+}
+func (l Long) Multiply(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Mul64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Mul64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Multiply(ctx, o)
+	}
+	return nil, fmt.Errorf("can not multiply Long with %T: %v * %v", other, l, other)
+}
+func (l Long) Divide(ctx context.Context, other Element) (Element, error) {
+	d, _, _ := l.ToDecimal(false)
+	return d.Divide(ctx, other)
+}
+func (l Long) Div(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Div64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Div64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Div(ctx, o)
+	}
+	return nil, fmt.Errorf("can not div Long with %T: %v div %v", other, l, other)
+}
+func (l Long) Mod(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Mod64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Mod64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Mod(ctx, o)
+	}
+	return nil, fmt.Errorf("can not mod Long with %T: %v mod %v", other, l, other)
+}
+func (l Long) Add(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Add64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Add64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Add(ctx, o)
+	}
+	return nil, fmt.Errorf("can not add Long and %T: %v + %v", other, l, other)
+}
+func (l Long) Subtract(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Sub64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Sub64(int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Subtract(ctx, o)
+	}
+	return nil, fmt.Errorf("can not subtract %T from Long: %v - %v", other, l, other)
+}
+func (l Long) TypeInfo() TypeInfo {
+	return SimpleTypeInfo{
+		Namespace: "System",
+		Name:      "Long",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+	}
+}
+func (l Long) MarshalJSON() ([]byte, error) {
+	return json.Marshal(int64(l))
+}
+func (l Long) String() string {
+	return fmt.Sprintf("%dL", l)
 }
 
 type Decimal struct {
@@ -2895,6 +3159,9 @@ func (_ defaultConversionError[F]) ToString(explicit bool) (v String, ok bool, e
 }
 func (_ defaultConversionError[F]) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	return 0, false, conversionError[F, Integer]()
+}
+func (_ defaultConversionError[F]) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return 0, false, conversionError[F, Long]()
 }
 func (_ defaultConversionError[F]) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	return Decimal{}, false, conversionError[F, Decimal]()

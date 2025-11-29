@@ -5521,6 +5521,9 @@ func (r ObservationDefinition) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ObservationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinition to Integer")
 }
+func (r ObservationDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinition to Long")
+}
 func (r ObservationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinition to Decimal")
 }
@@ -5976,6 +5979,9 @@ func (r ObservationDefinitionQualifiedValue) ToString(explicit bool) (fhirpath.S
 func (r ObservationDefinitionQualifiedValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Integer")
 }
+func (r ObservationDefinitionQualifiedValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionQualifiedValue to Long")
+}
 func (r ObservationDefinitionQualifiedValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQualifiedValue to Decimal")
 }
@@ -6178,6 +6184,9 @@ func (r ObservationDefinitionComponent) ToString(explicit bool) (fhirpath.String
 }
 func (r ObservationDefinitionComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionComponent to Integer")
+}
+func (r ObservationDefinitionComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionComponent to Long")
 }
 func (r ObservationDefinitionComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionComponent to Decimal")

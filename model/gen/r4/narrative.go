@@ -397,6 +397,9 @@ func (r Narrative) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Narrative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Narrative to Integer")
 }
+func (r Narrative) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Narrative to Long")
+}
 func (r Narrative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Narrative to Decimal")
 }

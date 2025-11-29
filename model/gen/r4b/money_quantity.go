@@ -655,6 +655,9 @@ func (r MoneyQuantity) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r MoneyQuantity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MoneyQuantity to Integer")
 }
+func (r MoneyQuantity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MoneyQuantity to Long")
+}
 func (r MoneyQuantity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MoneyQuantity to Decimal")
 }

@@ -2461,6 +2461,9 @@ func (r DeviceDispense) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DeviceDispense) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDispense to Integer")
 }
+func (r DeviceDispense) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDispense to Long")
+}
 func (r DeviceDispense) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDispense to Decimal")
 }
@@ -2751,6 +2754,9 @@ func (r DeviceDispensePerformer) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r DeviceDispensePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDispensePerformer to Integer")
+}
+func (r DeviceDispensePerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDispensePerformer to Long")
 }
 func (r DeviceDispensePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDispensePerformer to Decimal")

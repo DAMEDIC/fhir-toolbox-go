@@ -2716,6 +2716,9 @@ func (r Group) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Group) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Group to Integer")
 }
+func (r Group) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Group to Long")
+}
 func (r Group) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Group to Decimal")
 }
@@ -2936,6 +2939,9 @@ func (r GroupCharacteristic) ToString(explicit bool) (fhirpath.String, bool, err
 func (r GroupCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GroupCharacteristic to Integer")
 }
+func (r GroupCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GroupCharacteristic to Long")
+}
 func (r GroupCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GroupCharacteristic to Decimal")
 }
@@ -3077,6 +3083,9 @@ func (r GroupMember) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r GroupMember) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GroupMember to Integer")
+}
+func (r GroupMember) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GroupMember to Long")
 }
 func (r GroupMember) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GroupMember to Decimal")

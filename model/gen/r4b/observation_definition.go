@@ -2898,6 +2898,9 @@ func (r ObservationDefinition) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ObservationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinition to Integer")
 }
+func (r ObservationDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinition to Long")
+}
 func (r ObservationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinition to Decimal")
 }
@@ -3145,6 +3148,9 @@ func (r ObservationDefinitionQuantitativeDetails) ToString(explicit bool) (fhirp
 func (r ObservationDefinitionQuantitativeDetails) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Integer")
 }
+func (r ObservationDefinitionQuantitativeDetails) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Long")
+}
 func (r ObservationDefinitionQuantitativeDetails) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Decimal")
 }
@@ -3313,6 +3319,9 @@ func (r ObservationDefinitionQualifiedInterval) ToString(explicit bool) (fhirpat
 }
 func (r ObservationDefinitionQualifiedInterval) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Integer")
+}
+func (r ObservationDefinitionQualifiedInterval) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Long")
 }
 func (r ObservationDefinitionQualifiedInterval) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Decimal")

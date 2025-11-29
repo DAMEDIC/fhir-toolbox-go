@@ -6553,6 +6553,9 @@ func (r Appointment) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Appointment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Appointment to Integer")
 }
+func (r Appointment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Appointment to Long")
+}
 func (r Appointment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Appointment to Decimal")
 }
@@ -6936,6 +6939,9 @@ func (r AppointmentParticipant) ToString(explicit bool) (fhirpath.String, bool, 
 func (r AppointmentParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentParticipant to Integer")
 }
+func (r AppointmentParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentParticipant to Long")
+}
 func (r AppointmentParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentParticipant to Decimal")
 }
@@ -7119,6 +7125,9 @@ func (r AppointmentRecurrenceTemplate) ToString(explicit bool) (fhirpath.String,
 }
 func (r AppointmentRecurrenceTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplate to Long")
 }
 func (r AppointmentRecurrenceTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Decimal")
@@ -7331,6 +7340,9 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToString(explicit bool) (fh
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Decimal")
 }
@@ -7506,6 +7518,9 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToString(explicit bool) (f
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Decimal")
 }
@@ -7637,6 +7652,9 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) ToString(explicit bool) (fh
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Integer")
+}
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Long")
 }
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Decimal")

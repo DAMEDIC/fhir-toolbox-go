@@ -154,6 +154,9 @@ func (r Decimal) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Decimal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Decimal to Integer")
 }
+func (r Decimal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Decimal to Long")
+}
 func (r Decimal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	if r.Value != nil {
 		v := fhirpath.Decimal{Value: r.Value}

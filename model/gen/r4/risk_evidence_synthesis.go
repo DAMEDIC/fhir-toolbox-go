@@ -5755,6 +5755,9 @@ func (r RiskEvidenceSynthesis) ToString(explicit bool) (fhirpath.String, bool, e
 func (r RiskEvidenceSynthesis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesis to Integer")
 }
+func (r RiskEvidenceSynthesis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesis to Long")
+}
 func (r RiskEvidenceSynthesis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesis to Decimal")
 }
@@ -6123,6 +6126,9 @@ func (r RiskEvidenceSynthesisSampleSize) ToString(explicit bool) (fhirpath.Strin
 func (r RiskEvidenceSynthesisSampleSize) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesisSampleSize to Integer")
 }
+func (r RiskEvidenceSynthesisSampleSize) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesisSampleSize to Long")
+}
 func (r RiskEvidenceSynthesisSampleSize) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesisSampleSize to Decimal")
 }
@@ -6279,6 +6285,9 @@ func (r RiskEvidenceSynthesisRiskEstimate) ToString(explicit bool) (fhirpath.Str
 }
 func (r RiskEvidenceSynthesisRiskEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimate to Integer")
+}
+func (r RiskEvidenceSynthesisRiskEstimate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimate to Long")
 }
 func (r RiskEvidenceSynthesisRiskEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimate to Decimal")
@@ -6450,6 +6459,9 @@ func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToString(explicit bo
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimatePrecisionEstimate to Integer")
 }
+func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimatePrecisionEstimate to Long")
+}
 func (r RiskEvidenceSynthesisRiskEstimatePrecisionEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesisRiskEstimatePrecisionEstimate to Decimal")
 }
@@ -6594,6 +6606,9 @@ func (r RiskEvidenceSynthesisCertainty) ToString(explicit bool) (fhirpath.String
 func (r RiskEvidenceSynthesisCertainty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesisCertainty to Integer")
 }
+func (r RiskEvidenceSynthesisCertainty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesisCertainty to Long")
+}
 func (r RiskEvidenceSynthesisCertainty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesisCertainty to Decimal")
 }
@@ -6730,6 +6745,9 @@ func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToString(explicit b
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskEvidenceSynthesisCertaintyCertaintySubcomponent to Integer")
+}
+func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskEvidenceSynthesisCertaintyCertaintySubcomponent to Long")
 }
 func (r RiskEvidenceSynthesisCertaintyCertaintySubcomponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskEvidenceSynthesisCertaintyCertaintySubcomponent to Decimal")

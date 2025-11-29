@@ -2842,6 +2842,9 @@ func (r SubstanceReferenceInformation) ToString(explicit bool) (fhirpath.String,
 func (r SubstanceReferenceInformation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceReferenceInformation to Integer")
 }
+func (r SubstanceReferenceInformation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceReferenceInformation to Long")
+}
 func (r SubstanceReferenceInformation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceReferenceInformation to Decimal")
 }
@@ -3021,6 +3024,9 @@ func (r SubstanceReferenceInformationGene) ToString(explicit bool) (fhirpath.Str
 func (r SubstanceReferenceInformationGene) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceReferenceInformationGene to Integer")
 }
+func (r SubstanceReferenceInformationGene) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceReferenceInformationGene to Long")
+}
 func (r SubstanceReferenceInformationGene) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceReferenceInformationGene to Decimal")
 }
@@ -3157,6 +3163,9 @@ func (r SubstanceReferenceInformationGeneElement) ToString(explicit bool) (fhirp
 }
 func (r SubstanceReferenceInformationGeneElement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceReferenceInformationGeneElement to Integer")
+}
+func (r SubstanceReferenceInformationGeneElement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceReferenceInformationGeneElement to Long")
 }
 func (r SubstanceReferenceInformationGeneElement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceReferenceInformationGeneElement to Decimal")
@@ -3319,6 +3328,9 @@ func (r SubstanceReferenceInformationTarget) ToString(explicit bool) (fhirpath.S
 }
 func (r SubstanceReferenceInformationTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceReferenceInformationTarget to Integer")
+}
+func (r SubstanceReferenceInformationTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceReferenceInformationTarget to Long")
 }
 func (r SubstanceReferenceInformationTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceReferenceInformationTarget to Decimal")

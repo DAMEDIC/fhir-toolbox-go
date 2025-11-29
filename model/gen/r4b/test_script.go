@@ -12699,6 +12699,9 @@ func (r TestScript) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestScript) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScript to Integer")
 }
+func (r TestScript) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScript to Long")
+}
 func (r TestScript) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScript to Decimal")
 }
@@ -13009,6 +13012,9 @@ func (r TestScriptOrigin) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r TestScriptOrigin) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptOrigin to Integer")
 }
+func (r TestScriptOrigin) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptOrigin to Long")
+}
 func (r TestScriptOrigin) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptOrigin to Decimal")
 }
@@ -13129,6 +13135,9 @@ func (r TestScriptDestination) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r TestScriptDestination) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptDestination to Integer")
+}
+func (r TestScriptDestination) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptDestination to Long")
 }
 func (r TestScriptDestination) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptDestination to Decimal")
@@ -13255,6 +13264,9 @@ func (r TestScriptMetadata) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestScriptMetadata) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadata to Integer")
 }
+func (r TestScriptMetadata) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadata to Long")
+}
 func (r TestScriptMetadata) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadata to Decimal")
 }
@@ -13377,6 +13389,9 @@ func (r TestScriptMetadataLink) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r TestScriptMetadataLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadataLink to Integer")
+}
+func (r TestScriptMetadataLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadataLink to Long")
 }
 func (r TestScriptMetadataLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadataLink to Decimal")
@@ -13521,6 +13536,9 @@ func (r TestScriptMetadataCapability) ToString(explicit bool) (fhirpath.String, 
 }
 func (r TestScriptMetadataCapability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadataCapability to Integer")
+}
+func (r TestScriptMetadataCapability) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadataCapability to Long")
 }
 func (r TestScriptMetadataCapability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadataCapability to Decimal")
@@ -13683,6 +13701,9 @@ func (r TestScriptFixture) ToString(explicit bool) (fhirpath.String, bool, error
 func (r TestScriptFixture) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptFixture to Integer")
 }
+func (r TestScriptFixture) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptFixture to Long")
+}
 func (r TestScriptFixture) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptFixture to Decimal")
 }
@@ -13842,6 +13863,9 @@ func (r TestScriptVariable) ToString(explicit bool) (fhirpath.String, bool, erro
 }
 func (r TestScriptVariable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptVariable to Integer")
+}
+func (r TestScriptVariable) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptVariable to Long")
 }
 func (r TestScriptVariable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptVariable to Decimal")
@@ -14005,6 +14029,9 @@ func (r TestScriptSetup) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r TestScriptSetup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetup to Integer")
 }
+func (r TestScriptSetup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetup to Long")
+}
 func (r TestScriptSetup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetup to Decimal")
 }
@@ -14122,6 +14149,9 @@ func (r TestScriptSetupAction) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r TestScriptSetupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupAction to Integer")
+}
+func (r TestScriptSetupAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupAction to Long")
 }
 func (r TestScriptSetupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupAction to Decimal")
@@ -14320,6 +14350,9 @@ func (r TestScriptSetupActionOperation) ToString(explicit bool) (fhirpath.String
 }
 func (r TestScriptSetupActionOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionOperation to Integer")
+}
+func (r TestScriptSetupActionOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionOperation to Long")
 }
 func (r TestScriptSetupActionOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionOperation to Decimal")
@@ -14547,6 +14580,9 @@ func (r TestScriptSetupActionOperationRequestHeader) ToString(explicit bool) (fh
 func (r TestScriptSetupActionOperationRequestHeader) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Integer")
 }
+func (r TestScriptSetupActionOperationRequestHeader) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Long")
+}
 func (r TestScriptSetupActionOperationRequestHeader) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Decimal")
 }
@@ -14769,6 +14805,9 @@ func (r TestScriptSetupActionAssert) ToString(explicit bool) (fhirpath.String, b
 }
 func (r TestScriptSetupActionAssert) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionAssert to Integer")
+}
+func (r TestScriptSetupActionAssert) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionAssert to Long")
 }
 func (r TestScriptSetupActionAssert) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionAssert to Decimal")
@@ -15040,6 +15079,9 @@ func (r TestScriptTest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestScriptTest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTest to Integer")
 }
+func (r TestScriptTest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTest to Long")
+}
 func (r TestScriptTest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTest to Decimal")
 }
@@ -15172,6 +15214,9 @@ func (r TestScriptTestAction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r TestScriptTestAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTestAction to Integer")
 }
+func (r TestScriptTestAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTestAction to Long")
+}
 func (r TestScriptTestAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTestAction to Decimal")
 }
@@ -15292,6 +15337,9 @@ func (r TestScriptTeardown) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestScriptTeardown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTeardown to Integer")
 }
+func (r TestScriptTeardown) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTeardown to Long")
+}
 func (r TestScriptTeardown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTeardown to Decimal")
 }
@@ -15402,6 +15450,9 @@ func (r TestScriptTeardownAction) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r TestScriptTeardownAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTeardownAction to Integer")
+}
+func (r TestScriptTeardownAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTeardownAction to Long")
 }
 func (r TestScriptTeardownAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTeardownAction to Decimal")

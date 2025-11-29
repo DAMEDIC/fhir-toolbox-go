@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // uri Type: String of characters used to identify a name or a resource
@@ -159,6 +160,17 @@ func (r Uri) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r Uri) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Uri to Integer")
+}
+func (r Uri) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
 }
 func (r Uri) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Uri to Decimal")

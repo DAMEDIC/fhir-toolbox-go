@@ -5590,6 +5590,9 @@ func (r AdverseEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r AdverseEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEvent to Integer")
 }
+func (r AdverseEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEvent to Long")
+}
 func (r AdverseEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEvent to Decimal")
 }
@@ -5902,6 +5905,9 @@ func (r AdverseEventParticipant) ToString(explicit bool) (fhirpath.String, bool,
 func (r AdverseEventParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventParticipant to Integer")
 }
+func (r AdverseEventParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventParticipant to Long")
+}
 func (r AdverseEventParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventParticipant to Decimal")
 }
@@ -6024,6 +6030,9 @@ func (r AdverseEventSuspectEntity) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r AdverseEventSuspectEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventSuspectEntity to Integer")
+}
+func (r AdverseEventSuspectEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventSuspectEntity to Long")
 }
 func (r AdverseEventSuspectEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntity to Decimal")
@@ -6155,6 +6164,9 @@ func (r AdverseEventSuspectEntityCausality) ToString(explicit bool) (fhirpath.St
 func (r AdverseEventSuspectEntityCausality) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Integer")
 }
+func (r AdverseEventSuspectEntityCausality) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventSuspectEntityCausality to Long")
+}
 func (r AdverseEventSuspectEntityCausality) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Decimal")
 }
@@ -6280,6 +6292,9 @@ func (r AdverseEventContributingFactor) ToString(explicit bool) (fhirpath.String
 func (r AdverseEventContributingFactor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventContributingFactor to Integer")
 }
+func (r AdverseEventContributingFactor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventContributingFactor to Long")
+}
 func (r AdverseEventContributingFactor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventContributingFactor to Decimal")
 }
@@ -6390,6 +6405,9 @@ func (r AdverseEventPreventiveAction) ToString(explicit bool) (fhirpath.String, 
 }
 func (r AdverseEventPreventiveAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventPreventiveAction to Integer")
+}
+func (r AdverseEventPreventiveAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventPreventiveAction to Long")
 }
 func (r AdverseEventPreventiveAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventPreventiveAction to Decimal")
@@ -6502,6 +6520,9 @@ func (r AdverseEventMitigatingAction) ToString(explicit bool) (fhirpath.String, 
 func (r AdverseEventMitigatingAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventMitigatingAction to Integer")
 }
+func (r AdverseEventMitigatingAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventMitigatingAction to Long")
+}
 func (r AdverseEventMitigatingAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventMitigatingAction to Decimal")
 }
@@ -6612,6 +6633,9 @@ func (r AdverseEventSupportingInfo) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r AdverseEventSupportingInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventSupportingInfo to Integer")
+}
+func (r AdverseEventSupportingInfo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventSupportingInfo to Long")
 }
 func (r AdverseEventSupportingInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSupportingInfo to Decimal")

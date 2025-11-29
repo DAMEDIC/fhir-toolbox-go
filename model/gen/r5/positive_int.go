@@ -166,6 +166,13 @@ func (r PositiveInt) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 		return 0, false, nil
 	}
 }
+func (r PositiveInt) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value != nil {
+		return fhirpath.Long(*r.Value), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
+}
 func (r PositiveInt) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PositiveInt to Decimal")
 }

@@ -1806,6 +1806,9 @@ func (r SubscriptionStatus) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r SubscriptionStatus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionStatus to Integer")
 }
+func (r SubscriptionStatus) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionStatus to Long")
+}
 func (r SubscriptionStatus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionStatus to Decimal")
 }
@@ -2008,6 +2011,9 @@ func (r SubscriptionStatusNotificationEvent) ToString(explicit bool) (fhirpath.S
 }
 func (r SubscriptionStatusNotificationEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Integer")
+}
+func (r SubscriptionStatusNotificationEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionStatusNotificationEvent to Long")
 }
 func (r SubscriptionStatusNotificationEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionStatusNotificationEvent to Decimal")

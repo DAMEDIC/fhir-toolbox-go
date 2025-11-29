@@ -3728,6 +3728,9 @@ func (r ServiceRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ServiceRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ServiceRequest to Integer")
 }
+func (r ServiceRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ServiceRequest to Long")
+}
 func (r ServiceRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequest to Decimal")
 }

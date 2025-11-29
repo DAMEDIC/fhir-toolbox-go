@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // uuid type: A UUID, represented as a URI
@@ -159,6 +160,17 @@ func (r Uuid) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r Uuid) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Uuid to Integer")
+}
+func (r Uuid) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
 }
 func (r Uuid) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Uuid to Decimal")

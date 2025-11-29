@@ -5616,6 +5616,9 @@ func (r ActivityDefinition) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ActivityDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ActivityDefinition to Integer")
 }
+func (r ActivityDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ActivityDefinition to Long")
+}
 func (r ActivityDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinition to Decimal")
 }
@@ -6082,6 +6085,9 @@ func (r ActivityDefinitionParticipant) ToString(explicit bool) (fhirpath.String,
 func (r ActivityDefinitionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ActivityDefinitionParticipant to Integer")
 }
+func (r ActivityDefinitionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ActivityDefinitionParticipant to Long")
+}
 func (r ActivityDefinitionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinitionParticipant to Decimal")
 }
@@ -6202,6 +6208,9 @@ func (r ActivityDefinitionDynamicValue) ToString(explicit bool) (fhirpath.String
 }
 func (r ActivityDefinitionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ActivityDefinitionDynamicValue to Integer")
+}
+func (r ActivityDefinitionDynamicValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ActivityDefinitionDynamicValue to Long")
 }
 func (r ActivityDefinitionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ActivityDefinitionDynamicValue to Decimal")

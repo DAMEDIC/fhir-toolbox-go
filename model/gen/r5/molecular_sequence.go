@@ -3494,6 +3494,9 @@ func (r MolecularSequence) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MolecularSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequence to Integer")
 }
+func (r MolecularSequence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequence to Long")
+}
 func (r MolecularSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequence to Decimal")
 }
@@ -3723,6 +3726,9 @@ func (r MolecularSequenceRelative) ToString(explicit bool) (fhirpath.String, boo
 func (r MolecularSequenceRelative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceRelative to Integer")
 }
+func (r MolecularSequenceRelative) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceRelative to Long")
+}
 func (r MolecularSequenceRelative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelative to Decimal")
 }
@@ -3894,6 +3900,9 @@ func (r MolecularSequenceRelativeStartingSequence) ToString(explicit bool) (fhir
 func (r MolecularSequenceRelativeStartingSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Integer")
 }
+func (r MolecularSequenceRelativeStartingSequence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Long")
+}
 func (r MolecularSequenceRelativeStartingSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelativeStartingSequence to Decimal")
 }
@@ -4063,6 +4072,9 @@ func (r MolecularSequenceRelativeEdit) ToString(explicit bool) (fhirpath.String,
 }
 func (r MolecularSequenceRelativeEdit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceRelativeEdit to Integer")
+}
+func (r MolecularSequenceRelativeEdit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceRelativeEdit to Long")
 }
 func (r MolecularSequenceRelativeEdit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRelativeEdit to Decimal")

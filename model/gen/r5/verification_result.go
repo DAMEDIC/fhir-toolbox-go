@@ -3644,6 +3644,9 @@ func (r VerificationResult) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r VerificationResult) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResult to Integer")
 }
+func (r VerificationResult) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResult to Long")
+}
 func (r VerificationResult) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResult to Decimal")
 }
@@ -3913,6 +3916,9 @@ func (r VerificationResultPrimarySource) ToString(explicit bool) (fhirpath.Strin
 func (r VerificationResultPrimarySource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultPrimarySource to Integer")
 }
+func (r VerificationResultPrimarySource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultPrimarySource to Long")
+}
 func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultPrimarySource to Decimal")
 }
@@ -4103,6 +4109,9 @@ func (r VerificationResultAttestation) ToString(explicit bool) (fhirpath.String,
 func (r VerificationResultAttestation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultAttestation to Integer")
 }
+func (r VerificationResultAttestation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultAttestation to Long")
+}
 func (r VerificationResultAttestation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultAttestation to Decimal")
 }
@@ -4272,6 +4281,9 @@ func (r VerificationResultValidator) ToString(explicit bool) (fhirpath.String, b
 }
 func (r VerificationResultValidator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultValidator to Integer")
+}
+func (r VerificationResultValidator) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultValidator to Long")
 }
 func (r VerificationResultValidator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultValidator to Decimal")

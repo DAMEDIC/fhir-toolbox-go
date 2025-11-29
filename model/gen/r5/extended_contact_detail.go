@@ -602,6 +602,9 @@ func (r ExtendedContactDetail) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ExtendedContactDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExtendedContactDetail to Integer")
 }
+func (r ExtendedContactDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExtendedContactDetail to Long")
+}
 func (r ExtendedContactDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExtendedContactDetail to Decimal")
 }

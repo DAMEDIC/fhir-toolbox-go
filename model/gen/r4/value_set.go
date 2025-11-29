@@ -7811,6 +7811,9 @@ func (r ValueSet) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ValueSet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSet to Integer")
 }
+func (r ValueSet) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSet to Long")
+}
 func (r ValueSet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSet to Decimal")
 }
@@ -8093,6 +8096,9 @@ func (r ValueSetCompose) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ValueSetCompose) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetCompose to Integer")
 }
+func (r ValueSetCompose) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetCompose to Long")
+}
 func (r ValueSetCompose) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetCompose to Decimal")
 }
@@ -8247,6 +8253,9 @@ func (r ValueSetComposeInclude) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ValueSetComposeInclude) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeInclude to Integer")
 }
+func (r ValueSetComposeInclude) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeInclude to Long")
+}
 func (r ValueSetComposeInclude) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeInclude to Decimal")
 }
@@ -8396,6 +8405,9 @@ func (r ValueSetComposeIncludeConcept) ToString(explicit bool) (fhirpath.String,
 func (r ValueSetComposeIncludeConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeConcept to Integer")
 }
+func (r ValueSetComposeIncludeConcept) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeConcept to Long")
+}
 func (r ValueSetComposeIncludeConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Decimal")
 }
@@ -8531,6 +8543,9 @@ func (r ValueSetComposeIncludeConceptDesignation) ToString(explicit bool) (fhirp
 func (r ValueSetComposeIncludeConceptDesignation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Integer")
 }
+func (r ValueSetComposeIncludeConceptDesignation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Long")
+}
 func (r ValueSetComposeIncludeConceptDesignation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Decimal")
 }
@@ -8661,6 +8676,9 @@ func (r ValueSetComposeIncludeFilter) ToString(explicit bool) (fhirpath.String, 
 }
 func (r ValueSetComposeIncludeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeFilter to Integer")
+}
+func (r ValueSetComposeIncludeFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeFilter to Long")
 }
 func (r ValueSetComposeIncludeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Decimal")
@@ -8812,6 +8830,9 @@ func (r ValueSetExpansion) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ValueSetExpansion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansion to Integer")
 }
+func (r ValueSetExpansion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansion to Long")
+}
 func (r ValueSetExpansion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansion to Decimal")
 }
@@ -8962,6 +8983,9 @@ func (r ValueSetExpansionParameter) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r ValueSetExpansionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansionParameter to Integer")
+}
+func (r ValueSetExpansionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansionParameter to Long")
 }
 func (r ValueSetExpansionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionParameter to Decimal")
@@ -9117,6 +9141,9 @@ func (r ValueSetExpansionContains) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ValueSetExpansionContains) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansionContains to Integer")
+}
+func (r ValueSetExpansionContains) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansionContains to Long")
 }
 func (r ValueSetExpansionContains) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionContains to Decimal")

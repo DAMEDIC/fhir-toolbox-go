@@ -3183,6 +3183,9 @@ func (r Library) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Library) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Library to Integer")
 }
+func (r Library) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Library to Long")
+}
 func (r Library) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Library to Decimal")
 }

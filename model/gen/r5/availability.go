@@ -1353,6 +1353,9 @@ func (r Availability) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Availability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Availability to Integer")
 }
+func (r Availability) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Availability to Long")
+}
 func (r Availability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Availability to Decimal")
 }
@@ -1475,6 +1478,9 @@ func (r AvailabilityAvailableTime) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r AvailabilityAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AvailabilityAvailableTime to Integer")
+}
+func (r AvailabilityAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AvailabilityAvailableTime to Long")
 }
 func (r AvailabilityAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityAvailableTime to Decimal")
@@ -1602,6 +1608,9 @@ func (r AvailabilityNotAvailableTime) ToString(explicit bool) (fhirpath.String, 
 }
 func (r AvailabilityNotAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AvailabilityNotAvailableTime to Integer")
+}
+func (r AvailabilityNotAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AvailabilityNotAvailableTime to Long")
 }
 func (r AvailabilityNotAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Decimal")

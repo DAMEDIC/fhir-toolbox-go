@@ -1764,6 +1764,9 @@ func (r PractitionerRole) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r PractitionerRole) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PractitionerRole to Integer")
 }
+func (r PractitionerRole) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PractitionerRole to Long")
+}
 func (r PractitionerRole) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PractitionerRole to Decimal")
 }

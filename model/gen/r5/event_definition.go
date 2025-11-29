@@ -3267,6 +3267,9 @@ func (r EventDefinition) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r EventDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EventDefinition to Integer")
 }
+func (r EventDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EventDefinition to Long")
+}
 func (r EventDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EventDefinition to Decimal")
 }

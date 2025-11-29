@@ -2063,6 +2063,9 @@ func (r CatalogEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r CatalogEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CatalogEntry to Integer")
 }
+func (r CatalogEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CatalogEntry to Long")
+}
 func (r CatalogEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CatalogEntry to Decimal")
 }
@@ -2295,6 +2298,9 @@ func (r CatalogEntryRelatedEntry) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r CatalogEntryRelatedEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CatalogEntryRelatedEntry to Integer")
+}
+func (r CatalogEntryRelatedEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CatalogEntryRelatedEntry to Long")
 }
 func (r CatalogEntryRelatedEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CatalogEntryRelatedEntry to Decimal")

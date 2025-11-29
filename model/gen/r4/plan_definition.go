@@ -9264,6 +9264,9 @@ func (r PlanDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r PlanDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinition to Integer")
 }
+func (r PlanDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinition to Long")
+}
 func (r PlanDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinition to Decimal")
 }
@@ -9650,6 +9653,9 @@ func (r PlanDefinitionGoal) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r PlanDefinitionGoal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionGoal to Integer")
 }
+func (r PlanDefinitionGoal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionGoal to Long")
+}
 func (r PlanDefinitionGoal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoal to Decimal")
 }
@@ -9814,6 +9820,9 @@ func (r PlanDefinitionGoalTarget) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r PlanDefinitionGoalTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionGoalTarget to Integer")
+}
+func (r PlanDefinitionGoalTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionGoalTarget to Long")
 }
 func (r PlanDefinitionGoalTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Decimal")
@@ -10071,6 +10080,9 @@ func (r PlanDefinitionAction) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r PlanDefinitionAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionAction to Integer")
+}
+func (r PlanDefinitionAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionAction to Long")
 }
 func (r PlanDefinitionAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionAction to Decimal")
@@ -10370,6 +10382,9 @@ func (r PlanDefinitionActionCondition) ToString(explicit bool) (fhirpath.String,
 func (r PlanDefinitionActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionCondition to Integer")
 }
+func (r PlanDefinitionActionCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionCondition to Long")
+}
 func (r PlanDefinitionActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionCondition to Decimal")
 }
@@ -10495,6 +10510,9 @@ func (r PlanDefinitionActionRelatedAction) ToString(explicit bool) (fhirpath.Str
 }
 func (r PlanDefinitionActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Integer")
+}
+func (r PlanDefinitionActionRelatedAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionRelatedAction to Long")
 }
 func (r PlanDefinitionActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Decimal")
@@ -10626,6 +10644,9 @@ func (r PlanDefinitionActionParticipant) ToString(explicit bool) (fhirpath.Strin
 func (r PlanDefinitionActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionParticipant to Integer")
 }
+func (r PlanDefinitionActionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionParticipant to Long")
+}
 func (r PlanDefinitionActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Decimal")
 }
@@ -10750,6 +10771,9 @@ func (r PlanDefinitionActionDynamicValue) ToString(explicit bool) (fhirpath.Stri
 }
 func (r PlanDefinitionActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Integer")
+}
+func (r PlanDefinitionActionDynamicValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionDynamicValue to Long")
 }
 func (r PlanDefinitionActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Decimal")

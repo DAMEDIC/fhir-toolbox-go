@@ -3228,6 +3228,9 @@ func (r BiologicallyDerivedProduct) ToString(explicit bool) (fhirpath.String, bo
 func (r BiologicallyDerivedProduct) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProduct to Integer")
 }
+func (r BiologicallyDerivedProduct) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProduct to Long")
+}
 func (r BiologicallyDerivedProduct) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProduct to Decimal")
 }
@@ -3470,6 +3473,9 @@ func (r BiologicallyDerivedProductCollection) ToString(explicit bool) (fhirpath.
 func (r BiologicallyDerivedProductCollection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductCollection to Integer")
 }
+func (r BiologicallyDerivedProductCollection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductCollection to Long")
+}
 func (r BiologicallyDerivedProductCollection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductCollection to Decimal")
 }
@@ -3597,6 +3603,9 @@ func (r BiologicallyDerivedProductProperty) ToString(explicit bool) (fhirpath.St
 }
 func (r BiologicallyDerivedProductProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductProperty to Integer")
+}
+func (r BiologicallyDerivedProductProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductProperty to Long")
 }
 func (r BiologicallyDerivedProductProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductProperty to Decimal")

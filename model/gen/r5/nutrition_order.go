@@ -7865,6 +7865,9 @@ func (r NutritionOrder) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r NutritionOrder) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrder to Integer")
 }
+func (r NutritionOrder) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrder to Long")
+}
 func (r NutritionOrder) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrder to Decimal")
 }
@@ -8192,6 +8195,9 @@ func (r NutritionOrderOralDiet) ToString(explicit bool) (fhirpath.String, bool, 
 func (r NutritionOrderOralDiet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderOralDiet to Integer")
 }
+func (r NutritionOrderOralDiet) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderOralDiet to Long")
+}
 func (r NutritionOrderOralDiet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderOralDiet to Decimal")
 }
@@ -8350,6 +8356,9 @@ func (r NutritionOrderOralDietSchedule) ToString(explicit bool) (fhirpath.String
 func (r NutritionOrderOralDietSchedule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderOralDietSchedule to Integer")
 }
+func (r NutritionOrderOralDietSchedule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderOralDietSchedule to Long")
+}
 func (r NutritionOrderOralDietSchedule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderOralDietSchedule to Decimal")
 }
@@ -8482,6 +8491,9 @@ func (r NutritionOrderOralDietNutrient) ToString(explicit bool) (fhirpath.String
 func (r NutritionOrderOralDietNutrient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderOralDietNutrient to Integer")
 }
+func (r NutritionOrderOralDietNutrient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderOralDietNutrient to Long")
+}
 func (r NutritionOrderOralDietNutrient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderOralDietNutrient to Decimal")
 }
@@ -8606,6 +8618,9 @@ func (r NutritionOrderOralDietTexture) ToString(explicit bool) (fhirpath.String,
 }
 func (r NutritionOrderOralDietTexture) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderOralDietTexture to Integer")
+}
+func (r NutritionOrderOralDietTexture) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderOralDietTexture to Long")
 }
 func (r NutritionOrderOralDietTexture) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderOralDietTexture to Decimal")
@@ -8746,6 +8761,9 @@ func (r NutritionOrderSupplement) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r NutritionOrderSupplement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderSupplement to Integer")
+}
+func (r NutritionOrderSupplement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderSupplement to Long")
 }
 func (r NutritionOrderSupplement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderSupplement to Decimal")
@@ -8897,6 +8915,9 @@ func (r NutritionOrderSupplementSchedule) ToString(explicit bool) (fhirpath.Stri
 }
 func (r NutritionOrderSupplementSchedule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderSupplementSchedule to Integer")
+}
+func (r NutritionOrderSupplementSchedule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderSupplementSchedule to Long")
 }
 func (r NutritionOrderSupplementSchedule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderSupplementSchedule to Decimal")
@@ -9064,6 +9085,9 @@ func (r NutritionOrderEnteralFormula) ToString(explicit bool) (fhirpath.String, 
 }
 func (r NutritionOrderEnteralFormula) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderEnteralFormula to Integer")
+}
+func (r NutritionOrderEnteralFormula) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderEnteralFormula to Long")
 }
 func (r NutritionOrderEnteralFormula) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderEnteralFormula to Decimal")
@@ -9244,6 +9268,9 @@ func (r NutritionOrderEnteralFormulaAdditive) ToString(explicit bool) (fhirpath.
 func (r NutritionOrderEnteralFormulaAdditive) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderEnteralFormulaAdditive to Integer")
 }
+func (r NutritionOrderEnteralFormulaAdditive) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderEnteralFormulaAdditive to Long")
+}
 func (r NutritionOrderEnteralFormulaAdditive) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderEnteralFormulaAdditive to Decimal")
 }
@@ -9381,6 +9408,9 @@ func (r NutritionOrderEnteralFormulaAdministration) ToString(explicit bool) (fhi
 func (r NutritionOrderEnteralFormulaAdministration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderEnteralFormulaAdministration to Integer")
 }
+func (r NutritionOrderEnteralFormulaAdministration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderEnteralFormulaAdministration to Long")
+}
 func (r NutritionOrderEnteralFormulaAdministration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderEnteralFormulaAdministration to Decimal")
 }
@@ -9517,6 +9547,9 @@ func (r NutritionOrderEnteralFormulaAdministrationSchedule) ToString(explicit bo
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NutritionOrderEnteralFormulaAdministrationSchedule to Integer")
+}
+func (r NutritionOrderEnteralFormulaAdministrationSchedule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NutritionOrderEnteralFormulaAdministrationSchedule to Long")
 }
 func (r NutritionOrderEnteralFormulaAdministrationSchedule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NutritionOrderEnteralFormulaAdministrationSchedule to Decimal")

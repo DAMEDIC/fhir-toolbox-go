@@ -2186,6 +2186,9 @@ func (r Substance) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Substance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Substance to Integer")
 }
+func (r Substance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Substance to Long")
+}
 func (r Substance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Substance to Decimal")
 }
@@ -2386,6 +2389,9 @@ func (r SubstanceInstance) ToString(explicit bool) (fhirpath.String, bool, error
 func (r SubstanceInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceInstance to Integer")
 }
+func (r SubstanceInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceInstance to Long")
+}
 func (r SubstanceInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceInstance to Decimal")
 }
@@ -2515,6 +2521,9 @@ func (r SubstanceIngredient) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r SubstanceIngredient) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceIngredient to Integer")
+}
+func (r SubstanceIngredient) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceIngredient to Long")
 }
 func (r SubstanceIngredient) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceIngredient to Decimal")

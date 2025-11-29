@@ -5785,6 +5785,9 @@ func (r SubscriptionTopic) ToString(explicit bool) (fhirpath.String, bool, error
 func (r SubscriptionTopic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopic to Integer")
 }
+func (r SubscriptionTopic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopic to Long")
+}
 func (r SubscriptionTopic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopic to Decimal")
 }
@@ -6098,6 +6101,9 @@ func (r SubscriptionTopicResourceTrigger) ToString(explicit bool) (fhirpath.Stri
 func (r SubscriptionTopicResourceTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Integer")
 }
+func (r SubscriptionTopicResourceTrigger) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicResourceTrigger to Long")
+}
 func (r SubscriptionTopicResourceTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Decimal")
 }
@@ -6259,6 +6265,9 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) ToString(explicit bool) (
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Integer")
 }
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Long")
+}
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Decimal")
 }
@@ -6406,6 +6415,9 @@ func (r SubscriptionTopicEventTrigger) ToString(explicit bool) (fhirpath.String,
 func (r SubscriptionTopicEventTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicEventTrigger to Integer")
 }
+func (r SubscriptionTopicEventTrigger) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicEventTrigger to Long")
+}
 func (r SubscriptionTopicEventTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Decimal")
 }
@@ -6550,6 +6562,9 @@ func (r SubscriptionTopicCanFilterBy) ToString(explicit bool) (fhirpath.String, 
 }
 func (r SubscriptionTopicCanFilterBy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Integer")
+}
+func (r SubscriptionTopicCanFilterBy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicCanFilterBy to Long")
 }
 func (r SubscriptionTopicCanFilterBy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Decimal")
@@ -6699,6 +6714,9 @@ func (r SubscriptionTopicNotificationShape) ToString(explicit bool) (fhirpath.St
 }
 func (r SubscriptionTopicNotificationShape) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicNotificationShape to Integer")
+}
+func (r SubscriptionTopicNotificationShape) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicNotificationShape to Long")
 }
 func (r SubscriptionTopicNotificationShape) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Decimal")

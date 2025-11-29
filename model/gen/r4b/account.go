@@ -2333,6 +2333,9 @@ func (r Account) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Account) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Account to Integer")
 }
+func (r Account) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Account to Long")
+}
 func (r Account) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Account to Decimal")
 }
@@ -2554,6 +2557,9 @@ func (r AccountCoverage) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r AccountCoverage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AccountCoverage to Integer")
 }
+func (r AccountCoverage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AccountCoverage to Long")
+}
 func (r AccountCoverage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AccountCoverage to Decimal")
 }
@@ -2681,6 +2687,9 @@ func (r AccountGuarantor) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r AccountGuarantor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AccountGuarantor to Integer")
+}
+func (r AccountGuarantor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AccountGuarantor to Long")
 }
 func (r AccountGuarantor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AccountGuarantor to Decimal")

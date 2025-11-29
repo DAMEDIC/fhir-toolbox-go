@@ -3113,6 +3113,9 @@ func (r Communication) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Communication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Communication to Integer")
 }
+func (r Communication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Communication to Long")
+}
 func (r Communication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Communication to Decimal")
 }
@@ -3412,6 +3415,9 @@ func (r CommunicationPayload) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r CommunicationPayload) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CommunicationPayload to Integer")
+}
+func (r CommunicationPayload) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CommunicationPayload to Long")
 }
 func (r CommunicationPayload) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CommunicationPayload to Decimal")

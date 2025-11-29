@@ -3135,6 +3135,9 @@ func (r ChargeItem) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ChargeItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItem to Integer")
 }
+func (r ChargeItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItem to Long")
+}
 func (r ChargeItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItem to Decimal")
 }
@@ -3460,6 +3463,9 @@ func (r ChargeItemPerformer) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r ChargeItemPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ChargeItemPerformer to Integer")
+}
+func (r ChargeItemPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ChargeItemPerformer to Long")
 }
 func (r ChargeItemPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ChargeItemPerformer to Decimal")

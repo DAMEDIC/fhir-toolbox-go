@@ -3365,6 +3365,9 @@ func (r Condition) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Condition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Condition to Integer")
 }
+func (r Condition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Condition to Long")
+}
 func (r Condition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Condition to Decimal")
 }
@@ -3621,6 +3624,9 @@ func (r ConditionParticipant) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ConditionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionParticipant to Integer")
 }
+func (r ConditionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionParticipant to Long")
+}
 func (r ConditionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionParticipant to Decimal")
 }
@@ -3750,6 +3756,9 @@ func (r ConditionStage) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ConditionStage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionStage to Integer")
+}
+func (r ConditionStage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionStage to Long")
 }
 func (r ConditionStage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionStage to Decimal")

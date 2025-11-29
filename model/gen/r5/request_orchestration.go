@@ -8092,6 +8092,9 @@ func (r RequestOrchestration) ToString(explicit bool) (fhirpath.String, bool, er
 func (r RequestOrchestration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestration to Integer")
 }
+func (r RequestOrchestration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestration to Long")
+}
 func (r RequestOrchestration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestration to Decimal")
 }
@@ -8489,6 +8492,9 @@ func (r RequestOrchestrationAction) ToString(explicit bool) (fhirpath.String, bo
 func (r RequestOrchestrationAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationAction to Integer")
 }
+func (r RequestOrchestrationAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationAction to Long")
+}
 func (r RequestOrchestrationAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationAction to Decimal")
 }
@@ -8787,6 +8793,9 @@ func (r RequestOrchestrationActionCondition) ToString(explicit bool) (fhirpath.S
 func (r RequestOrchestrationActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionCondition to Integer")
 }
+func (r RequestOrchestrationActionCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionCondition to Long")
+}
 func (r RequestOrchestrationActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Decimal")
 }
@@ -8916,6 +8925,9 @@ func (r RequestOrchestrationActionInput) ToString(explicit bool) (fhirpath.Strin
 }
 func (r RequestOrchestrationActionInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionInput to Integer")
+}
+func (r RequestOrchestrationActionInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionInput to Long")
 }
 func (r RequestOrchestrationActionInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionInput to Decimal")
@@ -9054,6 +9066,9 @@ func (r RequestOrchestrationActionOutput) ToString(explicit bool) (fhirpath.Stri
 func (r RequestOrchestrationActionOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionOutput to Integer")
 }
+func (r RequestOrchestrationActionOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionOutput to Long")
+}
 func (r RequestOrchestrationActionOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Decimal")
 }
@@ -9191,6 +9206,9 @@ func (r RequestOrchestrationActionRelatedAction) ToString(explicit bool) (fhirpa
 }
 func (r RequestOrchestrationActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Integer")
+}
+func (r RequestOrchestrationActionRelatedAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Long")
 }
 func (r RequestOrchestrationActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Decimal")
@@ -9351,6 +9369,9 @@ func (r RequestOrchestrationActionParticipant) ToString(explicit bool) (fhirpath
 func (r RequestOrchestrationActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionParticipant to Integer")
 }
+func (r RequestOrchestrationActionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionParticipant to Long")
+}
 func (r RequestOrchestrationActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Decimal")
 }
@@ -9503,6 +9524,9 @@ func (r RequestOrchestrationActionDynamicValue) ToString(explicit bool) (fhirpat
 }
 func (r RequestOrchestrationActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Integer")
+}
+func (r RequestOrchestrationActionDynamicValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Long")
 }
 func (r RequestOrchestrationActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Decimal")

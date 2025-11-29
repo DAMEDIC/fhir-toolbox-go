@@ -498,6 +498,9 @@ func (r MonetaryComponent) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MonetaryComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MonetaryComponent to Integer")
 }
+func (r MonetaryComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MonetaryComponent to Long")
+}
 func (r MonetaryComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MonetaryComponent to Decimal")
 }

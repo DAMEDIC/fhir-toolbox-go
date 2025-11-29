@@ -120,6 +120,9 @@ func (r Xhtml) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Xhtml) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Xhtml to Integer")
 }
+func (r Xhtml) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Xhtml to Long")
+}
 func (r Xhtml) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Xhtml to Decimal")
 }

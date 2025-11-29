@@ -9707,6 +9707,9 @@ func (r ImplementationGuide) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ImplementationGuide) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuide to Integer")
 }
+func (r ImplementationGuide) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuide to Long")
+}
 func (r ImplementationGuide) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuide to Decimal")
 }
@@ -10029,6 +10032,9 @@ func (r ImplementationGuideDependsOn) ToString(explicit bool) (fhirpath.String, 
 func (r ImplementationGuideDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDependsOn to Integer")
 }
+func (r ImplementationGuideDependsOn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDependsOn to Long")
+}
 func (r ImplementationGuideDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDependsOn to Decimal")
 }
@@ -10163,6 +10169,9 @@ func (r ImplementationGuideGlobal) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ImplementationGuideGlobal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideGlobal to Integer")
+}
+func (r ImplementationGuideGlobal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideGlobal to Long")
 }
 func (r ImplementationGuideGlobal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideGlobal to Decimal")
@@ -10303,6 +10312,9 @@ func (r ImplementationGuideDefinition) ToString(explicit bool) (fhirpath.String,
 }
 func (r ImplementationGuideDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinition to Integer")
+}
+func (r ImplementationGuideDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinition to Long")
 }
 func (r ImplementationGuideDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinition to Decimal")
@@ -10447,6 +10459,9 @@ func (r ImplementationGuideDefinitionGrouping) ToString(explicit bool) (fhirpath
 }
 func (r ImplementationGuideDefinitionGrouping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Integer")
+}
+func (r ImplementationGuideDefinitionGrouping) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Long")
 }
 func (r ImplementationGuideDefinitionGrouping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Decimal")
@@ -10595,6 +10610,9 @@ func (r ImplementationGuideDefinitionResource) ToString(explicit bool) (fhirpath
 }
 func (r ImplementationGuideDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionResource to Integer")
+}
+func (r ImplementationGuideDefinitionResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionResource to Long")
 }
 func (r ImplementationGuideDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Decimal")
@@ -10765,6 +10783,9 @@ func (r ImplementationGuideDefinitionPage) ToString(explicit bool) (fhirpath.Str
 func (r ImplementationGuideDefinitionPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionPage to Integer")
 }
+func (r ImplementationGuideDefinitionPage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionPage to Long")
+}
 func (r ImplementationGuideDefinitionPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Decimal")
 }
@@ -10907,6 +10928,9 @@ func (r ImplementationGuideDefinitionParameter) ToString(explicit bool) (fhirpat
 func (r ImplementationGuideDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Integer")
 }
+func (r ImplementationGuideDefinitionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionParameter to Long")
+}
 func (r ImplementationGuideDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Decimal")
 }
@@ -11032,6 +11056,9 @@ func (r ImplementationGuideDefinitionTemplate) ToString(explicit bool) (fhirpath
 }
 func (r ImplementationGuideDefinitionTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Integer")
+}
+func (r ImplementationGuideDefinitionTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Long")
 }
 func (r ImplementationGuideDefinitionTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Decimal")
@@ -11179,6 +11206,9 @@ func (r ImplementationGuideManifest) ToString(explicit bool) (fhirpath.String, b
 }
 func (r ImplementationGuideManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifest to Integer")
+}
+func (r ImplementationGuideManifest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifest to Long")
 }
 func (r ImplementationGuideManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifest to Decimal")
@@ -11334,6 +11364,9 @@ func (r ImplementationGuideManifestResource) ToString(explicit bool) (fhirpath.S
 func (r ImplementationGuideManifestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifestResource to Integer")
 }
+func (r ImplementationGuideManifestResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifestResource to Long")
+}
 func (r ImplementationGuideManifestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestResource to Decimal")
 }
@@ -11475,6 +11508,9 @@ func (r ImplementationGuideManifestPage) ToString(explicit bool) (fhirpath.Strin
 }
 func (r ImplementationGuideManifestPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifestPage to Integer")
+}
+func (r ImplementationGuideManifestPage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifestPage to Long")
 }
 func (r ImplementationGuideManifestPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestPage to Decimal")

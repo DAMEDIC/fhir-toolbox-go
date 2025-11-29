@@ -1289,6 +1289,9 @@ func (r Attachment) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Attachment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Attachment to Integer")
 }
+func (r Attachment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Attachment to Long")
+}
 func (r Attachment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Attachment to Decimal")
 }

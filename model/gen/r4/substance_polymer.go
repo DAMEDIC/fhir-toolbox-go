@@ -4136,6 +4136,9 @@ func (r SubstancePolymer) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r SubstancePolymer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymer to Integer")
 }
+func (r SubstancePolymer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymer to Long")
+}
 func (r SubstancePolymer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymer to Decimal")
 }
@@ -4324,6 +4327,9 @@ func (r SubstancePolymerMonomerSet) ToString(explicit bool) (fhirpath.String, bo
 func (r SubstancePolymerMonomerSet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerMonomerSet to Integer")
 }
+func (r SubstancePolymerMonomerSet) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerMonomerSet to Long")
+}
 func (r SubstancePolymerMonomerSet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerMonomerSet to Decimal")
 }
@@ -4458,6 +4464,9 @@ func (r SubstancePolymerMonomerSetStartingMaterial) ToString(explicit bool) (fhi
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Integer")
+}
+func (r SubstancePolymerMonomerSetStartingMaterial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Long")
 }
 func (r SubstancePolymerMonomerSetStartingMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerMonomerSetStartingMaterial to Decimal")
@@ -4607,6 +4616,9 @@ func (r SubstancePolymerRepeat) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r SubstancePolymerRepeat) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerRepeat to Integer")
+}
+func (r SubstancePolymerRepeat) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerRepeat to Long")
 }
 func (r SubstancePolymerRepeat) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeat to Decimal")
@@ -4762,6 +4774,9 @@ func (r SubstancePolymerRepeatRepeatUnit) ToString(explicit bool) (fhirpath.Stri
 func (r SubstancePolymerRepeatRepeatUnit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Integer")
 }
+func (r SubstancePolymerRepeatRepeatUnit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Long")
+}
 func (r SubstancePolymerRepeatRepeatUnit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnit to Decimal")
 }
@@ -4908,6 +4923,9 @@ func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToString(explici
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Integer")
 }
+func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Long")
+}
 func (r SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation to Decimal")
 }
@@ -5037,6 +5055,9 @@ func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToString(expli
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Integer")
+}
+func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Long")
 }
 func (r SubstancePolymerRepeatRepeatUnitStructuralRepresentation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstancePolymerRepeatRepeatUnitStructuralRepresentation to Decimal")

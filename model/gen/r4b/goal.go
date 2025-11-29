@@ -3112,6 +3112,9 @@ func (r Goal) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Goal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Goal to Integer")
 }
+func (r Goal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Goal to Long")
+}
 func (r Goal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Goal to Decimal")
 }
@@ -3374,6 +3377,9 @@ func (r GoalTarget) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r GoalTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GoalTarget to Integer")
+}
+func (r GoalTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GoalTarget to Long")
 }
 func (r GoalTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GoalTarget to Decimal")

@@ -11908,6 +11908,9 @@ func (r CapabilityStatement) ToString(explicit bool) (fhirpath.String, bool, err
 func (r CapabilityStatement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatement to Integer")
 }
+func (r CapabilityStatement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatement to Long")
+}
 func (r CapabilityStatement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatement to Decimal")
 }
@@ -12267,6 +12270,9 @@ func (r CapabilityStatementSoftware) ToString(explicit bool) (fhirpath.String, b
 func (r CapabilityStatementSoftware) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementSoftware to Integer")
 }
+func (r CapabilityStatementSoftware) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementSoftware to Long")
+}
 func (r CapabilityStatementSoftware) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementSoftware to Decimal")
 }
@@ -12401,6 +12407,9 @@ func (r CapabilityStatementImplementation) ToString(explicit bool) (fhirpath.Str
 }
 func (r CapabilityStatementImplementation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementImplementation to Integer")
+}
+func (r CapabilityStatementImplementation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementImplementation to Long")
 }
 func (r CapabilityStatementImplementation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementImplementation to Decimal")
@@ -12561,6 +12570,9 @@ func (r CapabilityStatementRest) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r CapabilityStatementRest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRest to Integer")
+}
+func (r CapabilityStatementRest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRest to Long")
 }
 func (r CapabilityStatementRest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRest to Decimal")
@@ -12733,6 +12745,9 @@ func (r CapabilityStatementRestSecurity) ToString(explicit bool) (fhirpath.Strin
 }
 func (r CapabilityStatementRestSecurity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestSecurity to Integer")
+}
+func (r CapabilityStatementRestSecurity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestSecurity to Long")
 }
 func (r CapabilityStatementRestSecurity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestSecurity to Decimal")
@@ -12943,6 +12958,9 @@ func (r CapabilityStatementRestResource) ToString(explicit bool) (fhirpath.Strin
 }
 func (r CapabilityStatementRestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestResource to Integer")
+}
+func (r CapabilityStatementRestResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestResource to Long")
 }
 func (r CapabilityStatementRestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResource to Decimal")
@@ -13179,6 +13197,9 @@ func (r CapabilityStatementRestResourceInteraction) ToString(explicit bool) (fhi
 func (r CapabilityStatementRestResourceInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Integer")
 }
+func (r CapabilityStatementRestResourceInteraction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Long")
+}
 func (r CapabilityStatementRestResourceInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceInteraction to Decimal")
 }
@@ -13309,6 +13330,9 @@ func (r CapabilityStatementRestResourceSearchParam) ToString(explicit bool) (fhi
 }
 func (r CapabilityStatementRestResourceSearchParam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Integer")
+}
+func (r CapabilityStatementRestResourceSearchParam) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Long")
 }
 func (r CapabilityStatementRestResourceSearchParam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceSearchParam to Decimal")
@@ -13450,6 +13474,9 @@ func (r CapabilityStatementRestResourceOperation) ToString(explicit bool) (fhirp
 func (r CapabilityStatementRestResourceOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Integer")
 }
+func (r CapabilityStatementRestResourceOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestResourceOperation to Long")
+}
 func (r CapabilityStatementRestResourceOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestResourceOperation to Decimal")
 }
@@ -13579,6 +13606,9 @@ func (r CapabilityStatementRestInteraction) ToString(explicit bool) (fhirpath.St
 }
 func (r CapabilityStatementRestInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementRestInteraction to Integer")
+}
+func (r CapabilityStatementRestInteraction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementRestInteraction to Long")
 }
 func (r CapabilityStatementRestInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementRestInteraction to Decimal")
@@ -13715,6 +13745,9 @@ func (r CapabilityStatementMessaging) ToString(explicit bool) (fhirpath.String, 
 func (r CapabilityStatementMessaging) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementMessaging to Integer")
 }
+func (r CapabilityStatementMessaging) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementMessaging to Long")
+}
 func (r CapabilityStatementMessaging) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessaging to Decimal")
 }
@@ -13850,6 +13883,9 @@ func (r CapabilityStatementMessagingEndpoint) ToString(explicit bool) (fhirpath.
 func (r CapabilityStatementMessagingEndpoint) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Integer")
 }
+func (r CapabilityStatementMessagingEndpoint) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Long")
+}
 func (r CapabilityStatementMessagingEndpoint) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessagingEndpoint to Decimal")
 }
@@ -13970,6 +14006,9 @@ func (r CapabilityStatementMessagingSupportedMessage) ToString(explicit bool) (f
 }
 func (r CapabilityStatementMessagingSupportedMessage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Integer")
+}
+func (r CapabilityStatementMessagingSupportedMessage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Long")
 }
 func (r CapabilityStatementMessagingSupportedMessage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementMessagingSupportedMessage to Decimal")
@@ -14096,6 +14135,9 @@ func (r CapabilityStatementDocument) ToString(explicit bool) (fhirpath.String, b
 }
 func (r CapabilityStatementDocument) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CapabilityStatementDocument to Integer")
+}
+func (r CapabilityStatementDocument) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CapabilityStatementDocument to Long")
 }
 func (r CapabilityStatementDocument) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CapabilityStatementDocument to Decimal")

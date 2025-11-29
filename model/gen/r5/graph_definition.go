@@ -4609,6 +4609,9 @@ func (r GraphDefinition) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r GraphDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GraphDefinition to Integer")
 }
+func (r GraphDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GraphDefinition to Long")
+}
 func (r GraphDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinition to Decimal")
 }
@@ -4901,6 +4904,9 @@ func (r GraphDefinitionNode) ToString(explicit bool) (fhirpath.String, bool, err
 func (r GraphDefinitionNode) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GraphDefinitionNode to Integer")
 }
+func (r GraphDefinitionNode) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GraphDefinitionNode to Long")
+}
 func (r GraphDefinitionNode) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionNode to Decimal")
 }
@@ -5070,6 +5076,9 @@ func (r GraphDefinitionLink) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r GraphDefinitionLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GraphDefinitionLink to Integer")
+}
+func (r GraphDefinitionLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GraphDefinitionLink to Long")
 }
 func (r GraphDefinitionLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionLink to Decimal")
@@ -5253,6 +5262,9 @@ func (r GraphDefinitionLinkCompartment) ToString(explicit bool) (fhirpath.String
 }
 func (r GraphDefinitionLinkCompartment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GraphDefinitionLinkCompartment to Integer")
+}
+func (r GraphDefinitionLinkCompartment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GraphDefinitionLinkCompartment to Long")
 }
 func (r GraphDefinitionLinkCompartment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GraphDefinitionLinkCompartment to Decimal")

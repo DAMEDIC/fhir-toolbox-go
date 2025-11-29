@@ -4692,6 +4692,9 @@ func (r EvidenceVariable) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r EvidenceVariable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceVariable to Integer")
 }
+func (r EvidenceVariable) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceVariable to Long")
+}
 func (r EvidenceVariable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceVariable to Decimal")
 }
@@ -5029,6 +5032,9 @@ func (r EvidenceVariableCharacteristic) ToString(explicit bool) (fhirpath.String
 func (r EvidenceVariableCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceVariableCharacteristic to Integer")
 }
+func (r EvidenceVariableCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceVariableCharacteristic to Long")
+}
 func (r EvidenceVariableCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceVariableCharacteristic to Decimal")
 }
@@ -5199,6 +5205,9 @@ func (r EvidenceVariableCharacteristicTimeFromStart) ToString(explicit bool) (fh
 func (r EvidenceVariableCharacteristicTimeFromStart) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceVariableCharacteristicTimeFromStart to Integer")
 }
+func (r EvidenceVariableCharacteristicTimeFromStart) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceVariableCharacteristicTimeFromStart to Long")
+}
 func (r EvidenceVariableCharacteristicTimeFromStart) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceVariableCharacteristicTimeFromStart to Decimal")
 }
@@ -5337,6 +5346,9 @@ func (r EvidenceVariableCategory) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r EvidenceVariableCategory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EvidenceVariableCategory to Integer")
+}
+func (r EvidenceVariableCategory) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EvidenceVariableCategory to Long")
 }
 func (r EvidenceVariableCategory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EvidenceVariableCategory to Decimal")

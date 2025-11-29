@@ -1874,6 +1874,9 @@ func (r DeviceMetric) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DeviceMetric) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceMetric to Integer")
 }
+func (r DeviceMetric) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceMetric to Long")
+}
 func (r DeviceMetric) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceMetric to Decimal")
 }
@@ -2094,6 +2097,9 @@ func (r DeviceMetricCalibration) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r DeviceMetricCalibration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceMetricCalibration to Integer")
+}
+func (r DeviceMetricCalibration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceMetricCalibration to Long")
 }
 func (r DeviceMetricCalibration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceMetricCalibration to Decimal")

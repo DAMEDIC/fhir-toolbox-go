@@ -6317,6 +6317,9 @@ func (r EffectEvidenceSynthesis) ToString(explicit bool) (fhirpath.String, bool,
 func (r EffectEvidenceSynthesis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesis to Integer")
 }
+func (r EffectEvidenceSynthesis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesis to Long")
+}
 func (r EffectEvidenceSynthesis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesis to Decimal")
 }
@@ -6699,6 +6702,9 @@ func (r EffectEvidenceSynthesisSampleSize) ToString(explicit bool) (fhirpath.Str
 func (r EffectEvidenceSynthesisSampleSize) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Integer")
 }
+func (r EffectEvidenceSynthesisSampleSize) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Long")
+}
 func (r EffectEvidenceSynthesisSampleSize) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisSampleSize to Decimal")
 }
@@ -6838,6 +6844,9 @@ func (r EffectEvidenceSynthesisResultsByExposure) ToString(explicit bool) (fhirp
 }
 func (r EffectEvidenceSynthesisResultsByExposure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Integer")
+}
+func (r EffectEvidenceSynthesisResultsByExposure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Long")
 }
 func (r EffectEvidenceSynthesisResultsByExposure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisResultsByExposure to Decimal")
@@ -6997,6 +7006,9 @@ func (r EffectEvidenceSynthesisEffectEstimate) ToString(explicit bool) (fhirpath
 }
 func (r EffectEvidenceSynthesisEffectEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Integer")
+}
+func (r EffectEvidenceSynthesisEffectEstimate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Long")
 }
 func (r EffectEvidenceSynthesisEffectEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimate to Decimal")
@@ -7161,6 +7173,9 @@ func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToString(explici
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Integer")
 }
+func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Long")
+}
 func (r EffectEvidenceSynthesisEffectEstimatePrecisionEstimate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisEffectEstimatePrecisionEstimate to Decimal")
 }
@@ -7305,6 +7320,9 @@ func (r EffectEvidenceSynthesisCertainty) ToString(explicit bool) (fhirpath.Stri
 func (r EffectEvidenceSynthesisCertainty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Integer")
 }
+func (r EffectEvidenceSynthesisCertainty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Long")
+}
 func (r EffectEvidenceSynthesisCertainty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisCertainty to Decimal")
 }
@@ -7441,6 +7459,9 @@ func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToString(explicit
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Integer")
+}
+func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Long")
 }
 func (r EffectEvidenceSynthesisCertaintyCertaintySubcomponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EffectEvidenceSynthesisCertaintyCertaintySubcomponent to Decimal")

@@ -3271,6 +3271,9 @@ func (r Coverage) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Coverage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Coverage to Integer")
 }
+func (r Coverage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Coverage to Long")
+}
 func (r Coverage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Coverage to Decimal")
 }
@@ -3537,6 +3540,9 @@ func (r CoverageClass) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r CoverageClass) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageClass to Integer")
 }
+func (r CoverageClass) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageClass to Long")
+}
 func (r CoverageClass) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageClass to Decimal")
 }
@@ -3672,6 +3678,9 @@ func (r CoverageCostToBeneficiary) ToString(explicit bool) (fhirpath.String, boo
 func (r CoverageCostToBeneficiary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageCostToBeneficiary to Integer")
 }
+func (r CoverageCostToBeneficiary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageCostToBeneficiary to Long")
+}
 func (r CoverageCostToBeneficiary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageCostToBeneficiary to Decimal")
 }
@@ -3801,6 +3810,9 @@ func (r CoverageCostToBeneficiaryException) ToString(explicit bool) (fhirpath.St
 }
 func (r CoverageCostToBeneficiaryException) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageCostToBeneficiaryException to Integer")
+}
+func (r CoverageCostToBeneficiaryException) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageCostToBeneficiaryException to Long")
 }
 func (r CoverageCostToBeneficiaryException) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageCostToBeneficiaryException to Decimal")

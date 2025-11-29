@@ -2990,6 +2990,54 @@ var defaultFunctions = Functions{
 
 		return Collection{Boolean(true)}, true, nil
 	},
+	"toLong": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to long: collection contains > 1 values")
+		}
+
+		l, ok, err := target[0].ToLong(true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{l}, true, nil
+	},
+	"convertsToLong": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to long: collection contains > 1 values")
+		}
+
+		_, ok, err := target[0].ToLong(true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
 	"toDate": func(
 		ctx context.Context,
 		root Element, target Collection,

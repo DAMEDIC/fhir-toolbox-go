@@ -17,6 +17,7 @@ const (
 var (
 	stringTypes   = []string{"String", "Uri", "Code", "Oid", "Id", "Uuid", "Markdown", "Base64Binary", "Canonical", "Url"}
 	intTypes      = []string{"Integer", "UnsignedInt", "PositiveInt"}
+	longTypes     = []string{"Integer64"}
 	dateTimeTypes = []string{"Date", "DateTime", "Instant"}
 )
 
@@ -28,6 +29,7 @@ func (g FHIRPathGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 		generateToBooleanFunc(f, s)
 		generateToStringFunc(f, s)
 		generateToIntegerFunc(f, s)
+		generateToLongFunc(f, s)
 		generateToDecimalFunc(f, s)
 		generateToDateFunc(f, s)
 		generateToTimeFunc(f, s)
@@ -182,6 +184,98 @@ func generateToIntegerFunc(f *File, s ir.Struct) {
 				Lit(0),
 				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Integer", s.Name))),
+			)
+		}
+	})
+}
+
+func generateToLongFunc(f *File, s ir.Struct) {
+	f.Func().Params(Id("r").Id(s.Name)).Id("ToLong").Params(Id("explicit").Bool()).Params(
+		Qual(fhirpathModuleName, "Long"),
+		Bool(),
+		Error(),
+	).BlockFunc(func(g *Group) {
+		switch {
+		case s.Name == "Boolean":
+			g.If(Id("r").Dot("Value").Op("==").Nil()).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					False(),
+					Nil(),
+				),
+			)
+			g.If(Op("*").Id("r").Dot("Value")).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(1)),
+					True(),
+					Nil(),
+				),
+			).Else().Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					True(),
+					Nil(),
+				),
+			)
+		case slices.Contains(intTypes, s.Name):
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Op("*").Id("r").Dot("Value")),
+					True(),
+					Nil(),
+				),
+			).Else().Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					False(),
+					Nil(),
+				),
+			)
+		case slices.Contains(longTypes, s.Name):
+			g.If(Id("r").Dot("Value").Op("!=").Nil()).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Op("*").Id("r").Dot("Value")),
+					True(),
+					Nil(),
+				),
+			).Else().Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					False(),
+					Nil(),
+				),
+			)
+		case slices.Contains(stringTypes, s.Name):
+			g.If(Id("r").Dot("Value").Op("==").Nil()).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					False(),
+					Nil(),
+				),
+			)
+			g.List(Id("v"), Id("err")).Op(":=").Qual("strconv", "ParseInt").Call(
+				Op("*").Id("r").Dot("Value"),
+				Lit(10),
+				Lit(64),
+			)
+			g.If(Id("err").Op("==").Nil()).Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Id("v")),
+					True(),
+					Nil(),
+				),
+			).Else().Block(
+				Return(
+					Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+					False(),
+					Nil(),
+				),
+			)
+		default:
+			g.Return(
+				Qual(fhirpathModuleName, "Long").Call(Lit(0)),
+				False(),
+				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Long", s.Name))),
 			)
 		}
 	})

@@ -3726,6 +3726,9 @@ func (r QuestionnaireResponse) ToString(explicit bool) (fhirpath.String, bool, e
 func (r QuestionnaireResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert QuestionnaireResponse to Integer")
 }
+func (r QuestionnaireResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert QuestionnaireResponse to Long")
+}
 func (r QuestionnaireResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponse to Decimal")
 }
@@ -3962,6 +3965,9 @@ func (r QuestionnaireResponseItem) ToString(explicit bool) (fhirpath.String, boo
 func (r QuestionnaireResponseItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert QuestionnaireResponseItem to Integer")
 }
+func (r QuestionnaireResponseItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert QuestionnaireResponseItem to Long")
+}
 func (r QuestionnaireResponseItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponseItem to Decimal")
 }
@@ -4107,6 +4113,9 @@ func (r QuestionnaireResponseItemAnswer) ToString(explicit bool) (fhirpath.Strin
 }
 func (r QuestionnaireResponseItemAnswer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Integer")
+}
+func (r QuestionnaireResponseItemAnswer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert QuestionnaireResponseItemAnswer to Long")
 }
 func (r QuestionnaireResponseItemAnswer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert QuestionnaireResponseItemAnswer to Decimal")

@@ -2958,6 +2958,9 @@ func (r MedicinalProductAuthorization) ToString(explicit bool) (fhirpath.String,
 func (r MedicinalProductAuthorization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductAuthorization to Integer")
 }
+func (r MedicinalProductAuthorization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductAuthorization to Long")
+}
 func (r MedicinalProductAuthorization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductAuthorization to Decimal")
 }
@@ -3231,6 +3234,9 @@ func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToString(expli
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductAuthorizationJurisdictionalAuthorization to Integer")
 }
+func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductAuthorizationJurisdictionalAuthorization to Long")
+}
 func (r MedicinalProductAuthorizationJurisdictionalAuthorization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductAuthorizationJurisdictionalAuthorization to Decimal")
 }
@@ -3384,6 +3390,9 @@ func (r MedicinalProductAuthorizationProcedure) ToString(explicit bool) (fhirpat
 }
 func (r MedicinalProductAuthorizationProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductAuthorizationProcedure to Integer")
+}
+func (r MedicinalProductAuthorizationProcedure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductAuthorizationProcedure to Long")
 }
 func (r MedicinalProductAuthorizationProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductAuthorizationProcedure to Decimal")

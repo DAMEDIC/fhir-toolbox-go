@@ -7041,6 +7041,9 @@ func (r ExampleScenario) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ExampleScenario) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenario to Integer")
 }
+func (r ExampleScenario) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenario to Long")
+}
 func (r ExampleScenario) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenario to Decimal")
 }
@@ -7312,6 +7315,9 @@ func (r ExampleScenarioActor) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ExampleScenarioActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioActor to Integer")
 }
+func (r ExampleScenarioActor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioActor to Long")
+}
 func (r ExampleScenarioActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioActor to Decimal")
 }
@@ -7467,6 +7473,9 @@ func (r ExampleScenarioInstance) ToString(explicit bool) (fhirpath.String, bool,
 func (r ExampleScenarioInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstance to Integer")
 }
+func (r ExampleScenarioInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstance to Long")
+}
 func (r ExampleScenarioInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstance to Decimal")
 }
@@ -7616,6 +7625,9 @@ func (r ExampleScenarioInstanceVersion) ToString(explicit bool) (fhirpath.String
 func (r ExampleScenarioInstanceVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstanceVersion to Integer")
 }
+func (r ExampleScenarioInstanceVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstanceVersion to Long")
+}
 func (r ExampleScenarioInstanceVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstanceVersion to Decimal")
 }
@@ -7738,6 +7750,9 @@ func (r ExampleScenarioInstanceContainedInstance) ToString(explicit bool) (fhirp
 }
 func (r ExampleScenarioInstanceContainedInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Integer")
+}
+func (r ExampleScenarioInstanceContainedInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Long")
 }
 func (r ExampleScenarioInstanceContainedInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Decimal")
@@ -7876,6 +7891,9 @@ func (r ExampleScenarioProcess) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r ExampleScenarioProcess) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcess to Integer")
+}
+func (r ExampleScenarioProcess) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcess to Long")
 }
 func (r ExampleScenarioProcess) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcess to Decimal")
@@ -8032,6 +8050,9 @@ func (r ExampleScenarioProcessStep) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r ExampleScenarioProcessStep) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStep to Integer")
+}
+func (r ExampleScenarioProcessStep) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStep to Long")
 }
 func (r ExampleScenarioProcessStep) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStep to Decimal")
@@ -8209,6 +8230,9 @@ func (r ExampleScenarioProcessStepOperation) ToString(explicit bool) (fhirpath.S
 }
 func (r ExampleScenarioProcessStepOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Integer")
+}
+func (r ExampleScenarioProcessStepOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStepOperation to Long")
 }
 func (r ExampleScenarioProcessStepOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Decimal")
@@ -8393,6 +8417,9 @@ func (r ExampleScenarioProcessStepAlternative) ToString(explicit bool) (fhirpath
 }
 func (r ExampleScenarioProcessStepAlternative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Integer")
+}
+func (r ExampleScenarioProcessStepAlternative) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Long")
 }
 func (r ExampleScenarioProcessStepAlternative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Decimal")

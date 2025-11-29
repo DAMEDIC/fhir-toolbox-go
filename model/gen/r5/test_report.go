@@ -6088,6 +6088,9 @@ func (r TestReport) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReport to Integer")
 }
+func (r TestReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReport to Long")
+}
 func (r TestReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReport to Decimal")
 }
@@ -6319,6 +6322,9 @@ func (r TestReportParticipant) ToString(explicit bool) (fhirpath.String, bool, e
 func (r TestReportParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportParticipant to Integer")
 }
+func (r TestReportParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportParticipant to Long")
+}
 func (r TestReportParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportParticipant to Decimal")
 }
@@ -6446,6 +6452,9 @@ func (r TestReportSetup) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r TestReportSetup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportSetup to Integer")
 }
+func (r TestReportSetup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportSetup to Long")
+}
 func (r TestReportSetup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetup to Decimal")
 }
@@ -6563,6 +6572,9 @@ func (r TestReportSetupAction) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r TestReportSetupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportSetupAction to Integer")
+}
+func (r TestReportSetupAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportSetupAction to Long")
 }
 func (r TestReportSetupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupAction to Decimal")
@@ -6691,6 +6703,9 @@ func (r TestReportSetupActionOperation) ToString(explicit bool) (fhirpath.String
 }
 func (r TestReportSetupActionOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportSetupActionOperation to Integer")
+}
+func (r TestReportSetupActionOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportSetupActionOperation to Long")
 }
 func (r TestReportSetupActionOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupActionOperation to Decimal")
@@ -6832,6 +6847,9 @@ func (r TestReportSetupActionAssert) ToString(explicit bool) (fhirpath.String, b
 func (r TestReportSetupActionAssert) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportSetupActionAssert to Integer")
 }
+func (r TestReportSetupActionAssert) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportSetupActionAssert to Long")
+}
 func (r TestReportSetupActionAssert) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupActionAssert to Decimal")
 }
@@ -6966,6 +6984,9 @@ func (r TestReportSetupActionAssertRequirement) ToString(explicit bool) (fhirpat
 func (r TestReportSetupActionAssertRequirement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportSetupActionAssertRequirement to Integer")
 }
+func (r TestReportSetupActionAssertRequirement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportSetupActionAssertRequirement to Long")
+}
 func (r TestReportSetupActionAssertRequirement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportSetupActionAssertRequirement to Decimal")
 }
@@ -7088,6 +7109,9 @@ func (r TestReportTest) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r TestReportTest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportTest to Integer")
+}
+func (r TestReportTest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportTest to Long")
 }
 func (r TestReportTest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTest to Decimal")
@@ -7221,6 +7245,9 @@ func (r TestReportTestAction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r TestReportTestAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportTestAction to Integer")
 }
+func (r TestReportTestAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportTestAction to Long")
+}
 func (r TestReportTestAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTestAction to Decimal")
 }
@@ -7341,6 +7368,9 @@ func (r TestReportTeardown) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestReportTeardown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportTeardown to Integer")
 }
+func (r TestReportTeardown) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportTeardown to Long")
+}
 func (r TestReportTeardown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTeardown to Decimal")
 }
@@ -7451,6 +7481,9 @@ func (r TestReportTeardownAction) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r TestReportTeardownAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestReportTeardownAction to Integer")
+}
+func (r TestReportTeardownAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestReportTeardownAction to Long")
 }
 func (r TestReportTeardownAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestReportTeardownAction to Decimal")

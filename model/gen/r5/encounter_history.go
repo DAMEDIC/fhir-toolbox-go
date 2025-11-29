@@ -1933,6 +1933,9 @@ func (r EncounterHistory) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r EncounterHistory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EncounterHistory to Integer")
 }
+func (r EncounterHistory) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EncounterHistory to Long")
+}
 func (r EncounterHistory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EncounterHistory to Decimal")
 }
@@ -2167,6 +2170,9 @@ func (r EncounterHistoryLocation) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r EncounterHistoryLocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EncounterHistoryLocation to Integer")
+}
+func (r EncounterHistoryLocation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EncounterHistoryLocation to Long")
 }
 func (r EncounterHistoryLocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EncounterHistoryLocation to Decimal")

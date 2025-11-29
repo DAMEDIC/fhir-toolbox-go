@@ -5302,6 +5302,9 @@ func (r FamilyMemberHistory) ToString(explicit bool) (fhirpath.String, bool, err
 func (r FamilyMemberHistory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert FamilyMemberHistory to Integer")
 }
+func (r FamilyMemberHistory) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert FamilyMemberHistory to Long")
+}
 func (r FamilyMemberHistory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert FamilyMemberHistory to Decimal")
 }
@@ -5579,6 +5582,9 @@ func (r FamilyMemberHistoryParticipant) ToString(explicit bool) (fhirpath.String
 func (r FamilyMemberHistoryParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert FamilyMemberHistoryParticipant to Integer")
 }
+func (r FamilyMemberHistoryParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert FamilyMemberHistoryParticipant to Long")
+}
 func (r FamilyMemberHistoryParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert FamilyMemberHistoryParticipant to Decimal")
 }
@@ -5716,6 +5722,9 @@ func (r FamilyMemberHistoryCondition) ToString(explicit bool) (fhirpath.String, 
 }
 func (r FamilyMemberHistoryCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert FamilyMemberHistoryCondition to Integer")
+}
+func (r FamilyMemberHistoryCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert FamilyMemberHistoryCondition to Long")
 }
 func (r FamilyMemberHistoryCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert FamilyMemberHistoryCondition to Decimal")
@@ -5875,6 +5884,9 @@ func (r FamilyMemberHistoryProcedure) ToString(explicit bool) (fhirpath.String, 
 }
 func (r FamilyMemberHistoryProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert FamilyMemberHistoryProcedure to Integer")
+}
+func (r FamilyMemberHistoryProcedure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert FamilyMemberHistoryProcedure to Long")
 }
 func (r FamilyMemberHistoryProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert FamilyMemberHistoryProcedure to Decimal")

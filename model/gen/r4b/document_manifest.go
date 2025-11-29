@@ -1967,6 +1967,9 @@ func (r DocumentManifest) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r DocumentManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentManifest to Integer")
 }
+func (r DocumentManifest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentManifest to Long")
+}
 func (r DocumentManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentManifest to Decimal")
 }
@@ -2196,6 +2199,9 @@ func (r DocumentManifestRelated) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r DocumentManifestRelated) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentManifestRelated to Integer")
+}
+func (r DocumentManifestRelated) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentManifestRelated to Long")
 }
 func (r DocumentManifestRelated) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentManifestRelated to Decimal")

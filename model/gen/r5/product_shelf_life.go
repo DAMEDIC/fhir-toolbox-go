@@ -670,6 +670,9 @@ func (r ProductShelfLife) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ProductShelfLife) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProductShelfLife to Integer")
 }
+func (r ProductShelfLife) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProductShelfLife to Long")
+}
 func (r ProductShelfLife) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProductShelfLife to Decimal")
 }

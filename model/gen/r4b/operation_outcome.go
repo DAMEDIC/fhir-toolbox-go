@@ -1687,6 +1687,9 @@ func (r OperationOutcome) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r OperationOutcome) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationOutcome to Integer")
 }
+func (r OperationOutcome) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationOutcome to Long")
+}
 func (r OperationOutcome) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationOutcome to Decimal")
 }
@@ -1855,6 +1858,9 @@ func (r OperationOutcomeIssue) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r OperationOutcomeIssue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationOutcomeIssue to Integer")
+}
+func (r OperationOutcomeIssue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationOutcomeIssue to Long")
 }
 func (r OperationOutcomeIssue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationOutcomeIssue to Decimal")

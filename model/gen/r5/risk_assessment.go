@@ -2709,6 +2709,9 @@ func (r RiskAssessment) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r RiskAssessment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskAssessment to Integer")
 }
+func (r RiskAssessment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskAssessment to Long")
+}
 func (r RiskAssessment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskAssessment to Decimal")
 }
@@ -2986,6 +2989,9 @@ func (r RiskAssessmentPrediction) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r RiskAssessmentPrediction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RiskAssessmentPrediction to Integer")
+}
+func (r RiskAssessmentPrediction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RiskAssessmentPrediction to Long")
 }
 func (r RiskAssessmentPrediction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RiskAssessmentPrediction to Decimal")

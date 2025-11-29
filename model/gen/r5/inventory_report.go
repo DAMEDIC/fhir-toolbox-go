@@ -2312,6 +2312,9 @@ func (r InventoryReport) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r InventoryReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryReport to Integer")
 }
+func (r InventoryReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryReport to Long")
+}
 func (r InventoryReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryReport to Decimal")
 }
@@ -2538,6 +2541,9 @@ func (r InventoryReportInventoryListing) ToString(explicit bool) (fhirpath.Strin
 func (r InventoryReportInventoryListing) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryReportInventoryListing to Integer")
 }
+func (r InventoryReportInventoryListing) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryReportInventoryListing to Long")
+}
 func (r InventoryReportInventoryListing) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryReportInventoryListing to Decimal")
 }
@@ -2677,6 +2683,9 @@ func (r InventoryReportInventoryListingItem) ToString(explicit bool) (fhirpath.S
 }
 func (r InventoryReportInventoryListingItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryReportInventoryListingItem to Integer")
+}
+func (r InventoryReportInventoryListingItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryReportInventoryListingItem to Long")
 }
 func (r InventoryReportInventoryListingItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryReportInventoryListingItem to Decimal")

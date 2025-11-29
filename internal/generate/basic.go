@@ -119,6 +119,12 @@ func (g BasicDocGenerator) GenerateAdditional(f func(fileName string, pkgName st
 		Return(Lit(0), False(), Qual("fmt", "Errorf").Call(Lit("cannot convert RawResource to Integer"))),
 	)
 
+	file.Comment("ToLong converts to Long for FHIRPath")
+	file.Func().Params(Id("r").Id("RawResource")).Id("ToLong").Params(Id("explicit").Bool()).
+		Params(Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Long"), Bool(), Error()).Block(
+		Return(Lit(0), False(), Qual("fmt", "Errorf").Call(Lit("cannot convert RawResource to Long"))),
+	)
+
 	file.Comment("ToDecimal converts to Decimal for FHIRPath")
 	file.Func().Params(Id("r").Id("RawResource")).Id("ToDecimal").Params(Id("explicit").Bool()).
 		Params(Qual("github.com/DAMEDIC/fhir-toolbox-go/fhirpath", "Decimal"), Bool(), Error()).Block(

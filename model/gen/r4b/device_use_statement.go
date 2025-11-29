@@ -1805,6 +1805,9 @@ func (r DeviceUseStatement) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r DeviceUseStatement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceUseStatement to Integer")
 }
+func (r DeviceUseStatement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceUseStatement to Long")
+}
 func (r DeviceUseStatement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUseStatement to Decimal")
 }

@@ -4533,6 +4533,9 @@ func (r MedicationRequest) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MedicationRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationRequest to Integer")
 }
+func (r MedicationRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationRequest to Long")
+}
 func (r MedicationRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationRequest to Decimal")
 }
@@ -4945,6 +4948,9 @@ func (r MedicationRequestDispenseRequest) ToString(explicit bool) (fhirpath.Stri
 func (r MedicationRequestDispenseRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationRequestDispenseRequest to Integer")
 }
+func (r MedicationRequestDispenseRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationRequestDispenseRequest to Long")
+}
 func (r MedicationRequestDispenseRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationRequestDispenseRequest to Decimal")
 }
@@ -5119,6 +5125,9 @@ func (r MedicationRequestDispenseRequestInitialFill) ToString(explicit bool) (fh
 func (r MedicationRequestDispenseRequestInitialFill) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationRequestDispenseRequestInitialFill to Integer")
 }
+func (r MedicationRequestDispenseRequestInitialFill) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationRequestDispenseRequestInitialFill to Long")
+}
 func (r MedicationRequestDispenseRequestInitialFill) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationRequestDispenseRequestInitialFill to Decimal")
 }
@@ -5241,6 +5250,9 @@ func (r MedicationRequestSubstitution) ToString(explicit bool) (fhirpath.String,
 }
 func (r MedicationRequestSubstitution) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicationRequestSubstitution to Integer")
+}
+func (r MedicationRequestSubstitution) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicationRequestSubstitution to Long")
 }
 func (r MedicationRequestSubstitution) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicationRequestSubstitution to Decimal")

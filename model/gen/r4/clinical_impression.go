@@ -3182,6 +3182,9 @@ func (r ClinicalImpression) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ClinicalImpression) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalImpression to Integer")
 }
+func (r ClinicalImpression) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalImpression to Long")
+}
 func (r ClinicalImpression) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalImpression to Decimal")
 }
@@ -3466,6 +3469,9 @@ func (r ClinicalImpressionInvestigation) ToString(explicit bool) (fhirpath.Strin
 func (r ClinicalImpressionInvestigation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalImpressionInvestigation to Integer")
 }
+func (r ClinicalImpressionInvestigation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalImpressionInvestigation to Long")
+}
 func (r ClinicalImpressionInvestigation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalImpressionInvestigation to Decimal")
 }
@@ -3595,6 +3601,9 @@ func (r ClinicalImpressionFinding) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ClinicalImpressionFinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClinicalImpressionFinding to Integer")
+}
+func (r ClinicalImpressionFinding) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClinicalImpressionFinding to Long")
 }
 func (r ClinicalImpressionFinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClinicalImpressionFinding to Decimal")

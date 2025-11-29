@@ -2391,6 +2391,9 @@ func (r RegulatedAuthorization) ToString(explicit bool) (fhirpath.String, bool, 
 func (r RegulatedAuthorization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RegulatedAuthorization to Integer")
 }
+func (r RegulatedAuthorization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RegulatedAuthorization to Long")
+}
 func (r RegulatedAuthorization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RegulatedAuthorization to Decimal")
 }
@@ -2656,6 +2659,9 @@ func (r RegulatedAuthorizationCase) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r RegulatedAuthorizationCase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RegulatedAuthorizationCase to Integer")
+}
+func (r RegulatedAuthorizationCase) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RegulatedAuthorizationCase to Long")
 }
 func (r RegulatedAuthorizationCase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RegulatedAuthorizationCase to Decimal")

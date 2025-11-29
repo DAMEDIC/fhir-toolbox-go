@@ -6093,6 +6093,9 @@ func (r OperationDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r OperationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationDefinition to Integer")
 }
+func (r OperationDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationDefinition to Long")
+}
 func (r OperationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinition to Decimal")
 }
@@ -6496,6 +6499,9 @@ func (r OperationDefinitionParameter) ToString(explicit bool) (fhirpath.String, 
 func (r OperationDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationDefinitionParameter to Integer")
 }
+func (r OperationDefinitionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationDefinitionParameter to Long")
+}
 func (r OperationDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameter to Decimal")
 }
@@ -6694,6 +6700,9 @@ func (r OperationDefinitionParameterBinding) ToString(explicit bool) (fhirpath.S
 func (r OperationDefinitionParameterBinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationDefinitionParameterBinding to Integer")
 }
+func (r OperationDefinitionParameterBinding) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationDefinitionParameterBinding to Long")
+}
 func (r OperationDefinitionParameterBinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameterBinding to Decimal")
 }
@@ -6816,6 +6825,9 @@ func (r OperationDefinitionParameterReferencedFrom) ToString(explicit bool) (fhi
 }
 func (r OperationDefinitionParameterReferencedFrom) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Integer")
+}
+func (r OperationDefinitionParameterReferencedFrom) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Long")
 }
 func (r OperationDefinitionParameterReferencedFrom) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionParameterReferencedFrom to Decimal")
@@ -6941,6 +6953,9 @@ func (r OperationDefinitionOverload) ToString(explicit bool) (fhirpath.String, b
 }
 func (r OperationDefinitionOverload) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OperationDefinitionOverload to Integer")
+}
+func (r OperationDefinitionOverload) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OperationDefinitionOverload to Long")
 }
 func (r OperationDefinitionOverload) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OperationDefinitionOverload to Decimal")

@@ -2830,6 +2830,9 @@ func (r CompartmentDefinition) ToString(explicit bool) (fhirpath.String, bool, e
 func (r CompartmentDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CompartmentDefinition to Integer")
 }
+func (r CompartmentDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CompartmentDefinition to Long")
+}
 func (r CompartmentDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CompartmentDefinition to Decimal")
 }
@@ -3100,6 +3103,9 @@ func (r CompartmentDefinitionResource) ToString(explicit bool) (fhirpath.String,
 }
 func (r CompartmentDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CompartmentDefinitionResource to Integer")
+}
+func (r CompartmentDefinitionResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CompartmentDefinitionResource to Long")
 }
 func (r CompartmentDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CompartmentDefinitionResource to Decimal")

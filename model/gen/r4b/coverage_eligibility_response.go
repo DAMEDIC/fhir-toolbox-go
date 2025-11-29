@@ -4894,6 +4894,9 @@ func (r CoverageEligibilityResponse) ToString(explicit bool) (fhirpath.String, b
 func (r CoverageEligibilityResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponse to Integer")
 }
+func (r CoverageEligibilityResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponse to Long")
+}
 func (r CoverageEligibilityResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponse to Decimal")
 }
@@ -5153,6 +5156,9 @@ func (r CoverageEligibilityResponseInsurance) ToString(explicit bool) (fhirpath.
 func (r CoverageEligibilityResponseInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Integer")
 }
+func (r CoverageEligibilityResponseInsurance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsurance to Long")
+}
 func (r CoverageEligibilityResponseInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Decimal")
 }
@@ -5351,6 +5357,9 @@ func (r CoverageEligibilityResponseInsuranceItem) ToString(explicit bool) (fhirp
 }
 func (r CoverageEligibilityResponseInsuranceItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Integer")
+}
+func (r CoverageEligibilityResponseInsuranceItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Long")
 }
 func (r CoverageEligibilityResponseInsuranceItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Decimal")
@@ -5564,6 +5573,9 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) ToString(explicit bool)
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Integer")
 }
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Long")
+}
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Decimal")
 }
@@ -5688,6 +5700,9 @@ func (r CoverageEligibilityResponseError) ToString(explicit bool) (fhirpath.Stri
 }
 func (r CoverageEligibilityResponseError) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseError to Integer")
+}
+func (r CoverageEligibilityResponseError) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseError to Long")
 }
 func (r CoverageEligibilityResponseError) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseError to Decimal")

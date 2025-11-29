@@ -421,6 +421,9 @@ func (r ContactDetail) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContactDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContactDetail to Integer")
 }
+func (r ContactDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContactDetail to Long")
+}
 func (r ContactDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContactDetail to Decimal")
 }

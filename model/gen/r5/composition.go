@@ -3781,6 +3781,9 @@ func (r Composition) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Composition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Composition to Integer")
 }
+func (r Composition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Composition to Long")
+}
 func (r Composition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Composition to Decimal")
 }
@@ -4063,6 +4066,9 @@ func (r CompositionAttester) ToString(explicit bool) (fhirpath.String, bool, err
 func (r CompositionAttester) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CompositionAttester to Integer")
 }
+func (r CompositionAttester) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CompositionAttester to Long")
+}
 func (r CompositionAttester) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionAttester to Decimal")
 }
@@ -4194,6 +4200,9 @@ func (r CompositionEvent) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r CompositionEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CompositionEvent to Integer")
+}
+func (r CompositionEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CompositionEvent to Long")
 }
 func (r CompositionEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionEvent to Decimal")
@@ -4354,6 +4363,9 @@ func (r CompositionSection) ToString(explicit bool) (fhirpath.String, bool, erro
 }
 func (r CompositionSection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CompositionSection to Integer")
+}
+func (r CompositionSection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CompositionSection to Long")
 }
 func (r CompositionSection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CompositionSection to Decimal")

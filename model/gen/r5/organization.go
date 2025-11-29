@@ -2079,6 +2079,9 @@ func (r Organization) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Organization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Organization to Integer")
 }
+func (r Organization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Organization to Long")
+}
 func (r Organization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Organization to Decimal")
 }
@@ -2302,6 +2305,9 @@ func (r OrganizationQualification) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r OrganizationQualification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert OrganizationQualification to Integer")
+}
+func (r OrganizationQualification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert OrganizationQualification to Long")
 }
 func (r OrganizationQualification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert OrganizationQualification to Decimal")

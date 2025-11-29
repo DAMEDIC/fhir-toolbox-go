@@ -1596,6 +1596,9 @@ func (r MedicinalProductInteraction) ToString(explicit bool) (fhirpath.String, b
 func (r MedicinalProductInteraction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductInteraction to Integer")
 }
+func (r MedicinalProductInteraction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductInteraction to Long")
+}
 func (r MedicinalProductInteraction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductInteraction to Decimal")
 }
@@ -1783,6 +1786,9 @@ func (r MedicinalProductInteractionInteractant) ToString(explicit bool) (fhirpat
 }
 func (r MedicinalProductInteractionInteractant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductInteractionInteractant to Integer")
+}
+func (r MedicinalProductInteractionInteractant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductInteractionInteractant to Long")
 }
 func (r MedicinalProductInteractionInteractant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductInteractionInteractant to Decimal")

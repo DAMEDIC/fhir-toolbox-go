@@ -1024,6 +1024,9 @@ func (r HumanName) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r HumanName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert HumanName to Integer")
 }
+func (r HumanName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert HumanName to Long")
+}
 func (r HumanName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert HumanName to Decimal")
 }

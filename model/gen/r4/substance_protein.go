@@ -1900,6 +1900,9 @@ func (r SubstanceProtein) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r SubstanceProtein) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceProtein to Integer")
 }
+func (r SubstanceProtein) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceProtein to Long")
+}
 func (r SubstanceProtein) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProtein to Decimal")
 }
@@ -2103,6 +2106,9 @@ func (r SubstanceProteinSubunit) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r SubstanceProteinSubunit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceProteinSubunit to Integer")
+}
+func (r SubstanceProteinSubunit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceProteinSubunit to Long")
 }
 func (r SubstanceProteinSubunit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProteinSubunit to Decimal")

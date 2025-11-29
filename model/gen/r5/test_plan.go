@@ -6301,6 +6301,9 @@ func (r TestPlan) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestPlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlan to Integer")
 }
+func (r TestPlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlan to Long")
+}
 func (r TestPlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlan to Decimal")
 }
@@ -6608,6 +6611,9 @@ func (r TestPlanDependency) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestPlanDependency) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanDependency to Integer")
 }
+func (r TestPlanDependency) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanDependency to Long")
+}
 func (r TestPlanDependency) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanDependency to Decimal")
 }
@@ -6752,6 +6758,9 @@ func (r TestPlanTestCase) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r TestPlanTestCase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCase to Integer")
+}
+func (r TestPlanTestCase) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCase to Long")
 }
 func (r TestPlanTestCase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCase to Decimal")
@@ -6906,6 +6915,9 @@ func (r TestPlanTestCaseDependency) ToString(explicit bool) (fhirpath.String, bo
 func (r TestPlanTestCaseDependency) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCaseDependency to Integer")
 }
+func (r TestPlanTestCaseDependency) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCaseDependency to Long")
+}
 func (r TestPlanTestCaseDependency) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseDependency to Decimal")
 }
@@ -7031,6 +7043,9 @@ func (r TestPlanTestCaseTestRun) ToString(explicit bool) (fhirpath.String, bool,
 func (r TestPlanTestCaseTestRun) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCaseTestRun to Integer")
 }
+func (r TestPlanTestCaseTestRun) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCaseTestRun to Long")
+}
 func (r TestPlanTestCaseTestRun) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestRun to Decimal")
 }
@@ -7155,6 +7170,9 @@ func (r TestPlanTestCaseTestRunScript) ToString(explicit bool) (fhirpath.String,
 }
 func (r TestPlanTestCaseTestRunScript) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Integer")
+}
+func (r TestPlanTestCaseTestRunScript) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCaseTestRunScript to Long")
 }
 func (r TestPlanTestCaseTestRunScript) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestRunScript to Decimal")
@@ -7283,6 +7301,9 @@ func (r TestPlanTestCaseTestData) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r TestPlanTestCaseTestData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCaseTestData to Integer")
+}
+func (r TestPlanTestCaseTestData) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCaseTestData to Long")
 }
 func (r TestPlanTestCaseTestData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseTestData to Decimal")
@@ -7420,6 +7441,9 @@ func (r TestPlanTestCaseAssertion) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r TestPlanTestCaseAssertion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestPlanTestCaseAssertion to Integer")
+}
+func (r TestPlanTestCaseAssertion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestPlanTestCaseAssertion to Long")
 }
 func (r TestPlanTestCaseAssertion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestPlanTestCaseAssertion to Decimal")

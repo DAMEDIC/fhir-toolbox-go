@@ -5116,6 +5116,9 @@ func (r RequestGroup) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r RequestGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestGroup to Integer")
 }
+func (r RequestGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestGroup to Long")
+}
 func (r RequestGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroup to Decimal")
 }
@@ -5473,6 +5476,9 @@ func (r RequestGroupAction) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r RequestGroupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestGroupAction to Integer")
 }
+func (r RequestGroupAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestGroupAction to Long")
+}
 func (r RequestGroupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupAction to Decimal")
 }
@@ -5715,6 +5721,9 @@ func (r RequestGroupActionCondition) ToString(explicit bool) (fhirpath.String, b
 func (r RequestGroupActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestGroupActionCondition to Integer")
 }
+func (r RequestGroupActionCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestGroupActionCondition to Long")
+}
 func (r RequestGroupActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupActionCondition to Decimal")
 }
@@ -5840,6 +5849,9 @@ func (r RequestGroupActionRelatedAction) ToString(explicit bool) (fhirpath.Strin
 }
 func (r RequestGroupActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestGroupActionRelatedAction to Integer")
+}
+func (r RequestGroupActionRelatedAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestGroupActionRelatedAction to Long")
 }
 func (r RequestGroupActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestGroupActionRelatedAction to Decimal")

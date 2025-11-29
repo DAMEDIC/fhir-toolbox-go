@@ -623,6 +623,9 @@ func (r ContactPoint) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContactPoint) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContactPoint to Integer")
 }
+func (r ContactPoint) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContactPoint to Long")
+}
 func (r ContactPoint) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContactPoint to Decimal")
 }

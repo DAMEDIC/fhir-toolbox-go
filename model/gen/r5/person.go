@@ -2722,6 +2722,9 @@ func (r Person) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Person) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Person to Integer")
 }
+func (r Person) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Person to Long")
+}
 func (r Person) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Person to Decimal")
 }
@@ -2957,6 +2960,9 @@ func (r PersonCommunication) ToString(explicit bool) (fhirpath.String, bool, err
 func (r PersonCommunication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PersonCommunication to Integer")
 }
+func (r PersonCommunication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PersonCommunication to Long")
+}
 func (r PersonCommunication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PersonCommunication to Decimal")
 }
@@ -3079,6 +3085,9 @@ func (r PersonLink) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r PersonLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PersonLink to Integer")
+}
+func (r PersonLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PersonLink to Long")
 }
 func (r PersonLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PersonLink to Decimal")

@@ -4582,6 +4582,9 @@ func (r Extension) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Extension) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Extension to Integer")
 }
+func (r Extension) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Extension to Long")
+}
 func (r Extension) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Extension to Decimal")
 }

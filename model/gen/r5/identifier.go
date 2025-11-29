@@ -634,6 +634,9 @@ func (r Identifier) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Identifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Identifier to Integer")
 }
+func (r Identifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Identifier to Long")
+}
 func (r Identifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Identifier to Decimal")
 }

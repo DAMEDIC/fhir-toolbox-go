@@ -2889,6 +2889,9 @@ func (r Evidence) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Evidence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Evidence to Integer")
 }
+func (r Evidence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Evidence to Long")
+}
 func (r Evidence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Evidence to Decimal")
 }

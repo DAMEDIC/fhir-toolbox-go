@@ -1899,6 +1899,9 @@ func (r Subscription) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Subscription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Subscription to Integer")
 }
+func (r Subscription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Subscription to Long")
+}
 func (r Subscription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Subscription to Decimal")
 }
@@ -2101,6 +2104,9 @@ func (r SubscriptionChannel) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r SubscriptionChannel) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionChannel to Integer")
+}
+func (r SubscriptionChannel) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionChannel to Long")
 }
 func (r SubscriptionChannel) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionChannel to Decimal")

@@ -480,6 +480,9 @@ func (r Contributor) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Contributor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Contributor to Integer")
 }
+func (r Contributor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Contributor to Long")
+}
 func (r Contributor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Contributor to Decimal")
 }

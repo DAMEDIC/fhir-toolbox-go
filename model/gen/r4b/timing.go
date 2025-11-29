@@ -2285,6 +2285,9 @@ func (r Timing) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Timing) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Timing to Integer")
 }
+func (r Timing) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Timing to Long")
+}
 func (r Timing) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Timing to Decimal")
 }
@@ -2476,6 +2479,9 @@ func (r TimingRepeat) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r TimingRepeat) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TimingRepeat to Integer")
+}
+func (r TimingRepeat) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TimingRepeat to Long")
 }
 func (r TimingRepeat) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TimingRepeat to Decimal")

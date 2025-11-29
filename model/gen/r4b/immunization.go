@@ -5231,6 +5231,9 @@ func (r Immunization) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Immunization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Immunization to Integer")
 }
+func (r Immunization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Immunization to Long")
+}
 func (r Immunization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Immunization to Decimal")
 }
@@ -5571,6 +5574,9 @@ func (r ImmunizationPerformer) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ImmunizationPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationPerformer to Integer")
 }
+func (r ImmunizationPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationPerformer to Long")
+}
 func (r ImmunizationPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationPerformer to Decimal")
 }
@@ -5705,6 +5711,9 @@ func (r ImmunizationEducation) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r ImmunizationEducation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationEducation to Integer")
+}
+func (r ImmunizationEducation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationEducation to Long")
 }
 func (r ImmunizationEducation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationEducation to Decimal")
@@ -5850,6 +5859,9 @@ func (r ImmunizationReaction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ImmunizationReaction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationReaction to Integer")
 }
+func (r ImmunizationReaction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationReaction to Long")
+}
 func (r ImmunizationReaction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationReaction to Decimal")
 }
@@ -5994,6 +6006,9 @@ func (r ImmunizationProtocolApplied) ToString(explicit bool) (fhirpath.String, b
 }
 func (r ImmunizationProtocolApplied) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationProtocolApplied to Integer")
+}
+func (r ImmunizationProtocolApplied) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationProtocolApplied to Long")
 }
 func (r ImmunizationProtocolApplied) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationProtocolApplied to Decimal")

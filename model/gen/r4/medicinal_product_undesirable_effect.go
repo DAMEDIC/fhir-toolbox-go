@@ -1043,6 +1043,9 @@ func (r MedicinalProductUndesirableEffect) ToString(explicit bool) (fhirpath.Str
 func (r MedicinalProductUndesirableEffect) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductUndesirableEffect to Integer")
 }
+func (r MedicinalProductUndesirableEffect) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductUndesirableEffect to Long")
+}
 func (r MedicinalProductUndesirableEffect) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductUndesirableEffect to Decimal")
 }

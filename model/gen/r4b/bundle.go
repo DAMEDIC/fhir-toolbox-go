@@ -3784,6 +3784,9 @@ func (r Bundle) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Bundle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Bundle to Integer")
 }
+func (r Bundle) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Bundle to Long")
+}
 func (r Bundle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Bundle to Decimal")
 }
@@ -3947,6 +3950,9 @@ func (r BundleLink) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BundleLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleLink to Integer")
 }
+func (r BundleLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleLink to Long")
+}
 func (r BundleLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleLink to Decimal")
 }
@@ -4091,6 +4097,9 @@ func (r BundleEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r BundleEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntry to Integer")
+}
+func (r BundleEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntry to Long")
 }
 func (r BundleEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntry to Decimal")
@@ -4245,6 +4254,9 @@ func (r BundleEntrySearch) ToString(explicit bool) (fhirpath.String, bool, error
 func (r BundleEntrySearch) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntrySearch to Integer")
 }
+func (r BundleEntrySearch) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntrySearch to Long")
+}
 func (r BundleEntrySearch) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntrySearch to Decimal")
 }
@@ -4385,6 +4397,9 @@ func (r BundleEntryRequest) ToString(explicit bool) (fhirpath.String, bool, erro
 }
 func (r BundleEntryRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntryRequest to Integer")
+}
+func (r BundleEntryRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntryRequest to Long")
 }
 func (r BundleEntryRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryRequest to Decimal")
@@ -4551,6 +4566,9 @@ func (r BundleEntryResponse) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r BundleEntryResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntryResponse to Integer")
+}
+func (r BundleEntryResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntryResponse to Long")
 }
 func (r BundleEntryResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryResponse to Decimal")

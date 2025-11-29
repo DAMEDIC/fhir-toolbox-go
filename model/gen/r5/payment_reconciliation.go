@@ -4071,6 +4071,9 @@ func (r PaymentReconciliation) ToString(explicit bool) (fhirpath.String, bool, e
 func (r PaymentReconciliation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliation to Integer")
 }
+func (r PaymentReconciliation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliation to Long")
+}
 func (r PaymentReconciliation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliation to Decimal")
 }
@@ -4475,6 +4478,9 @@ func (r PaymentReconciliationAllocation) ToString(explicit bool) (fhirpath.Strin
 func (r PaymentReconciliationAllocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliationAllocation to Integer")
 }
+func (r PaymentReconciliationAllocation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliationAllocation to Long")
+}
 func (r PaymentReconciliationAllocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliationAllocation to Decimal")
 }
@@ -4676,6 +4682,9 @@ func (r PaymentReconciliationProcessNote) ToString(explicit bool) (fhirpath.Stri
 }
 func (r PaymentReconciliationProcessNote) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliationProcessNote to Integer")
+}
+func (r PaymentReconciliationProcessNote) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliationProcessNote to Long")
 }
 func (r PaymentReconciliationProcessNote) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliationProcessNote to Decimal")

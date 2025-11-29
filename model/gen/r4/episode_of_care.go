@@ -2399,6 +2399,9 @@ func (r EpisodeOfCare) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r EpisodeOfCare) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EpisodeOfCare to Integer")
 }
+func (r EpisodeOfCare) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EpisodeOfCare to Long")
+}
 func (r EpisodeOfCare) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EpisodeOfCare to Decimal")
 }
@@ -2625,6 +2628,9 @@ func (r EpisodeOfCareStatusHistory) ToString(explicit bool) (fhirpath.String, bo
 func (r EpisodeOfCareStatusHistory) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EpisodeOfCareStatusHistory to Integer")
 }
+func (r EpisodeOfCareStatusHistory) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EpisodeOfCareStatusHistory to Long")
+}
 func (r EpisodeOfCareStatusHistory) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EpisodeOfCareStatusHistory to Decimal")
 }
@@ -2752,6 +2758,9 @@ func (r EpisodeOfCareDiagnosis) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r EpisodeOfCareDiagnosis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert EpisodeOfCareDiagnosis to Integer")
+}
+func (r EpisodeOfCareDiagnosis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert EpisodeOfCareDiagnosis to Long")
 }
 func (r EpisodeOfCareDiagnosis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert EpisodeOfCareDiagnosis to Decimal")

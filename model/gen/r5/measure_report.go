@@ -6643,6 +6643,9 @@ func (r MeasureReport) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r MeasureReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReport to Integer")
 }
+func (r MeasureReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReport to Long")
+}
 func (r MeasureReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReport to Decimal")
 }
@@ -6928,6 +6931,9 @@ func (r MeasureReportGroup) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r MeasureReportGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroup to Integer")
 }
+func (r MeasureReportGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroup to Long")
+}
 func (r MeasureReportGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroup to Decimal")
 }
@@ -7101,6 +7107,9 @@ func (r MeasureReportGroupPopulation) ToString(explicit bool) (fhirpath.String, 
 func (r MeasureReportGroupPopulation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupPopulation to Integer")
 }
+func (r MeasureReportGroupPopulation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupPopulation to Long")
+}
 func (r MeasureReportGroupPopulation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupPopulation to Decimal")
 }
@@ -7259,6 +7268,9 @@ func (r MeasureReportGroupStratifier) ToString(explicit bool) (fhirpath.String, 
 func (r MeasureReportGroupStratifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifier to Integer")
 }
+func (r MeasureReportGroupStratifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifier to Long")
+}
 func (r MeasureReportGroupStratifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifier to Decimal")
 }
@@ -7401,6 +7413,9 @@ func (r MeasureReportGroupStratifierStratum) ToString(explicit bool) (fhirpath.S
 func (r MeasureReportGroupStratifierStratum) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Integer")
 }
+func (r MeasureReportGroupStratifierStratum) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratum to Long")
+}
 func (r MeasureReportGroupStratifierStratum) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Decimal")
 }
@@ -7540,6 +7555,9 @@ func (r MeasureReportGroupStratifierStratumComponent) ToString(explicit bool) (f
 }
 func (r MeasureReportGroupStratifierStratumComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Integer")
+}
+func (r MeasureReportGroupStratifierStratumComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Long")
 }
 func (r MeasureReportGroupStratifierStratumComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Decimal")
@@ -7692,6 +7710,9 @@ func (r MeasureReportGroupStratifierStratumPopulation) ToString(explicit bool) (
 }
 func (r MeasureReportGroupStratifierStratumPopulation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Integer")
+}
+func (r MeasureReportGroupStratifierStratumPopulation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Long")
 }
 func (r MeasureReportGroupStratifierStratumPopulation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Decimal")

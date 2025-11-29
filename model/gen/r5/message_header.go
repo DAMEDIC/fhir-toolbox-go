@@ -3302,6 +3302,9 @@ func (r MessageHeader) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r MessageHeader) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageHeader to Integer")
 }
+func (r MessageHeader) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageHeader to Long")
+}
 func (r MessageHeader) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeader to Decimal")
 }
@@ -3528,6 +3531,9 @@ func (r MessageHeaderDestination) ToString(explicit bool) (fhirpath.String, bool
 func (r MessageHeaderDestination) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageHeaderDestination to Integer")
 }
+func (r MessageHeaderDestination) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageHeaderDestination to Long")
+}
 func (r MessageHeaderDestination) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderDestination to Decimal")
 }
@@ -3682,6 +3688,9 @@ func (r MessageHeaderSource) ToString(explicit bool) (fhirpath.String, bool, err
 func (r MessageHeaderSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageHeaderSource to Integer")
 }
+func (r MessageHeaderSource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageHeaderSource to Long")
+}
 func (r MessageHeaderSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderSource to Decimal")
 }
@@ -3828,6 +3837,9 @@ func (r MessageHeaderResponse) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r MessageHeaderResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageHeaderResponse to Integer")
+}
+func (r MessageHeaderResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageHeaderResponse to Long")
 }
 func (r MessageHeaderResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageHeaderResponse to Decimal")

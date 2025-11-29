@@ -8213,6 +8213,9 @@ func (r MolecularSequence) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MolecularSequence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequence to Integer")
 }
+func (r MolecularSequence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequence to Long")
+}
 func (r MolecularSequence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequence to Decimal")
 }
@@ -8506,6 +8509,9 @@ func (r MolecularSequenceReferenceSeq) ToString(explicit bool) (fhirpath.String,
 func (r MolecularSequenceReferenceSeq) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceReferenceSeq to Integer")
 }
+func (r MolecularSequenceReferenceSeq) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceReferenceSeq to Long")
+}
 func (r MolecularSequenceReferenceSeq) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceReferenceSeq to Decimal")
 }
@@ -8699,6 +8705,9 @@ func (r MolecularSequenceVariant) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r MolecularSequenceVariant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceVariant to Integer")
+}
+func (r MolecularSequenceVariant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceVariant to Long")
 }
 func (r MolecularSequenceVariant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceVariant to Decimal")
@@ -8915,6 +8924,9 @@ func (r MolecularSequenceQuality) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r MolecularSequenceQuality) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceQuality to Integer")
+}
+func (r MolecularSequenceQuality) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceQuality to Long")
 }
 func (r MolecularSequenceQuality) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceQuality to Decimal")
@@ -9157,6 +9169,9 @@ func (r MolecularSequenceQualityRoc) ToString(explicit bool) (fhirpath.String, b
 func (r MolecularSequenceQualityRoc) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceQualityRoc to Integer")
 }
+func (r MolecularSequenceQualityRoc) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceQualityRoc to Long")
+}
 func (r MolecularSequenceQualityRoc) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceQualityRoc to Decimal")
 }
@@ -9335,6 +9350,9 @@ func (r MolecularSequenceRepository) ToString(explicit bool) (fhirpath.String, b
 func (r MolecularSequenceRepository) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceRepository to Integer")
 }
+func (r MolecularSequenceRepository) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceRepository to Long")
+}
 func (r MolecularSequenceRepository) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceRepository to Decimal")
 }
@@ -9503,6 +9521,9 @@ func (r MolecularSequenceStructureVariant) ToString(explicit bool) (fhirpath.Str
 func (r MolecularSequenceStructureVariant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceStructureVariant to Integer")
 }
+func (r MolecularSequenceStructureVariant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceStructureVariant to Long")
+}
 func (r MolecularSequenceStructureVariant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariant to Decimal")
 }
@@ -9649,6 +9670,9 @@ func (r MolecularSequenceStructureVariantOuter) ToString(explicit bool) (fhirpat
 func (r MolecularSequenceStructureVariantOuter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Integer")
 }
+func (r MolecularSequenceStructureVariantOuter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Long")
+}
 func (r MolecularSequenceStructureVariantOuter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariantOuter to Decimal")
 }
@@ -9773,6 +9797,9 @@ func (r MolecularSequenceStructureVariantInner) ToString(explicit bool) (fhirpat
 }
 func (r MolecularSequenceStructureVariantInner) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Integer")
+}
+func (r MolecularSequenceStructureVariantInner) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MolecularSequenceStructureVariantInner to Long")
 }
 func (r MolecularSequenceStructureVariantInner) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MolecularSequenceStructureVariantInner to Decimal")

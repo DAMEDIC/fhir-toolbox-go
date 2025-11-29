@@ -4885,6 +4885,9 @@ func (r StructureDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r StructureDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinition to Integer")
 }
+func (r StructureDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinition to Long")
+}
 func (r StructureDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinition to Decimal")
 }
@@ -5242,6 +5245,9 @@ func (r StructureDefinitionMapping) ToString(explicit bool) (fhirpath.String, bo
 func (r StructureDefinitionMapping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionMapping to Integer")
 }
+func (r StructureDefinitionMapping) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionMapping to Long")
+}
 func (r StructureDefinitionMapping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionMapping to Decimal")
 }
@@ -5377,6 +5383,9 @@ func (r StructureDefinitionContext) ToString(explicit bool) (fhirpath.String, bo
 func (r StructureDefinitionContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionContext to Integer")
 }
+func (r StructureDefinitionContext) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionContext to Long")
+}
 func (r StructureDefinitionContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionContext to Decimal")
 }
@@ -5497,6 +5506,9 @@ func (r StructureDefinitionSnapshot) ToString(explicit bool) (fhirpath.String, b
 func (r StructureDefinitionSnapshot) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionSnapshot to Integer")
 }
+func (r StructureDefinitionSnapshot) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionSnapshot to Long")
+}
 func (r StructureDefinitionSnapshot) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionSnapshot to Decimal")
 }
@@ -5609,6 +5621,9 @@ func (r StructureDefinitionDifferential) ToString(explicit bool) (fhirpath.Strin
 }
 func (r StructureDefinitionDifferential) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionDifferential to Integer")
+}
+func (r StructureDefinitionDifferential) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionDifferential to Long")
 }
 func (r StructureDefinitionDifferential) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionDifferential to Decimal")

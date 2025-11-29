@@ -5496,6 +5496,9 @@ func (r ServiceRequest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ServiceRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ServiceRequest to Integer")
 }
+func (r ServiceRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ServiceRequest to Long")
+}
 func (r ServiceRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequest to Decimal")
 }
@@ -5873,6 +5876,9 @@ func (r ServiceRequestOrderDetail) ToString(explicit bool) (fhirpath.String, boo
 func (r ServiceRequestOrderDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ServiceRequestOrderDetail to Integer")
 }
+func (r ServiceRequestOrderDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ServiceRequestOrderDetail to Long")
+}
 func (r ServiceRequestOrderDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestOrderDetail to Decimal")
 }
@@ -5994,6 +6000,9 @@ func (r ServiceRequestOrderDetailParameter) ToString(explicit bool) (fhirpath.St
 func (r ServiceRequestOrderDetailParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Integer")
 }
+func (r ServiceRequestOrderDetailParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ServiceRequestOrderDetailParameter to Long")
+}
 func (r ServiceRequestOrderDetailParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestOrderDetailParameter to Decimal")
 }
@@ -6113,6 +6122,9 @@ func (r ServiceRequestPatientInstruction) ToString(explicit bool) (fhirpath.Stri
 }
 func (r ServiceRequestPatientInstruction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ServiceRequestPatientInstruction to Integer")
+}
+func (r ServiceRequestPatientInstruction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ServiceRequestPatientInstruction to Long")
 }
 func (r ServiceRequestPatientInstruction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ServiceRequestPatientInstruction to Decimal")

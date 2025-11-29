@@ -4013,6 +4013,9 @@ func (r MessageDefinition) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MessageDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageDefinition to Integer")
 }
+func (r MessageDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageDefinition to Long")
+}
 func (r MessageDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinition to Decimal")
 }
@@ -4333,6 +4336,9 @@ func (r MessageDefinitionFocus) ToString(explicit bool) (fhirpath.String, bool, 
 func (r MessageDefinitionFocus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageDefinitionFocus to Integer")
 }
+func (r MessageDefinitionFocus) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageDefinitionFocus to Long")
+}
 func (r MessageDefinitionFocus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinitionFocus to Decimal")
 }
@@ -4469,6 +4475,9 @@ func (r MessageDefinitionAllowedResponse) ToString(explicit bool) (fhirpath.Stri
 }
 func (r MessageDefinitionAllowedResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MessageDefinitionAllowedResponse to Integer")
+}
+func (r MessageDefinitionAllowedResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MessageDefinitionAllowedResponse to Long")
 }
 func (r MessageDefinitionAllowedResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MessageDefinitionAllowedResponse to Decimal")

@@ -2856,6 +2856,9 @@ func (r MedicinalProductPackaged) ToString(explicit bool) (fhirpath.String, bool
 func (r MedicinalProductPackaged) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackaged to Integer")
 }
+func (r MedicinalProductPackaged) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackaged to Long")
+}
 func (r MedicinalProductPackaged) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackaged to Decimal")
 }
@@ -3063,6 +3066,9 @@ func (r MedicinalProductPackagedBatchIdentifier) ToString(explicit bool) (fhirpa
 func (r MedicinalProductPackagedBatchIdentifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Integer")
 }
+func (r MedicinalProductPackagedBatchIdentifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Long")
+}
 func (r MedicinalProductPackagedBatchIdentifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Decimal")
 }
@@ -3233,6 +3239,9 @@ func (r MedicinalProductPackagedPackageItem) ToString(explicit bool) (fhirpath.S
 }
 func (r MedicinalProductPackagedPackageItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Integer")
+}
+func (r MedicinalProductPackagedPackageItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackagedPackageItem to Long")
 }
 func (r MedicinalProductPackagedPackageItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Decimal")

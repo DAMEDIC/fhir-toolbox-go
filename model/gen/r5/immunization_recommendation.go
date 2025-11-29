@@ -2616,6 +2616,9 @@ func (r ImmunizationRecommendation) ToString(explicit bool) (fhirpath.String, bo
 func (r ImmunizationRecommendation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendation to Integer")
 }
+func (r ImmunizationRecommendation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendation to Long")
+}
 func (r ImmunizationRecommendation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendation to Decimal")
 }
@@ -2845,6 +2848,9 @@ func (r ImmunizationRecommendationRecommendation) ToString(explicit bool) (fhirp
 func (r ImmunizationRecommendationRecommendation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendationRecommendation to Integer")
 }
+func (r ImmunizationRecommendationRecommendation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendationRecommendation to Long")
+}
 func (r ImmunizationRecommendationRecommendation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendationRecommendation to Decimal")
 }
@@ -3035,6 +3041,9 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) ToString(explicit
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Integer")
+}
+func (r ImmunizationRecommendationRecommendationDateCriterion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Long")
 }
 func (r ImmunizationRecommendationRecommendationDateCriterion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Decimal")

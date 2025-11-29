@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // Base StructureDefinition for code type: A string which has at least one character and no leading or trailing whitespace and where there is no whitespace other than single spaces in the contents
@@ -159,6 +160,17 @@ func (r Code) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r Code) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Code to Integer")
+}
+func (r Code) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
 }
 func (r Code) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Code to Decimal")

@@ -655,6 +655,9 @@ func (r Duration) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Duration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Duration to Integer")
 }
+func (r Duration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Duration to Long")
+}
 func (r Duration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Duration to Decimal")
 }

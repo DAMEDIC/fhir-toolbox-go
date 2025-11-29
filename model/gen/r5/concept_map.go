@@ -9883,6 +9883,9 @@ func (r ConceptMap) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ConceptMap) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMap to Integer")
 }
+func (r ConceptMap) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMap to Long")
+}
 func (r ConceptMap) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMap to Decimal")
 }
@@ -10257,6 +10260,9 @@ func (r ConceptMapProperty) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ConceptMapProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapProperty to Integer")
 }
+func (r ConceptMapProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapProperty to Long")
+}
 func (r ConceptMapProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapProperty to Decimal")
 }
@@ -10409,6 +10415,9 @@ func (r ConceptMapAdditionalAttribute) ToString(explicit bool) (fhirpath.String,
 func (r ConceptMapAdditionalAttribute) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapAdditionalAttribute to Integer")
 }
+func (r ConceptMapAdditionalAttribute) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapAdditionalAttribute to Long")
+}
 func (r ConceptMapAdditionalAttribute) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapAdditionalAttribute to Decimal")
 }
@@ -10557,6 +10566,9 @@ func (r ConceptMapGroup) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r ConceptMapGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroup to Integer")
+}
+func (r ConceptMapGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroup to Long")
 }
 func (r ConceptMapGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroup to Decimal")
@@ -10711,6 +10723,9 @@ func (r ConceptMapGroupElement) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r ConceptMapGroupElement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElement to Integer")
+}
+func (r ConceptMapGroupElement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElement to Long")
 }
 func (r ConceptMapGroupElement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElement to Decimal")
@@ -10886,6 +10901,9 @@ func (r ConceptMapGroupElementTarget) ToString(explicit bool) (fhirpath.String, 
 func (r ConceptMapGroupElementTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElementTarget to Integer")
 }
+func (r ConceptMapGroupElementTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElementTarget to Long")
+}
 func (r ConceptMapGroupElementTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElementTarget to Decimal")
 }
@@ -11049,6 +11067,9 @@ func (r ConceptMapGroupElementTargetProperty) ToString(explicit bool) (fhirpath.
 func (r ConceptMapGroupElementTargetProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElementTargetProperty to Integer")
 }
+func (r ConceptMapGroupElementTargetProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElementTargetProperty to Long")
+}
 func (r ConceptMapGroupElementTargetProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElementTargetProperty to Decimal")
 }
@@ -11176,6 +11197,9 @@ func (r ConceptMapGroupElementTargetDependsOn) ToString(explicit bool) (fhirpath
 }
 func (r ConceptMapGroupElementTargetDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Integer")
+}
+func (r ConceptMapGroupElementTargetDependsOn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Long")
 }
 func (r ConceptMapGroupElementTargetDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Decimal")
@@ -11326,6 +11350,9 @@ func (r ConceptMapGroupUnmapped) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r ConceptMapGroupUnmapped) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupUnmapped to Integer")
+}
+func (r ConceptMapGroupUnmapped) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupUnmapped to Long")
 }
 func (r ConceptMapGroupUnmapped) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupUnmapped to Decimal")

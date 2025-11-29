@@ -2430,6 +2430,9 @@ func (r DeviceUsage) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r DeviceUsage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceUsage to Integer")
 }
+func (r DeviceUsage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceUsage to Long")
+}
 func (r DeviceUsage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUsage to Decimal")
 }
@@ -2692,6 +2695,9 @@ func (r DeviceUsageAdherence) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r DeviceUsageAdherence) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceUsageAdherence to Integer")
+}
+func (r DeviceUsageAdherence) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceUsageAdherence to Long")
 }
 func (r DeviceUsageAdherence) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceUsageAdherence to Decimal")

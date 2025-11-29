@@ -20470,6 +20470,9 @@ func (r ExplanationOfBenefit) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ExplanationOfBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefit to Integer")
 }
+func (r ExplanationOfBenefit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefit to Long")
+}
 func (r ExplanationOfBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefit to Decimal")
 }
@@ -20922,6 +20925,9 @@ func (r ExplanationOfBenefitRelated) ToString(explicit bool) (fhirpath.String, b
 func (r ExplanationOfBenefitRelated) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitRelated to Integer")
 }
+func (r ExplanationOfBenefitRelated) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitRelated to Long")
+}
 func (r ExplanationOfBenefitRelated) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitRelated to Decimal")
 }
@@ -21053,6 +21059,9 @@ func (r ExplanationOfBenefitPayee) ToString(explicit bool) (fhirpath.String, boo
 }
 func (r ExplanationOfBenefitPayee) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitPayee to Integer")
+}
+func (r ExplanationOfBenefitPayee) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitPayee to Long")
 }
 func (r ExplanationOfBenefitPayee) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitPayee to Decimal")
@@ -21189,6 +21198,9 @@ func (r ExplanationOfBenefitCareTeam) ToString(explicit bool) (fhirpath.String, 
 }
 func (r ExplanationOfBenefitCareTeam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Integer")
+}
+func (r ExplanationOfBenefitCareTeam) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitCareTeam to Long")
 }
 func (r ExplanationOfBenefitCareTeam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitCareTeam to Decimal")
@@ -21351,6 +21363,9 @@ func (r ExplanationOfBenefitSupportingInfo) ToString(explicit bool) (fhirpath.St
 }
 func (r ExplanationOfBenefitSupportingInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Integer")
+}
+func (r ExplanationOfBenefitSupportingInfo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Long")
 }
 func (r ExplanationOfBenefitSupportingInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitSupportingInfo to Decimal")
@@ -21516,6 +21531,9 @@ func (r ExplanationOfBenefitDiagnosis) ToString(explicit bool) (fhirpath.String,
 func (r ExplanationOfBenefitDiagnosis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Integer")
 }
+func (r ExplanationOfBenefitDiagnosis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Long")
+}
 func (r ExplanationOfBenefitDiagnosis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitDiagnosis to Decimal")
 }
@@ -21673,6 +21691,9 @@ func (r ExplanationOfBenefitProcedure) ToString(explicit bool) (fhirpath.String,
 func (r ExplanationOfBenefitProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitProcedure to Integer")
 }
+func (r ExplanationOfBenefitProcedure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitProcedure to Long")
+}
 func (r ExplanationOfBenefitProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitProcedure to Decimal")
 }
@@ -21820,6 +21841,9 @@ func (r ExplanationOfBenefitInsurance) ToString(explicit bool) (fhirpath.String,
 func (r ExplanationOfBenefitInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitInsurance to Integer")
 }
+func (r ExplanationOfBenefitInsurance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitInsurance to Long")
+}
 func (r ExplanationOfBenefitInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitInsurance to Decimal")
 }
@@ -21956,6 +21980,9 @@ func (r ExplanationOfBenefitAccident) ToString(explicit bool) (fhirpath.String, 
 }
 func (r ExplanationOfBenefitAccident) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitAccident to Integer")
+}
+func (r ExplanationOfBenefitAccident) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitAccident to Long")
 }
 func (r ExplanationOfBenefitAccident) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAccident to Decimal")
@@ -22189,6 +22216,9 @@ func (r ExplanationOfBenefitItem) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r ExplanationOfBenefitItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitItem to Integer")
+}
+func (r ExplanationOfBenefitItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitItem to Long")
 }
 func (r ExplanationOfBenefitItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItem to Decimal")
@@ -22470,6 +22500,9 @@ func (r ExplanationOfBenefitItemAdjudication) ToString(explicit bool) (fhirpath.
 func (r ExplanationOfBenefitItemAdjudication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Integer")
 }
+func (r ExplanationOfBenefitItemAdjudication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Long")
+}
 func (r ExplanationOfBenefitItemAdjudication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemAdjudication to Decimal")
 }
@@ -22664,6 +22697,9 @@ func (r ExplanationOfBenefitItemDetail) ToString(explicit bool) (fhirpath.String
 }
 func (r ExplanationOfBenefitItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Integer")
+}
+func (r ExplanationOfBenefitItemDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitItemDetail to Long")
 }
 func (r ExplanationOfBenefitItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemDetail to Decimal")
@@ -22924,6 +22960,9 @@ func (r ExplanationOfBenefitItemDetailSubDetail) ToString(explicit bool) (fhirpa
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Integer")
+}
+func (r ExplanationOfBenefitItemDetailSubDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Long")
 }
 func (r ExplanationOfBenefitItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitItemDetailSubDetail to Decimal")
@@ -23205,6 +23244,9 @@ func (r ExplanationOfBenefitAddItem) ToString(explicit bool) (fhirpath.String, b
 func (r ExplanationOfBenefitAddItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItem to Integer")
 }
+func (r ExplanationOfBenefitAddItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitAddItem to Long")
+}
 func (r ExplanationOfBenefitAddItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItem to Decimal")
 }
@@ -23475,6 +23517,9 @@ func (r ExplanationOfBenefitAddItemDetail) ToString(explicit bool) (fhirpath.Str
 func (r ExplanationOfBenefitAddItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Integer")
 }
+func (r ExplanationOfBenefitAddItemDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Long")
+}
 func (r ExplanationOfBenefitAddItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetail to Decimal")
 }
@@ -23677,6 +23722,9 @@ func (r ExplanationOfBenefitAddItemDetailSubDetail) ToString(explicit bool) (fhi
 func (r ExplanationOfBenefitAddItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Integer")
 }
+func (r ExplanationOfBenefitAddItemDetailSubDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Long")
+}
 func (r ExplanationOfBenefitAddItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitAddItemDetailSubDetail to Decimal")
 }
@@ -23840,6 +23888,9 @@ func (r ExplanationOfBenefitTotal) ToString(explicit bool) (fhirpath.String, boo
 func (r ExplanationOfBenefitTotal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitTotal to Integer")
 }
+func (r ExplanationOfBenefitTotal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitTotal to Long")
+}
 func (r ExplanationOfBenefitTotal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitTotal to Decimal")
 }
@@ -23984,6 +24035,9 @@ func (r ExplanationOfBenefitPayment) ToString(explicit bool) (fhirpath.String, b
 }
 func (r ExplanationOfBenefitPayment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitPayment to Integer")
+}
+func (r ExplanationOfBenefitPayment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitPayment to Long")
 }
 func (r ExplanationOfBenefitPayment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitPayment to Decimal")
@@ -24147,6 +24201,9 @@ func (r ExplanationOfBenefitProcessNote) ToString(explicit bool) (fhirpath.Strin
 }
 func (r ExplanationOfBenefitProcessNote) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Integer")
+}
+func (r ExplanationOfBenefitProcessNote) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitProcessNote to Long")
 }
 func (r ExplanationOfBenefitProcessNote) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitProcessNote to Decimal")
@@ -24314,6 +24371,9 @@ func (r ExplanationOfBenefitBenefitBalance) ToString(explicit bool) (fhirpath.St
 }
 func (r ExplanationOfBenefitBenefitBalance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Integer")
+}
+func (r ExplanationOfBenefitBenefitBalance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Long")
 }
 func (r ExplanationOfBenefitBenefitBalance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalance to Decimal")
@@ -24484,6 +24544,9 @@ func (r ExplanationOfBenefitBenefitBalanceFinancial) ToString(explicit bool) (fh
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Integer")
+}
+func (r ExplanationOfBenefitBenefitBalanceFinancial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Long")
 }
 func (r ExplanationOfBenefitBenefitBalanceFinancial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExplanationOfBenefitBenefitBalanceFinancial to Decimal")

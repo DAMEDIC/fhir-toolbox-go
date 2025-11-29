@@ -2138,6 +2138,9 @@ func (r SupplyDelivery) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r SupplyDelivery) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SupplyDelivery to Integer")
 }
+func (r SupplyDelivery) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SupplyDelivery to Long")
+}
 func (r SupplyDelivery) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyDelivery to Decimal")
 }
@@ -2360,6 +2363,9 @@ func (r SupplyDeliverySuppliedItem) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r SupplyDeliverySuppliedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SupplyDeliverySuppliedItem to Integer")
+}
+func (r SupplyDeliverySuppliedItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SupplyDeliverySuppliedItem to Long")
 }
 func (r SupplyDeliverySuppliedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SupplyDeliverySuppliedItem to Decimal")

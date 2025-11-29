@@ -4718,6 +4718,9 @@ func (r SubstanceSourceMaterial) ToString(explicit bool) (fhirpath.String, bool,
 func (r SubstanceSourceMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterial to Integer")
 }
+func (r SubstanceSourceMaterial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterial to Long")
+}
 func (r SubstanceSourceMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterial to Decimal")
 }
@@ -4955,6 +4958,9 @@ func (r SubstanceSourceMaterialFractionDescription) ToString(explicit bool) (fhi
 func (r SubstanceSourceMaterialFractionDescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Integer")
 }
+func (r SubstanceSourceMaterialFractionDescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Long")
+}
 func (r SubstanceSourceMaterialFractionDescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialFractionDescription to Decimal")
 }
@@ -5109,6 +5115,9 @@ func (r SubstanceSourceMaterialOrganism) ToString(explicit bool) (fhirpath.Strin
 }
 func (r SubstanceSourceMaterialOrganism) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialOrganism to Integer")
+}
+func (r SubstanceSourceMaterialOrganism) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialOrganism to Long")
 }
 func (r SubstanceSourceMaterialOrganism) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialOrganism to Decimal")
@@ -5277,6 +5286,9 @@ func (r SubstanceSourceMaterialOrganismAuthor) ToString(explicit bool) (fhirpath
 func (r SubstanceSourceMaterialOrganismAuthor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Integer")
 }
+func (r SubstanceSourceMaterialOrganismAuthor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Long")
+}
 func (r SubstanceSourceMaterialOrganismAuthor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismAuthor to Decimal")
 }
@@ -5416,6 +5428,9 @@ func (r SubstanceSourceMaterialOrganismHybrid) ToString(explicit bool) (fhirpath
 }
 func (r SubstanceSourceMaterialOrganismHybrid) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Integer")
+}
+func (r SubstanceSourceMaterialOrganismHybrid) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Long")
 }
 func (r SubstanceSourceMaterialOrganismHybrid) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismHybrid to Decimal")
@@ -5573,6 +5588,9 @@ func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToString(explicit bool) 
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Integer")
 }
+func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Long")
+}
 func (r SubstanceSourceMaterialOrganismOrganismGeneral) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialOrganismOrganismGeneral to Decimal")
 }
@@ -5711,6 +5729,9 @@ func (r SubstanceSourceMaterialPartDescription) ToString(explicit bool) (fhirpat
 }
 func (r SubstanceSourceMaterialPartDescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceSourceMaterialPartDescription to Integer")
+}
+func (r SubstanceSourceMaterialPartDescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceSourceMaterialPartDescription to Long")
 }
 func (r SubstanceSourceMaterialPartDescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceSourceMaterialPartDescription to Decimal")

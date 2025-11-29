@@ -2836,6 +2836,9 @@ func (r PaymentReconciliation) ToString(explicit bool) (fhirpath.String, bool, e
 func (r PaymentReconciliation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliation to Integer")
 }
+func (r PaymentReconciliation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliation to Long")
+}
 func (r PaymentReconciliation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliation to Decimal")
 }
@@ -3125,6 +3128,9 @@ func (r PaymentReconciliationDetail) ToString(explicit bool) (fhirpath.String, b
 func (r PaymentReconciliationDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliationDetail to Integer")
 }
+func (r PaymentReconciliationDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliationDetail to Long")
+}
 func (r PaymentReconciliationDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliationDetail to Decimal")
 }
@@ -3305,6 +3311,9 @@ func (r PaymentReconciliationProcessNote) ToString(explicit bool) (fhirpath.Stri
 }
 func (r PaymentReconciliationProcessNote) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PaymentReconciliationProcessNote to Integer")
+}
+func (r PaymentReconciliationProcessNote) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PaymentReconciliationProcessNote to Long")
 }
 func (r PaymentReconciliationProcessNote) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PaymentReconciliationProcessNote to Decimal")

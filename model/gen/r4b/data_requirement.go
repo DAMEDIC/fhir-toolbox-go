@@ -2605,6 +2605,9 @@ func (r DataRequirement) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r DataRequirement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirement to Integer")
 }
+func (r DataRequirement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirement to Long")
+}
 func (r DataRequirement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirement to Decimal")
 }
@@ -2770,6 +2773,9 @@ func (r DataRequirementCodeFilter) ToString(explicit bool) (fhirpath.String, boo
 func (r DataRequirementCodeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementCodeFilter to Integer")
 }
+func (r DataRequirementCodeFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementCodeFilter to Long")
+}
 func (r DataRequirementCodeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementCodeFilter to Decimal")
 }
@@ -2902,6 +2908,9 @@ func (r DataRequirementDateFilter) ToString(explicit bool) (fhirpath.String, boo
 func (r DataRequirementDateFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementDateFilter to Integer")
 }
+func (r DataRequirementDateFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementDateFilter to Long")
+}
 func (r DataRequirementDateFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementDateFilter to Decimal")
 }
@@ -3017,6 +3026,9 @@ func (r DataRequirementSort) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r DataRequirementSort) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementSort to Integer")
+}
+func (r DataRequirementSort) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementSort to Long")
 }
 func (r DataRequirementSort) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementSort to Decimal")

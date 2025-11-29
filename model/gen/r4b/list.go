@@ -2076,6 +2076,9 @@ func (r List) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r List) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert List to Integer")
 }
+func (r List) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert List to Long")
+}
 func (r List) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert List to Decimal")
 }
@@ -2320,6 +2323,9 @@ func (r ListEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ListEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ListEntry to Integer")
+}
+func (r ListEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ListEntry to Long")
 }
 func (r ListEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ListEntry to Decimal")

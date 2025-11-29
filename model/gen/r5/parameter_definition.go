@@ -793,6 +793,9 @@ func (r ParameterDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ParameterDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ParameterDefinition to Integer")
 }
+func (r ParameterDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ParameterDefinition to Long")
+}
 func (r ParameterDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ParameterDefinition to Decimal")
 }

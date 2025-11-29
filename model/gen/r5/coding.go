@@ -657,6 +657,9 @@ func (r Coding) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Coding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Coding to Integer")
 }
+func (r Coding) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Coding to Long")
+}
 func (r Coding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Coding to Decimal")
 }

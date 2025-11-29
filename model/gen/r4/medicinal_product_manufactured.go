@@ -1156,6 +1156,9 @@ func (r MedicinalProductManufactured) ToString(explicit bool) (fhirpath.String, 
 func (r MedicinalProductManufactured) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductManufactured to Integer")
 }
+func (r MedicinalProductManufactured) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductManufactured to Long")
+}
 func (r MedicinalProductManufactured) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductManufactured to Decimal")
 }

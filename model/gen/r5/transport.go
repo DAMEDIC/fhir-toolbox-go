@@ -12981,6 +12981,9 @@ func (r Transport) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Transport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Transport to Integer")
 }
+func (r Transport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Transport to Long")
+}
 func (r Transport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Transport to Decimal")
 }
@@ -13356,6 +13359,9 @@ func (r TransportRestriction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r TransportRestriction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TransportRestriction to Integer")
 }
+func (r TransportRestriction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TransportRestriction to Long")
+}
 func (r TransportRestriction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TransportRestriction to Decimal")
 }
@@ -13484,6 +13490,9 @@ func (r TransportInput) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TransportInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TransportInput to Integer")
 }
+func (r TransportInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TransportInput to Long")
+}
 func (r TransportInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TransportInput to Decimal")
 }
@@ -13604,6 +13613,9 @@ func (r TransportOutput) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r TransportOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TransportOutput to Integer")
+}
+func (r TransportOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TransportOutput to Long")
 }
 func (r TransportOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TransportOutput to Decimal")

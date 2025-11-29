@@ -4192,6 +4192,9 @@ func (r ImagingSelection) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ImagingSelection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelection to Integer")
 }
+func (r ImagingSelection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelection to Long")
+}
 func (r ImagingSelection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelection to Decimal")
 }
@@ -4457,6 +4460,9 @@ func (r ImagingSelectionPerformer) ToString(explicit bool) (fhirpath.String, boo
 func (r ImagingSelectionPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionPerformer to Integer")
 }
+func (r ImagingSelectionPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionPerformer to Long")
+}
 func (r ImagingSelectionPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionPerformer to Decimal")
 }
@@ -4599,6 +4605,9 @@ func (r ImagingSelectionInstance) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r ImagingSelectionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstance to Integer")
+}
+func (r ImagingSelectionInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstance to Long")
 }
 func (r ImagingSelectionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstance to Decimal")
@@ -4751,6 +4760,9 @@ func (r ImagingSelectionInstanceImageRegion2D) ToString(explicit bool) (fhirpath
 func (r ImagingSelectionInstanceImageRegion2D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Integer")
 }
+func (r ImagingSelectionInstanceImageRegion2D) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Long")
+}
 func (r ImagingSelectionInstanceImageRegion2D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Decimal")
 }
@@ -4873,6 +4885,9 @@ func (r ImagingSelectionInstanceImageRegion3D) ToString(explicit bool) (fhirpath
 }
 func (r ImagingSelectionInstanceImageRegion3D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Integer")
+}
+func (r ImagingSelectionInstanceImageRegion3D) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Long")
 }
 func (r ImagingSelectionInstanceImageRegion3D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Decimal")

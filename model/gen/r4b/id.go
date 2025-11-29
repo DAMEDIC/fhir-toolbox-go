@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // Base StructureDefinition for id type: Any combination of letters, numerals, "-" and ".", with a length limit of 64 characters.  (This might be an integer, an unprefixed OID, UUID or any other identifier pattern that meets these constraints.)  Ids are case-insensitive.
@@ -159,6 +160,17 @@ func (r Id) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r Id) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Id to Integer")
+}
+func (r Id) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
 }
 func (r Id) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Id to Decimal")

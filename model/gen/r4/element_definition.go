@@ -25873,6 +25873,9 @@ func (r ElementDefinition) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ElementDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinition to Integer")
 }
+func (r ElementDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinition to Long")
+}
 func (r ElementDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinition to Decimal")
 }
@@ -26225,6 +26228,9 @@ func (r ElementDefinitionSlicing) ToString(explicit bool) (fhirpath.String, bool
 func (r ElementDefinitionSlicing) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionSlicing to Integer")
 }
+func (r ElementDefinitionSlicing) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionSlicing to Long")
+}
 func (r ElementDefinitionSlicing) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionSlicing to Decimal")
 }
@@ -26348,6 +26354,9 @@ func (r ElementDefinitionSlicingDiscriminator) ToString(explicit bool) (fhirpath
 func (r ElementDefinitionSlicingDiscriminator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Integer")
 }
+func (r ElementDefinitionSlicingDiscriminator) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Long")
+}
 func (r ElementDefinitionSlicingDiscriminator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionSlicingDiscriminator to Decimal")
 }
@@ -26459,6 +26468,9 @@ func (r ElementDefinitionBase) ToString(explicit bool) (fhirpath.String, bool, e
 }
 func (r ElementDefinitionBase) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionBase to Integer")
+}
+func (r ElementDefinitionBase) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionBase to Long")
 }
 func (r ElementDefinitionBase) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionBase to Decimal")
@@ -26593,6 +26605,9 @@ func (r ElementDefinitionType) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ElementDefinitionType) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionType to Integer")
 }
+func (r ElementDefinitionType) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionType to Long")
+}
 func (r ElementDefinitionType) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionType to Decimal")
 }
@@ -26722,6 +26737,9 @@ func (r ElementDefinitionExample) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r ElementDefinitionExample) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionExample to Integer")
+}
+func (r ElementDefinitionExample) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionExample to Long")
 }
 func (r ElementDefinitionExample) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionExample to Decimal")
@@ -26854,6 +26872,9 @@ func (r ElementDefinitionConstraint) ToString(explicit bool) (fhirpath.String, b
 }
 func (r ElementDefinitionConstraint) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionConstraint to Integer")
+}
+func (r ElementDefinitionConstraint) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionConstraint to Long")
 }
 func (r ElementDefinitionConstraint) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionConstraint to Decimal")
@@ -27006,6 +27027,9 @@ func (r ElementDefinitionBinding) ToString(explicit bool) (fhirpath.String, bool
 func (r ElementDefinitionBinding) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionBinding to Integer")
 }
+func (r ElementDefinitionBinding) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionBinding to Long")
+}
 func (r ElementDefinitionBinding) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionBinding to Decimal")
 }
@@ -27131,6 +27155,9 @@ func (r ElementDefinitionMapping) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r ElementDefinitionMapping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ElementDefinitionMapping to Integer")
+}
+func (r ElementDefinitionMapping) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ElementDefinitionMapping to Long")
 }
 func (r ElementDefinitionMapping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ElementDefinitionMapping to Decimal")

@@ -3240,6 +3240,9 @@ func (r Invoice) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Invoice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Invoice to Integer")
 }
+func (r Invoice) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Invoice to Long")
+}
 func (r Invoice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Invoice to Decimal")
 }
@@ -3496,6 +3499,9 @@ func (r InvoiceParticipant) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r InvoiceParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InvoiceParticipant to Integer")
 }
+func (r InvoiceParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InvoiceParticipant to Long")
+}
 func (r InvoiceParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InvoiceParticipant to Decimal")
 }
@@ -3623,6 +3629,9 @@ func (r InvoiceLineItem) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r InvoiceLineItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InvoiceLineItem to Integer")
+}
+func (r InvoiceLineItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InvoiceLineItem to Long")
 }
 func (r InvoiceLineItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InvoiceLineItem to Decimal")
@@ -3763,6 +3772,9 @@ func (r InvoiceLineItemPriceComponent) ToString(explicit bool) (fhirpath.String,
 }
 func (r InvoiceLineItemPriceComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InvoiceLineItemPriceComponent to Integer")
+}
+func (r InvoiceLineItemPriceComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InvoiceLineItemPriceComponent to Long")
 }
 func (r InvoiceLineItemPriceComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InvoiceLineItemPriceComponent to Decimal")

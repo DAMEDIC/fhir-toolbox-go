@@ -5236,6 +5236,9 @@ func (r Parameters) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Parameters) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Parameters to Integer")
 }
+func (r Parameters) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Parameters to Long")
+}
 func (r Parameters) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Parameters to Decimal")
 }
@@ -5368,6 +5371,9 @@ func (r ParametersParameter) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r ParametersParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ParametersParameter to Integer")
+}
+func (r ParametersParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ParametersParameter to Long")
 }
 func (r ParametersParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ParametersParameter to Decimal")

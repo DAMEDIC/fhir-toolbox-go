@@ -5732,6 +5732,9 @@ func (r InsurancePlan) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r InsurancePlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlan to Integer")
 }
+func (r InsurancePlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlan to Long")
+}
 func (r InsurancePlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlan to Decimal")
 }
@@ -5979,6 +5982,9 @@ func (r InsurancePlanCoverage) ToString(explicit bool) (fhirpath.String, bool, e
 func (r InsurancePlanCoverage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanCoverage to Integer")
 }
+func (r InsurancePlanCoverage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanCoverage to Long")
+}
 func (r InsurancePlanCoverage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanCoverage to Decimal")
 }
@@ -6114,6 +6120,9 @@ func (r InsurancePlanCoverageBenefit) ToString(explicit bool) (fhirpath.String, 
 func (r InsurancePlanCoverageBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanCoverageBenefit to Integer")
 }
+func (r InsurancePlanCoverageBenefit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanCoverageBenefit to Long")
+}
 func (r InsurancePlanCoverageBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanCoverageBenefit to Decimal")
 }
@@ -6245,6 +6254,9 @@ func (r InsurancePlanCoverageBenefitLimit) ToString(explicit bool) (fhirpath.Str
 }
 func (r InsurancePlanCoverageBenefitLimit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Integer")
+}
+func (r InsurancePlanCoverageBenefitLimit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Long")
 }
 func (r InsurancePlanCoverageBenefitLimit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanCoverageBenefitLimit to Decimal")
@@ -6390,6 +6402,9 @@ func (r InsurancePlanPlan) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r InsurancePlanPlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanPlan to Integer")
+}
+func (r InsurancePlanPlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanPlan to Long")
 }
 func (r InsurancePlanPlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanPlan to Decimal")
@@ -6554,6 +6569,9 @@ func (r InsurancePlanPlanGeneralCost) ToString(explicit bool) (fhirpath.String, 
 func (r InsurancePlanPlanGeneralCost) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanPlanGeneralCost to Integer")
 }
+func (r InsurancePlanPlanGeneralCost) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanPlanGeneralCost to Long")
+}
 func (r InsurancePlanPlanGeneralCost) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanPlanGeneralCost to Decimal")
 }
@@ -6691,6 +6709,9 @@ func (r InsurancePlanPlanSpecificCost) ToString(explicit bool) (fhirpath.String,
 func (r InsurancePlanPlanSpecificCost) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanPlanSpecificCost to Integer")
 }
+func (r InsurancePlanPlanSpecificCost) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanPlanSpecificCost to Long")
+}
 func (r InsurancePlanPlanSpecificCost) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanPlanSpecificCost to Decimal")
 }
@@ -6813,6 +6834,9 @@ func (r InsurancePlanPlanSpecificCostBenefit) ToString(explicit bool) (fhirpath.
 }
 func (r InsurancePlanPlanSpecificCostBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Integer")
+}
+func (r InsurancePlanPlanSpecificCostBenefit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Long")
 }
 func (r InsurancePlanPlanSpecificCostBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefit to Decimal")
@@ -6946,6 +6970,9 @@ func (r InsurancePlanPlanSpecificCostBenefitCost) ToString(explicit bool) (fhirp
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Integer")
+}
+func (r InsurancePlanPlanSpecificCostBenefitCost) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Long")
 }
 func (r InsurancePlanPlanSpecificCostBenefitCost) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InsurancePlanPlanSpecificCostBenefitCost to Decimal")

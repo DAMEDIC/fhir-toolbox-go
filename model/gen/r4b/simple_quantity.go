@@ -576,6 +576,9 @@ func (r SimpleQuantity) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r SimpleQuantity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SimpleQuantity to Integer")
 }
+func (r SimpleQuantity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SimpleQuantity to Long")
+}
 func (r SimpleQuantity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SimpleQuantity to Decimal")
 }

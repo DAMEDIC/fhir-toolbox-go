@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // base64Binary Type: A stream of bytes
@@ -159,6 +160,17 @@ func (r Base64Binary) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r Base64Binary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Base64Binary to Integer")
+}
+func (r Base64Binary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
 }
 func (r Base64Binary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Base64Binary to Decimal")

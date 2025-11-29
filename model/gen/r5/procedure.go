@@ -4227,6 +4227,9 @@ func (r Procedure) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Procedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Procedure to Integer")
 }
+func (r Procedure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Procedure to Long")
+}
 func (r Procedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Procedure to Decimal")
 }
@@ -4577,6 +4580,9 @@ func (r ProcedurePerformer) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ProcedurePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProcedurePerformer to Integer")
 }
+func (r ProcedurePerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProcedurePerformer to Long")
+}
 func (r ProcedurePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProcedurePerformer to Decimal")
 }
@@ -4713,6 +4719,9 @@ func (r ProcedureFocalDevice) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r ProcedureFocalDevice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProcedureFocalDevice to Integer")
+}
+func (r ProcedureFocalDevice) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProcedureFocalDevice to Long")
 }
 func (r ProcedureFocalDevice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProcedureFocalDevice to Decimal")

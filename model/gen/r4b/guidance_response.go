@@ -1973,6 +1973,9 @@ func (r GuidanceResponse) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r GuidanceResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GuidanceResponse to Integer")
 }
+func (r GuidanceResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GuidanceResponse to Long")
+}
 func (r GuidanceResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GuidanceResponse to Decimal")
 }

@@ -2634,6 +2634,9 @@ func (r Provenance) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Provenance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Provenance to Integer")
 }
+func (r Provenance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Provenance to Long")
+}
 func (r Provenance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Provenance to Decimal")
 }
@@ -2858,6 +2861,9 @@ func (r ProvenanceAgent) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ProvenanceAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProvenanceAgent to Integer")
 }
+func (r ProvenanceAgent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProvenanceAgent to Long")
+}
 func (r ProvenanceAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceAgent to Decimal")
 }
@@ -2997,6 +3003,9 @@ func (r ProvenanceEntity) ToString(explicit bool) (fhirpath.String, bool, error)
 }
 func (r ProvenanceEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProvenanceEntity to Integer")
+}
+func (r ProvenanceEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProvenanceEntity to Long")
 }
 func (r ProvenanceEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceEntity to Decimal")

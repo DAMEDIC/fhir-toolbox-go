@@ -13461,6 +13461,9 @@ func (r Claim) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Claim) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Claim to Integer")
 }
+func (r Claim) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Claim to Long")
+}
 func (r Claim) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Claim to Decimal")
 }
@@ -13836,6 +13839,9 @@ func (r ClaimRelated) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ClaimRelated) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimRelated to Integer")
 }
+func (r ClaimRelated) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimRelated to Long")
+}
 func (r ClaimRelated) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimRelated to Decimal")
 }
@@ -13966,6 +13972,9 @@ func (r ClaimPayee) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ClaimPayee) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimPayee to Integer")
 }
+func (r ClaimPayee) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimPayee to Long")
+}
 func (r ClaimPayee) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimPayee to Decimal")
 }
@@ -14086,6 +14095,9 @@ func (r ClaimEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ClaimEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimEvent to Integer")
+}
+func (r ClaimEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimEvent to Long")
 }
 func (r ClaimEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimEvent to Decimal")
@@ -14222,6 +14234,9 @@ func (r ClaimCareTeam) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ClaimCareTeam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimCareTeam to Integer")
+}
+func (r ClaimCareTeam) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimCareTeam to Long")
 }
 func (r ClaimCareTeam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimCareTeam to Decimal")
@@ -14385,6 +14400,9 @@ func (r ClaimSupportingInfo) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ClaimSupportingInfo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimSupportingInfo to Integer")
 }
+func (r ClaimSupportingInfo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimSupportingInfo to Long")
+}
 func (r ClaimSupportingInfo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimSupportingInfo to Decimal")
 }
@@ -14544,6 +14562,9 @@ func (r ClaimDiagnosis) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ClaimDiagnosis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimDiagnosis to Integer")
 }
+func (r ClaimDiagnosis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimDiagnosis to Long")
+}
 func (r ClaimDiagnosis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimDiagnosis to Decimal")
 }
@@ -14693,6 +14714,9 @@ func (r ClaimProcedure) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ClaimProcedure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimProcedure to Integer")
+}
+func (r ClaimProcedure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimProcedure to Long")
 }
 func (r ClaimProcedure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimProcedure to Decimal")
@@ -14859,6 +14883,9 @@ func (r ClaimInsurance) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ClaimInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimInsurance to Integer")
 }
+func (r ClaimInsurance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimInsurance to Long")
+}
 func (r ClaimInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimInsurance to Decimal")
 }
@@ -15021,6 +15048,9 @@ func (r ClaimAccident) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ClaimAccident) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimAccident to Integer")
+}
+func (r ClaimAccident) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimAccident to Long")
 }
 func (r ClaimAccident) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimAccident to Decimal")
@@ -15266,6 +15296,9 @@ func (r ClaimItem) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ClaimItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimItem to Integer")
+}
+func (r ClaimItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimItem to Long")
 }
 func (r ClaimItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimItem to Decimal")
@@ -15553,6 +15586,9 @@ func (r ClaimItemBodySite) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ClaimItemBodySite) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimItemBodySite to Integer")
 }
+func (r ClaimItemBodySite) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimItemBodySite to Long")
+}
 func (r ClaimItemBodySite) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimItemBodySite to Decimal")
 }
@@ -15745,6 +15781,9 @@ func (r ClaimItemDetail) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r ClaimItemDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimItemDetail to Integer")
+}
+func (r ClaimItemDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimItemDetail to Long")
 }
 func (r ClaimItemDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimItemDetail to Decimal")
@@ -16031,6 +16070,9 @@ func (r ClaimItemDetailSubDetail) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r ClaimItemDetailSubDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ClaimItemDetailSubDetail to Integer")
+}
+func (r ClaimItemDetailSubDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ClaimItemDetailSubDetail to Long")
 }
 func (r ClaimItemDetailSubDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ClaimItemDetailSubDetail to Decimal")

@@ -16317,6 +16317,9 @@ func (r Contract) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Contract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Contract to Integer")
 }
+func (r Contract) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Contract to Long")
+}
 func (r Contract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Contract to Decimal")
 }
@@ -16710,6 +16713,9 @@ func (r ContractContentDefinition) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractContentDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractContentDefinition to Integer")
 }
+func (r ContractContentDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractContentDefinition to Long")
+}
 func (r ContractContentDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractContentDefinition to Decimal")
 }
@@ -16910,6 +16916,9 @@ func (r ContractTerm) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ContractTerm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTerm to Integer")
+}
+func (r ContractTerm) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTerm to Long")
 }
 func (r ContractTerm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTerm to Decimal")
@@ -17114,6 +17123,9 @@ func (r ContractTermSecurityLabel) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractTermSecurityLabel) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermSecurityLabel to Integer")
 }
+func (r ContractTermSecurityLabel) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermSecurityLabel to Long")
+}
 func (r ContractTermSecurityLabel) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermSecurityLabel to Decimal")
 }
@@ -17292,6 +17304,9 @@ func (r ContractTermOffer) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r ContractTermOffer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOffer to Integer")
+}
+func (r ContractTermOffer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOffer to Long")
 }
 func (r ContractTermOffer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOffer to Decimal")
@@ -17472,6 +17487,9 @@ func (r ContractTermOfferParty) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ContractTermOfferParty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOfferParty to Integer")
 }
+func (r ContractTermOfferParty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOfferParty to Long")
+}
 func (r ContractTermOfferParty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferParty to Decimal")
 }
@@ -17589,6 +17607,9 @@ func (r ContractTermOfferAnswer) ToString(explicit bool) (fhirpath.String, bool,
 }
 func (r ContractTermOfferAnswer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOfferAnswer to Integer")
+}
+func (r ContractTermOfferAnswer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOfferAnswer to Long")
 }
 func (r ContractTermOfferAnswer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferAnswer to Decimal")
@@ -17772,6 +17793,9 @@ func (r ContractTermAsset) ToString(explicit bool) (fhirpath.String, bool, error
 }
 func (r ContractTermAsset) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAsset to Integer")
+}
+func (r ContractTermAsset) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAsset to Long")
 }
 func (r ContractTermAsset) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAsset to Decimal")
@@ -17994,6 +18018,9 @@ func (r ContractTermAssetContext) ToString(explicit bool) (fhirpath.String, bool
 func (r ContractTermAssetContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAssetContext to Integer")
 }
+func (r ContractTermAssetContext) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAssetContext to Long")
+}
 func (r ContractTermAssetContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetContext to Decimal")
 }
@@ -18185,6 +18212,9 @@ func (r ContractTermAssetValuedItem) ToString(explicit bool) (fhirpath.String, b
 }
 func (r ContractTermAssetValuedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAssetValuedItem to Integer")
+}
+func (r ContractTermAssetValuedItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAssetValuedItem to Long")
 }
 func (r ContractTermAssetValuedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetValuedItem to Decimal")
@@ -18474,6 +18504,9 @@ func (r ContractTermAction) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ContractTermAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAction to Integer")
 }
+func (r ContractTermAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAction to Long")
+}
 func (r ContractTermAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAction to Decimal")
 }
@@ -18718,6 +18751,9 @@ func (r ContractTermActionSubject) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractTermActionSubject) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermActionSubject to Integer")
 }
+func (r ContractTermActionSubject) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermActionSubject to Long")
+}
 func (r ContractTermActionSubject) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermActionSubject to Decimal")
 }
@@ -18844,6 +18880,9 @@ func (r ContractSigner) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractSigner) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractSigner to Integer")
 }
+func (r ContractSigner) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractSigner to Long")
+}
 func (r ContractSigner) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractSigner to Decimal")
 }
@@ -18969,6 +19008,9 @@ func (r ContractFriendly) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ContractFriendly) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractFriendly to Integer")
 }
+func (r ContractFriendly) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractFriendly to Long")
+}
 func (r ContractFriendly) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractFriendly to Decimal")
 }
@@ -19080,6 +19122,9 @@ func (r ContractLegal) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractLegal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractLegal to Integer")
 }
+func (r ContractLegal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractLegal to Long")
+}
 func (r ContractLegal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractLegal to Decimal")
 }
@@ -19190,6 +19235,9 @@ func (r ContractRule) ToString(explicit bool) (fhirpath.String, bool, error) {
 }
 func (r ContractRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractRule to Integer")
+}
+func (r ContractRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractRule to Long")
 }
 func (r ContractRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractRule to Decimal")

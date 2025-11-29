@@ -2323,6 +2323,9 @@ func (r NamingSystem) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r NamingSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NamingSystem to Integer")
 }
+func (r NamingSystem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NamingSystem to Long")
+}
 func (r NamingSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NamingSystem to Decimal")
 }
@@ -2570,6 +2573,9 @@ func (r NamingSystemUniqueId) ToString(explicit bool) (fhirpath.String, bool, er
 }
 func (r NamingSystemUniqueId) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert NamingSystemUniqueId to Integer")
+}
+func (r NamingSystemUniqueId) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert NamingSystemUniqueId to Long")
 }
 func (r NamingSystemUniqueId) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert NamingSystemUniqueId to Decimal")

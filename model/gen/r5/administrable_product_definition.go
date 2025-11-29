@@ -3972,6 +3972,9 @@ func (r AdministrableProductDefinition) ToString(explicit bool) (fhirpath.String
 func (r AdministrableProductDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdministrableProductDefinition to Integer")
 }
+func (r AdministrableProductDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdministrableProductDefinition to Long")
+}
 func (r AdministrableProductDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinition to Decimal")
 }
@@ -4198,6 +4201,9 @@ func (r AdministrableProductDefinitionProperty) ToString(explicit bool) (fhirpat
 func (r AdministrableProductDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdministrableProductDefinitionProperty to Integer")
 }
+func (r AdministrableProductDefinitionProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdministrableProductDefinitionProperty to Long")
+}
 func (r AdministrableProductDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionProperty to Decimal")
 }
@@ -4352,6 +4358,9 @@ func (r AdministrableProductDefinitionRouteOfAdministration) ToString(explicit b
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Integer")
+}
+func (r AdministrableProductDefinitionRouteOfAdministration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Long")
 }
 func (r AdministrableProductDefinitionRouteOfAdministration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministration to Decimal")
@@ -4511,6 +4520,9 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToStri
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Integer")
 }
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Long")
+}
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpecies) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpecies to Decimal")
 }
@@ -4636,6 +4648,9 @@ func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdraw
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Integer")
+}
+func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Long")
 }
 func (r AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod to Decimal")

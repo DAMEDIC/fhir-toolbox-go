@@ -4150,6 +4150,9 @@ func (r ImagingStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ImagingStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingStudy to Integer")
 }
+func (r ImagingStudy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingStudy to Long")
+}
 func (r ImagingStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudy to Decimal")
 }
@@ -4482,6 +4485,9 @@ func (r ImagingStudySeries) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ImagingStudySeries) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingStudySeries to Integer")
 }
+func (r ImagingStudySeries) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingStudySeries to Long")
+}
 func (r ImagingStudySeries) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeries to Decimal")
 }
@@ -4675,6 +4681,9 @@ func (r ImagingStudySeriesPerformer) ToString(explicit bool) (fhirpath.String, b
 func (r ImagingStudySeriesPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingStudySeriesPerformer to Integer")
 }
+func (r ImagingStudySeriesPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingStudySeriesPerformer to Long")
+}
 func (r ImagingStudySeriesPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeriesPerformer to Decimal")
 }
@@ -4805,6 +4814,9 @@ func (r ImagingStudySeriesInstance) ToString(explicit bool) (fhirpath.String, bo
 }
 func (r ImagingStudySeriesInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingStudySeriesInstance to Integer")
+}
+func (r ImagingStudySeriesInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingStudySeriesInstance to Long")
 }
 func (r ImagingStudySeriesInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingStudySeriesInstance to Decimal")

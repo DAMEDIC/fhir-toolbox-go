@@ -5834,6 +5834,9 @@ func (r AuditEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r AuditEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEvent to Integer")
 }
+func (r AuditEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEvent to Long")
+}
 func (r AuditEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEvent to Decimal")
 }
@@ -6076,6 +6079,9 @@ func (r AuditEventOutcome) ToString(explicit bool) (fhirpath.String, bool, error
 func (r AuditEventOutcome) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventOutcome to Integer")
 }
+func (r AuditEventOutcome) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventOutcome to Long")
+}
 func (r AuditEventOutcome) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventOutcome to Decimal")
 }
@@ -6228,6 +6234,9 @@ func (r AuditEventAgent) ToString(explicit bool) (fhirpath.String, bool, error) 
 }
 func (r AuditEventAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventAgent to Integer")
+}
+func (r AuditEventAgent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventAgent to Long")
 }
 func (r AuditEventAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventAgent to Decimal")
@@ -6399,6 +6408,9 @@ func (r AuditEventSource) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r AuditEventSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventSource to Integer")
 }
+func (r AuditEventSource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventSource to Long")
+}
 func (r AuditEventSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventSource to Decimal")
 }
@@ -6551,6 +6563,9 @@ func (r AuditEventEntity) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r AuditEventEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventEntity to Integer")
 }
+func (r AuditEventEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventEntity to Long")
+}
 func (r AuditEventEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntity to Decimal")
 }
@@ -6699,6 +6714,9 @@ func (r AuditEventEntityDetail) ToString(explicit bool) (fhirpath.String, bool, 
 }
 func (r AuditEventEntityDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventEntityDetail to Integer")
+}
+func (r AuditEventEntityDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventEntityDetail to Long")
 }
 func (r AuditEventEntityDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntityDetail to Decimal")

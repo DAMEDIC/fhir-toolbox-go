@@ -171,6 +171,13 @@ func (r Integer64) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Integer64) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Integer64 to Integer")
 }
+func (r Integer64) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value != nil {
+		return fhirpath.Long(*r.Value), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
+}
 func (r Integer64) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Integer64 to Decimal")
 }

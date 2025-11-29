@@ -1100,6 +1100,9 @@ func (r Address) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Address) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Address to Integer")
 }
+func (r Address) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Address to Long")
+}
 func (r Address) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Address to Decimal")
 }

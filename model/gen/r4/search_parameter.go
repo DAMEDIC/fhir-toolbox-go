@@ -3581,6 +3581,9 @@ func (r SearchParameter) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r SearchParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SearchParameter to Integer")
 }
+func (r SearchParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SearchParameter to Long")
+}
 func (r SearchParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SearchParameter to Decimal")
 }
@@ -3904,6 +3907,9 @@ func (r SearchParameterComponent) ToString(explicit bool) (fhirpath.String, bool
 }
 func (r SearchParameterComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SearchParameterComponent to Integer")
+}
+func (r SearchParameterComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SearchParameterComponent to Long")
 }
 func (r SearchParameterComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SearchParameterComponent to Decimal")

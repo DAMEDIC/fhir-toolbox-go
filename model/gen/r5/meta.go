@@ -817,6 +817,9 @@ func (r Meta) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Meta) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Meta to Integer")
 }
+func (r Meta) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Meta to Long")
+}
 func (r Meta) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Meta to Decimal")
 }

@@ -2174,6 +2174,9 @@ func (r CareTeam) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r CareTeam) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CareTeam to Integer")
 }
+func (r CareTeam) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CareTeam to Long")
+}
 func (r CareTeam) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CareTeam to Decimal")
 }
@@ -2420,6 +2423,9 @@ func (r CareTeamParticipant) ToString(explicit bool) (fhirpath.String, bool, err
 }
 func (r CareTeamParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CareTeamParticipant to Integer")
+}
+func (r CareTeamParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CareTeamParticipant to Long")
 }
 func (r CareTeamParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CareTeamParticipant to Decimal")

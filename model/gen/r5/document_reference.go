@@ -4210,6 +4210,9 @@ func (r DocumentReference) ToString(explicit bool) (fhirpath.String, bool, error
 func (r DocumentReference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentReference to Integer")
 }
+func (r DocumentReference) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentReference to Long")
+}
 func (r DocumentReference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReference to Decimal")
 }
@@ -4520,6 +4523,9 @@ func (r DocumentReferenceAttester) ToString(explicit bool) (fhirpath.String, boo
 func (r DocumentReferenceAttester) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentReferenceAttester to Integer")
 }
+func (r DocumentReferenceAttester) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentReferenceAttester to Long")
+}
 func (r DocumentReferenceAttester) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceAttester to Decimal")
 }
@@ -4648,6 +4654,9 @@ func (r DocumentReferenceRelatesTo) ToString(explicit bool) (fhirpath.String, bo
 func (r DocumentReferenceRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentReferenceRelatesTo to Integer")
 }
+func (r DocumentReferenceRelatesTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentReferenceRelatesTo to Long")
+}
 func (r DocumentReferenceRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceRelatesTo to Decimal")
 }
@@ -4771,6 +4780,9 @@ func (r DocumentReferenceContent) ToString(explicit bool) (fhirpath.String, bool
 func (r DocumentReferenceContent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentReferenceContent to Integer")
 }
+func (r DocumentReferenceContent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentReferenceContent to Long")
+}
 func (r DocumentReferenceContent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceContent to Decimal")
 }
@@ -4888,6 +4900,9 @@ func (r DocumentReferenceContentProfile) ToString(explicit bool) (fhirpath.Strin
 }
 func (r DocumentReferenceContentProfile) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DocumentReferenceContentProfile to Integer")
+}
+func (r DocumentReferenceContentProfile) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DocumentReferenceContentProfile to Long")
 }
 func (r DocumentReferenceContentProfile) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DocumentReferenceContentProfile to Decimal")

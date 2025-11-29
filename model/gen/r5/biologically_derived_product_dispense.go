@@ -2131,6 +2131,9 @@ func (r BiologicallyDerivedProductDispense) ToString(explicit bool) (fhirpath.St
 func (r BiologicallyDerivedProductDispense) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductDispense to Integer")
 }
+func (r BiologicallyDerivedProductDispense) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductDispense to Long")
+}
 func (r BiologicallyDerivedProductDispense) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductDispense to Decimal")
 }
@@ -2386,6 +2389,9 @@ func (r BiologicallyDerivedProductDispensePerformer) ToString(explicit bool) (fh
 }
 func (r BiologicallyDerivedProductDispensePerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Integer")
+}
+func (r BiologicallyDerivedProductDispensePerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Long")
 }
 func (r BiologicallyDerivedProductDispensePerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductDispensePerformer to Decimal")
