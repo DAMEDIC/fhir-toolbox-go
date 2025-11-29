@@ -40,6 +40,7 @@ literal
         | ('true' | 'false')                                    #booleanLiteral
         | STRING                                                #stringLiteral
         | NUMBER                                                #numberLiteral
+        | LONGNUMBER                                            #longNumberLiteral
         | DATE                                                  #dateLiteral
         | DATETIME                                              #dateTimeLiteral
         | TIME                                                  #timeLiteral
@@ -59,7 +60,12 @@ invocation                          // Terms that can be used after the function
         ;
 
 function
-        : identifier '(' paramList? ')'
+        : 'sort' '(' (sortArgument (',' sortArgument)*)? ')'
+        | identifier '(' paramList? ')'
+        ;
+
+sortArgument
+        : expression ('asc' | 'desc')?                          #sortDirectionArgument
         ;
 
 paramList
@@ -99,6 +105,9 @@ identifier
         | 'contains'
         | 'in'
         | 'is'
+        | 'asc'
+        | 'desc'
+        | 'sort'
         ;
 
 
@@ -151,6 +160,10 @@ STRING
 // Also allows leading zeroes now (just like CQL and XSD)
 NUMBER
         : [0-9]+('.' [0-9]+)?
+        ;
+
+LONGNUMBER
+        : [0-9]+ 'L'
         ;
 
 // Pipe whitespace to the HIDDEN channel to support retrieving source text through the parser.
