@@ -288,15 +288,14 @@ The 3.0.0-ballot specification introduces additional functions and semantics (se
 [FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.
 We track those gaps below so contributors know where help is wanted:
 
-| Area | Missing pieces | Notes |
-| --- | --- | --- |
-| Collection utilities | `sort`, `repeatAll`, `coalesce` | New in §4.1.26+, not implemented yet |
-| String helpers | `indexOf`, `lastIndexOf`, regex flags for `matches`/`replaceMatches`, full JSON/HTML escaping semantics | Basic versions exist but 3.0 behaviour diverges |
-| Date/Time math | `duration`, `difference`, week/min/hour literals, extended boundary precision rules | Several conformance tests fail until this lands |
-| Terminology integration | `%terminologies` variable, `txTest*` helpers | Needs connection to a terminology service |
-| `%vs-*` / `%ext-*` variables | Value set / extension scoped variables | Currently skipped in tests |
-| Additional helpers | `resolve`, `hasValue`, `conformsTo`, UCUM-aware quantity conversions | Still outstanding |
-| CDA fixtures | Tests with `mode="cda"` from the upstream suite | Skipped until CDA parsing is supported |
+| Area                         | Status        | Missing pieces                                                                               | Notes                                                                                                                      |
+|------------------------------|---------------|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| String helpers               | Partial       | `lastIndexOf`, regex flags for `matches`/`replaceMatches`, full JSON/HTML escaping semantics | `indexOf`, `trim`, `split`, `join`, `matchesFull`, `encode`/`decode` implemented; escape/unescape need semantic refinement |
+| Date/Time math               | Not started   | `duration`, `difference`, week/min/hour literals, extended boundary precision rules          | `lowBoundary`/`highBoundary`/`precision` exist but semantic gaps remain                                                    |
+| Terminology integration      | Not supported | `%terminologies` variable, `txTest*` helpers, `comparable`                                   | Needs connection to a terminology service                                                                                  |
+| `%vs-*` / `%ext-*` variables | Not supported | Value set / extension scoped variables                                                       | Currently skipped in tests                                                                                                 |
+| Additional helpers           | Not started   | `resolve`, `hasValue`, `conformsTo`                                                          | Still outstanding; UCUM-aware quantity conversions already implemented                                                     |
+| CDA fixtures                 | Not supported | Tests with `mode="cda"` from the upstream suite                                              | Skipped until CDA parsing is supported                                                                                     |
 
 The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
 conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.

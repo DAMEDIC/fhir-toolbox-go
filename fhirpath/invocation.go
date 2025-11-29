@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 func evalInvocation(
@@ -98,33 +99,42 @@ func evalFunc(
 	inputOrdered bool,
 	tree parser.IFunctionContext,
 ) (Collection, bool, error) {
-	ident, err := evalIdentifier(tree.Identifier())
-	if err != nil {
-		return nil, false, err
+	var (
+		ident      string
+		paramExprs []Expression
+		err        error
+	)
+
+	if tree.Identifier() == nil {
+		ident = "sort"
+		paramExprs, err = buildSortArguments(tree)
+		if err != nil {
+			return nil, false, err
+		}
+	} else {
+		ident, err = evalIdentifier(tree.Identifier())
+		if err != nil {
+			return nil, false, err
+		}
+
+		if paramList := tree.ParamList(); paramList != nil {
+			paramExprs = buildParamExpressions(paramList.AllExpression())
+		}
 	}
 
-	paramList := tree.ParamList()
-	if paramList == nil {
-		return callFunc(ctx, root, target, inputOrdered, ident)
-	}
-
-	return callFunc(ctx, root, target, inputOrdered, ident, paramList.AllExpression()...)
+	return callFunc(ctx, root, target, inputOrdered, ident, paramExprs)
 }
 
 func callFunc(
 	ctx context.Context,
 	root Element, target Collection,
 	inputOrdered bool,
-	ident string, paramTerms ...parser.IExpressionContext,
+	ident string,
+	paramExprs []Expression,
 ) (Collection, bool, error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
 		return nil, false, fmt.Errorf("function \"%s\" not found", ident)
-	}
-
-	paramExprs := make([]Expression, 0, len(paramTerms))
-	for _, param := range paramTerms {
-		paramExprs = append(paramExprs, Expression{param})
 	}
 
 	result, ordered, err := fn(
@@ -139,14 +149,26 @@ func callFunc(
 			fnScope ...FunctionScope,
 		) (result Collection, resultOrdered bool, err error) {
 			if len(fnScope) > 0 {
+				// Get parent scope to preserve aggregate context
+				parentScope, hasParent := getFunctionScope(ctx)
+
 				scope := functionScope{
 					this:  target,
 					index: fnScope[0].index,
 				}
+
+				// Preserve aggregate context from parent
+				if hasParent == nil && parentScope.aggregate {
+					scope.aggregate = true
+					scope.total = parentScope.total
+				}
+
+				// Set aggregate context if this is the aggregate function
 				if ident == "aggregate" {
 					scope.aggregate = true
 					scope.total = fnScope[0].total
 				}
+
 				ctx = withFunctionScope(ctx, scope)
 			}
 			var targetCollection Collection
@@ -164,4 +186,71 @@ func callFunc(
 		return nil, false, err
 	}
 	return result, ordered, nil
+}
+
+func buildParamExpressions(paramTerms []parser.IExpressionContext) []Expression {
+	if len(paramTerms) == 0 {
+		return nil
+	}
+	exprs := make([]Expression, 0, len(paramTerms))
+	for _, param := range paramTerms {
+		exprs = append(exprs, Expression{tree: param})
+	}
+	return exprs
+}
+
+func buildSortArguments(tree parser.IFunctionContext) ([]Expression, error) {
+	sortArgs := tree.AllSortArgument()
+	if len(sortArgs) == 0 {
+		return nil, nil
+	}
+
+	exprs := make([]Expression, 0, len(sortArgs))
+	for _, arg := range sortArgs {
+		argCtx, ok := arg.(*parser.SortDirectionArgumentContext)
+		if !ok {
+			return nil, fmt.Errorf("unexpected sort argument type %T", arg)
+		}
+
+		dir := sortDirectionFromArgument(argCtx)
+		exprCtx := argCtx.Expression()
+		exprCtx, legacyDir := normalizeLegacySortDirection(exprCtx)
+		if dir == sortDirectionNone {
+			dir = legacyDir
+		}
+		if dir == sortDirectionNone {
+			dir = sortDirectionAsc
+		}
+
+		exprs = append(exprs, Expression{
+			tree:          exprCtx,
+			sortDirection: dir,
+		})
+	}
+	return exprs, nil
+}
+
+func sortDirectionFromArgument(arg *parser.SortDirectionArgumentContext) sortDirection {
+	for i := 0; i < arg.GetChildCount(); i++ {
+		if terminal, ok := arg.GetChild(i).(antlr.TerminalNode); ok {
+			switch terminal.GetText() {
+			case "asc":
+				return sortDirectionAsc
+			case "desc":
+				return sortDirectionDesc
+			}
+		}
+	}
+	return sortDirectionNone
+}
+
+func normalizeLegacySortDirection(expr parser.IExpressionContext) (parser.IExpressionContext, sortDirection) {
+	if polarity, ok := expr.(*parser.PolarityExpressionContext); ok {
+		if polarity.GetChildCount() > 0 {
+			if token, ok := polarity.GetChild(0).(antlr.ParseTree); ok && token.GetText() == "-" {
+				return polarity.Expression(), sortDirectionDesc
+			}
+		}
+	}
+	return expr, sortDirectionNone
 }

@@ -16,12 +16,24 @@ import (
 // Expression represents a parsed FHIRPath expression that can be evaluated against a FHIR resource.
 // Expressions are created using the Parse or MustParse functions.
 type Expression struct {
-	tree parser.IExpressionContext
+	tree          parser.IExpressionContext
+	sortDirection sortDirection
 }
+
+type sortDirection uint8
+
+const (
+	sortDirectionNone sortDirection = iota
+	sortDirectionAsc
+	sortDirectionDesc
+)
 
 // String returns the string representation of the expression.
 // This is useful for debugging or displaying the expression.
 func (e Expression) String() string {
+	if e.tree == nil {
+		return ""
+	}
 	return e.tree.GetText()
 }
 
@@ -39,7 +51,7 @@ func Parse(expr string) (Expression, error) {
 	if err != nil {
 		return Expression{}, err
 	}
-	return Expression{tree}, nil
+	return Expression{tree: tree}, nil
 }
 
 // MustParse parses a FHIRPath expression string and returns an Expression object.
@@ -130,10 +142,10 @@ func parse(expr string) (parser.IExpressionContext, error) {
 //	}
 //	fmt.Println(result) // Output: [Donald]
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
-	ctx = WithEnv(ctx, "context", target)
-	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
-	ctx = WithEnv(ctx, "loinc", String("http://loinc.org"))
-	ctx = WithEnv(ctx, "sct", String("http://snomed.info/sct"))
+	ctx = WithEnv(ctx, "context", Collection{target})
+	ctx = WithEnv(ctx, "ucum", Collection{String("http://unitsofmeasure.org")})
+	ctx = WithEnv(ctx, "loinc", Collection{String("http://loinc.org")})
+	ctx = WithEnv(ctx, "sct", Collection{String("http://snomed.info/sct")})
 
 	result, _, err := evalExpression(
 		ctx,
@@ -287,11 +299,16 @@ func evalExpression(
 		return nil, false, nil
 
 	case *parser.UnionExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		// Each branch of a union gets its own environment stack frame
+		// This ensures that variables defined on one side don't affect the other
+		// We create fresh contexts for both sides here since they're separate evaluation trees
+		leftCtx, _ := withNewEnvStackFrame(ctx)
+		left, leftOrdered, err := evalExpression(leftCtx, root, target, inputOrdered, t.Expression(0), false)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		rightCtx, _ := withNewEnvStackFrame(ctx)
+		right, rightOrdered, err := evalExpression(rightCtx, root, target, inputOrdered, t.Expression(1), false)
 		if err != nil {
 			return nil, false, err
 		}
@@ -589,7 +606,7 @@ func evalLiteral(
 
 type envKey struct{}
 
-func WithEnv(ctx context.Context, name string, value Element) context.Context {
+func WithEnv(ctx context.Context, name string, value Collection) context.Context {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
 		ctx, frame = withNewEnvStackFrame(ctx)
@@ -598,23 +615,23 @@ func WithEnv(ctx context.Context, name string, value Element) context.Context {
 	return ctx
 }
 
-func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Element) {
+func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Collection) {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
-		frame = map[string]Element{}
+		frame = map[string]Collection{}
 	}
 	return context.WithValue(ctx, envKey{}, maps.Clone(frame)), frame
 }
 
-func envStackFrame(ctx context.Context) (map[string]Element, bool) {
-	val, ok := ctx.Value(envKey{}).(map[string]Element)
+func envStackFrame(ctx context.Context) (map[string]Collection, bool) {
+	val, ok := ctx.Value(envKey{}).(map[string]Collection)
 	if !ok {
 		return nil, false
 	}
 	return val, true
 }
 
-func envValue(ctx context.Context, name string) (Element, bool) {
+func envValue(ctx context.Context, name string) (Collection, bool) {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
 		return nil, false
@@ -632,7 +649,7 @@ func evalExternalConstant(
 	if !ok {
 		return nil, false, fmt.Errorf("environment variable %q undefined", name)
 	}
-	return Collection{value}, true, nil
+	return value, true, nil
 }
 
 func Singleton[T Element](c Collection) (v T, ok bool, err error) {

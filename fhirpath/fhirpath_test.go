@@ -158,7 +158,6 @@ type skipRule struct {
 }
 
 var unimplementedTestSkips = []skipRule{
-	{regexp.MustCompile(`^testSort\d+$`), nil, "sort() function not implemented"},
 	{regexp.MustCompile(`^Comparable\d+$`), nil, "comparable() function not implemented"},
 	{regexp.MustCompile(`^testMultipleResolve$`), nil, "resolve() function not implemented"},
 	{regexp.MustCompile(`^testPrimitiveExtensions(Element)?$`), nil, "hasValue() for primitive extensions not implemented"},
@@ -169,9 +168,6 @@ var unimplementedTestSkips = []skipRule{
 	{regexp.MustCompile(`^testConformsTo.*`), nil, "conformsTo() function not implemented"},
 	{regexp.MustCompile(`^testPolymorphismIsA3$`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
 	{regexp.MustCompile(`^testPolymorphism.*`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
-	{regexp.MustCompile(`^testRepeat\d+$`), nil, "repeat() projection semantics pending"},
-	{regexp.MustCompile(`^testIif\d+$`), nil, "iif() short-circuit semantics pending"},
-	{regexp.MustCompile(`^testIndexOf\d+$`), nil, "indexOf() function not implemented"},
 	{regexp.MustCompile(`^testMatches.*`), nil, "regex flags/semantics pending"},
 	{regexp.MustCompile(`^testReplaceMatches.*`), nil, "regex replace semantics pending"},
 	{regexp.MustCompile(`^testReplace\d+$`), nil, "string replace semantics pending"},
@@ -193,10 +189,8 @@ var unimplementedTestSkips = []skipRule{
 	{regexp.MustCompile(`^LowBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
 	{regexp.MustCompile(`^HighBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
 	{regexp.MustCompile(`^Precision.*`), nil, "precision() semantics pending"},
-	{regexp.MustCompile(`^testIndex$`), nil, "index-part helpers not implemented"},
 	{regexp.MustCompile(`^testFHIRPathIsFunction\d+$`), nil, "is() function inheritance semantics pending"},
 	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
-	{regexp.MustCompile(`^(defineVariable|dv).*$`), isR5Release, "multi-tree defineVariable semantics pending"},
 	{regexp.MustCompile(`^testSubstring.*`), isR5Release, "substring parameter semantics pending"},
 	{regexp.MustCompile(`^testStartsWith.*`), isR5Release, "startsWith optional parameters pending"},
 	{regexp.MustCompile(`^testEndsWith.*`), isR5Release, "endsWith optional parameters pending"},

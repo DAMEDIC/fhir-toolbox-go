@@ -10,6 +10,7 @@ import (
 	"maps"
 	"math"
 	"regexp"
+	"slices"
 	"strings"
 	"time"
 
@@ -659,6 +660,113 @@ var defaultFunctions = Functions{
 
 		return result, resultOrdered, nil
 	},
+	// sort implements FHIRPath v3.0.0 §4.1.26 sort()
+	"sort": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		type sortKeyValue struct {
+			empty bool
+			value Element
+		}
+		type sortItem struct {
+			elem Element
+			keys []sortKeyValue
+		}
+
+		items := make([]sortItem, len(target))
+		for i, elem := range target {
+			items[i].elem = elem
+			if len(parameters) == 0 {
+				continue
+			}
+			items[i].keys = make([]sortKeyValue, len(parameters))
+			for j, param := range parameters {
+				keyResult, _, err := evaluate(ctx, elem, param, FunctionScope{index: i})
+				if err != nil {
+					return nil, false, err
+				}
+
+				switch len(keyResult) {
+				case 0:
+					items[i].keys[j] = sortKeyValue{empty: true}
+				case 1:
+					items[i].keys[j] = sortKeyValue{value: keyResult[0]}
+				default:
+					return nil, false, fmt.Errorf(
+						"sort key %d evaluated to %d items (expected 0 or 1)",
+						j+1, len(keyResult),
+					)
+				}
+			}
+		}
+
+		var sortErr error
+		slices.SortStableFunc(items, func(a, b sortItem) int {
+			if sortErr != nil {
+				return 0
+			}
+
+			if len(parameters) == 0 {
+				cmp, err := compareElementsForSort(a.elem, b.elem)
+				if err != nil {
+					sortErr = err
+					return 0
+				}
+				return cmp
+			}
+
+			for idx, param := range parameters {
+				dir := param.sortDirection
+				if dir == sortDirectionNone {
+					dir = sortDirectionAsc
+				}
+
+				av := a.keys[idx]
+				bv := b.keys[idx]
+
+				if av.empty && bv.empty {
+					continue
+				}
+				if av.empty {
+					return -1
+				}
+				if bv.empty {
+					return 1
+				}
+
+				cmp, err := compareElementsForSort(av.value, bv.value)
+				if err != nil {
+					sortErr = err
+					return 0
+				}
+				if cmp != 0 {
+					if dir == sortDirectionDesc {
+						cmp = -cmp
+					}
+					return cmp
+				}
+			}
+
+			return 0
+		})
+		if sortErr != nil {
+			return nil, false, sortErr
+		}
+
+		result = make(Collection, len(items))
+		for i, item := range items {
+			result[i] = item.elem
+		}
+		return result, true, nil
+	},
 	"repeat": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -687,14 +795,26 @@ var defaultFunctions = Functions{
 					return nil, false, err
 				}
 
-				// Check for new items
+				// FHIRPath 3.0: Check for new items against both result AND newItems
+				// Items should only be added if not already in the output collection
 				for _, item := range projection {
 					add := true
+					// Check against already accumulated results
 					for _, seen := range result {
 						eq, ok := seen.Equal(item)
 						if ok && eq {
 							add = false
 							break
+						}
+					}
+					// Also check against items found in this iteration
+					if add {
+						for _, seen := range newItems {
+							eq, ok := seen.Equal(item)
+							if ok && eq {
+								add = false
+								break
+							}
 						}
 					}
 					if add {
@@ -711,6 +831,41 @@ var defaultFunctions = Functions{
 			// Add new items to the result and set them as the current items for the next iteration
 			result = append(result, newItems...)
 			current = newItems
+		}
+
+		return result, false, nil
+	},
+	// repeatAll implements FHIRPath v3.0.0 §4.1.26 repeatAll()
+	"repeatAll": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single projection parameter")
+		}
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		queue := slices.Clone(target)
+
+		for len(queue) > 0 {
+			var next Collection
+			for i, elem := range queue {
+				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+				if err != nil {
+					return nil, false, err
+				}
+				if len(projection) == 0 {
+					continue
+				}
+				result = append(result, projection...)
+				next = append(next, projection...)
+			}
+			queue = next
 		}
 
 		return result, false, nil
@@ -1042,6 +1197,30 @@ var defaultFunctions = Functions{
 		// Use the Combine method to merge the collections
 		return target.Combine(other), false, nil
 	},
+	// coalesce implements FHIRPath v3.0.0 §4.1.26 coalesce()
+	"coalesce": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) == 0 {
+			return nil, false, fmt.Errorf("expected at least one collection parameter")
+		}
+
+		for _, param := range parameters {
+			value, ordered, err := evaluate(ctx, nil, param)
+			if err != nil {
+				return nil, false, err
+			}
+			if len(value) > 0 {
+				return value, ordered, nil
+			}
+		}
+
+		return nil, true, nil
+	},
 
 	// String functions
 	"indexOf": func(
@@ -1076,7 +1255,8 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substring parameter")
+			// If substring is empty/null, return empty collection
+			return nil, true, nil
 		}
 
 		// If substring is an empty string (''), the function returns 0
@@ -2444,32 +2624,27 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected string name parameter")
 		}
 
-		// Check for variable redefinition in the current scope
-		if _, exists := envValue(ctx, string(name)); exists {
-			return nil, false, fmt.Errorf("variable '%s' already defined in the current scope", name)
-		}
-
-		var value Element
+		// Determine the value to store
+		// Variables in FHIRPath store the entire evaluated result (which can be a collection)
+		var value Collection
 		if len(parameters) == 2 {
-			// Evaluate the value parameter
-			valueCollection, _, err := evaluate(ctx, nil, parameters[1])
+			// Evaluate the value parameter against the root context
+			var evalTarget Element
+			if len(target) > 0 {
+				evalTarget = root
+			}
+			valueCollection, _, err := evaluate(ctx, evalTarget, parameters[1])
 			if err != nil {
 				return nil, false, err
 			}
-			if len(valueCollection) != 1 {
-				return nil, false, fmt.Errorf("value must be a single element")
-			}
-			value = valueCollection[0]
+			value = valueCollection
 		} else {
-			// Use the input collection as the value (must be single element)
-			if len(target) != 1 {
-				return nil, false, fmt.Errorf("input collection must be a single element if no value is provided")
-			}
-			value = target[0]
+			// Use the input collection as the value
+			value = target
 		}
 
-		// Add the variable to the expression enclosing context so it is passed to subsequent calls
-		_ = WithEnv(ctx, string(name), value)
+		// Store the collection as the variable value
+		ctx = WithEnv(ctx, string(name), value)
 
 		// Return the input collection (does not change input)
 		return target, inputOrdered, nil
@@ -3623,10 +3798,40 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
 		}
 
-		// Evaluate the criterion expression
-		criterion, _, err := evaluate(ctx, nil, parameters[0])
+		// FHIRPath 3.0: iif() requires 0 or 1 items in the input collection
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("iif() requires an input collection with 0 or 1 items, got %d items", len(target))
+		}
+
+		// Determine the evaluation target for $this context
+		// If target has one item, use it; otherwise use nil
+		var evalTarget Element
+		var fnScope []FunctionScope
+		if len(target) == 1 {
+			evalTarget = target[0]
+			// Preserve the parent function scope's index if it exists
+			parentScope, err := getFunctionScope(ctx)
+			if err == nil {
+				// Use parent scope's index
+				fnScope = []FunctionScope{{index: parentScope.index, total: target}}
+			} else {
+				// No parent scope, set index to 0
+				fnScope = []FunctionScope{{index: 0, total: target}}
+			}
+		}
+
+		// Evaluate the criterion expression with $this context
+		criterion, _, err := evaluate(ctx, evalTarget, parameters[0], fnScope...)
 		if err != nil {
 			return nil, false, err
+		}
+
+		// FHIRPath 3.0: criterion must be a boolean value, not just convertible to boolean
+		// Check if the criterion is actually a Boolean type
+		if len(criterion) > 0 {
+			if _, isBool := criterion[0].(Boolean); !isBool {
+				return nil, false, fmt.Errorf("iif() criterion must evaluate to a boolean value, got %T", criterion[0])
+			}
 		}
 
 		// Convert criterion to boolean
@@ -3635,9 +3840,10 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// Short-circuit evaluation: only evaluate the taken branch
 		// If criterion is true, return the value of the true-result argument
 		if ok && bool(criterionBool) {
-			trueResult, ordered, err := evaluate(ctx, nil, parameters[1])
+			trueResult, ordered, err := evaluate(ctx, evalTarget, parameters[1], fnScope...)
 			if err != nil {
 				return nil, false, err
 			}
@@ -3647,7 +3853,7 @@ var defaultFunctions = Functions{
 		// If criterion is false or an empty collection, return otherwise-result
 		// If otherwise-result is not given, return an empty collection
 		if len(parameters) == 3 {
-			otherwiseResult, ordered, err := evaluate(ctx, nil, parameters[2])
+			otherwiseResult, ordered, err := evaluate(ctx, evalTarget, parameters[2], fnScope...)
 			if err != nil {
 				return nil, false, err
 			}
@@ -4040,4 +4246,15 @@ var FHIRFunctions = Functions{
 		}
 		return foundExtensions, inputOrdered, nil
 	},
+}
+
+func compareElementsForSort(a, b Element) (int, error) {
+	cmp, ok, err := Collection{a}.Cmp(Collection{b})
+	if err != nil {
+		return 0, err
+	}
+	if !ok {
+		return 0, fmt.Errorf("elements %T and %T are not comparable", a, b)
+	}
+	return cmp, nil
 }

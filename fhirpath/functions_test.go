@@ -328,6 +328,20 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			return Collection{String("world")}, true, nil
 		case "'hi'":
 			return Collection{String("hi")}, true, nil
+		case "decrement()":
+			switch v := target.(type) {
+			case Integer:
+				if v > 0 {
+					return Collection{Integer(v - 1)}, true, nil
+				}
+			case testElement:
+				if val, ok := v.value.(int); ok && val > 0 {
+					return Collection{Integer(val - 1)}, true, nil
+				}
+			}
+			return Collection{}, true, nil
+		case "boom()":
+			return nil, false, fmt.Errorf("boom() should not be evaluated")
 		case "'^hello.*'":
 			return Collection{String("^hello.*")}, true, nil
 		case "','":
@@ -382,6 +396,41 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	if !eq {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
+}
+
+func runFunctionWithEval(t *testing.T, fn Function, target Collection, params []Expression) (Collection, bool) {
+	t.Helper()
+	ctx := context.Background()
+	apdCtx := apd.BaseContext.WithPrecision(20)
+	ctx = WithAPDContext(ctx, apdCtx)
+	root := testElement{}
+
+	evaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+		if expr.tree == nil {
+			return nil, false, fmt.Errorf("unexpected expression <nil>")
+		}
+
+		if len(fnScope) > 0 {
+			scope := functionScope{
+				this:  target,
+				index: fnScope[0].index,
+			}
+			ctx = withFunctionScope(ctx, scope)
+		}
+
+		var targetCollection Collection
+		if target != nil {
+			targetCollection = Collection{target}
+		}
+
+		return evalExpression(ctx, root, targetCollection, true, expr.tree, true)
+	}
+
+	result, ordered, err := fn(ctx, root, target, true, params, evaluate)
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	return result, ordered
 }
 
 func TestExistenceFunctions(t *testing.T) {
@@ -547,6 +596,14 @@ func TestFilteringAndProjectionFunctions(t *testing.T) {
 			expectedOrdered: false,
 		},
 		{
+			name:            "repeatAll()",
+			fn:              defaultFunctions["repeatAll"],
+			target:          Collection{Integer(2)},
+			params:          []Expression{MustParse("decrement()")},
+			expected:        Collection{Integer(1), Integer(0)},
+			expectedOrdered: false,
+		},
+		{
 			name:            "ofType()",
 			fn:              defaultFunctions["ofType"],
 			target:          Collection{String("test"), Integer(1)},
@@ -575,6 +632,60 @@ func TestFilteringAndProjectionFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, tt.expectedOrdered, false)
+		})
+	}
+}
+
+func TestSortFunction(t *testing.T) {
+	fn := defaultFunctions["sort"]
+
+	descExpr := MustParse("$this")
+	descExpr.sortDirection = sortDirectionDesc
+
+	parityExpr := MustParse("$this mod 2")
+	parityExpr.sortDirection = sortDirectionDesc
+
+	tests := []struct {
+		name            string
+		target          Collection
+		params          []Expression
+		expected        Collection
+		expectedOrdered bool
+	}{
+		{
+			name:            "default numeric ordering",
+			target:          Collection{Integer(3), Integer(1), Integer(2)},
+			params:          nil,
+			expected:        Collection{Integer(1), Integer(2), Integer(3)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "explicit descending ordering",
+			target:          Collection{Integer(1), Integer(3), Integer(2)},
+			params:          []Expression{descExpr},
+			expected:        Collection{Integer(3), Integer(2), Integer(1)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "multi-key ordering",
+			target:          Collection{Integer(2), Integer(4), Integer(3), Integer(1)},
+			params:          []Expression{parityExpr, MustParse("$this")},
+			expected:        Collection{Integer(1), Integer(3), Integer(2), Integer(4)},
+			expectedOrdered: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, ordered := runFunctionWithEval(t, fn, tt.target, tt.params)
+
+			if ordered != tt.expectedOrdered {
+				t.Fatalf("expected ordered=%v, got %v", tt.expectedOrdered, ordered)
+			}
+
+			if !result.Equivalent(tt.expected) {
+				t.Fatalf("expected %v, got %v", tt.expected, result)
+			}
 		})
 	}
 }
@@ -739,6 +850,46 @@ func TestCombiningFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, tt.expectedOrdered, false)
+		})
+	}
+}
+
+func TestCoalesceFunction(t *testing.T) {
+	tests := []struct {
+		name     string
+		target   Collection
+		params   []Expression
+		expected Collection
+	}{
+		{
+			name:     "returns first non-empty argument",
+			target:   nil,
+			params:   []Expression{MustParse("'test'"), MustParse("'hello'")},
+			expected: Collection{String("test")},
+		},
+		{
+			name:     "skips leading empty collections",
+			target:   nil,
+			params:   []Expression{MustParse("{}"), MustParse("'hello'")},
+			expected: Collection{String("hello")},
+		},
+		{
+			name:     "all arguments empty",
+			target:   nil,
+			params:   []Expression{MustParse("{}"), MustParse("{}")},
+			expected: Collection{},
+		},
+		{
+			name:     "short-circuits after first non-empty",
+			target:   nil,
+			params:   []Expression{MustParse("'test'"), MustParse("boom()")},
+			expected: Collection{String("test")},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			testFunction(t, defaultFunctions["coalesce"], tt.target, tt.params, tt.expected, true, false)
 		})
 	}
 }
@@ -1061,7 +1212,7 @@ func TestDefineVariable(t *testing.T) {
 		expected    Collection
 		expectError bool
 		varName     string
-		varValue    Element
+		varValue    Collection
 	}{
 		{
 			name:        "define_variable_with_value",
@@ -1070,7 +1221,7 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{},
 			expectError: false,
 			varName:     "test",
-			varValue:    String("value"),
+			varValue:    Collection{String("value")},
 		},
 		{
 			name:        "define_variable_using_input_collection",
@@ -1079,7 +1230,7 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{String("inputValue")},
 			expectError: false,
 			varName:     "myVar",
-			varValue:    String("inputValue"),
+			varValue:    Collection{String("inputValue")},
 		},
 		{
 			name:        "invalid_number_of_parameters",
@@ -1148,8 +1299,8 @@ func TestDefineVariable(t *testing.T) {
 				val, exists := envValue(ctx, tt.varName)
 				if !exists {
 					t.Errorf("Variable %s was not set in environment", tt.varName)
-				} else if val != tt.varValue {
-					t.Errorf("Expected variable value '%s', got '%s'", tt.varValue, val.String())
+				} else if !cmp.Equal(val, tt.varValue, cmpopts.IgnoreUnexported(testElement{})) {
+					t.Errorf("Expected variable value %v, got %v", tt.varValue, val)
 				}
 			}
 		})
