@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/hex"
-	"encoding/json"
 	"fmt"
 	"html"
 	"maps"
@@ -1268,6 +1267,61 @@ var defaultFunctions = Functions{
 		index := strings.Index(string(s), string(substring))
 		return Collection{Integer(index)}, true, nil
 	},
+	"lastIndexOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single substring parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the substring parameter
+		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert substring to string
+		substring, ok, err := Singleton[String](substringCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			// If substring is empty/null, return empty collection
+			return nil, true, nil
+		}
+
+		// If substring is an empty string (''), the function returns the length of the input string
+		if substring == "" {
+			return Collection{Integer(len([]rune(s)))}, true, nil
+		}
+
+		// Return the index of the last occurrence of the substring in the string
+		index := strings.LastIndex(string(s), string(substring))
+		return Collection{Integer(index)}, true, nil
+	},
 	"substring": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -1598,8 +1652,8 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 1 {
-			return nil, false, fmt.Errorf("expected single regex parameter")
+		if len(parameters) < 1 || len(parameters) > 2 {
+			return nil, false, fmt.Errorf("expected regex parameter and optional flags parameter")
 		}
 
 		// Convert input to string
@@ -1617,17 +1671,56 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If regex is empty collection, return empty
+		if len(regexCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert regex to string
 		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string regex parameter")
+			return nil, true, nil
+		}
+
+		// Evaluate optional flags parameter
+		var flags string
+		if len(parameters) == 2 {
+			flagsCollection, _, err := evaluate(ctx, nil, parameters[1])
+			if err != nil {
+				return nil, false, err
+			}
+
+			flagsStr, ok, err := Singleton[String](flagsCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string flags parameter")
+			}
+			flags = string(flagsStr)
+		}
+
+		// Apply flags to the regular expression
+		// Per FHIRPath spec, regex operates in single-line mode by default (. matches newlines)
+		pattern := "(?s)" + string(regexStr)
+		for _, flag := range flags {
+			switch flag {
+			case 'i':
+				// Case-insensitive: wrap pattern with (?i)
+				pattern = "(?i)" + pattern
+			case 'm':
+				// Multiline mode: wrap pattern with (?m)
+				pattern = "(?m)" + pattern
+			default:
+				return nil, false, fmt.Errorf("unsupported regex flag: %c", flag)
+			}
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(regexStr))
+		regex, err := regexp.Compile(pattern)
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
@@ -1642,8 +1735,8 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 2 {
-			return nil, false, fmt.Errorf("expected two parameters (regex, substitution)")
+		if len(parameters) < 2 || len(parameters) > 3 {
+			return nil, false, fmt.Errorf("expected regex, substitution, and optional flags parameters")
 		}
 
 		// Convert input to string
@@ -1661,13 +1754,23 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If regex is empty collection, return empty
+		if len(regexCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert regex to string
 		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string regex parameter")
+			return nil, true, nil
+		}
+
+		// If regex is an empty string, return input unchanged per spec
+		if regexStr == "" {
+			return Collection{s}, true, nil
 		}
 
 		// Evaluate the substitution parameter
@@ -1676,17 +1779,56 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If substitution is empty collection, return empty
+		if len(substitutionCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert substitution to string
 		substitution, ok, err := Singleton[String](substitutionCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substitution parameter")
+			return nil, true, nil
+		}
+
+		// Evaluate optional flags parameter
+		var flags string
+		if len(parameters) == 3 {
+			flagsCollection, _, err := evaluate(ctx, nil, parameters[2])
+			if err != nil {
+				return nil, false, err
+			}
+
+			flagsStr, ok, err := Singleton[String](flagsCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string flags parameter")
+			}
+			flags = string(flagsStr)
+		}
+
+		// Apply flags to the regular expression
+		// Per FHIRPath spec, regex operates in single-line mode by default (. matches newlines)
+		pattern := "(?s)" + string(regexStr)
+		for _, flag := range flags {
+			switch flag {
+			case 'i':
+				// Case-insensitive: wrap pattern with (?i)
+				pattern = "(?i)" + pattern
+			case 'm':
+				// Multiline mode: wrap pattern with (?m)
+				pattern = "(?m)" + pattern
+			default:
+				return nil, false, fmt.Errorf("unsupported regex flag: %c", flag)
+			}
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(regexStr))
+		regex, err := regexp.Compile(pattern)
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
@@ -2077,17 +2219,56 @@ var defaultFunctions = Functions{
 		// Escape according to target
 		switch string(targetStr) {
 		case "html":
-			// Use html.EscapeString for HTML escaping
-			escaped := html.EscapeString(string(s))
-			return Collection{String(escaped)}, true, nil
-		case "json":
-			// Escape JSON special characters
-			escaped, err := json.Marshal(string(s))
-			if err != nil {
-				return nil, false, fmt.Errorf("failed to escape JSON string: %v", err)
+			// Per FHIRPath spec: escape <, &, " and ideally anything with character encoding above 127
+			var result strings.Builder
+			result.Grow(len(s))
+			for _, r := range string(s) {
+				switch r {
+				case '<':
+					result.WriteString("&lt;")
+				case '>':
+					result.WriteString("&gt;")
+				case '&':
+					result.WriteString("&amp;")
+				case '"':
+					result.WriteString("&quot;")
+				case '\'':
+					result.WriteString("&#39;")
+				default:
+					// Escape high Unicode characters (above 127)
+					if r > 127 {
+						result.WriteString(fmt.Sprintf("&#%d;", r))
+					} else {
+						result.WriteRune(r)
+					}
+				}
 			}
-			// Remove the surrounding quotes added by json.Marshal
-			return Collection{String(string(escaped[1 : len(escaped)-1]))}, true, nil
+			return Collection{String(result.String())}, true, nil
+		case "json":
+			// Escape JSON special characters per FHIRPath spec
+			// We need to escape quotes and backslashes, but NOT < > & (unlike Go's default json.Marshal)
+			var result strings.Builder
+			for _, r := range string(s) {
+				switch r {
+				case '"':
+					result.WriteString(`\"`)
+				case '\\':
+					result.WriteString(`\\`)
+				case '\n':
+					result.WriteString(`\n`)
+				case '\r':
+					result.WriteString(`\r`)
+				case '\t':
+					result.WriteString(`\t`)
+				case '\b':
+					result.WriteString(`\b`)
+				case '\f':
+					result.WriteString(`\f`)
+				default:
+					result.WriteRune(r)
+				}
+			}
+			return Collection{String(result.String())}, true, nil
 		default:
 			return nil, false, fmt.Errorf("unsupported escape target: %s", targetStr)
 		}
@@ -2140,12 +2321,65 @@ var defaultFunctions = Functions{
 			return Collection{String(unescaped)}, true, nil
 		case "json":
 			// Unescape JSON string
-			var unescaped string
-			err := json.Unmarshal([]byte(`"`+string(s)+`"`), &unescaped)
-			if err != nil {
-				return nil, false, fmt.Errorf("failed to unescape JSON string: %v", err)
+			// The input string may contain JSON escape sequences like \", \\, \n, \t, \r, \b, \f, \/
+			// We need to interpret these escape sequences manually
+			var result strings.Builder
+			input := string(s)
+			for i := 0; i < len(input); i++ {
+				if input[i] == '\\' && i+1 < len(input) {
+					// Process escape sequence
+					switch input[i+1] {
+					case '"':
+						result.WriteByte('"')
+						i++ // Skip next char
+					case '\\':
+						result.WriteByte('\\')
+						i++
+					case '/':
+						result.WriteByte('/')
+						i++
+					case 'b':
+						result.WriteByte('\b')
+						i++
+					case 'f':
+						result.WriteByte('\f')
+						i++
+					case 'n':
+						result.WriteByte('\n')
+						i++
+					case 'r':
+						result.WriteByte('\r')
+						i++
+					case 't':
+						result.WriteByte('\t')
+						i++
+					case 'u':
+						// Unicode escape \uXXXX
+						if i+5 < len(input) {
+							// Parse hex digits
+							hexStr := input[i+2 : i+6]
+							var codePoint int
+							_, err := fmt.Sscanf(hexStr, "%x", &codePoint)
+							if err == nil {
+								result.WriteRune(rune(codePoint))
+								i += 5 // Skip u and 4 hex digits
+							} else {
+								// Invalid unicode escape, keep as-is
+								result.WriteByte(input[i])
+							}
+						} else {
+							// Not enough characters for unicode escape
+							result.WriteByte(input[i])
+						}
+					default:
+						// Unknown escape sequence, keep the backslash
+						result.WriteByte(input[i])
+					}
+				} else {
+					result.WriteByte(input[i])
+				}
 			}
-			return Collection{String(unescaped)}, true, nil
+			return Collection{String(result.String())}, true, nil
 		default:
 			return nil, false, fmt.Errorf("unsupported unescape target: %s", targetStr)
 		}

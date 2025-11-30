@@ -1367,9 +1367,58 @@ var (
 )
 
 func unescape(s string) (string, error) {
+	// First, handle FHIRPath-specific escapes
 	unescaped := unescapeReplacer.Replace(s)
+
+	// strconv.Unquote expects a Go string literal with double quotes
+	// We need to escape any unescaped double quotes and control characters
+	// In FHIRPath, strings use single quotes, so double quotes inside don't need escaping
+	// But for strconv.Unquote (which expects double-quoted strings), we need to escape them
+	var builder strings.Builder
+	builder.WriteByte('"')
+	for i := 0; i < len(unescaped); i++ {
+		c := unescaped[i]
+		// Check if already escaped
+		alreadyEscaped := i > 0 && unescaped[i-1] == '\\'
+
+		switch c {
+		case '"':
+			if alreadyEscaped {
+				// Already escaped, keep as is
+				builder.WriteByte(c)
+			} else {
+				// Not escaped, escape it for strconv.Unquote
+				builder.WriteString(`\"`)
+			}
+		case '\n':
+			if !alreadyEscaped {
+				// Escape newline
+				builder.WriteString(`\n`)
+			} else {
+				builder.WriteByte(c)
+			}
+		case '\r':
+			if !alreadyEscaped {
+				// Escape carriage return
+				builder.WriteString(`\r`)
+			} else {
+				builder.WriteByte(c)
+			}
+		case '\t':
+			if !alreadyEscaped {
+				// Escape tab
+				builder.WriteString(`\t`)
+			} else {
+				builder.WriteByte(c)
+			}
+		default:
+			builder.WriteByte(c)
+		}
+	}
+	builder.WriteByte('"')
+
 	// handles \", \r, \n, \t, \f, \\, \uXXXX
-	return strconv.Unquote(`"` + unescaped + `"`)
+	return strconv.Unquote(builder.String())
 }
 
 type Integer int32

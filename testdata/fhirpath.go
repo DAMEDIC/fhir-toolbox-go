@@ -339,7 +339,7 @@ type FHIRPathTestExpression struct {
 
 type FHIRPathTestOutput struct {
 	Type   string `xml:"type,attr"`
-	Output string `xml:",innerxml"`
+	Output string `xml:",chardata"`
 }
 
 func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {
