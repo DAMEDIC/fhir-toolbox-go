@@ -293,7 +293,7 @@ The table below lists all remaining gaps based on failing tests - this is what c
 | **Type system**              | `is()` inheritance semantics, `type()` function, polymorphism/is semantics                   | Type checking and casting need spec 3.0 alignment                                                                          |
 | **Functions**                | `comparable()`, `resolve()`, `hasValue()`, `conformsTo()`                                    | Core functions still pending implementation                                                                                |
 | **String operations**        | `replace()` function                                                                         | String manipulation semantics pending                                                                                      |
-| **Date/Time**                | `now()` determinism/precision, `lowBoundary()`/`highBoundary()`/`precision()` semantics     | `duration()` and `difference()` functions complete; boundary/precision functions exist but need semantic refinement         |
+| **Date/Time**                | `now()` determinism/precision; `lowBoundary()`/`highBoundary()`/`precision()` for Date/DateTime/Time     | `duration()` and `difference()` functions complete; Decimal boundary/precision functions implemented         |
 | **Operators**                | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                      | Operator semantics pending alignment with spec 3.0                                                                         |
 | **Math**                     | `exp()` stability                                                                            | Mathematical function edge cases                                                                                           |
 | **Terminology**              | `%terminologies`, `%vs-*`, `%ext-*` variables, `txTest*` helpers                             | Requires terminology service integration                                                                                    |
@@ -317,8 +317,11 @@ For a quick usage example see [`./examples/fhirpath`](./examples/fhirpath/main.g
 ### Decimal precision
 
 The FHIRPath evaluation engine uses [apd.Decimal](https://pkg.go.dev/github.com/cockroachdb/apd#Decimal) under the hood.
-Precision of decimal operations can be set by supplying
-an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context)
+The library sets a **default precision of 34 significant decimal digits** to comfortably exceed the
+[FHIR specification requirement of at least 18 decimal digits of precision for `decimal` values](https://hl7.org/fhir/R4/datatypes.html#decimal).
+
+Precision of decimal operations can be customized by supplying
+an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context):
 
 ```Go
 // Setup context
@@ -332,13 +335,13 @@ if err != nil {
 }
 
 // Evaluate the expression against a FHIR resource
-result, err := fhirpath.Evaluate(r4.Context(), observation, expr)
+result, err := fhirpath.Evaluate(ctx, observation, expr)
 if err != nil {
 // Handle error
 }
 ```
 
-> **Attention**: By default the precision is set to `0`, meaning no rounding. Some decimal operations like dividing `1/3` will fail unless you supply a precision context.
+**Note**: The `precision()`, `lowBoundary()`, and `highBoundary()` functions for Decimal types are implemented and use the context's precision for calculations, with automatic precision adjustment for intermediate operations to prevent overflow.
 
 ### Testing Approach
 

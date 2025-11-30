@@ -82,12 +82,10 @@ type apdContextKey struct{}
 // WithAPDContext sets the apd.Context for Decimal operations in FHIRPath evaluations.
 //
 // The apd.Context controls the precision and rounding behavior of decimal operations.
-// By default, the precision is set to 0, which means that the precision is determined
-// by the operands. To set a specific precision, use apd.BaseContext.WithPrecision(n).
-//
-// # Attention
-//
-// By default the precision is set to 0.
+// By default the evaluator uses defaultAPDContext, which keeps 34 significant decimal digits
+// to exceed the minimum precision mandated by the FHIR spec for decimal values
+// (FHIR R4, datatypes.html#decimal). Use WithAPDContext to override the precision when you
+// need more headroom for intermediates or to experiment with tighter contexts.
 //
 // Example:
 //
@@ -104,13 +102,21 @@ func WithAPDContext(
 	return context.WithValue(ctx, apdContextKey{}, apdContext)
 }
 
+// defaultAPDContext is the default precision context for decimal operations.
+// Per FHIRPath spec, decimal values must support at least 18 decimal digits of precision.
+// We configure apd to keep 34 digits (roughly Decimal128) so even values with large integer
+// components retain at least 18 fractional digits during evaluation.
+const defaultDecimalPrecision uint32 = 34
+
+var defaultAPDContext = apd.BaseContext.WithPrecision(defaultDecimalPrecision)
+
 func apdContext(ctx context.Context) *apd.Context {
 	if ctx != nil {
 		if apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context); ok && apdContext != nil {
 			return apdContext
 		}
 	}
-	return &apd.BaseContext
+	return defaultAPDContext
 }
 
 type TypeInfo interface {
@@ -1969,6 +1975,107 @@ func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	}
 	return Decimal{Value: &res}, nil
 }
+
+// Precision returns the number of decimal places in the decimal value
+func (d Decimal) Precision() int {
+	if d.Value.Exponent < 0 {
+		return int(-d.Value.Exponent)
+	}
+	return 0
+}
+
+// LowBoundary returns the lower boundary of the precision interval for this decimal
+// The optional precision parameter specifies the output precision (default 8)
+// The caller should validate that outputPrecision is in the range 0-31
+func (d Decimal) LowBoundary(ctx context.Context, outputPrecision *int) (Decimal, error) {
+	targetPrecision := 8
+	if outputPrecision != nil {
+		targetPrecision = *outputPrecision
+	}
+
+	originalPrecision := d.Precision()
+
+	// Use the apd context from the Go context, but ensure sufficient precision for calculation
+	baseCtx := apdContext(ctx)
+	// LowBoundary needs to round down (floor), so create a copy with modified rounding
+	calcCtx := *baseCtx
+	calcCtx.Rounding = apd.RoundFloor
+	// Ensure we have enough precision for intermediate calculations
+	// We need at least originalPrecision + targetPrecision + 2 for safe calculation
+	minPrecision := uint32(originalPrecision + targetPrecision + 2)
+	if calcCtx.Precision < minPrecision {
+		calcCtx.Precision = minPrecision
+	}
+
+	// Calculate the half-width of the precision interval: 0.5 * 10^(-originalPrecision)
+	var halfWidth apd.Decimal
+	halfWidth.SetFinite(5, -1-int32(originalPrecision)) // 5 * 10^(-1-originalPrecision) = 0.5 * 10^(-originalPrecision)
+
+	var result apd.Decimal
+	var err error
+
+	// For both positive and negative numbers, subtract the half-width
+	_, err = calcCtx.Sub(&result, d.Value, &halfWidth)
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	// Format to target precision using Quantize with the exponent
+	var formatted apd.Decimal
+	_, err = calcCtx.Quantize(&formatted, &result, -int32(targetPrecision))
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	return Decimal{Value: &formatted}, nil
+}
+
+// HighBoundary returns the upper boundary of the precision interval for this decimal
+// The optional precision parameter specifies the output precision (default 8)
+// The caller should validate that outputPrecision is in the range 0-31
+func (d Decimal) HighBoundary(ctx context.Context, outputPrecision *int) (Decimal, error) {
+	targetPrecision := 8
+	if outputPrecision != nil {
+		targetPrecision = *outputPrecision
+	}
+
+	originalPrecision := d.Precision()
+
+	// Use the apd context from the Go context, but ensure sufficient precision for calculation
+	baseCtx := apdContext(ctx)
+	// HighBoundary needs to round up (ceiling), so create a copy with modified rounding
+	calcCtx := *baseCtx
+	calcCtx.Rounding = apd.RoundCeiling
+	// Ensure we have enough precision for intermediate calculations
+	// We need at least originalPrecision + targetPrecision + 2 for safe calculation
+	minPrecision := uint32(originalPrecision + targetPrecision + 2)
+	if calcCtx.Precision < minPrecision {
+		calcCtx.Precision = minPrecision
+	}
+
+	// Calculate the half-width of the precision interval: 0.5 * 10^(-originalPrecision)
+	var halfWidth apd.Decimal
+	halfWidth.SetFinite(5, -1-int32(originalPrecision)) // 5 * 10^(-1-originalPrecision) = 0.5 * 10^(-originalPrecision)
+
+	var result apd.Decimal
+	var err error
+
+	// For both positive and negative numbers, add the half-width
+	_, err = calcCtx.Add(&result, d.Value, &halfWidth)
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	// Format to target precision using Quantize with the exponent
+	var formatted apd.Decimal
+	_, err = calcCtx.Quantize(&formatted, &result, -int32(targetPrecision))
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	return Decimal{Value: &formatted}, nil
+}
+
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -1997,8 +2104,72 @@ const (
 	DatePrecisionFull  = "full"
 )
 
+const (
+	maxMillisecondNanoseconds = int(time.Millisecond * 999)
+	minTimeZoneOffsetHours    = -12
+	maxTimeZoneOffsetHours    = 14
+	maxDateDigits             = 8
+	maxDateTimeDigits         = 17
+	maxTimeDigits             = 9
+)
+
+func datePrecisionOrder(p DatePrecision) int {
+	switch p {
+	case DatePrecisionYear:
+		return 0
+	case DatePrecisionMonth:
+		return 1
+	default:
+		return 2
+	}
+}
+
+var dateComparisonLevels = []DatePrecision{
+	DatePrecisionYear,
+	DatePrecisionMonth,
+	DatePrecisionFull,
+}
+
+func hasDatePrecisionLevel(current, level DatePrecision) bool {
+	return datePrecisionOrder(current) >= datePrecisionOrder(level)
+}
+
+func compareDatesAtLevel(a, b time.Time, level DatePrecision) int {
+	switch level {
+	case DatePrecisionYear:
+		return compareInts(a.Year(), b.Year())
+	case DatePrecisionMonth:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(int(a.Month()), int(b.Month()))
+	default:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(int(a.Month()), int(b.Month())); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Day(), b.Day())
+	}
+}
+
+func datePrecisionToDateTimePrecision(p DatePrecision) DateTimePrecision {
+	switch p {
+	case DatePrecisionYear:
+		return DateTimePrecisionYear
+	case DatePrecisionMonth:
+		return DateTimePrecisionMonth
+	default:
+		return DateTimePrecisionDay
+	}
+}
+
 func (d Date) Children(name ...string) Collection {
 	return nil
+}
+func (d Date) PrecisionDigits() int {
+	return dateDigitsForPrecision(d.Precision)
 }
 func (d Date) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(d.String()), true, nil
@@ -2008,8 +2179,9 @@ func (d Date) ToDate(explicit bool) (v Date, ok bool, err error) {
 }
 func (d Date) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	return DateTime{
-		Value:     d.Value,
-		Precision: DateTimePrecisionDay,
+		Value:       d.Value,
+		Precision:   datePrecisionToDateTimePrecision(d.Precision),
+		HasTimeZone: false,
 	}, true, nil
 }
 func (d Date) Equal(other Element) (eq bool, ok bool) {
@@ -2027,9 +2199,12 @@ func (d Date) Equal(other Element) (eq bool, ok bool) {
 }
 func (d Date) Equivalent(other Element) bool {
 	o, ok, err := other.ToDate(false)
-	if err == nil && ok && d.Precision == o.Precision {
-		eq, ok := d.Equal(other)
-		return ok && eq
+	if err == nil && ok {
+		cmp, cmpOK, err := d.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
 	}
 	if delegatesToDateTime(other) || isStringish(other) {
 		return other.Equivalent(d)
@@ -2041,53 +2216,24 @@ func (d Date) Cmp(other Element) (cmp int, ok bool, err error) {
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Date to %T, left: %v right: %v", other, d, other)
 	}
-	switch d.Precision {
-	case DatePrecisionYear:
-		if o.Precision != DatePrecisionYear {
-			return 0, false, nil
+	right := o.Value.In(d.Value.Location())
+	for _, level := range dateComparisonLevels {
+		leftHas := hasDatePrecisionLevel(d.Precision, level)
+		rightHas := hasDatePrecisionLevel(o.Precision, level)
+
+		if !leftHas && !rightHas {
+			break
 		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
+		if leftHas && rightHas {
+			cmp = compareDatesAtLevel(d.Value, right, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
 		}
-	case DatePrecisionMonth:
-		if o.Precision != DatePrecisionMonth {
-			return 0, false, nil
-		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return -1, true, nil
-		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	default:
-		if o.Precision != d.Precision {
-			return 0, false, nil
-		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return -1, true, nil
-		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return 1, true, nil
-		} else if d.Value.Day() < o.Value.In(d.Value.Location()).Day() {
-			return -1, true, nil
-		} else if d.Value.Day() > o.Value.In(d.Value.Location()).Day() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
+		return 0, false, nil
 	}
+	return 0, true, nil
 }
 
 // Add implements date arithmetic for Date values
@@ -2221,6 +2367,103 @@ func (d Date) String() string {
 	return fmt.Sprintf("%s", ds)
 }
 
+func (d Date) LowBoundary(precisionDigits *int) (Date, bool) {
+	digits := maxDateDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Date{}, false
+	}
+	return buildDateBoundary(d, digits, false)
+}
+
+func (d Date) HighBoundary(precisionDigits *int) (Date, bool) {
+	digits := maxDateDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Date{}, false
+	}
+	return buildDateBoundary(d, digits, true)
+}
+
+func dateDigitsForPrecision(p DatePrecision) int {
+	switch p {
+	case DatePrecisionYear:
+		return 4
+	case DatePrecisionMonth:
+		return 6
+	default:
+		return 8
+	}
+}
+
+func datePrecisionFromDigits(d int) (DatePrecision, bool) {
+	switch d {
+	case 4:
+		return DatePrecisionYear, true
+	case 6:
+		return DatePrecisionMonth, true
+	case 8:
+		return DatePrecisionFull, true
+	default:
+		return "", false
+	}
+}
+
+func dateRangeEndpoints(d Date) (time.Time, time.Time) {
+	loc := d.Value.Location()
+	year, month, day := d.Value.Date()
+	switch d.Precision {
+	case DatePrecisionYear:
+		start := time.Date(year, time.January, 1, 0, 0, 0, 0, loc)
+		end := time.Date(year, time.December, 31, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DatePrecisionMonth:
+		start := time.Date(year, month, 1, 0, 0, 0, 0, loc)
+		lastDay := time.Date(year, month+1, 0, 0, 0, 0, 0, loc).Day()
+		end := time.Date(year, month, lastDay, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	default:
+		start := time.Date(year, month, day, 0, 0, 0, 0, loc)
+		end := time.Date(year, month, day, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	}
+}
+
+func buildDateFromTime(t time.Time, precision DatePrecision) Date {
+	loc := t.Location()
+	year, month, day := t.Date()
+	switch precision {
+	case DatePrecisionYear:
+		month = time.January
+		day = 1
+	case DatePrecisionMonth:
+		day = 1
+	case DatePrecisionFull:
+		// keep specific day
+	}
+	return Date{
+		Value:     time.Date(year, month, day, 0, 0, 0, 0, loc),
+		Precision: precision,
+	}
+}
+
+func buildDateBoundary(value Date, digits int, useUpper bool) (Date, bool) {
+	precision, ok := datePrecisionFromDigits(digits)
+	if !ok {
+		return Date{}, false
+	}
+	start, end := dateRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	return buildDateFromTime(anchor, precision), true
+}
+
 type Time struct {
 	defaultConversionError[Time]
 	Value     time.Time
@@ -2230,13 +2473,69 @@ type Time struct {
 type TimePrecision string
 
 const (
-	TimePrecisionHour   = "hour"
-	TimePrecisionMinute = "minute"
-	TimePrecisionFull   = "full"
+	TimePrecisionHour        TimePrecision = "hour"
+	TimePrecisionMinute      TimePrecision = "minute"
+	TimePrecisionSecond      TimePrecision = "second"
+	TimePrecisionMillisecond TimePrecision = "millisecond"
+	TimePrecisionFull                      = TimePrecisionMillisecond
 )
+
+var timeComparisonLevels = []TimePrecision{
+	TimePrecisionHour,
+	TimePrecisionMinute,
+	TimePrecisionSecond,
+}
+
+func hasTimePrecisionLevel(current, level TimePrecision) bool {
+	if level == TimePrecisionSecond {
+		return timePrecisionOrder(current) >= timePrecisionOrder(TimePrecisionSecond)
+	}
+	return timePrecisionOrder(current) >= timePrecisionOrder(level)
+}
+
+func compareTimesAtLevel(a, b time.Time, level TimePrecision) int {
+	switch level {
+	case TimePrecisionHour:
+		return compareInts(a.Hour(), b.Hour())
+	case TimePrecisionMinute:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Minute(), b.Minute())
+	default:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Minute(), b.Minute()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Second(), b.Second()); cmp != 0 {
+			return cmp
+		}
+		aMillis := a.Nanosecond() / int(time.Millisecond)
+		bMillis := b.Nanosecond() / int(time.Millisecond)
+		return compareInts(aMillis, bMillis)
+	}
+}
+
+func timePrecisionOrder(p TimePrecision) int {
+	switch p {
+	case TimePrecisionHour:
+		return 0
+	case TimePrecisionMinute:
+		return 1
+	case TimePrecisionSecond:
+		return 2
+	default:
+		return 3
+	}
+}
 
 func (t Time) Children(name ...string) Collection {
 	return nil
+}
+func (t Time) PrecisionDigits() int {
+	return timeDigitsForPrecision(t.Precision)
 }
 
 func (t Time) ToString(explicit bool) (v String, ok bool, err error) {
@@ -2260,9 +2559,12 @@ func (t Time) Equal(other Element) (eq bool, ok bool) {
 }
 func (t Time) Equivalent(other Element) bool {
 	o, ok, err := other.ToTime(false)
-	if err == nil && ok && t.Precision == o.Precision {
-		eq, ok := t.Equal(other)
-		return ok && eq
+	if err == nil && ok {
+		cmp, cmpOK, err := t.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
 	}
 	if delegatesToDateTime(other) || isStringish(other) {
 		return other.Equivalent(t)
@@ -2274,25 +2576,24 @@ func (t Time) Cmp(other Element) (cmp int, ok bool, err error) {
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, t, other)
 	}
-	switch t.Precision {
-	case TimePrecisionHour:
-		if o.Precision != TimePrecisionHour {
-			return 0, false, nil
+	right := o.Value.In(t.Value.Location())
+	for _, level := range timeComparisonLevels {
+		leftHas := hasTimePrecisionLevel(t.Precision, level)
+		rightHas := hasTimePrecisionLevel(o.Precision, level)
+
+		if !leftHas && !rightHas {
+			break
 		}
-		return t.Value.Truncate(time.Hour).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Hour)), true, nil
-	case TimePrecisionMinute:
-		if o.Precision != TimePrecisionMinute {
-			return 0, false, nil
+		if leftHas && rightHas {
+			cmp = compareTimesAtLevel(t.Value, right, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
 		}
-		return t.Value.Truncate(time.Minute).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Minute)), true, nil
-	default:
-		if o.Precision != t.Precision {
-			return 0, false, nil
-		}
-		return t.Value.Compare(o.Value.In(t.Value.Location())), true, nil
+		return 0, false, nil
 	}
+	return 0, true, nil
 }
 
 // Add implements time arithmetic for Time values
@@ -2430,31 +2731,153 @@ func (t Time) String() string {
 		ts = t.Value.Format(TimeFormatOnlyHour)
 	case TimePrecisionMinute:
 		ts = t.Value.Format(TimeFormatUpToMinute)
+	case TimePrecisionSecond:
+		ts = t.Value.Format(TimeFormatUpToSecond)
+	case TimePrecisionMillisecond:
+		ts = t.Value.Format(TimeFormatFull)
 	default:
 		ts = t.Value.Format(TimeFormatFull)
 	}
 	return fmt.Sprintf("@T%s", ts)
 }
 
+func (t Time) LowBoundary(precisionDigits *int) (Time, bool) {
+	digits := maxTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Time{}, false
+	}
+	return buildTimeBoundary(t, digits, false)
+}
+
+func (t Time) HighBoundary(precisionDigits *int) (Time, bool) {
+	digits := maxTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Time{}, false
+	}
+	return buildTimeBoundary(t, digits, true)
+}
+
+func timeDigitsForPrecision(p TimePrecision) int {
+	switch p {
+	case TimePrecisionHour:
+		return 2
+	case TimePrecisionMinute:
+		return 4
+	case TimePrecisionSecond:
+		return 6
+	default:
+		return 9
+	}
+}
+
+func timePrecisionFromDigits(d int) (TimePrecision, bool) {
+	switch d {
+	case 2:
+		return TimePrecisionHour, true
+	case 4:
+		return TimePrecisionMinute, true
+	case 6:
+		return TimePrecisionSecond, true
+	case 9:
+		return TimePrecisionMillisecond, true
+	default:
+		return "", false
+	}
+}
+
+func timeRangeEndpoints(t Time) (time.Time, time.Time) {
+	loc := t.Value.Location()
+	value := t.Value.In(loc)
+	hour, min, sec := value.Clock()
+	nsec := value.Nanosecond()
+	switch t.Precision {
+	case TimePrecisionHour:
+		start := time.Date(0, 1, 1, hour, 0, 0, 0, loc)
+		end := time.Date(0, 1, 1, hour, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case TimePrecisionMinute:
+		start := time.Date(0, 1, 1, hour, min, 0, 0, loc)
+		end := time.Date(0, 1, 1, hour, min, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case TimePrecisionSecond:
+		moment := time.Date(0, 1, 1, hour, min, sec, 0, loc)
+		return moment, moment
+	default:
+		aligned := alignToMillisecond(nsec)
+		moment := time.Date(0, 1, 1, hour, min, sec, aligned, loc)
+		return moment, moment
+	}
+}
+
+func buildTimeFromTime(t time.Time, precision TimePrecision) Time {
+	loc := t.Location()
+	hour, min, sec := t.Clock()
+	nsec := t.Nanosecond()
+	switch precision {
+	case TimePrecisionHour:
+		min, sec, nsec = 0, 0, 0
+	case TimePrecisionMinute:
+		sec, nsec = 0, 0
+	case TimePrecisionSecond:
+		nsec = 0
+	case TimePrecisionMillisecond:
+		nsec = alignToMillisecond(nsec)
+	}
+	return Time{
+		Value:     time.Date(0, 1, 1, hour, min, sec, nsec, loc),
+		Precision: precision,
+	}
+}
+
+func buildTimeBoundary(value Time, digits int, useUpper bool) (Time, bool) {
+	precision, ok := timePrecisionFromDigits(digits)
+	if !ok {
+		return Time{}, false
+	}
+	start, end := timeRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	return buildTimeFromTime(anchor, precision), true
+}
+
+func alignToMillisecond(nsec int) int {
+	ms := int(time.Millisecond)
+	return (nsec / ms) * ms
+}
+
 type DateTime struct {
 	defaultConversionError[DateTime]
-	Value     time.Time
-	Precision DateTimePrecision
+	Value       time.Time
+	Precision   DateTimePrecision
+	HasTimeZone bool
 }
 
 type DateTimePrecision string
 
 const (
-	DateTimePrecisionYear   = "year"
-	DateTimePrecisionMonth  = "month"
-	DateTimePrecisionDay    = "day"
-	DateTimePrecisionHour   = "hour"
-	DateTimePrecisionMinute = "minute"
-	DateTimePrecisionFull   = "full"
+	DateTimePrecisionYear        DateTimePrecision = "year"
+	DateTimePrecisionMonth       DateTimePrecision = "month"
+	DateTimePrecisionDay         DateTimePrecision = "day"
+	DateTimePrecisionHour        DateTimePrecision = "hour"
+	DateTimePrecisionMinute      DateTimePrecision = "minute"
+	DateTimePrecisionSecond      DateTimePrecision = "second"
+	DateTimePrecisionMillisecond DateTimePrecision = "millisecond"
+	DateTimePrecisionFull                          = DateTimePrecisionMillisecond
 )
 
 func (dt DateTime) Children(name ...string) Collection {
 	return nil
+}
+func (dt DateTime) PrecisionDigits() int {
+	return dateTimeDigitsForPrecision(dt.Precision)
 }
 
 func dateTimePrecisionOrder(p DateTimePrecision) int {
@@ -2469,16 +2892,13 @@ func dateTimePrecisionOrder(p DateTimePrecision) int {
 		return 3
 	case DateTimePrecisionMinute:
 		return 4
-	default:
+	case DateTimePrecisionSecond:
 		return 5
+	case DateTimePrecisionMillisecond:
+		return 6
+	default:
+		return 7
 	}
-}
-
-func minDateTimePrecision(a, b DateTimePrecision) DateTimePrecision {
-	if dateTimePrecisionOrder(a) <= dateTimePrecisionOrder(b) {
-		return a
-	}
-	return b
 }
 
 func compareInts(a, b int) int {
@@ -2492,8 +2912,24 @@ func compareInts(a, b int) int {
 	}
 }
 
-func compareDateTimesByPrecision(a, b time.Time, precision DateTimePrecision) int {
-	switch precision {
+var dateTimeComparisonLevels = []DateTimePrecision{
+	DateTimePrecisionYear,
+	DateTimePrecisionMonth,
+	DateTimePrecisionDay,
+	DateTimePrecisionHour,
+	DateTimePrecisionMinute,
+	DateTimePrecisionSecond,
+}
+
+func hasDateTimePrecisionLevel(current, level DateTimePrecision) bool {
+	if level == DateTimePrecisionSecond {
+		return dateTimePrecisionOrder(current) >= dateTimePrecisionOrder(DateTimePrecisionSecond)
+	}
+	return dateTimePrecisionOrder(current) >= dateTimePrecisionOrder(level)
+}
+
+func compareDateTimesAtLevel(a, b time.Time, level DateTimePrecision) int {
+	switch level {
 	case DateTimePrecisionYear:
 		return compareInts(a.Year(), b.Year())
 	case DateTimePrecisionMonth:
@@ -2510,12 +2946,32 @@ func compareDateTimesByPrecision(a, b time.Time, precision DateTimePrecision) in
 		}
 		return compareInts(a.Day(), b.Day())
 	case DateTimePrecisionHour:
-		return a.Truncate(time.Hour).Compare(b.Truncate(time.Hour))
+		return compareInts(a.Hour(), b.Hour())
 	case DateTimePrecisionMinute:
-		return a.Truncate(time.Minute).Compare(b.Truncate(time.Minute))
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Minute(), b.Minute())
+	case DateTimePrecisionSecond:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Minute(), b.Minute()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Second(), b.Second()); cmp != 0 {
+			return cmp
+		}
+		return compareMillisWithinSecond(a, b)
 	default:
-		return a.Compare(b)
+		return 0
 	}
+}
+
+func compareMillisWithinSecond(a, b time.Time) int {
+	aMillis := a.Nanosecond() / int(time.Millisecond)
+	bMillis := b.Nanosecond() / int(time.Millisecond)
+	return compareInts(aMillis, bMillis)
 }
 
 func (dt DateTime) ToString(explicit bool) (v String, ok bool, err error) {
@@ -2555,9 +3011,12 @@ func (dt DateTime) Equal(other Element) (eq bool, ok bool) {
 }
 func (dt DateTime) Equivalent(other Element) bool {
 	o, ok, err := other.ToDateTime(false)
-	if err == nil && ok && dt.Precision == o.Precision {
-		eq, ok := dt.Equal(other)
-		return ok && eq
+	if err == nil && ok {
+		cmp, cmpOK, err := dt.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
 	}
 	if isStringish(other) {
 		return other.Equivalent(dt)
@@ -2570,19 +3029,25 @@ func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
 		return 0, false, fmt.Errorf("can not compare DateTime to %T, left: %v right: %v", other, dt, other)
 	}
 
-	commonPrecision := minDateTimePrecision(dt.Precision, o.Precision)
 	compareTarget := o.Value.In(dt.Value.Location())
 
-	cmp = compareDateTimesByPrecision(dt.Value, compareTarget, commonPrecision)
-	if cmp != 0 {
-		return cmp, true, nil
-	}
+	for _, level := range dateTimeComparisonLevels {
+		leftHas := hasDateTimePrecisionLevel(dt.Precision, level)
+		rightHas := hasDateTimePrecisionLevel(o.Precision, level)
 
-	if dt.Precision == o.Precision {
-		return 0, true, nil
+		if !leftHas && !rightHas {
+			break
+		}
+		if leftHas && rightHas {
+			cmp = compareDateTimesAtLevel(dt.Value, compareTarget, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
+		}
+		return 0, false, nil
 	}
-
-	return 0, false, nil
+	return 0, true, nil
 }
 
 // Add implements date/time arithmetic for DateTime values
@@ -2649,7 +3114,7 @@ func (dt DateTime) Add(ctx context.Context, other Element) (Element, error) {
 		result = dt.Value.Add(time.Duration(milliseconds * float64(time.Millisecond)))
 	}
 
-	return DateTime{Value: result, Precision: dt.Precision}, nil
+	return DateTime{Value: result, Precision: dt.Precision, HasTimeZone: dt.HasTimeZone}, nil
 }
 
 // Subtract implements date/time arithmetic for DateTime values
@@ -2716,7 +3181,7 @@ func (dt DateTime) Subtract(ctx context.Context, other Element) (Element, error)
 		result = dt.Value.Add(time.Duration(-milliseconds * float64(time.Millisecond)))
 	}
 
-	return DateTime{Value: result, Precision: dt.Precision}, nil
+	return DateTime{Value: result, Precision: dt.Precision, HasTimeZone: dt.HasTimeZone}, nil
 }
 
 func (dt DateTime) TypeInfo() TypeInfo {
@@ -2744,12 +3209,187 @@ func (dt DateTime) String() string {
 	case DateTimePrecisionMinute:
 		ds = dt.Value.Format(DateFormatFull)
 		ts = dt.Value.Format(TimeFormatUpToMinuteTZ)
+	case DateTimePrecisionSecond:
+		ds = dt.Value.Format(DateFormatFull)
+		ts = dt.Value.Format(TimeFormatUpToSecondTZ)
+	case DateTimePrecisionMillisecond:
+		ds = dt.Value.Format(DateFormatFull)
+		ts = dt.Value.Format(TimeFormatFullTZ)
 	default:
 		ds = dt.Value.Format(DateFormatFull)
 		ts = dt.Value.Format(TimeFormatFullTZ)
 	}
 
 	return fmt.Sprintf("%sT%s", ds, ts)
+}
+
+func (dt DateTime) LowBoundary(precisionDigits *int) (DateTime, bool) {
+	digits := maxDateTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return DateTime{}, false
+	}
+	return buildDateTimeBoundary(dt, digits, false)
+}
+
+func (dt DateTime) HighBoundary(precisionDigits *int) (DateTime, bool) {
+	digits := maxDateTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return DateTime{}, false
+	}
+	return buildDateTimeBoundary(dt, digits, true)
+}
+
+func dateTimeDigitsForPrecision(p DateTimePrecision) int {
+	switch p {
+	case DateTimePrecisionYear:
+		return 4
+	case DateTimePrecisionMonth:
+		return 6
+	case DateTimePrecisionDay:
+		return 8
+	case DateTimePrecisionHour:
+		return 10
+	case DateTimePrecisionMinute:
+		return 12
+	case DateTimePrecisionSecond:
+		return 14
+	default:
+		return 17
+	}
+}
+
+func dateTimePrecisionFromDigits(d int) (DateTimePrecision, bool) {
+	switch d {
+	case 4:
+		return DateTimePrecisionYear, true
+	case 6:
+		return DateTimePrecisionMonth, true
+	case 8:
+		return DateTimePrecisionDay, true
+	case 10:
+		return DateTimePrecisionHour, true
+	case 12:
+		return DateTimePrecisionMinute, true
+	case 14:
+		return DateTimePrecisionSecond, true
+	case 17:
+		return DateTimePrecisionMillisecond, true
+	default:
+		return "", false
+	}
+}
+
+func dateTimeRangeEndpoints(dt DateTime) (time.Time, time.Time) {
+	loc := dt.Value.Location()
+	value := dt.Value.In(loc)
+	year, month, day := value.Date()
+	hour, min, sec := value.Clock()
+	nsec := value.Nanosecond()
+	switch dt.Precision {
+	case DateTimePrecisionYear:
+		start := time.Date(year, time.January, 1, 0, 0, 0, 0, loc)
+		end := time.Date(year, time.December, 31, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionMonth:
+		start := time.Date(year, month, 1, 0, 0, 0, 0, loc)
+		lastDay := time.Date(year, month+1, 0, 0, 0, 0, 0, loc).Day()
+		end := time.Date(year, month, lastDay, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionDay:
+		start := time.Date(year, month, day, 0, 0, 0, 0, loc)
+		end := time.Date(year, month, day, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionHour:
+		start := time.Date(year, month, day, hour, 0, 0, 0, loc)
+		end := time.Date(year, month, day, hour, 0, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionMinute:
+		start := time.Date(year, month, day, hour, min, 0, 0, loc)
+		end := time.Date(year, month, day, hour, min, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionSecond:
+		moment := time.Date(year, month, day, hour, min, sec, 0, loc)
+		return moment, moment
+	default:
+		aligned := alignToMillisecond(nsec)
+		moment := time.Date(year, month, day, hour, min, sec, aligned, loc)
+		return moment, moment
+	}
+}
+
+func buildDateTimeFromTime(t time.Time, precision DateTimePrecision) DateTime {
+	loc := t.Location()
+	year, month, day := t.Date()
+	hour, min, sec := t.Clock()
+	nsec := t.Nanosecond()
+	switch precision {
+	case DateTimePrecisionYear:
+		month = time.January
+		day = 1
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionMonth:
+		day = 1
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionDay:
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionHour:
+		min, sec, nsec = 0, 0, 0
+	case DateTimePrecisionMinute:
+		sec, nsec = 0, 0
+	case DateTimePrecisionSecond:
+		nsec = 0
+	case DateTimePrecisionMillisecond:
+		nsec = alignToMillisecond(nsec)
+	}
+	return DateTime{
+		Value:     time.Date(year, month, day, hour, min, sec, nsec, loc),
+		Precision: precision,
+	}
+}
+
+func buildDateTimeBoundary(value DateTime, digits int, useUpper bool) (DateTime, bool) {
+	precision, ok := dateTimePrecisionFromDigits(digits)
+	if !ok {
+		return DateTime{}, false
+	}
+	start, end := dateTimeRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	if !value.HasTimeZone && includesTimeComponent(precision) {
+		offset := maxTimeZoneOffsetHours
+		if useUpper {
+			offset = minTimeZoneOffsetHours
+		}
+		adjHour := adjustHourForOffset(anchor.Hour(), offset)
+		anchor = time.Date(anchor.Year(), anchor.Month(), anchor.Day(), adjHour, anchor.Minute(), anchor.Second(), anchor.Nanosecond(), anchor.Location())
+	}
+	return buildDateTimeFromTime(anchor, precision), true
+}
+
+func includesTimeComponent(p DateTimePrecision) bool {
+	switch p {
+	case DateTimePrecisionHour, DateTimePrecisionMinute, DateTimePrecisionSecond, DateTimePrecisionMillisecond:
+		return true
+	default:
+		return false
+	}
+}
+
+func adjustHourForOffset(hour, offset int) int {
+	adj := hour - offset
+	adj %= 24
+	if adj < 0 {
+		adj += 24
+	}
+	return adj
 }
 
 const (
@@ -2760,6 +3400,8 @@ const (
 	TimeFormatOnlyHourTZ   = "15Z07:00"
 	TimeFormatUpToMinute   = "15:04"
 	TimeFormatUpToMinuteTZ = "15:04Z07:00"
+	TimeFormatUpToSecond   = "15:04:05"
+	TimeFormatUpToSecondTZ = "15:04:05Z07:00"
 	TimeFormatFull         = "15:04:05.999999999"
 	TimeFormatFullTZ       = "15:04:05.999999999Z07:00"
 )
@@ -2789,6 +3431,11 @@ func ParseTime(s string) (Time, error) {
 
 func parseTime(s string, withTZ bool) (Time, error) {
 	ts := strings.TrimLeft(s, "@T")
+	timePart := ts
+	if idx := strings.IndexAny(timePart, "Z+-"); idx != -1 {
+		timePart = timePart[:idx]
+	}
+	hasFraction := strings.Contains(timePart, ".")
 
 	t, err := time.Parse(TimeFormatOnlyHour, ts)
 	if err == nil {
@@ -2810,14 +3457,26 @@ func parseTime(s string, withTZ bool) (Time, error) {
 			return Time{Value: t, Precision: TimePrecisionMinute}, nil
 		}
 	}
+	if !hasFraction {
+		t, err = time.Parse(TimeFormatUpToSecond, ts)
+		if err == nil {
+			return Time{Value: t, Precision: TimePrecisionSecond}, nil
+		}
+		if withTZ {
+			t, err = time.Parse(TimeFormatUpToSecondTZ, ts)
+			if err == nil {
+				return Time{Value: t, Precision: TimePrecisionSecond}, nil
+			}
+		}
+	}
 	t, err = time.Parse(TimeFormatFull, ts)
 	if err == nil {
-		return Time{Value: t, Precision: TimePrecisionFull}, nil
+		return Time{Value: t, Precision: TimePrecisionMillisecond}, nil
 	}
 	if withTZ {
 		t, err = time.Parse(TimeFormatFullTZ, ts)
 		if err == nil {
-			return Time{Value: t, Precision: TimePrecisionFull}, nil
+			return Time{Value: t, Precision: TimePrecisionMillisecond}, nil
 		}
 	}
 
@@ -2833,11 +3492,20 @@ func ParseDateTime(s string) (DateTime, error) {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (date part): %s", s)
 	}
 
-	if len(splits) == 1 || splits[1] == "" {
-		if d.Precision == DateTimePrecisionFull {
-			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay}, nil
+	hasTimeZone := false
+	if len(splits) > 1 && splits[1] != "" {
+		tsPart := splits[1]
+		if idx := strings.IndexAny(tsPart, "Zz"); idx != -1 {
+			hasTimeZone = true
+		} else if strings.Contains(tsPart, "+") || strings.Contains(tsPart, "-") {
+			hasTimeZone = true
 		}
-		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}, nil
+	}
+	if len(splits) == 1 || splits[1] == "" {
+		if d.Precision == DatePrecisionFull {
+			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay, HasTimeZone: false}, nil
+		}
+		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision), HasTimeZone: false}, nil
 	}
 
 	ts := splits[1]
@@ -2854,7 +3522,7 @@ func ParseDateTime(s string) (DateTime, error) {
 			time.Second*time.Duration(tv.Second()) +
 			time.Nanosecond*time.Duration(tv.Nanosecond()),
 	)
-	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision)}, nil
+	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision), HasTimeZone: hasTimeZone}, nil
 }
 
 // Time units for date/time arithmetic

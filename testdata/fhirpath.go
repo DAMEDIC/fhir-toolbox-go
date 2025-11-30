@@ -104,6 +104,9 @@ func GetFHIRPathTests(release model.Release) FHIRPathTests {
 
 	for i, g := range tests.Groups {
 		for j, t := range g.Tests {
+			for k := range t.Output {
+				t.Output[k].inferTypeFromValue()
+			}
 			if strings.TrimSpace(t.InputFile) == "" {
 				continue
 			}
@@ -340,6 +343,64 @@ type FHIRPathTestExpression struct {
 type FHIRPathTestOutput struct {
 	Type   string `xml:"type,attr"`
 	Output string `xml:",chardata"`
+}
+
+func (o *FHIRPathTestOutput) inferTypeFromValue() {
+	if o.Type != "" {
+		return
+	}
+
+	value := strings.TrimSpace(o.Output)
+	if value == "" {
+		return
+	}
+
+	if strings.HasPrefix(value, "@T") {
+		if _, err := fhirpath.ParseTime(value); err == nil {
+			o.Type = "time"
+			return
+		}
+	}
+
+	if strings.HasPrefix(value, "@") {
+		if _, err := fhirpath.ParseDateTime(value); err == nil {
+			o.Type = "dateTime"
+			return
+		}
+		if _, err := fhirpath.ParseDate(value); err == nil {
+			o.Type = "date"
+			return
+		}
+	}
+
+	if _, err := fhirpath.ParseQuantity(value); err == nil {
+		o.Type = "Quantity"
+		return
+	}
+
+	switch strings.ToLower(value) {
+	case "true", "false":
+		o.Type = "boolean"
+		return
+	}
+
+	if strings.HasPrefix(value, "'") && strings.HasSuffix(value, "'") && len(value) >= 2 {
+		o.Type = "string"
+		return
+	}
+
+	if strings.ContainsAny(value, ".eE") {
+		o.Type = "decimal"
+		return
+	}
+
+	if _, err := strconv.Atoi(value); err == nil {
+		o.Type = "integer"
+		return
+	}
+
+	// Fallback to string if no other type matches
+	o.Type = "string"
 }
 
 func (o FHIRPathTestOutput) Children(name ...string) fhirpath.Collection {

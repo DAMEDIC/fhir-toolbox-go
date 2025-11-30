@@ -2391,24 +2391,25 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
 			return nil, true, nil
 		}
-
-		// If the input collection contains multiple items, signal an error
 		if len(target) > 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one precision parameter")
+		}
 
-		// Get precision parameter if provided
-		var precision Integer
+		var (
+			precisionOverride int
+			precisionProvided bool
+		)
 		if len(parameters) == 1 {
 			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
 				return nil, false, err
 			}
-
 			prec, ok, err := Singleton[Integer](precisionCollection)
 			if err != nil {
 				return nil, false, err
@@ -2416,154 +2417,84 @@ var defaultFunctions = Functions{
 			if !ok {
 				return nil, false, fmt.Errorf("expected integer precision parameter")
 			}
-			precision = prec
+			precisionOverride = int(prec)
+			precisionProvided = true
 		}
 
-		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// If no precision specified, use at least 8
-			if len(parameters) == 0 {
-				precision = 8
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 8 {
-				return nil, true, nil
-			}
-
-			// Calculate lower boundary for decimal
-			var boundary apd.Decimal
-			_, err = apdContext(ctx).Floor(&boundary, value.Value)
+			boundary, err := value.LowBoundary(ctx, outputPrecision)
 			if err != nil {
 				return nil, false, err
 			}
-
-			// Adjust precision
-			if precision < 0 {
-				// For negative precision, round to nearest multiple of 10^|precision|
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Floor(&boundary, &boundary)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-			} else {
-				// For non-negative precision, round to specified decimal places
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Floor(&boundary, &boundary)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-			}
-
-			return Collection{Decimal{Value: &boundary}}, true, nil
+			return Collection{boundary}, true, nil
 		}
 
-		// Handle Date type
+		if qty, ok, err := Singleton[Quantity](target); err == nil && ok {
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
+			}
+			boundary, err := qty.Value.LowBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
+			}
+			resultQuantity := qty
+			resultQuantity.Value = boundary
+			return Collection{resultQuantity}, true, nil
+		}
+
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			// If no precision specified, use at least 4
-			if len(parameters) == 0 {
-				precision = 4
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 4 {
+			resultDate, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DatePrecisionYear
-			case 2: // Month
-				result.Precision = DatePrecisionMonth
-			default: // Full precision
-				result.Precision = DatePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDate}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			// If no precision specified, use at least 6 (up to minute)
-			if len(parameters) == 0 {
-				precision = 6
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 6 {
+			resultDateTime, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DateTimePrecisionYear
-			case 2: // Month
-				result.Precision = DateTimePrecisionMonth
-			case 3: // Day
-				result.Precision = DateTimePrecisionDay
-			case 4: // Hour
-				result.Precision = DateTimePrecisionHour
-			case 5: // Minute
-				result.Precision = DateTimePrecisionMinute
-			default: // Full precision
-				result.Precision = DateTimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDateTime}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			// If no precision specified, use at least 2 (up to minute)
-			if len(parameters) == 0 {
-				precision = 2
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 2 {
+			resultTime, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Hour
-				result.Precision = TimePrecisionHour
-			case 2: // Minute
-				result.Precision = TimePrecisionMinute
-			default: // Full precision
-				result.Precision = TimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultTime}, true, nil
 		}
 
-		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+		return nil, false, fmt.Errorf("expected Decimal, Quantity, Date, DateTime, or Time but got %T", target[0])
 	},
 	"highBoundary": func(
 		ctx context.Context,
@@ -2572,24 +2503,25 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
 			return nil, true, nil
 		}
-
-		// If the input collection contains multiple items, signal an error
 		if len(target) > 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one precision parameter")
+		}
 
-		// Get precision parameter if provided
-		var precision Integer
+		var (
+			precisionOverride int
+			precisionProvided bool
+		)
 		if len(parameters) == 1 {
 			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
 				return nil, false, err
 			}
-
 			prec, ok, err := Singleton[Integer](precisionCollection)
 			if err != nil {
 				return nil, false, err
@@ -2597,151 +2529,84 @@ var defaultFunctions = Functions{
 			if !ok {
 				return nil, false, fmt.Errorf("expected integer precision parameter")
 			}
-			precision = prec
+			precisionOverride = int(prec)
+			precisionProvided = true
 		}
 
-		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// If no precision specified, use at least 8
-			if len(parameters) == 0 {
-				precision = 8
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 8 {
-				return nil, true, nil
+			boundary, err := value.HighBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
 			}
-
-			// Calculate high boundary for decimal
-			var boundary apd.Decimal
-			boundary.Set(value.Value)
-			if precision < 0 {
-				// For negative precision, round up to nearest multiple of 10^|precision| - 1
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				var tmp apd.Decimal
-				_, err = apdContext(ctx).Quo(&tmp, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Ceil(&tmp, &tmp)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &tmp, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				// Subtract 1 to get the highest value in the range
-				_, err = apdContext(ctx).Sub(&boundary, &boundary, apd.New(1, 0))
-				if err != nil {
-					return nil, false, err
-				}
-			} else {
-				// For non-negative precision, set all digits after precision to 9
-				str := boundary.Text('f')
-				if dot := strings.Index(str, "."); dot != -1 {
-					intPart := str[:dot]
-					fracPart := str[dot+1:]
-					if len(fracPart) < int(precision) {
-						fracPart += strings.Repeat("0", int(precision)-len(fracPart))
-					}
-					fracPart = fracPart[:int(precision)]
-					fracPart += strings.Repeat("9", 8-int(precision))
-					str = intPart + "." + fracPart
-				} else {
-					str += "." + strings.Repeat("9", 8)
-				}
-				newVal, _, err := apd.NewFromString(str)
-				if err != nil {
-					return nil, false, err
-				}
-				boundary.Set(newVal)
-			}
-			return Collection{Decimal{Value: &boundary}}, true, nil
+			return Collection{boundary}, true, nil
 		}
 
-		// Handle Date type
+		if qty, ok, err := Singleton[Quantity](target); err == nil && ok {
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
+			}
+			boundary, err := qty.Value.HighBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
+			}
+			resultQuantity := qty
+			resultQuantity.Value = boundary
+			return Collection{resultQuantity}, true, nil
+		}
+
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 4
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 4 {
+			resultDate, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DatePrecisionYear
-				result.Value = time.Date(result.Value.Year(), 12, 31, 0, 0, 0, 0, result.Value.Location())
-			case 2: // Month
-				result.Precision = DatePrecisionMonth
-				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 0, 0, 0, 0, result.Value.Location())
-			default: // Full precision
-				result.Precision = DatePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDate}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 6
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 6 {
+			resultDateTime, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DateTimePrecisionYear
-				result.Value = time.Date(result.Value.Year(), 12, 31, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 2: // Month
-				result.Precision = DateTimePrecisionMonth
-				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 3: // Day
-				result.Precision = DateTimePrecisionDay
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 4: // Hour
-				result.Precision = DateTimePrecisionHour
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 5: // Minute
-				result.Precision = DateTimePrecisionMinute
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
-			default: // Full precision
-				result.Precision = DateTimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDateTime}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 2
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 2 {
+			resultTime, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Hour
-				result.Precision = TimePrecisionHour
-				result.Value = time.Date(0, 1, 1, result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 2: // Minute
-				result.Precision = TimePrecisionMinute
-				result.Value = time.Date(0, 1, 1, result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
-			default: // Full precision
-				result.Precision = TimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultTime}, true, nil
 		}
 
-		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+		return nil, false, fmt.Errorf("expected Decimal, Quantity, Date, DateTime, or Time but got %T", target[0])
 	},
 	"precision": func(
 		ctx context.Context,
@@ -2766,74 +2631,24 @@ var defaultFunctions = Functions{
 
 		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// For Decimal, return the number of digits after the decimal point
-			str := value.Value.Text('f')
-			if dot := strings.Index(str, "."); dot != -1 {
-				// Count trailing zeros after decimal point
-				fracPart := str[dot+1:]
-				precision := len(fracPart)
-				// Remove trailing zeros
-				for precision > 0 && fracPart[precision-1] == '0' {
-					precision--
-				}
-				return Collection{Integer(precision)}, true, nil
-			}
-			return Collection{Integer(0)}, true, nil
+			// Use the Decimal.Precision() method which returns decimal places based on exponent
+			precision := value.Precision()
+			return Collection{Integer(precision)}, true, nil
 		}
 
-		// Handle Date type
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			// For Date, return the number of digits in the date
-			switch value.Precision {
-			case "year":
-				return Collection{Integer(4)}, true, nil
-			case "month":
-				return Collection{Integer(6)}, true, nil
-			case "day":
-				return Collection{Integer(8)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid date precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			// For DateTime, return the number of digits in the datetime
-			switch value.Precision {
-			case "year":
-				return Collection{Integer(4)}, true, nil
-			case "month":
-				return Collection{Integer(6)}, true, nil
-			case "day":
-				return Collection{Integer(8)}, true, nil
-			case "hour":
-				return Collection{Integer(10)}, true, nil
-			case "minute":
-				return Collection{Integer(12)}, true, nil
-			case "second":
-				return Collection{Integer(14)}, true, nil
-			case "millisecond":
-				return Collection{Integer(17)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid datetime precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			// For Time, return the number of digits in the time
-			switch value.Precision {
-			case "hour":
-				return Collection{Integer(2)}, true, nil
-			case "minute":
-				return Collection{Integer(4)}, true, nil
-			case "second":
-				return Collection{Integer(6)}, true, nil
-			case "millisecond":
-				return Collection{Integer(9)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid time precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
@@ -4155,7 +3970,7 @@ var defaultFunctions = Functions{
 		}
 
 		now := now()
-		dt := DateTime{Value: now, Precision: DateTimePrecisionFull}
+		dt := DateTime{Value: now, Precision: DateTimePrecisionFull, HasTimeZone: true}
 
 		return Collection{dt}, inputOrdered, nil
 	},
@@ -4389,7 +4204,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Hour())}, inputOrdered, nil
@@ -4430,7 +4245,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Minute())}, inputOrdered, nil
@@ -4471,7 +4286,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) || precision == string(DateTimePrecisionMinute) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Second())}, inputOrdered, nil
@@ -4512,7 +4327,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) || precision == string(DateTimePrecisionMinute) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Nanosecond() / 1000000)}, inputOrdered, nil
@@ -5016,13 +4831,19 @@ func hasDateTimePrecision(dt DateTime, precision string) bool {
 	case UnitWeek, UnitDay:
 		return true // Day always available
 	case UnitHour:
-		return dt.Precision == "hour" || dt.Precision == "minute" || dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+		return dt.Precision == DateTimePrecisionHour ||
+			dt.Precision == DateTimePrecisionMinute ||
+			dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
 	case UnitMinute:
-		return dt.Precision == "minute" || dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+		return dt.Precision == DateTimePrecisionMinute ||
+			dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
 	case UnitSecond:
-		return dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+		return dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
 	case UnitMillisecond:
-		return dt.Precision == "millisecond" || dt.Precision == "full"
+		return dt.Precision == DateTimePrecisionMillisecond
 	}
 	return false
 }
@@ -5032,11 +4853,14 @@ func hasTimePrecision(t Time, precision string) bool {
 	case UnitHour:
 		return true // Hour always available in Time
 	case UnitMinute:
-		return t.Precision == "minute" || t.Precision == "second" || t.Precision == "millisecond" || t.Precision == "full"
+		return t.Precision == TimePrecisionMinute ||
+			t.Precision == TimePrecisionSecond ||
+			t.Precision == TimePrecisionMillisecond
 	case UnitSecond:
-		return t.Precision == "second" || t.Precision == "millisecond" || t.Precision == "full"
+		return t.Precision == TimePrecisionSecond ||
+			t.Precision == TimePrecisionMillisecond
 	case UnitMillisecond:
-		return t.Precision == "millisecond" || t.Precision == "full"
+		return t.Precision == TimePrecisionMillisecond
 	}
 	return false
 }

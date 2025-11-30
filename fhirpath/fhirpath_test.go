@@ -57,6 +57,14 @@ func runFHIRPathTest(t *testing.T, ctx context.Context, test testdata.FHIRPathTe
 	}
 
 	expected := test.OutputCollection()
+	fmt.Printf(
+		"FHIRPath test %s (inputfile=%s)\n  expression: %s\n  expected: %s\n  actual: %s\n",
+		test.Name,
+		test.InputFile,
+		strings.TrimSpace(test.Expression.Expression),
+		expected.String(),
+		result.String(),
+	)
 	assert.FHIRPathEqual(t, expected, result)
 }
 
@@ -181,16 +189,12 @@ var testSkipsImplementationGaps = []skipRule{
 
 	// Semantics pending implementation
 	{regexp.MustCompile(`^testReplace\d+$`), nil, "string replace() semantics pending"},
-	{regexp.MustCompile(`^testNow\d+$`), nil, "now() determinism/precision pending"},
 	{regexp.MustCompile(`^testEquality\d+$`), nil, "Equality semantics pending"},
 	{regexp.MustCompile(`^testNEquality\d+$`), nil, "Not-equal semantics pending"},
 	{regexp.MustCompile(`^testCombine.*`), nil, "combine() semantics pending"},
 	{regexp.MustCompile(`^testUnion\d+$`), nil, "union semantics pending"},
 	{regexp.MustCompile(`^testExp\d+$`), nil, "exp() function stability pending"},
 	{regexp.MustCompile(`^testType.*`), nil, "type() semantics pending"},
-	{regexp.MustCompile(`^LowBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
-	{regexp.MustCompile(`^HighBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
-	{regexp.MustCompile(`^Precision.*`), nil, "precision() semantics pending"},
 	{regexp.MustCompile(`^testFHIRPathIsFunction\d+$`), nil, "is() function inheritance semantics pending"},
 	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
 

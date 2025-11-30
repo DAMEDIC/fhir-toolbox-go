@@ -41,7 +41,8 @@
 //	// with defined precision for decimal operations.
 //	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
 //
-// Attention: By default the precision is set to 0.
+// Attention: By default the evaluator keeps 34 significant decimal digits, exceeding the
+// 18-digit minimum from FHIR's decimal type definition (FHIR R4, datatypes.html#decimal).
 //
 // # Implementation Status
 //
