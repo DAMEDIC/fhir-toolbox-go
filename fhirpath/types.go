@@ -2342,6 +2342,15 @@ func (t Time) Add(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
 	}
 
+	// Normalize time to have date component at 0000-01-01
+	// Time arithmetic wraps around 24 hours, so extract time-of-day only
+	year, month, day := result.Date()
+	if year != 0 || month != 1 || day != 1 {
+		hour, min, sec := result.Clock()
+		nsec := result.Nanosecond()
+		result = time.Date(0, 1, 1, hour, min, sec, nsec, result.Location())
+	}
+
 	return Time{Value: result, Precision: t.Precision}, nil
 }
 
@@ -2392,6 +2401,15 @@ func (t Time) Subtract(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
 	}
 
+	// Normalize time to have date component at 0000-01-01
+	// Time arithmetic wraps around 24 hours, so extract time-of-day only
+	year, month, day := result.Date()
+	if year != 0 || month != 1 || day != 1 {
+		hour, min, sec := result.Clock()
+		nsec := result.Nanosecond()
+		result = time.Date(0, 1, 1, hour, min, sec, nsec, result.Location())
+	}
+
 	return Time{Value: result, Precision: t.Precision}, nil
 }
 
@@ -2415,7 +2433,7 @@ func (t Time) String() string {
 	default:
 		ts = t.Value.Format(TimeFormatFull)
 	}
-	return fmt.Sprintf("%s", ts)
+	return fmt.Sprintf("@T%s", ts)
 }
 
 type DateTime struct {
@@ -2879,18 +2897,23 @@ func isTimeUnit(unit string) bool {
 
 // normalizeTimeUnit returns the canonical form of a time unit
 func normalizeTimeUnit(unit string) string {
+	// Strip quotes if present (quantities in FHIRPath always have quoted units)
+	if len(unit) >= 2 && unit[0] == '\'' && unit[len(unit)-1] == '\'' {
+		unit = unit[1 : len(unit)-1]
+	}
+
 	switch unit {
 	case UnitYear, UnitYears:
 		return UnitYear
 	case UnitMonth, UnitMonths:
 		return UnitMonth
-	case UnitWeek, UnitWeeks:
+	case UnitWeek, UnitWeeks, "wk":
 		return UnitWeek
-	case UnitDay, UnitDays:
+	case UnitDay, UnitDays, "d":
 		return UnitDay
-	case UnitHour, UnitHours:
+	case UnitHour, UnitHours, "h":
 		return UnitHour
-	case UnitMinute, UnitMinutes:
+	case UnitMinute, UnitMinutes, "min":
 		return UnitMinute
 	case UnitSecond, UnitSeconds, UnitS:
 		return UnitSecond

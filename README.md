@@ -286,15 +286,20 @@ Functions that require terminology resolution remain unsupported for now.
 
 The 3.0.0-ballot specification introduces additional functions and semantics (see
 [FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.
-We track those gaps below so contributors know where help is wanted:
+The table below lists all remaining gaps based on failing tests - this is what contributors can help with:
 
-| Area                         | Status        | Missing pieces                                                                               | Notes                                                                                                                      |
-|------------------------------|---------------|----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
-| Date/Time math               | Not started   | `duration`, `difference`, week/min/hour literals, extended boundary precision rules          | `lowBoundary`/`highBoundary`/`precision` exist but semantic gaps remain                                                    |
-| Terminology integration      | Not supported | `%terminologies` variable, `txTest*` helpers, `comparable`                                   | Needs connection to a terminology service                                                                                  |
-| `%vs-*` / `%ext-*` variables | Not supported | Value set / extension scoped variables                                                       | Currently skipped in tests                                                                                                 |
-| Additional helpers           | Not started   | `resolve`, `hasValue`, `conformsTo`                                                          | Still outstanding; UCUM-aware quantity conversions already implemented                                                     |
-| CDA fixtures                 | Not supported | Tests with `mode="cda"` from the upstream suite                                              | Skipped until CDA parsing is supported                                                                                     |
+| Category                     | Missing pieces                                                                               | Notes                                                                                                                      |
+|------------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+| **Type system**              | `is()` inheritance semantics, `type()` function, polymorphism/is semantics                   | Type checking and casting need spec 3.0 alignment                                                                          |
+| **Functions**                | `comparable()`, `resolve()`, `hasValue()`, `conformsTo()`                                    | Core functions still pending implementation                                                                                |
+| **String operations**        | `replace()` function                                                                         | String manipulation semantics pending                                                                                      |
+| **Date/Time**                | `now()` determinism/precision, `lowBoundary()`/`highBoundary()`/`precision()` semantics     | `duration()` and `difference()` functions complete; boundary/precision functions exist but need semantic refinement         |
+| **Operators**                | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                      | Operator semantics pending alignment with spec 3.0                                                                         |
+| **Math**                     | `exp()` stability                                                                            | Mathematical function edge cases                                                                                           |
+| **Terminology**              | `%terminologies`, `%vs-*`, `%ext-*` variables, `txTest*` helpers                             | Requires terminology service integration                                                                                    |
+| **Miscellaneous**            | Primitive id handling                                                                        | Edge cases in resource handling                                                                                            |
+| **R5-specific**              | `substring()`, `startsWith()`, `endsWith()`, `contains()` optional parameters; `minus` for quantities; math functions empty-input semantics | FHIRPath R5 enhancements not yet implemented                                                    |
+| **CDA support**              | Tests with `mode="cda"`                                                                      | Skipped until CDA parsing is supported                                                                                     |
 
 The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
 conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.

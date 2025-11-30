@@ -2838,6 +2838,163 @@ var defaultFunctions = Functions{
 
 		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
 	},
+
+	"duration": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 2 {
+			return nil, false, fmt.Errorf("expected 2 parameters (value, precision)")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Evaluate the value parameter
+		valueResult, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(valueResult) == 0 {
+			return nil, true, nil
+		}
+		if len(valueResult) > 1 {
+			return nil, false, fmt.Errorf("value parameter must return single element")
+		}
+
+		// Evaluate the precision parameter
+		precisionResult, _, err := evaluate(ctx, nil, parameters[1])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(precisionResult) == 0 {
+			return nil, true, nil
+		}
+		precisionStr, ok, err := precisionResult[0].ToString(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("precision parameter must be a string")
+		}
+
+		precision := normalizeTimeUnit(string(precisionStr))
+
+		// Handle Date types
+		if startDate, ok, _ := Singleton[Date](target); ok {
+			endDate, ok, _ := Singleton[Date](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateDateDuration(startDate, endDate, precision)
+		}
+
+		// Handle DateTime types
+		if startDT, ok, _ := Singleton[DateTime](target); ok {
+			endDT, ok, _ := Singleton[DateTime](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateDateTimeDuration(startDT, endDT, precision)
+		}
+
+		// Handle Time types
+		if startTime, ok, _ := Singleton[Time](target); ok {
+			endTime, ok, _ := Singleton[Time](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateTimeDuration(startTime, endTime, precision)
+		}
+
+		return nil, false, fmt.Errorf("duration requires Date, DateTime, or Time input")
+	},
+
+	"difference": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 2 {
+			return nil, false, fmt.Errorf("expected 2 parameters (value, precision)")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Evaluate the value parameter
+		valueResult, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(valueResult) == 0 {
+			return nil, true, nil
+		}
+		if len(valueResult) > 1 {
+			return nil, false, fmt.Errorf("value parameter must return single element")
+		}
+
+		// Evaluate the precision parameter
+		precisionResult, _, err := evaluate(ctx, nil, parameters[1])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(precisionResult) == 0 {
+			return nil, true, nil
+		}
+		precisionStr, ok, err := precisionResult[0].ToString(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("precision parameter must be a string")
+		}
+
+		precision := normalizeTimeUnit(string(precisionStr))
+
+		// Handle Date types
+		if startDate, ok, _ := Singleton[Date](target); ok {
+			endDate, ok, _ := Singleton[Date](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateDateDifference(startDate, endDate, precision)
+		}
+
+		// Handle DateTime types
+		if startDT, ok, _ := Singleton[DateTime](target); ok {
+			endDT, ok, _ := Singleton[DateTime](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateDateTimeDifference(startDT, endDT, precision)
+		}
+
+		// Handle Time types
+		if startTime, ok, _ := Singleton[Time](target); ok {
+			endTime, ok, _ := Singleton[Time](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateTimeDifference(startTime, endTime, precision)
+		}
+
+		return nil, false, fmt.Errorf("difference requires Date, DateTime, or Time input")
+	},
+
 	"defineVariable": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -4506,4 +4663,380 @@ func compareElementsForSort(a, b Element) (int, error) {
 		return 0, fmt.Errorf("elements %T and %T are not comparable", a, b)
 	}
 	return cmp, nil
+}
+
+// calculateDateDuration calculates the number of whole calendar periods between two dates
+func calculateDateDuration(start, end Date, precision string) (Collection, bool, error) {
+	// Check precision validity for dates
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Date: %s", precision)
+	}
+
+	// Check if dates have sufficient precision
+	if !hasDatePrecision(start, precision) || !hasDatePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+		// Check if full year hasn't passed yet
+		if endTime.Month() < startTime.Month() ||
+			(endTime.Month() == startTime.Month() && endTime.Day() < startTime.Day()) {
+			count--
+		}
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+		// Check if full month hasn't passed yet
+		if endTime.Day() < startTime.Day() {
+			count--
+		}
+	case UnitWeek:
+		days := endTime.Sub(startTime).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		days := endTime.Sub(startTime).Hours() / 24
+		count = int64(days)
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateTimeDuration calculates the number of whole calendar periods between two datetimes
+func calculateDateTimeDuration(start, end DateTime, precision string) (Collection, bool, error) {
+	// Check precision validity
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay, UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for DateTime: %s", precision)
+	}
+
+	// Check if datetimes have sufficient precision
+	if !hasDateTimePrecision(start, precision) || !hasDateTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+		if endTime.Month() < startTime.Month() ||
+			(endTime.Month() == startTime.Month() && endTime.Day() < startTime.Day()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() < startTime.Hour()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() == startTime.Hour() && endTime.Minute() < startTime.Minute()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() == startTime.Hour() && endTime.Minute() == startTime.Minute() &&
+				endTime.Second() < startTime.Second()) {
+			count--
+		}
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+		if endTime.Day() < startTime.Day() ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() < startTime.Hour()) ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() == startTime.Hour() &&
+				endTime.Minute() < startTime.Minute()) ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() == startTime.Hour() &&
+				endTime.Minute() == startTime.Minute() && endTime.Second() < startTime.Second()) {
+			count--
+		}
+	case UnitWeek:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours() / 24 / 7)
+	case UnitDay:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours() / 24)
+	case UnitHour:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours())
+	case UnitMinute:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Minutes())
+	case UnitSecond:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Seconds())
+	case UnitMillisecond:
+		duration := endTime.Sub(startTime)
+		count = duration.Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateTimeDuration calculates the number of whole periods between two times
+func calculateTimeDuration(start, end Time, precision string) (Collection, bool, error) {
+	// Check precision validity for times
+	switch precision {
+	case UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Time: %s", precision)
+	}
+
+	// Check if times have sufficient precision
+	if !hasTimePrecision(start, precision) || !hasTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	duration := endTime.Sub(startTime)
+	switch precision {
+	case UnitHour:
+		count = int64(duration.Hours())
+	case UnitMinute:
+		count = int64(duration.Minutes())
+	case UnitSecond:
+		count = int64(duration.Seconds())
+	case UnitMillisecond:
+		count = duration.Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateDifference calculates the number of boundaries crossed between two dates
+func calculateDateDifference(start, end Date, precision string) (Collection, bool, error) {
+	// Check precision validity for dates
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Date: %s", precision)
+	}
+
+	// Check if dates have sufficient precision
+	if !hasDatePrecision(start, precision) || !hasDatePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+	case UnitWeek:
+		// Week boundaries are Sundays
+		startSunday := startTime
+		for startSunday.Weekday() != time.Sunday {
+			startSunday = startSunday.AddDate(0, 0, -1)
+		}
+		endSunday := endTime
+		for endSunday.Weekday() != time.Sunday {
+			endSunday = endSunday.AddDate(0, 0, -1)
+		}
+		days := endSunday.Sub(startSunday).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		// Day boundaries crossed
+		startDay := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), 0, 0, 0, 0, startTime.Location())
+		endDay := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), 0, 0, 0, 0, endTime.Location())
+		days := endDay.Sub(startDay).Hours() / 24
+		count = int64(days)
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateTimeDifference calculates the number of boundaries crossed between two datetimes
+func calculateDateTimeDifference(start, end DateTime, precision string) (Collection, bool, error) {
+	// Check precision validity
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay, UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for DateTime: %s", precision)
+	}
+
+	// Check if datetimes have sufficient precision
+	if !hasDateTimePrecision(start, precision) || !hasDateTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+	case UnitWeek:
+		startSunday := startTime
+		for startSunday.Weekday() != time.Sunday {
+			startSunday = startSunday.Add(-24 * time.Hour)
+		}
+		startSunday = time.Date(startSunday.Year(), startSunday.Month(), startSunday.Day(), 0, 0, 0, 0, startSunday.Location())
+		endSunday := endTime
+		for endSunday.Weekday() != time.Sunday {
+			endSunday = endSunday.Add(-24 * time.Hour)
+		}
+		endSunday = time.Date(endSunday.Year(), endSunday.Month(), endSunday.Day(), 0, 0, 0, 0, endSunday.Location())
+		days := endSunday.Sub(startSunday).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		startDay := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), 0, 0, 0, 0, startTime.Location())
+		endDay := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), 0, 0, 0, 0, endTime.Location())
+		days := endDay.Sub(startDay).Hours() / 24
+		count = int64(days)
+	case UnitHour:
+		startHour := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), 0, 0, 0, startTime.Location())
+		endHour := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), 0, 0, 0, endTime.Location())
+		count = int64(endHour.Sub(startHour).Hours())
+	case UnitMinute:
+		startMinute := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), startTime.Minute(), 0, 0, startTime.Location())
+		endMinute := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), endTime.Minute(), 0, 0, endTime.Location())
+		count = int64(endMinute.Sub(startMinute).Minutes())
+	case UnitSecond:
+		startSecond := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), startTime.Minute(), startTime.Second(), 0, startTime.Location())
+		endSecond := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), endTime.Minute(), endTime.Second(), 0, endTime.Location())
+		count = int64(endSecond.Sub(startSecond).Seconds())
+	case UnitMillisecond:
+		count = endTime.Sub(startTime).Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateTimeDifference calculates the number of boundaries crossed between two times
+func calculateTimeDifference(start, end Time, precision string) (Collection, bool, error) {
+	// Check precision validity for times
+	switch precision {
+	case UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Time: %s", precision)
+	}
+
+	// Check if times have sufficient precision
+	if !hasTimePrecision(start, precision) || !hasTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitHour:
+		startHour := time.Date(0, 1, 1, startTime.Hour(), 0, 0, 0, startTime.Location())
+		endHour := time.Date(0, 1, 1, endTime.Hour(), 0, 0, 0, endTime.Location())
+		count = int64(endHour.Sub(startHour).Hours())
+	case UnitMinute:
+		startMinute := time.Date(0, 1, 1, startTime.Hour(), startTime.Minute(), 0, 0, startTime.Location())
+		endMinute := time.Date(0, 1, 1, endTime.Hour(), endTime.Minute(), 0, 0, endTime.Location())
+		count = int64(endMinute.Sub(startMinute).Minutes())
+	case UnitSecond:
+		startSecond := time.Date(0, 1, 1, startTime.Hour(), startTime.Minute(), startTime.Second(), 0, startTime.Location())
+		endSecond := time.Date(0, 1, 1, endTime.Hour(), endTime.Minute(), endTime.Second(), 0, endTime.Location())
+		count = int64(endSecond.Sub(startSecond).Seconds())
+	case UnitMillisecond:
+		count = endTime.Sub(startTime).Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// Helper functions to check if Date/DateTime/Time have sufficient precision
+func hasDatePrecision(d Date, precision string) bool {
+	switch precision {
+	case UnitYear:
+		return d.Precision == "year" || d.Precision == "month" || d.Precision == "day" || d.Precision == "full"
+	case UnitMonth:
+		return d.Precision == "month" || d.Precision == "day" || d.Precision == "full"
+	case UnitWeek, UnitDay:
+		return d.Precision == "day" || d.Precision == "full"
+	}
+	return false
+}
+
+func hasDateTimePrecision(dt DateTime, precision string) bool {
+	switch precision {
+	case UnitYear:
+		return true // Year always available in DateTime
+	case UnitMonth:
+		return true // Month always available
+	case UnitWeek, UnitDay:
+		return true // Day always available
+	case UnitHour:
+		return dt.Precision == "hour" || dt.Precision == "minute" || dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+	case UnitMinute:
+		return dt.Precision == "minute" || dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+	case UnitSecond:
+		return dt.Precision == "second" || dt.Precision == "millisecond" || dt.Precision == "full"
+	case UnitMillisecond:
+		return dt.Precision == "millisecond" || dt.Precision == "full"
+	}
+	return false
+}
+
+func hasTimePrecision(t Time, precision string) bool {
+	switch precision {
+	case UnitHour:
+		return true // Hour always available in Time
+	case UnitMinute:
+		return t.Precision == "minute" || t.Precision == "second" || t.Precision == "millisecond" || t.Precision == "full"
+	case UnitSecond:
+		return t.Precision == "second" || t.Precision == "millisecond" || t.Precision == "full"
+	case UnitMillisecond:
+		return t.Precision == "millisecond" || t.Precision == "full"
+	}
+	return false
 }

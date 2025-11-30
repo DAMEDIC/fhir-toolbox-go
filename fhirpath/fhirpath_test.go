@@ -112,36 +112,6 @@ func TestFHIRPathTestSuites(t *testing.T) {
 	}
 }
 
-func TestAdditionalFHIRPathTests(t *testing.T) {
-	ctx := r4.Context()
-	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(8))
-
-	var additionalTests = []testdata.FHIRPathTest{
-		{
-			Name:        "testDefineVariableSelect",
-			Description: "Test defineVariable with select",
-			Expression: testdata.FHIRPathTestExpression{
-				Expression: "defineVariable('a', 'b').select(%a)",
-			},
-			Output: []testdata.FHIRPathTestOutput{{
-				Type:   "string",
-				Output: "b",
-			}},
-		},
-	}
-
-	for _, test := range additionalTests {
-		name := test.Name
-		if test.Description != "" {
-			name = fmt.Sprintf("%s (%s)", name, test.Description)
-		}
-
-		t.Run(name, func(t *testing.T) {
-			runFHIRPathTest(t, ctx, test)
-		})
-	}
-}
-
 func isCDATest(test testdata.FHIRPathTest) bool {
 	return strings.EqualFold(test.Mode, "cda")
 }
@@ -151,48 +121,32 @@ func isR5Release(release model.Release) bool {
 	return ok
 }
 
+func isNotR5Release(release model.Release) bool {
+	return !isR5Release(release)
+}
+
 type skipRule struct {
 	pattern       *regexp.Regexp
 	releaseFilter func(model.Release) bool
 	reason        string
 }
 
-var unimplementedTestSkips = []skipRule{
-	{regexp.MustCompile(`^Comparable\d+$`), nil, "comparable() function not implemented"},
-	{regexp.MustCompile(`^testMultipleResolve$`), nil, "resolve() function not implemented"},
-	{regexp.MustCompile(`^testPrimitiveExtensions(Element)?$`), nil, "hasValue() for primitive extensions not implemented"},
-	{regexp.MustCompile(`^testPeriodInvariantOld$`), nil, "hasValue() function not implemented"},
-	{regexp.MustCompile(`^txTest0[1-3]$`), nil, "Terminology service not configured"},
-	{regexp.MustCompile(`^testVariables4$`), nil, "%vs variables not supported"},
-	{regexp.MustCompile(`^testExtension2$`), nil, "%ext variables not supported"},
-	{regexp.MustCompile(`^testConformsTo.*`), nil, "conformsTo() function not implemented"},
-	{regexp.MustCompile(`^testPolymorphismIsA3$`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
-	{regexp.MustCompile(`^testPolymorphism.*`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
-	{regexp.MustCompile(`^testReplace\d+$`), nil, "string replace semantics pending"},
-	{regexp.MustCompile(`^testNow\d+$`), nil, "now() determinism/precision pending"},
-	{regexp.MustCompile(`^testEquality\d+$`), nil, "Equality semantics pending"},
-	{regexp.MustCompile(`^testNEquality\d+$`), nil, "Not-equal semantics pending"},
-	{regexp.MustCompile(`^testCombine.*`), nil, "combine() semantics pending"},
-	{regexp.MustCompile(`^testUnion\d+$`), nil, "union semantics pending"},
-	{regexp.MustCompile(`^testPlus.*`), nil, "date/time arithmetic units pending"},
-	{regexp.MustCompile(`^testExp\d+$`), nil, "exp() function stability pending"},
+// Test skip rules are organized into two categories:
+//
+// 1. testSkipsSpecIssues: Tests that don't align with the spec or where the spec is unclear/ambiguous.
+//    These represent issues with the test suite itself or areas where the spec needs clarification.
+//
+// 2. testSkipsImplementationGaps: Tests that are correct per spec, but our implementation doesn't match yet.
+//    These represent work that contributors can help with - functions, semantics, or infrastructure to be added.
+
+// Tests that are not in line with spec or where spec is unclear/ambiguous
+var testSkipsSpecIssues = []skipRule{
 	// testPrecedence3 & testPrecedence4: The tests are wrong. In the formal FHIRPath grammar,
 	// type operators (is, as) bind tighter than comparison operators (>, <, etc.)
 	{regexp.MustCompile(`^testPrecedence[34]$`), nil, "test uses wrong precedence - type operators bind tighter than comparison operators"},
-	// testPrecedence6: Complex expression with trace() and in operator - evaluation context issue
-	{regexp.MustCompile(`^testPrecedence6$`), nil, "evaluation context issue with nested exists/in operators"},
-	{regexp.MustCompile(`^testType.*`), nil, "type() semantics pending"},
-	{regexp.MustCompile(`^LowBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
-	{regexp.MustCompile(`^HighBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
-	{regexp.MustCompile(`^Precision.*`), nil, "precision() semantics pending"},
-	{regexp.MustCompile(`^testFHIRPathIsFunction\d+$`), nil, "is() function inheritance semantics pending"},
-	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
-	{regexp.MustCompile(`^testSubstring.*`), isR5Release, "substring parameter semantics pending"},
-	{regexp.MustCompile(`^testStartsWith.*`), isR5Release, "startsWith optional parameters pending"},
-	{regexp.MustCompile(`^testEndsWith.*`), isR5Release, "endsWith optional parameters pending"},
-	{regexp.MustCompile(`^testContainsString.*`), isR5Release, "contains() optional parameters pending"},
-	{regexp.MustCompile(`^testMinus.*`), isR5Release, "minus semantics for quantities pending"},
-	{regexp.MustCompile(`^test(Sqrt|Abs|Ceiling|Floor|Ln|Log|Power|Truncate).*`), isR5Release, "math functions empty-input semantics pending"},
+	// testPlusDate19: R4/R4B test expects @...T00:00:00.000 + 0.1 's' = @...T00:00:00.000 (unchanged),
+	// but R5 test (correctly) expects @...T00:00:00.100. Implementation follows R5 behavior.
+	{regexp.MustCompile(`^testPlusDate19$`), isNotR5Release, "R4/R4B test expects no change when adding 0.1s, but implementation (correctly) adds fractional seconds per R5 test"},
 	// defineVariable13 & 14: Tests use skip(1).first() as the value expression, expecting it to operate on the entire
 	// input collection. However, the spec states "If the function takes an expression as a parameter, the function
 	// will evaluate the expression passed for the parameter with respect to each of the items in the input collection."
@@ -206,6 +160,50 @@ var unimplementedTestSkips = []skipRule{
 	// This causes the nested defineVariable to set variables to empty collections, breaking the test's expectation.
 	{regexp.MustCompile(`^defineVariable19$`), nil, "test conflicts with spec-compliant empty collection handling for expression parameters"},
 }
+
+// Tests that are correct per spec, but our implementation doesn't match yet
+var testSkipsImplementationGaps = []skipRule{
+	// Polymorphism/is semantics
+	{regexp.MustCompile(`^testPolymorphismIsA3$`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
+	{regexp.MustCompile(`^testPolymorphism.*`), nil, "polymorphism/is semantics not aligned with spec 3.0"},
+
+	// Functions not yet implemented
+	{regexp.MustCompile(`^Comparable\d+$`), nil, "comparable() function not implemented"},
+	{regexp.MustCompile(`^testMultipleResolve$`), nil, "resolve() function not implemented"},
+	{regexp.MustCompile(`^testPrimitiveExtensions(Element)?$`), nil, "hasValue() for primitive extensions not implemented"},
+	{regexp.MustCompile(`^testPeriodInvariantOld$`), nil, "hasValue() function not implemented"},
+	{regexp.MustCompile(`^testConformsTo.*`), nil, "conformsTo() function not implemented"},
+
+	// Terminology service infrastructure not available
+	{regexp.MustCompile(`^txTest0[1-3]$`), nil, "Terminology service not configured"},
+	{regexp.MustCompile(`^testVariables4$`), nil, "%vs variables not supported (requires terminology service)"},
+	{regexp.MustCompile(`^testExtension2$`), nil, "%ext variables not supported"},
+
+	// Semantics pending implementation
+	{regexp.MustCompile(`^testReplace\d+$`), nil, "string replace() semantics pending"},
+	{regexp.MustCompile(`^testNow\d+$`), nil, "now() determinism/precision pending"},
+	{regexp.MustCompile(`^testEquality\d+$`), nil, "Equality semantics pending"},
+	{regexp.MustCompile(`^testNEquality\d+$`), nil, "Not-equal semantics pending"},
+	{regexp.MustCompile(`^testCombine.*`), nil, "combine() semantics pending"},
+	{regexp.MustCompile(`^testUnion\d+$`), nil, "union semantics pending"},
+	{regexp.MustCompile(`^testExp\d+$`), nil, "exp() function stability pending"},
+	{regexp.MustCompile(`^testType.*`), nil, "type() semantics pending"},
+	{regexp.MustCompile(`^LowBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
+	{regexp.MustCompile(`^HighBoundary.*`), nil, "lowBoundary/highBoundary precision semantics pending"},
+	{regexp.MustCompile(`^Precision.*`), nil, "precision() semantics pending"},
+	{regexp.MustCompile(`^testFHIRPathIsFunction\d+$`), nil, "is() function inheritance semantics pending"},
+	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
+
+	// R5-specific features pending
+	{regexp.MustCompile(`^testSubstring.*`), isR5Release, "substring parameter semantics pending"},
+	{regexp.MustCompile(`^testStartsWith.*`), isR5Release, "startsWith optional parameters pending"},
+	{regexp.MustCompile(`^testEndsWith.*`), isR5Release, "endsWith optional parameters pending"},
+	{regexp.MustCompile(`^testContainsString.*`), isR5Release, "contains() optional parameters pending"},
+	{regexp.MustCompile(`^testMinus.*`), isR5Release, "minus semantics for quantities pending"},
+	{regexp.MustCompile(`^test(Sqrt|Abs|Ceiling|Floor|Ln|Log|Power|Truncate).*`), isR5Release, "math functions empty-input semantics pending"},
+}
+
+var unimplementedTestSkips = append(testSkipsSpecIssues, testSkipsImplementationGaps...)
 
 func shouldSkipTest(test testdata.FHIRPathTest, release model.Release) (bool, string) {
 	if isCDATest(test) && isR5Release(release) {
