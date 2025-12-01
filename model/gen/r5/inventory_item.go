@@ -5533,154 +5533,154 @@ func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemName",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResponsibleOrganization",
+			Name: "responsibleOrganization",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemResponsibleOrganization",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "InventoryItemDescription",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InventoryStatus",
+			Name: "inventoryStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BaseUnit",
+			Name: "baseUnit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NetContent",
+			Name: "netContent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Association",
+			Name: "association",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemAssociation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Characteristic",
+			Name: "characteristic",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemCharacteristic",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instance",
+			Name: "instance",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "InventoryItemInstance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductReference",
+			Name: "productReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -5779,42 +5779,42 @@ func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NameType",
+			Name: "nameType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -5910,35 +5910,35 @@ func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Organization",
+			Name: "organization",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -6038,35 +6038,35 @@ func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -6165,42 +6165,42 @@ func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AssociationType",
+			Name: "associationType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedItem",
+			Name: "relatedItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Ratio",
@@ -6296,39 +6296,39 @@ func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CharacteristicType",
+			Name: "characteristicType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "InventoryItemCharacteristic",
@@ -6439,56 +6439,56 @@ func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LotNumber",
+			Name: "lotNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expiry",
+			Name: "expiry",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",

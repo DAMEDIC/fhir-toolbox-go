@@ -4344,168 +4344,168 @@ func (r Specimen) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AccessionIdentifier",
+			Name: "accessionIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReceivedTime",
+			Name: "receivedTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parent",
+			Name: "parent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Request",
+			Name: "request",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Combined",
+			Name: "combined",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Feature",
+			Name: "feature",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenFeature",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collection",
+			Name: "collection",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "SpecimenCollection",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Processing",
+			Name: "processing",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenProcessing",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Container",
+			Name: "container",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenContainer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
@@ -4601,35 +4601,35 @@ func (r SpecimenFeature) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -4764,88 +4764,88 @@ func (r SpecimenCollection) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collector",
+			Name: "collector",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collected",
+			Name: "collected",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Duration",
+			Name: "duration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Duration",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Procedure",
+			Name: "procedure",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BodySite",
+			Name: "bodySite",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FastingStatus",
+			Name: "fastingStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "SpecimenCollection",
@@ -4951,53 +4951,53 @@ func (r SpecimenProcessing) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Additive",
+			Name: "additive",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Time",
+			Name: "time",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "SpecimenProcessing",
@@ -5096,42 +5096,42 @@ func (r SpecimenContainer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SpecimenQuantity",
+			Name: "specimenQuantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",

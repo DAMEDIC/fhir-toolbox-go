@@ -1183,102 +1183,102 @@ func (r ProdCharacteristic) Equivalent(other fhirpath.Element) bool {
 func (r ProdCharacteristic) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneElement",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Height",
+			Name: "height",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Width",
+			Name: "width",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Depth",
+			Name: "depth",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Weight",
+			Name: "weight",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NominalVolume",
+			Name: "nominalVolume",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExternalDiameter",
+			Name: "externalDiameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Shape",
+			Name: "shape",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Color",
+			Name: "color",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Imprint",
+			Name: "imprint",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Image",
+			Name: "image",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Attachment",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Scoring",
+			Name: "scoring",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",

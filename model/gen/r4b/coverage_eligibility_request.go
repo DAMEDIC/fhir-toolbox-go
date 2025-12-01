@@ -4181,154 +4181,154 @@ func (r CoverageEligibilityRequest) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Serviced",
+			Name: "serviced",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Created",
+			Name: "created",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Enterer",
+			Name: "enterer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Provider",
+			Name: "provider",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Insurer",
+			Name: "insurer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Facility",
+			Name: "facility",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportingInfo",
+			Name: "supportingInfo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityRequestSupportingInfo",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Insurance",
+			Name: "insurance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityRequestInsurance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Item",
+			Name: "item",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityRequestItem",
@@ -4429,42 +4429,42 @@ func (r CoverageEligibilityRequestSupportingInfo) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sequence",
+			Name: "sequence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Information",
+			Name: "information",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AppliesToAll",
+			Name: "appliesToAll",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -4567,42 +4567,42 @@ func (r CoverageEligibilityRequestInsurance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Focal",
+			Name: "focal",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Coverage",
+			Name: "coverage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BusinessArrangement",
+			Name: "businessArrangement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -4742,91 +4742,91 @@ func (r CoverageEligibilityRequestItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportingInfoSequence",
+			Name: "supportingInfoSequence",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductOrService",
+			Name: "productOrService",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Modifier",
+			Name: "modifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Provider",
+			Name: "provider",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UnitPrice",
+			Name: "unitPrice",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Money",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Facility",
+			Name: "facility",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Diagnosis",
+			Name: "diagnosis",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityRequestItemDiagnosis",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Detail",
+			Name: "detail",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -4921,32 +4921,32 @@ func (r CoverageEligibilityRequestItemDiagnosis) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Diagnosis",
+			Name: "diagnosis",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "CoverageEligibilityRequestItemDiagnosis",

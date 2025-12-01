@@ -591,46 +591,46 @@ func (r Reference) Equivalent(other fhirpath.Element) bool {
 func (r Reference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

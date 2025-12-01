@@ -868,56 +868,56 @@ func (r Meta) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionId",
+			Name: "versionId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastUpdated",
+			Name: "lastUpdated",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Security",
+			Name: "security",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Tag",
+			Name: "tag",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",

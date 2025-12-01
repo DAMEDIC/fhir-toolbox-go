@@ -8264,168 +8264,168 @@ func (r MolecularSequence) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CoordinateSystem",
+			Name: "coordinateSystem",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Specimen",
+			Name: "specimen",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Performer",
+			Name: "performer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceSeq",
+			Name: "referenceSeq",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "MolecularSequenceReferenceSeq",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Variant",
+			Name: "variant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MolecularSequenceVariant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ObservedSeq",
+			Name: "observedSeq",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quality",
+			Name: "quality",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MolecularSequenceQuality",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReadCoverage",
+			Name: "readCoverage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Repository",
+			Name: "repository",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MolecularSequenceRepository",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Pointer",
+			Name: "pointer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StructureVariant",
+			Name: "structureVariant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MolecularSequenceStructureVariant",
@@ -8560,84 +8560,84 @@ func (r MolecularSequenceReferenceSeq) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Chromosome",
+			Name: "chromosome",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GenomeBuild",
+			Name: "genomeBuild",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Orientation",
+			Name: "orientation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceSeqId",
+			Name: "referenceSeqId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceSeqPointer",
+			Name: "referenceSeqPointer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceSeqString",
+			Name: "referenceSeqString",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Strand",
+			Name: "strand",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WindowStart",
+			Name: "windowStart",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WindowEnd",
+			Name: "windowEnd",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
@@ -8757,63 +8757,63 @@ func (r MolecularSequenceVariant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ObservedAllele",
+			Name: "observedAllele",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceAllele",
+			Name: "referenceAllele",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Cigar",
+			Name: "cigar",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VariantPointer",
+			Name: "variantPointer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -8976,126 +8976,126 @@ func (r MolecularSequenceQuality) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StandardSequence",
+			Name: "standardSequence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Score",
+			Name: "score",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TruthTp",
+			Name: "truthTP",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "QueryTp",
+			Name: "queryTP",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TruthFn",
+			Name: "truthFN",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "QueryFp",
+			Name: "queryFP",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GtFp",
+			Name: "gtFP",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Precision",
+			Name: "precision",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recall",
+			Name: "recall",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FScore",
+			Name: "fScore",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Roc",
+			Name: "roc",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "MolecularSequenceQualityRoc",
@@ -9220,70 +9220,70 @@ func (r MolecularSequenceQualityRoc) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Score",
+			Name: "score",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NumTp",
+			Name: "numTP",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NumFp",
+			Name: "numFP",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NumFn",
+			Name: "numFN",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Precision",
+			Name: "precision",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sensitivity",
+			Name: "sensitivity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FMeasure",
+			Name: "fMeasure",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Decimal",
@@ -9401,63 +9401,63 @@ func (r MolecularSequenceRepository) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DatasetId",
+			Name: "datasetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VariantsetId",
+			Name: "variantsetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReadsetId",
+			Name: "readsetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -9572,56 +9572,56 @@ func (r MolecularSequenceStructureVariant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VariantType",
+			Name: "variantType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Exact",
+			Name: "exact",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Length",
+			Name: "length",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Outer",
+			Name: "outer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "MolecularSequenceStructureVariantOuter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Inner",
+			Name: "inner",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "MolecularSequenceStructureVariantInner",
@@ -9721,35 +9721,35 @@ func (r MolecularSequenceStructureVariantOuter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
@@ -9849,35 +9849,35 @@ func (r MolecularSequenceStructureVariantInner) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",

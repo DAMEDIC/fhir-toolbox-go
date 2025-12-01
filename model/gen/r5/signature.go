@@ -799,63 +799,63 @@ func (r Signature) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "When",
+			Name: "when",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Who",
+			Name: "who",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OnBehalfOf",
+			Name: "onBehalfOf",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetFormat",
+			Name: "targetFormat",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SigFormat",
+			Name: "sigFormat",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Data",
+			Name: "data",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Base64Binary",

@@ -275,6 +275,12 @@ func evalExpression(
 			return nil, false, err
 		}
 
+		if len(expr) == 0 {
+			// FHIRPath requires single-input
+			// operators to return { } when invoked on an empty collection.
+			// The HL7 test suite exercises this with Observation.issued is instant.
+			return nil, true, nil
+		}
 		if len(expr) != 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}

@@ -200,18 +200,18 @@ func (r Date) Equivalent(other fhirpath.Element) bool {
 func (r Date) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

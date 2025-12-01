@@ -1889,116 +1889,116 @@ func (r Dosage) Equivalent(other fhirpath.Element) bool {
 func (r Dosage) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneElement",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sequence",
+			Name: "sequence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AdditionalInstruction",
+			Name: "additionalInstruction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PatientInstruction",
+			Name: "patientInstruction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timing",
+			Name: "timing",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Timing",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AsNeeded",
+			Name: "asNeeded",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Site",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "CodeableConcept",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Route",
+			Name: "site",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "route",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DoseAndRate",
+			Name: "method",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "doseAndRate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DosageDoseAndRate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MaxDosePerPeriod",
+			Name: "maxDosePerPeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Ratio",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MaxDosePerAdministration",
+			Name: "maxDosePerAdministration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MaxDosePerLifetime",
+			Name: "maxDosePerLifetime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
@@ -2098,39 +2098,39 @@ func (r DosageDoseAndRate) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Dose",
+			Name: "dose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Rate",
+			Name: "rate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "DosageDoseAndRate",

@@ -25,12 +25,20 @@ func generateType(g *Group, s ir.Struct) {
 			Id("Namespace"): Lit("FHIR"),
 			Id("Name"):      Lit("DomainResource"),
 		})
-	} else if s.IsPrimitive {
+	} else if s.BaseType != "" {
+		// Use the actual base type from FHIR spec for all types
 		base = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
-			Id("Name"):      Lit("PrimitiveType"),
+			Id("Name"):      Lit(s.BaseType),
+		})
+	} else if s.IsPrimitive {
+		// Fallback for primitives without baseDefinition
+		base = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
+			Id("Namespace"): Lit("FHIR"),
+			Id("Name"):      Lit("Element"),
 		})
 	} else {
+		// Fallback for non-primitives without baseDefinition
 		base = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
 			Id("Namespace"): Lit("FHIR"),
 			Id("Name"):      Lit("DataType"),
@@ -46,8 +54,8 @@ func generateType(g *Group, s ir.Struct) {
 			var t *Statement
 			if f.Polymorph {
 				t = Qual(fhirpathModuleName, "TypeSpecifier").Values(Dict{
-					Id("Namespace"): Lit("FHIR"),
-					Id("Name"):      Lit("PrimitiveElement"),
+					Id("Namespace"): Lit("System"),
+					Id("Name"):      Lit("Any"),
 					Id("List"):      Lit(f.Multiple),
 				})
 			} else {
@@ -58,7 +66,7 @@ func generateType(g *Group, s ir.Struct) {
 				})
 			}
 			g.Values(Dict{
-				Id("Name"): Lit(f.Name),
+				Id("Name"): Lit(f.MarshalName),
 				Id("Type"): t,
 			})
 		}

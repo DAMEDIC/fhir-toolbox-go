@@ -162,7 +162,12 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(target) != 1 {
+		switch len(target) {
+		case 0:
+			return nil, true, nil
+		case 1:
+			// continue below
+		default:
 			return nil, false, fmt.Errorf("expected single input element")
 		}
 		if len(parameters) != 1 {
@@ -183,7 +188,12 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(target) != 1 {
+		switch len(target) {
+		case 0:
+			return nil, true, nil
+		case 1:
+			// continue below
+		default:
 			return nil, false, fmt.Errorf("expected single input element")
 		}
 		if len(parameters) != 1 {
@@ -794,8 +804,6 @@ var defaultFunctions = Functions{
 					return nil, false, err
 				}
 
-				// FHIRPath 3.0: Check for new items against both result AND newItems
-				// Items should only be added if not already in the output collection
 				for _, item := range projection {
 					add := true
 					// Check against already accumulated results
@@ -4020,7 +4028,6 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
 		}
 
-		// FHIRPath 3.0: iif() requires 0 or 1 items in the input collection
 		if len(target) > 1 {
 			return nil, false, fmt.Errorf("iif() requires an input collection with 0 or 1 items, got %d items", len(target))
 		}
@@ -4048,7 +4055,6 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
-		// FHIRPath 3.0: criterion must be a boolean value, not just convertible to boolean
 		// Check if the criterion is actually a Boolean type
 		if len(criterion) > 0 {
 			if _, isBool := criterion[0].(Boolean); !isBool {

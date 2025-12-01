@@ -1404,28 +1404,28 @@ func (r Availability) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableTime",
+			Name: "availableTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AvailabilityAvailableTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NotAvailableTime",
+			Name: "notAvailableTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AvailabilityNotAvailableTime",
@@ -1530,42 +1530,42 @@ func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DaysOfWeek",
+			Name: "daysOfWeek",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AllDay",
+			Name: "allDay",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableStartTime",
+			Name: "availableStartTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableEndTime",
+			Name: "availableEndTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",
@@ -1660,28 +1660,28 @@ func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "During",
+			Name: "during",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",

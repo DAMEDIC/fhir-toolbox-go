@@ -654,9 +654,42 @@ func subTypeOf(ctx context.Context, target, isOf TypeInfo) bool {
 func isType(ctx context.Context, target Element, isOf TypeSpecifier) (Element, error) {
 	typ, ok := resolveType(ctx, isOf)
 	if !ok {
-		return nil, fmt.Errorf("can not resolve type `%s`", isOf)
+		// Per FHIRPath spec, if the type cannot be resolved, is() returns false
+		return Boolean(false), nil
 	}
-	return Boolean(subTypeOf(ctx, target.TypeInfo(), typ)), nil
+
+	// First check type hierarchy
+	if subTypeOf(ctx, target.TypeInfo(), typ) {
+		return Boolean(true), nil
+	}
+
+	targetQual, ok := target.TypeInfo().QualifiedName()
+	if !ok {
+		return Boolean(false), nil
+	}
+
+	// Check if this is a FHIR string-derived type checking against String
+	if targetQual.Namespace == "FHIR" {
+		isOfQual, ok := typ.QualifiedName()
+		if ok && (isOfQual.Name == "String" || isOfQual.Name == "string") {
+			// Only string-derived FHIR primitives should match System.String
+			// Common FHIR string-derived types: code, uri, id, oid, uuid, url, canonical, etc.
+			if _, ok, _ := target.ToString(false); ok {
+				// Exclude non-string types that can convert to string
+				switch targetQual.Name {
+				case "boolean", "Boolean", "integer", "Integer",
+					"decimal", "Decimal", "unsignedInt", "positiveInt":
+					// These are numeric/boolean types, not string-derived
+					return Boolean(false), nil
+				default:
+					// Assume it's a string-derived type
+					return Boolean(true), nil
+				}
+			}
+		}
+	}
+
+	return Boolean(false), nil
 }
 
 func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Collection, error) {
