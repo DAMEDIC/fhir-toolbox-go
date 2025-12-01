@@ -59,6 +59,10 @@ func (r Base64Binary) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Base64Binary) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Base64Binary{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -186,6 +190,9 @@ func (r Base64Binary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 }
 func (r Base64Binary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Base64Binary to Quantity")
+}
+func (r Base64Binary) HasValue() bool {
+	return r.Value != nil
 }
 func (r Base64Binary) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToString(false)

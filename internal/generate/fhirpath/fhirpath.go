@@ -35,6 +35,9 @@ func (g FHIRPathGenerator) GenerateType(f *File, rt ir.ResourceOrType) bool {
 		generateToTimeFunc(f, s)
 		generateToDateTimeFunc(f, s)
 		generateToQuantityFunc(f, s)
+		if s.IsPrimitive {
+			generateHasValueFunc(f, s)
+		}
 		generateEqualFunc(f, s)
 		generateEquivalentFunc(f, s)
 		generateTypeInfoFunc(f, s)
@@ -460,6 +463,21 @@ func generateToQuantityFunc(f *File, s ir.Struct) {
 				False(),
 				Qual("errors", "New").Call(Lit(fmt.Sprintf("can not convert %s to Quantity", s.Name))),
 			)
+		}
+	})
+}
+
+func generateHasValueFunc(f *File, s ir.Struct) {
+	f.Func().Params(Id("r").Id(s.Name)).Id("HasValue").Params().Bool().BlockFunc(func(g *Group) {
+		if s.Name == "Xhtml" {
+			// Xhtml.Value is a string field, not a pointer
+			g.Return(Id("r.Value").Op("!=").Lit(""))
+		} else if s.Name == "Decimal" {
+			// Decimal.Value is *apd.Decimal
+			g.Return(Id("r.Value").Op("!=").Nil())
+		} else {
+			// Most primitives have *string or *bool or *int32 Value field
+			g.Return(Id("r.Value").Op("!=").Nil())
 		}
 	})
 }

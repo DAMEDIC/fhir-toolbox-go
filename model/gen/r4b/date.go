@@ -58,6 +58,10 @@ func (r Date) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Date) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Date{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -182,6 +186,9 @@ func (r Date) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Date) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Date to Quantity")
+}
+func (r Date) HasValue() bool {
+	return r.Value != nil
 }
 func (r Date) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToDateTime(false)

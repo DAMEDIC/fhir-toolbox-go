@@ -50,6 +50,10 @@ func (r Xhtml) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Xhtml) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Xhtml{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -137,6 +141,9 @@ func (r Xhtml) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Xhtml) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Xhtml to Quantity")
+}
+func (r Xhtml) HasValue() bool {
+	return r.Value != ""
 }
 func (r Xhtml) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Xhtml)

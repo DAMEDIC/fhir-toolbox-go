@@ -182,10 +182,7 @@ var testSkipsSpecIssues = []skipRule{
 // Tests that are correct per spec, but our implementation doesn't match yet
 var testSkipsImplementationGaps = []skipRule{
 	// Functions not yet implemented
-	{regexp.MustCompile(`^Comparable\d+$`), nil, "comparable() function not implemented"},
 	{regexp.MustCompile(`^testMultipleResolve$`), nil, "resolve() function not implemented"},
-	{regexp.MustCompile(`^testPrimitiveExtensions(Element)?$`), nil, "hasValue() for primitive extensions not implemented"},
-	{regexp.MustCompile(`^testPeriodInvariantOld$`), nil, "hasValue() function not implemented"},
 	{regexp.MustCompile(`^testConformsTo.*`), nil, "conformsTo() function not implemented"},
 
 	// Terminology service infrastructure not available

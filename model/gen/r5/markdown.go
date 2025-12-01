@@ -59,6 +59,10 @@ func (r Markdown) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Markdown) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Markdown{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -186,6 +190,9 @@ func (r Markdown) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Markdown) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Markdown to Quantity")
+}
+func (r Markdown) HasValue() bool {
+	return r.Value != nil
 }
 func (r Markdown) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToString(false)

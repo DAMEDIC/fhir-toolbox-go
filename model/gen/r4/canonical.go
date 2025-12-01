@@ -59,6 +59,10 @@ func (r Canonical) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Canonical) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Canonical{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -186,6 +190,9 @@ func (r Canonical) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Canonical) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Canonical to Quantity")
+}
+func (r Canonical) HasValue() bool {
+	return r.Value != nil
 }
 func (r Canonical) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToString(false)

@@ -135,6 +135,8 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 // global variable for mocking time in tests
 var now = time.Now
 
+// defaultFunctions contains FHIRPath specification functions as defined in the FHIRPath standard.
+// For FHIR-specific extension functions, see FHIRFunctions.
 var defaultFunctions = Functions{
 	// Type functions
 	"type": func(
@@ -4434,9 +4436,73 @@ var defaultFunctions = Functions{
 
 		return Collection{Time{Value: dt.Value, Precision: precision}}, inputOrdered, nil
 	},
-	"extension": FHIRFunctions["extension"],
+	"comparable": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// comparable(other: Quantity): Boolean
+		// Returns true if the input and parameter Quantities have comparable units via UCUM conversion
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected one quantity parameter")
+		}
+
+		// Input must be a single Quantity
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("comparable() requires a single Quantity input, got %d items", len(target))
+		}
+
+		inputQty, ok, err := elementTo[Quantity](target[0], false)
+		if err != nil || !ok {
+			return nil, inputOrdered, nil
+		}
+
+		// Evaluate the parameter
+		paramCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(paramCollection) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(paramCollection) > 1 {
+			return nil, false, fmt.Errorf("comparable() requires a single Quantity parameter, got %d items", len(paramCollection))
+		}
+
+		paramQty, ok, err := elementTo[Quantity](paramCollection[0], false)
+		if err != nil || !ok {
+			return nil, inputOrdered, nil
+		}
+
+		// Get canonical units
+		inputUnit := canonicalUCUMUnit(string(inputQty.Unit))
+		paramUnit := canonicalUCUMUnit(string(paramQty.Unit))
+
+		// Same units are always comparable
+		if inputUnit == paramUnit {
+			return Collection{Boolean(true)}, inputOrdered, nil
+		}
+
+		// Try to convert from input unit to parameter unit
+		// If conversion succeeds, units are comparable
+		testValue := apd.New(1, 0)
+		_, err = convertDecimalUnit(ctx, testValue, inputUnit, paramUnit)
+		if err == nil {
+			return Collection{Boolean(true)}, inputOrdered, nil
+		}
+
+		// Units are not comparable
+		return Collection{Boolean(false)}, inputOrdered, nil
+	},
 }
 
+// FHIRFunctions contains FHIR-specific extension functions that are not part of the base FHIRPath specification.
+// These functions are defined in the FHIR specification and operate on FHIR resources and data types.
 var FHIRFunctions = Functions{
 	"extension": func(
 		ctx context.Context,
@@ -4473,6 +4539,40 @@ var FHIRFunctions = Functions{
 			}
 		}
 		return foundExtensions, inputOrdered, nil
+	},
+	"hasValue": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// hasValue(): Boolean
+		// Returns true if the single value is a FHIR primitive with a value (not just extensions).
+		// Returns false if it's a primitive without a value.
+		// Returns empty if the input is not a single FHIR primitive.
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+
+		// Per spec: must be a single value
+		if len(target) > 1 {
+			return nil, inputOrdered, nil
+		}
+
+		elem := target[0]
+
+		// Check if element implements hasValuer interface (FHIR primitives)
+		if hv, ok := elem.(hasValuer); ok {
+			return Collection{Boolean(hv.HasValue())}, inputOrdered, nil
+		}
+
+		// Not a FHIR primitive - return empty
+		return nil, inputOrdered, nil
 	},
 }
 

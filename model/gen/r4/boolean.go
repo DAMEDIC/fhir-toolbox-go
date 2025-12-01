@@ -59,6 +59,10 @@ func (r Boolean) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Boolean) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Boolean{}
+		return nil
+	}
 	var v bool
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -193,6 +197,9 @@ func (r Boolean) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Boolean) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Boolean to Quantity")
+}
+func (r Boolean) HasValue() bool {
+	return r.Value != nil
 }
 func (r Boolean) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToBoolean(false)

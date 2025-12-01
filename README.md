@@ -286,29 +286,27 @@ Functions that require terminology resolution remain unsupported for now.
 
 The 3.0.0-ballot specification introduces additional functions and semantics (see
 [FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.
-The table below lists all remaining gaps based on failing tests - this is what contributors can help with:
+The table below lists all remaining gaps based on failing tests:
+
+**FHIRPath Spec (base specification):**
 
 | Category                     | Missing pieces                                                                               | Notes                                                                                                                      |
 |------------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| **Functions**                | `comparable()`, `resolve()`, `hasValue()`, `conformsTo()`                                    | Core functions still pending implementation                                                                                |
 | **String operations**        | `replace()` function                                                                         | String manipulation semantics pending                                                                                      |
 | **Operators**                | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                      | Operator semantics pending alignment with spec 3.0                                                                         |
 | **Math**                     | `exp()` stability                                                                            | Mathematical function edge cases                                                                                           |
-| **Terminology**              | `%terminologies`, `%vs-*`, `%ext-*` variables, `txTest*` helpers                             | Requires terminology service integration                                                                                    |
-| **Miscellaneous**            | Primitive id handling                                                                        | Edge cases in resource handling                                                                                            |
 | **R5-specific**              | `substring()`, `startsWith()`, `endsWith()`, `contains()` optional parameters; `minus` for quantities; math functions empty-input semantics | FHIRPath R5 enhancements not yet implemented                                                    |
-| **CDA support**              | Tests with `mode="cda"`                                                                      | Skipped until CDA parsing is supported                                                                                     |
+
 
 The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
 conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.
 
-From the additional functions defined in the FHIR specification, only
+From the FHIR-specific extension functions defined in the FHIR specification, the following are implemented:
 
-* `extension(url : string) : collection`
+* `extension(url : string) : collection` - extracts extensions by URL from FHIR elements
+* `hasValue() : Boolean` - checks if a FHIR primitive has a value (not just extensions)
 
-is implemented.
-
-Mostly, because these require validation which is not implemented by `fhir-toolbox-go`, yet.
+Other FHIR-specific functions like `resolve()` and `conformsTo()` are not yet implemented, mostly because they require validation or terminology services which are not implemented by `fhir-toolbox-go` yet.
 
 For a quick usage example see [`./examples/fhirpath`](./examples/fhirpath/main.go).
 

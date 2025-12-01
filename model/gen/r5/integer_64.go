@@ -63,6 +63,10 @@ func (r Integer64) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Integer64) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Integer64{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -192,6 +196,9 @@ func (r Integer64) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Integer64) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Integer64 to Quantity")
+}
+func (r Integer64) HasValue() bool {
+	return r.Value != nil
 }
 func (r Integer64) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Integer64)

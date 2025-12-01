@@ -40,6 +40,14 @@ type Element interface {
 	fmt.Stringer
 }
 
+// hasValuer is an interface for FHIR primitive elements that can report whether they have a value.
+// FHIR primitives can have extensions without having a value (null in JSON).
+type hasValuer interface {
+	Element
+	// HasValue returns true if the primitive element has a value (not just extensions).
+	HasValue() bool
+}
+
 type cmpElement interface {
 	Element
 	// Cmp may return nil, because attempting to operate on quantities

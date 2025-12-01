@@ -58,6 +58,10 @@ func (r Instant) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Instant) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Instant{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -177,6 +181,9 @@ func (r Instant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Instant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Instant to Quantity")
+}
+func (r Instant) HasValue() bool {
+	return r.Value != nil
 }
 func (r Instant) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToDateTime(false)

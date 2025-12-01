@@ -59,6 +59,10 @@ func (r PositiveInt) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *PositiveInt) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = PositiveInt{}
+		return nil
+	}
 	var v uint32
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -187,6 +191,9 @@ func (r PositiveInt) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 }
 func (r PositiveInt) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PositiveInt to Quantity")
+}
+func (r PositiveInt) HasValue() bool {
+	return r.Value != nil
 }
 func (r PositiveInt) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToInteger(false)

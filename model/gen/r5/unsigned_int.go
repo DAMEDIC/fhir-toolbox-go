@@ -59,6 +59,10 @@ func (r UnsignedInt) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *UnsignedInt) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = UnsignedInt{}
+		return nil
+	}
 	var v uint32
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -187,6 +191,9 @@ func (r UnsignedInt) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 }
 func (r UnsignedInt) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert UnsignedInt to Quantity")
+}
+func (r UnsignedInt) HasValue() bool {
+	return r.Value != nil
 }
 func (r UnsignedInt) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToInteger(false)

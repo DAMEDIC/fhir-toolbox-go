@@ -53,6 +53,10 @@ func (r Decimal) MarshalJSON() ([]byte, error) {
 	return []byte(r.Value.Text('G')), nil
 }
 func (r *Decimal) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Decimal{}
+		return nil
+	}
 	var v apd.Decimal
 	if err := v.UnmarshalText(b); err != nil {
 		return err
@@ -176,6 +180,9 @@ func (r Decimal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 }
 func (r Decimal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Decimal to Quantity")
+}
+func (r Decimal) HasValue() bool {
+	return r.Value != nil
 }
 func (r Decimal) Equal(other fhirpath.Element) (bool, bool) {
 	v, ok, err := r.ToDecimal(false)
