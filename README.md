@@ -290,12 +290,11 @@ The table below lists all remaining gaps based on failing tests:
 
 **FHIRPath Spec (base specification):**
 
-| Category                     | Missing pieces                                                                               | Notes                                                                                                                      |
-|------------------------------|----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-| **String operations**        | `replace()` function                                                                         | String manipulation semantics pending                                                                                      |
-| **Operators**                | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                      | Operator semantics pending alignment with spec 3.0                                                                         |
-| **Math**                     | `exp()` stability                                                                            | Mathematical function edge cases                                                                                           |
-| **R5-specific**              | `substring()`, `startsWith()`, `endsWith()`, `contains()` optional parameters; `minus` for quantities; math functions empty-input semantics | FHIRPath R5 enhancements not yet implemented                                                    |
+| Category              | Missing pieces                                                                                                                              | Notes                                              |
+|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| **Operators**         | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                                                                      | Operator semantics pending alignment with spec 3.0 |
+| **Math**              | `exp()` stability                                                                                                                           | Mathematical function edge cases                   |
+| **R5-specific**       | `minus` for quantities; math functions empty-input semantics | FHIRPath R5 enhancements not yet implemented       |
 
 
 The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`

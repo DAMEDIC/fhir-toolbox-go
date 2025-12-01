@@ -3,6 +3,7 @@ package fhirpath
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"testing"
 	"time"
 
@@ -23,6 +24,12 @@ type testElement struct {
 
 func (e testElement) Children(name ...string) Collection {
 	if len(name) > 0 {
+		if m, ok := e.value.(map[string]Collection); ok {
+			if child, ok := m[name[0]]; ok {
+				return child
+			}
+			return nil
+		}
 		return Collection{}
 	}
 
@@ -222,7 +229,7 @@ func (e testElement) Equal(other Element) (bool, bool) {
 	if !ok {
 		return false, false
 	}
-	return e.value == o.value, true
+	return reflect.DeepEqual(e.value, o.value), true
 }
 
 func (e testElement) Equivalent(other Element) bool {
@@ -323,6 +330,8 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			return Collection{}, true, nil
 		case "'test'":
 			return Collection{String("test")}, true, nil
+		case "'http://example.com/ext'":
+			return Collection{String("http://example.com/ext")}, true, nil
 		case "'hello'":
 			return Collection{String("hello")}, true, nil
 		case "'world'":
@@ -919,11 +928,32 @@ func TestStringFunctions(t *testing.T) {
 			expected: Collection{String("test")},
 		},
 		{
+			name:     "substring() empty start argument propagates empty",
+			fn:       defaultFunctions["substring"],
+			target:   Collection{String("hello")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
+		},
+		{
+			name:     "substring() empty length behaves as omitted",
+			fn:       defaultFunctions["substring"],
+			target:   Collection{String("hello")},
+			params:   []Expression{MustParse("1"), MustParse("{}")},
+			expected: Collection{String("ello")},
+		},
+		{
 			name:     "startsWith()",
 			fn:       defaultFunctions["startsWith"],
 			target:   Collection{String("hello world")},
 			params:   []Expression{MustParse("'hello'")},
 			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "startsWith() empty prefix argument propagates empty",
+			fn:       defaultFunctions["startsWith"],
+			target:   Collection{String("hello world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
 		},
 		{
 			name:     "endsWith()",
@@ -933,11 +963,25 @@ func TestStringFunctions(t *testing.T) {
 			expected: Collection{Boolean(true)},
 		},
 		{
+			name:     "endsWith() empty suffix argument propagates empty",
+			fn:       defaultFunctions["endsWith"],
+			target:   Collection{String("hello world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
+		},
+		{
 			name:     "contains()",
 			fn:       defaultFunctions["contains"],
 			target:   Collection{String("hello test world")},
 			params:   []Expression{MustParse("'test'")},
 			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "contains() empty substring argument propagates empty",
+			fn:       defaultFunctions["contains"],
+			target:   Collection{String("hello test world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
 		},
 		{
 			name:     "upper()",
@@ -1174,11 +1218,24 @@ func TestUtilityFunctions(t *testing.T) {
 			expectedOrdered: true,
 		},
 		{
-			name:            "extension()",
-			fn:              defaultFunctions["extension"],
-			target:          Collection{String("test")},
-			params:          []Expression{MustParse("'test'")},
-			expected:        Collection{},
+			name: "extension()",
+			fn:   FHIRFunctions["extension"],
+			target: Collection{testElement{value: map[string]Collection{
+				"extension": Collection{
+					testElement{value: map[string]Collection{
+						"url": Collection{String("http://example.com/ext")},
+					}},
+					testElement{value: map[string]Collection{
+						"url": Collection{String("http://example.com/other")},
+					}},
+				},
+			}}},
+			params: []Expression{MustParse("'http://example.com/ext'")},
+			expected: Collection{
+				testElement{value: map[string]Collection{
+					"url": Collection{String("http://example.com/ext")},
+				}},
+			},
 			expectedOrdered: true,
 		},
 		{

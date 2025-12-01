@@ -191,7 +191,6 @@ var testSkipsImplementationGaps = []skipRule{
 	{regexp.MustCompile(`^testExtension2$`), nil, "%ext variables not supported"},
 
 	// Semantics pending implementation
-	{regexp.MustCompile(`^testReplace\d+$`), nil, "string replace() semantics pending"},
 	{regexp.MustCompile(`^testEquality\d+$`), nil, "Equality semantics pending"},
 	{regexp.MustCompile(`^testNEquality\d+$`), nil, "Not-equal semantics pending"},
 	{regexp.MustCompile(`^testCombine.*`), nil, "combine() semantics pending"},
@@ -200,10 +199,6 @@ var testSkipsImplementationGaps = []skipRule{
 	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
 
 	// R5-specific features pending
-	{regexp.MustCompile(`^testSubstring.*`), isR5Release, "substring parameter semantics pending"},
-	{regexp.MustCompile(`^testStartsWith.*`), isR5Release, "startsWith optional parameters pending"},
-	{regexp.MustCompile(`^testEndsWith.*`), isR5Release, "endsWith optional parameters pending"},
-	{regexp.MustCompile(`^testContainsString.*`), isR5Release, "contains() optional parameters pending"},
 	{regexp.MustCompile(`^testMinus.*`), isR5Release, "minus semantics for quantities pending"},
 	{regexp.MustCompile(`^test(Sqrt|Abs|Ceiling|Floor|Ln|Log|Power|Truncate).*`), isR5Release, "math functions empty-input semantics pending"},
 }

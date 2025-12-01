@@ -671,7 +671,7 @@ var defaultFunctions = Functions{
 
 		return result, resultOrdered, nil
 	},
-	// sort implements FHIRPath v3.0.0 §4.1.26 sort()
+	// sort implements FHIRPath v3.0.0 section 4.1.26 sort()
 	"sort": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -844,7 +844,7 @@ var defaultFunctions = Functions{
 
 		return result, false, nil
 	},
-	// repeatAll implements FHIRPath v3.0.0 §4.1.26 repeatAll()
+	// repeatAll implements FHIRPath v3.0.0 section 4.1.26 repeatAll()
 	"repeatAll": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -1206,7 +1206,7 @@ var defaultFunctions = Functions{
 		// Use the Combine method to merge the collections
 		return target.Combine(other), false, nil
 	},
-	// coalesce implements FHIRPath v3.0.0 §4.1.26 coalesce()
+	// coalesce implements FHIRPath v3.0.0 section 4.1.26 coalesce()
 	"coalesce": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -1230,7 +1230,6 @@ var defaultFunctions = Functions{
 
 		return nil, true, nil
 	},
-
 	// String functions
 	"indexOf": func(
 		ctx context.Context,
@@ -1351,11 +1350,18 @@ var defaultFunctions = Functions{
 		if !ok {
 			return nil, true, nil
 		}
+		runes := []rune(string(s))
+		runeCount := len(runes)
 
-		// Evaluate the start parameter
-		startCollection, _, err := evaluate(ctx, nil, parameters[0])
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
+		// Evaluate the start parameter (FHIRPath substring section states empty args propagate as empty results)
+		startCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(startCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert start to integer
@@ -1367,17 +1373,20 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected integer start parameter")
 		}
 
-		// If start is negative or greater than or equal to the length of the string, return empty
-		if start < 0 || int(start) >= len(s) {
+		startIdx := int(start)
+		if startIdx < 0 || startIdx >= runeCount {
 			return nil, true, nil
 		}
 
 		// If length parameter is provided
 		if len(parameters) == 2 {
-			// Evaluate the length parameter
-			lengthCollection, _, err := evaluate(ctx, nil, parameters[1])
+			// Evaluate the length parameter (FHIRPath substring section: empty length behaves as if omitted)
+			lengthCollection, _, err := evaluate(ctx, paramTarget, parameters[1], paramScope...)
 			if err != nil {
 				return nil, false, err
+			}
+			if len(lengthCollection) == 0 {
+				return Collection{String(string(runes[startIdx:]))}, true, nil
 			}
 
 			// Convert length to integer
@@ -1389,23 +1398,20 @@ var defaultFunctions = Functions{
 				return nil, false, fmt.Errorf("expected integer length parameter")
 			}
 
-			// If length is negative, treat it as 0
-			if length < 0 {
-				length = 0
+			if length <= 0 {
+				return Collection{String("")}, true, nil
 			}
 
-			// Calculate end index (start + length)
-			end := int(start) + int(length)
-			if end > len(s) {
-				end = len(s)
+			end := startIdx + int(length)
+			if end > runeCount {
+				end = runeCount
 			}
 
-			result := String(s[start:end])
-			return Collection{result}, true, nil
+			return Collection{String(string(runes[startIdx:end]))}, true, nil
 		}
 
 		// If length parameter is not provided, return the rest of the string
-		return Collection{String(s[start:])}, true, nil
+		return Collection{String(string(runes[startIdx:]))}, true, nil
 	},
 	"startsWith": func(
 		ctx context.Context,
@@ -1427,10 +1433,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the prefix parameter
-		prefixCollection, _, err := evaluate(ctx, nil, parameters[0])
+		prefixCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(prefixCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert prefix to string
@@ -1471,10 +1482,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the suffix parameter
-		suffixCollection, _, err := evaluate(ctx, nil, parameters[0])
+		suffixCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(suffixCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert suffix to string
@@ -1515,10 +1531,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the substring parameter
-		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
+		substringCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(substringCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert substring to string
@@ -1623,7 +1644,7 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string pattern parameter")
+			return nil, true, nil
 		}
 
 		// Evaluate the substitution parameter
@@ -1638,7 +1659,7 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substitution parameter")
+			return nil, true, nil
 		}
 
 		// If pattern is an empty string (''), every character in the input string is surrounded by the substitution
@@ -4970,4 +4991,24 @@ func hasTimePrecision(t Time, precision string) bool {
 		return t.Precision == TimePrecisionMillisecond
 	}
 	return false
+}
+
+func singleInputParamContext(ctx context.Context, root Element, target Collection) (Element, []FunctionScope) {
+	parentScope, err := getFunctionScope(ctx)
+	if err == nil {
+		if len(target) == 0 {
+			return nil, nil
+		}
+		scope := FunctionScope{
+			index: parentScope.index,
+			total: parentScope.total,
+		}
+		return target[0], []FunctionScope{scope}
+	}
+
+	if root != nil {
+		return root, nil
+	}
+
+	return nil, nil
 }
