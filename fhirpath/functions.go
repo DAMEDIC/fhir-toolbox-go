@@ -132,9 +132,6 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	return fn, ok
 }
 
-// global variable for mocking time in tests
-var now = time.Now
-
 // defaultFunctions contains FHIRPath specification functions as defined in the FHIRPath standard.
 // For FHIR-specific extension functions, see FHIRFunctions.
 var defaultFunctions = Functions{

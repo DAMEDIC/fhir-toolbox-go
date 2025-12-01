@@ -40,5 +40,5 @@ func evaluationInstant(ctx context.Context) time.Time {
 }
 
 func currentEvaluationInstant() time.Time {
-	return now().Truncate(time.Millisecond)
+	return time.Now().Truncate(time.Millisecond)
 }

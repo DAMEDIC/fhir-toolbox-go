@@ -12,10 +12,7 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
-func init() {
-	// mock time.Now for testing
-	now = func() time.Time { return time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC) }
-}
+var fixedEvaluationInstant = time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC)
 
 // testElement is a helper type for testing FHIRPath functions
 type testElement struct {
@@ -273,6 +270,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	// Set APD context with precision
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
 	ctx = withEvaluationInstant(ctx)
 	root := testElement{value: nil}
 
@@ -428,6 +426,7 @@ func runFunctionWithEval(t *testing.T, fn Function, target Collection, params []
 	ctx := context.Background()
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
 	ctx = withEvaluationInstant(ctx)
 	root := testElement{}
 
@@ -1335,6 +1334,7 @@ func TestTemporalFunctionsDeterministic(t *testing.T) {
 	ctx := context.Background()
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
 	ctx = withEvaluationInstant(ctx)
 	root := testElement{}
 	noEval := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
