@@ -282,20 +282,10 @@ This wraps a generic implementation and exposes the strongly typed concrete inte
 
 The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented, including UCUM-based quantity
 conversions via the bundled [`github.com/iimos/ucum`](https://github.com/iimos/ucum) module.
-Functions that require terminology resolution remain unsupported for now.
 
 The 3.0.0-ballot specification introduces additional functions and semantics (see
-[FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)) which are not yet complete.
-The table below lists all remaining gaps based on failing tests:
-
-**FHIRPath Spec (base specification):**
-
-| Category              | Missing pieces                                                                                                                              | Notes                                              |
-|-----------------------|---------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
-| **Operators**         | Equality (`=`), not-equal (`!=`), `combine()`, `union`                                                                                      | Operator semantics pending alignment with spec 3.0 |
-| **Math**              | `exp()` stability                                                                                                                           | Mathematical function edge cases                   |
-| **R5-specific**       | `minus` for quantities; math functions empty-input semantics | FHIRPath R5 enhancements not yet implemented       |
-
+[FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)).
+We aim to cover most of these, but may lack behind in completeness.
 
 The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
 conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.
@@ -304,6 +294,7 @@ From the FHIR-specific extension functions defined in the FHIR specification, th
 
 * `extension(url : string) : collection` - extracts extensions by URL from FHIR elements
 * `hasValue() : Boolean` - checks if a FHIR primitive has a value (not just extensions)
+* `getValue() : System.[type]` - returns the primitive system value when a single FHIR primitive has a value
 
 Other FHIR-specific functions like `resolve()` and `conformsTo()` are not yet implemented, mostly because they require validation or terminology services which are not implemented by `fhir-toolbox-go` yet.
 

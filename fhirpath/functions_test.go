@@ -22,6 +22,16 @@ type testElement struct {
 	value any
 }
 
+// fakeFHIRPrimitive implements hasValuer by wrapping an Element.
+type fakeFHIRPrimitive struct {
+	Element
+	hasValue bool
+}
+
+func (f fakeFHIRPrimitive) HasValue() bool {
+	return f.hasValue
+}
+
 func (e testElement) Children(name ...string) Collection {
 	if len(name) > 0 {
 		if m, ok := e.value.(map[string]Collection); ok {
@@ -1198,7 +1208,7 @@ func TestUtilityFunctions(t *testing.T) {
 			fn:              defaultFunctions["now"],
 			target:          Collection{},
 			params:          nil,
-			expected:        Collection{DateTime{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DateTimePrecisionFull}},
+			expected:        Collection{DateTime{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DateTimePrecisionFull, HasTimeZone: true}},
 			expectedOrdered: true,
 		},
 		{
@@ -1236,6 +1246,54 @@ func TestUtilityFunctions(t *testing.T) {
 					"url": Collection{String("http://example.com/ext")},
 				}},
 			},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() true for primitive with value",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: true}},
+			params:          nil,
+			expected:        Collection{Boolean(true)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() false for primitive without value",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: false}},
+			params:          nil,
+			expected:        Collection{Boolean(false)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() empty for non FHIR primitive",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{String("abc")},
+			params:          nil,
+			expected:        Collection{},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() unwraps FHIR primitive",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: true}},
+			params:          nil,
+			expected:        Collection{String("abc")},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() empty when primitive lacks value",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: false}},
+			params:          nil,
+			expected:        Collection{},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() empty for non FHIR primitive",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{String("abc")},
+			params:          nil,
+			expected:        Collection{},
 			expectedOrdered: true,
 		},
 		{

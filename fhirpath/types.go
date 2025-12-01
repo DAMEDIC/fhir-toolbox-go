@@ -2140,9 +2140,9 @@ type Date struct {
 type DatePrecision string
 
 const (
-	DatePrecisionYear  = "year"
-	DatePrecisionMonth = "month"
-	DatePrecisionFull  = "full"
+	DatePrecisionYear  DatePrecision = "year"
+	DatePrecisionMonth DatePrecision = "month"
+	DatePrecisionFull  DatePrecision = "full"
 )
 
 const (
@@ -3070,6 +3070,14 @@ func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
 		return 0, false, fmt.Errorf("can not compare DateTime to %T, left: %v right: %v", other, dt, other)
 	}
 
+	// Per FHIRPath spec, comparisons between DateTime values that both include a time
+	// component but differ in timezone awareness are indeterminate.
+	leftHasTime := hasDateTimePrecisionLevel(dt.Precision, DateTimePrecisionHour)
+	rightHasTime := hasDateTimePrecisionLevel(o.Precision, DateTimePrecisionHour)
+	if leftHasTime && rightHasTime && dt.HasTimeZone != o.HasTimeZone {
+		return 0, false, nil
+	}
+
 	compareTarget := o.Value.In(dt.Value.Location())
 
 	for _, level := range dateTimeComparisonLevels {
@@ -3415,8 +3423,13 @@ func buildDateTimeBoundary(value DateTime, digits int, useUpper bool) (DateTime,
 		adjHour := adjustHourForOffset(anchor.Hour(), offset)
 		anchor = time.Date(anchor.Year(), anchor.Month(), anchor.Day(), adjHour, anchor.Minute(), anchor.Second(), anchor.Nanosecond(), anchor.Location())
 	}
+
 	result := buildDateTimeFromTime(anchor, precision)
-	result.HasTimeZone = value.HasTimeZone
+	if !value.HasTimeZone && includesTimeComponent(result.Precision) {
+		result.HasTimeZone = true
+	} else {
+		result.HasTimeZone = value.HasTimeZone
+	}
 	return result, true
 }
 

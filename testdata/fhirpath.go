@@ -419,7 +419,7 @@ func (o FHIRPathTestOutput) ToBoolean(explicit bool) (v fhirpath.Boolean, ok boo
 }
 
 func (o FHIRPathTestOutput) ToString(explicit bool) (v fhirpath.String, ok bool, err error) {
-	if o.Type != "string" && o.Type != "code" {
+	if o.Type != "string" && o.Type != "code" && o.Type != "id" {
 		panic("not a string")
 	}
 	return fhirpath.String(o.Output), true, nil
@@ -547,7 +547,7 @@ func (o FHIRPathTestOutput) toElement() (v fhirpath.Element, ok bool, err error)
 	switch o.Type {
 	case "boolean":
 		return o.ToBoolean(false)
-	case "string", "code":
+	case "string", "code", "id":
 		return o.ToString(false)
 	case "integer":
 		return o.ToInteger(false)
@@ -573,6 +573,8 @@ func (o FHIRPathTestOutput) typeName() string {
 		return "String"
 	case "code":
 		return "Code"
+	case "id":
+		return "Id"
 	case "integer":
 		return "Integer"
 	case "decimal":

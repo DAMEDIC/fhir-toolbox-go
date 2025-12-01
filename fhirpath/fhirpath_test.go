@@ -189,18 +189,6 @@ var testSkipsImplementationGaps = []skipRule{
 	{regexp.MustCompile(`^txTest0[1-3]$`), nil, "Terminology service not configured"},
 	{regexp.MustCompile(`^testVariables4$`), nil, "%vs variables not supported (requires terminology service)"},
 	{regexp.MustCompile(`^testExtension2$`), nil, "%ext variables not supported"},
-
-	// Semantics pending implementation
-	{regexp.MustCompile(`^testEquality\d+$`), nil, "Equality semantics pending"},
-	{regexp.MustCompile(`^testNEquality\d+$`), nil, "Not-equal semantics pending"},
-	{regexp.MustCompile(`^testCombine.*`), nil, "combine() semantics pending"},
-	{regexp.MustCompile(`^testUnion\d+$`), nil, "union semantics pending"},
-	{regexp.MustCompile(`^testExp\d+$`), nil, "exp() function stability pending"},
-	{regexp.MustCompile(`^testContainedId$`), nil, "primitive id handling pending"},
-
-	// R5-specific features pending
-	{regexp.MustCompile(`^testMinus.*`), isR5Release, "minus semantics for quantities pending"},
-	{regexp.MustCompile(`^test(Sqrt|Abs|Ceiling|Floor|Ln|Log|Power|Truncate).*`), isR5Release, "math functions empty-input semantics pending"},
 }
 
 var unimplementedTestSkips = append(testSkipsSpecIssues, testSkipsImplementationGaps...)

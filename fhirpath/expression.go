@@ -311,12 +311,12 @@ func evalExpression(
 		// This ensures that variables defined on one side don't affect the other
 		// We create fresh contexts for both sides here since they're separate evaluation trees
 		leftCtx, _ := withNewEnvStackFrame(ctx)
-		left, leftOrdered, err := evalExpression(leftCtx, root, target, inputOrdered, t.Expression(0), false)
+		left, leftOrdered, err := evalExpression(leftCtx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
 		rightCtx, _ := withNewEnvStackFrame(ctx)
-		right, rightOrdered, err := evalExpression(rightCtx, root, target, inputOrdered, t.Expression(1), false)
+		right, rightOrdered, err := evalExpression(rightCtx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}

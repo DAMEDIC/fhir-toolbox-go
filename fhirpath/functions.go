@@ -2913,6 +2913,13 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("abs() expects a single input element")
+		}
 
 		i, ok, err := Singleton[Integer](target)
 		if err == nil && ok {
@@ -2950,6 +2957,13 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("ceiling() expects a single input element")
+		}
 
 		i, ok, err := Singleton[Integer](target)
 		if err == nil && ok {
@@ -2985,6 +2999,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("floor() expects a single input element")
 		}
 
 		i, ok, err := Singleton[Integer](target)
@@ -3022,6 +3043,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("truncate() expects a single input element")
 		}
 
 		i, ok, err := Singleton[Integer](target)
@@ -3128,6 +3156,13 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("exp() expects a single input element")
+		}
 
 		d, ok, err := Singleton[Decimal](target)
 		if err == nil && ok {
@@ -3152,6 +3187,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("ln() expects a single input element")
 		}
 
 		d, ok, err := Singleton[Decimal](target)
@@ -3178,9 +3220,22 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one base parameter")
 		}
+
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("log() expects a single input element")
+		}
+
 		baseCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
+		}
+		if len(baseCollection) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty arguments yield empty results.
+			return nil, true, nil
 		}
 
 		baseDecimal, ok, err := Singleton[Decimal](baseCollection)
@@ -3227,10 +3282,21 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one exponent parameter")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("power() expects a single input element")
+		}
 
 		exponentCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
+		}
+		if len(exponentCollection) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty arguments yield empty results.
+			return nil, true, nil
 		}
 
 		exponentInt, ok, err := Singleton[Integer](exponentCollection)
@@ -3296,6 +3362,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("sqrt() expects a single input element")
 		}
 
 		d, ok, err := Singleton[Decimal](target)
@@ -4594,6 +4667,37 @@ var FHIRFunctions = Functions{
 
 		// Not a FHIR primitive - return empty
 		return nil, inputOrdered, nil
+	},
+	"getValue": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// getValue(): System.[type]
+		// Per FHIRPath section 2.1.9.1.5.4 this returns the underlying system value
+		// when the input is a single FHIR primitive that actually has a value.
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) != 1 {
+			return nil, inputOrdered, nil
+		}
+
+		elem := target[0]
+		hv, ok := elem.(hasValuer)
+		if !ok || !hv.HasValue() {
+			return nil, inputOrdered, nil
+		}
+
+		primitive, ok := toPrimitive(elem)
+		if !ok || primitive == nil {
+			return nil, inputOrdered, nil
+		}
+
+		return Collection{primitive}, inputOrdered, nil
 	},
 }
 

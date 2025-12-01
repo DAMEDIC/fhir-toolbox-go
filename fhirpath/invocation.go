@@ -186,10 +186,27 @@ func callFunc(
 
 				ctx = withFunctionScope(ctx, scope)
 			}
-			var targetCollection Collection
-			if target != nil {
-				targetCollection = Collection{target}
+			// Determine the evaluation target for the parameter expression:
+			//  1. Use the explicit target supplied by the caller (e.g., select/where).
+			//  2. Otherwise, fall back to the current function scope's $this if present.
+			//  3. Finally, fall back to the root element of the overall evaluation.
+			var scopeTarget Element
+			switch {
+			case target != nil:
+				scopeTarget = target
+			default:
+				if parentScope, err := getFunctionScope(ctx); err == nil && parentScope.this != nil {
+					scopeTarget = parentScope.this
+				} else {
+					scopeTarget = root
+				}
 			}
+
+			var targetCollection Collection
+			if scopeTarget != nil {
+				targetCollection = Collection{scopeTarget}
+			}
+
 			return evalExpression(ctx,
 				root, targetCollection,
 				true,

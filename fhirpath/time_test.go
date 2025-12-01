@@ -374,8 +374,8 @@ func TestDateTimeBoundariesPreserveTimeZone(t *testing.T) {
 	if !ok {
 		t.Fatalf("expected floating datetime low boundary")
 	}
-	if floatingLow.HasTimeZone {
-		t.Fatalf("floating datetime boundary should remain timezone-less")
+	if !floatingLow.HasTimeZone {
+		t.Fatalf("floating datetime boundary should mark timezone")
 	}
 	if floatingLow.Value.Day() != 1 || floatingLow.Value.Hour() != 18 {
 		t.Fatalf("floating datetime low boundary should adjust hour: %v", floatingLow.Value)
@@ -384,6 +384,9 @@ func TestDateTimeBoundariesPreserveTimeZone(t *testing.T) {
 	floatingHigh, ok := floating.HighBoundary(&digits)
 	if !ok {
 		t.Fatalf("expected floating datetime high boundary")
+	}
+	if !floatingHigh.HasTimeZone {
+		t.Fatalf("floating datetime boundary should mark timezone")
 	}
 	if floatingHigh.Value.Hour() != 20 {
 		t.Fatalf("floating datetime high boundary should adjust hour: %v", floatingHigh.Value)
