@@ -277,9 +277,14 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	root := testElement{value: nil}
 
 	// Mock evaluate function that can handle simple expressions
-	mockEvaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+	mockEvaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 		if expr.tree == nil {
 			return Collection{}, false, fmt.Errorf("unexpected expression <nil>")
+		}
+
+		var this Element
+		if len(target) == 1 {
+			this = target[0]
 		}
 
 		// Handle simple expressions
@@ -289,7 +294,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 		case "false":
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 0", "$this>0":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 0)}, true, nil
@@ -299,7 +304,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 2", "$this>2":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 2)}, true, nil
@@ -309,7 +314,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 5", "$this>5":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 5)}, true, nil
@@ -319,7 +324,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this * 2", "$this*2":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Integer(val * 2)}, true, nil
@@ -349,7 +354,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 		case "'hi'":
 			return Collection{String("hi")}, true, nil
 		case "decrement()":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case Integer:
 				if v > 0 {
 					return Collection{Integer(v - 1)}, true, nil
@@ -426,25 +431,22 @@ func runFunctionWithEval(t *testing.T, fn Function, target Collection, params []
 	ctx = withEvaluationInstant(ctx)
 	root := testElement{}
 
-	evaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+	evaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 		if expr.tree == nil {
 			return nil, false, fmt.Errorf("unexpected expression <nil>")
 		}
 
 		if len(fnScope) > 0 {
 			scope := functionScope{
-				this:  target,
 				index: fnScope[0].index,
+			}
+			if len(target) == 1 {
+				scope.this = target[0]
 			}
 			ctx = withFunctionScope(ctx, scope)
 		}
 
-		var targetCollection Collection
-		if target != nil {
-			targetCollection = Collection{target}
-		}
-
-		return evalExpression(ctx, root, targetCollection, true, expr.tree, true)
+		return evalExpression(ctx, root, target, true, expr.tree, true)
 	}
 
 	result, ordered, err := fn(ctx, root, target, true, params, evaluate)
@@ -1335,7 +1337,7 @@ func TestTemporalFunctionsDeterministic(t *testing.T) {
 	ctx = WithAPDContext(ctx, apdCtx)
 	ctx = withEvaluationInstant(ctx)
 	root := testElement{}
-	noEval := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+	noEval := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 		return nil, false, fmt.Errorf("unexpected evaluation")
 	}
 
@@ -1493,7 +1495,7 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{},
 			expectError: false,
 			varName:     "test",
-			varValue:    nil, // Empty input → value expression not evaluated → empty variable (nil)
+			varValue:    Collection{String("value")},
 		},
 		{
 			name:        "define_variable_using_input_collection",
@@ -1503,6 +1505,26 @@ func TestDefineVariable(t *testing.T) {
 			expectError: false,
 			varName:     "myVar",
 			varValue:    Collection{String("inputValue")},
+		},
+		{
+			name: "value_expression_evaluated_on_entire_collection",
+			target: Collection{
+				String("first"),
+				String("second"),
+				String("third"),
+			},
+			params: []Expression{
+				MustParse("'n2'"),
+				MustParse("skip(1).first()"),
+			},
+			expected: Collection{
+				String("first"),
+				String("second"),
+				String("third"),
+			},
+			expectError: false,
+			varName:     "n2",
+			varValue:    Collection{String("second")},
 		},
 		{
 			name:        "invalid_number_of_parameters",
@@ -1522,7 +1544,7 @@ func TestDefineVariable(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			mockEvaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+			mockEvaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 				if expr.tree == nil {
 					return Collection{}, false, fmt.Errorf("unexpected expression <nil>")
 				}
@@ -1531,6 +1553,8 @@ func TestDefineVariable(t *testing.T) {
 					return Collection{String("test")}, true, nil
 				case "'myVar'":
 					return Collection{String("myVar")}, true, nil
+				case "'n2'":
+					return Collection{String("n2")}, true, nil
 				case "'testVar'":
 					return Collection{String("testVar")}, true, nil
 				case "'value'":
@@ -1539,6 +1563,11 @@ func TestDefineVariable(t *testing.T) {
 					return Collection{String("invalid")}, true, nil
 				case "'multiple'":
 					return Collection{String("multiple")}, true, nil
+				case "skip(1).first()":
+					if len(target) <= 1 {
+						return nil, true, nil
+					}
+					return Collection{target[1]}, true, nil
 				default:
 					return Collection{}, false, fmt.Errorf("evaluate not implemented for expression: %s", expr.String())
 				}

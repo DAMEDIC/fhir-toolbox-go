@@ -66,7 +66,7 @@ type Function = func(
 
 type EvaluateFunc = func(
 	ctx context.Context,
-	target Element,
+	target Collection,
 	expr Expression,
 	fnScope ...FunctionScope,
 ) (result Collection, resultOrdered bool, err error)
@@ -291,7 +291,7 @@ var defaultFunctions = Functions{
 
 		// With criteria, equivalent to where(criteria).exists()
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -325,7 +325,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -621,7 +621,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -656,7 +656,7 @@ var defaultFunctions = Functions{
 
 		resultOrdered = inputOrdered
 		for i, elem := range target {
-			projection, ordered, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			projection, ordered, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -700,7 +700,7 @@ var defaultFunctions = Functions{
 			}
 			items[i].keys = make([]sortKeyValue, len(parameters))
 			for j, param := range parameters {
-				keyResult, _, err := evaluate(ctx, elem, param, FunctionScope{index: i})
+				keyResult, _, err := evaluate(ctx, Collection{elem}, param, FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -801,7 +801,7 @@ var defaultFunctions = Functions{
 		for {
 			newItems = nil
 			for i, elem := range current {
-				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -864,7 +864,7 @@ var defaultFunctions = Functions{
 		for len(queue) > 0 {
 			var next Collection
 			for i, elem := range queue {
-				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -1627,9 +1627,9 @@ var defaultFunctions = Functions{
 		}
 
 		// Evaluate pattern and substitution parameters against the input string
-		var evalTarget Element
+		var evalTarget Collection
 		if len(target) > 0 {
-			evalTarget = target[0]
+			evalTarget = Collection{target[0]}
 		}
 
 		// Evaluate the pattern parameter
@@ -2880,19 +2880,14 @@ var defaultFunctions = Functions{
 
 		// Determine the value to store
 		// Variables in FHIRPath store the entire evaluated result (which can be a collection)
-		var value Collection
+		value := target
 		if len(parameters) == 2 {
-			// Evaluate for each item in the input collection and aggregate results
-			for _, item := range target {
-				itemCollection, _, err := evaluate(ctx, item, parameters[1])
-				if err != nil {
-					return nil, false, err
-				}
-				value = append(value, itemCollection...)
+			// FHIRPath STU defineVariable: the value expression is evaluated once using the
+			// current input collection as its starting point (Functions - Utility section).
+			value, _, err = evaluate(ctx, target, parameters[1])
+			if err != nil {
+				return nil, false, err
 			}
-		} else {
-			// Use the input collection as the value
-			value = target
 		}
 
 		// Store the collection as the variable value in the parent context
@@ -4003,7 +3998,7 @@ var defaultFunctions = Functions{
 		var logCollection Collection
 		if len(parameters) == 2 {
 			for i, elem := range target {
-				projection, _, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i})
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[1], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -4051,7 +4046,7 @@ var defaultFunctions = Functions{
 		// Iterate over the target collection
 		for i, elem := range target {
 			var ordered bool
-			total, ordered, err = evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: total})
+			total, ordered, err = evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i, total: total})
 			if err != nil {
 				return nil, false, err
 			}
@@ -4130,10 +4125,10 @@ var defaultFunctions = Functions{
 
 		// Determine the evaluation target for $this context
 		// If target has one item, use it; otherwise use nil
-		var evalTarget Element
+		var evalTarget Collection
 		var fnScope []FunctionScope
 		if len(target) == 1 {
-			evalTarget = target[0]
+			evalTarget = Collection{target[0]}
 			// Preserve the parent function scope's index if it exists
 			parentScope, err := getFunctionScope(ctx)
 			if err == nil {
@@ -5097,7 +5092,7 @@ func hasTimePrecision(t Time, precision string) bool {
 	return false
 }
 
-func singleInputParamContext(ctx context.Context, root Element, target Collection) (Element, []FunctionScope) {
+func singleInputParamContext(ctx context.Context, root Element, target Collection) (Collection, []FunctionScope) {
 	parentScope, err := getFunctionScope(ctx)
 	if err == nil {
 		if len(target) == 0 {
@@ -5107,11 +5102,11 @@ func singleInputParamContext(ctx context.Context, root Element, target Collectio
 			index: parentScope.index,
 			total: parentScope.total,
 		}
-		return target[0], []FunctionScope{scope}
+		return Collection{target[0]}, []FunctionScope{scope}
 	}
 
 	if root != nil {
-		return root, nil
+		return Collection{root}, nil
 	}
 
 	return nil, nil

@@ -155,7 +155,7 @@ func callFunc(
 		paramExprs,
 		func(
 			ctx context.Context,
-			target Element,
+			target Collection,
 			expr Expression,
 			fnScope ...FunctionScope,
 		) (result Collection, resultOrdered bool, err error) {
@@ -163,17 +163,19 @@ func callFunc(
 			// This prevents variables defined in parameter expressions from colliding
 			ctx, _ = withNewEnvStackFrame(ctx)
 
-			if len(fnScope) > 0 {
-				// Get parent scope to preserve aggregate context
-				parentScope, hasParent := getFunctionScope(ctx)
+			parentScope, parentErr := getFunctionScope(ctx)
 
+			if len(fnScope) > 0 {
 				scope := functionScope{
-					this:  target,
 					index: fnScope[0].index,
 				}
 
+				if len(target) == 1 {
+					scope.this = target[0]
+				}
+
 				// Preserve aggregate context from parent
-				if hasParent == nil && parentScope.aggregate {
+				if parentErr == nil && parentScope.aggregate {
 					scope.aggregate = true
 					scope.total = parentScope.total
 				}
@@ -190,25 +192,17 @@ func callFunc(
 			//  1. Use the explicit target supplied by the caller (e.g., select/where).
 			//  2. Otherwise, fall back to the current function scope's $this if present.
 			//  3. Finally, fall back to the root element of the overall evaluation.
-			var scopeTarget Element
-			switch {
-			case target != nil:
-				scopeTarget = target
-			default:
-				if parentScope, err := getFunctionScope(ctx); err == nil && parentScope.this != nil {
-					scopeTarget = parentScope.this
-				} else {
-					scopeTarget = root
+			evalTarget := target
+			if len(evalTarget) == 0 {
+				if scope, err := getFunctionScope(ctx); err == nil && scope.this != nil {
+					evalTarget = Collection{scope.this}
+				} else if root != nil {
+					evalTarget = Collection{root}
 				}
 			}
 
-			var targetCollection Collection
-			if scopeTarget != nil {
-				targetCollection = Collection{scopeTarget}
-			}
-
 			return evalExpression(ctx,
-				root, targetCollection,
+				root, evalTarget,
 				true,
 				expr.tree, true,
 			)

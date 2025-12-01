@@ -160,18 +160,6 @@ var testSkipsSpecIssues = []skipRule{
 	// testPlusDate19: R4/R4B test expects @...T00:00:00.000 + 0.1 's' = @...T00:00:00.000 (unchanged),
 	// but R5 test (correctly) expects @...T00:00:00.100. Implementation follows R5 behavior.
 	{regexp.MustCompile(`^testPlusDate19$`), isNotR5Release, "R4/R4B test expects no change when adding 0.1s, but implementation (correctly) adds fractional seconds per R5 test"},
-	// defineVariable13 & 14: Tests use skip(1).first() as the value expression, expecting it to operate on the entire
-	// input collection. However, the spec states "If the function takes an expression as a parameter, the function
-	// will evaluate the expression passed for the parameter with respect to each of the items in the input collection."
-	// Current implementation follows this pattern (like select/where), evaluating the value expression per-item and
-	// aggregating results. But skip(1) only makes sense on a collection, not individual items. The spec for defineVariable
-	// doesn't clarify whether the value parameter should be evaluated per-item or once on the whole collection.
-	{regexp.MustCompile(`^defineVariable1[34]$`), nil, "test expects whole-collection evaluation but implementation evaluates value expression per-item per spec"},
-	// defineVariable19: Test uses nested defineVariable in the name parameter, which conflicts with empty collection handling.
-	// Per spec, name is a String parameter (not expression parameter), evaluated once in root context.
-	// When defineVariable processes empty input, the value expression is not evaluated (consistent with select, where, etc.).
-	// This causes the nested defineVariable to set variables to empty collections, breaking the test's expectation.
-	{regexp.MustCompile(`^defineVariable19$`), nil, "test conflicts with spec-compliant empty collection handling for expression parameters"},
 	// Contested tests: These tests expect behavior contrary to the FHIR spec. Per the FHIR specification,
 	// derived types like FHIR.code are subtypes of their base types (FHIR.string in this case).
 	// Tests marked "contested" expect ofType/as operations to NOT match derived types against base types,
