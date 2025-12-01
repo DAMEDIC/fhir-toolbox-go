@@ -142,6 +142,7 @@ func parse(expr string) (parser.IExpressionContext, error) {
 //	}
 //	fmt.Println(result) // Output: [Donald]
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
+	ctx = withEvaluationInstant(ctx)
 	for name, value := range systemVariables {
 		if name == "context" {
 			ctx = WithEnv(ctx, name, Collection{target})

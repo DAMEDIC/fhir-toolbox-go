@@ -256,6 +256,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	// Set APD context with precision
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = withEvaluationInstant(ctx)
 	root := testElement{value: nil}
 
 	// Mock evaluate function that can handle simple expressions
@@ -403,6 +404,7 @@ func runFunctionWithEval(t *testing.T, fn Function, target Collection, params []
 	ctx := context.Background()
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = withEvaluationInstant(ctx)
 	root := testElement{}
 
 	evaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
@@ -1156,11 +1158,19 @@ func TestUtilityFunctions(t *testing.T) {
 			expectedOrdered: true,
 		},
 		{
+			name:            "timeOfDay()",
+			fn:              defaultFunctions["timeOfDay"],
+			target:          Collection{},
+			params:          nil,
+			expected:        Collection{Time{Value: time.Date(0, 1, 1, 3, 4, 5, 0, time.UTC), Precision: TimePrecisionFull}},
+			expectedOrdered: true,
+		},
+		{
 			name:            "today()",
 			fn:              defaultFunctions["today"],
 			target:          Collection{},
 			params:          nil,
-			expected:        Collection{Date{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DatePrecisionFull}},
+			expected:        Collection{Date{Value: time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC), Precision: DatePrecisionFull}},
 			expectedOrdered: true,
 		},
 		{
@@ -1201,6 +1211,153 @@ func TestUtilityFunctions(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, tt.expectedOrdered, false)
 		})
+	}
+}
+
+func TestTemporalFunctionsDeterministic(t *testing.T) {
+	ctx := context.Background()
+	apdCtx := apd.BaseContext.WithPrecision(20)
+	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = withEvaluationInstant(ctx)
+	root := testElement{}
+	noEval := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+		return nil, false, fmt.Errorf("unexpected evaluation")
+	}
+
+	call := func(fn Function) Collection {
+		result, _, err := fn(ctx, root, Collection{}, true, nil, noEval)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		return result
+	}
+
+	nowFirst := call(defaultFunctions["now"])
+	nowSecond := call(defaultFunctions["now"])
+	if !nowFirst.Equivalent(nowSecond) {
+		t.Fatalf("now() results differ within same context: %v vs %v", nowFirst, nowSecond)
+	}
+
+	timeFirst := call(defaultFunctions["timeOfDay"])
+	timeSecond := call(defaultFunctions["timeOfDay"])
+	if !timeFirst.Equivalent(timeSecond) {
+		t.Fatalf("timeOfDay() results differ within same context: %v vs %v", timeFirst, timeSecond)
+	}
+	timeValue, ok := timeFirst[0].(Time)
+	if !ok {
+		t.Fatalf("expected Time result, got %T", timeFirst[0])
+	}
+	if timeValue.Value.Year() != 0 || timeValue.Value.Month() != 1 || timeValue.Value.Day() != 1 {
+		t.Fatalf("timeOfDay() should zero-out date component, got %v", timeValue.Value)
+	}
+
+	todayFirst := call(defaultFunctions["today"])
+	todaySecond := call(defaultFunctions["today"])
+	if !todayFirst.Equivalent(todaySecond) {
+		t.Fatalf("today() results differ within same context: %v vs %v", todayFirst, todaySecond)
+	}
+	todayValue, ok := todayFirst[0].(Date)
+	if !ok {
+		t.Fatalf("expected Date result, got %T", todayFirst[0])
+	}
+	if todayValue.Value.Hour() != 0 || todayValue.Value.Minute() != 0 || todayValue.Value.Second() != 0 || todayValue.Value.Nanosecond() != 0 {
+		t.Fatalf("today() should truncate to midnight, got %v", todayValue.Value)
+	}
+}
+
+func TestPrecisionFunctionTemporalTypes(t *testing.T) {
+	fn := defaultFunctions["precision"]
+	tests := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "Date precision digits",
+			target:   Collection{Date{Value: time.Date(2020, 5, 1, 0, 0, 0, 0, time.UTC), Precision: DatePrecisionMonth}},
+			expected: Collection{Integer(6)},
+		},
+		{
+			name: "DateTime precision digits",
+			target: Collection{DateTime{
+				Value:     time.Date(2020, 5, 1, 10, 30, 0, 0, time.UTC),
+				Precision: DateTimePrecisionMillisecond,
+			}},
+			expected: Collection{Integer(17)},
+		},
+		{
+			name: "Time precision digits",
+			target: Collection{Time{
+				Value:     time.Date(0, 1, 1, 10, 30, 0, 0, time.UTC),
+				Precision: TimePrecisionMinute,
+			}},
+			expected: Collection{Integer(4)},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			testFunction(t, fn, tt.target, nil, tt.expected, true, false)
+		})
+	}
+}
+
+func TestWithEvaluationTimeControlsTemporalFunctions(t *testing.T) {
+	loc := time.FixedZone("UTC+5", 5*60*60)
+	sourceInstant := time.Date(2024, 7, 3, 11, 22, 33, 987654321, loc)
+	ctx := WithEvaluationTime(nil, sourceInstant)
+
+	want := sourceInstant.Truncate(time.Millisecond)
+	got := evaluationInstant(ctx)
+	if !got.Equal(want) {
+		t.Fatalf("evaluationInstant() = %v, want %v", got, want)
+	}
+
+	root := testElement{}
+
+	call := func(fnName string) Collection {
+		fn := defaultFunctions[fnName]
+		result, _, err := fn(ctx, root, Collection{}, true, nil, nil)
+		if err != nil {
+			t.Fatalf("%s() unexpected error: %v", fnName, err)
+		}
+		return result
+	}
+
+	nowResult := call("now")
+	dt, ok := nowResult[0].(DateTime)
+	if !ok {
+		t.Fatalf("now() result not DateTime: %T", nowResult[0])
+	}
+	if !dt.Value.Equal(want) {
+		t.Fatalf("now() = %v, want %v", dt.Value, want)
+	}
+	if !dt.HasTimeZone {
+		t.Fatalf("now() should include timezone information")
+	}
+
+	timeResult := call("timeOfDay")
+	tod, ok := timeResult[0].(Time)
+	if !ok {
+		t.Fatalf("timeOfDay() result not Time: %T", timeResult[0])
+	}
+	if tod.Value.Hour() != want.Hour() || tod.Value.Minute() != want.Minute() || tod.Value.Second() != want.Second() {
+		t.Fatalf("timeOfDay() = %v, want %v", tod.Value, want)
+	}
+	if tod.Value.Year() != 0 || tod.Value.Month() != 1 || tod.Value.Day() != 1 {
+		t.Fatalf("timeOfDay() should zero out date component, got %v", tod.Value)
+	}
+
+	todayResult := call("today")
+	day, ok := todayResult[0].(Date)
+	if !ok {
+		t.Fatalf("today() result not Date: %T", todayResult[0])
+	}
+	if day.Value.Year() != want.Year() || day.Value.Month() != want.Month() || day.Value.Day() != want.Day() {
+		t.Fatalf("today() = %v, want date component %v", day.Value, want)
+	}
+	if day.Value.Hour() != 0 || day.Value.Minute() != 0 || day.Value.Second() != 0 || day.Value.Nanosecond() != 0 {
+		t.Fatalf("today() should truncate time component, got %v", day.Value)
 	}
 }
 

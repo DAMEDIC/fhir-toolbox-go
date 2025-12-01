@@ -3363,6 +3363,9 @@ func buildDateTimeBoundary(value DateTime, digits int, useUpper bool) (DateTime,
 	if useUpper {
 		anchor = end
 	}
+	// FHIRPath lowBoundary/highBoundary semantics (FHIRPath v3.0.0, Utility Functions)
+	// require floating datetimes to represent the range of possible timezone offsets,
+	// modeled as +/-14h (low) and +/-12h (high) adjustments at the requested precision.
 	if !value.HasTimeZone && includesTimeComponent(precision) {
 		offset := maxTimeZoneOffsetHours
 		if useUpper {
@@ -3371,7 +3374,9 @@ func buildDateTimeBoundary(value DateTime, digits int, useUpper bool) (DateTime,
 		adjHour := adjustHourForOffset(anchor.Hour(), offset)
 		anchor = time.Date(anchor.Year(), anchor.Month(), anchor.Day(), adjHour, anchor.Minute(), anchor.Second(), anchor.Nanosecond(), anchor.Location())
 	}
-	return buildDateTimeFromTime(anchor, precision), true
+	result := buildDateTimeFromTime(anchor, precision)
+	result.HasTimeZone = value.HasTimeZone
+	return result, true
 }
 
 func includesTimeComponent(p DateTimePrecision) bool {

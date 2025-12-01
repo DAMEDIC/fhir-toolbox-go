@@ -3969,8 +3969,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		now := now()
-		dt := DateTime{Value: now, Precision: DateTimePrecisionFull, HasTimeZone: true}
+		instant := evaluationInstant(ctx)
+		dt := DateTime{Value: instant, Precision: DateTimePrecisionFull, HasTimeZone: true}
 
 		return Collection{dt}, inputOrdered, nil
 	},
@@ -3985,9 +3985,9 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current time
-		now := now()
-		t := Time{Value: now, Precision: TimePrecisionFull}
+		instant := evaluationInstant(ctx)
+		tod := time.Date(0, 1, 1, instant.Hour(), instant.Minute(), instant.Second(), instant.Nanosecond(), instant.Location())
+		t := Time{Value: tod, Precision: TimePrecisionFull}
 
 		return Collection{t}, inputOrdered, nil
 	},
@@ -4002,8 +4002,9 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		now := now()
-		d := Date{Value: now, Precision: DatePrecisionFull}
+		instant := evaluationInstant(ctx)
+		dateValue := time.Date(instant.Year(), instant.Month(), instant.Day(), 0, 0, 0, 0, instant.Location())
+		d := Date{Value: dateValue, Precision: DatePrecisionFull}
 
 		return Collection{d}, inputOrdered, nil
 	},
