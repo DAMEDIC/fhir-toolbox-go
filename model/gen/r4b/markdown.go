@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // Base StructureDefinition for markdown type: A string that may contain Github Flavored Markdown syntax for optional processing by a mark down presentation engine
@@ -58,6 +59,10 @@ func (r Markdown) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Markdown) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Markdown{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -160,6 +165,17 @@ func (r Markdown) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Markdown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Markdown to Integer")
 }
+func (r Markdown) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
+}
 func (r Markdown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Markdown to Decimal")
 }
@@ -175,36 +191,38 @@ func (r Markdown) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Markdown) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Markdown to Quantity")
 }
-func (r Markdown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToString(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	b, ok, err := other.ToString(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+func (r Markdown) HasValue() bool {
+	return r.Value != nil
 }
-func (r Markdown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Markdown) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return v.Equal(other)
+}
+func (r Markdown) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Markdown) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "string",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

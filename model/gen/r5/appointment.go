@@ -6553,6 +6553,9 @@ func (r Appointment) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Appointment) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Appointment to Integer")
 }
+func (r Appointment) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Appointment to Long")
+}
 func (r Appointment) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Appointment to Decimal")
 }
@@ -6568,7 +6571,7 @@ func (r Appointment) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Appointment) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Appointment to Quantity")
 }
-func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Appointment) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Appointment
 	switch other := other.(type) {
 	case Appointment:
@@ -6584,7 +6587,7 @@ func (r Appointment) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Appointment) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Appointment) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Appointment)
 	if !ok {
 		return false
@@ -6601,280 +6604,280 @@ func (r Appointment) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CancellationReason",
+			Name: "cancellationReason",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Class",
+			Name: "class",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ServiceCategory",
+			Name: "serviceCategory",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ServiceType",
+			Name: "serviceType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Specialty",
+			Name: "specialty",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AppointmentType",
+			Name: "appointmentType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Replaces",
+			Name: "replaces",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VirtualService",
+			Name: "virtualService",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "VirtualServiceDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportingInformation",
+			Name: "supportingInformation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PreviousAppointment",
+			Name: "previousAppointment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OriginatingAppointment",
+			Name: "originatingAppointment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MinutesDuration",
+			Name: "minutesDuration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequestedPeriod",
+			Name: "requestedPeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Slot",
+			Name: "slot",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Account",
+			Name: "account",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Created",
+			Name: "created",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CancellationDate",
+			Name: "cancellationDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PatientInstruction",
+			Name: "patientInstruction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BasedOn",
+			Name: "basedOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Participant",
+			Name: "participant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AppointmentParticipant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RecurrenceId",
+			Name: "recurrenceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OccurrenceChanged",
+			Name: "occurrenceChanged",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RecurrenceTemplate",
+			Name: "recurrenceTemplate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AppointmentRecurrenceTemplate",
@@ -6936,6 +6939,9 @@ func (r AppointmentParticipant) ToString(explicit bool) (fhirpath.String, bool, 
 func (r AppointmentParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentParticipant to Integer")
 }
+func (r AppointmentParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentParticipant to Long")
+}
 func (r AppointmentParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentParticipant to Decimal")
 }
@@ -6951,7 +6957,7 @@ func (r AppointmentParticipant) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r AppointmentParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentParticipant to Quantity")
 }
-func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentParticipant
 	switch other := other.(type) {
 	case AppointmentParticipant:
@@ -6967,7 +6973,7 @@ func (r AppointmentParticipant) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentParticipant)
 	if !ok {
 		return false
@@ -6984,56 +6990,56 @@ func (r AppointmentParticipant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Required",
+			Name: "required",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
@@ -7120,6 +7126,9 @@ func (r AppointmentRecurrenceTemplate) ToString(explicit bool) (fhirpath.String,
 func (r AppointmentRecurrenceTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Decimal")
 }
@@ -7135,7 +7144,7 @@ func (r AppointmentRecurrenceTemplate) ToDateTime(explicit bool) (fhirpath.DateT
 func (r AppointmentRecurrenceTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplate:
@@ -7151,7 +7160,7 @@ func (r AppointmentRecurrenceTemplate) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplate)
 	if !ok {
 		return false
@@ -7168,91 +7177,91 @@ func (r AppointmentRecurrenceTemplate) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timezone",
+			Name: "timezone",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RecurrenceType",
+			Name: "recurrenceType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastOccurrenceDate",
+			Name: "lastOccurrenceDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OccurrenceCount",
+			Name: "occurrenceCount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OccurrenceDate",
+			Name: "occurrenceDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WeeklyTemplate",
+			Name: "weeklyTemplate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "AppointmentRecurrenceTemplateWeeklyTemplate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MonthlyTemplate",
+			Name: "monthlyTemplate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "AppointmentRecurrenceTemplateMonthlyTemplate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "YearlyTemplate",
+			Name: "yearlyTemplate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "AppointmentRecurrenceTemplateYearlyTemplate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExcludingDate",
+			Name: "excludingDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExcludingRecurrenceId",
+			Name: "excludingRecurrenceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PositiveInt",
@@ -7331,6 +7340,9 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToString(explicit bool) (fh
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Decimal")
 }
@@ -7346,7 +7358,7 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToDateTime(explicit bool) (
 func (r AppointmentRecurrenceTemplateWeeklyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateWeeklyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateWeeklyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateWeeklyTemplate:
@@ -7362,7 +7374,7 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateWeeklyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateWeeklyTemplate)
 	if !ok {
 		return false
@@ -7379,77 +7391,77 @@ func (r AppointmentRecurrenceTemplateWeeklyTemplate) TypeInfo() fhirpath.TypeInf
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Monday",
+			Name: "monday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Tuesday",
+			Name: "tuesday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Wednesday",
+			Name: "wednesday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Thursday",
+			Name: "thursday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Friday",
+			Name: "friday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Saturday",
+			Name: "saturday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sunday",
+			Name: "sunday",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WeekInterval",
+			Name: "weekInterval",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
@@ -7506,6 +7518,9 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToString(explicit bool) (f
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Decimal")
 }
@@ -7521,7 +7536,7 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToDateTime(explicit bool) 
 func (r AppointmentRecurrenceTemplateMonthlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateMonthlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateMonthlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateMonthlyTemplate:
@@ -7537,7 +7552,7 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateMonthlyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateMonthlyTemplate)
 	if !ok {
 		return false
@@ -7554,49 +7569,49 @@ func (r AppointmentRecurrenceTemplateMonthlyTemplate) TypeInfo() fhirpath.TypeIn
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DayOfMonth",
+			Name: "dayOfMonth",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NthWeekOfMonth",
+			Name: "nthWeekOfMonth",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DayOfWeek",
+			Name: "dayOfWeek",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MonthInterval",
+			Name: "monthInterval",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
@@ -7638,6 +7653,9 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) ToString(explicit bool) (fh
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Integer")
 }
+func (r AppointmentRecurrenceTemplateYearlyTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Long")
+}
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Decimal")
 }
@@ -7653,7 +7671,7 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) ToDateTime(explicit bool) (
 func (r AppointmentRecurrenceTemplateYearlyTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AppointmentRecurrenceTemplateYearlyTemplate to Quantity")
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AppointmentRecurrenceTemplateYearlyTemplate
 	switch other := other.(type) {
 	case AppointmentRecurrenceTemplateYearlyTemplate:
@@ -7669,7 +7687,7 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AppointmentRecurrenceTemplateYearlyTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AppointmentRecurrenceTemplateYearlyTemplate)
 	if !ok {
 		return false
@@ -7686,28 +7704,28 @@ func (r AppointmentRecurrenceTemplateYearlyTemplate) TypeInfo() fhirpath.TypeInf
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "YearInterval",
+			Name: "yearInterval",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",

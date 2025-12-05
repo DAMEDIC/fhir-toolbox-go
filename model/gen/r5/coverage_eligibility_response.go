@@ -5661,6 +5661,9 @@ func (r CoverageEligibilityResponse) ToString(explicit bool) (fhirpath.String, b
 func (r CoverageEligibilityResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponse to Integer")
 }
+func (r CoverageEligibilityResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponse to Long")
+}
 func (r CoverageEligibilityResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponse to Decimal")
 }
@@ -5676,7 +5679,7 @@ func (r CoverageEligibilityResponse) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r CoverageEligibilityResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponse to Quantity")
 }
-func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponse
 	switch other := other.(type) {
 	case CoverageEligibilityResponse:
@@ -5692,7 +5695,7 @@ func (r CoverageEligibilityResponse) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponse)
 	if !ok {
 		return false
@@ -5709,168 +5712,168 @@ func (r CoverageEligibilityResponse) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Event",
+			Name: "event",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityResponseEvent",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Serviced",
+			Name: "serviced",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Created",
+			Name: "created",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requestor",
+			Name: "requestor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Request",
+			Name: "request",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Outcome",
+			Name: "outcome",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Disposition",
+			Name: "disposition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Insurer",
+			Name: "insurer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Insurance",
+			Name: "insurance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityResponseInsurance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PreAuthRef",
+			Name: "preAuthRef",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Form",
+			Name: "form",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Error",
+			Name: "error",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityResponseError",
@@ -5915,6 +5918,9 @@ func (r CoverageEligibilityResponseEvent) ToString(explicit bool) (fhirpath.Stri
 func (r CoverageEligibilityResponseEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseEvent to Integer")
 }
+func (r CoverageEligibilityResponseEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseEvent to Long")
+}
 func (r CoverageEligibilityResponseEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseEvent to Decimal")
 }
@@ -5930,7 +5936,7 @@ func (r CoverageEligibilityResponseEvent) ToDateTime(explicit bool) (fhirpath.Da
 func (r CoverageEligibilityResponseEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseEvent to Quantity")
 }
-func (r CoverageEligibilityResponseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseEvent
 	switch other := other.(type) {
 	case CoverageEligibilityResponseEvent:
@@ -5946,7 +5952,7 @@ func (r CoverageEligibilityResponseEvent) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseEvent)
 	if !ok {
 		return false
@@ -5963,39 +5969,39 @@ func (r CoverageEligibilityResponseEvent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "When",
+			Name: "when",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "CoverageEligibilityResponseEvent",
@@ -6048,6 +6054,9 @@ func (r CoverageEligibilityResponseInsurance) ToString(explicit bool) (fhirpath.
 func (r CoverageEligibilityResponseInsurance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Integer")
 }
+func (r CoverageEligibilityResponseInsurance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsurance to Long")
+}
 func (r CoverageEligibilityResponseInsurance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Decimal")
 }
@@ -6063,7 +6072,7 @@ func (r CoverageEligibilityResponseInsurance) ToDateTime(explicit bool) (fhirpat
 func (r CoverageEligibilityResponseInsurance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsurance to Quantity")
 }
-func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsurance
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsurance:
@@ -6079,7 +6088,7 @@ func (r CoverageEligibilityResponseInsurance) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsurance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsurance)
 	if !ok {
 		return false
@@ -6096,49 +6105,49 @@ func (r CoverageEligibilityResponseInsurance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Coverage",
+			Name: "coverage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Inforce",
+			Name: "inforce",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BenefitPeriod",
+			Name: "benefitPeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Item",
+			Name: "item",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityResponseInsuranceItem",
@@ -6247,6 +6256,9 @@ func (r CoverageEligibilityResponseInsuranceItem) ToString(explicit bool) (fhirp
 func (r CoverageEligibilityResponseInsuranceItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Integer")
 }
+func (r CoverageEligibilityResponseInsuranceItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Long")
+}
 func (r CoverageEligibilityResponseInsuranceItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Decimal")
 }
@@ -6262,7 +6274,7 @@ func (r CoverageEligibilityResponseInsuranceItem) ToDateTime(explicit bool) (fhi
 func (r CoverageEligibilityResponseInsuranceItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItem to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItem
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItem:
@@ -6278,7 +6290,7 @@ func (r CoverageEligibilityResponseInsuranceItem) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsuranceItem)
 	if !ok {
 		return false
@@ -6295,119 +6307,119 @@ func (r CoverageEligibilityResponseInsuranceItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductOrService",
+			Name: "productOrService",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Modifier",
+			Name: "modifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Provider",
+			Name: "provider",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Excluded",
+			Name: "excluded",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Network",
+			Name: "network",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Unit",
+			Name: "unit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Term",
+			Name: "term",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Benefit",
+			Name: "benefit",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CoverageEligibilityResponseInsuranceItemBenefit",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AuthorizationRequired",
+			Name: "authorizationRequired",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AuthorizationSupporting",
+			Name: "authorizationSupporting",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AuthorizationUrl",
+			Name: "authorizationUrl",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -6459,6 +6471,9 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) ToString(explicit bool)
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Integer")
 }
+func (r CoverageEligibilityResponseInsuranceItemBenefit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Long")
+}
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Decimal")
 }
@@ -6474,7 +6489,7 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) ToDateTime(explicit boo
 func (r CoverageEligibilityResponseInsuranceItemBenefit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseInsuranceItemBenefit to Quantity")
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseInsuranceItemBenefit
 	switch other := other.(type) {
 	case CoverageEligibilityResponseInsuranceItemBenefit:
@@ -6490,7 +6505,7 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) Equal(other fhirpath.El
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseInsuranceItemBenefit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseInsuranceItemBenefit)
 	if !ok {
 		return false
@@ -6507,46 +6522,46 @@ func (r CoverageEligibilityResponseInsuranceItemBenefit) TypeInfo() fhirpath.Typ
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Allowed",
+			Name: "allowed",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Used",
+			Name: "used",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "CoverageEligibilityResponseInsuranceItemBenefit",
@@ -6589,6 +6604,9 @@ func (r CoverageEligibilityResponseError) ToString(explicit bool) (fhirpath.Stri
 func (r CoverageEligibilityResponseError) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CoverageEligibilityResponseError to Integer")
 }
+func (r CoverageEligibilityResponseError) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CoverageEligibilityResponseError to Long")
+}
 func (r CoverageEligibilityResponseError) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CoverageEligibilityResponseError to Decimal")
 }
@@ -6604,7 +6622,7 @@ func (r CoverageEligibilityResponseError) ToDateTime(explicit bool) (fhirpath.Da
 func (r CoverageEligibilityResponseError) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CoverageEligibilityResponseError to Quantity")
 }
-func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CoverageEligibilityResponseError
 	switch other := other.(type) {
 	case CoverageEligibilityResponseError:
@@ -6620,7 +6638,7 @@ func (r CoverageEligibilityResponseError) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CoverageEligibilityResponseError) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CoverageEligibilityResponseError)
 	if !ok {
 		return false
@@ -6637,35 +6655,35 @@ func (r CoverageEligibilityResponseError) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",

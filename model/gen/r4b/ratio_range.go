@@ -397,6 +397,9 @@ func (r RatioRange) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r RatioRange) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RatioRange to Integer")
 }
+func (r RatioRange) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RatioRange to Long")
+}
 func (r RatioRange) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RatioRange to Decimal")
 }
@@ -412,7 +415,7 @@ func (r RatioRange) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r RatioRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RatioRange to Quantity")
 }
-func (r RatioRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RatioRange) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RatioRange
 	switch other := other.(type) {
 	case RatioRange:
@@ -428,7 +431,7 @@ func (r RatioRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RatioRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RatioRange) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RatioRange)
 	if !ok {
 		return false
@@ -441,39 +444,39 @@ func (r RatioRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 func (r RatioRange) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LowNumerator",
+			Name: "lowNumerator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HighNumerator",
+			Name: "highNumerator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Denominator",
+			Name: "denominator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",

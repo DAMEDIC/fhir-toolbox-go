@@ -12699,6 +12699,9 @@ func (r TestScript) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestScript) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScript to Integer")
 }
+func (r TestScript) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScript to Long")
+}
 func (r TestScript) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScript to Decimal")
 }
@@ -12714,7 +12717,7 @@ func (r TestScript) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r TestScript) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScript to Quantity")
 }
-func (r TestScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScript) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScript
 	switch other := other.(type) {
 	case TestScript:
@@ -12730,7 +12733,7 @@ func (r TestScript) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScript) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScript) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScript)
 	if !ok {
 		return false
@@ -12747,224 +12750,224 @@ func (r TestScript) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Origin",
+			Name: "origin",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptOrigin",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Destination",
+			Name: "destination",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptDestination",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Metadata",
+			Name: "metadata",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptMetadata",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Fixture",
+			Name: "fixture",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptFixture",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Variable",
+			Name: "variable",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptVariable",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Setup",
+			Name: "setup",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetup",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Test",
+			Name: "test",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptTest",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Teardown",
+			Name: "teardown",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptTeardown",
@@ -13009,6 +13012,9 @@ func (r TestScriptOrigin) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r TestScriptOrigin) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptOrigin to Integer")
 }
+func (r TestScriptOrigin) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptOrigin to Long")
+}
 func (r TestScriptOrigin) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptOrigin to Decimal")
 }
@@ -13024,7 +13030,7 @@ func (r TestScriptOrigin) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r TestScriptOrigin) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptOrigin to Quantity")
 }
-func (r TestScriptOrigin) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptOrigin) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptOrigin
 	switch other := other.(type) {
 	case TestScriptOrigin:
@@ -13040,7 +13046,7 @@ func (r TestScriptOrigin) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptOrigin) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptOrigin) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptOrigin)
 	if !ok {
 		return false
@@ -13057,35 +13063,35 @@ func (r TestScriptOrigin) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Index",
+			Name: "index",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
@@ -13130,6 +13136,9 @@ func (r TestScriptDestination) ToString(explicit bool) (fhirpath.String, bool, e
 func (r TestScriptDestination) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptDestination to Integer")
 }
+func (r TestScriptDestination) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptDestination to Long")
+}
 func (r TestScriptDestination) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptDestination to Decimal")
 }
@@ -13145,7 +13154,7 @@ func (r TestScriptDestination) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r TestScriptDestination) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptDestination to Quantity")
 }
-func (r TestScriptDestination) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptDestination) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptDestination
 	switch other := other.(type) {
 	case TestScriptDestination:
@@ -13161,7 +13170,7 @@ func (r TestScriptDestination) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptDestination) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptDestination) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptDestination)
 	if !ok {
 		return false
@@ -13178,35 +13187,35 @@ func (r TestScriptDestination) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Index",
+			Name: "index",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
@@ -13255,6 +13264,9 @@ func (r TestScriptMetadata) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestScriptMetadata) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadata to Integer")
 }
+func (r TestScriptMetadata) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadata to Long")
+}
 func (r TestScriptMetadata) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadata to Decimal")
 }
@@ -13270,7 +13282,7 @@ func (r TestScriptMetadata) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r TestScriptMetadata) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptMetadata to Quantity")
 }
-func (r TestScriptMetadata) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptMetadata) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptMetadata
 	switch other := other.(type) {
 	case TestScriptMetadata:
@@ -13286,7 +13298,7 @@ func (r TestScriptMetadata) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptMetadata) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptMetadata) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptMetadata)
 	if !ok {
 		return false
@@ -13303,35 +13315,35 @@ func (r TestScriptMetadata) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Link",
+			Name: "link",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptMetadataLink",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Capability",
+			Name: "capability",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptMetadataCapability",
@@ -13378,6 +13390,9 @@ func (r TestScriptMetadataLink) ToString(explicit bool) (fhirpath.String, bool, 
 func (r TestScriptMetadataLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadataLink to Integer")
 }
+func (r TestScriptMetadataLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadataLink to Long")
+}
 func (r TestScriptMetadataLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadataLink to Decimal")
 }
@@ -13393,7 +13408,7 @@ func (r TestScriptMetadataLink) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r TestScriptMetadataLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptMetadataLink to Quantity")
 }
-func (r TestScriptMetadataLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptMetadataLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptMetadataLink
 	switch other := other.(type) {
 	case TestScriptMetadataLink:
@@ -13409,7 +13424,7 @@ func (r TestScriptMetadataLink) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptMetadataLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptMetadataLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptMetadataLink)
 	if !ok {
 		return false
@@ -13426,35 +13441,35 @@ func (r TestScriptMetadataLink) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -13522,6 +13537,9 @@ func (r TestScriptMetadataCapability) ToString(explicit bool) (fhirpath.String, 
 func (r TestScriptMetadataCapability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptMetadataCapability to Integer")
 }
+func (r TestScriptMetadataCapability) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptMetadataCapability to Long")
+}
 func (r TestScriptMetadataCapability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptMetadataCapability to Decimal")
 }
@@ -13537,7 +13555,7 @@ func (r TestScriptMetadataCapability) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r TestScriptMetadataCapability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptMetadataCapability to Quantity")
 }
-func (r TestScriptMetadataCapability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptMetadataCapability) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptMetadataCapability
 	switch other := other.(type) {
 	case TestScriptMetadataCapability:
@@ -13553,7 +13571,7 @@ func (r TestScriptMetadataCapability) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptMetadataCapability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptMetadataCapability) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptMetadataCapability)
 	if !ok {
 		return false
@@ -13570,70 +13588,70 @@ func (r TestScriptMetadataCapability) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Required",
+			Name: "required",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Validated",
+			Name: "validated",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Origin",
+			Name: "origin",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Destination",
+			Name: "destination",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Link",
+			Name: "link",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Capabilities",
+			Name: "capabilities",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
@@ -13683,6 +13701,9 @@ func (r TestScriptFixture) ToString(explicit bool) (fhirpath.String, bool, error
 func (r TestScriptFixture) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptFixture to Integer")
 }
+func (r TestScriptFixture) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptFixture to Long")
+}
 func (r TestScriptFixture) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptFixture to Decimal")
 }
@@ -13698,7 +13719,7 @@ func (r TestScriptFixture) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r TestScriptFixture) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptFixture to Quantity")
 }
-func (r TestScriptFixture) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptFixture) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptFixture
 	switch other := other.(type) {
 	case TestScriptFixture:
@@ -13714,7 +13735,7 @@ func (r TestScriptFixture) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptFixture) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptFixture) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptFixture)
 	if !ok {
 		return false
@@ -13731,42 +13752,42 @@ func (r TestScriptFixture) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Autocreate",
+			Name: "autocreate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Autodelete",
+			Name: "autodelete",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -13843,6 +13864,9 @@ func (r TestScriptVariable) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestScriptVariable) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptVariable to Integer")
 }
+func (r TestScriptVariable) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptVariable to Long")
+}
 func (r TestScriptVariable) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptVariable to Decimal")
 }
@@ -13858,7 +13882,7 @@ func (r TestScriptVariable) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r TestScriptVariable) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptVariable to Quantity")
 }
-func (r TestScriptVariable) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptVariable) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptVariable
 	switch other := other.(type) {
 	case TestScriptVariable:
@@ -13874,7 +13898,7 @@ func (r TestScriptVariable) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptVariable) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptVariable) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptVariable)
 	if !ok {
 		return false
@@ -13891,77 +13915,77 @@ func (r TestScriptVariable) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DefaultValue",
+			Name: "defaultValue",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HeaderField",
+			Name: "headerField",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Hint",
+			Name: "hint",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceId",
+			Name: "sourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
@@ -14005,6 +14029,9 @@ func (r TestScriptSetup) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r TestScriptSetup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetup to Integer")
 }
+func (r TestScriptSetup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetup to Long")
+}
 func (r TestScriptSetup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetup to Decimal")
 }
@@ -14020,7 +14047,7 @@ func (r TestScriptSetup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r TestScriptSetup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptSetup to Quantity")
 }
-func (r TestScriptSetup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptSetup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptSetup
 	switch other := other.(type) {
 	case TestScriptSetup:
@@ -14036,7 +14063,7 @@ func (r TestScriptSetup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptSetup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptSetup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptSetup)
 	if !ok {
 		return false
@@ -14053,28 +14080,28 @@ func (r TestScriptSetup) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptSetupAction",
@@ -14123,6 +14150,9 @@ func (r TestScriptSetupAction) ToString(explicit bool) (fhirpath.String, bool, e
 func (r TestScriptSetupAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupAction to Integer")
 }
+func (r TestScriptSetupAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupAction to Long")
+}
 func (r TestScriptSetupAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupAction to Decimal")
 }
@@ -14138,7 +14168,7 @@ func (r TestScriptSetupAction) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r TestScriptSetupAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptSetupAction to Quantity")
 }
-func (r TestScriptSetupAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptSetupAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptSetupAction
 	switch other := other.(type) {
 	case TestScriptSetupAction:
@@ -14154,7 +14184,7 @@ func (r TestScriptSetupAction) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptSetupAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptSetupAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptSetupAction)
 	if !ok {
 		return false
@@ -14171,35 +14201,35 @@ func (r TestScriptSetupAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Operation",
+			Name: "operation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetupActionOperation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Assert",
+			Name: "assert",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetupActionAssert",
@@ -14321,6 +14351,9 @@ func (r TestScriptSetupActionOperation) ToString(explicit bool) (fhirpath.String
 func (r TestScriptSetupActionOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionOperation to Integer")
 }
+func (r TestScriptSetupActionOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionOperation to Long")
+}
 func (r TestScriptSetupActionOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionOperation to Decimal")
 }
@@ -14336,7 +14369,7 @@ func (r TestScriptSetupActionOperation) ToDateTime(explicit bool) (fhirpath.Date
 func (r TestScriptSetupActionOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptSetupActionOperation to Quantity")
 }
-func (r TestScriptSetupActionOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptSetupActionOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptSetupActionOperation
 	switch other := other.(type) {
 	case TestScriptSetupActionOperation:
@@ -14352,7 +14385,7 @@ func (r TestScriptSetupActionOperation) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptSetupActionOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptSetupActionOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptSetupActionOperation)
 	if !ok {
 		return false
@@ -14369,140 +14402,140 @@ func (r TestScriptSetupActionOperation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Label",
+			Name: "label",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Accept",
+			Name: "accept",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContentType",
+			Name: "contentType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Destination",
+			Name: "destination",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EncodeRequestUrl",
+			Name: "encodeRequestUrl",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Origin",
+			Name: "origin",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Params",
+			Name: "params",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequestHeader",
+			Name: "requestHeader",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptSetupActionOperationRequestHeader",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequestId",
+			Name: "requestId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResponseId",
+			Name: "responseId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceId",
+			Name: "sourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetId",
+			Name: "targetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -14547,6 +14580,9 @@ func (r TestScriptSetupActionOperationRequestHeader) ToString(explicit bool) (fh
 func (r TestScriptSetupActionOperationRequestHeader) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Integer")
 }
+func (r TestScriptSetupActionOperationRequestHeader) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Long")
+}
 func (r TestScriptSetupActionOperationRequestHeader) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Decimal")
 }
@@ -14562,7 +14598,7 @@ func (r TestScriptSetupActionOperationRequestHeader) ToDateTime(explicit bool) (
 func (r TestScriptSetupActionOperationRequestHeader) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptSetupActionOperationRequestHeader to Quantity")
 }
-func (r TestScriptSetupActionOperationRequestHeader) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptSetupActionOperationRequestHeader) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptSetupActionOperationRequestHeader
 	switch other := other.(type) {
 	case TestScriptSetupActionOperationRequestHeader:
@@ -14578,7 +14614,7 @@ func (r TestScriptSetupActionOperationRequestHeader) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptSetupActionOperationRequestHeader) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptSetupActionOperationRequestHeader) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptSetupActionOperationRequestHeader)
 	if !ok {
 		return false
@@ -14595,35 +14631,35 @@ func (r TestScriptSetupActionOperationRequestHeader) TypeInfo() fhirpath.TypeInf
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Field",
+			Name: "field",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -14770,6 +14806,9 @@ func (r TestScriptSetupActionAssert) ToString(explicit bool) (fhirpath.String, b
 func (r TestScriptSetupActionAssert) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptSetupActionAssert to Integer")
 }
+func (r TestScriptSetupActionAssert) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptSetupActionAssert to Long")
+}
 func (r TestScriptSetupActionAssert) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptSetupActionAssert to Decimal")
 }
@@ -14785,7 +14824,7 @@ func (r TestScriptSetupActionAssert) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r TestScriptSetupActionAssert) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptSetupActionAssert to Quantity")
 }
-func (r TestScriptSetupActionAssert) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptSetupActionAssert) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptSetupActionAssert
 	switch other := other.(type) {
 	case TestScriptSetupActionAssert:
@@ -14801,7 +14840,7 @@ func (r TestScriptSetupActionAssert) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptSetupActionAssert) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptSetupActionAssert) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptSetupActionAssert)
 	if !ok {
 		return false
@@ -14818,175 +14857,175 @@ func (r TestScriptSetupActionAssert) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Label",
+			Name: "label",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Direction",
+			Name: "direction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CompareToSourceId",
+			Name: "compareToSourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CompareToSourceExpression",
+			Name: "compareToSourceExpression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CompareToSourcePath",
+			Name: "compareToSourcePath",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContentType",
+			Name: "contentType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HeaderField",
+			Name: "headerField",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MinimumId",
+			Name: "minimumId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NavigationLinks",
+			Name: "navigationLinks",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Operator",
+			Name: "operator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequestMethod",
+			Name: "requestMethod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequestUrl",
+			Name: "requestURL",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Response",
+			Name: "response",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResponseCode",
+			Name: "responseCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceId",
+			Name: "sourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidateProfileId",
+			Name: "validateProfileId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WarningOnly",
+			Name: "warningOnly",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -15040,6 +15079,9 @@ func (r TestScriptTest) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TestScriptTest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTest to Integer")
 }
+func (r TestScriptTest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTest to Long")
+}
 func (r TestScriptTest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTest to Decimal")
 }
@@ -15055,7 +15097,7 @@ func (r TestScriptTest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r TestScriptTest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptTest to Quantity")
 }
-func (r TestScriptTest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptTest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptTest
 	switch other := other.(type) {
 	case TestScriptTest:
@@ -15071,7 +15113,7 @@ func (r TestScriptTest) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptTest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptTest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptTest)
 	if !ok {
 		return false
@@ -15088,42 +15130,42 @@ func (r TestScriptTest) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptTestAction",
@@ -15172,6 +15214,9 @@ func (r TestScriptTestAction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r TestScriptTestAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTestAction to Integer")
 }
+func (r TestScriptTestAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTestAction to Long")
+}
 func (r TestScriptTestAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTestAction to Decimal")
 }
@@ -15187,7 +15232,7 @@ func (r TestScriptTestAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r TestScriptTestAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptTestAction to Quantity")
 }
-func (r TestScriptTestAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptTestAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptTestAction
 	switch other := other.(type) {
 	case TestScriptTestAction:
@@ -15203,7 +15248,7 @@ func (r TestScriptTestAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptTestAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptTestAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptTestAction)
 	if !ok {
 		return false
@@ -15220,35 +15265,35 @@ func (r TestScriptTestAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Operation",
+			Name: "operation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetupActionOperation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Assert",
+			Name: "assert",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetupActionAssert",
@@ -15292,6 +15337,9 @@ func (r TestScriptTeardown) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r TestScriptTeardown) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTeardown to Integer")
 }
+func (r TestScriptTeardown) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTeardown to Long")
+}
 func (r TestScriptTeardown) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTeardown to Decimal")
 }
@@ -15307,7 +15355,7 @@ func (r TestScriptTeardown) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r TestScriptTeardown) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptTeardown to Quantity")
 }
-func (r TestScriptTeardown) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptTeardown) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptTeardown
 	switch other := other.(type) {
 	case TestScriptTeardown:
@@ -15323,7 +15371,7 @@ func (r TestScriptTeardown) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptTeardown) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptTeardown) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptTeardown)
 	if !ok {
 		return false
@@ -15340,28 +15388,28 @@ func (r TestScriptTeardown) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TestScriptTeardownAction",
@@ -15403,6 +15451,9 @@ func (r TestScriptTeardownAction) ToString(explicit bool) (fhirpath.String, bool
 func (r TestScriptTeardownAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TestScriptTeardownAction to Integer")
 }
+func (r TestScriptTeardownAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TestScriptTeardownAction to Long")
+}
 func (r TestScriptTeardownAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TestScriptTeardownAction to Decimal")
 }
@@ -15418,7 +15469,7 @@ func (r TestScriptTeardownAction) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r TestScriptTeardownAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TestScriptTeardownAction to Quantity")
 }
-func (r TestScriptTeardownAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TestScriptTeardownAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TestScriptTeardownAction
 	switch other := other.(type) {
 	case TestScriptTeardownAction:
@@ -15434,7 +15485,7 @@ func (r TestScriptTeardownAction) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TestScriptTeardownAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TestScriptTeardownAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TestScriptTeardownAction)
 	if !ok {
 		return false
@@ -15451,28 +15502,28 @@ func (r TestScriptTeardownAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Operation",
+			Name: "operation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TestScriptSetupActionOperation",

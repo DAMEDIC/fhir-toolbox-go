@@ -817,6 +817,9 @@ func (r Meta) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Meta) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Meta to Integer")
 }
+func (r Meta) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Meta to Long")
+}
 func (r Meta) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Meta to Decimal")
 }
@@ -832,7 +835,7 @@ func (r Meta) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Meta) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Meta to Quantity")
 }
-func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Meta) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Meta
 	switch other := other.(type) {
 	case Meta:
@@ -848,7 +851,7 @@ func (r Meta) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Meta) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Meta)
 	if !ok {
 		return false
@@ -861,60 +864,60 @@ func (r Meta) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...boo
 func (r Meta) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionId",
+			Name: "versionId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastUpdated",
+			Name: "lastUpdated",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Security",
+			Name: "security",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Tag",
+			Name: "tag",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",

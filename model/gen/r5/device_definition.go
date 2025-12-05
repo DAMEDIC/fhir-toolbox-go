@@ -11309,6 +11309,9 @@ func (r DeviceDefinition) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r DeviceDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinition to Integer")
 }
+func (r DeviceDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinition to Long")
+}
 func (r DeviceDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinition to Decimal")
 }
@@ -11324,7 +11327,7 @@ func (r DeviceDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r DeviceDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinition to Quantity")
 }
-func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinition
 	switch other := other.(type) {
 	case DeviceDefinition:
@@ -11340,7 +11343,7 @@ func (r DeviceDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinition)
 	if !ok {
 		return false
@@ -11357,238 +11360,238 @@ func (r DeviceDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UdiDeviceIdentifier",
+			Name: "udiDeviceIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionUdiDeviceIdentifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RegulatoryIdentifier",
+			Name: "regulatoryIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionRegulatoryIdentifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PartNumber",
+			Name: "partNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manufacturer",
+			Name: "manufacturer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DeviceName",
+			Name: "deviceName",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionDeviceName",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModelNumber",
+			Name: "modelNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classification",
+			Name: "classification",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionClassification",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ConformsTo",
+			Name: "conformsTo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionConformsTo",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HasPart",
+			Name: "hasPart",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionHasPart",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Packaging",
+			Name: "packaging",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionPackaging",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionVersion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Safety",
+			Name: "safety",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ShelfLifeStorage",
+			Name: "shelfLifeStorage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ProductShelfLife",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LanguageCode",
+			Name: "languageCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionProperty",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Owner",
+			Name: "owner",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactPoint",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Link",
+			Name: "link",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionLink",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Material",
+			Name: "material",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionMaterial",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductionIdentifierInUdi",
+			Name: "productionIdentifierInUDI",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Guideline",
+			Name: "guideline",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DeviceDefinitionGuideline",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CorrectiveAction",
+			Name: "correctiveAction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DeviceDefinitionCorrectiveAction",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ChargeItem",
+			Name: "chargeItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionChargeItem",
@@ -11641,6 +11644,9 @@ func (r DeviceDefinitionUdiDeviceIdentifier) ToString(explicit bool) (fhirpath.S
 func (r DeviceDefinitionUdiDeviceIdentifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Integer")
 }
+func (r DeviceDefinitionUdiDeviceIdentifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Long")
+}
 func (r DeviceDefinitionUdiDeviceIdentifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Decimal")
 }
@@ -11656,7 +11662,7 @@ func (r DeviceDefinitionUdiDeviceIdentifier) ToDateTime(explicit bool) (fhirpath
 func (r DeviceDefinitionUdiDeviceIdentifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifier to Quantity")
 }
-func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionUdiDeviceIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifier:
@@ -11672,7 +11678,7 @@ func (r DeviceDefinitionUdiDeviceIdentifier) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionUdiDeviceIdentifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionUdiDeviceIdentifier)
 	if !ok {
 		return false
@@ -11689,49 +11695,49 @@ func (r DeviceDefinitionUdiDeviceIdentifier) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DeviceIdentifier",
+			Name: "deviceIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issuer",
+			Name: "issuer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MarketDistribution",
+			Name: "marketDistribution",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionUdiDeviceIdentifierMarketDistribution",
@@ -11776,6 +11782,9 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToString(explicit
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Integer")
 }
+func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Long")
+}
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Decimal")
 }
@@ -11791,7 +11800,7 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToDateTime(explic
 func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionUdiDeviceIdentifierMarketDistribution to Quantity")
 }
-func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionUdiDeviceIdentifierMarketDistribution
 	switch other := other.(type) {
 	case DeviceDefinitionUdiDeviceIdentifierMarketDistribution:
@@ -11807,7 +11816,7 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equal(other fhirp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionUdiDeviceIdentifierMarketDistribution)
 	if !ok {
 		return false
@@ -11824,35 +11833,35 @@ func (r DeviceDefinitionUdiDeviceIdentifierMarketDistribution) TypeInfo() fhirpa
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MarketPeriod",
+			Name: "marketPeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubJurisdiction",
+			Name: "subJurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -11903,6 +11912,9 @@ func (r DeviceDefinitionRegulatoryIdentifier) ToString(explicit bool) (fhirpath.
 func (r DeviceDefinitionRegulatoryIdentifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Integer")
 }
+func (r DeviceDefinitionRegulatoryIdentifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Long")
+}
 func (r DeviceDefinitionRegulatoryIdentifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Decimal")
 }
@@ -11918,7 +11930,7 @@ func (r DeviceDefinitionRegulatoryIdentifier) ToDateTime(explicit bool) (fhirpat
 func (r DeviceDefinitionRegulatoryIdentifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionRegulatoryIdentifier to Quantity")
 }
-func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionRegulatoryIdentifier
 	switch other := other.(type) {
 	case DeviceDefinitionRegulatoryIdentifier:
@@ -11934,7 +11946,7 @@ func (r DeviceDefinitionRegulatoryIdentifier) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionRegulatoryIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionRegulatoryIdentifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionRegulatoryIdentifier)
 	if !ok {
 		return false
@@ -11951,49 +11963,49 @@ func (r DeviceDefinitionRegulatoryIdentifier) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DeviceIdentifier",
+			Name: "deviceIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issuer",
+			Name: "issuer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -12038,6 +12050,9 @@ func (r DeviceDefinitionDeviceName) ToString(explicit bool) (fhirpath.String, bo
 func (r DeviceDefinitionDeviceName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionDeviceName to Integer")
 }
+func (r DeviceDefinitionDeviceName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionDeviceName to Long")
+}
 func (r DeviceDefinitionDeviceName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionDeviceName to Decimal")
 }
@@ -12053,7 +12068,7 @@ func (r DeviceDefinitionDeviceName) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DeviceDefinitionDeviceName) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionDeviceName to Quantity")
 }
-func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionDeviceName
 	switch other := other.(type) {
 	case DeviceDefinitionDeviceName:
@@ -12069,7 +12084,7 @@ func (r DeviceDefinitionDeviceName) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionDeviceName) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionDeviceName)
 	if !ok {
 		return false
@@ -12086,35 +12101,35 @@ func (r DeviceDefinitionDeviceName) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
@@ -12161,6 +12176,9 @@ func (r DeviceDefinitionClassification) ToString(explicit bool) (fhirpath.String
 func (r DeviceDefinitionClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionClassification to Integer")
 }
+func (r DeviceDefinitionClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionClassification to Long")
+}
 func (r DeviceDefinitionClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionClassification to Decimal")
 }
@@ -12176,7 +12194,7 @@ func (r DeviceDefinitionClassification) ToDateTime(explicit bool) (fhirpath.Date
 func (r DeviceDefinitionClassification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionClassification to Quantity")
 }
-func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionClassification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionClassification
 	switch other := other.(type) {
 	case DeviceDefinitionClassification:
@@ -12192,7 +12210,7 @@ func (r DeviceDefinitionClassification) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionClassification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionClassification)
 	if !ok {
 		return false
@@ -12209,35 +12227,35 @@ func (r DeviceDefinitionClassification) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Justification",
+			Name: "justification",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
@@ -12294,6 +12312,9 @@ func (r DeviceDefinitionConformsTo) ToString(explicit bool) (fhirpath.String, bo
 func (r DeviceDefinitionConformsTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionConformsTo to Integer")
 }
+func (r DeviceDefinitionConformsTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionConformsTo to Long")
+}
 func (r DeviceDefinitionConformsTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionConformsTo to Decimal")
 }
@@ -12309,7 +12330,7 @@ func (r DeviceDefinitionConformsTo) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DeviceDefinitionConformsTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionConformsTo to Quantity")
 }
-func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionConformsTo
 	switch other := other.(type) {
 	case DeviceDefinitionConformsTo:
@@ -12325,7 +12346,7 @@ func (r DeviceDefinitionConformsTo) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionConformsTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionConformsTo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionConformsTo)
 	if !ok {
 		return false
@@ -12342,49 +12363,49 @@ func (r DeviceDefinitionConformsTo) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Specification",
+			Name: "specification",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
@@ -12431,6 +12452,9 @@ func (r DeviceDefinitionHasPart) ToString(explicit bool) (fhirpath.String, bool,
 func (r DeviceDefinitionHasPart) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionHasPart to Integer")
 }
+func (r DeviceDefinitionHasPart) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionHasPart to Long")
+}
 func (r DeviceDefinitionHasPart) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionHasPart to Decimal")
 }
@@ -12446,7 +12470,7 @@ func (r DeviceDefinitionHasPart) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DeviceDefinitionHasPart) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionHasPart to Quantity")
 }
-func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionHasPart
 	switch other := other.(type) {
 	case DeviceDefinitionHasPart:
@@ -12462,7 +12486,7 @@ func (r DeviceDefinitionHasPart) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionHasPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionHasPart) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionHasPart)
 	if !ok {
 		return false
@@ -12479,35 +12503,35 @@ func (r DeviceDefinitionHasPart) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Count",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
@@ -12576,6 +12600,9 @@ func (r DeviceDefinitionPackaging) ToString(explicit bool) (fhirpath.String, boo
 func (r DeviceDefinitionPackaging) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionPackaging to Integer")
 }
+func (r DeviceDefinitionPackaging) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionPackaging to Long")
+}
 func (r DeviceDefinitionPackaging) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionPackaging to Decimal")
 }
@@ -12591,7 +12618,7 @@ func (r DeviceDefinitionPackaging) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DeviceDefinitionPackaging) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionPackaging to Quantity")
 }
-func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionPackaging
 	switch other := other.(type) {
 	case DeviceDefinitionPackaging:
@@ -12607,7 +12634,7 @@ func (r DeviceDefinitionPackaging) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionPackaging) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionPackaging) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionPackaging)
 	if !ok {
 		return false
@@ -12624,63 +12651,63 @@ func (r DeviceDefinitionPackaging) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Count",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Distributor",
+			Name: "distributor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionPackagingDistributor",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UdiDeviceIdentifier",
+			Name: "udiDeviceIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionUdiDeviceIdentifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Packaging",
+			Name: "packaging",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DeviceDefinitionPackaging",
@@ -12729,6 +12756,9 @@ func (r DeviceDefinitionPackagingDistributor) ToString(explicit bool) (fhirpath.
 func (r DeviceDefinitionPackagingDistributor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionPackagingDistributor to Integer")
 }
+func (r DeviceDefinitionPackagingDistributor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionPackagingDistributor to Long")
+}
 func (r DeviceDefinitionPackagingDistributor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionPackagingDistributor to Decimal")
 }
@@ -12744,7 +12774,7 @@ func (r DeviceDefinitionPackagingDistributor) ToDateTime(explicit bool) (fhirpat
 func (r DeviceDefinitionPackagingDistributor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionPackagingDistributor to Quantity")
 }
-func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionPackagingDistributor
 	switch other := other.(type) {
 	case DeviceDefinitionPackagingDistributor:
@@ -12760,7 +12790,7 @@ func (r DeviceDefinitionPackagingDistributor) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionPackagingDistributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionPackagingDistributor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionPackagingDistributor)
 	if !ok {
 		return false
@@ -12777,35 +12807,35 @@ func (r DeviceDefinitionPackagingDistributor) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OrganizationReference",
+			Name: "organizationReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -12857,6 +12887,9 @@ func (r DeviceDefinitionVersion) ToString(explicit bool) (fhirpath.String, bool,
 func (r DeviceDefinitionVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionVersion to Integer")
 }
+func (r DeviceDefinitionVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionVersion to Long")
+}
 func (r DeviceDefinitionVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionVersion to Decimal")
 }
@@ -12872,7 +12905,7 @@ func (r DeviceDefinitionVersion) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r DeviceDefinitionVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionVersion to Quantity")
 }
-func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionVersion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionVersion
 	switch other := other.(type) {
 	case DeviceDefinitionVersion:
@@ -12888,7 +12921,7 @@ func (r DeviceDefinitionVersion) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionVersion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionVersion)
 	if !ok {
 		return false
@@ -12905,42 +12938,42 @@ func (r DeviceDefinitionVersion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Component",
+			Name: "component",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -12985,6 +13018,9 @@ func (r DeviceDefinitionProperty) ToString(explicit bool) (fhirpath.String, bool
 func (r DeviceDefinitionProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionProperty to Integer")
 }
+func (r DeviceDefinitionProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionProperty to Long")
+}
 func (r DeviceDefinitionProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionProperty to Decimal")
 }
@@ -13000,7 +13036,7 @@ func (r DeviceDefinitionProperty) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r DeviceDefinitionProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionProperty to Quantity")
 }
-func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionProperty
 	switch other := other.(type) {
 	case DeviceDefinitionProperty:
@@ -13016,7 +13052,7 @@ func (r DeviceDefinitionProperty) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionProperty)
 	if !ok {
 		return false
@@ -13033,39 +13069,39 @@ func (r DeviceDefinitionProperty) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "DeviceDefinitionProperty",
@@ -13106,6 +13142,9 @@ func (r DeviceDefinitionLink) ToString(explicit bool) (fhirpath.String, bool, er
 func (r DeviceDefinitionLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionLink to Integer")
 }
+func (r DeviceDefinitionLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionLink to Long")
+}
 func (r DeviceDefinitionLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionLink to Decimal")
 }
@@ -13121,7 +13160,7 @@ func (r DeviceDefinitionLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r DeviceDefinitionLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionLink to Quantity")
 }
-func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionLink
 	switch other := other.(type) {
 	case DeviceDefinitionLink:
@@ -13137,7 +13176,7 @@ func (r DeviceDefinitionLink) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionLink)
 	if !ok {
 		return false
@@ -13154,35 +13193,35 @@ func (r DeviceDefinitionLink) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Relation",
+			Name: "relation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedDevice",
+			Name: "relatedDevice",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
@@ -13234,6 +13273,9 @@ func (r DeviceDefinitionMaterial) ToString(explicit bool) (fhirpath.String, bool
 func (r DeviceDefinitionMaterial) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionMaterial to Integer")
 }
+func (r DeviceDefinitionMaterial) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionMaterial to Long")
+}
 func (r DeviceDefinitionMaterial) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionMaterial to Decimal")
 }
@@ -13249,7 +13291,7 @@ func (r DeviceDefinitionMaterial) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r DeviceDefinitionMaterial) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionMaterial to Quantity")
 }
-func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionMaterial
 	switch other := other.(type) {
 	case DeviceDefinitionMaterial:
@@ -13265,7 +13307,7 @@ func (r DeviceDefinitionMaterial) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionMaterial) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionMaterial)
 	if !ok {
 		return false
@@ -13282,42 +13324,42 @@ func (r DeviceDefinitionMaterial) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Substance",
+			Name: "substance",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Alternate",
+			Name: "alternate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AllergenicIndicator",
+			Name: "allergenicIndicator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -13391,6 +13433,9 @@ func (r DeviceDefinitionGuideline) ToString(explicit bool) (fhirpath.String, boo
 func (r DeviceDefinitionGuideline) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionGuideline to Integer")
 }
+func (r DeviceDefinitionGuideline) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionGuideline to Long")
+}
 func (r DeviceDefinitionGuideline) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionGuideline to Decimal")
 }
@@ -13406,7 +13451,7 @@ func (r DeviceDefinitionGuideline) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DeviceDefinitionGuideline) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionGuideline to Quantity")
 }
-func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionGuideline
 	switch other := other.(type) {
 	case DeviceDefinitionGuideline:
@@ -13422,7 +13467,7 @@ func (r DeviceDefinitionGuideline) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionGuideline) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionGuideline) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionGuideline)
 	if !ok {
 		return false
@@ -13439,70 +13484,70 @@ func (r DeviceDefinitionGuideline) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UsageInstruction",
+			Name: "usageInstruction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedArtifact",
+			Name: "relatedArtifact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Indication",
+			Name: "indication",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contraindication",
+			Name: "contraindication",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Warning",
+			Name: "warning",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IntendedUse",
+			Name: "intendedUse",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -13552,6 +13597,9 @@ func (r DeviceDefinitionCorrectiveAction) ToString(explicit bool) (fhirpath.Stri
 func (r DeviceDefinitionCorrectiveAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionCorrectiveAction to Integer")
 }
+func (r DeviceDefinitionCorrectiveAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionCorrectiveAction to Long")
+}
 func (r DeviceDefinitionCorrectiveAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionCorrectiveAction to Decimal")
 }
@@ -13567,7 +13615,7 @@ func (r DeviceDefinitionCorrectiveAction) ToDateTime(explicit bool) (fhirpath.Da
 func (r DeviceDefinitionCorrectiveAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionCorrectiveAction to Quantity")
 }
-func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionCorrectiveAction
 	switch other := other.(type) {
 	case DeviceDefinitionCorrectiveAction:
@@ -13583,7 +13631,7 @@ func (r DeviceDefinitionCorrectiveAction) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionCorrectiveAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionCorrectiveAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionCorrectiveAction)
 	if !ok {
 		return false
@@ -13600,42 +13648,42 @@ func (r DeviceDefinitionCorrectiveAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recall",
+			Name: "recall",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Scope",
+			Name: "scope",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
@@ -13690,6 +13738,9 @@ func (r DeviceDefinitionChargeItem) ToString(explicit bool) (fhirpath.String, bo
 func (r DeviceDefinitionChargeItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DeviceDefinitionChargeItem to Integer")
 }
+func (r DeviceDefinitionChargeItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DeviceDefinitionChargeItem to Long")
+}
 func (r DeviceDefinitionChargeItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DeviceDefinitionChargeItem to Decimal")
 }
@@ -13705,7 +13756,7 @@ func (r DeviceDefinitionChargeItem) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DeviceDefinitionChargeItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DeviceDefinitionChargeItem to Quantity")
 }
-func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DeviceDefinitionChargeItem
 	switch other := other.(type) {
 	case DeviceDefinitionChargeItem:
@@ -13721,7 +13772,7 @@ func (r DeviceDefinitionChargeItem) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DeviceDefinitionChargeItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DeviceDefinitionChargeItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DeviceDefinitionChargeItem)
 	if !ok {
 		return false
@@ -13738,49 +13789,49 @@ func (r DeviceDefinitionChargeItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ChargeItemCode",
+			Name: "chargeItemCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Count",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EffectivePeriod",
+			Name: "effectivePeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",

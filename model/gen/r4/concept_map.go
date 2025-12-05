@@ -5641,6 +5641,9 @@ func (r ConceptMap) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ConceptMap) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMap to Integer")
 }
+func (r ConceptMap) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMap to Long")
+}
 func (r ConceptMap) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMap to Decimal")
 }
@@ -5656,7 +5659,7 @@ func (r ConceptMap) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ConceptMap) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMap to Quantity")
 }
-func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMap) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMap
 	switch other := other.(type) {
 	case ConceptMap:
@@ -5672,7 +5675,7 @@ func (r ConceptMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMap) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMap)
 	if !ok {
 		return false
@@ -5689,182 +5692,182 @@ func (r ConceptMap) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Group",
+			Name: "group",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConceptMapGroup",
@@ -5933,6 +5936,9 @@ func (r ConceptMapGroup) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ConceptMapGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroup to Integer")
 }
+func (r ConceptMapGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroup to Long")
+}
 func (r ConceptMapGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroup to Decimal")
 }
@@ -5948,7 +5954,7 @@ func (r ConceptMapGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ConceptMapGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMapGroup to Quantity")
 }
-func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMapGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMapGroup
 	switch other := other.(type) {
 	case ConceptMapGroup:
@@ -5964,7 +5970,7 @@ func (r ConceptMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMapGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMapGroup)
 	if !ok {
 		return false
@@ -5981,63 +5987,63 @@ func (r ConceptMapGroup) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceVersion",
+			Name: "sourceVersion",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetVersion",
+			Name: "targetVersion",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Element",
+			Name: "element",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConceptMapGroupElement",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Unmapped",
+			Name: "unmapped",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ConceptMapGroupUnmapped",
@@ -6091,6 +6097,9 @@ func (r ConceptMapGroupElement) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ConceptMapGroupElement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElement to Integer")
 }
+func (r ConceptMapGroupElement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElement to Long")
+}
 func (r ConceptMapGroupElement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElement to Decimal")
 }
@@ -6106,7 +6115,7 @@ func (r ConceptMapGroupElement) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ConceptMapGroupElement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMapGroupElement to Quantity")
 }
-func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMapGroupElement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMapGroupElement
 	switch other := other.(type) {
 	case ConceptMapGroupElement:
@@ -6122,7 +6131,7 @@ func (r ConceptMapGroupElement) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMapGroupElement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMapGroupElement)
 	if !ok {
 		return false
@@ -6139,42 +6148,42 @@ func (r ConceptMapGroupElement) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConceptMapGroupElementTarget",
@@ -6241,6 +6250,9 @@ func (r ConceptMapGroupElementTarget) ToString(explicit bool) (fhirpath.String, 
 func (r ConceptMapGroupElementTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElementTarget to Integer")
 }
+func (r ConceptMapGroupElementTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElementTarget to Long")
+}
 func (r ConceptMapGroupElementTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElementTarget to Decimal")
 }
@@ -6256,7 +6268,7 @@ func (r ConceptMapGroupElementTarget) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ConceptMapGroupElementTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMapGroupElementTarget to Quantity")
 }
-func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMapGroupElementTarget
 	switch other := other.(type) {
 	case ConceptMapGroupElementTarget:
@@ -6272,7 +6284,7 @@ func (r ConceptMapGroupElementTarget) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMapGroupElementTarget) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMapGroupElementTarget)
 	if !ok {
 		return false
@@ -6289,63 +6301,63 @@ func (r ConceptMapGroupElementTarget) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Equivalence",
+			Name: "equivalence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Comment",
+			Name: "comment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DependsOn",
+			Name: "dependsOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConceptMapGroupElementTargetDependsOn",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Product",
+			Name: "product",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConceptMapGroupElementTargetDependsOn",
@@ -6400,6 +6412,9 @@ func (r ConceptMapGroupElementTargetDependsOn) ToString(explicit bool) (fhirpath
 func (r ConceptMapGroupElementTargetDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Integer")
 }
+func (r ConceptMapGroupElementTargetDependsOn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Long")
+}
 func (r ConceptMapGroupElementTargetDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Decimal")
 }
@@ -6415,7 +6430,7 @@ func (r ConceptMapGroupElementTargetDependsOn) ToDateTime(explicit bool) (fhirpa
 func (r ConceptMapGroupElementTargetDependsOn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMapGroupElementTargetDependsOn to Quantity")
 }
-func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMapGroupElementTargetDependsOn
 	switch other := other.(type) {
 	case ConceptMapGroupElementTargetDependsOn:
@@ -6431,7 +6446,7 @@ func (r ConceptMapGroupElementTargetDependsOn) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMapGroupElementTargetDependsOn) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMapGroupElementTargetDependsOn)
 	if !ok {
 		return false
@@ -6448,49 +6463,49 @@ func (r ConceptMapGroupElementTargetDependsOn) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "System",
+			Name: "system",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -6547,6 +6562,9 @@ func (r ConceptMapGroupUnmapped) ToString(explicit bool) (fhirpath.String, bool,
 func (r ConceptMapGroupUnmapped) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConceptMapGroupUnmapped to Integer")
 }
+func (r ConceptMapGroupUnmapped) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConceptMapGroupUnmapped to Long")
+}
 func (r ConceptMapGroupUnmapped) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConceptMapGroupUnmapped to Decimal")
 }
@@ -6562,7 +6580,7 @@ func (r ConceptMapGroupUnmapped) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ConceptMapGroupUnmapped) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConceptMapGroupUnmapped to Quantity")
 }
-func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConceptMapGroupUnmapped
 	switch other := other.(type) {
 	case ConceptMapGroupUnmapped:
@@ -6578,7 +6596,7 @@ func (r ConceptMapGroupUnmapped) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConceptMapGroupUnmapped) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConceptMapGroupUnmapped)
 	if !ok {
 		return false
@@ -6595,49 +6613,49 @@ func (r ConceptMapGroupUnmapped) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mode",
+			Name: "mode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",

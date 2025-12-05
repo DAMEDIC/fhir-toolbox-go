@@ -4885,6 +4885,9 @@ func (r StructureDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r StructureDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinition to Integer")
 }
+func (r StructureDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinition to Long")
+}
 func (r StructureDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinition to Decimal")
 }
@@ -4900,7 +4903,7 @@ func (r StructureDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r StructureDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinition to Quantity")
 }
-func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureDefinition
 	switch other := other.(type) {
 	case StructureDefinition:
@@ -4916,7 +4919,7 @@ func (r StructureDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureDefinition)
 	if !ok {
 		return false
@@ -4933,259 +4936,259 @@ func (r StructureDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionAlgorithm",
+			Name: "versionAlgorithm",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Name",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "String",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Title",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CopyrightLabel",
+			Name: "copyrightLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Keyword",
+			Name: "keyword",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FhirVersion",
+			Name: "fhirVersion",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mapping",
+			Name: "mapping",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureDefinitionMapping",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Kind",
+			Name: "kind",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Abstract",
+			Name: "abstract",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureDefinitionContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContextInvariant",
+			Name: "contextInvariant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BaseDefinition",
+			Name: "baseDefinition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Derivation",
+			Name: "derivation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Snapshot",
+			Name: "snapshot",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "StructureDefinitionSnapshot",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Differential",
+			Name: "differential",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "StructureDefinitionDifferential",
@@ -5242,6 +5245,9 @@ func (r StructureDefinitionMapping) ToString(explicit bool) (fhirpath.String, bo
 func (r StructureDefinitionMapping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionMapping to Integer")
 }
+func (r StructureDefinitionMapping) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionMapping to Long")
+}
 func (r StructureDefinitionMapping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionMapping to Decimal")
 }
@@ -5257,7 +5263,7 @@ func (r StructureDefinitionMapping) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r StructureDefinitionMapping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionMapping to Quantity")
 }
-func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureDefinitionMapping) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureDefinitionMapping
 	switch other := other.(type) {
 	case StructureDefinitionMapping:
@@ -5273,7 +5279,7 @@ func (r StructureDefinitionMapping) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionMapping) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureDefinitionMapping)
 	if !ok {
 		return false
@@ -5290,49 +5296,49 @@ func (r StructureDefinitionMapping) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identity",
+			Name: "identity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Uri",
+			Name: "uri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Comment",
+			Name: "comment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -5377,6 +5383,9 @@ func (r StructureDefinitionContext) ToString(explicit bool) (fhirpath.String, bo
 func (r StructureDefinitionContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionContext to Integer")
 }
+func (r StructureDefinitionContext) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionContext to Long")
+}
 func (r StructureDefinitionContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionContext to Decimal")
 }
@@ -5392,7 +5401,7 @@ func (r StructureDefinitionContext) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r StructureDefinitionContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionContext to Quantity")
 }
-func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureDefinitionContext) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureDefinitionContext
 	switch other := other.(type) {
 	case StructureDefinitionContext:
@@ -5408,7 +5417,7 @@ func (r StructureDefinitionContext) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureDefinitionContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionContext) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureDefinitionContext)
 	if !ok {
 		return false
@@ -5425,35 +5434,35 @@ func (r StructureDefinitionContext) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -5497,6 +5506,9 @@ func (r StructureDefinitionSnapshot) ToString(explicit bool) (fhirpath.String, b
 func (r StructureDefinitionSnapshot) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionSnapshot to Integer")
 }
+func (r StructureDefinitionSnapshot) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionSnapshot to Long")
+}
 func (r StructureDefinitionSnapshot) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionSnapshot to Decimal")
 }
@@ -5512,7 +5524,7 @@ func (r StructureDefinitionSnapshot) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r StructureDefinitionSnapshot) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionSnapshot to Quantity")
 }
-func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureDefinitionSnapshot
 	switch other := other.(type) {
 	case StructureDefinitionSnapshot:
@@ -5528,7 +5540,7 @@ func (r StructureDefinitionSnapshot) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionSnapshot) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureDefinitionSnapshot)
 	if !ok {
 		return false
@@ -5545,28 +5557,28 @@ func (r StructureDefinitionSnapshot) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Element",
+			Name: "element",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ElementDefinition",
@@ -5610,6 +5622,9 @@ func (r StructureDefinitionDifferential) ToString(explicit bool) (fhirpath.Strin
 func (r StructureDefinitionDifferential) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureDefinitionDifferential to Integer")
 }
+func (r StructureDefinitionDifferential) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureDefinitionDifferential to Long")
+}
 func (r StructureDefinitionDifferential) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureDefinitionDifferential to Decimal")
 }
@@ -5625,7 +5640,7 @@ func (r StructureDefinitionDifferential) ToDateTime(explicit bool) (fhirpath.Dat
 func (r StructureDefinitionDifferential) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureDefinitionDifferential to Quantity")
 }
-func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureDefinitionDifferential) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureDefinitionDifferential
 	switch other := other.(type) {
 	case StructureDefinitionDifferential:
@@ -5641,7 +5656,7 @@ func (r StructureDefinitionDifferential) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureDefinitionDifferential) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureDefinitionDifferential)
 	if !ok {
 		return false
@@ -5658,28 +5673,28 @@ func (r StructureDefinitionDifferential) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Element",
+			Name: "element",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ElementDefinition",

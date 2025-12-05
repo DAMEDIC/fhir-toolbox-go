@@ -5236,6 +5236,9 @@ func (r Parameters) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Parameters) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Parameters to Integer")
 }
+func (r Parameters) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Parameters to Long")
+}
 func (r Parameters) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Parameters to Decimal")
 }
@@ -5251,7 +5254,7 @@ func (r Parameters) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Parameters) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Parameters to Quantity")
 }
-func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Parameters) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Parameters
 	switch other := other.(type) {
 	case Parameters:
@@ -5267,7 +5270,7 @@ func (r Parameters) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Parameters) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Parameters) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Parameters)
 	if !ok {
 		return false
@@ -5284,35 +5287,35 @@ func (r Parameters) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parameter",
+			Name: "parameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ParametersParameter",
@@ -5369,6 +5372,9 @@ func (r ParametersParameter) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ParametersParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ParametersParameter to Integer")
 }
+func (r ParametersParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ParametersParameter to Long")
+}
 func (r ParametersParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ParametersParameter to Decimal")
 }
@@ -5384,7 +5390,7 @@ func (r ParametersParameter) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ParametersParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ParametersParameter to Quantity")
 }
-func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ParametersParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ParametersParameter
 	switch other := other.(type) {
 	case ParametersParameter:
@@ -5400,7 +5406,7 @@ func (r ParametersParameter) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ParametersParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ParametersParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ParametersParameter)
 	if !ok {
 		return false
@@ -5417,49 +5423,49 @@ func (r ParametersParameter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Part",
+			Name: "part",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ParametersParameter",

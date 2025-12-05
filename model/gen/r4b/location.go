@@ -3152,6 +3152,9 @@ func (r Location) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Location) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Location to Integer")
 }
+func (r Location) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Location to Long")
+}
 func (r Location) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Location to Decimal")
 }
@@ -3167,7 +3170,7 @@ func (r Location) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Location) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Location to Quantity")
 }
-func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Location) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Location
 	switch other := other.(type) {
 	case Location:
@@ -3183,7 +3186,7 @@ func (r Location) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Location) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Location) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Location)
 	if !ok {
 		return false
@@ -3200,175 +3203,175 @@ func (r Location) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OperationalStatus",
+			Name: "operationalStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Alias",
+			Name: "alias",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mode",
+			Name: "mode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Telecom",
+			Name: "telecom",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactPoint",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Address",
+			Name: "address",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Address",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PhysicalType",
+			Name: "physicalType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Position",
+			Name: "position",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "LocationPosition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ManagingOrganization",
+			Name: "managingOrganization",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PartOf",
+			Name: "partOf",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HoursOfOperation",
+			Name: "hoursOfOperation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "LocationHoursOfOperation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailabilityExceptions",
+			Name: "availabilityExceptions",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Endpoint",
+			Name: "endpoint",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -3418,6 +3421,9 @@ func (r LocationPosition) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r LocationPosition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert LocationPosition to Integer")
 }
+func (r LocationPosition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert LocationPosition to Long")
+}
 func (r LocationPosition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert LocationPosition to Decimal")
 }
@@ -3433,7 +3439,7 @@ func (r LocationPosition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r LocationPosition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert LocationPosition to Quantity")
 }
-func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r LocationPosition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *LocationPosition
 	switch other := other.(type) {
 	case LocationPosition:
@@ -3449,7 +3455,7 @@ func (r LocationPosition) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r LocationPosition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r LocationPosition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(LocationPosition)
 	if !ok {
 		return false
@@ -3466,42 +3472,42 @@ func (r LocationPosition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Longitude",
+			Name: "longitude",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Latitude",
+			Name: "latitude",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Altitude",
+			Name: "altitude",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
@@ -3560,6 +3566,9 @@ func (r LocationHoursOfOperation) ToString(explicit bool) (fhirpath.String, bool
 func (r LocationHoursOfOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert LocationHoursOfOperation to Integer")
 }
+func (r LocationHoursOfOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert LocationHoursOfOperation to Long")
+}
 func (r LocationHoursOfOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert LocationHoursOfOperation to Decimal")
 }
@@ -3575,7 +3584,7 @@ func (r LocationHoursOfOperation) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r LocationHoursOfOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert LocationHoursOfOperation to Quantity")
 }
-func (r LocationHoursOfOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r LocationHoursOfOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *LocationHoursOfOperation
 	switch other := other.(type) {
 	case LocationHoursOfOperation:
@@ -3591,7 +3600,7 @@ func (r LocationHoursOfOperation) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r LocationHoursOfOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r LocationHoursOfOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(LocationHoursOfOperation)
 	if !ok {
 		return false
@@ -3608,49 +3617,49 @@ func (r LocationHoursOfOperation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DaysOfWeek",
+			Name: "daysOfWeek",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AllDay",
+			Name: "allDay",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OpeningTime",
+			Name: "openingTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ClosingTime",
+			Name: "closingTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",

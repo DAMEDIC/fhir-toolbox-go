@@ -41,12 +41,13 @@
 //	// with defined precision for decimal operations.
 //	ctx = fhirpath.WithAPDContext(ctx, apd.BaseContext.WithPrecision(100))
 //
-// Attention: By default the precision is set to 0.
+// Attention: By default the evaluator keeps 34 significant decimal digits, exceeding the
+// 18-digit minimum from FHIR's decimal type definition (FHIR R4, datatypes.html#decimal).
 //
 // # Implementation Status
 //
-// This implementation supports most features of the FHIRPath specification, with the
-// exception of full UCUM support (unit equality is asserted) and functions that involve code system resolution.
+// This implementation supports the full FHIRPath specification, including UCUM-based
+// quantity conversions, with the exception of functions that involve code system resolution.
 // For a detailed overview of the implementation status, refer to the FHIRPath section in
 // the project root README.md file.
 package fhirpath

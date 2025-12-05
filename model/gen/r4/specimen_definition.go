@@ -3740,6 +3740,9 @@ func (r SpecimenDefinition) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r SpecimenDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinition to Integer")
 }
+func (r SpecimenDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinition to Long")
+}
 func (r SpecimenDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinition to Decimal")
 }
@@ -3755,7 +3758,7 @@ func (r SpecimenDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r SpecimenDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinition to Quantity")
 }
-func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinition
 	switch other := other.(type) {
 	case SpecimenDefinition:
@@ -3771,7 +3774,7 @@ func (r SpecimenDefinition) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinition)
 	if !ok {
 		return false
@@ -3788,98 +3791,98 @@ func (r SpecimenDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeCollected",
+			Name: "typeCollected",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PatientPreparation",
+			Name: "patientPreparation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TimeAspect",
+			Name: "timeAspect",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collection",
+			Name: "collection",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeTested",
+			Name: "typeTested",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenDefinitionTypeTested",
@@ -3956,6 +3959,9 @@ func (r SpecimenDefinitionTypeTested) ToString(explicit bool) (fhirpath.String, 
 func (r SpecimenDefinitionTypeTested) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTested to Integer")
 }
+func (r SpecimenDefinitionTypeTested) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTested to Long")
+}
 func (r SpecimenDefinitionTypeTested) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Decimal")
 }
@@ -3971,7 +3977,7 @@ func (r SpecimenDefinitionTypeTested) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r SpecimenDefinitionTypeTested) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTested to Quantity")
 }
-func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTested
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTested:
@@ -3987,7 +3993,7 @@ func (r SpecimenDefinitionTypeTested) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTested) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTested)
 	if !ok {
 		return false
@@ -4004,77 +4010,77 @@ func (r SpecimenDefinitionTypeTested) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IsDerived",
+			Name: "isDerived",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Preference",
+			Name: "preference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Container",
+			Name: "container",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "SpecimenDefinitionTypeTestedContainer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requirement",
+			Name: "requirement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RetentionTime",
+			Name: "retentionTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Duration",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RejectionCriterion",
+			Name: "rejectionCriterion",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Handling",
+			Name: "handling",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenDefinitionTypeTestedHandling",
@@ -4153,6 +4159,9 @@ func (r SpecimenDefinitionTypeTestedContainer) ToString(explicit bool) (fhirpath
 func (r SpecimenDefinitionTypeTestedContainer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Integer")
 }
+func (r SpecimenDefinitionTypeTestedContainer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Long")
+}
 func (r SpecimenDefinitionTypeTestedContainer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Decimal")
 }
@@ -4168,7 +4177,7 @@ func (r SpecimenDefinitionTypeTestedContainer) ToDateTime(explicit bool) (fhirpa
 func (r SpecimenDefinitionTypeTestedContainer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainer to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainer
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainer:
@@ -4184,7 +4193,7 @@ func (r SpecimenDefinitionTypeTestedContainer) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedContainer)
 	if !ok {
 		return false
@@ -4201,77 +4210,77 @@ func (r SpecimenDefinitionTypeTestedContainer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Material",
+			Name: "material",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Cap",
+			Name: "cap",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Capacity",
+			Name: "capacity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MinimumVolume",
+			Name: "minimumVolume",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Additive",
+			Name: "additive",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SpecimenDefinitionTypeTestedContainerAdditive",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Preparation",
+			Name: "preparation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -4313,6 +4322,9 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) ToString(explicit bool) (
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Integer")
 }
+func (r SpecimenDefinitionTypeTestedContainerAdditive) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Long")
+}
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Decimal")
 }
@@ -4328,7 +4340,7 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) ToDateTime(explicit bool)
 func (r SpecimenDefinitionTypeTestedContainerAdditive) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedContainerAdditive to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedContainerAdditive
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedContainerAdditive:
@@ -4344,7 +4356,7 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedContainerAdditive) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedContainerAdditive)
 	if !ok {
 		return false
@@ -4361,32 +4373,32 @@ func (r SpecimenDefinitionTypeTestedContainerAdditive) TypeInfo() fhirpath.TypeI
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Additive",
+			Name: "additive",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "SpecimenDefinitionTypeTestedContainerAdditive",
@@ -4441,6 +4453,9 @@ func (r SpecimenDefinitionTypeTestedHandling) ToString(explicit bool) (fhirpath.
 func (r SpecimenDefinitionTypeTestedHandling) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Integer")
 }
+func (r SpecimenDefinitionTypeTestedHandling) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Long")
+}
 func (r SpecimenDefinitionTypeTestedHandling) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Decimal")
 }
@@ -4456,7 +4471,7 @@ func (r SpecimenDefinitionTypeTestedHandling) ToDateTime(explicit bool) (fhirpat
 func (r SpecimenDefinitionTypeTestedHandling) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SpecimenDefinitionTypeTestedHandling to Quantity")
 }
-func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SpecimenDefinitionTypeTestedHandling
 	switch other := other.(type) {
 	case SpecimenDefinitionTypeTestedHandling:
@@ -4472,7 +4487,7 @@ func (r SpecimenDefinitionTypeTestedHandling) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SpecimenDefinitionTypeTestedHandling) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SpecimenDefinitionTypeTestedHandling)
 	if !ok {
 		return false
@@ -4489,49 +4504,49 @@ func (r SpecimenDefinitionTypeTestedHandling) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TemperatureQualifier",
+			Name: "temperatureQualifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TemperatureRange",
+			Name: "temperatureRange",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Range",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MaxDuration",
+			Name: "maxDuration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Duration",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instruction",
+			Name: "instruction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

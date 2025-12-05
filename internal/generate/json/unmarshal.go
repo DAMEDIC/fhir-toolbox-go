@@ -93,6 +93,11 @@ func implementUnmarshalPrimitive(f *File, s ir.Struct) {
 	).Id("UnmarshalJSON").Params(
 		Id("b").Index().Byte(),
 	).Params(Error()).Block(
+		// Check if JSON is null - if so, create empty primitive (no Value)
+		If(String().Call(Id("b")).Op("==").Lit("null")).Block(
+			Id("*r").Op("=").Id(s.Name).Values(),
+			Return().Nil(),
+		),
 		Var().Id("v").Add(ty),
 		unmarshal,
 		assign,

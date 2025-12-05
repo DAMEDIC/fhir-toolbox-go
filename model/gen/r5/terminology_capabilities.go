@@ -7870,6 +7870,9 @@ func (r TerminologyCapabilities) ToString(explicit bool) (fhirpath.String, bool,
 func (r TerminologyCapabilities) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilities to Integer")
 }
+func (r TerminologyCapabilities) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilities to Long")
+}
 func (r TerminologyCapabilities) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilities to Decimal")
 }
@@ -7885,7 +7888,7 @@ func (r TerminologyCapabilities) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r TerminologyCapabilities) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilities to Quantity")
 }
-func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilities) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilities
 	switch other := other.(type) {
 	case TerminologyCapabilities:
@@ -7901,7 +7904,7 @@ func (r TerminologyCapabilities) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilities) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilities) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilities)
 	if !ok {
 		return false
@@ -7918,245 +7921,245 @@ func (r TerminologyCapabilities) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionAlgorithm",
+			Name: "versionAlgorithm",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Name",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "String",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Title",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CopyrightLabel",
+			Name: "copyrightLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Kind",
+			Name: "kind",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Software",
+			Name: "software",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesSoftware",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Implementation",
+			Name: "implementation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesImplementation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LockedDate",
+			Name: "lockedDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CodeSystem",
+			Name: "codeSystem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TerminologyCapabilitiesCodeSystem",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expansion",
+			Name: "expansion",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesExpansion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CodeSearch",
+			Name: "codeSearch",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidateCode",
+			Name: "validateCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesValidateCode",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Translation",
+			Name: "translation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesTranslation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Closure",
+			Name: "closure",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TerminologyCapabilitiesClosure",
@@ -8203,6 +8206,9 @@ func (r TerminologyCapabilitiesSoftware) ToString(explicit bool) (fhirpath.Strin
 func (r TerminologyCapabilitiesSoftware) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesSoftware to Integer")
 }
+func (r TerminologyCapabilitiesSoftware) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesSoftware to Long")
+}
 func (r TerminologyCapabilitiesSoftware) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesSoftware to Decimal")
 }
@@ -8218,7 +8224,7 @@ func (r TerminologyCapabilitiesSoftware) ToDateTime(explicit bool) (fhirpath.Dat
 func (r TerminologyCapabilitiesSoftware) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesSoftware to Quantity")
 }
-func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesSoftware
 	switch other := other.(type) {
 	case TerminologyCapabilitiesSoftware:
@@ -8234,7 +8240,7 @@ func (r TerminologyCapabilitiesSoftware) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesSoftware) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesSoftware)
 	if !ok {
 		return false
@@ -8251,35 +8257,35 @@ func (r TerminologyCapabilitiesSoftware) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -8326,6 +8332,9 @@ func (r TerminologyCapabilitiesImplementation) ToString(explicit bool) (fhirpath
 func (r TerminologyCapabilitiesImplementation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesImplementation to Integer")
 }
+func (r TerminologyCapabilitiesImplementation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesImplementation to Long")
+}
 func (r TerminologyCapabilitiesImplementation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesImplementation to Decimal")
 }
@@ -8341,7 +8350,7 @@ func (r TerminologyCapabilitiesImplementation) ToDateTime(explicit bool) (fhirpa
 func (r TerminologyCapabilitiesImplementation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesImplementation to Quantity")
 }
-func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesImplementation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesImplementation:
@@ -8357,7 +8366,7 @@ func (r TerminologyCapabilitiesImplementation) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesImplementation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesImplementation)
 	if !ok {
 		return false
@@ -8374,35 +8383,35 @@ func (r TerminologyCapabilitiesImplementation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Url",
@@ -8459,6 +8468,9 @@ func (r TerminologyCapabilitiesCodeSystem) ToString(explicit bool) (fhirpath.Str
 func (r TerminologyCapabilitiesCodeSystem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Integer")
 }
+func (r TerminologyCapabilitiesCodeSystem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Long")
+}
 func (r TerminologyCapabilitiesCodeSystem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Decimal")
 }
@@ -8474,7 +8486,7 @@ func (r TerminologyCapabilitiesCodeSystem) ToDateTime(explicit bool) (fhirpath.D
 func (r TerminologyCapabilitiesCodeSystem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystem to Quantity")
 }
-func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesCodeSystem
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystem:
@@ -8490,7 +8502,7 @@ func (r TerminologyCapabilitiesCodeSystem) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesCodeSystem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesCodeSystem)
 	if !ok {
 		return false
@@ -8507,49 +8519,49 @@ func (r TerminologyCapabilitiesCodeSystem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Uri",
+			Name: "uri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TerminologyCapabilitiesCodeSystemVersion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Content",
+			Name: "content",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subsumption",
+			Name: "subsumption",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -8618,6 +8630,9 @@ func (r TerminologyCapabilitiesCodeSystemVersion) ToString(explicit bool) (fhirp
 func (r TerminologyCapabilitiesCodeSystemVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Integer")
 }
+func (r TerminologyCapabilitiesCodeSystemVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Long")
+}
 func (r TerminologyCapabilitiesCodeSystemVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Decimal")
 }
@@ -8633,7 +8648,7 @@ func (r TerminologyCapabilitiesCodeSystemVersion) ToDateTime(explicit bool) (fhi
 func (r TerminologyCapabilitiesCodeSystemVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersion to Quantity")
 }
-func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesCodeSystemVersion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersion:
@@ -8649,7 +8664,7 @@ func (r TerminologyCapabilitiesCodeSystemVersion) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesCodeSystemVersion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesCodeSystemVersion)
 	if !ok {
 		return false
@@ -8666,63 +8681,63 @@ func (r TerminologyCapabilitiesCodeSystemVersion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IsDefault",
+			Name: "isDefault",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Compositional",
+			Name: "compositional",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Filter",
+			Name: "filter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TerminologyCapabilitiesCodeSystemVersionFilter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
@@ -8769,6 +8784,9 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToString(explicit bool) 
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Integer")
 }
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Long")
+}
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Decimal")
 }
@@ -8784,7 +8802,7 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToDateTime(explicit bool
 func (r TerminologyCapabilitiesCodeSystemVersionFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesCodeSystemVersionFilter to Quantity")
 }
-func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesCodeSystemVersionFilter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesCodeSystemVersionFilter:
@@ -8800,7 +8818,7 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equal(other fhirpath.Ele
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesCodeSystemVersionFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesCodeSystemVersionFilter)
 	if !ok {
 		return false
@@ -8817,35 +8835,35 @@ func (r TerminologyCapabilitiesCodeSystemVersionFilter) TypeInfo() fhirpath.Type
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Op",
+			Name: "op",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
@@ -8909,6 +8927,9 @@ func (r TerminologyCapabilitiesExpansion) ToString(explicit bool) (fhirpath.Stri
 func (r TerminologyCapabilitiesExpansion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesExpansion to Integer")
 }
+func (r TerminologyCapabilitiesExpansion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesExpansion to Long")
+}
 func (r TerminologyCapabilitiesExpansion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesExpansion to Decimal")
 }
@@ -8924,7 +8945,7 @@ func (r TerminologyCapabilitiesExpansion) ToDateTime(explicit bool) (fhirpath.Da
 func (r TerminologyCapabilitiesExpansion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesExpansion to Quantity")
 }
-func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesExpansion
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansion:
@@ -8940,7 +8961,7 @@ func (r TerminologyCapabilitiesExpansion) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesExpansion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesExpansion)
 	if !ok {
 		return false
@@ -8957,56 +8978,56 @@ func (r TerminologyCapabilitiesExpansion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Hierarchical",
+			Name: "hierarchical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Paging",
+			Name: "paging",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Incomplete",
+			Name: "incomplete",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parameter",
+			Name: "parameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TerminologyCapabilitiesExpansionParameter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TextFilter",
+			Name: "textFilter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -9053,6 +9074,9 @@ func (r TerminologyCapabilitiesExpansionParameter) ToString(explicit bool) (fhir
 func (r TerminologyCapabilitiesExpansionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Integer")
 }
+func (r TerminologyCapabilitiesExpansionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Long")
+}
 func (r TerminologyCapabilitiesExpansionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Decimal")
 }
@@ -9068,7 +9092,7 @@ func (r TerminologyCapabilitiesExpansionParameter) ToDateTime(explicit bool) (fh
 func (r TerminologyCapabilitiesExpansionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesExpansionParameter to Quantity")
 }
-func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesExpansionParameter
 	switch other := other.(type) {
 	case TerminologyCapabilitiesExpansionParameter:
@@ -9084,7 +9108,7 @@ func (r TerminologyCapabilitiesExpansionParameter) Equal(other fhirpath.Element,
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesExpansionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesExpansionParameter)
 	if !ok {
 		return false
@@ -9101,35 +9125,35 @@ func (r TerminologyCapabilitiesExpansionParameter) TypeInfo() fhirpath.TypeInfo 
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -9171,6 +9195,9 @@ func (r TerminologyCapabilitiesValidateCode) ToString(explicit bool) (fhirpath.S
 func (r TerminologyCapabilitiesValidateCode) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Integer")
 }
+func (r TerminologyCapabilitiesValidateCode) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Long")
+}
 func (r TerminologyCapabilitiesValidateCode) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Decimal")
 }
@@ -9186,7 +9213,7 @@ func (r TerminologyCapabilitiesValidateCode) ToDateTime(explicit bool) (fhirpath
 func (r TerminologyCapabilitiesValidateCode) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesValidateCode to Quantity")
 }
-func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesValidateCode
 	switch other := other.(type) {
 	case TerminologyCapabilitiesValidateCode:
@@ -9202,7 +9229,7 @@ func (r TerminologyCapabilitiesValidateCode) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesValidateCode) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesValidateCode)
 	if !ok {
 		return false
@@ -9219,28 +9246,28 @@ func (r TerminologyCapabilitiesValidateCode) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Translations",
+			Name: "translations",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -9282,6 +9309,9 @@ func (r TerminologyCapabilitiesTranslation) ToString(explicit bool) (fhirpath.St
 func (r TerminologyCapabilitiesTranslation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesTranslation to Integer")
 }
+func (r TerminologyCapabilitiesTranslation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesTranslation to Long")
+}
 func (r TerminologyCapabilitiesTranslation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesTranslation to Decimal")
 }
@@ -9297,7 +9327,7 @@ func (r TerminologyCapabilitiesTranslation) ToDateTime(explicit bool) (fhirpath.
 func (r TerminologyCapabilitiesTranslation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesTranslation to Quantity")
 }
-func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesTranslation
 	switch other := other.(type) {
 	case TerminologyCapabilitiesTranslation:
@@ -9313,7 +9343,7 @@ func (r TerminologyCapabilitiesTranslation) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesTranslation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesTranslation)
 	if !ok {
 		return false
@@ -9330,28 +9360,28 @@ func (r TerminologyCapabilitiesTranslation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NeedsMap",
+			Name: "needsMap",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -9395,6 +9425,9 @@ func (r TerminologyCapabilitiesClosure) ToString(explicit bool) (fhirpath.String
 func (r TerminologyCapabilitiesClosure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TerminologyCapabilitiesClosure to Integer")
 }
+func (r TerminologyCapabilitiesClosure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TerminologyCapabilitiesClosure to Long")
+}
 func (r TerminologyCapabilitiesClosure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TerminologyCapabilitiesClosure to Decimal")
 }
@@ -9410,7 +9443,7 @@ func (r TerminologyCapabilitiesClosure) ToDateTime(explicit bool) (fhirpath.Date
 func (r TerminologyCapabilitiesClosure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TerminologyCapabilitiesClosure to Quantity")
 }
-func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TerminologyCapabilitiesClosure
 	switch other := other.(type) {
 	case TerminologyCapabilitiesClosure:
@@ -9426,7 +9459,7 @@ func (r TerminologyCapabilitiesClosure) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TerminologyCapabilitiesClosure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TerminologyCapabilitiesClosure)
 	if !ok {
 		return false
@@ -9443,28 +9476,28 @@ func (r TerminologyCapabilitiesClosure) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Translation",
+			Name: "translation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",

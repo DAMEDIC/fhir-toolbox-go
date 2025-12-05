@@ -3840,6 +3840,9 @@ func (r Bundle) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Bundle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Bundle to Integer")
 }
+func (r Bundle) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Bundle to Long")
+}
 func (r Bundle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Bundle to Decimal")
 }
@@ -3855,7 +3858,7 @@ func (r Bundle) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Bundle) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Bundle to Quantity")
 }
-func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Bundle) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Bundle
 	switch other := other.(type) {
 	case Bundle:
@@ -3871,7 +3874,7 @@ func (r Bundle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Bundle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Bundle) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Bundle)
 	if !ok {
 		return false
@@ -3888,84 +3891,84 @@ func (r Bundle) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timestamp",
+			Name: "timestamp",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Total",
+			Name: "total",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "UnsignedInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Link",
+			Name: "link",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BundleLink",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Entry",
+			Name: "entry",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BundleEntry",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Signature",
+			Name: "signature",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Signature",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issues",
+			Name: "issues",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "",
@@ -4010,6 +4013,9 @@ func (r BundleLink) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BundleLink) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleLink to Integer")
 }
+func (r BundleLink) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleLink to Long")
+}
 func (r BundleLink) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleLink to Decimal")
 }
@@ -4025,7 +4031,7 @@ func (r BundleLink) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r BundleLink) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BundleLink to Quantity")
 }
-func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BundleLink) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BundleLink
 	switch other := other.(type) {
 	case BundleLink:
@@ -4041,7 +4047,7 @@ func (r BundleLink) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BundleLink) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleLink) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BundleLink)
 	if !ok {
 		return false
@@ -4058,35 +4064,35 @@ func (r BundleLink) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Relation",
+			Name: "relation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -4155,6 +4161,9 @@ func (r BundleEntry) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BundleEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntry to Integer")
 }
+func (r BundleEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntry to Long")
+}
 func (r BundleEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntry to Decimal")
 }
@@ -4170,7 +4179,7 @@ func (r BundleEntry) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r BundleEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntry to Quantity")
 }
-func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BundleEntry) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BundleEntry
 	switch other := other.(type) {
 	case BundleEntry:
@@ -4186,7 +4195,7 @@ func (r BundleEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BundleEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntry) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BundleEntry)
 	if !ok {
 		return false
@@ -4203,63 +4212,63 @@ func (r BundleEntry) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Link",
+			Name: "link",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BundleLink",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FullUrl",
+			Name: "fullUrl",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Search",
+			Name: "search",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "BundleEntrySearch",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Request",
+			Name: "request",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "BundleEntryRequest",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Response",
+			Name: "response",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "BundleEntryResponse",
@@ -4308,6 +4317,9 @@ func (r BundleEntrySearch) ToString(explicit bool) (fhirpath.String, bool, error
 func (r BundleEntrySearch) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntrySearch to Integer")
 }
+func (r BundleEntrySearch) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntrySearch to Long")
+}
 func (r BundleEntrySearch) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntrySearch to Decimal")
 }
@@ -4323,7 +4335,7 @@ func (r BundleEntrySearch) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r BundleEntrySearch) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntrySearch to Quantity")
 }
-func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BundleEntrySearch) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BundleEntrySearch
 	switch other := other.(type) {
 	case BundleEntrySearch:
@@ -4339,7 +4351,7 @@ func (r BundleEntrySearch) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BundleEntrySearch) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntrySearch) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BundleEntrySearch)
 	if !ok {
 		return false
@@ -4356,35 +4368,35 @@ func (r BundleEntrySearch) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mode",
+			Name: "mode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Score",
+			Name: "score",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
@@ -4449,6 +4461,9 @@ func (r BundleEntryRequest) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r BundleEntryRequest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntryRequest to Integer")
 }
+func (r BundleEntryRequest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntryRequest to Long")
+}
 func (r BundleEntryRequest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryRequest to Decimal")
 }
@@ -4464,7 +4479,7 @@ func (r BundleEntryRequest) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r BundleEntryRequest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntryRequest to Quantity")
 }
-func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BundleEntryRequest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BundleEntryRequest
 	switch other := other.(type) {
 	case BundleEntryRequest:
@@ -4480,7 +4495,7 @@ func (r BundleEntryRequest) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BundleEntryRequest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntryRequest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BundleEntryRequest)
 	if !ok {
 		return false
@@ -4497,63 +4512,63 @@ func (r BundleEntryRequest) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IfNoneMatch",
+			Name: "ifNoneMatch",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IfModifiedSince",
+			Name: "ifModifiedSince",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IfMatch",
+			Name: "ifMatch",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IfNoneExist",
+			Name: "ifNoneExist",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -4615,6 +4630,9 @@ func (r BundleEntryResponse) ToString(explicit bool) (fhirpath.String, bool, err
 func (r BundleEntryResponse) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BundleEntryResponse to Integer")
 }
+func (r BundleEntryResponse) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BundleEntryResponse to Long")
+}
 func (r BundleEntryResponse) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BundleEntryResponse to Decimal")
 }
@@ -4630,7 +4648,7 @@ func (r BundleEntryResponse) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r BundleEntryResponse) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BundleEntryResponse to Quantity")
 }
-func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BundleEntryResponse) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BundleEntryResponse
 	switch other := other.(type) {
 	case BundleEntryResponse:
@@ -4646,7 +4664,7 @@ func (r BundleEntryResponse) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BundleEntryResponse) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BundleEntryResponse) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BundleEntryResponse)
 	if !ok {
 		return false
@@ -4663,56 +4681,56 @@ func (r BundleEntryResponse) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Etag",
+			Name: "etag",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastModified",
+			Name: "lastModified",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Outcome",
+			Name: "outcome",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "",

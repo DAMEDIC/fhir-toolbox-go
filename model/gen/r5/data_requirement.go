@@ -3385,6 +3385,9 @@ func (r DataRequirement) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r DataRequirement) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirement to Integer")
 }
+func (r DataRequirement) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirement to Long")
+}
 func (r DataRequirement) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirement to Decimal")
 }
@@ -3400,7 +3403,7 @@ func (r DataRequirement) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r DataRequirement) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirement to Quantity")
 }
-func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirement) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirement
 	switch other := other.(type) {
 	case DataRequirement:
@@ -3416,7 +3419,7 @@ func (r DataRequirement) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirement) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirement) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirement)
 	if !ok {
 		return false
@@ -3433,77 +3436,77 @@ func (r DataRequirement) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "MustSupport",
+			Name: "mustSupport",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CodeFilter",
+			Name: "codeFilter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DataRequirementCodeFilter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DateFilter",
+			Name: "dateFilter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DataRequirementDateFilter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValueFilter",
+			Name: "valueFilter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DataRequirementValueFilter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Limit",
+			Name: "limit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sort",
+			Name: "sort",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DataRequirementSort",
@@ -3557,6 +3560,9 @@ func (r DataRequirementCodeFilter) ToString(explicit bool) (fhirpath.String, boo
 func (r DataRequirementCodeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementCodeFilter to Integer")
 }
+func (r DataRequirementCodeFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementCodeFilter to Long")
+}
 func (r DataRequirementCodeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementCodeFilter to Decimal")
 }
@@ -3572,7 +3578,7 @@ func (r DataRequirementCodeFilter) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DataRequirementCodeFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementCodeFilter to Quantity")
 }
-func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementCodeFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementCodeFilter
 	switch other := other.(type) {
 	case DataRequirementCodeFilter:
@@ -3588,7 +3594,7 @@ func (r DataRequirementCodeFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementCodeFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementCodeFilter)
 	if !ok {
 		return false
@@ -3605,42 +3611,42 @@ func (r DataRequirementCodeFilter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SearchParam",
+			Name: "searchParam",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValueSet",
+			Name: "valueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
@@ -3689,6 +3695,9 @@ func (r DataRequirementDateFilter) ToString(explicit bool) (fhirpath.String, boo
 func (r DataRequirementDateFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementDateFilter to Integer")
 }
+func (r DataRequirementDateFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementDateFilter to Long")
+}
 func (r DataRequirementDateFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementDateFilter to Decimal")
 }
@@ -3704,7 +3713,7 @@ func (r DataRequirementDateFilter) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r DataRequirementDateFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementDateFilter to Quantity")
 }
-func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementDateFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementDateFilter
 	switch other := other.(type) {
 	case DataRequirementDateFilter:
@@ -3720,7 +3729,7 @@ func (r DataRequirementDateFilter) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementDateFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementDateFilter)
 	if !ok {
 		return false
@@ -3737,39 +3746,39 @@ func (r DataRequirementDateFilter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SearchParam",
+			Name: "searchParam",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "DataRequirementDateFilter",
@@ -3819,6 +3828,9 @@ func (r DataRequirementValueFilter) ToString(explicit bool) (fhirpath.String, bo
 func (r DataRequirementValueFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementValueFilter to Integer")
 }
+func (r DataRequirementValueFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementValueFilter to Long")
+}
 func (r DataRequirementValueFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementValueFilter to Decimal")
 }
@@ -3834,7 +3846,7 @@ func (r DataRequirementValueFilter) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r DataRequirementValueFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementValueFilter to Quantity")
 }
-func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementValueFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementValueFilter
 	switch other := other.(type) {
 	case DataRequirementValueFilter:
@@ -3850,7 +3862,7 @@ func (r DataRequirementValueFilter) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementValueFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementValueFilter)
 	if !ok {
 		return false
@@ -3867,46 +3879,46 @@ func (r DataRequirementValueFilter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SearchParam",
+			Name: "searchParam",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Comparator",
+			Name: "comparator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "DataRequirementValueFilter",
@@ -3942,6 +3954,9 @@ func (r DataRequirementSort) ToString(explicit bool) (fhirpath.String, bool, err
 func (r DataRequirementSort) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert DataRequirementSort to Integer")
 }
+func (r DataRequirementSort) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert DataRequirementSort to Long")
+}
 func (r DataRequirementSort) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert DataRequirementSort to Decimal")
 }
@@ -3957,7 +3972,7 @@ func (r DataRequirementSort) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r DataRequirementSort) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert DataRequirementSort to Quantity")
 }
-func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r DataRequirementSort) Equal(other fhirpath.Element) (bool, bool) {
 	var o *DataRequirementSort
 	switch other := other.(type) {
 	case DataRequirementSort:
@@ -3973,7 +3988,7 @@ func (r DataRequirementSort) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r DataRequirementSort) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r DataRequirementSort) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(DataRequirementSort)
 	if !ok {
 		return false
@@ -3990,28 +4005,28 @@ func (r DataRequirementSort) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Direction",
+			Name: "direction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",

@@ -5,11 +5,14 @@ import (
 	"io"
 	"log"
 	"strings"
+
+	"github.com/DAMEDIC/fhir-toolbox-go/model"
 )
 
-func GetExamples(release, format string) map[string][]byte {
-	downloadExamples(release, format)
-	path := examplesZIPFilePath(release, format)
+func GetExamples(release model.Release, format string) map[string][]byte {
+	releaseName := release.String()
+	downloadExamples(releaseName, format)
+	path := examplesZIPFilePath(releaseName, format)
 
 	log.Println("opening zip archive...")
 	zip, err := zip.OpenReader(path)

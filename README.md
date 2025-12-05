@@ -44,9 +44,7 @@ go get github.com/DAMEDIC/fhir-toolbox-go
 - Fully typed client implementation
     - Interactions: `create`, `read`, `update`, `delete`, `search`, `$operations`
 - FHIRPath evaluation
-    - [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification; except full UCUM support
-
-      see [below for more information](#fhirpath)
+	- [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) support, including UCUM quantity conversions (see [below for more information](#fhirpath))
 - R4, R4B & R5
 
   use build tags `r4`, `r4b` or `r5` for conditional compilation if you only need runtime support for specific
@@ -282,25 +280,34 @@ This wraps a generic implementation and exposes the strongly typed concrete inte
 
 ## FHIRPath
 
-The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented with the exception of full UCUM
-support.
-For quantity comparisons and operations, the unit is only asserted for equality.
+The [FHIRPath v2.0.0](https://hl7.org/fhirpath/N1/) specification is implemented, including UCUM-based quantity
+conversions via the bundled [`github.com/iimos/ucum`](https://github.com/iimos/ucum) module.
 
-From the additional functions defined in the FHIR specification, only
+The 3.0.0-ballot specification introduces additional functions and semantics (see
+[FHIRPath v3.0.0 draft](https://build.fhir.org/ig/HL7/FHIRPath/index.html)).
+We aim to cover most of these, but may lack behind in completeness.
 
-* `extension(url : string) : collection`
+The STU `Long` primitive is implemented, including literal parsing (e.g. `42L`) and the `toLong`/`convertsToLong`
+conversion helpers, so consumers can work with 64-bit integers alongside the existing 32-bit `Integer` type.
 
-is implemented.
+From the FHIR-specific extension functions defined in the FHIR specification, the following are implemented:
 
-Mostly, because these require validation which is not implemented by `fhir-toolbox-go`, yet.
+* `extension(url : string) : collection` - extracts extensions by URL from FHIR elements
+* `hasValue() : Boolean` - checks if a FHIR primitive has a value (not just extensions)
+* `getValue() : System.[type]` - returns the primitive system value when a single FHIR primitive has a value
+
+Other FHIR-specific functions like `resolve()` and `conformsTo()` are not yet implemented, mostly because they require validation or terminology services which are not implemented by `fhir-toolbox-go` yet.
 
 For a quick usage example see [`./examples/fhirpath`](./examples/fhirpath/main.go).
 
 ### Decimal precision
 
 The FHIRPath evaluation engine uses [apd.Decimal](https://pkg.go.dev/github.com/cockroachdb/apd#Decimal) under the hood.
-Precision of decimal operations can be set by supplying
-an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context)
+The library sets a **default precision of 34 significant decimal digits** to comfortably exceed the
+[FHIR specification requirement of at least 18 decimal digits of precision for `decimal` values](https://hl7.org/fhir/R4/datatypes.html#decimal).
+
+Precision of decimal operations can be customized by supplying
+an [apd.Context](https://pkg.go.dev/github.com/cockroachdb/apd#Context):
 
 ```Go
 // Setup context
@@ -314,13 +321,13 @@ if err != nil {
 }
 
 // Evaluate the expression against a FHIR resource
-result, err := fhirpath.Evaluate(r4.Context(), observation, expr)
+result, err := fhirpath.Evaluate(ctx, observation, expr)
 if err != nil {
 // Handle error
 }
 ```
 
-> **Attention**: By default the precision is set to `0`, meaning no rounding. Some decimal operations like dividing `1/3` will fail unless you supply a precision context.
+**Note**: The `precision()`, `lowBoundary()`, and `highBoundary()` functions for Decimal types are implemented and use the context's precision for calculations, with automatic precision adjustment for intermediate operations to prevent overflow.
 
 ### Testing Approach
 

@@ -60,6 +60,7 @@ func Parse(bundle *model.Bundle) []ResourceOrType {
 				s.Name,
 				isResource,
 				s.Kind == "resource" && strings.HasSuffix(s.BaseDefinition, "DomainResource"),
+				s.BaseDefinition,
 				s.Snapshot.Element,
 				s.Type,
 				fmt.Sprintf("%s\n\n%s", s.Description, s.Purpose),
@@ -88,6 +89,7 @@ func parseStructs(
 	name string,
 	isResource bool,
 	isDomainResource bool,
+	baseDefinition string,
 	elementDefinitions []model.ElementDefinition,
 	elementPathStripPrefix string,
 	docComment string,
@@ -96,12 +98,22 @@ func parseStructs(
 
 	groupedDefinitions := groupElementDefinitionsByPrefix(elementDefinitions, elementPathStripPrefix)
 
+	// Extract base type name from baseDefinition URL (e.g., "http://hl7.org/fhir/StructureDefinition/uri" -> "uri")
+	baseType := ""
+	if baseDefinition != "" {
+		parts := strings.Split(baseDefinition, "/")
+		if len(parts) > 0 {
+			baseType = parts[len(parts)-1]
+		}
+	}
+
 	parsedStructs := []Struct{{
 		Name:             structName,
 		MarshalName:      name,
 		IsResource:       isResource,
 		IsDomainResource: isDomainResource,
 		IsPrimitive:      slices.Contains(primitives, name),
+		BaseType:         baseType,
 		DocComment:       docComment,
 	}}
 
@@ -118,6 +130,7 @@ func parseStructs(
 					typeName,
 					false,
 					false,
+					"", // backbone elements don't have baseDefinition
 					g.definitions,
 					g.definitions[0].Path,
 					g.definitions[0].Definition,

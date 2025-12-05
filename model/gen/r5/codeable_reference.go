@@ -352,6 +352,9 @@ func (r CodeableReference) ToString(explicit bool) (fhirpath.String, bool, error
 func (r CodeableReference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeableReference to Integer")
 }
+func (r CodeableReference) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeableReference to Long")
+}
 func (r CodeableReference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeableReference to Decimal")
 }
@@ -367,7 +370,7 @@ func (r CodeableReference) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r CodeableReference) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeableReference to Quantity")
 }
-func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeableReference) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeableReference
 	switch other := other.(type) {
 	case CodeableReference:
@@ -383,7 +386,7 @@ func (r CodeableReference) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeableReference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeableReference) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeableReference)
 	if !ok {
 		return false
@@ -400,28 +403,28 @@ func (r CodeableReference) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Concept",
+			Name: "concept",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",

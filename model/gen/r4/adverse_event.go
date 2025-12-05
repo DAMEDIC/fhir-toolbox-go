@@ -2914,6 +2914,9 @@ func (r AdverseEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r AdverseEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEvent to Integer")
 }
+func (r AdverseEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEvent to Long")
+}
 func (r AdverseEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEvent to Decimal")
 }
@@ -2929,7 +2932,7 @@ func (r AdverseEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r AdverseEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEvent to Quantity")
 }
-func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdverseEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdverseEvent
 	switch other := other.(type) {
 	case AdverseEvent:
@@ -2945,7 +2948,7 @@ func (r AdverseEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdverseEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdverseEvent)
 	if !ok {
 		return false
@@ -2962,196 +2965,196 @@ func (r AdverseEvent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actuality",
+			Name: "actuality",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Event",
+			Name: "event",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Encounter",
+			Name: "encounter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Detected",
+			Name: "detected",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RecordedDate",
+			Name: "recordedDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResultingCondition",
+			Name: "resultingCondition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Seriousness",
+			Name: "seriousness",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Severity",
+			Name: "severity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Outcome",
+			Name: "outcome",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recorder",
+			Name: "recorder",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contributor",
+			Name: "contributor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SuspectEntity",
+			Name: "suspectEntity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AdverseEventSuspectEntity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubjectMedicalHistory",
+			Name: "subjectMedicalHistory",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceDocument",
+			Name: "referenceDocument",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Study",
+			Name: "study",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -3198,6 +3201,9 @@ func (r AdverseEventSuspectEntity) ToString(explicit bool) (fhirpath.String, boo
 func (r AdverseEventSuspectEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventSuspectEntity to Integer")
 }
+func (r AdverseEventSuspectEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventSuspectEntity to Long")
+}
 func (r AdverseEventSuspectEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntity to Decimal")
 }
@@ -3213,7 +3219,7 @@ func (r AdverseEventSuspectEntity) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r AdverseEventSuspectEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEventSuspectEntity to Quantity")
 }
-func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdverseEventSuspectEntity
 	switch other := other.(type) {
 	case AdverseEventSuspectEntity:
@@ -3229,7 +3235,7 @@ func (r AdverseEventSuspectEntity) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEventSuspectEntity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdverseEventSuspectEntity)
 	if !ok {
 		return false
@@ -3246,35 +3252,35 @@ func (r AdverseEventSuspectEntity) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instance",
+			Name: "instance",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Causality",
+			Name: "causality",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AdverseEventSuspectEntityCausality",
@@ -3333,6 +3339,9 @@ func (r AdverseEventSuspectEntityCausality) ToString(explicit bool) (fhirpath.St
 func (r AdverseEventSuspectEntityCausality) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Integer")
 }
+func (r AdverseEventSuspectEntityCausality) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AdverseEventSuspectEntityCausality to Long")
+}
 func (r AdverseEventSuspectEntityCausality) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Decimal")
 }
@@ -3348,7 +3357,7 @@ func (r AdverseEventSuspectEntityCausality) ToDateTime(explicit bool) (fhirpath.
 func (r AdverseEventSuspectEntityCausality) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AdverseEventSuspectEntityCausality to Quantity")
 }
-func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AdverseEventSuspectEntityCausality
 	switch other := other.(type) {
 	case AdverseEventSuspectEntityCausality:
@@ -3364,7 +3373,7 @@ func (r AdverseEventSuspectEntityCausality) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AdverseEventSuspectEntityCausality) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AdverseEventSuspectEntityCausality)
 	if !ok {
 		return false
@@ -3381,49 +3390,49 @@ func (r AdverseEventSuspectEntityCausality) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Assessment",
+			Name: "assessment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductRelatedness",
+			Name: "productRelatedness",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",

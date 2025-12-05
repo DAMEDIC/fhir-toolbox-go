@@ -595,6 +595,9 @@ func (r MarketingStatus) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r MarketingStatus) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MarketingStatus to Integer")
 }
+func (r MarketingStatus) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MarketingStatus to Long")
+}
 func (r MarketingStatus) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MarketingStatus to Decimal")
 }
@@ -610,7 +613,7 @@ func (r MarketingStatus) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r MarketingStatus) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MarketingStatus to Quantity")
 }
-func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MarketingStatus) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MarketingStatus
 	switch other := other.(type) {
 	case MarketingStatus:
@@ -626,7 +629,7 @@ func (r MarketingStatus) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MarketingStatus) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MarketingStatus) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MarketingStatus)
 	if !ok {
 		return false
@@ -639,60 +642,60 @@ func (r MarketingStatus) Equivalent(other fhirpath.Element, _noReverseTypeConver
 func (r MarketingStatus) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneElement",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Country",
+			Name: "country",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DateRange",
+			Name: "dateRange",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RestoreDate",
+			Name: "restoreDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",

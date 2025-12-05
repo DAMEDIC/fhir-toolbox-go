@@ -670,6 +670,9 @@ func (r ProductShelfLife) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ProductShelfLife) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProductShelfLife to Integer")
 }
+func (r ProductShelfLife) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProductShelfLife to Long")
+}
 func (r ProductShelfLife) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProductShelfLife to Decimal")
 }
@@ -685,7 +688,7 @@ func (r ProductShelfLife) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ProductShelfLife) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProductShelfLife to Quantity")
 }
-func (r ProductShelfLife) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProductShelfLife) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProductShelfLife
 	switch other := other.(type) {
 	case ProductShelfLife:
@@ -701,7 +704,7 @@ func (r ProductShelfLife) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProductShelfLife) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProductShelfLife) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProductShelfLife)
 	if !ok {
 		return false
@@ -714,46 +717,46 @@ func (r ProductShelfLife) Equivalent(other fhirpath.Element, _noReverseTypeConve
 func (r ProductShelfLife) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneType",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "SpecialPrecautionsForStorage",
+			Name: "specialPrecautionsForStorage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",

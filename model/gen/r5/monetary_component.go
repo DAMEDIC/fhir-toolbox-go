@@ -498,6 +498,9 @@ func (r MonetaryComponent) ToString(explicit bool) (fhirpath.String, bool, error
 func (r MonetaryComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MonetaryComponent to Integer")
 }
+func (r MonetaryComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MonetaryComponent to Long")
+}
 func (r MonetaryComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MonetaryComponent to Decimal")
 }
@@ -513,7 +516,7 @@ func (r MonetaryComponent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r MonetaryComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MonetaryComponent to Quantity")
 }
-func (r MonetaryComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MonetaryComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MonetaryComponent
 	switch other := other.(type) {
 	case MonetaryComponent:
@@ -529,7 +532,7 @@ func (r MonetaryComponent) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MonetaryComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MonetaryComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MonetaryComponent)
 	if !ok {
 		return false
@@ -546,42 +549,42 @@ func (r MonetaryComponent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Factor",
+			Name: "factor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Amount",
+			Name: "amount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Money",

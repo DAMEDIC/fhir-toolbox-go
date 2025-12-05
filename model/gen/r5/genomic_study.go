@@ -5040,6 +5040,9 @@ func (r GenomicStudy) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r GenomicStudy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudy to Integer")
 }
+func (r GenomicStudy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudy to Long")
+}
 func (r GenomicStudy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudy to Decimal")
 }
@@ -5055,7 +5058,7 @@ func (r GenomicStudy) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r GenomicStudy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudy to Quantity")
 }
-func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudy
 	switch other := other.(type) {
 	case GenomicStudy:
@@ -5071,7 +5074,7 @@ func (r GenomicStudy) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudy)
 	if !ok {
 		return false
@@ -5088,161 +5091,161 @@ func (r GenomicStudy) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Encounter",
+			Name: "encounter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StartDate",
+			Name: "startDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BasedOn",
+			Name: "basedOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Referrer",
+			Name: "referrer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Interpreter",
+			Name: "interpreter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesCanonical",
+			Name: "instantiatesCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesUri",
+			Name: "instantiatesUri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Analysis",
+			Name: "analysis",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "GenomicStudyAnalysis",
@@ -5371,6 +5374,9 @@ func (r GenomicStudyAnalysis) ToString(explicit bool) (fhirpath.String, bool, er
 func (r GenomicStudyAnalysis) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysis to Integer")
 }
+func (r GenomicStudyAnalysis) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysis to Long")
+}
 func (r GenomicStudyAnalysis) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysis to Decimal")
 }
@@ -5386,7 +5392,7 @@ func (r GenomicStudyAnalysis) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r GenomicStudyAnalysis) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysis to Quantity")
 }
-func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysis) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysis
 	switch other := other.(type) {
 	case GenomicStudyAnalysis:
@@ -5402,7 +5408,7 @@ func (r GenomicStudyAnalysis) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysis) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysis)
 	if !ok {
 		return false
@@ -5419,147 +5425,147 @@ func (r GenomicStudyAnalysis) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MethodType",
+			Name: "methodType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ChangeType",
+			Name: "changeType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GenomeBuild",
+			Name: "genomeBuild",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesCanonical",
+			Name: "instantiatesCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesUri",
+			Name: "instantiatesUri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Focus",
+			Name: "focus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Specimen",
+			Name: "specimen",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProtocolPerformed",
+			Name: "protocolPerformed",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RegionsStudied",
+			Name: "regionsStudied",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RegionsCalled",
+			Name: "regionsCalled",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Input",
+			Name: "input",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "GenomicStudyAnalysisInput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Output",
+			Name: "output",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "GenomicStudyAnalysisOutput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Performer",
+			Name: "performer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "GenomicStudyAnalysisPerformer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "GenomicStudyAnalysisDevice",
@@ -5613,6 +5619,9 @@ func (r GenomicStudyAnalysisInput) ToString(explicit bool) (fhirpath.String, boo
 func (r GenomicStudyAnalysisInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisInput to Integer")
 }
+func (r GenomicStudyAnalysisInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisInput to Long")
+}
 func (r GenomicStudyAnalysisInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Decimal")
 }
@@ -5628,7 +5637,7 @@ func (r GenomicStudyAnalysisInput) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r GenomicStudyAnalysisInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisInput to Quantity")
 }
-func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisInput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisInput:
@@ -5644,7 +5653,7 @@ func (r GenomicStudyAnalysisInput) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisInput)
 	if !ok {
 		return false
@@ -5661,46 +5670,46 @@ func (r GenomicStudyAnalysisInput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "File",
+			Name: "file",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GeneratedBy",
+			Name: "generatedBy",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "GenomicStudyAnalysisInput",
@@ -5745,6 +5754,9 @@ func (r GenomicStudyAnalysisOutput) ToString(explicit bool) (fhirpath.String, bo
 func (r GenomicStudyAnalysisOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisOutput to Integer")
 }
+func (r GenomicStudyAnalysisOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisOutput to Long")
+}
 func (r GenomicStudyAnalysisOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Decimal")
 }
@@ -5760,7 +5772,7 @@ func (r GenomicStudyAnalysisOutput) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r GenomicStudyAnalysisOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisOutput to Quantity")
 }
-func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisOutput
 	switch other := other.(type) {
 	case GenomicStudyAnalysisOutput:
@@ -5776,7 +5788,7 @@ func (r GenomicStudyAnalysisOutput) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisOutput)
 	if !ok {
 		return false
@@ -5793,35 +5805,35 @@ func (r GenomicStudyAnalysisOutput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "File",
+			Name: "file",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5870,6 +5882,9 @@ func (r GenomicStudyAnalysisPerformer) ToString(explicit bool) (fhirpath.String,
 func (r GenomicStudyAnalysisPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Integer")
 }
+func (r GenomicStudyAnalysisPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisPerformer to Long")
+}
 func (r GenomicStudyAnalysisPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Decimal")
 }
@@ -5885,7 +5900,7 @@ func (r GenomicStudyAnalysisPerformer) ToDateTime(explicit bool) (fhirpath.DateT
 func (r GenomicStudyAnalysisPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisPerformer to Quantity")
 }
-func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisPerformer
 	switch other := other.(type) {
 	case GenomicStudyAnalysisPerformer:
@@ -5901,7 +5916,7 @@ func (r GenomicStudyAnalysisPerformer) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisPerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisPerformer)
 	if !ok {
 		return false
@@ -5918,35 +5933,35 @@ func (r GenomicStudyAnalysisPerformer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5995,6 +6010,9 @@ func (r GenomicStudyAnalysisDevice) ToString(explicit bool) (fhirpath.String, bo
 func (r GenomicStudyAnalysisDevice) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert GenomicStudyAnalysisDevice to Integer")
 }
+func (r GenomicStudyAnalysisDevice) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert GenomicStudyAnalysisDevice to Long")
+}
 func (r GenomicStudyAnalysisDevice) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Decimal")
 }
@@ -6010,7 +6028,7 @@ func (r GenomicStudyAnalysisDevice) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r GenomicStudyAnalysisDevice) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert GenomicStudyAnalysisDevice to Quantity")
 }
-func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element) (bool, bool) {
 	var o *GenomicStudyAnalysisDevice
 	switch other := other.(type) {
 	case GenomicStudyAnalysisDevice:
@@ -6026,7 +6044,7 @@ func (r GenomicStudyAnalysisDevice) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r GenomicStudyAnalysisDevice) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(GenomicStudyAnalysisDevice)
 	if !ok {
 		return false
@@ -6043,35 +6061,35 @@ func (r GenomicStudyAnalysisDevice) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Function",
+			Name: "function",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",

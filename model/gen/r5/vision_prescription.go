@@ -2924,6 +2924,9 @@ func (r VisionPrescription) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r VisionPrescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescription to Integer")
 }
+func (r VisionPrescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescription to Long")
+}
 func (r VisionPrescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescription to Decimal")
 }
@@ -2939,7 +2942,7 @@ func (r VisionPrescription) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r VisionPrescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescription to Quantity")
 }
-func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescription
 	switch other := other.(type) {
 	case VisionPrescription:
@@ -2955,7 +2958,7 @@ func (r VisionPrescription) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescription)
 	if !ok {
 		return false
@@ -2972,112 +2975,112 @@ func (r VisionPrescription) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Created",
+			Name: "created",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Encounter",
+			Name: "encounter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DateWritten",
+			Name: "dateWritten",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Prescriber",
+			Name: "prescriber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LensSpecification",
+			Name: "lensSpecification",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "VisionPrescriptionLensSpecification",
@@ -3182,6 +3185,9 @@ func (r VisionPrescriptionLensSpecification) ToString(explicit bool) (fhirpath.S
 func (r VisionPrescriptionLensSpecification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescriptionLensSpecification to Integer")
 }
+func (r VisionPrescriptionLensSpecification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescriptionLensSpecification to Long")
+}
 func (r VisionPrescriptionLensSpecification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescriptionLensSpecification to Decimal")
 }
@@ -3197,7 +3203,7 @@ func (r VisionPrescriptionLensSpecification) ToDateTime(explicit bool) (fhirpath
 func (r VisionPrescriptionLensSpecification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescriptionLensSpecification to Quantity")
 }
-func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescriptionLensSpecification
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecification:
@@ -3213,7 +3219,7 @@ func (r VisionPrescriptionLensSpecification) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescriptionLensSpecification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescriptionLensSpecification)
 	if !ok {
 		return false
@@ -3230,119 +3236,119 @@ func (r VisionPrescriptionLensSpecification) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Product",
+			Name: "product",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Eye",
+			Name: "eye",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sphere",
+			Name: "sphere",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Cylinder",
+			Name: "cylinder",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Axis",
+			Name: "axis",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Prism",
+			Name: "prism",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "VisionPrescriptionLensSpecificationPrism",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Add",
+			Name: "add",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Power",
+			Name: "power",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BackCurve",
+			Name: "backCurve",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Diameter",
+			Name: "diameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Duration",
+			Name: "duration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Color",
+			Name: "color",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Brand",
+			Name: "brand",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
@@ -3387,6 +3393,9 @@ func (r VisionPrescriptionLensSpecificationPrism) ToString(explicit bool) (fhirp
 func (r VisionPrescriptionLensSpecificationPrism) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Integer")
 }
+func (r VisionPrescriptionLensSpecificationPrism) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Long")
+}
 func (r VisionPrescriptionLensSpecificationPrism) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Decimal")
 }
@@ -3402,7 +3411,7 @@ func (r VisionPrescriptionLensSpecificationPrism) ToDateTime(explicit bool) (fhi
 func (r VisionPrescriptionLensSpecificationPrism) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VisionPrescriptionLensSpecificationPrism to Quantity")
 }
-func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VisionPrescriptionLensSpecificationPrism
 	switch other := other.(type) {
 	case VisionPrescriptionLensSpecificationPrism:
@@ -3418,7 +3427,7 @@ func (r VisionPrescriptionLensSpecificationPrism) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VisionPrescriptionLensSpecificationPrism) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VisionPrescriptionLensSpecificationPrism)
 	if !ok {
 		return false
@@ -3435,35 +3444,35 @@ func (r VisionPrescriptionLensSpecificationPrism) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Amount",
+			Name: "amount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Base",
+			Name: "base",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",

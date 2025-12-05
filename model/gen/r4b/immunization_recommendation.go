@@ -2962,6 +2962,9 @@ func (r ImmunizationRecommendation) ToString(explicit bool) (fhirpath.String, bo
 func (r ImmunizationRecommendation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendation to Integer")
 }
+func (r ImmunizationRecommendation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendation to Long")
+}
 func (r ImmunizationRecommendation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendation to Decimal")
 }
@@ -2977,7 +2980,7 @@ func (r ImmunizationRecommendation) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ImmunizationRecommendation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationRecommendation to Quantity")
 }
-func (r ImmunizationRecommendation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImmunizationRecommendation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImmunizationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendation:
@@ -2993,7 +2996,7 @@ func (r ImmunizationRecommendation) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImmunizationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationRecommendation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImmunizationRecommendation)
 	if !ok {
 		return false
@@ -3010,91 +3013,91 @@ func (r ImmunizationRecommendation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Authority",
+			Name: "authority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recommendation",
+			Name: "recommendation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImmunizationRecommendationRecommendation",
@@ -3191,6 +3194,9 @@ func (r ImmunizationRecommendationRecommendation) ToString(explicit bool) (fhirp
 func (r ImmunizationRecommendationRecommendation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendationRecommendation to Integer")
 }
+func (r ImmunizationRecommendationRecommendation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendationRecommendation to Long")
+}
 func (r ImmunizationRecommendationRecommendation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendationRecommendation to Decimal")
 }
@@ -3206,7 +3212,7 @@ func (r ImmunizationRecommendationRecommendation) ToDateTime(explicit bool) (fhi
 func (r ImmunizationRecommendationRecommendation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationRecommendationRecommendation to Quantity")
 }
-func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImmunizationRecommendationRecommendation
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendation:
@@ -3222,7 +3228,7 @@ func (r ImmunizationRecommendationRecommendation) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImmunizationRecommendationRecommendation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationRecommendationRecommendation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImmunizationRecommendationRecommendation)
 	if !ok {
 		return false
@@ -3239,105 +3245,105 @@ func (r ImmunizationRecommendationRecommendation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VaccineCode",
+			Name: "vaccineCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetDisease",
+			Name: "targetDisease",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContraindicatedVaccineCode",
+			Name: "contraindicatedVaccineCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ForecastStatus",
+			Name: "forecastStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ForecastReason",
+			Name: "forecastReason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DateCriterion",
+			Name: "dateCriterion",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImmunizationRecommendationRecommendationDateCriterion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Series",
+			Name: "series",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DoseNumber",
+			Name: "doseNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "SeriesDoses",
+			Name: "seriesDoses",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "SupportingImmunization",
+			Name: "supportingImmunization",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportingPatientInformation",
+			Name: "supportingPatientInformation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -3382,6 +3388,9 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) ToString(explicit
 func (r ImmunizationRecommendationRecommendationDateCriterion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Integer")
 }
+func (r ImmunizationRecommendationRecommendationDateCriterion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Long")
+}
 func (r ImmunizationRecommendationRecommendationDateCriterion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Decimal")
 }
@@ -3397,7 +3406,7 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) ToDateTime(explic
 func (r ImmunizationRecommendationRecommendationDateCriterion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImmunizationRecommendationRecommendationDateCriterion to Quantity")
 }
-func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImmunizationRecommendationRecommendationDateCriterion
 	switch other := other.(type) {
 	case ImmunizationRecommendationRecommendationDateCriterion:
@@ -3413,7 +3422,7 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) Equal(other fhirp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImmunizationRecommendationRecommendationDateCriterion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImmunizationRecommendationRecommendationDateCriterion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImmunizationRecommendationRecommendationDateCriterion)
 	if !ok {
 		return false
@@ -3430,35 +3439,35 @@ func (r ImmunizationRecommendationRecommendationDateCriterion) TypeInfo() fhirpa
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",

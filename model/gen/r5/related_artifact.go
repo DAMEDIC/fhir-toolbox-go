@@ -975,6 +975,9 @@ func (r RelatedArtifact) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r RelatedArtifact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RelatedArtifact to Integer")
 }
+func (r RelatedArtifact) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RelatedArtifact to Long")
+}
 func (r RelatedArtifact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RelatedArtifact to Decimal")
 }
@@ -990,7 +993,7 @@ func (r RelatedArtifact) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r RelatedArtifact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RelatedArtifact to Quantity")
 }
-func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RelatedArtifact) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RelatedArtifact
 	switch other := other.(type) {
 	case RelatedArtifact:
@@ -1006,7 +1009,7 @@ func (r RelatedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RelatedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RelatedArtifact) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RelatedArtifact)
 	if !ok {
 		return false
@@ -1023,84 +1026,84 @@ func (r RelatedArtifact) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classifier",
+			Name: "classifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Label",
+			Name: "label",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Citation",
+			Name: "citation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Document",
+			Name: "document",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Attachment",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceReference",
+			Name: "resourceReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationStatus",
+			Name: "publicationStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationDate",
+			Name: "publicationDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",

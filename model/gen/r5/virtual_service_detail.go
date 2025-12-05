@@ -1010,6 +1010,9 @@ func (r VirtualServiceDetail) ToString(explicit bool) (fhirpath.String, bool, er
 func (r VirtualServiceDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VirtualServiceDetail to Integer")
 }
+func (r VirtualServiceDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VirtualServiceDetail to Long")
+}
 func (r VirtualServiceDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VirtualServiceDetail to Decimal")
 }
@@ -1025,7 +1028,7 @@ func (r VirtualServiceDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r VirtualServiceDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VirtualServiceDetail to Quantity")
 }
-func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VirtualServiceDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VirtualServiceDetail
 	switch other := other.(type) {
 	case VirtualServiceDetail:
@@ -1041,7 +1044,7 @@ func (r VirtualServiceDetail) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VirtualServiceDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VirtualServiceDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VirtualServiceDetail)
 	if !ok {
 		return false
@@ -1058,49 +1061,49 @@ func (r VirtualServiceDetail) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ChannelType",
+			Name: "channelType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Address",
+			Name: "address",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "AdditionalInfo",
+			Name: "additionalInfo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Url",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MaxParticipants",
+			Name: "maxParticipants",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SessionKey",
+			Name: "sessionKey",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

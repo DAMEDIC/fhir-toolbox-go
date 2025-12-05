@@ -2955,6 +2955,9 @@ func (r BodyStructure) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r BodyStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructure to Integer")
 }
+func (r BodyStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructure to Long")
+}
 func (r BodyStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructure to Decimal")
 }
@@ -2970,7 +2973,7 @@ func (r BodyStructure) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r BodyStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructure to Quantity")
 }
-func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BodyStructure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BodyStructure
 	switch other := other.(type) {
 	case BodyStructure:
@@ -2986,7 +2989,7 @@ func (r BodyStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BodyStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BodyStructure)
 	if !ok {
 		return false
@@ -3003,112 +3006,112 @@ func (r BodyStructure) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Active",
+			Name: "active",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Morphology",
+			Name: "morphology",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IncludedStructure",
+			Name: "includedStructure",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BodyStructureIncludedStructure",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExcludedStructure",
+			Name: "excludedStructure",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BodyStructureIncludedStructure",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Image",
+			Name: "image",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Attachment",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Patient",
+			Name: "patient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -3170,6 +3173,9 @@ func (r BodyStructureIncludedStructure) ToString(explicit bool) (fhirpath.String
 func (r BodyStructureIncludedStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructure to Integer")
 }
+func (r BodyStructureIncludedStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructure to Long")
+}
 func (r BodyStructureIncludedStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructure to Decimal")
 }
@@ -3185,7 +3191,7 @@ func (r BodyStructureIncludedStructure) ToDateTime(explicit bool) (fhirpath.Date
 func (r BodyStructureIncludedStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructureIncludedStructure to Quantity")
 }
-func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BodyStructureIncludedStructure
 	switch other := other.(type) {
 	case BodyStructureIncludedStructure:
@@ -3201,7 +3207,7 @@ func (r BodyStructureIncludedStructure) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructureIncludedStructure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BodyStructureIncludedStructure)
 	if !ok {
 		return false
@@ -3218,56 +3224,56 @@ func (r BodyStructureIncludedStructure) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Structure",
+			Name: "structure",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Laterality",
+			Name: "laterality",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BodyLandmarkOrientation",
+			Name: "bodyLandmarkOrientation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BodyStructureIncludedStructureBodyLandmarkOrientation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SpatialReference",
+			Name: "spatialReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Qualifier",
+			Name: "qualifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -3326,6 +3332,9 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToString(explicit
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Integer")
 }
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Long")
+}
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Decimal")
 }
@@ -3341,7 +3350,7 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToDateTime(explic
 func (r BodyStructureIncludedStructureBodyLandmarkOrientation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientation to Quantity")
 }
-func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BodyStructureIncludedStructureBodyLandmarkOrientation
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientation:
@@ -3357,7 +3366,7 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equal(other fhirp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructureIncludedStructureBodyLandmarkOrientation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BodyStructureIncludedStructureBodyLandmarkOrientation)
 	if !ok {
 		return false
@@ -3374,49 +3383,49 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientation) TypeInfo() fhirpa
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LandmarkDescription",
+			Name: "landmarkDescription",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ClockFacePosition",
+			Name: "clockFacePosition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DistanceFromLandmark",
+			Name: "distanceFromLandmark",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SurfaceOrientation",
+			Name: "surfaceOrientation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -3465,6 +3474,9 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Integer")
 }
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Long")
+}
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Decimal")
 }
@@ -3480,7 +3492,7 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark to Quantity")
 }
-func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark
 	switch other := other.(type) {
 	case BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark:
@@ -3496,7 +3508,7 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark)
 	if !ok {
 		return false
@@ -3513,35 +3525,35 @@ func (r BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmar
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Quantity",

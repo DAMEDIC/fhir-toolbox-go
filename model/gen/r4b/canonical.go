@@ -13,6 +13,7 @@ import (
 	fhirpath "github.com/DAMEDIC/fhir-toolbox-go/fhirpath"
 	"reflect"
 	"slices"
+	"strconv"
 )
 
 // Base StructureDefinition for canonical type: A URI that is a reference to a canonical URL on a FHIR resource
@@ -58,6 +59,10 @@ func (r Canonical) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Canonical) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Canonical{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -160,6 +165,17 @@ func (r Canonical) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Canonical) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Canonical to Integer")
 }
+func (r Canonical) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	v, err := strconv.ParseInt(*r.Value, 10, 64)
+	if err == nil {
+		return fhirpath.Long(v), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
+}
 func (r Canonical) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Canonical to Decimal")
 }
@@ -175,36 +191,38 @@ func (r Canonical) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Canonical) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Canonical to Quantity")
 }
-func (r Canonical) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToString(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	b, ok, err := other.ToString(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+func (r Canonical) HasValue() bool {
+	return r.Value != nil
 }
-func (r Canonical) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Canonical) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return v.Equal(other)
+}
+func (r Canonical) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToString(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Canonical) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "uri",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

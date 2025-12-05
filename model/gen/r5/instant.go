@@ -58,6 +58,10 @@ func (r Instant) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Instant) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Instant{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -155,6 +159,9 @@ func (r Instant) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Instant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Instant to Integer")
 }
+func (r Instant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Instant to Long")
+}
 func (r Instant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Instant to Decimal")
 }
@@ -175,20 +182,22 @@ func (r Instant) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Instant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Instant to Quantity")
 }
-func (r Instant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToDateTime(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	b, ok, err := other.ToDateTime(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+func (r Instant) HasValue() bool {
+	return r.Value != nil
 }
-func (r Instant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Instant) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToDateTime(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return v.Equal(other)
+}
+func (r Instant) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToDateTime(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Instant) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -197,14 +206,14 @@ func (r Instant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

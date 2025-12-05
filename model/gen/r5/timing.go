@@ -2287,6 +2287,9 @@ func (r Timing) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Timing) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Timing to Integer")
 }
+func (r Timing) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Timing to Long")
+}
 func (r Timing) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Timing to Decimal")
 }
@@ -2302,7 +2305,7 @@ func (r Timing) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Timing) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Timing to Quantity")
 }
-func (r Timing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Timing) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Timing
 	switch other := other.(type) {
 	case Timing:
@@ -2318,7 +2321,7 @@ func (r Timing) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Timing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Timing) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Timing)
 	if !ok {
 		return false
@@ -2331,46 +2334,46 @@ func (r Timing) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...b
 func (r Timing) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneType",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Event",
+			Name: "event",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Repeat",
+			Name: "repeat",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "TimingRepeat",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -2479,6 +2482,9 @@ func (r TimingRepeat) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r TimingRepeat) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert TimingRepeat to Integer")
 }
+func (r TimingRepeat) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert TimingRepeat to Long")
+}
 func (r TimingRepeat) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert TimingRepeat to Decimal")
 }
@@ -2494,7 +2500,7 @@ func (r TimingRepeat) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r TimingRepeat) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert TimingRepeat to Quantity")
 }
-func (r TimingRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r TimingRepeat) Equal(other fhirpath.Element) (bool, bool) {
 	var o *TimingRepeat
 	switch other := other.(type) {
 	case TimingRepeat:
@@ -2510,7 +2516,7 @@ func (r TimingRepeat) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r TimingRepeat) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r TimingRepeat) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(TimingRepeat)
 	if !ok {
 		return false
@@ -2527,119 +2533,119 @@ func (r TimingRepeat) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Bounds",
+			Name: "bounds",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Count",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "PositiveInt",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "CountMax",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Duration",
+			Name: "countMax",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "PositiveInt",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "duration",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DurationMax",
+			Name: "durationMax",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DurationUnit",
+			Name: "durationUnit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Frequency",
+			Name: "frequency",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FrequencyMax",
+			Name: "frequencyMax",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PeriodMax",
+			Name: "periodMax",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PeriodUnit",
+			Name: "periodUnit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DayOfWeek",
+			Name: "dayOfWeek",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TimeOfDay",
+			Name: "timeOfDay",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Time",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "When",
+			Name: "when",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Offset",
+			Name: "offset",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "UnsignedInt",

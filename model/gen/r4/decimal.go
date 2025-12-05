@@ -53,6 +53,10 @@ func (r Decimal) MarshalJSON() ([]byte, error) {
 	return []byte(r.Value.Text('G')), nil
 }
 func (r *Decimal) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Decimal{}
+		return nil
+	}
 	var v apd.Decimal
 	if err := v.UnmarshalText(b); err != nil {
 		return err
@@ -154,6 +158,9 @@ func (r Decimal) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Decimal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Decimal to Integer")
 }
+func (r Decimal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Decimal to Long")
+}
 func (r Decimal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	if r.Value != nil {
 		v := fhirpath.Decimal{Value: r.Value}
@@ -174,36 +181,38 @@ func (r Decimal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Decimal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Decimal to Quantity")
 }
-func (r Decimal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToDecimal(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	b, ok, err := other.ToDecimal(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+func (r Decimal) HasValue() bool {
+	return r.Value != nil
 }
-func (r Decimal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Decimal) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToDecimal(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return v.Equal(other)
+}
+func (r Decimal) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToDecimal(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Decimal) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

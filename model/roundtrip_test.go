@@ -16,27 +16,27 @@ import (
 	"github.com/DAMEDIC/fhir-toolbox-go/testdata"
 )
 
-var testReleases = []string{"R4", "R4B", "R5"}
-
 func TestRoundtripJSON(t *testing.T) {
 	if testing.Short() {
 		t.Skip()
 	}
 
-	for _, release := range testReleases {
-		t.Run(release, func(t *testing.T) {
+	for _, release := range testdata.TestReleases {
+		release := release
+		releaseName := release.String()
+		t.Run(releaseName, func(t *testing.T) {
 			jsonExamples := testdata.GetExamples(release, "json")
 
 			for name, jsonIn := range jsonExamples {
 				t.Run(name, func(t *testing.T) {
 					t.Parallel()
 
-					switch release {
-					case "R4":
+					switch release.(type) {
+					case model.R4:
 						if strings.HasSuffix(name, "-questionnaire.json") {
 							t.Skip("R4 questionnaires are missing linkIds")
 						}
-					case "R4B":
+					case model.R4B:
 						if strings.HasPrefix(name, "activitydefinition-") {
 							t.Skip("R4B activity definitions are lacking a null in event array")
 						}
@@ -50,7 +50,7 @@ func TestRoundtripJSON(t *testing.T) {
 						}, name) {
 							t.Skip("R4B codesystem or valueset is lacking required status")
 						}
-					case "R5":
+					case model.R5:
 						if name == "questionnaireresponse-example-f201-lifelines.json" {
 							t.Skip("R5 questionnaire response is missing the questionnaire")
 						}
@@ -60,16 +60,16 @@ func TestRoundtripJSON(t *testing.T) {
 						r   model.Resource
 						err error
 					)
-					switch release {
-					case "R4":
+					switch release.(type) {
+					case model.R4:
 						var r4 r4.ContainedResource
 						err = json.Unmarshal(jsonIn, &r4)
 						r = r4
-					case "R4B":
+					case model.R4B:
 						var r4b r4b.ContainedResource
 						err = json.Unmarshal(jsonIn, &r4b)
 						r = r4b
-					case "R5":
+					case model.R5:
 						var r5 r5.ContainedResource
 						err = json.Unmarshal(jsonIn, &r5)
 						r = r5
@@ -95,16 +95,18 @@ func TestRoundtripXML(t *testing.T) {
 		t.Skip()
 	}
 
-	for _, release := range testReleases {
-		t.Run(release, func(t *testing.T) {
+	for _, release := range testdata.TestReleases {
+		release := release
+		releaseName := release.String()
+		t.Run(releaseName, func(t *testing.T) {
 			xmlExamples := testdata.GetExamples(release, "xml")
 
 			for name, xmlIn := range xmlExamples {
 				t.Run(name, func(t *testing.T) {
 					t.Parallel()
 
-					switch release {
-					case "R4B":
+					switch release.(type) {
+					case model.R4B:
 						if name == "valuesets.xml" {
 							t.Skip("R4B valuesets is lacking required status")
 						}
@@ -114,16 +116,16 @@ func TestRoundtripXML(t *testing.T) {
 						r   model.Resource
 						err error
 					)
-					switch release {
-					case "R4":
+					switch release.(type) {
+					case model.R4:
 						var r4 r4.ContainedResource
 						err = xml.Unmarshal(xmlIn, &r4)
 						r = r4
-					case "R4B":
+					case model.R4B:
 						var r4b r4b.ContainedResource
 						err = xml.Unmarshal(xmlIn, &r4b)
 						r = r4b
-					case "R5":
+					case model.R5:
 						var r5 r5.ContainedResource
 						err = xml.Unmarshal(xmlIn, &r5)
 						r = r5

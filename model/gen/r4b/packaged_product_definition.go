@@ -4909,6 +4909,9 @@ func (r PackagedProductDefinition) ToString(explicit bool) (fhirpath.String, boo
 func (r PackagedProductDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinition to Integer")
 }
+func (r PackagedProductDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinition to Long")
+}
 func (r PackagedProductDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinition to Decimal")
 }
@@ -4924,7 +4927,7 @@ func (r PackagedProductDefinition) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PackagedProductDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinition to Quantity")
 }
-func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinition
 	switch other := other.(type) {
 	case PackagedProductDefinition:
@@ -4940,7 +4943,7 @@ func (r PackagedProductDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinition)
 	if !ok {
 		return false
@@ -4957,154 +4960,154 @@ func (r PackagedProductDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PackageFor",
+			Name: "packageFor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StatusDate",
+			Name: "statusDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContainedItemQuantity",
+			Name: "containedItemQuantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LegalStatusOfSupply",
+			Name: "legalStatusOfSupply",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PackagedProductDefinitionLegalStatusOfSupply",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MarketingStatus",
+			Name: "marketingStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MarketingStatus",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Characteristic",
+			Name: "characteristic",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CopackagedIndicator",
+			Name: "copackagedIndicator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manufacturer",
+			Name: "manufacturer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Package",
+			Name: "package",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PackagedProductDefinitionPackage",
@@ -5153,6 +5156,9 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) ToString(explicit bool) (f
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Integer")
 }
+func (r PackagedProductDefinitionLegalStatusOfSupply) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Long")
+}
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Decimal")
 }
@@ -5168,7 +5174,7 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) ToDateTime(explicit bool) 
 func (r PackagedProductDefinitionLegalStatusOfSupply) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionLegalStatusOfSupply to Quantity")
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionLegalStatusOfSupply
 	switch other := other.(type) {
 	case PackagedProductDefinitionLegalStatusOfSupply:
@@ -5184,7 +5190,7 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionLegalStatusOfSupply) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionLegalStatusOfSupply)
 	if !ok {
 		return false
@@ -5201,35 +5207,35 @@ func (r PackagedProductDefinitionLegalStatusOfSupply) TypeInfo() fhirpath.TypeIn
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5318,6 +5324,9 @@ func (r PackagedProductDefinitionPackage) ToString(explicit bool) (fhirpath.Stri
 func (r PackagedProductDefinitionPackage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackage to Integer")
 }
+func (r PackagedProductDefinitionPackage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackage to Long")
+}
 func (r PackagedProductDefinitionPackage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Decimal")
 }
@@ -5333,7 +5342,7 @@ func (r PackagedProductDefinitionPackage) ToDateTime(explicit bool) (fhirpath.Da
 func (r PackagedProductDefinitionPackage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackage to Quantity")
 }
-func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackage:
@@ -5349,7 +5358,7 @@ func (r PackagedProductDefinitionPackage) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackage)
 	if !ok {
 		return false
@@ -5366,91 +5375,91 @@ func (r PackagedProductDefinitionPackage) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Material",
+			Name: "material",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AlternateMaterial",
+			Name: "alternateMaterial",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ShelfLifeStorage",
+			Name: "shelfLifeStorage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PackagedProductDefinitionPackageShelfLifeStorage",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manufacturer",
+			Name: "manufacturer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PackagedProductDefinitionPackageProperty",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContainedItem",
+			Name: "containedItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PackagedProductDefinitionPackageContainedItem",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Package",
+			Name: "package",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PackagedProductDefinitionPackage",
@@ -5504,6 +5513,9 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) ToString(explicit bool
 func (r PackagedProductDefinitionPackageShelfLifeStorage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Integer")
 }
+func (r PackagedProductDefinitionPackageShelfLifeStorage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Long")
+}
 func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Decimal")
 }
@@ -5519,7 +5531,7 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) ToDateTime(explicit bo
 func (r PackagedProductDefinitionPackageShelfLifeStorage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageShelfLifeStorage to Quantity")
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackageShelfLifeStorage
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageShelfLifeStorage:
@@ -5535,7 +5547,7 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) Equal(other fhirpath.E
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackageShelfLifeStorage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageShelfLifeStorage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackageShelfLifeStorage)
 	if !ok {
 		return false
@@ -5552,42 +5564,42 @@ func (r PackagedProductDefinitionPackageShelfLifeStorage) TypeInfo() fhirpath.Ty
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "SpecialPrecautionsForStorage",
+			Name: "specialPrecautionsForStorage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -5634,6 +5646,9 @@ func (r PackagedProductDefinitionPackageProperty) ToString(explicit bool) (fhirp
 func (r PackagedProductDefinitionPackageProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Integer")
 }
+func (r PackagedProductDefinitionPackageProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Long")
+}
 func (r PackagedProductDefinitionPackageProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Decimal")
 }
@@ -5649,7 +5664,7 @@ func (r PackagedProductDefinitionPackageProperty) ToDateTime(explicit bool) (fhi
 func (r PackagedProductDefinitionPackageProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageProperty to Quantity")
 }
-func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackageProperty
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageProperty:
@@ -5665,7 +5680,7 @@ func (r PackagedProductDefinitionPackageProperty) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackageProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackageProperty)
 	if !ok {
 		return false
@@ -5682,39 +5697,39 @@ func (r PackagedProductDefinitionPackageProperty) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "PackagedProductDefinitionPackageProperty",
@@ -5757,6 +5772,9 @@ func (r PackagedProductDefinitionPackageContainedItem) ToString(explicit bool) (
 func (r PackagedProductDefinitionPackageContainedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Integer")
 }
+func (r PackagedProductDefinitionPackageContainedItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Long")
+}
 func (r PackagedProductDefinitionPackageContainedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Decimal")
 }
@@ -5772,7 +5790,7 @@ func (r PackagedProductDefinitionPackageContainedItem) ToDateTime(explicit bool)
 func (r PackagedProductDefinitionPackageContainedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PackagedProductDefinitionPackageContainedItem to Quantity")
 }
-func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PackagedProductDefinitionPackageContainedItem
 	switch other := other.(type) {
 	case PackagedProductDefinitionPackageContainedItem:
@@ -5788,7 +5806,7 @@ func (r PackagedProductDefinitionPackageContainedItem) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PackagedProductDefinitionPackageContainedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PackagedProductDefinitionPackageContainedItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PackagedProductDefinitionPackageContainedItem)
 	if !ok {
 		return false
@@ -5805,35 +5823,35 @@ func (r PackagedProductDefinitionPackageContainedItem) TypeInfo() fhirpath.TypeI
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Item",
+			Name: "item",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Amount",
+			Name: "amount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",

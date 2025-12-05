@@ -3,6 +3,7 @@ package fhirpath
 import (
 	"context"
 	"fmt"
+	"reflect"
 	"testing"
 	"time"
 
@@ -11,18 +12,31 @@ import (
 	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
-func init() {
-	// mock time.Now for testing
-	now = func() time.Time { return time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC) }
-}
+var fixedEvaluationInstant = time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC)
 
 // testElement is a helper type for testing FHIRPath functions
 type testElement struct {
 	value any
 }
 
+// fakeFHIRPrimitive implements hasValuer by wrapping an Element.
+type fakeFHIRPrimitive struct {
+	Element
+	hasValue bool
+}
+
+func (f fakeFHIRPrimitive) HasValue() bool {
+	return f.hasValue
+}
+
 func (e testElement) Children(name ...string) Collection {
 	if len(name) > 0 {
+		if m, ok := e.value.(map[string]Collection); ok {
+			if child, ok := m[name[0]]; ok {
+				return child
+			}
+			return nil
+		}
 		return Collection{}
 	}
 
@@ -126,6 +140,26 @@ func (e testElement) ToInteger(explicit bool) (Integer, bool, error) {
 		return 0, false, nil
 	}
 }
+func (e testElement) ToLong(explicit bool) (Long, bool, error) {
+	switch v := e.value.(type) {
+	case int:
+		return Long(v), true, nil
+	case []int:
+		if len(v) == 0 {
+			return 0, false, nil
+		}
+		return Long(v[0]), true, nil
+	case Long:
+		return v, true, nil
+	case []Long:
+		if len(v) == 0 {
+			return 0, false, nil
+		}
+		return v[0], true, nil
+	default:
+		return 0, false, nil
+	}
+}
 
 func (e testElement) ToDecimal(explicit bool) (Decimal, bool, error) {
 	switch v := e.value.(type) {
@@ -197,15 +231,15 @@ func (e testElement) ToQuantity(explicit bool) (Quantity, bool, error) {
 	}
 }
 
-func (e testElement) Equal(other Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (e testElement) Equal(other Element) (bool, bool) {
 	o, ok := other.(testElement)
 	if !ok {
 		return false, false
 	}
-	return e.value == o.value, true
+	return reflect.DeepEqual(e.value, o.value), true
 }
 
-func (e testElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (e testElement) Equivalent(other Element) bool {
 	eq, _ := e.Equal(other)
 	return eq
 }
@@ -236,12 +270,19 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	// Set APD context with precision
 	apdCtx := apd.BaseContext.WithPrecision(20)
 	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
+	ctx = withEvaluationInstant(ctx)
 	root := testElement{value: nil}
 
 	// Mock evaluate function that can handle simple expressions
-	mockEvaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+	mockEvaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 		if expr.tree == nil {
 			return Collection{}, false, fmt.Errorf("unexpected expression <nil>")
+		}
+
+		var this Element
+		if len(target) == 1 {
+			this = target[0]
 		}
 
 		// Handle simple expressions
@@ -251,7 +292,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 		case "false":
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 0", "$this>0":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 0)}, true, nil
@@ -261,7 +302,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 2", "$this>2":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 2)}, true, nil
@@ -271,7 +312,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this > 5", "$this>5":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Boolean(val > 5)}, true, nil
@@ -281,7 +322,7 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			}
 			return Collection{Boolean(false)}, true, nil
 		case "$this * 2", "$this*2":
-			switch v := target.(type) {
+			switch v := this.(type) {
 			case testElement:
 				if val, ok := v.value.(int); ok {
 					return Collection{Integer(val * 2)}, true, nil
@@ -302,12 +343,28 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 			return Collection{}, true, nil
 		case "'test'":
 			return Collection{String("test")}, true, nil
+		case "'http://example.com/ext'":
+			return Collection{String("http://example.com/ext")}, true, nil
 		case "'hello'":
 			return Collection{String("hello")}, true, nil
 		case "'world'":
 			return Collection{String("world")}, true, nil
 		case "'hi'":
 			return Collection{String("hi")}, true, nil
+		case "decrement()":
+			switch v := this.(type) {
+			case Integer:
+				if v > 0 {
+					return Collection{Integer(v - 1)}, true, nil
+				}
+			case testElement:
+				if val, ok := v.value.(int); ok && val > 0 {
+					return Collection{Integer(val - 1)}, true, nil
+				}
+			}
+			return Collection{}, true, nil
+		case "boom()":
+			return nil, false, fmt.Errorf("boom() should not be evaluated")
 		case "'^hello.*'":
 			return Collection{String("^hello.*")}, true, nil
 		case "','":
@@ -362,6 +419,40 @@ func testFunction(t *testing.T, fn Function, target Collection, params []Express
 	if !eq {
 		t.Errorf("Expected %v, got %v", expected, result)
 	}
+}
+
+func runFunctionWithEval(t *testing.T, fn Function, target Collection, params []Expression) (Collection, bool) {
+	t.Helper()
+	ctx := context.Background()
+	apdCtx := apd.BaseContext.WithPrecision(20)
+	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
+	ctx = withEvaluationInstant(ctx)
+	root := testElement{}
+
+	evaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+		if expr.tree == nil {
+			return nil, false, fmt.Errorf("unexpected expression <nil>")
+		}
+
+		if len(fnScope) > 0 {
+			scope := functionScope{
+				index: fnScope[0].index,
+			}
+			if len(target) == 1 {
+				scope.this = target[0]
+			}
+			ctx = withFunctionScope(ctx, scope)
+		}
+
+		return evalExpression(ctx, root, target, true, expr.tree, true)
+	}
+
+	result, ordered, err := fn(ctx, root, target, true, params, evaluate)
+	if err != nil {
+		t.Fatalf("Unexpected error: %v", err)
+	}
+	return result, ordered
 }
 
 func TestExistenceFunctions(t *testing.T) {
@@ -527,6 +618,14 @@ func TestFilteringAndProjectionFunctions(t *testing.T) {
 			expectedOrdered: false,
 		},
 		{
+			name:            "repeatAll()",
+			fn:              defaultFunctions["repeatAll"],
+			target:          Collection{Integer(2)},
+			params:          []Expression{MustParse("decrement()")},
+			expected:        Collection{Integer(1), Integer(0)},
+			expectedOrdered: false,
+		},
+		{
 			name:            "ofType()",
 			fn:              defaultFunctions["ofType"],
 			target:          Collection{String("test"), Integer(1)},
@@ -555,6 +654,60 @@ func TestFilteringAndProjectionFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, tt.expectedOrdered, false)
+		})
+	}
+}
+
+func TestSortFunction(t *testing.T) {
+	fn := defaultFunctions["sort"]
+
+	descExpr := MustParse("$this")
+	descExpr.sortDirection = sortDirectionDesc
+
+	parityExpr := MustParse("$this mod 2")
+	parityExpr.sortDirection = sortDirectionDesc
+
+	tests := []struct {
+		name            string
+		target          Collection
+		params          []Expression
+		expected        Collection
+		expectedOrdered bool
+	}{
+		{
+			name:            "default numeric ordering",
+			target:          Collection{Integer(3), Integer(1), Integer(2)},
+			params:          nil,
+			expected:        Collection{Integer(1), Integer(2), Integer(3)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "explicit descending ordering",
+			target:          Collection{Integer(1), Integer(3), Integer(2)},
+			params:          []Expression{descExpr},
+			expected:        Collection{Integer(3), Integer(2), Integer(1)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "multi-key ordering",
+			target:          Collection{Integer(2), Integer(4), Integer(3), Integer(1)},
+			params:          []Expression{parityExpr, MustParse("$this")},
+			expected:        Collection{Integer(1), Integer(3), Integer(2), Integer(4)},
+			expectedOrdered: true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result, ordered := runFunctionWithEval(t, fn, tt.target, tt.params)
+
+			if ordered != tt.expectedOrdered {
+				t.Fatalf("expected ordered=%v, got %v", tt.expectedOrdered, ordered)
+			}
+
+			if !result.Equivalent(tt.expected) {
+				t.Fatalf("expected %v, got %v", tt.expected, result)
+			}
 		})
 	}
 }
@@ -723,6 +876,46 @@ func TestCombiningFunctions(t *testing.T) {
 	}
 }
 
+func TestCoalesceFunction(t *testing.T) {
+	tests := []struct {
+		name     string
+		target   Collection
+		params   []Expression
+		expected Collection
+	}{
+		{
+			name:     "returns first non-empty argument",
+			target:   nil,
+			params:   []Expression{MustParse("'test'"), MustParse("'hello'")},
+			expected: Collection{String("test")},
+		},
+		{
+			name:     "skips leading empty collections",
+			target:   nil,
+			params:   []Expression{MustParse("{}"), MustParse("'hello'")},
+			expected: Collection{String("hello")},
+		},
+		{
+			name:     "all arguments empty",
+			target:   nil,
+			params:   []Expression{MustParse("{}"), MustParse("{}")},
+			expected: Collection{},
+		},
+		{
+			name:     "short-circuits after first non-empty",
+			target:   nil,
+			params:   []Expression{MustParse("'test'"), MustParse("boom()")},
+			expected: Collection{String("test")},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			testFunction(t, defaultFunctions["coalesce"], tt.target, tt.params, tt.expected, true, false)
+		})
+	}
+}
+
 func TestStringFunctions(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -746,11 +939,32 @@ func TestStringFunctions(t *testing.T) {
 			expected: Collection{String("test")},
 		},
 		{
+			name:     "substring() empty start argument propagates empty",
+			fn:       defaultFunctions["substring"],
+			target:   Collection{String("hello")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
+		},
+		{
+			name:     "substring() empty length behaves as omitted",
+			fn:       defaultFunctions["substring"],
+			target:   Collection{String("hello")},
+			params:   []Expression{MustParse("1"), MustParse("{}")},
+			expected: Collection{String("ello")},
+		},
+		{
 			name:     "startsWith()",
 			fn:       defaultFunctions["startsWith"],
 			target:   Collection{String("hello world")},
 			params:   []Expression{MustParse("'hello'")},
 			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "startsWith() empty prefix argument propagates empty",
+			fn:       defaultFunctions["startsWith"],
+			target:   Collection{String("hello world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
 		},
 		{
 			name:     "endsWith()",
@@ -760,11 +974,25 @@ func TestStringFunctions(t *testing.T) {
 			expected: Collection{Boolean(true)},
 		},
 		{
+			name:     "endsWith() empty suffix argument propagates empty",
+			fn:       defaultFunctions["endsWith"],
+			target:   Collection{String("hello world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
+		},
+		{
 			name:     "contains()",
 			fn:       defaultFunctions["contains"],
 			target:   Collection{String("hello test world")},
 			params:   []Expression{MustParse("'test'")},
 			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "contains() empty substring argument propagates empty",
+			fn:       defaultFunctions["contains"],
+			target:   Collection{String("hello test world")},
+			params:   []Expression{MustParse("{}")},
+			expected: Collection{},
 		},
 		{
 			name:     "upper()",
@@ -981,7 +1209,15 @@ func TestUtilityFunctions(t *testing.T) {
 			fn:              defaultFunctions["now"],
 			target:          Collection{},
 			params:          nil,
-			expected:        Collection{DateTime{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DateTimePrecisionFull}},
+			expected:        Collection{DateTime{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DateTimePrecisionFull, HasTimeZone: true}},
+			expectedOrdered: true,
+		},
+		{
+			name:            "timeOfDay()",
+			fn:              defaultFunctions["timeOfDay"],
+			target:          Collection{},
+			params:          nil,
+			expected:        Collection{Time{Value: time.Date(0, 1, 1, 3, 4, 5, 0, time.UTC), Precision: TimePrecisionFull}},
 			expectedOrdered: true,
 		},
 		{
@@ -989,14 +1225,75 @@ func TestUtilityFunctions(t *testing.T) {
 			fn:              defaultFunctions["today"],
 			target:          Collection{},
 			params:          nil,
-			expected:        Collection{Date{Value: time.Date(2020, 1, 2, 3, 4, 5, 0, time.UTC), Precision: DatePrecisionFull}},
+			expected:        Collection{Date{Value: time.Date(2020, 1, 2, 0, 0, 0, 0, time.UTC), Precision: DatePrecisionFull}},
 			expectedOrdered: true,
 		},
 		{
-			name:            "extension()",
-			fn:              defaultFunctions["extension"],
-			target:          Collection{String("test")},
-			params:          []Expression{MustParse("'test'")},
+			name: "extension()",
+			fn:   FHIRFunctions["extension"],
+			target: Collection{testElement{value: map[string]Collection{
+				"extension": Collection{
+					testElement{value: map[string]Collection{
+						"url": Collection{String("http://example.com/ext")},
+					}},
+					testElement{value: map[string]Collection{
+						"url": Collection{String("http://example.com/other")},
+					}},
+				},
+			}}},
+			params: []Expression{MustParse("'http://example.com/ext'")},
+			expected: Collection{
+				testElement{value: map[string]Collection{
+					"url": Collection{String("http://example.com/ext")},
+				}},
+			},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() true for primitive with value",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: true}},
+			params:          nil,
+			expected:        Collection{Boolean(true)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() false for primitive without value",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: false}},
+			params:          nil,
+			expected:        Collection{Boolean(false)},
+			expectedOrdered: true,
+		},
+		{
+			name:            "hasValue() empty for non FHIR primitive",
+			fn:              FHIRFunctions["hasValue"],
+			target:          Collection{String("abc")},
+			params:          nil,
+			expected:        Collection{},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() unwraps FHIR primitive",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: true}},
+			params:          nil,
+			expected:        Collection{String("abc")},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() empty when primitive lacks value",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{fakeFHIRPrimitive{Element: String("abc"), hasValue: false}},
+			params:          nil,
+			expected:        Collection{},
+			expectedOrdered: true,
+		},
+		{
+			name:            "getValue() empty for non FHIR primitive",
+			fn:              FHIRFunctions["getValue"],
+			target:          Collection{String("abc")},
+			params:          nil,
 			expected:        Collection{},
 			expectedOrdered: true,
 		},
@@ -1033,6 +1330,154 @@ func TestUtilityFunctions(t *testing.T) {
 	}
 }
 
+func TestTemporalFunctionsDeterministic(t *testing.T) {
+	ctx := context.Background()
+	apdCtx := apd.BaseContext.WithPrecision(20)
+	ctx = WithAPDContext(ctx, apdCtx)
+	ctx = WithEvaluationTime(ctx, fixedEvaluationInstant)
+	ctx = withEvaluationInstant(ctx)
+	root := testElement{}
+	noEval := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+		return nil, false, fmt.Errorf("unexpected evaluation")
+	}
+
+	call := func(fn Function) Collection {
+		result, _, err := fn(ctx, root, Collection{}, true, nil, noEval)
+		if err != nil {
+			t.Fatalf("unexpected error: %v", err)
+		}
+		return result
+	}
+
+	nowFirst := call(defaultFunctions["now"])
+	nowSecond := call(defaultFunctions["now"])
+	if !nowFirst.Equivalent(nowSecond) {
+		t.Fatalf("now() results differ within same context: %v vs %v", nowFirst, nowSecond)
+	}
+
+	timeFirst := call(defaultFunctions["timeOfDay"])
+	timeSecond := call(defaultFunctions["timeOfDay"])
+	if !timeFirst.Equivalent(timeSecond) {
+		t.Fatalf("timeOfDay() results differ within same context: %v vs %v", timeFirst, timeSecond)
+	}
+	timeValue, ok := timeFirst[0].(Time)
+	if !ok {
+		t.Fatalf("expected Time result, got %T", timeFirst[0])
+	}
+	if timeValue.Value.Year() != 0 || timeValue.Value.Month() != 1 || timeValue.Value.Day() != 1 {
+		t.Fatalf("timeOfDay() should zero-out date component, got %v", timeValue.Value)
+	}
+
+	todayFirst := call(defaultFunctions["today"])
+	todaySecond := call(defaultFunctions["today"])
+	if !todayFirst.Equivalent(todaySecond) {
+		t.Fatalf("today() results differ within same context: %v vs %v", todayFirst, todaySecond)
+	}
+	todayValue, ok := todayFirst[0].(Date)
+	if !ok {
+		t.Fatalf("expected Date result, got %T", todayFirst[0])
+	}
+	if todayValue.Value.Hour() != 0 || todayValue.Value.Minute() != 0 || todayValue.Value.Second() != 0 || todayValue.Value.Nanosecond() != 0 {
+		t.Fatalf("today() should truncate to midnight, got %v", todayValue.Value)
+	}
+}
+
+func TestPrecisionFunctionTemporalTypes(t *testing.T) {
+	fn := defaultFunctions["precision"]
+	tests := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "Date precision digits",
+			target:   Collection{Date{Value: time.Date(2020, 5, 1, 0, 0, 0, 0, time.UTC), Precision: DatePrecisionMonth}},
+			expected: Collection{Integer(6)},
+		},
+		{
+			name: "DateTime precision digits",
+			target: Collection{DateTime{
+				Value:     time.Date(2020, 5, 1, 10, 30, 0, 0, time.UTC),
+				Precision: DateTimePrecisionMillisecond,
+			}},
+			expected: Collection{Integer(17)},
+		},
+		{
+			name: "Time precision digits",
+			target: Collection{Time{
+				Value:     time.Date(0, 1, 1, 10, 30, 0, 0, time.UTC),
+				Precision: TimePrecisionMinute,
+			}},
+			expected: Collection{Integer(4)},
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			testFunction(t, fn, tt.target, nil, tt.expected, true, false)
+		})
+	}
+}
+
+func TestWithEvaluationTimeControlsTemporalFunctions(t *testing.T) {
+	loc := time.FixedZone("UTC+5", 5*60*60)
+	sourceInstant := time.Date(2024, 7, 3, 11, 22, 33, 987654321, loc)
+	ctx := WithEvaluationTime(nil, sourceInstant)
+
+	want := sourceInstant.Truncate(time.Millisecond)
+	got := evaluationInstant(ctx)
+	if !got.Equal(want) {
+		t.Fatalf("evaluationInstant() = %v, want %v", got, want)
+	}
+
+	root := testElement{}
+
+	call := func(fnName string) Collection {
+		fn := defaultFunctions[fnName]
+		result, _, err := fn(ctx, root, Collection{}, true, nil, nil)
+		if err != nil {
+			t.Fatalf("%s() unexpected error: %v", fnName, err)
+		}
+		return result
+	}
+
+	nowResult := call("now")
+	dt, ok := nowResult[0].(DateTime)
+	if !ok {
+		t.Fatalf("now() result not DateTime: %T", nowResult[0])
+	}
+	if !dt.Value.Equal(want) {
+		t.Fatalf("now() = %v, want %v", dt.Value, want)
+	}
+	if !dt.HasTimeZone {
+		t.Fatalf("now() should include timezone information")
+	}
+
+	timeResult := call("timeOfDay")
+	tod, ok := timeResult[0].(Time)
+	if !ok {
+		t.Fatalf("timeOfDay() result not Time: %T", timeResult[0])
+	}
+	if tod.Value.Hour() != want.Hour() || tod.Value.Minute() != want.Minute() || tod.Value.Second() != want.Second() {
+		t.Fatalf("timeOfDay() = %v, want %v", tod.Value, want)
+	}
+	if tod.Value.Year() != 0 || tod.Value.Month() != 1 || tod.Value.Day() != 1 {
+		t.Fatalf("timeOfDay() should zero out date component, got %v", tod.Value)
+	}
+
+	todayResult := call("today")
+	day, ok := todayResult[0].(Date)
+	if !ok {
+		t.Fatalf("today() result not Date: %T", todayResult[0])
+	}
+	if day.Value.Year() != want.Year() || day.Value.Month() != want.Month() || day.Value.Day() != want.Day() {
+		t.Fatalf("today() = %v, want date component %v", day.Value, want)
+	}
+	if day.Value.Hour() != 0 || day.Value.Minute() != 0 || day.Value.Second() != 0 || day.Value.Nanosecond() != 0 {
+		t.Fatalf("today() should truncate time component, got %v", day.Value)
+	}
+}
+
 func TestDefineVariable(t *testing.T) {
 	tests := []struct {
 		name        string
@@ -1041,7 +1486,7 @@ func TestDefineVariable(t *testing.T) {
 		expected    Collection
 		expectError bool
 		varName     string
-		varValue    Element
+		varValue    Collection
 	}{
 		{
 			name:        "define_variable_with_value",
@@ -1050,7 +1495,7 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{},
 			expectError: false,
 			varName:     "test",
-			varValue:    String("value"),
+			varValue:    Collection{String("value")},
 		},
 		{
 			name:        "define_variable_using_input_collection",
@@ -1059,7 +1504,27 @@ func TestDefineVariable(t *testing.T) {
 			expected:    Collection{String("inputValue")},
 			expectError: false,
 			varName:     "myVar",
-			varValue:    String("inputValue"),
+			varValue:    Collection{String("inputValue")},
+		},
+		{
+			name: "value_expression_evaluated_on_entire_collection",
+			target: Collection{
+				String("first"),
+				String("second"),
+				String("third"),
+			},
+			params: []Expression{
+				MustParse("'n2'"),
+				MustParse("skip(1).first()"),
+			},
+			expected: Collection{
+				String("first"),
+				String("second"),
+				String("third"),
+			},
+			expectError: false,
+			varName:     "n2",
+			varValue:    Collection{String("second")},
 		},
 		{
 			name:        "invalid_number_of_parameters",
@@ -1075,18 +1540,11 @@ func TestDefineVariable(t *testing.T) {
 			expected:    nil,
 			expectError: true,
 		},
-		{
-			name:        "multiple_values_in_input_collection",
-			target:      Collection{String("test1"), String("test2")},
-			params:      []Expression{MustParse("'myVar'")},
-			expected:    nil,
-			expectError: true,
-		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			mockEvaluate := func(ctx context.Context, target Element, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
+			mockEvaluate := func(ctx context.Context, target Collection, expr Expression, fnScope ...FunctionScope) (Collection, bool, error) {
 				if expr.tree == nil {
 					return Collection{}, false, fmt.Errorf("unexpected expression <nil>")
 				}
@@ -1095,6 +1553,8 @@ func TestDefineVariable(t *testing.T) {
 					return Collection{String("test")}, true, nil
 				case "'myVar'":
 					return Collection{String("myVar")}, true, nil
+				case "'n2'":
+					return Collection{String("n2")}, true, nil
 				case "'testVar'":
 					return Collection{String("testVar")}, true, nil
 				case "'value'":
@@ -1103,6 +1563,11 @@ func TestDefineVariable(t *testing.T) {
 					return Collection{String("invalid")}, true, nil
 				case "'multiple'":
 					return Collection{String("multiple")}, true, nil
+				case "skip(1).first()":
+					if len(target) <= 1 {
+						return nil, true, nil
+					}
+					return Collection{target[1]}, true, nil
 				default:
 					return Collection{}, false, fmt.Errorf("evaluate not implemented for expression: %s", expr.String())
 				}
@@ -1128,8 +1593,8 @@ func TestDefineVariable(t *testing.T) {
 				val, exists := envValue(ctx, tt.varName)
 				if !exists {
 					t.Errorf("Variable %s was not set in environment", tt.varName)
-				} else if val != tt.varValue {
-					t.Errorf("Expected variable value '%s', got '%s'", tt.varValue, val.String())
+				} else if !cmp.Equal(val, tt.varValue, cmpopts.IgnoreUnexported(testElement{})) {
+					t.Errorf("Expected variable value %v, got %v", tt.varValue, val)
 				}
 			}
 		})
@@ -1181,6 +1646,65 @@ func TestTypeFunctions(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			testFunction(t, tt.fn, tt.target, tt.params, tt.expected, true, false)
+		})
+	}
+}
+
+func TestToLongFunction(t *testing.T) {
+	fn := defaultFunctions["toLong"]
+	testCases := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "integer input",
+			target:   Collection{Integer(5)},
+			expected: Collection{Long(5)},
+		},
+		{
+			name:     "string input",
+			target:   Collection{String("9223372036854775807")},
+			expected: Collection{Long(9223372036854775807)},
+		},
+		{
+			name:     "non-convertible",
+			target:   Collection{String("abc")},
+			expected: nil,
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			testFunction(t, fn, tc.target, nil, tc.expected, true, false)
+		})
+	}
+}
+
+func TestConvertsToLongFunction(t *testing.T) {
+	fn := defaultFunctions["convertsToLong"]
+	testCases := []struct {
+		name     string
+		target   Collection
+		expected Collection
+	}{
+		{
+			name:     "convertible string",
+			target:   Collection{String("123")},
+			expected: Collection{Boolean(true)},
+		},
+		{
+			name:     "non-convertible",
+			target:   Collection{String("foo")},
+			expected: Collection{Boolean(false)},
+		},
+	}
+
+	for _, tc := range testCases {
+		tc := tc
+		t.Run(tc.name, func(t *testing.T) {
+			testFunction(t, fn, tc.target, nil, tc.expected, true, false)
 		})
 	}
 }

@@ -2634,6 +2634,9 @@ func (r Provenance) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Provenance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Provenance to Integer")
 }
+func (r Provenance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Provenance to Long")
+}
 func (r Provenance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Provenance to Decimal")
 }
@@ -2649,7 +2652,7 @@ func (r Provenance) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Provenance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Provenance to Quantity")
 }
-func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Provenance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Provenance
 	switch other := other.(type) {
 	case Provenance:
@@ -2665,7 +2668,7 @@ func (r Provenance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Provenance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Provenance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Provenance)
 	if !ok {
 		return false
@@ -2682,126 +2685,126 @@ func (r Provenance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Occurred",
+			Name: "occurred",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Recorded",
+			Name: "recorded",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Policy",
+			Name: "policy",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Activity",
+			Name: "activity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Agent",
+			Name: "agent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ProvenanceAgent",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Entity",
+			Name: "entity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ProvenanceEntity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Signature",
+			Name: "signature",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Signature",
@@ -2858,6 +2861,9 @@ func (r ProvenanceAgent) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ProvenanceAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProvenanceAgent to Integer")
 }
+func (r ProvenanceAgent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProvenanceAgent to Long")
+}
 func (r ProvenanceAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceAgent to Decimal")
 }
@@ -2873,7 +2879,7 @@ func (r ProvenanceAgent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ProvenanceAgent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceAgent to Quantity")
 }
-func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProvenanceAgent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProvenanceAgent
 	switch other := other.(type) {
 	case ProvenanceAgent:
@@ -2889,7 +2895,7 @@ func (r ProvenanceAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProvenanceAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceAgent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProvenanceAgent)
 	if !ok {
 		return false
@@ -2906,49 +2912,49 @@ func (r ProvenanceAgent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Who",
+			Name: "who",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OnBehalfOf",
+			Name: "onBehalfOf",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -2998,6 +3004,9 @@ func (r ProvenanceEntity) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ProvenanceEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ProvenanceEntity to Integer")
 }
+func (r ProvenanceEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ProvenanceEntity to Long")
+}
 func (r ProvenanceEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ProvenanceEntity to Decimal")
 }
@@ -3013,7 +3022,7 @@ func (r ProvenanceEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ProvenanceEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ProvenanceEntity to Quantity")
 }
-func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ProvenanceEntity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ProvenanceEntity
 	switch other := other.(type) {
 	case ProvenanceEntity:
@@ -3029,7 +3038,7 @@ func (r ProvenanceEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ProvenanceEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ProvenanceEntity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ProvenanceEntity)
 	if !ok {
 		return false
@@ -3046,42 +3055,42 @@ func (r ProvenanceEntity) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "What",
+			Name: "what",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Agent",
+			Name: "agent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ProvenanceAgent",

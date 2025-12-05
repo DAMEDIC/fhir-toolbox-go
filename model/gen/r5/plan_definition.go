@@ -12739,6 +12739,9 @@ func (r PlanDefinition) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r PlanDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinition to Integer")
 }
+func (r PlanDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinition to Long")
+}
 func (r PlanDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinition to Decimal")
 }
@@ -12754,7 +12757,7 @@ func (r PlanDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r PlanDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinition to Quantity")
 }
-func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinition
 	switch other := other.(type) {
 	case PlanDefinition:
@@ -12770,7 +12773,7 @@ func (r PlanDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinition)
 	if !ok {
 		return false
@@ -12787,305 +12790,305 @@ func (r PlanDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionAlgorithm",
+			Name: "versionAlgorithm",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Name",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "String",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Title",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subtitle",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "subtitle",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Usage",
+			Name: "usage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CopyrightLabel",
+			Name: "copyrightLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ApprovalDate",
+			Name: "approvalDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastReviewDate",
+			Name: "lastReviewDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EffectivePeriod",
+			Name: "effectivePeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Topic",
+			Name: "topic",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Editor",
+			Name: "editor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reviewer",
+			Name: "reviewer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Endorser",
+			Name: "endorser",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedArtifact",
+			Name: "relatedArtifact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Library",
+			Name: "library",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Goal",
+			Name: "goal",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionGoal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActor",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionAction",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AsNeeded",
+			Name: "asNeeded",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "PlanDefinition",
@@ -13153,6 +13156,9 @@ func (r PlanDefinitionGoal) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r PlanDefinitionGoal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionGoal to Integer")
 }
+func (r PlanDefinitionGoal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionGoal to Long")
+}
 func (r PlanDefinitionGoal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoal to Decimal")
 }
@@ -13168,7 +13174,7 @@ func (r PlanDefinitionGoal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r PlanDefinitionGoal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoal to Quantity")
 }
-func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionGoal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionGoal
 	switch other := other.(type) {
 	case PlanDefinitionGoal:
@@ -13184,7 +13190,7 @@ func (r PlanDefinitionGoal) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionGoal)
 	if !ok {
 		return false
@@ -13201,70 +13207,70 @@ func (r PlanDefinitionGoal) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Addresses",
+			Name: "addresses",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionGoalTarget",
@@ -13318,6 +13324,9 @@ func (r PlanDefinitionGoalTarget) ToString(explicit bool) (fhirpath.String, bool
 func (r PlanDefinitionGoalTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionGoalTarget to Integer")
 }
+func (r PlanDefinitionGoalTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionGoalTarget to Long")
+}
 func (r PlanDefinitionGoalTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Decimal")
 }
@@ -13333,7 +13342,7 @@ func (r PlanDefinitionGoalTarget) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r PlanDefinitionGoalTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionGoalTarget to Quantity")
 }
-func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionGoalTarget
 	switch other := other.(type) {
 	case PlanDefinitionGoalTarget:
@@ -13349,7 +13358,7 @@ func (r PlanDefinitionGoalTarget) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionGoalTarget) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionGoalTarget)
 	if !ok {
 		return false
@@ -13366,42 +13375,42 @@ func (r PlanDefinitionGoalTarget) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Measure",
+			Name: "measure",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Detail",
+			Name: "detail",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Due",
+			Name: "due",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Duration",
@@ -13455,6 +13464,9 @@ func (r PlanDefinitionActor) ToString(explicit bool) (fhirpath.String, bool, err
 func (r PlanDefinitionActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActor to Integer")
 }
+func (r PlanDefinitionActor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActor to Long")
+}
 func (r PlanDefinitionActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActor to Decimal")
 }
@@ -13470,7 +13482,7 @@ func (r PlanDefinitionActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r PlanDefinitionActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActor to Quantity")
 }
-func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActor
 	switch other := other.(type) {
 	case PlanDefinitionActor:
@@ -13486,7 +13498,7 @@ func (r PlanDefinitionActor) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActor)
 	if !ok {
 		return false
@@ -13503,42 +13515,42 @@ func (r PlanDefinitionActor) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Option",
+			Name: "option",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActorOption",
@@ -13597,6 +13609,9 @@ func (r PlanDefinitionActorOption) ToString(explicit bool) (fhirpath.String, boo
 func (r PlanDefinitionActorOption) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActorOption to Integer")
 }
+func (r PlanDefinitionActorOption) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActorOption to Long")
+}
 func (r PlanDefinitionActorOption) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActorOption to Decimal")
 }
@@ -13612,7 +13627,7 @@ func (r PlanDefinitionActorOption) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PlanDefinitionActorOption) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActorOption to Quantity")
 }
-func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActorOption) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActorOption
 	switch other := other.(type) {
 	case PlanDefinitionActorOption:
@@ -13628,7 +13643,7 @@ func (r PlanDefinitionActorOption) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActorOption) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActorOption)
 	if !ok {
 		return false
@@ -13645,49 +13660,49 @@ func (r PlanDefinitionActorOption) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeCanonical",
+			Name: "typeCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeReference",
+			Name: "typeReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -13871,6 +13886,9 @@ func (r PlanDefinitionAction) ToString(explicit bool) (fhirpath.String, bool, er
 func (r PlanDefinitionAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionAction to Integer")
 }
+func (r PlanDefinitionAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionAction to Long")
+}
 func (r PlanDefinitionAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionAction to Decimal")
 }
@@ -13886,7 +13904,7 @@ func (r PlanDefinitionAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r PlanDefinitionAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionAction to Quantity")
 }
-func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionAction
 	switch other := other.(type) {
 	case PlanDefinitionAction:
@@ -13902,7 +13920,7 @@ func (r PlanDefinitionAction) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionAction)
 	if !ok {
 		return false
@@ -13919,224 +13937,224 @@ func (r PlanDefinitionAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Prefix",
+			Name: "prefix",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TextEquivalent",
+			Name: "textEquivalent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GoalId",
+			Name: "goalId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Trigger",
+			Name: "trigger",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "TriggerDefinition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionCondition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Input",
+			Name: "input",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionInput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Output",
+			Name: "output",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionOutput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedAction",
+			Name: "relatedAction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionRelatedAction",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timing",
+			Name: "timing",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Participant",
+			Name: "participant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionParticipant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GroupingBehavior",
+			Name: "groupingBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SelectionBehavior",
+			Name: "selectionBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequiredBehavior",
+			Name: "requiredBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PrecheckBehavior",
+			Name: "precheckBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CardinalityBehavior",
+			Name: "cardinalityBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Definition",
+			Name: "definition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Transform",
+			Name: "transform",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DynamicValue",
+			Name: "dynamicValue",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionActionDynamicValue",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PlanDefinitionAction",
@@ -14183,6 +14201,9 @@ func (r PlanDefinitionActionCondition) ToString(explicit bool) (fhirpath.String,
 func (r PlanDefinitionActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionCondition to Integer")
 }
+func (r PlanDefinitionActionCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionCondition to Long")
+}
 func (r PlanDefinitionActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionCondition to Decimal")
 }
@@ -14198,7 +14219,7 @@ func (r PlanDefinitionActionCondition) ToDateTime(explicit bool) (fhirpath.DateT
 func (r PlanDefinitionActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionCondition to Quantity")
 }
-func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionCondition
 	switch other := other.(type) {
 	case PlanDefinitionActionCondition:
@@ -14214,7 +14235,7 @@ func (r PlanDefinitionActionCondition) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionCondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionCondition)
 	if !ok {
 		return false
@@ -14231,35 +14252,35 @@ func (r PlanDefinitionActionCondition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Kind",
+			Name: "kind",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Expression",
@@ -14313,6 +14334,9 @@ func (r PlanDefinitionActionInput) ToString(explicit bool) (fhirpath.String, boo
 func (r PlanDefinitionActionInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionInput to Integer")
 }
+func (r PlanDefinitionActionInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionInput to Long")
+}
 func (r PlanDefinitionActionInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionInput to Decimal")
 }
@@ -14328,7 +14352,7 @@ func (r PlanDefinitionActionInput) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r PlanDefinitionActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionInput to Quantity")
 }
-func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionInput
 	switch other := other.(type) {
 	case PlanDefinitionActionInput:
@@ -14344,7 +14368,7 @@ func (r PlanDefinitionActionInput) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionInput)
 	if !ok {
 		return false
@@ -14361,42 +14385,42 @@ func (r PlanDefinitionActionInput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requirement",
+			Name: "requirement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DataRequirement",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedData",
+			Name: "relatedData",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
@@ -14450,6 +14474,9 @@ func (r PlanDefinitionActionOutput) ToString(explicit bool) (fhirpath.String, bo
 func (r PlanDefinitionActionOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionOutput to Integer")
 }
+func (r PlanDefinitionActionOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionOutput to Long")
+}
 func (r PlanDefinitionActionOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionOutput to Decimal")
 }
@@ -14465,7 +14492,7 @@ func (r PlanDefinitionActionOutput) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r PlanDefinitionActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionOutput to Quantity")
 }
-func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionOutput
 	switch other := other.(type) {
 	case PlanDefinitionActionOutput:
@@ -14481,7 +14508,7 @@ func (r PlanDefinitionActionOutput) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionOutput)
 	if !ok {
 		return false
@@ -14498,42 +14525,42 @@ func (r PlanDefinitionActionOutput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requirement",
+			Name: "requirement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DataRequirement",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedData",
+			Name: "relatedData",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -14588,6 +14615,9 @@ func (r PlanDefinitionActionRelatedAction) ToString(explicit bool) (fhirpath.Str
 func (r PlanDefinitionActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Integer")
 }
+func (r PlanDefinitionActionRelatedAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionRelatedAction to Long")
+}
 func (r PlanDefinitionActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Decimal")
 }
@@ -14603,7 +14633,7 @@ func (r PlanDefinitionActionRelatedAction) ToDateTime(explicit bool) (fhirpath.D
 func (r PlanDefinitionActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionRelatedAction to Quantity")
 }
-func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionRelatedAction
 	switch other := other.(type) {
 	case PlanDefinitionActionRelatedAction:
@@ -14619,7 +14649,7 @@ func (r PlanDefinitionActionRelatedAction) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionRelatedAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionRelatedAction)
 	if !ok {
 		return false
@@ -14636,53 +14666,53 @@ func (r PlanDefinitionActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetId",
+			Name: "targetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Relationship",
+			Name: "relationship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EndRelationship",
+			Name: "endRelationship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Offset",
+			Name: "offset",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "PlanDefinitionActionRelatedAction",
@@ -14747,6 +14777,9 @@ func (r PlanDefinitionActionParticipant) ToString(explicit bool) (fhirpath.Strin
 func (r PlanDefinitionActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionParticipant to Integer")
 }
+func (r PlanDefinitionActionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionParticipant to Long")
+}
 func (r PlanDefinitionActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Decimal")
 }
@@ -14762,7 +14795,7 @@ func (r PlanDefinitionActionParticipant) ToDateTime(explicit bool) (fhirpath.Dat
 func (r PlanDefinitionActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionParticipant to Quantity")
 }
-func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionParticipant
 	switch other := other.(type) {
 	case PlanDefinitionActionParticipant:
@@ -14778,7 +14811,7 @@ func (r PlanDefinitionActionParticipant) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionParticipant)
 	if !ok {
 		return false
@@ -14795,63 +14828,63 @@ func (r PlanDefinitionActionParticipant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ActorId",
+			Name: "actorId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeCanonical",
+			Name: "typeCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeReference",
+			Name: "typeReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Function",
+			Name: "function",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -14900,6 +14933,9 @@ func (r PlanDefinitionActionDynamicValue) ToString(explicit bool) (fhirpath.Stri
 func (r PlanDefinitionActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Integer")
 }
+func (r PlanDefinitionActionDynamicValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PlanDefinitionActionDynamicValue to Long")
+}
 func (r PlanDefinitionActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Decimal")
 }
@@ -14915,7 +14951,7 @@ func (r PlanDefinitionActionDynamicValue) ToDateTime(explicit bool) (fhirpath.Da
 func (r PlanDefinitionActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PlanDefinitionActionDynamicValue to Quantity")
 }
-func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PlanDefinitionActionDynamicValue
 	switch other := other.(type) {
 	case PlanDefinitionActionDynamicValue:
@@ -14931,7 +14967,7 @@ func (r PlanDefinitionActionDynamicValue) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PlanDefinitionActionDynamicValue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PlanDefinitionActionDynamicValue)
 	if !ok {
 		return false
@@ -14948,35 +14984,35 @@ func (r PlanDefinitionActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Expression",

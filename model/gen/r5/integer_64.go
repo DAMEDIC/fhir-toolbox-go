@@ -63,6 +63,10 @@ func (r Integer64) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Integer64) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Integer64{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -171,6 +175,13 @@ func (r Integer64) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Integer64) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Integer64 to Integer")
 }
+func (r Integer64) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value != nil {
+		return fhirpath.Long(*r.Value), true, nil
+	} else {
+		return fhirpath.Long(0), false, nil
+	}
+}
 func (r Integer64) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Integer64 to Decimal")
 }
@@ -186,7 +197,10 @@ func (r Integer64) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Integer64) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Integer64 to Quantity")
 }
-func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Integer64) HasValue() bool {
+	return r.Value != nil
+}
+func (r Integer64) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Integer64)
 	if !ok {
 		return false, true
@@ -196,9 +210,15 @@ func (r Integer64) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	}
 	return *r.Value == *o.Value, true
 }
-func (r Integer64) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Integer64) Equivalent(other fhirpath.Element) bool {
+	o, ok := other.(Integer64)
+	if !ok {
+		return false
+	}
+	if r.Value == nil || o.Value == nil {
+		return false
+	}
+	return *r.Value == *o.Value
 }
 func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
@@ -207,14 +227,14 @@ func (r Integer64) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

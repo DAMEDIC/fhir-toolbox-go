@@ -5,7 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
+	"github.com/antlr4-go/antlr/v4"
 )
 
 func evalInvocation(
@@ -22,6 +23,20 @@ func evalInvocation(
 			return nil, false, err
 		}
 
+		// Try field access first if we have target elements
+		// This prevents identifiers that happen to be type names (like "id")
+		// from being treated as type checks when they should be field accesses
+		var members Collection
+		for _, e := range target {
+			members = append(members, e.Children(ident)...)
+		}
+
+		// If field access succeeded, return the results
+		if len(members) > 0 {
+			return members, inputOrdered, nil
+		}
+
+		// Fall back to type check if isRoot and identifier resolves to a type
 		if isRoot {
 			expectedType, ok := resolveType(ctx, TypeSpecifier{Name: ident})
 			if ok {
@@ -33,10 +48,7 @@ func evalInvocation(
 			}
 		}
 
-		var members Collection
-		for _, e := range target {
-			members = append(members, e.Children(ident)...)
-		}
+		// Return empty if neither field access nor type check succeeded
 		return members, inputOrdered, nil
 	case *parser.FunctionInvocationContext:
 		return evalFunc(ctx, root, target, inputOrdered, t.Function())
@@ -98,33 +110,42 @@ func evalFunc(
 	inputOrdered bool,
 	tree parser.IFunctionContext,
 ) (Collection, bool, error) {
-	ident, err := evalIdentifier(tree.Identifier())
-	if err != nil {
-		return nil, false, err
+	var (
+		ident      string
+		paramExprs []Expression
+		err        error
+	)
+
+	if tree.Identifier() == nil {
+		ident = "sort"
+		paramExprs, err = buildSortArguments(tree)
+		if err != nil {
+			return nil, false, err
+		}
+	} else {
+		ident, err = evalIdentifier(tree.Identifier())
+		if err != nil {
+			return nil, false, err
+		}
+
+		if paramList := tree.ParamList(); paramList != nil {
+			paramExprs = buildParamExpressions(paramList.AllExpression())
+		}
 	}
 
-	paramList := tree.ParamList()
-	if paramList == nil {
-		return callFunc(ctx, root, target, inputOrdered, ident)
-	}
-
-	return callFunc(ctx, root, target, inputOrdered, ident, paramList.AllExpression()...)
+	return callFunc(ctx, root, target, inputOrdered, ident, paramExprs)
 }
 
 func callFunc(
 	ctx context.Context,
 	root Element, target Collection,
 	inputOrdered bool,
-	ident string, paramTerms ...parser.IExpressionContext,
+	ident string,
+	paramExprs []Expression,
 ) (Collection, bool, error) {
 	fn, ok := getFunction(ctx, ident)
 	if !ok {
 		return nil, false, fmt.Errorf("function \"%s\" not found", ident)
-	}
-
-	paramExprs := make([]Expression, 0, len(paramTerms))
-	for _, param := range paramTerms {
-		paramExprs = append(paramExprs, Expression{param})
 	}
 
 	result, ordered, err := fn(
@@ -134,27 +155,54 @@ func callFunc(
 		paramExprs,
 		func(
 			ctx context.Context,
-			target Element,
+			target Collection,
 			expr Expression,
 			fnScope ...FunctionScope,
 		) (result Collection, resultOrdered bool, err error) {
+			// Create isolated environment scope for ALL parameter evaluations
+			// This prevents variables defined in parameter expressions from colliding
+			ctx, _ = withNewEnvStackFrame(ctx)
+
+			parentScope, parentErr := getFunctionScope(ctx)
+
 			if len(fnScope) > 0 {
 				scope := functionScope{
-					this:  target,
 					index: fnScope[0].index,
 				}
+
+				if len(target) == 1 {
+					scope.this = target[0]
+				}
+
+				// Preserve aggregate context from parent
+				if parentErr == nil && parentScope.aggregate {
+					scope.aggregate = true
+					scope.total = parentScope.total
+				}
+
+				// Set aggregate context if this is the aggregate function
 				if ident == "aggregate" {
 					scope.aggregate = true
 					scope.total = fnScope[0].total
 				}
+
 				ctx = withFunctionScope(ctx, scope)
 			}
-			var targetCollection Collection
-			if target != nil {
-				targetCollection = Collection{target}
+			// Determine the evaluation target for the parameter expression:
+			//  1. Use the explicit target supplied by the caller (e.g., select/where).
+			//  2. Otherwise, fall back to the current function scope's $this if present.
+			//  3. Finally, fall back to the root element of the overall evaluation.
+			evalTarget := target
+			if len(evalTarget) == 0 {
+				if scope, err := getFunctionScope(ctx); err == nil && scope.this != nil {
+					evalTarget = Collection{scope.this}
+				} else if root != nil {
+					evalTarget = Collection{root}
+				}
 			}
+
 			return evalExpression(ctx,
-				root, targetCollection,
+				root, evalTarget,
 				true,
 				expr.tree, true,
 			)
@@ -164,4 +212,71 @@ func callFunc(
 		return nil, false, err
 	}
 	return result, ordered, nil
+}
+
+func buildParamExpressions(paramTerms []parser.IExpressionContext) []Expression {
+	if len(paramTerms) == 0 {
+		return nil
+	}
+	exprs := make([]Expression, 0, len(paramTerms))
+	for _, param := range paramTerms {
+		exprs = append(exprs, Expression{tree: param})
+	}
+	return exprs
+}
+
+func buildSortArguments(tree parser.IFunctionContext) ([]Expression, error) {
+	sortArgs := tree.AllSortArgument()
+	if len(sortArgs) == 0 {
+		return nil, nil
+	}
+
+	exprs := make([]Expression, 0, len(sortArgs))
+	for _, arg := range sortArgs {
+		argCtx, ok := arg.(*parser.SortDirectionArgumentContext)
+		if !ok {
+			return nil, fmt.Errorf("unexpected sort argument type %T", arg)
+		}
+
+		dir := sortDirectionFromArgument(argCtx)
+		exprCtx := argCtx.Expression()
+		exprCtx, legacyDir := normalizeLegacySortDirection(exprCtx)
+		if dir == sortDirectionNone {
+			dir = legacyDir
+		}
+		if dir == sortDirectionNone {
+			dir = sortDirectionAsc
+		}
+
+		exprs = append(exprs, Expression{
+			tree:          exprCtx,
+			sortDirection: dir,
+		})
+	}
+	return exprs, nil
+}
+
+func sortDirectionFromArgument(arg *parser.SortDirectionArgumentContext) sortDirection {
+	for i := 0; i < arg.GetChildCount(); i++ {
+		if terminal, ok := arg.GetChild(i).(antlr.TerminalNode); ok {
+			switch terminal.GetText() {
+			case "asc":
+				return sortDirectionAsc
+			case "desc":
+				return sortDirectionDesc
+			}
+		}
+	}
+	return sortDirectionNone
+}
+
+func normalizeLegacySortDirection(expr parser.IExpressionContext) (parser.IExpressionContext, sortDirection) {
+	if polarity, ok := expr.(*parser.PolarityExpressionContext); ok {
+		if polarity.GetChildCount() > 0 {
+			if token, ok := polarity.GetChild(0).(antlr.ParseTree); ok && token.GetText() == "-" {
+				return polarity.Expression(), sortDirectionDesc
+			}
+		}
+	}
+	return expr, sortDirectionNone
 }

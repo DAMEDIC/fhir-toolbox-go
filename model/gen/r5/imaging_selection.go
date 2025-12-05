@@ -4192,6 +4192,9 @@ func (r ImagingSelection) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ImagingSelection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelection to Integer")
 }
+func (r ImagingSelection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelection to Long")
+}
 func (r ImagingSelection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelection to Decimal")
 }
@@ -4207,7 +4210,7 @@ func (r ImagingSelection) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ImagingSelection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelection to Quantity")
 }
-func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelection) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelection
 	switch other := other.(type) {
 	case ImagingSelection:
@@ -4223,7 +4226,7 @@ func (r ImagingSelection) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelection) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelection)
 	if !ok {
 		return false
@@ -4240,175 +4243,175 @@ func (r ImagingSelection) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issued",
+			Name: "issued",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Performer",
+			Name: "performer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImagingSelectionPerformer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BasedOn",
+			Name: "basedOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StudyUid",
+			Name: "studyUid",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DerivedFrom",
+			Name: "derivedFrom",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Endpoint",
+			Name: "endpoint",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SeriesUid",
+			Name: "seriesUid",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SeriesNumber",
+			Name: "seriesNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "UnsignedInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FrameOfReferenceUid",
+			Name: "frameOfReferenceUid",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BodySite",
+			Name: "bodySite",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Focus",
+			Name: "focus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instance",
+			Name: "instance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImagingSelectionInstance",
@@ -4457,6 +4460,9 @@ func (r ImagingSelectionPerformer) ToString(explicit bool) (fhirpath.String, boo
 func (r ImagingSelectionPerformer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionPerformer to Integer")
 }
+func (r ImagingSelectionPerformer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionPerformer to Long")
+}
 func (r ImagingSelectionPerformer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionPerformer to Decimal")
 }
@@ -4472,7 +4478,7 @@ func (r ImagingSelectionPerformer) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ImagingSelectionPerformer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionPerformer to Quantity")
 }
-func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionPerformer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionPerformer
 	switch other := other.(type) {
 	case ImagingSelectionPerformer:
@@ -4488,7 +4494,7 @@ func (r ImagingSelectionPerformer) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionPerformer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionPerformer)
 	if !ok {
 		return false
@@ -4505,35 +4511,35 @@ func (r ImagingSelectionPerformer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Function",
+			Name: "function",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -4600,6 +4606,9 @@ func (r ImagingSelectionInstance) ToString(explicit bool) (fhirpath.String, bool
 func (r ImagingSelectionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstance to Integer")
 }
+func (r ImagingSelectionInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstance to Long")
+}
 func (r ImagingSelectionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstance to Decimal")
 }
@@ -4615,7 +4624,7 @@ func (r ImagingSelectionInstance) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ImagingSelectionInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstance to Quantity")
 }
-func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstance
 	switch other := other.(type) {
 	case ImagingSelectionInstance:
@@ -4631,7 +4640,7 @@ func (r ImagingSelectionInstance) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstance)
 	if !ok {
 		return false
@@ -4648,63 +4657,63 @@ func (r ImagingSelectionInstance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Uid",
+			Name: "uid",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Number",
+			Name: "number",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "UnsignedInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SopClass",
+			Name: "sopClass",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subset",
+			Name: "subset",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImageRegion2D",
+			Name: "imageRegion2D",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImagingSelectionInstanceImageRegion2D",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImageRegion3D",
+			Name: "imageRegion3D",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImagingSelectionInstanceImageRegion3D",
@@ -4751,6 +4760,9 @@ func (r ImagingSelectionInstanceImageRegion2D) ToString(explicit bool) (fhirpath
 func (r ImagingSelectionInstanceImageRegion2D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Integer")
 }
+func (r ImagingSelectionInstanceImageRegion2D) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Long")
+}
 func (r ImagingSelectionInstanceImageRegion2D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Decimal")
 }
@@ -4766,7 +4778,7 @@ func (r ImagingSelectionInstanceImageRegion2D) ToDateTime(explicit bool) (fhirpa
 func (r ImagingSelectionInstanceImageRegion2D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion2D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion2D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion2D:
@@ -4782,7 +4794,7 @@ func (r ImagingSelectionInstanceImageRegion2D) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion2D) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstanceImageRegion2D)
 	if !ok {
 		return false
@@ -4799,35 +4811,35 @@ func (r ImagingSelectionInstanceImageRegion2D) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RegionType",
+			Name: "regionType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Coordinate",
+			Name: "coordinate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Decimal",
@@ -4874,6 +4886,9 @@ func (r ImagingSelectionInstanceImageRegion3D) ToString(explicit bool) (fhirpath
 func (r ImagingSelectionInstanceImageRegion3D) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Integer")
 }
+func (r ImagingSelectionInstanceImageRegion3D) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Long")
+}
 func (r ImagingSelectionInstanceImageRegion3D) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Decimal")
 }
@@ -4889,7 +4904,7 @@ func (r ImagingSelectionInstanceImageRegion3D) ToDateTime(explicit bool) (fhirpa
 func (r ImagingSelectionInstanceImageRegion3D) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImagingSelectionInstanceImageRegion3D to Quantity")
 }
-func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImagingSelectionInstanceImageRegion3D
 	switch other := other.(type) {
 	case ImagingSelectionInstanceImageRegion3D:
@@ -4905,7 +4920,7 @@ func (r ImagingSelectionInstanceImageRegion3D) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImagingSelectionInstanceImageRegion3D) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImagingSelectionInstanceImageRegion3D)
 	if !ok {
 		return false
@@ -4922,35 +4937,35 @@ func (r ImagingSelectionInstanceImageRegion3D) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RegionType",
+			Name: "regionType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Coordinate",
+			Name: "coordinate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Decimal",

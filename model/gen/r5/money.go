@@ -418,6 +418,9 @@ func (r Money) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Money) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Money to Integer")
 }
+func (r Money) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Money to Long")
+}
 func (r Money) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Money to Decimal")
 }
@@ -433,7 +436,7 @@ func (r Money) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Money) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Money to Quantity")
 }
-func (r Money) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Money) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Money
 	switch other := other.(type) {
 	case Money:
@@ -449,7 +452,7 @@ func (r Money) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Money) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Money) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Money)
 	if !ok {
 		return false
@@ -466,28 +469,28 @@ func (r Money) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Currency",
+			Name: "currency",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",

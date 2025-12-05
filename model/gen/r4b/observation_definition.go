@@ -2898,6 +2898,9 @@ func (r ObservationDefinition) ToString(explicit bool) (fhirpath.String, bool, e
 func (r ObservationDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinition to Integer")
 }
+func (r ObservationDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinition to Long")
+}
 func (r ObservationDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinition to Decimal")
 }
@@ -2913,7 +2916,7 @@ func (r ObservationDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r ObservationDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinition to Quantity")
 }
-func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinition
 	switch other := other.(type) {
 	case ObservationDefinition:
@@ -2929,7 +2932,7 @@ func (r ObservationDefinition) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinition)
 	if !ok {
 		return false
@@ -2946,147 +2949,147 @@ func (r ObservationDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PermittedDataType",
+			Name: "permittedDataType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MultipleResultsAllowed",
+			Name: "multipleResultsAllowed",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Method",
+			Name: "method",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PreferredReportName",
+			Name: "preferredReportName",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "QuantitativeDetails",
+			Name: "quantitativeDetails",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ObservationDefinitionQuantitativeDetails",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "QualifiedInterval",
+			Name: "qualifiedInterval",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ObservationDefinitionQualifiedInterval",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidCodedValueSet",
+			Name: "validCodedValueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NormalCodedValueSet",
+			Name: "normalCodedValueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AbnormalCodedValueSet",
+			Name: "abnormalCodedValueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CriticalCodedValueSet",
+			Name: "criticalCodedValueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -3145,6 +3148,9 @@ func (r ObservationDefinitionQuantitativeDetails) ToString(explicit bool) (fhirp
 func (r ObservationDefinitionQuantitativeDetails) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Integer")
 }
+func (r ObservationDefinitionQuantitativeDetails) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Long")
+}
 func (r ObservationDefinitionQuantitativeDetails) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Decimal")
 }
@@ -3160,7 +3166,7 @@ func (r ObservationDefinitionQuantitativeDetails) ToDateTime(explicit bool) (fhi
 func (r ObservationDefinitionQuantitativeDetails) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionQuantitativeDetails to Quantity")
 }
-func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinitionQuantitativeDetails
 	switch other := other.(type) {
 	case ObservationDefinitionQuantitativeDetails:
@@ -3176,7 +3182,7 @@ func (r ObservationDefinitionQuantitativeDetails) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionQuantitativeDetails) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinitionQuantitativeDetails)
 	if !ok {
 		return false
@@ -3193,49 +3199,49 @@ func (r ObservationDefinitionQuantitativeDetails) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CustomaryUnit",
+			Name: "customaryUnit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Unit",
+			Name: "unit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ConversionFactor",
+			Name: "conversionFactor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DecimalPrecision",
+			Name: "decimalPrecision",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
@@ -3314,6 +3320,9 @@ func (r ObservationDefinitionQualifiedInterval) ToString(explicit bool) (fhirpat
 func (r ObservationDefinitionQualifiedInterval) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Integer")
 }
+func (r ObservationDefinitionQualifiedInterval) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Long")
+}
 func (r ObservationDefinitionQualifiedInterval) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Decimal")
 }
@@ -3329,7 +3338,7 @@ func (r ObservationDefinitionQualifiedInterval) ToDateTime(explicit bool) (fhirp
 func (r ObservationDefinitionQualifiedInterval) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ObservationDefinitionQualifiedInterval to Quantity")
 }
-func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ObservationDefinitionQualifiedInterval
 	switch other := other.(type) {
 	case ObservationDefinitionQualifiedInterval:
@@ -3345,7 +3354,7 @@ func (r ObservationDefinitionQualifiedInterval) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ObservationDefinitionQualifiedInterval) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ObservationDefinitionQualifiedInterval)
 	if !ok {
 		return false
@@ -3362,77 +3371,77 @@ func (r ObservationDefinitionQualifiedInterval) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Range",
+			Name: "range",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Range",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AppliesTo",
+			Name: "appliesTo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Gender",
+			Name: "gender",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Age",
+			Name: "age",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Range",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GestationalAge",
+			Name: "gestationalAge",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Range",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

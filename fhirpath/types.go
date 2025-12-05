@@ -6,6 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"maps"
+	"math"
 	"regexp"
 	"slices"
 	"strconv"
@@ -13,8 +14,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/overflow"
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	"github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/overflow"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
 	"github.com/cockroachdb/apd/v3"
 )
 
@@ -26,16 +27,25 @@ type Element interface {
 	ToBoolean(explicit bool) (v Boolean, ok bool, err error)
 	ToString(explicit bool) (v String, ok bool, err error)
 	ToInteger(explicit bool) (v Integer, ok bool, err error)
+	ToLong(explicit bool) (v Long, ok bool, err error)
 	ToDecimal(explicit bool) (v Decimal, ok bool, err error)
 	ToDate(explicit bool) (v Date, ok bool, err error)
 	ToTime(explicit bool) (v Time, ok bool, err error)
 	ToDateTime(explicit bool) (v DateTime, ok bool, err error)
 	ToQuantity(explicit bool) (v Quantity, ok bool, err error)
-	Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool)
-	Equivalent(other Element, _noReverseTypeConversion ...bool) bool
+	Equal(other Element) (eq bool, ok bool)
+	Equivalent(other Element) bool
 	TypeInfo() TypeInfo
 	json.Marshaler
 	fmt.Stringer
+}
+
+// hasValuer is an interface for FHIR primitive elements that can report whether they have a value.
+// FHIR primitives can have extensions without having a value (null in JSON).
+type hasValuer interface {
+	Element
+	// HasValue returns true if the primitive element has a value (not just extensions).
+	HasValue() bool
 }
 
 type cmpElement interface {
@@ -80,12 +90,10 @@ type apdContextKey struct{}
 // WithAPDContext sets the apd.Context for Decimal operations in FHIRPath evaluations.
 //
 // The apd.Context controls the precision and rounding behavior of decimal operations.
-// By default, the precision is set to 0, which means that the precision is determined
-// by the operands. To set a specific precision, use apd.BaseContext.WithPrecision(n).
-//
-// # Attention
-//
-// By default the precision is set to 0.
+// By default the evaluator uses defaultAPDContext, which keeps 34 significant decimal digits
+// to exceed the minimum precision mandated by the FHIR spec for decimal values
+// (FHIR R4, datatypes.html#decimal). Use WithAPDContext to override the precision when you
+// need more headroom for intermediates or to experiment with tighter contexts.
 //
 // Example:
 //
@@ -102,12 +110,21 @@ func WithAPDContext(
 	return context.WithValue(ctx, apdContextKey{}, apdContext)
 }
 
+// defaultAPDContext is the default precision context for decimal operations.
+// Per FHIRPath spec, decimal values must support at least 18 decimal digits of precision.
+// We configure apd to keep 34 digits (roughly Decimal128) so even values with large integer
+// components retain at least 18 fractional digits during evaluation.
+const defaultDecimalPrecision uint32 = 34
+
+var defaultAPDContext = apd.BaseContext.WithPrecision(defaultDecimalPrecision)
+
 func apdContext(ctx context.Context) *apd.Context {
-	apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context)
-	if !ok {
-		return &apd.BaseContext
+	if ctx != nil {
+		if apdContext, ok := ctx.Value(apdContextKey{}).(*apd.Context); ok && apdContext != nil {
+			return apdContext
+		}
 	}
-	return apdContext
+	return defaultAPDContext
 }
 
 type TypeInfo interface {
@@ -142,10 +159,11 @@ func (i SimpleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i SimpleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+
+func (i SimpleTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i SimpleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i SimpleTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -205,7 +223,7 @@ func (i ClassInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ClassInfo) Equal(other Element) (eq bool, ok bool) {
 	o, ok := other.(ClassInfo)
 	if !ok {
 		return false, true
@@ -229,7 +247,7 @@ func (i ClassInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bo
 	}
 	return true, true
 }
-func (i ClassInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ClassInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -278,10 +296,10 @@ func (i ClassInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ClassInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ClassInfoElement) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i ClassInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ClassInfoElement) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -327,10 +345,10 @@ func (i ListTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i ListTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i ListTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i ListTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i ListTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -376,7 +394,7 @@ func (i TupleTypeInfo) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i TupleTypeInfo) Equal(other Element) (eq bool, ok bool) {
 	o, ok := other.(TupleTypeInfo)
 	if !ok {
 		return false, true
@@ -391,7 +409,7 @@ func (i TupleTypeInfo) Equal(other Element, _noReverseTypeConversion ...bool) (e
 	}
 	return true, true
 }
-func (i TupleTypeInfo) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i TupleTypeInfo) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -437,10 +455,10 @@ func (i TupleTypeInfoElement) Children(name ...string) Collection {
 	}
 	return children
 }
-func (i TupleTypeInfoElement) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i TupleTypeInfoElement) Equal(other Element) (eq bool, ok bool) {
 	return i == other, true
 }
-func (i TupleTypeInfoElement) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (i TupleTypeInfoElement) Equivalent(other Element) bool {
 	eq, _ := i.Equal(other)
 	return eq
 }
@@ -497,10 +515,10 @@ func ParseTypeSpecifier(s string) TypeSpecifier {
 func (t TypeSpecifier) Children(name ...string) Collection {
 	return nil
 }
-func (t TypeSpecifier) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (t TypeSpecifier) Equal(other Element) (eq bool, ok bool) {
 	return t == other, true
 }
-func (t TypeSpecifier) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (t TypeSpecifier) Equivalent(other Element) bool {
 	eq, _ := t.Equal(other)
 	return eq
 }
@@ -644,9 +662,42 @@ func subTypeOf(ctx context.Context, target, isOf TypeInfo) bool {
 func isType(ctx context.Context, target Element, isOf TypeSpecifier) (Element, error) {
 	typ, ok := resolveType(ctx, isOf)
 	if !ok {
-		return nil, fmt.Errorf("can not resolve type `%s`", isOf)
+		// Per FHIRPath spec, if the type cannot be resolved, is() returns false
+		return Boolean(false), nil
 	}
-	return Boolean(subTypeOf(ctx, target.TypeInfo(), typ)), nil
+
+	// First check type hierarchy
+	if subTypeOf(ctx, target.TypeInfo(), typ) {
+		return Boolean(true), nil
+	}
+
+	targetQual, ok := target.TypeInfo().QualifiedName()
+	if !ok {
+		return Boolean(false), nil
+	}
+
+	// Check if this is a FHIR string-derived type checking against String
+	if targetQual.Namespace == "FHIR" {
+		isOfQual, ok := typ.QualifiedName()
+		if ok && (isOfQual.Name == "String" || isOfQual.Name == "string") {
+			// Only string-derived FHIR primitives should match System.String
+			// Common FHIR string-derived types: code, uri, id, oid, uuid, url, canonical, etc.
+			if _, ok, _ := target.ToString(false); ok {
+				// Exclude non-string types that can convert to string
+				switch targetQual.Name {
+				case "boolean", "Boolean", "integer", "Integer",
+					"decimal", "Decimal", "unsignedInt", "positiveInt":
+					// These are numeric/boolean types, not string-derived
+					return Boolean(false), nil
+				default:
+					// Assume it's a string-derived type
+					return Boolean(true), nil
+				}
+			}
+		}
+	}
+
+	return Boolean(false), nil
 }
 
 func asType(ctx context.Context, target Element, asOf TypeSpecifier) (Collection, error) {
@@ -701,6 +752,14 @@ func toPrimitive(e Element) (Element, bool) {
 	}
 	if p, ok, err := e.ToInteger(false); err == nil && ok {
 		return p, true
+	}
+	switch v := e.(type) {
+	case Long:
+		return v, true
+	case *Long:
+		if v != nil {
+			return *v, true
+		}
 	}
 	if p, ok, err := e.ToDecimal(false); err == nil && ok {
 		return p, true
@@ -862,7 +921,7 @@ func (c Collection) Multiply(ctx context.Context, other Collection) (Collection,
 		left, ok = primitive.(multiplyElement)
 	}
 	if !ok {
-		return nil, errors.New("can only multiply Integer, Decimal or Quantity")
+		return nil, errors.New("can only multiply Integer, Long, Decimal or Quantity")
 	}
 	right := other[0]
 
@@ -890,7 +949,7 @@ func (c Collection) Divide(ctx context.Context, other Collection) (Collection, e
 		left, ok = primitive.(divideElement)
 	}
 	if !ok {
-		return nil, errors.New("can only divide Integer, Decimal or Quantity")
+		return nil, errors.New("can only divide Integer, Long, Decimal or Quantity")
 	}
 	right := other[0]
 
@@ -921,7 +980,7 @@ func (c Collection) Div(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(divElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal")
+		return nil, errors.New("can only div Integer, Long, Decimal")
 	}
 	right := other[0]
 
@@ -952,7 +1011,7 @@ func (c Collection) Mod(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(modElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal")
+		return nil, errors.New("can only div Integer, Long, Decimal")
 	}
 	right := other[0]
 
@@ -983,7 +1042,7 @@ func (c Collection) Add(ctx context.Context, other Collection) (Collection, erro
 		left, ok = primitive.(addElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal, Quantity and String")
+		return nil, errors.New("can only div Integer, Long, Decimal, Quantity and String")
 	}
 	right := other[0]
 
@@ -1011,7 +1070,7 @@ func (c Collection) Subtract(ctx context.Context, other Collection) (Collection,
 		left, ok = primitive.(subtractElement)
 	}
 	if !ok {
-		return nil, errors.New("can only div Integer, Decimal, Quantity")
+		return nil, errors.New("can only div Integer, Long, Decimal, Quantity")
 	}
 	right := other[0]
 
@@ -1035,14 +1094,22 @@ func (c Collection) Concat(ctx context.Context, other Collection) (Collection, e
 
 	var left, right String
 	if len(c) == 1 {
-		s, ok := c[0].(String)
+		// Use elementTo for implicit conversion (e.g., FHIR primitives to String)
+		s, ok, err := elementTo[String](c[0], false)
+		if err != nil {
+			return nil, err
+		}
 		if !ok {
 			return nil, fmt.Errorf("can only concat String, got left %T: %v", c[0], c[0])
 		}
 		left = s
 	}
 	if len(other) == 1 {
-		s, ok := other[0].(String)
+		// Use elementTo for implicit conversion (e.g., FHIR primitives to String)
+		s, ok, err := elementTo[String](other[0], false)
+		if err != nil {
+			return nil, err
+		}
 		if !ok {
 			return nil, fmt.Errorf("can only concat String, got right %T: %v", other[0], other[0])
 		}
@@ -1094,6 +1161,15 @@ func (b Boolean) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	}
 	return 0, false, implicitConversionError[Boolean, Integer](b)
 }
+func (b Boolean) ToLong(explicit bool) (v Long, ok bool, err error) {
+	if explicit {
+		if b {
+			return 1, true, nil
+		}
+		return 0, true, nil
+	}
+	return 0, false, implicitConversionError[Boolean, Long](b)
+}
 func (b Boolean) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
 		if b {
@@ -1124,20 +1200,22 @@ func (b Boolean) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	}
 	return Quantity{}, false, conversionError[Boolean, Quantity]()
 }
-func (b Boolean) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (b Boolean) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToBoolean(false)
 	if err == nil && ok {
 		return b == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(b, true)
-	} else {
-		return false, true
+	if _, isString := other.(String); isString {
+		return other.Equal(b)
 	}
+	if _, isStringPtr := other.(*String); isStringPtr {
+		return other.Equal(b)
+	}
+	return false, true
 }
-func (b Boolean) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := b.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (b Boolean) Equivalent(other Element) bool {
+	eq, ok := b.Equal(other)
+	return ok && eq
 }
 func (b Boolean) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -1176,13 +1254,23 @@ func (s String) ToString(explicit bool) (v String, ok bool, err error) {
 }
 func (s String) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	if explicit {
-		i, err := strconv.Atoi(string(s))
+		val, err := strconv.ParseInt(string(s), 10, 32)
 		if err != nil {
 			return 0, false, nil
 		}
-		return Integer(i), true, nil
+		return Integer(val), true, nil
 	}
 	return 0, false, implicitConversionError[String, Integer](s)
+}
+func (s String) ToLong(explicit bool) (v Long, ok bool, err error) {
+	if explicit {
+		val, err := strconv.ParseInt(string(s), 10, 64)
+		if err != nil {
+			return 0, false, nil
+		}
+		return Long(val), true, nil
+	}
+	return 0, false, implicitConversionError[String, Long](s)
 }
 func (s String) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	if explicit {
@@ -1231,31 +1319,23 @@ func (s String) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	}
 	return q, true, nil
 }
-func (s String) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (s String) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToString(false)
 	if err == nil && ok {
 		return s == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(s, true)
-	} else {
-		return false, true
-	}
+	return false, ok && err == nil
 }
 
 var whitespaceReplaceRegex = regexp.MustCompile("[\t\r\n]")
 
-func (s String) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (s String) Equivalent(other Element) bool {
 	o, ok, err := other.ToString(false)
 	if err == nil && ok {
 		return whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(s)), " ") ==
 			whitespaceReplaceRegex.ReplaceAllString(strings.ToLower(string(o)), " ")
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equivalent(s, true)
-	} else {
-		return false
-	}
+	return false
 }
 func (s String) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToString(false)
@@ -1288,6 +1368,42 @@ func (s String) String() string {
 	return fmt.Sprintf("'%s'", string(s))
 }
 
+func isStringish(e Element) bool {
+	switch e.(type) {
+	case String, *String:
+		return true
+	default:
+		return false
+	}
+}
+
+func canDelegateNumeric(e Element) bool {
+	switch e.(type) {
+	case Decimal, *Decimal, Quantity, *Quantity, String, *String, Long, *Long:
+		return true
+	default:
+		return false
+	}
+}
+
+func canDelegateDecimal(e Element) bool {
+	switch e.(type) {
+	case Quantity, *Quantity, String, *String, Long, *Long:
+		return true
+	default:
+		return false
+	}
+}
+
+func delegatesToDateTime(e Element) bool {
+	switch e.(type) {
+	case DateTime, *DateTime:
+		return true
+	default:
+		return false
+	}
+}
+
 var (
 	// escapes not handled by strconv.Unquote
 	unescapeReplacer = strings.NewReplacer(
@@ -1298,9 +1414,58 @@ var (
 )
 
 func unescape(s string) (string, error) {
+	// First, handle FHIRPath-specific escapes
 	unescaped := unescapeReplacer.Replace(s)
+
+	// strconv.Unquote expects a Go string literal with double quotes
+	// We need to escape any unescaped double quotes and control characters
+	// In FHIRPath, strings use single quotes, so double quotes inside don't need escaping
+	// But for strconv.Unquote (which expects double-quoted strings), we need to escape them
+	var builder strings.Builder
+	builder.WriteByte('"')
+	for i := 0; i < len(unescaped); i++ {
+		c := unescaped[i]
+		// Check if already escaped
+		alreadyEscaped := i > 0 && unescaped[i-1] == '\\'
+
+		switch c {
+		case '"':
+			if alreadyEscaped {
+				// Already escaped, keep as is
+				builder.WriteByte(c)
+			} else {
+				// Not escaped, escape it for strconv.Unquote
+				builder.WriteString(`\"`)
+			}
+		case '\n':
+			if !alreadyEscaped {
+				// Escape newline
+				builder.WriteString(`\n`)
+			} else {
+				builder.WriteByte(c)
+			}
+		case '\r':
+			if !alreadyEscaped {
+				// Escape carriage return
+				builder.WriteString(`\r`)
+			} else {
+				builder.WriteByte(c)
+			}
+		case '\t':
+			if !alreadyEscaped {
+				// Escape tab
+				builder.WriteString(`\t`)
+			} else {
+				builder.WriteByte(c)
+			}
+		default:
+			builder.WriteByte(c)
+		}
+	}
+	builder.WriteByte('"')
+
 	// handles \", \r, \n, \t, \f, \\, \uXXXX
-	return strconv.Unquote(`"` + unescaped + `"`)
+	return strconv.Unquote(builder.String())
 }
 
 type Integer int32
@@ -1328,6 +1493,9 @@ func (i Integer) ToString(explicit bool) (v String, ok bool, err error) {
 func (i Integer) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	return i, true, nil
 }
+func (i Integer) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return Long(i), true, nil
+}
 func (i Integer) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	return Decimal{Value: apd.New(int64(i), 0)}, true, nil
 }
@@ -1348,23 +1516,25 @@ func (i Integer) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 		Unit: "1",
 	}, true, nil
 }
-func (i Integer) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (i Integer) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToInteger(false)
 	if err == nil && ok {
 		return i == o, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(i, true)
-	} else {
-		return false, false
+	if canDelegateNumeric(other) {
+		return other.Equal(i)
 	}
+	return false, true
 }
-func (i Integer) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := i.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (i Integer) Equivalent(other Element) bool {
+	eq, ok := i.Equal(other)
+	return ok && eq
 }
 func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
 	d, _, _ := i.ToDecimal(false)
+	if _, isLong := other.(Long); isLong {
+		return Long(i).Cmp(other)
+	}
 	cmp, ok, err = d.Cmp(other)
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Integer to %T, left: %v right: %v", other, i, other)
@@ -1374,11 +1544,13 @@ func (i Integer) Cmp(other Element) (cmp int, ok bool, err error) {
 func (i Integer) Multiply(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Mul32(int32(i), int32(o))
+		result, ok := overflow.Mul[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Multiply(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Multiply(ctx, o)
@@ -1392,11 +1564,13 @@ func (i Integer) Divide(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Div32(int32(i), int32(o))
+		result, ok := overflow.Div[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Div(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Div(ctx, o)
@@ -1406,11 +1580,13 @@ func (i Integer) Div(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Mod32(int32(i), int32(o))
+		result, ok := overflow.Mod[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Mod(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Mod(ctx, o)
@@ -1420,11 +1596,13 @@ func (i Integer) Mod(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Add32(int32(i), int32(o))
+		result, ok := overflow.Add[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Add(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Add(ctx, o)
@@ -1434,11 +1612,13 @@ func (i Integer) Add(ctx context.Context, other Element) (Element, error) {
 func (i Integer) Subtract(ctx context.Context, other Element) (Element, error) {
 	switch o := other.(type) {
 	case Integer:
-		result, ok := overflow.Sub32(int32(i), int32(o))
+		result, ok := overflow.Sub[int32](int32(i), int32(o))
 		if !ok {
 			return nil, nil
 		}
 		return Integer(result), nil
+	case Long:
+		return Long(i).Subtract(ctx, o)
 	case Decimal:
 		d, _, _ := i.ToDecimal(false)
 		return d.Subtract(ctx, o)
@@ -1457,6 +1637,225 @@ func (i Integer) MarshalJSON() ([]byte, error) {
 }
 func (i Integer) String() string {
 	return strconv.Itoa(int(i))
+}
+
+type Long int64
+
+func (l Long) Children(name ...string) Collection {
+	return nil
+}
+func (l Long) ToBoolean(explicit bool) (v Boolean, ok bool, err error) {
+	if explicit {
+		switch l {
+		case 0:
+			return false, true, nil
+		case 1:
+			return true, true, nil
+		default:
+			return false, false, nil
+		}
+	}
+	return false, false, implicitConversionError[Long, Boolean](l)
+}
+func (l Long) ToString(explicit bool) (v String, ok bool, err error) {
+	return String(strconv.FormatInt(int64(l), 10)), true, nil
+}
+func (l Long) ToInteger(explicit bool) (v Integer, ok bool, err error) {
+	if !explicit {
+		return 0, false, implicitConversionError[Long, Integer](l)
+	}
+	if l < math.MinInt32 || l > math.MaxInt32 {
+		return 0, false, fmt.Errorf("long %d cannot be represented as Integer", l)
+	}
+	return Integer(l), true, nil
+}
+func (l Long) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return l, true, nil
+}
+func (l Long) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
+	return Decimal{Value: apd.New(int64(l), 0)}, true, nil
+}
+func (l Long) ToDate(explicit bool) (v Date, ok bool, err error) {
+	return Date{}, false, conversionError[Long, Date]()
+}
+func (l Long) ToTime(explicit bool) (v Time, ok bool, err error) {
+	return Time{}, false, conversionError[Long, Time]()
+}
+func (l Long) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
+	return DateTime{}, false, conversionError[Long, DateTime]()
+}
+func (l Long) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
+	return Quantity{
+		Value: Decimal{Value: apd.New(int64(l), 0)},
+		Unit:  "1",
+	}, true, nil
+}
+func (l Long) Equal(other Element) (eq bool, ok bool) {
+	switch o := other.(type) {
+	case Long:
+		return l == o, true
+	case *Long:
+		if o == nil {
+			return false, true
+		}
+		return l == *o, true
+	case Integer:
+		return l == Long(o), true
+	case *Integer:
+		if o == nil {
+			return false, true
+		}
+		return l == Long(*o), true
+	}
+	if canDelegateNumeric(other) {
+		return other.Equal(l)
+	}
+	return false, true
+}
+func (l Long) Equivalent(other Element) bool {
+	eq, ok := l.Equal(other)
+	return ok && eq
+}
+func (l Long) Cmp(other Element) (cmp int, ok bool, err error) {
+	switch o := other.(type) {
+	case Long:
+		switch {
+		case l < o:
+			return -1, true, nil
+		case l > o:
+			return 1, true, nil
+		default:
+			return 0, true, nil
+		}
+	case Integer:
+		switch {
+		case l < Long(o):
+			return -1, true, nil
+		case l > Long(o):
+			return 1, true, nil
+		default:
+			return 0, true, nil
+		}
+	}
+	d, _, _ := l.ToDecimal(false)
+	return d.Cmp(other)
+}
+func (l Long) Multiply(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Mul[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Mul[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Multiply(ctx, o)
+	}
+	return nil, fmt.Errorf("can not multiply Long with %T: %v * %v", other, l, other)
+}
+func (l Long) Divide(ctx context.Context, other Element) (Element, error) {
+	d, _, _ := l.ToDecimal(false)
+	return d.Divide(ctx, other)
+}
+func (l Long) Div(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Div[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Div[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Div(ctx, o)
+	}
+	return nil, fmt.Errorf("can not div Long with %T: %v div %v", other, l, other)
+}
+func (l Long) Mod(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Mod[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Mod[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Mod(ctx, o)
+	}
+	return nil, fmt.Errorf("can not mod Long with %T: %v mod %v", other, l, other)
+}
+func (l Long) Add(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Add[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Add[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Add(ctx, o)
+	}
+	return nil, fmt.Errorf("can not add Long and %T: %v + %v", other, l, other)
+}
+func (l Long) Subtract(ctx context.Context, other Element) (Element, error) {
+	switch o := other.(type) {
+	case Long:
+		result, ok := overflow.Sub[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Integer:
+		result, ok := overflow.Sub[int64](int64(l), int64(o))
+		if !ok {
+			return nil, nil
+		}
+		return Long(result), nil
+	case Decimal:
+		d, _, _ := l.ToDecimal(false)
+		return d.Subtract(ctx, o)
+	}
+	return nil, fmt.Errorf("can not subtract %T from Long: %v - %v", other, l, other)
+}
+func (l Long) TypeInfo() TypeInfo {
+	return SimpleTypeInfo{
+		Namespace: "System",
+		Name:      "Long",
+		BaseType:  TypeSpecifier{Namespace: "System", Name: "Any"},
+	}
+}
+func (l Long) MarshalJSON() ([]byte, error) {
+	return json.Marshal(int64(l))
+}
+func (l Long) String() string {
+	return fmt.Sprintf("%dL", l)
 }
 
 type Decimal struct {
@@ -1492,18 +1891,17 @@ func (d Decimal) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 		Unit:  "1",
 	}, true, nil
 }
-func (d Decimal) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (d Decimal) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDecimal(false)
 	if err == nil && ok {
 		return d.Value.Cmp(o.Value) == 0, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(d, true)
-	} else {
-		return false, true
+	if canDelegateDecimal(other) {
+		return other.Equal(d)
 	}
+	return false, true
 }
-func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (d Decimal) Equivalent(other Element) bool {
 	o, ok, err := other.ToDecimal(false)
 	if err == nil && ok {
 		prec := uint32(min(d.Value.NumDigits(), o.Value.NumDigits()))
@@ -1519,12 +1917,10 @@ func (d Decimal) Equivalent(other Element, _noReverseTypeConversion ...bool) boo
 		}
 		return a.Cmp(&b) == 0
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		eq, ok := other.Equal(d, true)
-		return ok && eq
-	} else {
-		return false
+	if canDelegateDecimal(other) {
+		return other.Equivalent(d)
 	}
+	return false
 }
 func (d Decimal) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToDecimal(false)
@@ -1620,6 +2016,107 @@ func (d Decimal) Subtract(ctx context.Context, other Element) (Element, error) {
 	}
 	return Decimal{Value: &res}, nil
 }
+
+// Precision returns the number of decimal places in the decimal value
+func (d Decimal) Precision() int {
+	if d.Value.Exponent < 0 {
+		return int(-d.Value.Exponent)
+	}
+	return 0
+}
+
+// LowBoundary returns the lower boundary of the precision interval for this decimal
+// The optional precision parameter specifies the output precision (default 8)
+// The caller should validate that outputPrecision is in the range 0-31
+func (d Decimal) LowBoundary(ctx context.Context, outputPrecision *int) (Decimal, error) {
+	targetPrecision := 8
+	if outputPrecision != nil {
+		targetPrecision = *outputPrecision
+	}
+
+	originalPrecision := d.Precision()
+
+	// Use the apd context from the Go context, but ensure sufficient precision for calculation
+	baseCtx := apdContext(ctx)
+	// LowBoundary needs to round down (floor), so create a copy with modified rounding
+	calcCtx := *baseCtx
+	calcCtx.Rounding = apd.RoundFloor
+	// Ensure we have enough precision for intermediate calculations
+	// We need at least originalPrecision + targetPrecision + 2 for safe calculation
+	minPrecision := uint32(originalPrecision + targetPrecision + 2)
+	if calcCtx.Precision < minPrecision {
+		calcCtx.Precision = minPrecision
+	}
+
+	// Calculate the half-width of the precision interval: 0.5 * 10^(-originalPrecision)
+	var halfWidth apd.Decimal
+	halfWidth.SetFinite(5, -1-int32(originalPrecision)) // 5 * 10^(-1-originalPrecision) = 0.5 * 10^(-originalPrecision)
+
+	var result apd.Decimal
+	var err error
+
+	// For both positive and negative numbers, subtract the half-width
+	_, err = calcCtx.Sub(&result, d.Value, &halfWidth)
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	// Format to target precision using Quantize with the exponent
+	var formatted apd.Decimal
+	_, err = calcCtx.Quantize(&formatted, &result, -int32(targetPrecision))
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	return Decimal{Value: &formatted}, nil
+}
+
+// HighBoundary returns the upper boundary of the precision interval for this decimal
+// The optional precision parameter specifies the output precision (default 8)
+// The caller should validate that outputPrecision is in the range 0-31
+func (d Decimal) HighBoundary(ctx context.Context, outputPrecision *int) (Decimal, error) {
+	targetPrecision := 8
+	if outputPrecision != nil {
+		targetPrecision = *outputPrecision
+	}
+
+	originalPrecision := d.Precision()
+
+	// Use the apd context from the Go context, but ensure sufficient precision for calculation
+	baseCtx := apdContext(ctx)
+	// HighBoundary needs to round up (ceiling), so create a copy with modified rounding
+	calcCtx := *baseCtx
+	calcCtx.Rounding = apd.RoundCeiling
+	// Ensure we have enough precision for intermediate calculations
+	// We need at least originalPrecision + targetPrecision + 2 for safe calculation
+	minPrecision := uint32(originalPrecision + targetPrecision + 2)
+	if calcCtx.Precision < minPrecision {
+		calcCtx.Precision = minPrecision
+	}
+
+	// Calculate the half-width of the precision interval: 0.5 * 10^(-originalPrecision)
+	var halfWidth apd.Decimal
+	halfWidth.SetFinite(5, -1-int32(originalPrecision)) // 5 * 10^(-1-originalPrecision) = 0.5 * 10^(-originalPrecision)
+
+	var result apd.Decimal
+	var err error
+
+	// For both positive and negative numbers, add the half-width
+	_, err = calcCtx.Add(&result, d.Value, &halfWidth)
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	// Format to target precision using Quantize with the exponent
+	var formatted apd.Decimal
+	_, err = calcCtx.Quantize(&formatted, &result, -int32(targetPrecision))
+	if err != nil {
+		return Decimal{}, err
+	}
+
+	return Decimal{Value: &formatted}, nil
+}
+
 func (d Decimal) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
 		Namespace: "System",
@@ -1643,13 +2140,77 @@ type Date struct {
 type DatePrecision string
 
 const (
-	DatePrecisionYear  = "year"
-	DatePrecisionMonth = "month"
-	DatePrecisionFull  = "full"
+	DatePrecisionYear  DatePrecision = "year"
+	DatePrecisionMonth DatePrecision = "month"
+	DatePrecisionFull  DatePrecision = "full"
 )
+
+const (
+	maxMillisecondNanoseconds = int(time.Millisecond * 999)
+	minTimeZoneOffsetHours    = -12
+	maxTimeZoneOffsetHours    = 14
+	maxDateDigits             = 8
+	maxDateTimeDigits         = 17
+	maxTimeDigits             = 9
+)
+
+func datePrecisionOrder(p DatePrecision) int {
+	switch p {
+	case DatePrecisionYear:
+		return 0
+	case DatePrecisionMonth:
+		return 1
+	default:
+		return 2
+	}
+}
+
+var dateComparisonLevels = []DatePrecision{
+	DatePrecisionYear,
+	DatePrecisionMonth,
+	DatePrecisionFull,
+}
+
+func hasDatePrecisionLevel(current, level DatePrecision) bool {
+	return datePrecisionOrder(current) >= datePrecisionOrder(level)
+}
+
+func compareDatesAtLevel(a, b time.Time, level DatePrecision) int {
+	switch level {
+	case DatePrecisionYear:
+		return compareInts(a.Year(), b.Year())
+	case DatePrecisionMonth:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(int(a.Month()), int(b.Month()))
+	default:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(int(a.Month()), int(b.Month())); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Day(), b.Day())
+	}
+}
+
+func datePrecisionToDateTimePrecision(p DatePrecision) DateTimePrecision {
+	switch p {
+	case DatePrecisionYear:
+		return DateTimePrecisionYear
+	case DatePrecisionMonth:
+		return DateTimePrecisionMonth
+	default:
+		return DateTimePrecisionDay
+	}
+}
 
 func (d Date) Children(name ...string) Collection {
 	return nil
+}
+func (d Date) PrecisionDigits() int {
+	return dateDigitsForPrecision(d.Precision)
 }
 func (d Date) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(d.String()), true, nil
@@ -1659,30 +2220,35 @@ func (d Date) ToDate(explicit bool) (v Date, ok bool, err error) {
 }
 func (d Date) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	return DateTime{
-		Value:     d.Value,
-		Precision: DateTimePrecisionDay,
+		Value:       d.Value,
+		Precision:   datePrecisionToDateTimePrecision(d.Precision),
+		HasTimeZone: false,
 	}, true, nil
 }
-func (d Date) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (d Date) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDate(false)
 	if err == nil && ok {
-		cmp, ok, err := d.Cmp(o)
+		cmp, cmpOK, err := d.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(d, true)
-	} else {
-		return false, true
-
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equal(d)
 	}
+	return false, true
 }
-func (d Date) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (d Date) Equivalent(other Element) bool {
 	o, ok, err := other.ToDate(false)
-	if err == nil && ok && d.Precision == o.Precision {
-		eq, ok := d.Equal(other, _noReverseTypeConversion...)
-		return ok && eq == true
+	if err == nil && ok {
+		cmp, cmpOK, err := d.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
+	}
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equivalent(d)
 	}
 	return false
 }
@@ -1691,53 +2257,24 @@ func (d Date) Cmp(other Element) (cmp int, ok bool, err error) {
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Date to %T, left: %v right: %v", other, d, other)
 	}
-	switch d.Precision {
-	case DatePrecisionYear:
-		if o.Precision != DatePrecisionYear {
-			return 0, false, nil
+	right := o.Value.In(d.Value.Location())
+	for _, level := range dateComparisonLevels {
+		leftHas := hasDatePrecisionLevel(d.Precision, level)
+		rightHas := hasDatePrecisionLevel(o.Precision, level)
+
+		if !leftHas && !rightHas {
+			break
 		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
+		if leftHas && rightHas {
+			cmp = compareDatesAtLevel(d.Value, right, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
 		}
-	case DatePrecisionMonth:
-		if o.Precision != DatePrecisionMonth {
-			return 0, false, nil
-		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return -1, true, nil
-		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	default:
-		if o.Precision != d.Precision {
-			return 0, false, nil
-		}
-		if d.Value.Year() < o.Value.In(d.Value.Location()).Year() {
-			return -1, true, nil
-		} else if d.Value.Year() > o.Value.In(d.Value.Location()).Year() {
-			return 1, true, nil
-		} else if d.Value.Month() < o.Value.In(d.Value.Location()).Month() {
-			return -1, true, nil
-		} else if d.Value.Month() > o.Value.In(d.Value.Location()).Month() {
-			return 1, true, nil
-		} else if d.Value.Day() < o.Value.In(d.Value.Location()).Day() {
-			return -1, true, nil
-		} else if d.Value.Day() > o.Value.In(d.Value.Location()).Day() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
+		return 0, false, nil
 	}
+	return 0, true, nil
 }
 
 // Add implements date arithmetic for Date values
@@ -1871,6 +2408,103 @@ func (d Date) String() string {
 	return fmt.Sprintf("%s", ds)
 }
 
+func (d Date) LowBoundary(precisionDigits *int) (Date, bool) {
+	digits := maxDateDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Date{}, false
+	}
+	return buildDateBoundary(d, digits, false)
+}
+
+func (d Date) HighBoundary(precisionDigits *int) (Date, bool) {
+	digits := maxDateDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Date{}, false
+	}
+	return buildDateBoundary(d, digits, true)
+}
+
+func dateDigitsForPrecision(p DatePrecision) int {
+	switch p {
+	case DatePrecisionYear:
+		return 4
+	case DatePrecisionMonth:
+		return 6
+	default:
+		return 8
+	}
+}
+
+func datePrecisionFromDigits(d int) (DatePrecision, bool) {
+	switch d {
+	case 4:
+		return DatePrecisionYear, true
+	case 6:
+		return DatePrecisionMonth, true
+	case 8:
+		return DatePrecisionFull, true
+	default:
+		return "", false
+	}
+}
+
+func dateRangeEndpoints(d Date) (time.Time, time.Time) {
+	loc := d.Value.Location()
+	year, month, day := d.Value.Date()
+	switch d.Precision {
+	case DatePrecisionYear:
+		start := time.Date(year, time.January, 1, 0, 0, 0, 0, loc)
+		end := time.Date(year, time.December, 31, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DatePrecisionMonth:
+		start := time.Date(year, month, 1, 0, 0, 0, 0, loc)
+		lastDay := time.Date(year, month+1, 0, 0, 0, 0, 0, loc).Day()
+		end := time.Date(year, month, lastDay, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	default:
+		start := time.Date(year, month, day, 0, 0, 0, 0, loc)
+		end := time.Date(year, month, day, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	}
+}
+
+func buildDateFromTime(t time.Time, precision DatePrecision) Date {
+	loc := t.Location()
+	year, month, day := t.Date()
+	switch precision {
+	case DatePrecisionYear:
+		month = time.January
+		day = 1
+	case DatePrecisionMonth:
+		day = 1
+	case DatePrecisionFull:
+		// keep specific day
+	}
+	return Date{
+		Value:     time.Date(year, month, day, 0, 0, 0, 0, loc),
+		Precision: precision,
+	}
+}
+
+func buildDateBoundary(value Date, digits int, useUpper bool) (Date, bool) {
+	precision, ok := datePrecisionFromDigits(digits)
+	if !ok {
+		return Date{}, false
+	}
+	start, end := dateRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	return buildDateFromTime(anchor, precision), true
+}
+
 type Time struct {
 	defaultConversionError[Time]
 	Value     time.Time
@@ -1880,13 +2514,69 @@ type Time struct {
 type TimePrecision string
 
 const (
-	TimePrecisionHour   = "hour"
-	TimePrecisionMinute = "minute"
-	TimePrecisionFull   = "full"
+	TimePrecisionHour        TimePrecision = "hour"
+	TimePrecisionMinute      TimePrecision = "minute"
+	TimePrecisionSecond      TimePrecision = "second"
+	TimePrecisionMillisecond TimePrecision = "millisecond"
+	TimePrecisionFull                      = TimePrecisionMillisecond
 )
+
+var timeComparisonLevels = []TimePrecision{
+	TimePrecisionHour,
+	TimePrecisionMinute,
+	TimePrecisionSecond,
+}
+
+func hasTimePrecisionLevel(current, level TimePrecision) bool {
+	if level == TimePrecisionSecond {
+		return timePrecisionOrder(current) >= timePrecisionOrder(TimePrecisionSecond)
+	}
+	return timePrecisionOrder(current) >= timePrecisionOrder(level)
+}
+
+func compareTimesAtLevel(a, b time.Time, level TimePrecision) int {
+	switch level {
+	case TimePrecisionHour:
+		return compareInts(a.Hour(), b.Hour())
+	case TimePrecisionMinute:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Minute(), b.Minute())
+	default:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Minute(), b.Minute()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Second(), b.Second()); cmp != 0 {
+			return cmp
+		}
+		aMillis := a.Nanosecond() / int(time.Millisecond)
+		bMillis := b.Nanosecond() / int(time.Millisecond)
+		return compareInts(aMillis, bMillis)
+	}
+}
+
+func timePrecisionOrder(p TimePrecision) int {
+	switch p {
+	case TimePrecisionHour:
+		return 0
+	case TimePrecisionMinute:
+		return 1
+	case TimePrecisionSecond:
+		return 2
+	default:
+		return 3
+	}
+}
 
 func (t Time) Children(name ...string) Collection {
 	return nil
+}
+func (t Time) PrecisionDigits() int {
+	return timeDigitsForPrecision(t.Precision)
 }
 
 func (t Time) ToString(explicit bool) (v String, ok bool, err error) {
@@ -1895,25 +2585,30 @@ func (t Time) ToString(explicit bool) (v String, ok bool, err error) {
 func (t Time) ToTime(explicit bool) (v Time, ok bool, err error) {
 	return t, true, nil
 }
-func (t Time) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (t Time) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToTime(false)
 	if err == nil && ok {
-		cmp, ok, err := t.Cmp(o)
+		cmp, cmpOK, err := t.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(t, true)
-	} else {
-		return false, true
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equal(t)
 	}
+	return false, true
 }
-func (t Time) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (t Time) Equivalent(other Element) bool {
 	o, ok, err := other.ToTime(false)
-	if err == nil && ok && t.Precision == o.Precision {
-		eq, ok := t.Equal(other, _noReverseTypeConversion...)
-		return ok && eq
+	if err == nil && ok {
+		cmp, cmpOK, err := t.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
+	}
+	if delegatesToDateTime(other) || isStringish(other) {
+		return other.Equivalent(t)
 	}
 	return false
 }
@@ -1922,25 +2617,24 @@ func (t Time) Cmp(other Element) (cmp int, ok bool, err error) {
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, t, other)
 	}
-	switch t.Precision {
-	case TimePrecisionHour:
-		if o.Precision != TimePrecisionHour {
-			return 0, false, nil
+	right := o.Value.In(t.Value.Location())
+	for _, level := range timeComparisonLevels {
+		leftHas := hasTimePrecisionLevel(t.Precision, level)
+		rightHas := hasTimePrecisionLevel(o.Precision, level)
+
+		if !leftHas && !rightHas {
+			break
 		}
-		return t.Value.Truncate(time.Hour).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Hour)), true, nil
-	case TimePrecisionMinute:
-		if o.Precision != TimePrecisionMinute {
-			return 0, false, nil
+		if leftHas && rightHas {
+			cmp = compareTimesAtLevel(t.Value, right, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
 		}
-		return t.Value.Truncate(time.Minute).Compare(
-			o.Value.In(t.Value.Location()).Truncate(time.Minute)), true, nil
-	default:
-		if o.Precision != t.Precision {
-			return 0, false, nil
-		}
-		return t.Value.Compare(o.Value.In(t.Value.Location())), true, nil
+		return 0, false, nil
 	}
+	return 0, true, nil
 }
 
 // Add implements time arithmetic for Time values
@@ -1988,6 +2682,15 @@ func (t Time) Add(ctx context.Context, other Element) (Element, error) {
 		result = t.Value.Add(time.Duration(milliseconds * float64(time.Millisecond)))
 	default:
 		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
+	}
+
+	// Normalize time to have date component at 0000-01-01
+	// Time arithmetic wraps around 24 hours, so extract time-of-day only
+	year, month, day := result.Date()
+	if year != 0 || month != 1 || day != 1 {
+		hour, min, sec := result.Clock()
+		nsec := result.Nanosecond()
+		result = time.Date(0, 1, 1, hour, min, sec, nsec, result.Location())
 	}
 
 	return Time{Value: result, Precision: t.Precision}, nil
@@ -2040,6 +2743,15 @@ func (t Time) Subtract(ctx context.Context, other Element) (Element, error) {
 		return nil, fmt.Errorf("invalid time unit for Time: %v", q.Unit)
 	}
 
+	// Normalize time to have date component at 0000-01-01
+	// Time arithmetic wraps around 24 hours, so extract time-of-day only
+	year, month, day := result.Date()
+	if year != 0 || month != 1 || day != 1 {
+		hour, min, sec := result.Clock()
+		nsec := result.Nanosecond()
+		result = time.Date(0, 1, 1, hour, min, sec, nsec, result.Location())
+	}
+
 	return Time{Value: result, Precision: t.Precision}, nil
 }
 
@@ -2060,32 +2772,249 @@ func (t Time) String() string {
 		ts = t.Value.Format(TimeFormatOnlyHour)
 	case TimePrecisionMinute:
 		ts = t.Value.Format(TimeFormatUpToMinute)
+	case TimePrecisionSecond:
+		ts = t.Value.Format(TimeFormatUpToSecond)
+	case TimePrecisionMillisecond:
+		ts = t.Value.Format(TimeFormatFull)
 	default:
 		ts = t.Value.Format(TimeFormatFull)
 	}
-	return fmt.Sprintf("%s", ts)
+	return fmt.Sprintf("@T%s", ts)
+}
+
+func (t Time) LowBoundary(precisionDigits *int) (Time, bool) {
+	digits := maxTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Time{}, false
+	}
+	return buildTimeBoundary(t, digits, false)
+}
+
+func (t Time) HighBoundary(precisionDigits *int) (Time, bool) {
+	digits := maxTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return Time{}, false
+	}
+	return buildTimeBoundary(t, digits, true)
+}
+
+func timeDigitsForPrecision(p TimePrecision) int {
+	switch p {
+	case TimePrecisionHour:
+		return 2
+	case TimePrecisionMinute:
+		return 4
+	case TimePrecisionSecond:
+		return 6
+	default:
+		return 9
+	}
+}
+
+func timePrecisionFromDigits(d int) (TimePrecision, bool) {
+	switch d {
+	case 2:
+		return TimePrecisionHour, true
+	case 4:
+		return TimePrecisionMinute, true
+	case 6:
+		return TimePrecisionSecond, true
+	case 9:
+		return TimePrecisionMillisecond, true
+	default:
+		return "", false
+	}
+}
+
+func timeRangeEndpoints(t Time) (time.Time, time.Time) {
+	loc := t.Value.Location()
+	value := t.Value.In(loc)
+	hour, min, sec := value.Clock()
+	nsec := value.Nanosecond()
+	switch t.Precision {
+	case TimePrecisionHour:
+		start := time.Date(0, 1, 1, hour, 0, 0, 0, loc)
+		end := time.Date(0, 1, 1, hour, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case TimePrecisionMinute:
+		start := time.Date(0, 1, 1, hour, min, 0, 0, loc)
+		end := time.Date(0, 1, 1, hour, min, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case TimePrecisionSecond:
+		moment := time.Date(0, 1, 1, hour, min, sec, 0, loc)
+		return moment, moment
+	default:
+		aligned := alignToMillisecond(nsec)
+		moment := time.Date(0, 1, 1, hour, min, sec, aligned, loc)
+		return moment, moment
+	}
+}
+
+func buildTimeFromTime(t time.Time, precision TimePrecision) Time {
+	loc := t.Location()
+	hour, min, sec := t.Clock()
+	nsec := t.Nanosecond()
+	switch precision {
+	case TimePrecisionHour:
+		min, sec, nsec = 0, 0, 0
+	case TimePrecisionMinute:
+		sec, nsec = 0, 0
+	case TimePrecisionSecond:
+		nsec = 0
+	case TimePrecisionMillisecond:
+		nsec = alignToMillisecond(nsec)
+	}
+	return Time{
+		Value:     time.Date(0, 1, 1, hour, min, sec, nsec, loc),
+		Precision: precision,
+	}
+}
+
+func buildTimeBoundary(value Time, digits int, useUpper bool) (Time, bool) {
+	precision, ok := timePrecisionFromDigits(digits)
+	if !ok {
+		return Time{}, false
+	}
+	start, end := timeRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	return buildTimeFromTime(anchor, precision), true
+}
+
+func alignToMillisecond(nsec int) int {
+	ms := int(time.Millisecond)
+	return (nsec / ms) * ms
 }
 
 type DateTime struct {
 	defaultConversionError[DateTime]
-	Value     time.Time
-	Precision DateTimePrecision
+	Value       time.Time
+	Precision   DateTimePrecision
+	HasTimeZone bool
 }
 
 type DateTimePrecision string
 
 const (
-	DateTimePrecisionYear   = "year"
-	DateTimePrecisionMonth  = "month"
-	DateTimePrecisionDay    = "day"
-	DateTimePrecisionHour   = "hour"
-	DateTimePrecisionMinute = "minute"
-	DateTimePrecisionFull   = "full"
+	DateTimePrecisionYear        DateTimePrecision = "year"
+	DateTimePrecisionMonth       DateTimePrecision = "month"
+	DateTimePrecisionDay         DateTimePrecision = "day"
+	DateTimePrecisionHour        DateTimePrecision = "hour"
+	DateTimePrecisionMinute      DateTimePrecision = "minute"
+	DateTimePrecisionSecond      DateTimePrecision = "second"
+	DateTimePrecisionMillisecond DateTimePrecision = "millisecond"
+	DateTimePrecisionFull                          = DateTimePrecisionMillisecond
 )
 
 func (dt DateTime) Children(name ...string) Collection {
 	return nil
 }
+func (dt DateTime) PrecisionDigits() int {
+	return dateTimeDigitsForPrecision(dt.Precision)
+}
+
+func dateTimePrecisionOrder(p DateTimePrecision) int {
+	switch p {
+	case DateTimePrecisionYear:
+		return 0
+	case DateTimePrecisionMonth:
+		return 1
+	case DateTimePrecisionDay:
+		return 2
+	case DateTimePrecisionHour:
+		return 3
+	case DateTimePrecisionMinute:
+		return 4
+	case DateTimePrecisionSecond:
+		return 5
+	case DateTimePrecisionMillisecond:
+		return 6
+	default:
+		return 7
+	}
+}
+
+func compareInts(a, b int) int {
+	switch {
+	case a < b:
+		return -1
+	case a > b:
+		return 1
+	default:
+		return 0
+	}
+}
+
+var dateTimeComparisonLevels = []DateTimePrecision{
+	DateTimePrecisionYear,
+	DateTimePrecisionMonth,
+	DateTimePrecisionDay,
+	DateTimePrecisionHour,
+	DateTimePrecisionMinute,
+	DateTimePrecisionSecond,
+}
+
+func hasDateTimePrecisionLevel(current, level DateTimePrecision) bool {
+	if level == DateTimePrecisionSecond {
+		return dateTimePrecisionOrder(current) >= dateTimePrecisionOrder(DateTimePrecisionSecond)
+	}
+	return dateTimePrecisionOrder(current) >= dateTimePrecisionOrder(level)
+}
+
+func compareDateTimesAtLevel(a, b time.Time, level DateTimePrecision) int {
+	switch level {
+	case DateTimePrecisionYear:
+		return compareInts(a.Year(), b.Year())
+	case DateTimePrecisionMonth:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(int(a.Month()), int(b.Month()))
+	case DateTimePrecisionDay:
+		if cmp := compareInts(a.Year(), b.Year()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(int(a.Month()), int(b.Month())); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Day(), b.Day())
+	case DateTimePrecisionHour:
+		return compareInts(a.Hour(), b.Hour())
+	case DateTimePrecisionMinute:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		return compareInts(a.Minute(), b.Minute())
+	case DateTimePrecisionSecond:
+		if cmp := compareInts(a.Hour(), b.Hour()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Minute(), b.Minute()); cmp != 0 {
+			return cmp
+		}
+		if cmp := compareInts(a.Second(), b.Second()); cmp != 0 {
+			return cmp
+		}
+		return compareMillisWithinSecond(a, b)
+	default:
+		return 0
+	}
+}
+
+func compareMillisWithinSecond(a, b time.Time) int {
+	aMillis := a.Nanosecond() / int(time.Millisecond)
+	bMillis := b.Nanosecond() / int(time.Millisecond)
+	return compareInts(aMillis, bMillis)
+}
+
 func (dt DateTime) ToString(explicit bool) (v String, ok bool, err error) {
 	return String(dt.String()), true, nil
 }
@@ -2108,99 +3037,66 @@ func (dt DateTime) ToDate(explicit bool) (v Date, ok bool, err error) {
 func (dt DateTime) ToDateTime(explicit bool) (v DateTime, ok bool, err error) {
 	return dt, true, nil
 }
-func (dt DateTime) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (dt DateTime) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToDateTime(false)
 	if err == nil && ok {
-		cmp, ok, err := dt.Cmp(o)
+		cmp, cmpOK, err := dt.Cmp(o)
 		if err == nil {
-			return cmp == 0, ok
+			return cmp == 0, cmpOK
 		}
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(dt, true)
-	} else {
-		return false, true
-
+	if isStringish(other) {
+		return other.Equal(dt)
 	}
+	return false, true
 }
-func (dt DateTime) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
+func (dt DateTime) Equivalent(other Element) bool {
 	o, ok, err := other.ToDateTime(false)
-	if err == nil && ok && dt.Precision == o.Precision {
-		eq, ok := dt.Equal(other, _noReverseTypeConversion...)
-		return ok && eq
+	if err == nil && ok {
+		cmp, cmpOK, err := dt.Cmp(o)
+		if err == nil && cmpOK {
+			return cmp == 0
+		}
+		return false
+	}
+	if isStringish(other) {
+		return other.Equivalent(dt)
 	}
 	return false
 }
 func (dt DateTime) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToDateTime(false)
 	if err != nil || !ok {
-		return 0, false, fmt.Errorf("can not compare Time to %T, left: %v right: %v", other, dt, other)
+		return 0, false, fmt.Errorf("can not compare DateTime to %T, left: %v right: %v", other, dt, other)
 	}
-	switch dt.Precision {
-	case DateTimePrecisionYear:
-		if o.Precision != DateTimePrecisionYear {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionMonth:
-		if o.Precision != DateTimePrecisionMonth {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return -1, true, nil
-		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionDay:
-		if o.Precision != DateTimePrecisionDay {
-			return 0, false, nil
-		}
-		if dt.Value.Year() < o.Value.In(dt.Value.Location()).Year() {
-			return -1, true, nil
-		} else if dt.Value.Year() > o.Value.In(dt.Value.Location()).Year() {
-			return 1, true, nil
-		} else if dt.Value.Month() < o.Value.In(dt.Value.Location()).Month() {
-			return -1, true, nil
-		} else if dt.Value.Month() > o.Value.In(dt.Value.Location()).Month() {
-			return 1, true, nil
-		} else if dt.Value.Day() < o.Value.In(dt.Value.Location()).Day() {
-			return -1, true, nil
-		} else if dt.Value.Day() > o.Value.In(dt.Value.Location()).Day() {
-			return 1, true, nil
-		} else {
-			return 0, true, nil
-		}
-	case DateTimePrecisionHour:
-		if o.Precision != DateTimePrecisionHour {
-			return 0, false, nil
-		}
-		return dt.Value.Truncate(time.Hour).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Hour)), true, nil
-	case DateTimePrecisionMinute:
-		if o.Precision != DateTimePrecisionMinute {
-			return 0, false, nil
-		}
-		return dt.Value.Truncate(time.Minute).Compare(
-			o.Value.In(dt.Value.Location()).Truncate(time.Minute)), true, nil
-	default:
-		if o.Precision != dt.Precision {
-			return 0, false, nil
-		}
-		return dt.Value.Compare(
-			o.Value.In(dt.Value.Location())), true, nil
+
+	// Per FHIRPath spec, comparisons between DateTime values that both include a time
+	// component but differ in timezone awareness are indeterminate.
+	leftHasTime := hasDateTimePrecisionLevel(dt.Precision, DateTimePrecisionHour)
+	rightHasTime := hasDateTimePrecisionLevel(o.Precision, DateTimePrecisionHour)
+	if leftHasTime && rightHasTime && dt.HasTimeZone != o.HasTimeZone {
+		return 0, false, nil
 	}
+
+	compareTarget := o.Value.In(dt.Value.Location())
+
+	for _, level := range dateTimeComparisonLevels {
+		leftHas := hasDateTimePrecisionLevel(dt.Precision, level)
+		rightHas := hasDateTimePrecisionLevel(o.Precision, level)
+
+		if !leftHas && !rightHas {
+			break
+		}
+		if leftHas && rightHas {
+			cmp = compareDateTimesAtLevel(dt.Value, compareTarget, level)
+			if cmp != 0 {
+				return cmp, true, nil
+			}
+			continue
+		}
+		return 0, false, nil
+	}
+	return 0, true, nil
 }
 
 // Add implements date/time arithmetic for DateTime values
@@ -2267,7 +3163,7 @@ func (dt DateTime) Add(ctx context.Context, other Element) (Element, error) {
 		result = dt.Value.Add(time.Duration(milliseconds * float64(time.Millisecond)))
 	}
 
-	return DateTime{Value: result, Precision: dt.Precision}, nil
+	return DateTime{Value: result, Precision: dt.Precision, HasTimeZone: dt.HasTimeZone}, nil
 }
 
 // Subtract implements date/time arithmetic for DateTime values
@@ -2334,7 +3230,7 @@ func (dt DateTime) Subtract(ctx context.Context, other Element) (Element, error)
 		result = dt.Value.Add(time.Duration(-milliseconds * float64(time.Millisecond)))
 	}
 
-	return DateTime{Value: result, Precision: dt.Precision}, nil
+	return DateTime{Value: result, Precision: dt.Precision, HasTimeZone: dt.HasTimeZone}, nil
 }
 
 func (dt DateTime) TypeInfo() TypeInfo {
@@ -2362,12 +3258,197 @@ func (dt DateTime) String() string {
 	case DateTimePrecisionMinute:
 		ds = dt.Value.Format(DateFormatFull)
 		ts = dt.Value.Format(TimeFormatUpToMinuteTZ)
+	case DateTimePrecisionSecond:
+		ds = dt.Value.Format(DateFormatFull)
+		ts = dt.Value.Format(TimeFormatUpToSecondTZ)
+	case DateTimePrecisionMillisecond:
+		ds = dt.Value.Format(DateFormatFull)
+		ts = dt.Value.Format(TimeFormatFullTZ)
 	default:
 		ds = dt.Value.Format(DateFormatFull)
 		ts = dt.Value.Format(TimeFormatFullTZ)
 	}
 
 	return fmt.Sprintf("%sT%s", ds, ts)
+}
+
+func (dt DateTime) LowBoundary(precisionDigits *int) (DateTime, bool) {
+	digits := maxDateTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return DateTime{}, false
+	}
+	return buildDateTimeBoundary(dt, digits, false)
+}
+
+func (dt DateTime) HighBoundary(precisionDigits *int) (DateTime, bool) {
+	digits := maxDateTimeDigits
+	if precisionDigits != nil {
+		digits = *precisionDigits
+	}
+	if digits < 0 {
+		return DateTime{}, false
+	}
+	return buildDateTimeBoundary(dt, digits, true)
+}
+
+func dateTimeDigitsForPrecision(p DateTimePrecision) int {
+	switch p {
+	case DateTimePrecisionYear:
+		return 4
+	case DateTimePrecisionMonth:
+		return 6
+	case DateTimePrecisionDay:
+		return 8
+	case DateTimePrecisionHour:
+		return 10
+	case DateTimePrecisionMinute:
+		return 12
+	case DateTimePrecisionSecond:
+		return 14
+	default:
+		return 17
+	}
+}
+
+func dateTimePrecisionFromDigits(d int) (DateTimePrecision, bool) {
+	switch d {
+	case 4:
+		return DateTimePrecisionYear, true
+	case 6:
+		return DateTimePrecisionMonth, true
+	case 8:
+		return DateTimePrecisionDay, true
+	case 10:
+		return DateTimePrecisionHour, true
+	case 12:
+		return DateTimePrecisionMinute, true
+	case 14:
+		return DateTimePrecisionSecond, true
+	case 17:
+		return DateTimePrecisionMillisecond, true
+	default:
+		return "", false
+	}
+}
+
+func dateTimeRangeEndpoints(dt DateTime) (time.Time, time.Time) {
+	loc := dt.Value.Location()
+	value := dt.Value.In(loc)
+	year, month, day := value.Date()
+	hour, min, sec := value.Clock()
+	nsec := value.Nanosecond()
+	switch dt.Precision {
+	case DateTimePrecisionYear:
+		start := time.Date(year, time.January, 1, 0, 0, 0, 0, loc)
+		end := time.Date(year, time.December, 31, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionMonth:
+		start := time.Date(year, month, 1, 0, 0, 0, 0, loc)
+		lastDay := time.Date(year, month+1, 0, 0, 0, 0, 0, loc).Day()
+		end := time.Date(year, month, lastDay, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionDay:
+		start := time.Date(year, month, day, 0, 0, 0, 0, loc)
+		end := time.Date(year, month, day, 23, 59, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionHour:
+		start := time.Date(year, month, day, hour, 0, 0, 0, loc)
+		end := time.Date(year, month, day, hour, 0, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionMinute:
+		start := time.Date(year, month, day, hour, min, 0, 0, loc)
+		end := time.Date(year, month, day, hour, min, 59, maxMillisecondNanoseconds, loc)
+		return start, end
+	case DateTimePrecisionSecond:
+		moment := time.Date(year, month, day, hour, min, sec, 0, loc)
+		return moment, moment
+	default:
+		aligned := alignToMillisecond(nsec)
+		moment := time.Date(year, month, day, hour, min, sec, aligned, loc)
+		return moment, moment
+	}
+}
+
+func buildDateTimeFromTime(t time.Time, precision DateTimePrecision) DateTime {
+	loc := t.Location()
+	year, month, day := t.Date()
+	hour, min, sec := t.Clock()
+	nsec := t.Nanosecond()
+	switch precision {
+	case DateTimePrecisionYear:
+		month = time.January
+		day = 1
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionMonth:
+		day = 1
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionDay:
+		hour, min, sec, nsec = 0, 0, 0, 0
+	case DateTimePrecisionHour:
+		min, sec, nsec = 0, 0, 0
+	case DateTimePrecisionMinute:
+		sec, nsec = 0, 0
+	case DateTimePrecisionSecond:
+		nsec = 0
+	case DateTimePrecisionMillisecond:
+		nsec = alignToMillisecond(nsec)
+	}
+	return DateTime{
+		Value:     time.Date(year, month, day, hour, min, sec, nsec, loc),
+		Precision: precision,
+	}
+}
+
+func buildDateTimeBoundary(value DateTime, digits int, useUpper bool) (DateTime, bool) {
+	precision, ok := dateTimePrecisionFromDigits(digits)
+	if !ok {
+		return DateTime{}, false
+	}
+	start, end := dateTimeRangeEndpoints(value)
+	anchor := start
+	if useUpper {
+		anchor = end
+	}
+	// FHIRPath lowBoundary/highBoundary semantics (FHIRPath v3.0.0, Utility Functions)
+	// require floating datetimes to represent the range of possible timezone offsets,
+	// modeled as +/-14h (low) and +/-12h (high) adjustments at the requested precision.
+	if !value.HasTimeZone && includesTimeComponent(precision) {
+		offset := maxTimeZoneOffsetHours
+		if useUpper {
+			offset = minTimeZoneOffsetHours
+		}
+		adjHour := adjustHourForOffset(anchor.Hour(), offset)
+		anchor = time.Date(anchor.Year(), anchor.Month(), anchor.Day(), adjHour, anchor.Minute(), anchor.Second(), anchor.Nanosecond(), anchor.Location())
+	}
+
+	result := buildDateTimeFromTime(anchor, precision)
+	if !value.HasTimeZone && includesTimeComponent(result.Precision) {
+		result.HasTimeZone = true
+	} else {
+		result.HasTimeZone = value.HasTimeZone
+	}
+	return result, true
+}
+
+func includesTimeComponent(p DateTimePrecision) bool {
+	switch p {
+	case DateTimePrecisionHour, DateTimePrecisionMinute, DateTimePrecisionSecond, DateTimePrecisionMillisecond:
+		return true
+	default:
+		return false
+	}
+}
+
+func adjustHourForOffset(hour, offset int) int {
+	adj := hour - offset
+	adj %= 24
+	if adj < 0 {
+		adj += 24
+	}
+	return adj
 }
 
 const (
@@ -2378,6 +3459,8 @@ const (
 	TimeFormatOnlyHourTZ   = "15Z07:00"
 	TimeFormatUpToMinute   = "15:04"
 	TimeFormatUpToMinuteTZ = "15:04Z07:00"
+	TimeFormatUpToSecond   = "15:04:05"
+	TimeFormatUpToSecondTZ = "15:04:05Z07:00"
 	TimeFormatFull         = "15:04:05.999999999"
 	TimeFormatFullTZ       = "15:04:05.999999999Z07:00"
 )
@@ -2407,6 +3490,11 @@ func ParseTime(s string) (Time, error) {
 
 func parseTime(s string, withTZ bool) (Time, error) {
 	ts := strings.TrimLeft(s, "@T")
+	timePart := ts
+	if idx := strings.IndexAny(timePart, "Z+-"); idx != -1 {
+		timePart = timePart[:idx]
+	}
+	hasFraction := strings.Contains(timePart, ".")
 
 	t, err := time.Parse(TimeFormatOnlyHour, ts)
 	if err == nil {
@@ -2428,14 +3516,26 @@ func parseTime(s string, withTZ bool) (Time, error) {
 			return Time{Value: t, Precision: TimePrecisionMinute}, nil
 		}
 	}
+	if !hasFraction {
+		t, err = time.Parse(TimeFormatUpToSecond, ts)
+		if err == nil {
+			return Time{Value: t, Precision: TimePrecisionSecond}, nil
+		}
+		if withTZ {
+			t, err = time.Parse(TimeFormatUpToSecondTZ, ts)
+			if err == nil {
+				return Time{Value: t, Precision: TimePrecisionSecond}, nil
+			}
+		}
+	}
 	t, err = time.Parse(TimeFormatFull, ts)
 	if err == nil {
-		return Time{Value: t, Precision: TimePrecisionFull}, nil
+		return Time{Value: t, Precision: TimePrecisionMillisecond}, nil
 	}
 	if withTZ {
 		t, err = time.Parse(TimeFormatFullTZ, ts)
 		if err == nil {
-			return Time{Value: t, Precision: TimePrecisionFull}, nil
+			return Time{Value: t, Precision: TimePrecisionMillisecond}, nil
 		}
 	}
 
@@ -2451,11 +3551,20 @@ func ParseDateTime(s string) (DateTime, error) {
 		return DateTime{}, fmt.Errorf("invalid DateTime format (date part): %s", s)
 	}
 
-	if len(splits) == 1 || splits[1] == "" {
-		if d.Precision == DateTimePrecisionFull {
-			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay}, nil
+	hasTimeZone := false
+	if len(splits) > 1 && splits[1] != "" {
+		tsPart := splits[1]
+		if idx := strings.IndexAny(tsPart, "Zz"); idx != -1 {
+			hasTimeZone = true
+		} else if strings.Contains(tsPart, "+") || strings.Contains(tsPart, "-") {
+			hasTimeZone = true
 		}
-		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision)}, nil
+	}
+	if len(splits) == 1 || splits[1] == "" {
+		if d.Precision == DatePrecisionFull {
+			return DateTime{Value: d.Value, Precision: DateTimePrecisionDay, HasTimeZone: false}, nil
+		}
+		return DateTime{Value: d.Value, Precision: DateTimePrecision(d.Precision), HasTimeZone: false}, nil
 	}
 
 	ts := splits[1]
@@ -2472,7 +3581,7 @@ func ParseDateTime(s string) (DateTime, error) {
 			time.Second*time.Duration(tv.Second()) +
 			time.Nanosecond*time.Duration(tv.Nanosecond()),
 	)
-	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision)}, nil
+	return DateTime{Value: dt, Precision: DateTimePrecision(t.Precision), HasTimeZone: hasTimeZone}, nil
 }
 
 // Time units for date/time arithmetic
@@ -2515,18 +3624,23 @@ func isTimeUnit(unit string) bool {
 
 // normalizeTimeUnit returns the canonical form of a time unit
 func normalizeTimeUnit(unit string) string {
+	// Strip quotes if present (quantities in FHIRPath always have quoted units)
+	if len(unit) >= 2 && unit[0] == '\'' && unit[len(unit)-1] == '\'' {
+		unit = unit[1 : len(unit)-1]
+	}
+
 	switch unit {
 	case UnitYear, UnitYears:
 		return UnitYear
 	case UnitMonth, UnitMonths:
 		return UnitMonth
-	case UnitWeek, UnitWeeks:
+	case UnitWeek, UnitWeeks, "wk":
 		return UnitWeek
-	case UnitDay, UnitDays:
+	case UnitDay, UnitDays, "d":
 		return UnitDay
-	case UnitHour, UnitHours:
+	case UnitHour, UnitHours, "h":
 		return UnitHour
-	case UnitMinute, UnitMinutes:
+	case UnitMinute, UnitMinutes, "min":
 		return UnitMinute
 	case UnitSecond, UnitSeconds, UnitS:
 		return UnitSecond
@@ -2551,133 +3665,232 @@ func (q Quantity) ToString(explicit bool) (v String, ok bool, err error) {
 func (q Quantity) ToQuantity(explicit bool) (v Quantity, ok bool, err error) {
 	return q, true, nil
 }
-func (q Quantity) Equal(other Element, _noReverseTypeConversion ...bool) (eq bool, ok bool) {
+func (q Quantity) Equal(other Element) (eq bool, ok bool) {
 	o, ok, err := other.ToQuantity(false)
 	if err == nil && ok {
-		left := q.dateAsUCUM()
-		right := o.dateAsUCUM()
-		eq, ok := left.Value.Equal(right.Value)
-		return ok && eq, left.Unit == right.Unit
+		leftOrigUnit := q.Unit
+		rightOrigUnit := o.Unit
+		left := q.canonicalizeUnit()
+		right := o.canonicalizeUnit()
+		if calendarEqualityRestricted(leftOrigUnit, rightOrigUnit, left.Unit) {
+			// Per the FHIRPath specification ("Quantity Equality" section),
+			// calendar duration quantities (years/months) are incomparable to
+			// corresponding definite UCUM durations (e.g. 'a', 'mo'), so the
+			// equality operator must return the empty collection.
+			return false, false
+		}
+		converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+		if convErr != nil {
+			return false, false
+		}
+		eq, eqOK := left.Value.Equal(converted.Value)
+		return eq && eqOK, true
 	}
-	if len(_noReverseTypeConversion) == 0 || !_noReverseTypeConversion[0] {
-		return other.Equal(q, true)
-	} else {
-		return false, true
+	if isStringish(other) {
+		return other.Equal(q)
 	}
+	return false, true
 }
-func (q Quantity) Equivalent(other Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := q.Equal(other, _noReverseTypeConversion...)
-	return ok && eq == true
+func (q Quantity) Equivalent(other Element) bool {
+	o, ok, err := other.ToQuantity(false)
+	if err != nil || !ok {
+		return false
+	}
+
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
+	converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+	if convErr != nil {
+		return false
+	}
+	return left.Value.Equivalent(converted.Value)
 }
 func (q Quantity) Cmp(other Element) (cmp int, ok bool, err error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return 0, false, fmt.Errorf("can not compare Quantity to %T, left: %v right: %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
-	if left.Unit != right.Unit {
-		return 0, false, fmt.Errorf("quantity units do not match, left: %v right: %v", left.Unit, right.Unit)
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
+	converted, convErr := convertQuantityToUnit(nil, right, left.Unit)
+	if convErr != nil {
+		return 0, false, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
-	return left.Value.Cmp(right.Value)
+	return left.Value.Cmp(converted.Value)
 }
 func (q Quantity) Multiply(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not multiply Quantity with %T: %v * %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
 	value, err := left.Value.Multiply(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
 
-	var unit String
-	if left.Unit == "1" {
-		unit = right.Unit
-	} else if right.Unit == "1" {
-		unit = left.Unit
-	} else {
-		unit = String(fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit))
-	}
-
-	return Quantity{Value: value.(Decimal), Unit: unit}, nil
+	return Quantity{Value: value.(Decimal), Unit: formatProductUnit(left.Unit, right.Unit)}, nil
 }
 func (q Quantity) Divide(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not divide Quantity with %T: %v / %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
 	value, err := left.Value.Divide(ctx, right.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s)/(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: value.(Decimal), Unit: formatDivisionUnit(left.Unit, right.Unit)}, nil
 }
 func (q Quantity) Add(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not add Quantity and %T: %v + %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
-	if left.Unit != right.Unit {
+	converted, convErr := convertQuantityToUnit(ctx, right, left.Unit)
+	if convErr != nil {
 		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
 
-	value, err := left.Value.Add(ctx, right.Value)
+	var sum apd.Decimal
+	_, err = apdContext(ctx).Add(&sum, left.Value.Value, converted.Value.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: Decimal{Value: &sum}, Unit: left.Unit}, nil
 }
 func (q Quantity) Subtract(ctx context.Context, other Element) (Element, error) {
 	o, ok, err := other.ToQuantity(false)
 	if err != nil || !ok {
 		return nil, fmt.Errorf("can not subtract %T from Quantity: %v - %v", other, q, other)
 	}
-	left := q.dateAsUCUM()
-	right := o.dateAsUCUM()
+	left := q.canonicalizeUnit()
+	right := o.canonicalizeUnit()
 
-	if left.Unit != right.Unit {
+	converted, convErr := convertQuantityToUnit(ctx, right, left.Unit)
+	if convErr != nil {
 		return Quantity{}, fmt.Errorf("quantity units do not match, left: %v right: %v", left, right)
 	}
 
-	value, err := left.Value.Subtract(ctx, right.Value)
+	var diff apd.Decimal
+	_, err = apdContext(ctx).Sub(&diff, left.Value.Value, converted.Value.Value)
 	if err != nil {
 		return Quantity{}, err
 	}
-	unit := fmt.Sprintf("(%s).(%s)", left.Unit, right.Unit)
-	return Quantity{Value: value.(Decimal), Unit: String(unit)}, nil
+	return Quantity{Value: Decimal{Value: &diff}, Unit: left.Unit}, nil
 }
-func (q Quantity) dateAsUCUM() Quantity {
-	switch q.Unit {
-	case "year":
-		q.Unit = "a"
-	case "month":
-		q.Unit = "mo"
-	case "week":
-		q.Unit = "wk"
-	case "day":
-		q.Unit = "d"
-	case "hour":
-		q.Unit = "h"
-	case "minute":
-		q.Unit = "m"
-	case "second":
-		q.Unit = "s"
-	case "millisecond":
-		q.Unit = "ms"
-	}
+
+func (q Quantity) canonicalizeUnit() Quantity {
+	q.Unit = canonicalQuantityUnit(q.Unit)
 	return q
+}
+
+func canonicalQuantityUnit(unit String) String {
+	if unit == "" {
+		return "1"
+	}
+	canonical := canonicalUCUMUnit(string(unit))
+	if canonical == "" {
+		return "1"
+	}
+	return String(canonical)
+}
+
+// calendarEqualityRestricted returns true if the FHIRPath Quantity equality operator
+// must treat the operands as non-comparable, yielding the empty collection.
+// Reference: FHIRPath specification, "Quantity Equality" section.
+func calendarEqualityRestricted(leftOriginal, rightOriginal, canonicalUnit String) bool {
+	leftLiteral := isCalendarLiteralUnit(leftOriginal)
+	rightLiteral := isCalendarLiteralUnit(rightOriginal)
+	if leftLiteral == rightLiteral {
+		return false
+	}
+	return isVariableLengthCalendarUnit(canonicalUnit)
+}
+
+func isCalendarLiteralUnit(unit String) bool {
+	switch strings.ToLower(string(unit)) {
+	case UnitYear, UnitYears, UnitMonth, UnitMonths, UnitWeek, UnitWeeks, UnitDay, UnitDays,
+		UnitHour, UnitHours, UnitMinute, UnitMinutes, UnitSecond, UnitSeconds,
+		UnitMillisecond, UnitMilliseconds:
+		return true
+	default:
+		return false
+	}
+}
+
+func isVariableLengthCalendarUnit(unit String) bool {
+	switch strings.ToLower(string(unit)) {
+	case "a", "mo":
+		return true
+	default:
+		return false
+	}
+}
+
+func convertQuantityToUnit(ctx context.Context, q Quantity, unit String) (Quantity, error) {
+	target := canonicalQuantityUnit(unit)
+	q = q.canonicalizeUnit()
+
+	if q.Unit == target {
+		return q, nil
+	}
+
+	converted, err := convertDecimalUnit(ctx, q.Value.Value, string(q.Unit), string(target))
+	if err != nil {
+		return Quantity{}, err
+	}
+
+	return Quantity{
+		Value: Decimal{Value: converted},
+		Unit:  target,
+	}, nil
+}
+
+func formatProductUnit(left, right String) String {
+	switch {
+	case left == "1":
+		return right
+	case right == "1":
+		return left
+	}
+	return String(fmt.Sprintf("%s.%s", wrapNumerator(left), wrapNumerator(right)))
+}
+
+func formatDivisionUnit(numerator, denominator String) String {
+	switch {
+	case numerator == denominator:
+		return "1"
+	case denominator == "1":
+		return numerator
+	case numerator == "1":
+		return String(fmt.Sprintf("1/%s", wrapDenominator(denominator)))
+	}
+	return String(fmt.Sprintf("%s/%s", wrapNumerator(numerator), wrapDenominator(denominator)))
+}
+
+func wrapNumerator(u String) string {
+	s := string(u)
+	if strings.ContainsRune(s, '/') {
+		return fmt.Sprintf("(%s)", s)
+	}
+	return s
+}
+
+func wrapDenominator(u String) string {
+	s := string(u)
+	if strings.ContainsAny(s, "./") {
+		return fmt.Sprintf("(%s)", s)
+	}
+	return s
 }
 func (q Quantity) TypeInfo() TypeInfo {
 	return SimpleTypeInfo{
@@ -2690,7 +3903,15 @@ func (q Quantity) MarshalJSON() ([]byte, error) {
 	return json.Marshal(q.String())
 }
 func (q Quantity) String() string {
-	return fmt.Sprintf("%s %s", q.Value.String(), q.Unit)
+	u := strings.TrimSpace(string(q.Unit))
+	if u == "" {
+		return q.Value.String()
+	}
+	display := displayQuantityUnit(q.Unit)
+	if isCalendarLiteralUnit(q.Unit) {
+		return fmt.Sprintf("%s %s", q.Value.String(), display)
+	}
+	return fmt.Sprintf("%s '%s'", q.Value.String(), display)
 }
 
 func ParseQuantity(s string) (Quantity, error) {
@@ -2745,6 +3966,9 @@ func (_ defaultConversionError[F]) ToString(explicit bool) (v String, ok bool, e
 }
 func (_ defaultConversionError[F]) ToInteger(explicit bool) (v Integer, ok bool, err error) {
 	return 0, false, conversionError[F, Integer]()
+}
+func (_ defaultConversionError[F]) ToLong(explicit bool) (v Long, ok bool, err error) {
+	return 0, false, conversionError[F, Long]()
 }
 func (_ defaultConversionError[F]) ToDecimal(explicit bool) (v Decimal, ok bool, err error) {
 	return Decimal{}, false, conversionError[F, Decimal]()

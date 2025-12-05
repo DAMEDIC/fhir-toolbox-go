@@ -576,6 +576,9 @@ func (r SimpleQuantity) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r SimpleQuantity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SimpleQuantity to Integer")
 }
+func (r SimpleQuantity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SimpleQuantity to Long")
+}
 func (r SimpleQuantity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SimpleQuantity to Decimal")
 }
@@ -591,7 +594,7 @@ func (r SimpleQuantity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r SimpleQuantity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SimpleQuantity to Quantity")
 }
-func (r SimpleQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SimpleQuantity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SimpleQuantity
 	switch other := other.(type) {
 	case SimpleQuantity:
@@ -607,7 +610,7 @@ func (r SimpleQuantity) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SimpleQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SimpleQuantity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SimpleQuantity)
 	if !ok {
 		return false
@@ -620,46 +623,46 @@ func (r SimpleQuantity) Equivalent(other fhirpath.Element, _noReverseTypeConvers
 func (r SimpleQuantity) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Quantity",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Unit",
+			Name: "unit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "System",
+			Name: "system",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",

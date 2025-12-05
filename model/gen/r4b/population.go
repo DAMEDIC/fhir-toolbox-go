@@ -614,6 +614,9 @@ func (r Population) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Population) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Population to Integer")
 }
+func (r Population) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Population to Long")
+}
 func (r Population) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Population to Decimal")
 }
@@ -629,7 +632,7 @@ func (r Population) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Population) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Population to Quantity")
 }
-func (r Population) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Population) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Population
 	switch other := other.(type) {
 	case Population:
@@ -645,7 +648,7 @@ func (r Population) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Population) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Population) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Population)
 	if !ok {
 		return false
@@ -658,53 +661,53 @@ func (r Population) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 func (r Population) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneElement",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Age",
+			Name: "age",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Gender",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "CodeableConcept",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Race",
+			Name: "gender",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PhysiologicalCondition",
+			Name: "race",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "physiologicalCondition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",

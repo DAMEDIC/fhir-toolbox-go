@@ -1075,6 +1075,9 @@ func (r SubstanceAmount) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r SubstanceAmount) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceAmount to Integer")
 }
+func (r SubstanceAmount) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceAmount to Long")
+}
 func (r SubstanceAmount) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmount to Decimal")
 }
@@ -1090,7 +1093,7 @@ func (r SubstanceAmount) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r SubstanceAmount) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmount to Quantity")
 }
-func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceAmount) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceAmount
 	switch other := other.(type) {
 	case SubstanceAmount:
@@ -1106,7 +1109,7 @@ func (r SubstanceAmount) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceAmount) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceAmount)
 	if !ok {
 		return false
@@ -1119,53 +1122,53 @@ func (r SubstanceAmount) Equivalent(other fhirpath.Element, _noReverseTypeConver
 func (r SubstanceAmount) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "BackboneElement",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Amount",
+			Name: "amount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "AmountType",
+			Name: "amountType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AmountText",
+			Name: "amountText",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReferenceRange",
+			Name: "referenceRange",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "SubstanceAmountReferenceRange",
@@ -1209,6 +1212,9 @@ func (r SubstanceAmountReferenceRange) ToString(explicit bool) (fhirpath.String,
 func (r SubstanceAmountReferenceRange) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceAmountReferenceRange to Integer")
 }
+func (r SubstanceAmountReferenceRange) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceAmountReferenceRange to Long")
+}
 func (r SubstanceAmountReferenceRange) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Decimal")
 }
@@ -1224,7 +1230,7 @@ func (r SubstanceAmountReferenceRange) ToDateTime(explicit bool) (fhirpath.DateT
 func (r SubstanceAmountReferenceRange) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceAmountReferenceRange to Quantity")
 }
-func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceAmountReferenceRange
 	switch other := other.(type) {
 	case SubstanceAmountReferenceRange:
@@ -1240,7 +1246,7 @@ func (r SubstanceAmountReferenceRange) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceAmountReferenceRange) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceAmountReferenceRange)
 	if !ok {
 		return false
@@ -1257,28 +1263,28 @@ func (r SubstanceAmountReferenceRange) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LowLimit",
+			Name: "lowLimit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HighLimit",
+			Name: "highLimit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",

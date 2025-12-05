@@ -5482,6 +5482,9 @@ func (r InventoryItem) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r InventoryItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItem to Integer")
 }
+func (r InventoryItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItem to Long")
+}
 func (r InventoryItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItem to Decimal")
 }
@@ -5497,7 +5500,7 @@ func (r InventoryItem) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r InventoryItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItem to Quantity")
 }
-func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItem
 	switch other := other.(type) {
 	case InventoryItem:
@@ -5513,7 +5516,7 @@ func (r InventoryItem) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItem)
 	if !ok {
 		return false
@@ -5530,154 +5533,154 @@ func (r InventoryItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemName",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResponsibleOrganization",
+			Name: "responsibleOrganization",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemResponsibleOrganization",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "InventoryItemDescription",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InventoryStatus",
+			Name: "inventoryStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BaseUnit",
+			Name: "baseUnit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NetContent",
+			Name: "netContent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Association",
+			Name: "association",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemAssociation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Characteristic",
+			Name: "characteristic",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "InventoryItemCharacteristic",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instance",
+			Name: "instance",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "InventoryItemInstance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductReference",
+			Name: "productReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -5725,6 +5728,9 @@ func (r InventoryItemName) ToString(explicit bool) (fhirpath.String, bool, error
 func (r InventoryItemName) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemName to Integer")
 }
+func (r InventoryItemName) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemName to Long")
+}
 func (r InventoryItemName) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemName to Decimal")
 }
@@ -5740,7 +5746,7 @@ func (r InventoryItemName) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r InventoryItemName) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemName to Quantity")
 }
-func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemName) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemName
 	switch other := other.(type) {
 	case InventoryItemName:
@@ -5756,7 +5762,7 @@ func (r InventoryItemName) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemName) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemName) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemName)
 	if !ok {
 		return false
@@ -5773,42 +5779,42 @@ func (r InventoryItemName) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NameType",
+			Name: "nameType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -5853,6 +5859,9 @@ func (r InventoryItemResponsibleOrganization) ToString(explicit bool) (fhirpath.
 func (r InventoryItemResponsibleOrganization) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemResponsibleOrganization to Integer")
 }
+func (r InventoryItemResponsibleOrganization) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemResponsibleOrganization to Long")
+}
 func (r InventoryItemResponsibleOrganization) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Decimal")
 }
@@ -5868,7 +5877,7 @@ func (r InventoryItemResponsibleOrganization) ToDateTime(explicit bool) (fhirpat
 func (r InventoryItemResponsibleOrganization) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemResponsibleOrganization to Quantity")
 }
-func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemResponsibleOrganization
 	switch other := other.(type) {
 	case InventoryItemResponsibleOrganization:
@@ -5884,7 +5893,7 @@ func (r InventoryItemResponsibleOrganization) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemResponsibleOrganization) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemResponsibleOrganization)
 	if !ok {
 		return false
@@ -5901,35 +5910,35 @@ func (r InventoryItemResponsibleOrganization) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Organization",
+			Name: "organization",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -5978,6 +5987,9 @@ func (r InventoryItemDescription) ToString(explicit bool) (fhirpath.String, bool
 func (r InventoryItemDescription) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemDescription to Integer")
 }
+func (r InventoryItemDescription) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemDescription to Long")
+}
 func (r InventoryItemDescription) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemDescription to Decimal")
 }
@@ -5993,7 +6005,7 @@ func (r InventoryItemDescription) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r InventoryItemDescription) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemDescription to Quantity")
 }
-func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemDescription) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemDescription
 	switch other := other.(type) {
 	case InventoryItemDescription:
@@ -6009,7 +6021,7 @@ func (r InventoryItemDescription) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemDescription) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemDescription) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemDescription)
 	if !ok {
 		return false
@@ -6026,35 +6038,35 @@ func (r InventoryItemDescription) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -6102,6 +6114,9 @@ func (r InventoryItemAssociation) ToString(explicit bool) (fhirpath.String, bool
 func (r InventoryItemAssociation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemAssociation to Integer")
 }
+func (r InventoryItemAssociation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemAssociation to Long")
+}
 func (r InventoryItemAssociation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemAssociation to Decimal")
 }
@@ -6117,7 +6132,7 @@ func (r InventoryItemAssociation) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r InventoryItemAssociation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemAssociation to Quantity")
 }
-func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemAssociation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemAssociation
 	switch other := other.(type) {
 	case InventoryItemAssociation:
@@ -6133,7 +6148,7 @@ func (r InventoryItemAssociation) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemAssociation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemAssociation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemAssociation)
 	if !ok {
 		return false
@@ -6150,42 +6165,42 @@ func (r InventoryItemAssociation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AssociationType",
+			Name: "associationType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedItem",
+			Name: "relatedItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Ratio",
@@ -6230,6 +6245,9 @@ func (r InventoryItemCharacteristic) ToString(explicit bool) (fhirpath.String, b
 func (r InventoryItemCharacteristic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemCharacteristic to Integer")
 }
+func (r InventoryItemCharacteristic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemCharacteristic to Long")
+}
 func (r InventoryItemCharacteristic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemCharacteristic to Decimal")
 }
@@ -6245,7 +6263,7 @@ func (r InventoryItemCharacteristic) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r InventoryItemCharacteristic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemCharacteristic to Quantity")
 }
-func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemCharacteristic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemCharacteristic
 	switch other := other.(type) {
 	case InventoryItemCharacteristic:
@@ -6261,7 +6279,7 @@ func (r InventoryItemCharacteristic) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemCharacteristic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemCharacteristic)
 	if !ok {
 		return false
@@ -6278,39 +6296,39 @@ func (r InventoryItemCharacteristic) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CharacteristicType",
+			Name: "characteristicType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "InventoryItemCharacteristic",
@@ -6370,6 +6388,9 @@ func (r InventoryItemInstance) ToString(explicit bool) (fhirpath.String, bool, e
 func (r InventoryItemInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert InventoryItemInstance to Integer")
 }
+func (r InventoryItemInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert InventoryItemInstance to Long")
+}
 func (r InventoryItemInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert InventoryItemInstance to Decimal")
 }
@@ -6385,7 +6406,7 @@ func (r InventoryItemInstance) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r InventoryItemInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert InventoryItemInstance to Quantity")
 }
-func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r InventoryItemInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *InventoryItemInstance
 	switch other := other.(type) {
 	case InventoryItemInstance:
@@ -6401,7 +6422,7 @@ func (r InventoryItemInstance) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r InventoryItemInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r InventoryItemInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(InventoryItemInstance)
 	if !ok {
 		return false
@@ -6418,56 +6439,56 @@ func (r InventoryItemInstance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LotNumber",
+			Name: "lotNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expiry",
+			Name: "expiry",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",

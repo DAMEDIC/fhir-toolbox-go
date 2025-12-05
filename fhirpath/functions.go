@@ -4,12 +4,12 @@ import (
 	"context"
 	"encoding/base64"
 	"encoding/hex"
-	"encoding/json"
 	"fmt"
 	"html"
 	"maps"
 	"math"
 	"regexp"
+	"slices"
 	"strings"
 	"time"
 
@@ -66,7 +66,7 @@ type Function = func(
 
 type EvaluateFunc = func(
 	ctx context.Context,
-	target Element,
+	target Collection,
 	expr Expression,
 	fnScope ...FunctionScope,
 ) (result Collection, resultOrdered bool, err error)
@@ -132,9 +132,8 @@ func getFunction(ctx context.Context, name string) (Function, bool) {
 	return fn, ok
 }
 
-// global variable for mocking time in tests
-var now = time.Now
-
+// defaultFunctions contains FHIRPath specification functions as defined in the FHIRPath standard.
+// For FHIR-specific extension functions, see FHIRFunctions.
 var defaultFunctions = Functions{
 	// Type functions
 	"type": func(
@@ -162,7 +161,12 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(target) != 1 {
+		switch len(target) {
+		case 0:
+			return nil, true, nil
+		case 1:
+			// continue below
+		default:
 			return nil, false, fmt.Errorf("expected single input element")
 		}
 		if len(parameters) != 1 {
@@ -183,7 +187,12 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(target) != 1 {
+		switch len(target) {
+		case 0:
+			return nil, true, nil
+		case 1:
+			// continue below
+		default:
 			return nil, false, fmt.Errorf("expected single input element")
 		}
 		if len(parameters) != 1 {
@@ -279,7 +288,7 @@ var defaultFunctions = Functions{
 
 		// With criteria, equivalent to where(criteria).exists()
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -313,7 +322,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -609,7 +618,7 @@ var defaultFunctions = Functions{
 		}
 
 		for i, elem := range target {
-			criteria, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			criteria, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -644,7 +653,7 @@ var defaultFunctions = Functions{
 
 		resultOrdered = inputOrdered
 		for i, elem := range target {
-			projection, ordered, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+			projection, ordered, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 			if err != nil {
 				return nil, false, err
 			}
@@ -658,6 +667,113 @@ var defaultFunctions = Functions{
 		}
 
 		return result, resultOrdered, nil
+	},
+	// sort implements FHIRPath v3.0.0 section 4.1.26 sort()
+	"sort": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		type sortKeyValue struct {
+			empty bool
+			value Element
+		}
+		type sortItem struct {
+			elem Element
+			keys []sortKeyValue
+		}
+
+		items := make([]sortItem, len(target))
+		for i, elem := range target {
+			items[i].elem = elem
+			if len(parameters) == 0 {
+				continue
+			}
+			items[i].keys = make([]sortKeyValue, len(parameters))
+			for j, param := range parameters {
+				keyResult, _, err := evaluate(ctx, Collection{elem}, param, FunctionScope{index: i})
+				if err != nil {
+					return nil, false, err
+				}
+
+				switch len(keyResult) {
+				case 0:
+					items[i].keys[j] = sortKeyValue{empty: true}
+				case 1:
+					items[i].keys[j] = sortKeyValue{value: keyResult[0]}
+				default:
+					return nil, false, fmt.Errorf(
+						"sort key %d evaluated to %d items (expected 0 or 1)",
+						j+1, len(keyResult),
+					)
+				}
+			}
+		}
+
+		var sortErr error
+		slices.SortStableFunc(items, func(a, b sortItem) int {
+			if sortErr != nil {
+				return 0
+			}
+
+			if len(parameters) == 0 {
+				cmp, err := compareElementsForSort(a.elem, b.elem)
+				if err != nil {
+					sortErr = err
+					return 0
+				}
+				return cmp
+			}
+
+			for idx, param := range parameters {
+				dir := param.sortDirection
+				if dir == sortDirectionNone {
+					dir = sortDirectionAsc
+				}
+
+				av := a.keys[idx]
+				bv := b.keys[idx]
+
+				if av.empty && bv.empty {
+					continue
+				}
+				if av.empty {
+					return -1
+				}
+				if bv.empty {
+					return 1
+				}
+
+				cmp, err := compareElementsForSort(av.value, bv.value)
+				if err != nil {
+					sortErr = err
+					return 0
+				}
+				if cmp != 0 {
+					if dir == sortDirectionDesc {
+						cmp = -cmp
+					}
+					return cmp
+				}
+			}
+
+			return 0
+		})
+		if sortErr != nil {
+			return nil, false, sortErr
+		}
+
+		result = make(Collection, len(items))
+		for i, item := range items {
+			result[i] = item.elem
+		}
+		return result, true, nil
 	},
 	"repeat": func(
 		ctx context.Context,
@@ -682,19 +798,29 @@ var defaultFunctions = Functions{
 		for {
 			newItems = nil
 			for i, elem := range current {
-				projection, _, err := evaluate(ctx, elem, parameters[0], FunctionScope{index: i})
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
 
-				// Check for new items
 				for _, item := range projection {
 					add := true
+					// Check against already accumulated results
 					for _, seen := range result {
 						eq, ok := seen.Equal(item)
 						if ok && eq {
 							add = false
 							break
+						}
+					}
+					// Also check against items found in this iteration
+					if add {
+						for _, seen := range newItems {
+							eq, ok := seen.Equal(item)
+							if ok && eq {
+								add = false
+								break
+							}
 						}
 					}
 					if add {
@@ -711,6 +837,41 @@ var defaultFunctions = Functions{
 			// Add new items to the result and set them as the current items for the next iteration
 			result = append(result, newItems...)
 			current = newItems
+		}
+
+		return result, false, nil
+	},
+	// repeatAll implements FHIRPath v3.0.0 section 4.1.26 repeatAll()
+	"repeatAll": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single projection parameter")
+		}
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		queue := slices.Clone(target)
+
+		for len(queue) > 0 {
+			var next Collection
+			for i, elem := range queue {
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i})
+				if err != nil {
+					return nil, false, err
+				}
+				if len(projection) == 0 {
+					continue
+				}
+				result = append(result, projection...)
+				next = append(next, projection...)
+			}
+			queue = next
 		}
 
 		return result, false, nil
@@ -1042,7 +1203,30 @@ var defaultFunctions = Functions{
 		// Use the Combine method to merge the collections
 		return target.Combine(other), false, nil
 	},
+	// coalesce implements FHIRPath v3.0.0 section 4.1.26 coalesce()
+	"coalesce": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) == 0 {
+			return nil, false, fmt.Errorf("expected at least one collection parameter")
+		}
 
+		for _, param := range parameters {
+			value, ordered, err := evaluate(ctx, nil, param)
+			if err != nil {
+				return nil, false, err
+			}
+			if len(value) > 0 {
+				return value, ordered, nil
+			}
+		}
+
+		return nil, true, nil
+	},
 	// String functions
 	"indexOf": func(
 		ctx context.Context,
@@ -1076,7 +1260,8 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substring parameter")
+			// If substring is empty/null, return empty collection
+			return nil, true, nil
 		}
 
 		// If substring is an empty string (''), the function returns 0
@@ -1086,6 +1271,61 @@ var defaultFunctions = Functions{
 
 		// Return the index of the substring in the string
 		index := strings.Index(string(s), string(substring))
+		return Collection{Integer(index)}, true, nil
+	},
+	"lastIndexOf": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected single substring parameter")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Convert input to string
+		s, ok, err := Singleton[String](target)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			return nil, true, nil
+		}
+
+		// Evaluate the substring parameter
+		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+
+		// Convert substring to string
+		substring, ok, err := Singleton[String](substringCollection)
+		if err != nil {
+			return nil, false, err
+		}
+		if !ok {
+			// If substring is empty/null, return empty collection
+			return nil, true, nil
+		}
+
+		// If substring is an empty string (''), the function returns the length of the input string
+		if substring == "" {
+			return Collection{Integer(len([]rune(s)))}, true, nil
+		}
+
+		// Return the index of the last occurrence of the substring in the string
+		index := strings.LastIndex(string(s), string(substring))
 		return Collection{Integer(index)}, true, nil
 	},
 	"substring": func(
@@ -1107,11 +1347,18 @@ var defaultFunctions = Functions{
 		if !ok {
 			return nil, true, nil
 		}
+		runes := []rune(string(s))
+		runeCount := len(runes)
 
-		// Evaluate the start parameter
-		startCollection, _, err := evaluate(ctx, nil, parameters[0])
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
+		// Evaluate the start parameter (FHIRPath substring section states empty args propagate as empty results)
+		startCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(startCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert start to integer
@@ -1123,17 +1370,20 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected integer start parameter")
 		}
 
-		// If start is negative or greater than or equal to the length of the string, return empty
-		if start < 0 || int(start) >= len(s) {
+		startIdx := int(start)
+		if startIdx < 0 || startIdx >= runeCount {
 			return nil, true, nil
 		}
 
 		// If length parameter is provided
 		if len(parameters) == 2 {
-			// Evaluate the length parameter
-			lengthCollection, _, err := evaluate(ctx, nil, parameters[1])
+			// Evaluate the length parameter (FHIRPath substring section: empty length behaves as if omitted)
+			lengthCollection, _, err := evaluate(ctx, paramTarget, parameters[1], paramScope...)
 			if err != nil {
 				return nil, false, err
+			}
+			if len(lengthCollection) == 0 {
+				return Collection{String(string(runes[startIdx:]))}, true, nil
 			}
 
 			// Convert length to integer
@@ -1145,23 +1395,20 @@ var defaultFunctions = Functions{
 				return nil, false, fmt.Errorf("expected integer length parameter")
 			}
 
-			// If length is negative, treat it as 0
-			if length < 0 {
-				length = 0
+			if length <= 0 {
+				return Collection{String("")}, true, nil
 			}
 
-			// Calculate end index (start + length)
-			end := int(start) + int(length)
-			if end > len(s) {
-				end = len(s)
+			end := startIdx + int(length)
+			if end > runeCount {
+				end = runeCount
 			}
 
-			result := String(s[start:end])
-			return Collection{result}, true, nil
+			return Collection{String(string(runes[startIdx:end]))}, true, nil
 		}
 
 		// If length parameter is not provided, return the rest of the string
-		return Collection{String(s[start:])}, true, nil
+		return Collection{String(string(runes[startIdx:]))}, true, nil
 	},
 	"startsWith": func(
 		ctx context.Context,
@@ -1183,10 +1430,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the prefix parameter
-		prefixCollection, _, err := evaluate(ctx, nil, parameters[0])
+		prefixCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(prefixCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert prefix to string
@@ -1227,10 +1479,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the suffix parameter
-		suffixCollection, _, err := evaluate(ctx, nil, parameters[0])
+		suffixCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(suffixCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert suffix to string
@@ -1271,10 +1528,15 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		paramTarget, paramScope := singleInputParamContext(ctx, root, target)
+
 		// Evaluate the substring parameter
-		substringCollection, _, err := evaluate(ctx, nil, parameters[0])
+		substringCollection, _, err := evaluate(ctx, paramTarget, parameters[0], paramScope...)
 		if err != nil {
 			return nil, false, err
+		}
+		if len(substringCollection) == 0 {
+			return nil, true, nil
 		}
 
 		// Convert substring to string
@@ -1361,8 +1623,14 @@ var defaultFunctions = Functions{
 			return nil, true, nil
 		}
 
+		// Evaluate pattern and substitution parameters against the input string
+		var evalTarget Collection
+		if len(target) > 0 {
+			evalTarget = Collection{target[0]}
+		}
+
 		// Evaluate the pattern parameter
-		patternCollection, _, err := evaluate(ctx, nil, parameters[0])
+		patternCollection, _, err := evaluate(ctx, evalTarget, parameters[0])
 		if err != nil {
 			return nil, false, err
 		}
@@ -1373,11 +1641,11 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string pattern parameter")
+			return nil, true, nil
 		}
 
 		// Evaluate the substitution parameter
-		substitutionCollection, _, err := evaluate(ctx, nil, parameters[1])
+		substitutionCollection, _, err := evaluate(ctx, evalTarget, parameters[1])
 		if err != nil {
 			return nil, false, err
 		}
@@ -1388,7 +1656,7 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substitution parameter")
+			return nil, true, nil
 		}
 
 		// If pattern is an empty string (''), every character in the input string is surrounded by the substitution
@@ -1412,8 +1680,8 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 1 {
-			return nil, false, fmt.Errorf("expected single regex parameter")
+		if len(parameters) < 1 || len(parameters) > 2 {
+			return nil, false, fmt.Errorf("expected regex parameter and optional flags parameter")
 		}
 
 		// Convert input to string
@@ -1431,17 +1699,56 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If regex is empty collection, return empty
+		if len(regexCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert regex to string
 		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string regex parameter")
+			return nil, true, nil
+		}
+
+		// Evaluate optional flags parameter
+		var flags string
+		if len(parameters) == 2 {
+			flagsCollection, _, err := evaluate(ctx, nil, parameters[1])
+			if err != nil {
+				return nil, false, err
+			}
+
+			flagsStr, ok, err := Singleton[String](flagsCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string flags parameter")
+			}
+			flags = string(flagsStr)
+		}
+
+		// Apply flags to the regular expression
+		// Per FHIRPath spec, regex operates in single-line mode by default (. matches newlines)
+		pattern := "(?s)" + string(regexStr)
+		for _, flag := range flags {
+			switch flag {
+			case 'i':
+				// Case-insensitive: wrap pattern with (?i)
+				pattern = "(?i)" + pattern
+			case 'm':
+				// Multiline mode: wrap pattern with (?m)
+				pattern = "(?m)" + pattern
+			default:
+				return nil, false, fmt.Errorf("unsupported regex flag: %c", flag)
+			}
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(regexStr))
+		regex, err := regexp.Compile(pattern)
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
@@ -1456,8 +1763,8 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		if len(parameters) != 2 {
-			return nil, false, fmt.Errorf("expected two parameters (regex, substitution)")
+		if len(parameters) < 2 || len(parameters) > 3 {
+			return nil, false, fmt.Errorf("expected regex, substitution, and optional flags parameters")
 		}
 
 		// Convert input to string
@@ -1475,13 +1782,23 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If regex is empty collection, return empty
+		if len(regexCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert regex to string
 		regexStr, ok, err := Singleton[String](regexCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string regex parameter")
+			return nil, true, nil
+		}
+
+		// If regex is an empty string, return input unchanged per spec
+		if regexStr == "" {
+			return Collection{s}, true, nil
 		}
 
 		// Evaluate the substitution parameter
@@ -1490,17 +1807,56 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// If substitution is empty collection, return empty
+		if len(substitutionCollection) == 0 {
+			return nil, true, nil
+		}
+
 		// Convert substitution to string
 		substitution, ok, err := Singleton[String](substitutionCollection)
 		if err != nil {
 			return nil, false, err
 		}
 		if !ok {
-			return nil, false, fmt.Errorf("expected string substitution parameter")
+			return nil, true, nil
+		}
+
+		// Evaluate optional flags parameter
+		var flags string
+		if len(parameters) == 3 {
+			flagsCollection, _, err := evaluate(ctx, nil, parameters[2])
+			if err != nil {
+				return nil, false, err
+			}
+
+			flagsStr, ok, err := Singleton[String](flagsCollection)
+			if err != nil {
+				return nil, false, err
+			}
+			if !ok {
+				return nil, false, fmt.Errorf("expected string flags parameter")
+			}
+			flags = string(flagsStr)
+		}
+
+		// Apply flags to the regular expression
+		// Per FHIRPath spec, regex operates in single-line mode by default (. matches newlines)
+		pattern := "(?s)" + string(regexStr)
+		for _, flag := range flags {
+			switch flag {
+			case 'i':
+				// Case-insensitive: wrap pattern with (?i)
+				pattern = "(?i)" + pattern
+			case 'm':
+				// Multiline mode: wrap pattern with (?m)
+				pattern = "(?m)" + pattern
+			default:
+				return nil, false, fmt.Errorf("unsupported regex flag: %c", flag)
+			}
 		}
 
 		// Compile the regular expression
-		regex, err := regexp.Compile(string(regexStr))
+		regex, err := regexp.Compile(pattern)
 		if err != nil {
 			return nil, false, fmt.Errorf("invalid regular expression: %v", err)
 		}
@@ -1891,17 +2247,56 @@ var defaultFunctions = Functions{
 		// Escape according to target
 		switch string(targetStr) {
 		case "html":
-			// Use html.EscapeString for HTML escaping
-			escaped := html.EscapeString(string(s))
-			return Collection{String(escaped)}, true, nil
-		case "json":
-			// Escape JSON special characters
-			escaped, err := json.Marshal(string(s))
-			if err != nil {
-				return nil, false, fmt.Errorf("failed to escape JSON string: %v", err)
+			// Per FHIRPath spec: escape <, &, " and ideally anything with character encoding above 127
+			var result strings.Builder
+			result.Grow(len(s))
+			for _, r := range string(s) {
+				switch r {
+				case '<':
+					result.WriteString("&lt;")
+				case '>':
+					result.WriteString("&gt;")
+				case '&':
+					result.WriteString("&amp;")
+				case '"':
+					result.WriteString("&quot;")
+				case '\'':
+					result.WriteString("&#39;")
+				default:
+					// Escape high Unicode characters (above 127)
+					if r > 127 {
+						result.WriteString(fmt.Sprintf("&#%d;", r))
+					} else {
+						result.WriteRune(r)
+					}
+				}
 			}
-			// Remove the surrounding quotes added by json.Marshal
-			return Collection{String(string(escaped[1 : len(escaped)-1]))}, true, nil
+			return Collection{String(result.String())}, true, nil
+		case "json":
+			// Escape JSON special characters per FHIRPath spec
+			// We need to escape quotes and backslashes, but NOT < > & (unlike Go's default json.Marshal)
+			var result strings.Builder
+			for _, r := range string(s) {
+				switch r {
+				case '"':
+					result.WriteString(`\"`)
+				case '\\':
+					result.WriteString(`\\`)
+				case '\n':
+					result.WriteString(`\n`)
+				case '\r':
+					result.WriteString(`\r`)
+				case '\t':
+					result.WriteString(`\t`)
+				case '\b':
+					result.WriteString(`\b`)
+				case '\f':
+					result.WriteString(`\f`)
+				default:
+					result.WriteRune(r)
+				}
+			}
+			return Collection{String(result.String())}, true, nil
 		default:
 			return nil, false, fmt.Errorf("unsupported escape target: %s", targetStr)
 		}
@@ -1954,12 +2349,65 @@ var defaultFunctions = Functions{
 			return Collection{String(unescaped)}, true, nil
 		case "json":
 			// Unescape JSON string
-			var unescaped string
-			err := json.Unmarshal([]byte(`"`+string(s)+`"`), &unescaped)
-			if err != nil {
-				return nil, false, fmt.Errorf("failed to unescape JSON string: %v", err)
+			// The input string may contain JSON escape sequences like \", \\, \n, \t, \r, \b, \f, \/
+			// We need to interpret these escape sequences manually
+			var result strings.Builder
+			input := string(s)
+			for i := 0; i < len(input); i++ {
+				if input[i] == '\\' && i+1 < len(input) {
+					// Process escape sequence
+					switch input[i+1] {
+					case '"':
+						result.WriteByte('"')
+						i++ // Skip next char
+					case '\\':
+						result.WriteByte('\\')
+						i++
+					case '/':
+						result.WriteByte('/')
+						i++
+					case 'b':
+						result.WriteByte('\b')
+						i++
+					case 'f':
+						result.WriteByte('\f')
+						i++
+					case 'n':
+						result.WriteByte('\n')
+						i++
+					case 'r':
+						result.WriteByte('\r')
+						i++
+					case 't':
+						result.WriteByte('\t')
+						i++
+					case 'u':
+						// Unicode escape \uXXXX
+						if i+5 < len(input) {
+							// Parse hex digits
+							hexStr := input[i+2 : i+6]
+							var codePoint int
+							_, err := fmt.Sscanf(hexStr, "%x", &codePoint)
+							if err == nil {
+								result.WriteRune(rune(codePoint))
+								i += 5 // Skip u and 4 hex digits
+							} else {
+								// Invalid unicode escape, keep as-is
+								result.WriteByte(input[i])
+							}
+						} else {
+							// Not enough characters for unicode escape
+							result.WriteByte(input[i])
+						}
+					default:
+						// Unknown escape sequence, keep the backslash
+						result.WriteByte(input[i])
+					}
+				} else {
+					result.WriteByte(input[i])
+				}
 			}
-			return Collection{String(unescaped)}, true, nil
+			return Collection{String(result.String())}, true, nil
 		default:
 			return nil, false, fmt.Errorf("unsupported unescape target: %s", targetStr)
 		}
@@ -1971,24 +2419,25 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
 			return nil, true, nil
 		}
-
-		// If the input collection contains multiple items, signal an error
 		if len(target) > 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one precision parameter")
+		}
 
-		// Get precision parameter if provided
-		var precision Integer
+		var (
+			precisionOverride int
+			precisionProvided bool
+		)
 		if len(parameters) == 1 {
 			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
 				return nil, false, err
 			}
-
 			prec, ok, err := Singleton[Integer](precisionCollection)
 			if err != nil {
 				return nil, false, err
@@ -1996,154 +2445,84 @@ var defaultFunctions = Functions{
 			if !ok {
 				return nil, false, fmt.Errorf("expected integer precision parameter")
 			}
-			precision = prec
+			precisionOverride = int(prec)
+			precisionProvided = true
 		}
 
-		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// If no precision specified, use at least 8
-			if len(parameters) == 0 {
-				precision = 8
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 8 {
-				return nil, true, nil
-			}
-
-			// Calculate lower boundary for decimal
-			var boundary apd.Decimal
-			_, err = apdContext(ctx).Floor(&boundary, value.Value)
+			boundary, err := value.LowBoundary(ctx, outputPrecision)
 			if err != nil {
 				return nil, false, err
 			}
-
-			// Adjust precision
-			if precision < 0 {
-				// For negative precision, round to nearest multiple of 10^|precision|
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Floor(&boundary, &boundary)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-			} else {
-				// For non-negative precision, round to specified decimal places
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Floor(&boundary, &boundary)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Quo(&boundary, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-			}
-
-			return Collection{Decimal{Value: &boundary}}, true, nil
+			return Collection{boundary}, true, nil
 		}
 
-		// Handle Date type
+		if qty, ok, err := Singleton[Quantity](target); err == nil && ok {
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
+			}
+			boundary, err := qty.Value.LowBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
+			}
+			resultQuantity := qty
+			resultQuantity.Value = boundary
+			return Collection{resultQuantity}, true, nil
+		}
+
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			// If no precision specified, use at least 4
-			if len(parameters) == 0 {
-				precision = 4
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 4 {
+			resultDate, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DatePrecisionYear
-			case 2: // Month
-				result.Precision = DatePrecisionMonth
-			default: // Full precision
-				result.Precision = DatePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDate}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			// If no precision specified, use at least 6 (up to minute)
-			if len(parameters) == 0 {
-				precision = 6
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 6 {
+			resultDateTime, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DateTimePrecisionYear
-			case 2: // Month
-				result.Precision = DateTimePrecisionMonth
-			case 3: // Day
-				result.Precision = DateTimePrecisionDay
-			case 4: // Hour
-				result.Precision = DateTimePrecisionHour
-			case 5: // Minute
-				result.Precision = DateTimePrecisionMinute
-			default: // Full precision
-				result.Precision = DateTimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDateTime}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			// If no precision specified, use at least 2 (up to minute)
-			if len(parameters) == 0 {
-				precision = 2
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 2 {
+			resultTime, ok := value.LowBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-
-			// Adjust precision by truncating to the appropriate level
-			result := value
-			switch precision {
-			case 1: // Hour
-				result.Precision = TimePrecisionHour
-			case 2: // Minute
-				result.Precision = TimePrecisionMinute
-			default: // Full precision
-				result.Precision = TimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultTime}, true, nil
 		}
 
-		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+		return nil, false, fmt.Errorf("expected Decimal, Quantity, Date, DateTime, or Time but got %T", target[0])
 	},
 	"highBoundary": func(
 		ctx context.Context,
@@ -2152,24 +2531,25 @@ var defaultFunctions = Functions{
 		parameters []Expression,
 		evaluate EvaluateFunc,
 	) (result Collection, resultOrdered bool, err error) {
-		// If the input collection is empty, the result is empty
 		if len(target) == 0 {
 			return nil, true, nil
 		}
-
-		// If the input collection contains multiple items, signal an error
 		if len(target) > 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}
+		if len(parameters) > 1 {
+			return nil, false, fmt.Errorf("expected at most one precision parameter")
+		}
 
-		// Get precision parameter if provided
-		var precision Integer
+		var (
+			precisionOverride int
+			precisionProvided bool
+		)
 		if len(parameters) == 1 {
 			precisionCollection, _, err := evaluate(ctx, nil, parameters[0])
 			if err != nil {
 				return nil, false, err
 			}
-
 			prec, ok, err := Singleton[Integer](precisionCollection)
 			if err != nil {
 				return nil, false, err
@@ -2177,151 +2557,84 @@ var defaultFunctions = Functions{
 			if !ok {
 				return nil, false, fmt.Errorf("expected integer precision parameter")
 			}
-			precision = prec
+			precisionOverride = int(prec)
+			precisionProvided = true
 		}
 
-		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// If no precision specified, use at least 8
-			if len(parameters) == 0 {
-				precision = 8
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
 			}
-
-			// If precision is greater than maximum possible, return empty
-			if precision > 8 {
-				return nil, true, nil
+			boundary, err := value.HighBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
 			}
-
-			// Calculate high boundary for decimal
-			var boundary apd.Decimal
-			boundary.Set(value.Value)
-			if precision < 0 {
-				// For negative precision, round up to nearest multiple of 10^|precision| - 1
-				var factor apd.Decimal
-				_, err = apdContext(ctx).Pow(&factor, apd.New(10, 0), apd.New(int64(-precision), 0))
-				if err != nil {
-					return nil, false, err
-				}
-				var tmp apd.Decimal
-				_, err = apdContext(ctx).Quo(&tmp, &boundary, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Ceil(&tmp, &tmp)
-				if err != nil {
-					return nil, false, err
-				}
-				_, err = apdContext(ctx).Mul(&boundary, &tmp, &factor)
-				if err != nil {
-					return nil, false, err
-				}
-				// Subtract 1 to get the highest value in the range
-				_, err = apdContext(ctx).Sub(&boundary, &boundary, apd.New(1, 0))
-				if err != nil {
-					return nil, false, err
-				}
-			} else {
-				// For non-negative precision, set all digits after precision to 9
-				str := boundary.Text('f')
-				if dot := strings.Index(str, "."); dot != -1 {
-					intPart := str[:dot]
-					fracPart := str[dot+1:]
-					if len(fracPart) < int(precision) {
-						fracPart += strings.Repeat("0", int(precision)-len(fracPart))
-					}
-					fracPart = fracPart[:int(precision)]
-					fracPart += strings.Repeat("9", 8-int(precision))
-					str = intPart + "." + fracPart
-				} else {
-					str += "." + strings.Repeat("9", 8)
-				}
-				newVal, _, err := apd.NewFromString(str)
-				if err != nil {
-					return nil, false, err
-				}
-				boundary.Set(newVal)
-			}
-			return Collection{Decimal{Value: &boundary}}, true, nil
+			return Collection{boundary}, true, nil
 		}
 
-		// Handle Date type
+		if qty, ok, err := Singleton[Quantity](target); err == nil && ok {
+			var outputPrecision *int
+			if precisionProvided {
+				p := precisionOverride
+				if p < 0 || p > 31 {
+					return nil, true, nil
+				}
+				outputPrecision = &p
+			}
+			boundary, err := qty.Value.HighBoundary(ctx, outputPrecision)
+			if err != nil {
+				return nil, false, err
+			}
+			resultQuantity := qty
+			resultQuantity.Value = boundary
+			return Collection{resultQuantity}, true, nil
+		}
+
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 4
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 4 {
+			resultDate, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DatePrecisionYear
-				result.Value = time.Date(result.Value.Year(), 12, 31, 0, 0, 0, 0, result.Value.Location())
-			case 2: // Month
-				result.Precision = DatePrecisionMonth
-				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 0, 0, 0, 0, result.Value.Location())
-			default: // Full precision
-				result.Precision = DatePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDate}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 6
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 6 {
+			resultDateTime, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Year
-				result.Precision = DateTimePrecisionYear
-				result.Value = time.Date(result.Value.Year(), 12, 31, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 2: // Month
-				result.Precision = DateTimePrecisionMonth
-				lastDay := time.Date(result.Value.Year(), result.Value.Month()+1, 0, 0, 0, 0, 0, result.Value.Location()).Day()
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), lastDay, 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 3: // Day
-				result.Precision = DateTimePrecisionDay
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), 23, 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 4: // Hour
-				result.Precision = DateTimePrecisionHour
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 5: // Minute
-				result.Precision = DateTimePrecisionMinute
-				result.Value = time.Date(result.Value.Year(), result.Value.Month(), result.Value.Day(), result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
-			default: // Full precision
-				result.Precision = DateTimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultDateTime}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			if len(parameters) == 0 {
-				precision = 2
+			var digits *int
+			if precisionProvided {
+				p := precisionOverride
+				digits = &p
 			}
-			if precision > 2 {
+			resultTime, ok := value.HighBoundary(digits)
+			if !ok {
 				return nil, true, nil
 			}
-			result := value
-			switch precision {
-			case 1: // Hour
-				result.Precision = TimePrecisionHour
-				result.Value = time.Date(0, 1, 1, result.Value.Hour(), 59, 59, int(time.Millisecond*999), result.Value.Location())
-			case 2: // Minute
-				result.Precision = TimePrecisionMinute
-				result.Value = time.Date(0, 1, 1, result.Value.Hour(), result.Value.Minute(), 59, int(time.Millisecond*999), result.Value.Location())
-			default: // Full precision
-				result.Precision = TimePrecisionFull
-			}
-			return Collection{result}, true, nil
+			return Collection{resultTime}, true, nil
 		}
 
-		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
+		return nil, false, fmt.Errorf("expected Decimal, Quantity, Date, DateTime, or Time but got %T", target[0])
 	},
 	"precision": func(
 		ctx context.Context,
@@ -2346,78 +2659,185 @@ var defaultFunctions = Functions{
 
 		// Handle Decimal type
 		if value, ok, err := Singleton[Decimal](target); err == nil && ok {
-			// For Decimal, return the number of digits after the decimal point
-			str := value.Value.Text('f')
-			if dot := strings.Index(str, "."); dot != -1 {
-				// Count trailing zeros after decimal point
-				fracPart := str[dot+1:]
-				precision := len(fracPart)
-				// Remove trailing zeros
-				for precision > 0 && fracPart[precision-1] == '0' {
-					precision--
-				}
-				return Collection{Integer(precision)}, true, nil
-			}
-			return Collection{Integer(0)}, true, nil
+			// Use the Decimal.Precision() method which returns decimal places based on exponent
+			precision := value.Precision()
+			return Collection{Integer(precision)}, true, nil
 		}
 
-		// Handle Date type
 		if value, ok, err := Singleton[Date](target); err == nil && ok {
-			// For Date, return the number of digits in the date
-			switch value.Precision {
-			case "year":
-				return Collection{Integer(4)}, true, nil
-			case "month":
-				return Collection{Integer(6)}, true, nil
-			case "day":
-				return Collection{Integer(8)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid date precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
-		// Handle DateTime type
 		if value, ok, err := Singleton[DateTime](target); err == nil && ok {
-			// For DateTime, return the number of digits in the datetime
-			switch value.Precision {
-			case "year":
-				return Collection{Integer(4)}, true, nil
-			case "month":
-				return Collection{Integer(6)}, true, nil
-			case "day":
-				return Collection{Integer(8)}, true, nil
-			case "hour":
-				return Collection{Integer(10)}, true, nil
-			case "minute":
-				return Collection{Integer(12)}, true, nil
-			case "second":
-				return Collection{Integer(14)}, true, nil
-			case "millisecond":
-				return Collection{Integer(17)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid datetime precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
-		// Handle Time type
 		if value, ok, err := Singleton[Time](target); err == nil && ok {
-			// For Time, return the number of digits in the time
-			switch value.Precision {
-			case "hour":
-				return Collection{Integer(2)}, true, nil
-			case "minute":
-				return Collection{Integer(4)}, true, nil
-			case "second":
-				return Collection{Integer(6)}, true, nil
-			case "millisecond":
-				return Collection{Integer(9)}, true, nil
-			default:
-				return nil, false, fmt.Errorf("invalid time precision")
-			}
+			digits := value.PrecisionDigits()
+			return Collection{Integer(digits)}, true, nil
 		}
 
 		return nil, false, fmt.Errorf("expected Decimal, Date, DateTime, or Time but got %T", target[0])
 	},
+
+	"duration": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 2 {
+			return nil, false, fmt.Errorf("expected 2 parameters (value, precision)")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Evaluate the value parameter
+		valueResult, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(valueResult) == 0 {
+			return nil, true, nil
+		}
+		if len(valueResult) > 1 {
+			return nil, false, fmt.Errorf("value parameter must return single element")
+		}
+
+		// Evaluate the precision parameter
+		precisionResult, _, err := evaluate(ctx, nil, parameters[1])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(precisionResult) == 0 {
+			return nil, true, nil
+		}
+		precisionStr, ok, err := precisionResult[0].ToString(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("precision parameter must be a string")
+		}
+
+		precision := normalizeTimeUnit(string(precisionStr))
+
+		// Handle Date types
+		if startDate, ok, _ := Singleton[Date](target); ok {
+			endDate, ok, _ := Singleton[Date](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateDateDuration(startDate, endDate, precision)
+		}
+
+		// Handle DateTime types
+		if startDT, ok, _ := Singleton[DateTime](target); ok {
+			endDT, ok, _ := Singleton[DateTime](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateDateTimeDuration(startDT, endDT, precision)
+		}
+
+		// Handle Time types
+		if startTime, ok, _ := Singleton[Time](target); ok {
+			endTime, ok, _ := Singleton[Time](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("duration requires matching types")
+			}
+			return calculateTimeDuration(startTime, endTime, precision)
+		}
+
+		return nil, false, fmt.Errorf("duration requires Date, DateTime, or Time input")
+	},
+
+	"difference": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 2 {
+			return nil, false, fmt.Errorf("expected 2 parameters (value, precision)")
+		}
+
+		// If the input collection is empty, the result is empty
+		if len(target) == 0 {
+			return nil, true, nil
+		}
+
+		// If the input collection contains multiple items, signal an error
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("expected single input element")
+		}
+
+		// Evaluate the value parameter
+		valueResult, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(valueResult) == 0 {
+			return nil, true, nil
+		}
+		if len(valueResult) > 1 {
+			return nil, false, fmt.Errorf("value parameter must return single element")
+		}
+
+		// Evaluate the precision parameter
+		precisionResult, _, err := evaluate(ctx, nil, parameters[1])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(precisionResult) == 0 {
+			return nil, true, nil
+		}
+		precisionStr, ok, err := precisionResult[0].ToString(false)
+		if err != nil || !ok {
+			return nil, false, fmt.Errorf("precision parameter must be a string")
+		}
+
+		precision := normalizeTimeUnit(string(precisionStr))
+
+		// Handle Date types
+		if startDate, ok, _ := Singleton[Date](target); ok {
+			endDate, ok, _ := Singleton[Date](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateDateDifference(startDate, endDate, precision)
+		}
+
+		// Handle DateTime types
+		if startDT, ok, _ := Singleton[DateTime](target); ok {
+			endDT, ok, _ := Singleton[DateTime](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateDateTimeDifference(startDT, endDT, precision)
+		}
+
+		// Handle Time types
+		if startTime, ok, _ := Singleton[Time](target); ok {
+			endTime, ok, _ := Singleton[Time](valueResult)
+			if !ok {
+				return nil, false, fmt.Errorf("difference requires matching types")
+			}
+			return calculateTimeDifference(startTime, endTime, precision)
+		}
+
+		return nil, false, fmt.Errorf("difference requires Date, DateTime, or Time input")
+	},
+
 	"defineVariable": func(
 		ctx context.Context,
 		root Element, target Collection,
@@ -2429,7 +2849,6 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected one or two parameters (name [, value])")
 		}
 
-		// Evaluate the name parameter
 		nameCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
@@ -2444,32 +2863,32 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected string name parameter")
 		}
 
-		// Check for variable redefinition in the current scope
-		if _, exists := envValue(ctx, string(name)); exists {
-			return nil, false, fmt.Errorf("variable '%s' already defined in the current scope", name)
+		// Protect system variables from being overwritten
+		if _, isSystem := systemVariables[string(name)]; isSystem {
+			return nil, false, fmt.Errorf("cannot redefine system variable '%s'", name)
 		}
 
-		var value Element
+		// Check if variable already defined in current scope
+		if frame, ok := envStackFrame(ctx); ok {
+			if _, exists := frame[string(name)]; exists {
+				return nil, false, fmt.Errorf("variable %%%s already defined", name)
+			}
+		}
+
+		// Determine the value to store
+		// Variables in FHIRPath store the entire evaluated result (which can be a collection)
+		value := target
 		if len(parameters) == 2 {
-			// Evaluate the value parameter
-			valueCollection, _, err := evaluate(ctx, nil, parameters[1])
+			// FHIRPath STU defineVariable: the value expression is evaluated once using the
+			// current input collection as its starting point (Functions - Utility section).
+			value, _, err = evaluate(ctx, target, parameters[1])
 			if err != nil {
 				return nil, false, err
 			}
-			if len(valueCollection) != 1 {
-				return nil, false, fmt.Errorf("value must be a single element")
-			}
-			value = valueCollection[0]
-		} else {
-			// Use the input collection as the value (must be single element)
-			if len(target) != 1 {
-				return nil, false, fmt.Errorf("input collection must be a single element if no value is provided")
-			}
-			value = target[0]
 		}
 
-		// Add the variable to the expression enclosing context so it is passed to subsequent calls
-		_ = WithEnv(ctx, string(name), value)
+		// Store the collection as the variable value in the parent context
+		ctx = WithEnv(ctx, string(name), value)
 
 		// Return the input collection (does not change input)
 		return target, inputOrdered, nil
@@ -2485,6 +2904,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("abs() expects a single input element")
 		}
 
 		i, ok, err := Singleton[Integer](target)
@@ -2523,6 +2949,13 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("ceiling() expects a single input element")
+		}
 
 		i, ok, err := Singleton[Integer](target)
 		if err == nil && ok {
@@ -2558,6 +2991,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("floor() expects a single input element")
 		}
 
 		i, ok, err := Singleton[Integer](target)
@@ -2595,6 +3035,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("truncate() expects a single input element")
 		}
 
 		i, ok, err := Singleton[Integer](target)
@@ -2701,6 +3148,13 @@ var defaultFunctions = Functions{
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("exp() expects a single input element")
+		}
 
 		d, ok, err := Singleton[Decimal](target)
 		if err == nil && ok {
@@ -2725,6 +3179,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("ln() expects a single input element")
 		}
 
 		d, ok, err := Singleton[Decimal](target)
@@ -2751,9 +3212,22 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one base parameter")
 		}
+
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("log() expects a single input element")
+		}
+
 		baseCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
+		}
+		if len(baseCollection) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty arguments yield empty results.
+			return nil, true, nil
 		}
 
 		baseDecimal, ok, err := Singleton[Decimal](baseCollection)
@@ -2800,10 +3274,21 @@ var defaultFunctions = Functions{
 		if len(parameters) != 1 {
 			return nil, false, fmt.Errorf("expected one exponent parameter")
 		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("power() expects a single input element")
+		}
 
 		exponentCollection, _, err := evaluate(ctx, nil, parameters[0])
 		if err != nil {
 			return nil, false, err
+		}
+		if len(exponentCollection) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty arguments yield empty results.
+			return nil, true, nil
 		}
 
 		exponentInt, ok, err := Singleton[Integer](exponentCollection)
@@ -2869,6 +3354,13 @@ var defaultFunctions = Functions{
 	) (result Collection, resultOrdered bool, err error) {
 		if len(parameters) != 0 {
 			return nil, false, fmt.Errorf("expected no parameters")
+		}
+		if len(target) == 0 {
+			// FHIRPath v3.0.0 Math functions: empty input yields empty result.
+			return nil, true, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("sqrt() expects a single input element")
 		}
 
 		d, ok, err := Singleton[Decimal](target)
@@ -2984,6 +3476,54 @@ var defaultFunctions = Functions{
 		}
 
 		_, ok, err := elementTo[Integer](target[0], true)
+		if err != nil || !ok {
+			return Collection{Boolean(false)}, true, nil
+		}
+
+		return Collection{Boolean(true)}, true, nil
+	},
+	"toLong": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return nil, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to long: collection contains > 1 values")
+		}
+
+		l, ok, err := target[0].ToLong(true)
+		if err != nil || !ok {
+			return nil, true, nil
+		}
+
+		return Collection{l}, true, nil
+	},
+	"convertsToLong": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return Collection{Boolean(false)}, true, nil
+		} else if len(target) > 1 {
+			return nil, false, fmt.Errorf("cannot convert to long: collection contains > 1 values")
+		}
+
+		_, ok, err := target[0].ToLong(true)
 		if err != nil || !ok {
 			return Collection{Boolean(false)}, true, nil
 		}
@@ -3455,7 +3995,7 @@ var defaultFunctions = Functions{
 		var logCollection Collection
 		if len(parameters) == 2 {
 			for i, elem := range target {
-				projection, _, err := evaluate(ctx, elem, parameters[1], FunctionScope{index: i})
+				projection, _, err := evaluate(ctx, Collection{elem}, parameters[1], FunctionScope{index: i})
 				if err != nil {
 					return nil, false, err
 				}
@@ -3503,7 +4043,7 @@ var defaultFunctions = Functions{
 		// Iterate over the target collection
 		for i, elem := range target {
 			var ordered bool
-			total, ordered, err = evaluate(ctx, elem, parameters[0], FunctionScope{index: i, total: total})
+			total, ordered, err = evaluate(ctx, Collection{elem}, parameters[0], FunctionScope{index: i, total: total})
 			if err != nil {
 				return nil, false, err
 			}
@@ -3525,8 +4065,8 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		now := now()
-		dt := DateTime{Value: now, Precision: DateTimePrecisionFull}
+		instant := evaluationInstant(ctx)
+		dt := DateTime{Value: instant, Precision: DateTimePrecisionFull, HasTimeZone: true}
 
 		return Collection{dt}, inputOrdered, nil
 	},
@@ -3541,9 +4081,9 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		// Get the current time
-		now := now()
-		t := Time{Value: now, Precision: TimePrecisionFull}
+		instant := evaluationInstant(ctx)
+		tod := time.Date(0, 1, 1, instant.Hour(), instant.Minute(), instant.Second(), instant.Nanosecond(), instant.Location())
+		t := Time{Value: tod, Precision: TimePrecisionFull}
 
 		return Collection{t}, inputOrdered, nil
 	},
@@ -3558,8 +4098,9 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected no parameters")
 		}
 
-		now := now()
-		d := Date{Value: now, Precision: DatePrecisionFull}
+		instant := evaluationInstant(ctx)
+		dateValue := time.Date(instant.Year(), instant.Month(), instant.Day(), 0, 0, 0, 0, instant.Location())
+		d := Date{Value: dateValue, Precision: DatePrecisionFull}
 
 		return Collection{d}, inputOrdered, nil
 	},
@@ -3575,10 +4116,38 @@ var defaultFunctions = Functions{
 			return nil, false, fmt.Errorf("expected 2 or 3 parameters (criterion, true-result, [otherwise-result])")
 		}
 
-		// Evaluate the criterion expression
-		criterion, _, err := evaluate(ctx, nil, parameters[0])
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("iif() requires an input collection with 0 or 1 items, got %d items", len(target))
+		}
+
+		// Determine the evaluation target for $this context
+		// If target has one item, use it; otherwise use nil
+		var evalTarget Collection
+		var fnScope []FunctionScope
+		if len(target) == 1 {
+			evalTarget = Collection{target[0]}
+			// Preserve the parent function scope's index if it exists
+			parentScope, err := getFunctionScope(ctx)
+			if err == nil {
+				// Use parent scope's index
+				fnScope = []FunctionScope{{index: parentScope.index, total: target}}
+			} else {
+				// No parent scope, set index to 0
+				fnScope = []FunctionScope{{index: 0, total: target}}
+			}
+		}
+
+		// Evaluate the criterion expression with $this context
+		criterion, _, err := evaluate(ctx, evalTarget, parameters[0], fnScope...)
 		if err != nil {
 			return nil, false, err
+		}
+
+		// Check if the criterion is actually a Boolean type
+		if len(criterion) > 0 {
+			if _, isBool := criterion[0].(Boolean); !isBool {
+				return nil, false, fmt.Errorf("iif() criterion must evaluate to a boolean value, got %T", criterion[0])
+			}
 		}
 
 		// Convert criterion to boolean
@@ -3587,9 +4156,10 @@ var defaultFunctions = Functions{
 			return nil, false, err
 		}
 
+		// Short-circuit evaluation: only evaluate the taken branch
 		// If criterion is true, return the value of the true-result argument
 		if ok && bool(criterionBool) {
-			trueResult, ordered, err := evaluate(ctx, nil, parameters[1])
+			trueResult, ordered, err := evaluate(ctx, evalTarget, parameters[1], fnScope...)
 			if err != nil {
 				return nil, false, err
 			}
@@ -3599,7 +4169,7 @@ var defaultFunctions = Functions{
 		// If criterion is false or an empty collection, return otherwise-result
 		// If otherwise-result is not given, return an empty collection
 		if len(parameters) == 3 {
-			otherwiseResult, ordered, err := evaluate(ctx, nil, parameters[2])
+			otherwiseResult, ordered, err := evaluate(ctx, evalTarget, parameters[2], fnScope...)
 			if err != nil {
 				return nil, false, err
 			}
@@ -3729,7 +4299,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Hour())}, inputOrdered, nil
@@ -3770,7 +4340,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Minute())}, inputOrdered, nil
@@ -3811,7 +4381,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) || precision == string(DateTimePrecisionMinute) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Second())}, inputOrdered, nil
@@ -3852,7 +4422,7 @@ var defaultFunctions = Functions{
 			}
 		}
 
-		if precision == DateTimePrecisionYear || precision == DateTimePrecisionMonth || precision == DateTimePrecisionDay || precision == DateTimePrecisionHour || precision == DateTimePrecisionMinute {
+		if precision == string(DateTimePrecisionYear) || precision == string(DateTimePrecisionMonth) || precision == string(DateTimePrecisionDay) || precision == string(DateTimePrecisionHour) || precision == string(DateTimePrecisionMinute) {
 			return nil, inputOrdered, nil
 		}
 		return Collection{Integer(t.Nanosecond() / 1000000)}, inputOrdered, nil
@@ -3952,9 +4522,73 @@ var defaultFunctions = Functions{
 
 		return Collection{Time{Value: dt.Value, Precision: precision}}, inputOrdered, nil
 	},
-	"extension": FHIRFunctions["extension"],
+	"comparable": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// comparable(other: Quantity): Boolean
+		// Returns true if the input and parameter Quantities have comparable units via UCUM conversion
+		if len(parameters) != 1 {
+			return nil, false, fmt.Errorf("expected one quantity parameter")
+		}
+
+		// Input must be a single Quantity
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(target) > 1 {
+			return nil, false, fmt.Errorf("comparable() requires a single Quantity input, got %d items", len(target))
+		}
+
+		inputQty, ok, err := elementTo[Quantity](target[0], false)
+		if err != nil || !ok {
+			return nil, inputOrdered, nil
+		}
+
+		// Evaluate the parameter
+		paramCollection, _, err := evaluate(ctx, nil, parameters[0])
+		if err != nil {
+			return nil, false, err
+		}
+		if len(paramCollection) == 0 {
+			return nil, inputOrdered, nil
+		}
+		if len(paramCollection) > 1 {
+			return nil, false, fmt.Errorf("comparable() requires a single Quantity parameter, got %d items", len(paramCollection))
+		}
+
+		paramQty, ok, err := elementTo[Quantity](paramCollection[0], false)
+		if err != nil || !ok {
+			return nil, inputOrdered, nil
+		}
+
+		// Get canonical units
+		inputUnit := canonicalUCUMUnit(string(inputQty.Unit))
+		paramUnit := canonicalUCUMUnit(string(paramQty.Unit))
+
+		// Same units are always comparable
+		if inputUnit == paramUnit {
+			return Collection{Boolean(true)}, inputOrdered, nil
+		}
+
+		// Try to convert from input unit to parameter unit
+		// If conversion succeeds, units are comparable
+		testValue := apd.New(1, 0)
+		_, err = convertDecimalUnit(ctx, testValue, inputUnit, paramUnit)
+		if err == nil {
+			return Collection{Boolean(true)}, inputOrdered, nil
+		}
+
+		// Units are not comparable
+		return Collection{Boolean(false)}, inputOrdered, nil
+	},
 }
 
+// FHIRFunctions contains FHIR-specific extension functions that are not part of the base FHIRPath specification.
+// These functions are defined in the FHIR specification and operate on FHIR resources and data types.
 var FHIRFunctions = Functions{
 	"extension": func(
 		ctx context.Context,
@@ -3992,4 +4626,485 @@ var FHIRFunctions = Functions{
 		}
 		return foundExtensions, inputOrdered, nil
 	},
+	"hasValue": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// hasValue(): Boolean
+		// Returns true if the single value is a FHIR primitive with a value (not just extensions).
+		// Returns false if it's a primitive without a value.
+		// Returns empty if the input is not a single FHIR primitive.
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) == 0 {
+			return nil, inputOrdered, nil
+		}
+
+		// Per spec: must be a single value
+		if len(target) > 1 {
+			return nil, inputOrdered, nil
+		}
+
+		elem := target[0]
+
+		// Check if element implements hasValuer interface (FHIR primitives)
+		if hv, ok := elem.(hasValuer); ok {
+			return Collection{Boolean(hv.HasValue())}, inputOrdered, nil
+		}
+
+		// Not a FHIR primitive - return empty
+		return nil, inputOrdered, nil
+	},
+	"getValue": func(
+		ctx context.Context,
+		root Element, target Collection,
+		inputOrdered bool,
+		parameters []Expression,
+		evaluate EvaluateFunc,
+	) (result Collection, resultOrdered bool, err error) {
+		// getValue(): System.[type]
+		// Per FHIRPath section 2.1.9.1.5.4 this returns the underlying system value
+		// when the input is a single FHIR primitive that actually has a value.
+		if len(parameters) != 0 {
+			return nil, false, fmt.Errorf("expected no parameters")
+		}
+
+		if len(target) != 1 {
+			return nil, inputOrdered, nil
+		}
+
+		elem := target[0]
+		hv, ok := elem.(hasValuer)
+		if !ok || !hv.HasValue() {
+			return nil, inputOrdered, nil
+		}
+
+		primitive, ok := toPrimitive(elem)
+		if !ok || primitive == nil {
+			return nil, inputOrdered, nil
+		}
+
+		return Collection{primitive}, inputOrdered, nil
+	},
+}
+
+func compareElementsForSort(a, b Element) (int, error) {
+	cmp, ok, err := Collection{a}.Cmp(Collection{b})
+	if err != nil {
+		return 0, err
+	}
+	if !ok {
+		return 0, fmt.Errorf("elements %T and %T are not comparable", a, b)
+	}
+	return cmp, nil
+}
+
+// calculateDateDuration calculates the number of whole calendar periods between two dates
+func calculateDateDuration(start, end Date, precision string) (Collection, bool, error) {
+	// Check precision validity for dates
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Date: %s", precision)
+	}
+
+	// Check if dates have sufficient precision
+	if !hasDatePrecision(start, precision) || !hasDatePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+		// Check if full year hasn't passed yet
+		if endTime.Month() < startTime.Month() ||
+			(endTime.Month() == startTime.Month() && endTime.Day() < startTime.Day()) {
+			count--
+		}
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+		// Check if full month hasn't passed yet
+		if endTime.Day() < startTime.Day() {
+			count--
+		}
+	case UnitWeek:
+		days := endTime.Sub(startTime).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		days := endTime.Sub(startTime).Hours() / 24
+		count = int64(days)
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateTimeDuration calculates the number of whole calendar periods between two datetimes
+func calculateDateTimeDuration(start, end DateTime, precision string) (Collection, bool, error) {
+	// Check precision validity
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay, UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for DateTime: %s", precision)
+	}
+
+	// Check if datetimes have sufficient precision
+	if !hasDateTimePrecision(start, precision) || !hasDateTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+		if endTime.Month() < startTime.Month() ||
+			(endTime.Month() == startTime.Month() && endTime.Day() < startTime.Day()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() < startTime.Hour()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() == startTime.Hour() && endTime.Minute() < startTime.Minute()) ||
+			(endTime.Month() == startTime.Month() && endTime.Day() == startTime.Day() &&
+				endTime.Hour() == startTime.Hour() && endTime.Minute() == startTime.Minute() &&
+				endTime.Second() < startTime.Second()) {
+			count--
+		}
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+		if endTime.Day() < startTime.Day() ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() < startTime.Hour()) ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() == startTime.Hour() &&
+				endTime.Minute() < startTime.Minute()) ||
+			(endTime.Day() == startTime.Day() && endTime.Hour() == startTime.Hour() &&
+				endTime.Minute() == startTime.Minute() && endTime.Second() < startTime.Second()) {
+			count--
+		}
+	case UnitWeek:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours() / 24 / 7)
+	case UnitDay:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours() / 24)
+	case UnitHour:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Hours())
+	case UnitMinute:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Minutes())
+	case UnitSecond:
+		duration := endTime.Sub(startTime)
+		count = int64(duration.Seconds())
+	case UnitMillisecond:
+		duration := endTime.Sub(startTime)
+		count = duration.Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateTimeDuration calculates the number of whole periods between two times
+func calculateTimeDuration(start, end Time, precision string) (Collection, bool, error) {
+	// Check precision validity for times
+	switch precision {
+	case UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Time: %s", precision)
+	}
+
+	// Check if times have sufficient precision
+	if !hasTimePrecision(start, precision) || !hasTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	duration := endTime.Sub(startTime)
+	switch precision {
+	case UnitHour:
+		count = int64(duration.Hours())
+	case UnitMinute:
+		count = int64(duration.Minutes())
+	case UnitSecond:
+		count = int64(duration.Seconds())
+	case UnitMillisecond:
+		count = duration.Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateDifference calculates the number of boundaries crossed between two dates
+func calculateDateDifference(start, end Date, precision string) (Collection, bool, error) {
+	// Check precision validity for dates
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Date: %s", precision)
+	}
+
+	// Check if dates have sufficient precision
+	if !hasDatePrecision(start, precision) || !hasDatePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+	case UnitWeek:
+		// Week boundaries are Sundays
+		startSunday := startTime
+		for startSunday.Weekday() != time.Sunday {
+			startSunday = startSunday.AddDate(0, 0, -1)
+		}
+		endSunday := endTime
+		for endSunday.Weekday() != time.Sunday {
+			endSunday = endSunday.AddDate(0, 0, -1)
+		}
+		days := endSunday.Sub(startSunday).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		// Day boundaries crossed
+		startDay := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), 0, 0, 0, 0, startTime.Location())
+		endDay := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), 0, 0, 0, 0, endTime.Location())
+		days := endDay.Sub(startDay).Hours() / 24
+		count = int64(days)
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateDateTimeDifference calculates the number of boundaries crossed between two datetimes
+func calculateDateTimeDifference(start, end DateTime, precision string) (Collection, bool, error) {
+	// Check precision validity
+	switch precision {
+	case UnitYear, UnitMonth, UnitWeek, UnitDay, UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for DateTime: %s", precision)
+	}
+
+	// Check if datetimes have sufficient precision
+	if !hasDateTimePrecision(start, precision) || !hasDateTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitYear:
+		count = int64(endTime.Year() - startTime.Year())
+	case UnitMonth:
+		years := endTime.Year() - startTime.Year()
+		months := int(endTime.Month()) - int(startTime.Month())
+		count = int64(years*12 + months)
+	case UnitWeek:
+		startSunday := startTime
+		for startSunday.Weekday() != time.Sunday {
+			startSunday = startSunday.Add(-24 * time.Hour)
+		}
+		startSunday = time.Date(startSunday.Year(), startSunday.Month(), startSunday.Day(), 0, 0, 0, 0, startSunday.Location())
+		endSunday := endTime
+		for endSunday.Weekday() != time.Sunday {
+			endSunday = endSunday.Add(-24 * time.Hour)
+		}
+		endSunday = time.Date(endSunday.Year(), endSunday.Month(), endSunday.Day(), 0, 0, 0, 0, endSunday.Location())
+		days := endSunday.Sub(startSunday).Hours() / 24
+		count = int64(days / 7)
+	case UnitDay:
+		startDay := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), 0, 0, 0, 0, startTime.Location())
+		endDay := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), 0, 0, 0, 0, endTime.Location())
+		days := endDay.Sub(startDay).Hours() / 24
+		count = int64(days)
+	case UnitHour:
+		startHour := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), 0, 0, 0, startTime.Location())
+		endHour := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), 0, 0, 0, endTime.Location())
+		count = int64(endHour.Sub(startHour).Hours())
+	case UnitMinute:
+		startMinute := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), startTime.Minute(), 0, 0, startTime.Location())
+		endMinute := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), endTime.Minute(), 0, 0, endTime.Location())
+		count = int64(endMinute.Sub(startMinute).Minutes())
+	case UnitSecond:
+		startSecond := time.Date(startTime.Year(), startTime.Month(), startTime.Day(), startTime.Hour(), startTime.Minute(), startTime.Second(), 0, startTime.Location())
+		endSecond := time.Date(endTime.Year(), endTime.Month(), endTime.Day(), endTime.Hour(), endTime.Minute(), endTime.Second(), 0, endTime.Location())
+		count = int64(endSecond.Sub(startSecond).Seconds())
+	case UnitMillisecond:
+		count = endTime.Sub(startTime).Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// calculateTimeDifference calculates the number of boundaries crossed between two times
+func calculateTimeDifference(start, end Time, precision string) (Collection, bool, error) {
+	// Check precision validity for times
+	switch precision {
+	case UnitHour, UnitMinute, UnitSecond, UnitMillisecond:
+		// Valid
+	default:
+		return nil, false, fmt.Errorf("invalid precision for Time: %s", precision)
+	}
+
+	// Check if times have sufficient precision
+	if !hasTimePrecision(start, precision) || !hasTimePrecision(end, precision) {
+		return nil, true, nil
+	}
+
+	startTime := start.Value
+	endTime := end.Value
+	sign := int64(1)
+	if endTime.Before(startTime) {
+		startTime, endTime = endTime, startTime
+		sign = -1
+	}
+
+	var count int64
+	switch precision {
+	case UnitHour:
+		startHour := time.Date(0, 1, 1, startTime.Hour(), 0, 0, 0, startTime.Location())
+		endHour := time.Date(0, 1, 1, endTime.Hour(), 0, 0, 0, endTime.Location())
+		count = int64(endHour.Sub(startHour).Hours())
+	case UnitMinute:
+		startMinute := time.Date(0, 1, 1, startTime.Hour(), startTime.Minute(), 0, 0, startTime.Location())
+		endMinute := time.Date(0, 1, 1, endTime.Hour(), endTime.Minute(), 0, 0, endTime.Location())
+		count = int64(endMinute.Sub(startMinute).Minutes())
+	case UnitSecond:
+		startSecond := time.Date(0, 1, 1, startTime.Hour(), startTime.Minute(), startTime.Second(), 0, startTime.Location())
+		endSecond := time.Date(0, 1, 1, endTime.Hour(), endTime.Minute(), endTime.Second(), 0, endTime.Location())
+		count = int64(endSecond.Sub(startSecond).Seconds())
+	case UnitMillisecond:
+		count = endTime.Sub(startTime).Milliseconds()
+	}
+
+	return Collection{Integer(count * sign)}, true, nil
+}
+
+// Helper functions to check if Date/DateTime/Time have sufficient precision
+func hasDatePrecision(d Date, precision string) bool {
+	switch precision {
+	case UnitYear:
+		return d.Precision == "year" || d.Precision == "month" || d.Precision == "day" || d.Precision == "full"
+	case UnitMonth:
+		return d.Precision == "month" || d.Precision == "day" || d.Precision == "full"
+	case UnitWeek, UnitDay:
+		return d.Precision == "day" || d.Precision == "full"
+	}
+	return false
+}
+
+func hasDateTimePrecision(dt DateTime, precision string) bool {
+	switch precision {
+	case UnitYear:
+		return true // Year always available in DateTime
+	case UnitMonth:
+		return true // Month always available
+	case UnitWeek, UnitDay:
+		return true // Day always available
+	case UnitHour:
+		return dt.Precision == DateTimePrecisionHour ||
+			dt.Precision == DateTimePrecisionMinute ||
+			dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
+	case UnitMinute:
+		return dt.Precision == DateTimePrecisionMinute ||
+			dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
+	case UnitSecond:
+		return dt.Precision == DateTimePrecisionSecond ||
+			dt.Precision == DateTimePrecisionMillisecond
+	case UnitMillisecond:
+		return dt.Precision == DateTimePrecisionMillisecond
+	}
+	return false
+}
+
+func hasTimePrecision(t Time, precision string) bool {
+	switch precision {
+	case UnitHour:
+		return true // Hour always available in Time
+	case UnitMinute:
+		return t.Precision == TimePrecisionMinute ||
+			t.Precision == TimePrecisionSecond ||
+			t.Precision == TimePrecisionMillisecond
+	case UnitSecond:
+		return t.Precision == TimePrecisionSecond ||
+			t.Precision == TimePrecisionMillisecond
+	case UnitMillisecond:
+		return t.Precision == TimePrecisionMillisecond
+	}
+	return false
+}
+
+func singleInputParamContext(ctx context.Context, root Element, target Collection) (Collection, []FunctionScope) {
+	parentScope, err := getFunctionScope(ctx)
+	if err == nil {
+		if len(target) == 0 {
+			return nil, nil
+		}
+		scope := FunctionScope{
+			index: parentScope.index,
+			total: parentScope.total,
+		}
+		return Collection{target[0]}, []FunctionScope{scope}
+	}
+
+	if root != nil {
+		return Collection{root}, nil
+	}
+
+	return nil, nil
 }

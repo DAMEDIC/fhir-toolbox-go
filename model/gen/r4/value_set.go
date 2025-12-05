@@ -7811,6 +7811,9 @@ func (r ValueSet) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ValueSet) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSet to Integer")
 }
+func (r ValueSet) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSet to Long")
+}
 func (r ValueSet) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSet to Decimal")
 }
@@ -7826,7 +7829,7 @@ func (r ValueSet) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r ValueSet) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSet to Quantity")
 }
-func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSet) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSet
 	switch other := other.(type) {
 	case ValueSet:
@@ -7842,7 +7845,7 @@ func (r ValueSet) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSet) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSet) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSet)
 	if !ok {
 		return false
@@ -7859,182 +7862,182 @@ func (r ValueSet) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Immutable",
+			Name: "immutable",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Compose",
+			Name: "compose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ValueSetCompose",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expansion",
+			Name: "expansion",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ValueSetExpansion",
@@ -8093,6 +8096,9 @@ func (r ValueSetCompose) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ValueSetCompose) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetCompose to Integer")
 }
+func (r ValueSetCompose) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetCompose to Long")
+}
 func (r ValueSetCompose) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetCompose to Decimal")
 }
@@ -8108,7 +8114,7 @@ func (r ValueSetCompose) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ValueSetCompose) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetCompose to Quantity")
 }
-func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetCompose) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetCompose
 	switch other := other.(type) {
 	case ValueSetCompose:
@@ -8124,7 +8130,7 @@ func (r ValueSetCompose) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetCompose) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetCompose) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetCompose)
 	if !ok {
 		return false
@@ -8141,49 +8147,49 @@ func (r ValueSetCompose) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LockedDate",
+			Name: "lockedDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Inactive",
+			Name: "inactive",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Include",
+			Name: "include",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeInclude",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Exclude",
+			Name: "exclude",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeInclude",
@@ -8247,6 +8253,9 @@ func (r ValueSetComposeInclude) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ValueSetComposeInclude) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeInclude to Integer")
 }
+func (r ValueSetComposeInclude) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeInclude to Long")
+}
 func (r ValueSetComposeInclude) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeInclude to Decimal")
 }
@@ -8262,7 +8271,7 @@ func (r ValueSetComposeInclude) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ValueSetComposeInclude) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeInclude to Quantity")
 }
-func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetComposeInclude) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetComposeInclude
 	switch other := other.(type) {
 	case ValueSetComposeInclude:
@@ -8278,7 +8287,7 @@ func (r ValueSetComposeInclude) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeInclude) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetComposeInclude)
 	if !ok {
 		return false
@@ -8295,56 +8304,56 @@ func (r ValueSetComposeInclude) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "System",
+			Name: "system",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Concept",
+			Name: "concept",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeIncludeConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Filter",
+			Name: "filter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeIncludeFilter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValueSet",
+			Name: "valueSet",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
@@ -8396,6 +8405,9 @@ func (r ValueSetComposeIncludeConcept) ToString(explicit bool) (fhirpath.String,
 func (r ValueSetComposeIncludeConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeConcept to Integer")
 }
+func (r ValueSetComposeIncludeConcept) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeConcept to Long")
+}
 func (r ValueSetComposeIncludeConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Decimal")
 }
@@ -8411,7 +8423,7 @@ func (r ValueSetComposeIncludeConcept) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ValueSetComposeIncludeConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeConcept to Quantity")
 }
-func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetComposeIncludeConcept
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConcept:
@@ -8427,7 +8439,7 @@ func (r ValueSetComposeIncludeConcept) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeConcept) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetComposeIncludeConcept)
 	if !ok {
 		return false
@@ -8444,42 +8456,42 @@ func (r ValueSetComposeIncludeConcept) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Designation",
+			Name: "designation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeIncludeConceptDesignation",
@@ -8531,6 +8543,9 @@ func (r ValueSetComposeIncludeConceptDesignation) ToString(explicit bool) (fhirp
 func (r ValueSetComposeIncludeConceptDesignation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Integer")
 }
+func (r ValueSetComposeIncludeConceptDesignation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Long")
+}
 func (r ValueSetComposeIncludeConceptDesignation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Decimal")
 }
@@ -8546,7 +8561,7 @@ func (r ValueSetComposeIncludeConceptDesignation) ToDateTime(explicit bool) (fhi
 func (r ValueSetComposeIncludeConceptDesignation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeConceptDesignation to Quantity")
 }
-func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetComposeIncludeConceptDesignation
 	switch other := other.(type) {
 	case ValueSetComposeIncludeConceptDesignation:
@@ -8562,7 +8577,7 @@ func (r ValueSetComposeIncludeConceptDesignation) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeConceptDesignation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetComposeIncludeConceptDesignation)
 	if !ok {
 		return false
@@ -8579,42 +8594,42 @@ func (r ValueSetComposeIncludeConceptDesignation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Use",
+			Name: "use",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -8662,6 +8677,9 @@ func (r ValueSetComposeIncludeFilter) ToString(explicit bool) (fhirpath.String, 
 func (r ValueSetComposeIncludeFilter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetComposeIncludeFilter to Integer")
 }
+func (r ValueSetComposeIncludeFilter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetComposeIncludeFilter to Long")
+}
 func (r ValueSetComposeIncludeFilter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Decimal")
 }
@@ -8677,7 +8695,7 @@ func (r ValueSetComposeIncludeFilter) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ValueSetComposeIncludeFilter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetComposeIncludeFilter to Quantity")
 }
-func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetComposeIncludeFilter
 	switch other := other.(type) {
 	case ValueSetComposeIncludeFilter:
@@ -8693,7 +8711,7 @@ func (r ValueSetComposeIncludeFilter) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetComposeIncludeFilter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetComposeIncludeFilter)
 	if !ok {
 		return false
@@ -8710,42 +8728,42 @@ func (r ValueSetComposeIncludeFilter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Op",
+			Name: "op",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -8812,6 +8830,9 @@ func (r ValueSetExpansion) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ValueSetExpansion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansion to Integer")
 }
+func (r ValueSetExpansion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansion to Long")
+}
 func (r ValueSetExpansion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansion to Decimal")
 }
@@ -8827,7 +8848,7 @@ func (r ValueSetExpansion) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ValueSetExpansion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansion to Quantity")
 }
-func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetExpansion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetExpansion
 	switch other := other.(type) {
 	case ValueSetExpansion:
@@ -8843,7 +8864,7 @@ func (r ValueSetExpansion) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetExpansion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetExpansion)
 	if !ok {
 		return false
@@ -8860,63 +8881,63 @@ func (r ValueSetExpansion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timestamp",
+			Name: "timestamp",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Total",
+			Name: "total",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Offset",
+			Name: "offset",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parameter",
+			Name: "parameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetExpansionParameter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contains",
+			Name: "contains",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetExpansionContains",
@@ -8963,6 +8984,9 @@ func (r ValueSetExpansionParameter) ToString(explicit bool) (fhirpath.String, bo
 func (r ValueSetExpansionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansionParameter to Integer")
 }
+func (r ValueSetExpansionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansionParameter to Long")
+}
 func (r ValueSetExpansionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionParameter to Decimal")
 }
@@ -8978,7 +9002,7 @@ func (r ValueSetExpansionParameter) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ValueSetExpansionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionParameter to Quantity")
 }
-func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetExpansionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetExpansionParameter
 	switch other := other.(type) {
 	case ValueSetExpansionParameter:
@@ -8994,7 +9018,7 @@ func (r ValueSetExpansionParameter) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetExpansionParameter)
 	if !ok {
 		return false
@@ -9011,39 +9035,39 @@ func (r ValueSetExpansionParameter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ValueSetExpansionParameter",
@@ -9118,6 +9142,9 @@ func (r ValueSetExpansionContains) ToString(explicit bool) (fhirpath.String, boo
 func (r ValueSetExpansionContains) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ValueSetExpansionContains to Integer")
 }
+func (r ValueSetExpansionContains) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ValueSetExpansionContains to Long")
+}
 func (r ValueSetExpansionContains) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ValueSetExpansionContains to Decimal")
 }
@@ -9133,7 +9160,7 @@ func (r ValueSetExpansionContains) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ValueSetExpansionContains) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ValueSetExpansionContains to Quantity")
 }
-func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ValueSetExpansionContains) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ValueSetExpansionContains
 	switch other := other.(type) {
 	case ValueSetExpansionContains:
@@ -9149,7 +9176,7 @@ func (r ValueSetExpansionContains) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ValueSetExpansionContains) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ValueSetExpansionContains)
 	if !ok {
 		return false
@@ -9166,77 +9193,77 @@ func (r ValueSetExpansionContains) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "System",
+			Name: "system",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Abstract",
+			Name: "abstract",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Inactive",
+			Name: "inactive",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Designation",
+			Name: "designation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetComposeIncludeConceptDesignation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contains",
+			Name: "contains",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ValueSetExpansionContains",

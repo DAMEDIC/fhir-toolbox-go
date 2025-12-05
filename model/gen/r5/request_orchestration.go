@@ -8092,6 +8092,9 @@ func (r RequestOrchestration) ToString(explicit bool) (fhirpath.String, bool, er
 func (r RequestOrchestration) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestration to Integer")
 }
+func (r RequestOrchestration) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestration to Long")
+}
 func (r RequestOrchestration) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestration to Decimal")
 }
@@ -8107,7 +8110,7 @@ func (r RequestOrchestration) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r RequestOrchestration) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestration to Quantity")
 }
-func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestration) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestration
 	switch other := other.(type) {
 	case RequestOrchestration:
@@ -8123,7 +8126,7 @@ func (r RequestOrchestration) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestration) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestration) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestration)
 	if !ok {
 		return false
@@ -8140,182 +8143,182 @@ func (r RequestOrchestration) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesCanonical",
+			Name: "instantiatesCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesUri",
+			Name: "instantiatesUri",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BasedOn",
+			Name: "basedOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Replaces",
+			Name: "replaces",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GroupIdentifier",
+			Name: "groupIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Intent",
+			Name: "intent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Encounter",
+			Name: "encounter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AuthoredOn",
+			Name: "authoredOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Goal",
+			Name: "goal",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationAction",
@@ -8489,6 +8492,9 @@ func (r RequestOrchestrationAction) ToString(explicit bool) (fhirpath.String, bo
 func (r RequestOrchestrationAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationAction to Integer")
 }
+func (r RequestOrchestrationAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationAction to Long")
+}
 func (r RequestOrchestrationAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationAction to Decimal")
 }
@@ -8504,7 +8510,7 @@ func (r RequestOrchestrationAction) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r RequestOrchestrationAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationAction to Quantity")
 }
-func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationAction
 	switch other := other.(type) {
 	case RequestOrchestrationAction:
@@ -8520,7 +8526,7 @@ func (r RequestOrchestrationAction) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationAction)
 	if !ok {
 		return false
@@ -8537,210 +8543,210 @@ func (r RequestOrchestrationAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Prefix",
+			Name: "prefix",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TextEquivalent",
+			Name: "textEquivalent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Priority",
+			Name: "priority",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Goal",
+			Name: "goal",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionCondition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Input",
+			Name: "input",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionInput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Output",
+			Name: "output",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionOutput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedAction",
+			Name: "relatedAction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionRelatedAction",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Timing",
+			Name: "timing",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Participant",
+			Name: "participant",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionParticipant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "GroupingBehavior",
+			Name: "groupingBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SelectionBehavior",
+			Name: "selectionBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequiredBehavior",
+			Name: "requiredBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PrecheckBehavior",
+			Name: "precheckBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CardinalityBehavior",
+			Name: "cardinalityBehavior",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Definition",
+			Name: "definition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Transform",
+			Name: "transform",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DynamicValue",
+			Name: "dynamicValue",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationActionDynamicValue",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RequestOrchestrationAction",
@@ -8787,6 +8793,9 @@ func (r RequestOrchestrationActionCondition) ToString(explicit bool) (fhirpath.S
 func (r RequestOrchestrationActionCondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionCondition to Integer")
 }
+func (r RequestOrchestrationActionCondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionCondition to Long")
+}
 func (r RequestOrchestrationActionCondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Decimal")
 }
@@ -8802,7 +8811,7 @@ func (r RequestOrchestrationActionCondition) ToDateTime(explicit bool) (fhirpath
 func (r RequestOrchestrationActionCondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionCondition to Quantity")
 }
-func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionCondition
 	switch other := other.(type) {
 	case RequestOrchestrationActionCondition:
@@ -8818,7 +8827,7 @@ func (r RequestOrchestrationActionCondition) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionCondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionCondition)
 	if !ok {
 		return false
@@ -8835,35 +8844,35 @@ func (r RequestOrchestrationActionCondition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Kind",
+			Name: "kind",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Expression",
@@ -8917,6 +8926,9 @@ func (r RequestOrchestrationActionInput) ToString(explicit bool) (fhirpath.Strin
 func (r RequestOrchestrationActionInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionInput to Integer")
 }
+func (r RequestOrchestrationActionInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionInput to Long")
+}
 func (r RequestOrchestrationActionInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionInput to Decimal")
 }
@@ -8932,7 +8944,7 @@ func (r RequestOrchestrationActionInput) ToDateTime(explicit bool) (fhirpath.Dat
 func (r RequestOrchestrationActionInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionInput to Quantity")
 }
-func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionInput
 	switch other := other.(type) {
 	case RequestOrchestrationActionInput:
@@ -8948,7 +8960,7 @@ func (r RequestOrchestrationActionInput) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionInput)
 	if !ok {
 		return false
@@ -8965,42 +8977,42 @@ func (r RequestOrchestrationActionInput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requirement",
+			Name: "requirement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DataRequirement",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedData",
+			Name: "relatedData",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
@@ -9054,6 +9066,9 @@ func (r RequestOrchestrationActionOutput) ToString(explicit bool) (fhirpath.Stri
 func (r RequestOrchestrationActionOutput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionOutput to Integer")
 }
+func (r RequestOrchestrationActionOutput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionOutput to Long")
+}
 func (r RequestOrchestrationActionOutput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Decimal")
 }
@@ -9069,7 +9084,7 @@ func (r RequestOrchestrationActionOutput) ToDateTime(explicit bool) (fhirpath.Da
 func (r RequestOrchestrationActionOutput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionOutput to Quantity")
 }
-func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionOutput
 	switch other := other.(type) {
 	case RequestOrchestrationActionOutput:
@@ -9085,7 +9100,7 @@ func (r RequestOrchestrationActionOutput) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionOutput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionOutput)
 	if !ok {
 		return false
@@ -9102,42 +9117,42 @@ func (r RequestOrchestrationActionOutput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requirement",
+			Name: "requirement",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DataRequirement",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedData",
+			Name: "relatedData",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -9192,6 +9207,9 @@ func (r RequestOrchestrationActionRelatedAction) ToString(explicit bool) (fhirpa
 func (r RequestOrchestrationActionRelatedAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Integer")
 }
+func (r RequestOrchestrationActionRelatedAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Long")
+}
 func (r RequestOrchestrationActionRelatedAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Decimal")
 }
@@ -9207,7 +9225,7 @@ func (r RequestOrchestrationActionRelatedAction) ToDateTime(explicit bool) (fhir
 func (r RequestOrchestrationActionRelatedAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionRelatedAction to Quantity")
 }
-func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionRelatedAction
 	switch other := other.(type) {
 	case RequestOrchestrationActionRelatedAction:
@@ -9223,7 +9241,7 @@ func (r RequestOrchestrationActionRelatedAction) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionRelatedAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionRelatedAction)
 	if !ok {
 		return false
@@ -9240,53 +9258,53 @@ func (r RequestOrchestrationActionRelatedAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetId",
+			Name: "targetId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Relationship",
+			Name: "relationship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EndRelationship",
+			Name: "endRelationship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Offset",
+			Name: "offset",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "RequestOrchestrationActionRelatedAction",
@@ -9351,6 +9369,9 @@ func (r RequestOrchestrationActionParticipant) ToString(explicit bool) (fhirpath
 func (r RequestOrchestrationActionParticipant) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionParticipant to Integer")
 }
+func (r RequestOrchestrationActionParticipant) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionParticipant to Long")
+}
 func (r RequestOrchestrationActionParticipant) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Decimal")
 }
@@ -9366,7 +9387,7 @@ func (r RequestOrchestrationActionParticipant) ToDateTime(explicit bool) (fhirpa
 func (r RequestOrchestrationActionParticipant) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionParticipant to Quantity")
 }
-func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionParticipant
 	switch other := other.(type) {
 	case RequestOrchestrationActionParticipant:
@@ -9382,7 +9403,7 @@ func (r RequestOrchestrationActionParticipant) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionParticipant) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionParticipant)
 	if !ok {
 		return false
@@ -9399,67 +9420,67 @@ func (r RequestOrchestrationActionParticipant) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeCanonical",
+			Name: "typeCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeReference",
+			Name: "typeReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Function",
+			Name: "function",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "RequestOrchestrationActionParticipant",
@@ -9504,6 +9525,9 @@ func (r RequestOrchestrationActionDynamicValue) ToString(explicit bool) (fhirpat
 func (r RequestOrchestrationActionDynamicValue) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Integer")
 }
+func (r RequestOrchestrationActionDynamicValue) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Long")
+}
 func (r RequestOrchestrationActionDynamicValue) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Decimal")
 }
@@ -9519,7 +9543,7 @@ func (r RequestOrchestrationActionDynamicValue) ToDateTime(explicit bool) (fhirp
 func (r RequestOrchestrationActionDynamicValue) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert RequestOrchestrationActionDynamicValue to Quantity")
 }
-func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element) (bool, bool) {
 	var o *RequestOrchestrationActionDynamicValue
 	switch other := other.(type) {
 	case RequestOrchestrationActionDynamicValue:
@@ -9535,7 +9559,7 @@ func (r RequestOrchestrationActionDynamicValue) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r RequestOrchestrationActionDynamicValue) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(RequestOrchestrationActionDynamicValue)
 	if !ok {
 		return false
@@ -9552,35 +9576,35 @@ func (r RequestOrchestrationActionDynamicValue) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Path",
+			Name: "path",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Expression",

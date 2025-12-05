@@ -59,6 +59,10 @@ func (r Boolean) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Boolean) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Boolean{}
+		return nil
+	}
 	var v bool
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -169,6 +173,16 @@ func (r Boolean) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Boolean) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Boolean to Integer")
 }
+func (r Boolean) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	if r.Value == nil {
+		return fhirpath.Long(0), false, nil
+	}
+	if *r.Value {
+		return fhirpath.Long(1), true, nil
+	} else {
+		return fhirpath.Long(0), true, nil
+	}
+}
 func (r Boolean) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Boolean to Decimal")
 }
@@ -184,36 +198,38 @@ func (r Boolean) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Boolean) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Boolean to Quantity")
 }
-func (r Boolean) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
-	a, ok, err := r.ToBoolean(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	b, ok, err := other.ToBoolean(false)
-	if err != nil || !ok {
-		return false, true
-	}
-	return a.Equal(b)
+func (r Boolean) HasValue() bool {
+	return r.Value != nil
 }
-func (r Boolean) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Boolean) Equal(other fhirpath.Element) (bool, bool) {
+	v, ok, err := r.ToBoolean(false)
+	if err != nil || !ok {
+		return false, true
+	}
+	return v.Equal(other)
+}
+func (r Boolean) Equivalent(other fhirpath.Element) bool {
+	v, ok, err := r.ToBoolean(false)
+	if err != nil || !ok {
+		return false
+	}
+	return v.Equivalent(other)
 }
 func (r Boolean) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",

@@ -10,6 +10,8 @@ require (
 	github.com/dave/jennifer v1.7.1
 	github.com/google/go-cmp v0.7.0
 	github.com/iancoleman/strcase v0.3.0
+	github.com/iimos/ucum v0.0.2
+	github.com/iimos/ucum/ucumapd v0.0.1
 )
 
 require golang.org/x/exp v0.0.0-20250408133849-7e4ce0ab07d0 // indirect

@@ -5164,6 +5164,9 @@ func (r ConditionDefinition) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ConditionDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinition to Integer")
 }
+func (r ConditionDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinition to Long")
+}
 func (r ConditionDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinition to Decimal")
 }
@@ -5179,7 +5182,7 @@ func (r ConditionDefinition) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ConditionDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinition to Quantity")
 }
-func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinition
 	switch other := other.(type) {
 	case ConditionDefinition:
@@ -5195,7 +5198,7 @@ func (r ConditionDefinition) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinition)
 	if !ok {
 		return false
@@ -5212,259 +5215,259 @@ func (r ConditionDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionAlgorithm",
+			Name: "versionAlgorithm",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Name",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "String",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Title",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subtitle",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "subtitle",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Severity",
+			Name: "severity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BodySite",
+			Name: "bodySite",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Stage",
+			Name: "stage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HasSeverity",
+			Name: "hasSeverity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HasBodySite",
+			Name: "hasBodySite",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "HasStage",
+			Name: "hasStage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Definition",
+			Name: "definition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Observation",
+			Name: "observation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConditionDefinitionObservation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Medication",
+			Name: "medication",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConditionDefinitionMedication",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Precondition",
+			Name: "precondition",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConditionDefinitionPrecondition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Team",
+			Name: "team",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Questionnaire",
+			Name: "questionnaire",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConditionDefinitionQuestionnaire",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Plan",
+			Name: "plan",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ConditionDefinitionPlan",
@@ -5513,6 +5516,9 @@ func (r ConditionDefinitionObservation) ToString(explicit bool) (fhirpath.String
 func (r ConditionDefinitionObservation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionObservation to Integer")
 }
+func (r ConditionDefinitionObservation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionObservation to Long")
+}
 func (r ConditionDefinitionObservation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionObservation to Decimal")
 }
@@ -5528,7 +5534,7 @@ func (r ConditionDefinitionObservation) ToDateTime(explicit bool) (fhirpath.Date
 func (r ConditionDefinitionObservation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionObservation to Quantity")
 }
-func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionObservation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionObservation
 	switch other := other.(type) {
 	case ConditionDefinitionObservation:
@@ -5544,7 +5550,7 @@ func (r ConditionDefinitionObservation) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionObservation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionObservation)
 	if !ok {
 		return false
@@ -5561,35 +5567,35 @@ func (r ConditionDefinitionObservation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5638,6 +5644,9 @@ func (r ConditionDefinitionMedication) ToString(explicit bool) (fhirpath.String,
 func (r ConditionDefinitionMedication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionMedication to Integer")
 }
+func (r ConditionDefinitionMedication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionMedication to Long")
+}
 func (r ConditionDefinitionMedication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionMedication to Decimal")
 }
@@ -5653,7 +5662,7 @@ func (r ConditionDefinitionMedication) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ConditionDefinitionMedication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionMedication to Quantity")
 }
-func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionMedication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionMedication
 	switch other := other.(type) {
 	case ConditionDefinitionMedication:
@@ -5669,7 +5678,7 @@ func (r ConditionDefinitionMedication) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionMedication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionMedication)
 	if !ok {
 		return false
@@ -5686,35 +5695,35 @@ func (r ConditionDefinitionMedication) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5764,6 +5773,9 @@ func (r ConditionDefinitionPrecondition) ToString(explicit bool) (fhirpath.Strin
 func (r ConditionDefinitionPrecondition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionPrecondition to Integer")
 }
+func (r ConditionDefinitionPrecondition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionPrecondition to Long")
+}
 func (r ConditionDefinitionPrecondition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionPrecondition to Decimal")
 }
@@ -5779,7 +5791,7 @@ func (r ConditionDefinitionPrecondition) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ConditionDefinitionPrecondition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionPrecondition to Quantity")
 }
-func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionPrecondition
 	switch other := other.(type) {
 	case ConditionDefinitionPrecondition:
@@ -5795,7 +5807,7 @@ func (r ConditionDefinitionPrecondition) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionPrecondition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionPrecondition)
 	if !ok {
 		return false
@@ -5812,46 +5824,46 @@ func (r ConditionDefinitionPrecondition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ConditionDefinitionPrecondition",
@@ -5892,6 +5904,9 @@ func (r ConditionDefinitionQuestionnaire) ToString(explicit bool) (fhirpath.Stri
 func (r ConditionDefinitionQuestionnaire) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Integer")
 }
+func (r ConditionDefinitionQuestionnaire) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionQuestionnaire to Long")
+}
 func (r ConditionDefinitionQuestionnaire) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Decimal")
 }
@@ -5907,7 +5922,7 @@ func (r ConditionDefinitionQuestionnaire) ToDateTime(explicit bool) (fhirpath.Da
 func (r ConditionDefinitionQuestionnaire) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionQuestionnaire to Quantity")
 }
-func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionQuestionnaire
 	switch other := other.(type) {
 	case ConditionDefinitionQuestionnaire:
@@ -5923,7 +5938,7 @@ func (r ConditionDefinitionQuestionnaire) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionQuestionnaire) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionQuestionnaire)
 	if !ok {
 		return false
@@ -5940,35 +5955,35 @@ func (r ConditionDefinitionQuestionnaire) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -6015,6 +6030,9 @@ func (r ConditionDefinitionPlan) ToString(explicit bool) (fhirpath.String, bool,
 func (r ConditionDefinitionPlan) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ConditionDefinitionPlan to Integer")
 }
+func (r ConditionDefinitionPlan) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ConditionDefinitionPlan to Long")
+}
 func (r ConditionDefinitionPlan) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ConditionDefinitionPlan to Decimal")
 }
@@ -6030,7 +6048,7 @@ func (r ConditionDefinitionPlan) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ConditionDefinitionPlan) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ConditionDefinitionPlan to Quantity")
 }
-func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ConditionDefinitionPlan) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ConditionDefinitionPlan
 	switch other := other.(type) {
 	case ConditionDefinitionPlan:
@@ -6046,7 +6064,7 @@ func (r ConditionDefinitionPlan) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ConditionDefinitionPlan) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ConditionDefinitionPlan)
 	if !ok {
 		return false
@@ -6063,35 +6081,35 @@ func (r ConditionDefinitionPlan) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",

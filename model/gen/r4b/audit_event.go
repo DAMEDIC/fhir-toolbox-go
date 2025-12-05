@@ -4900,6 +4900,9 @@ func (r AuditEvent) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r AuditEvent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEvent to Integer")
 }
+func (r AuditEvent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEvent to Long")
+}
 func (r AuditEvent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEvent to Decimal")
 }
@@ -4915,7 +4918,7 @@ func (r AuditEvent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r AuditEvent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEvent to Quantity")
 }
-func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEvent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEvent
 	switch other := other.(type) {
 	case AuditEvent:
@@ -4931,7 +4934,7 @@ func (r AuditEvent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEvent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEvent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEvent)
 	if !ok {
 		return false
@@ -4948,133 +4951,133 @@ func (r AuditEvent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subtype",
+			Name: "subtype",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recorded",
+			Name: "recorded",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Instant",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Outcome",
+			Name: "outcome",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OutcomeDesc",
+			Name: "outcomeDesc",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PurposeOfEvent",
+			Name: "purposeOfEvent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Agent",
+			Name: "agent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AuditEventAgent",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "AuditEventSource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Entity",
+			Name: "entity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AuditEventEntity",
@@ -5166,6 +5169,9 @@ func (r AuditEventAgent) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r AuditEventAgent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventAgent to Integer")
 }
+func (r AuditEventAgent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventAgent to Long")
+}
 func (r AuditEventAgent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventAgent to Decimal")
 }
@@ -5181,7 +5187,7 @@ func (r AuditEventAgent) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r AuditEventAgent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventAgent to Quantity")
 }
-func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEventAgent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEventAgent
 	switch other := other.(type) {
 	case AuditEventAgent:
@@ -5197,7 +5203,7 @@ func (r AuditEventAgent) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEventAgent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventAgent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEventAgent)
 	if !ok {
 		return false
@@ -5214,98 +5220,98 @@ func (r AuditEventAgent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Who",
+			Name: "who",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AltId",
+			Name: "altId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Requestor",
+			Name: "requestor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Location",
+			Name: "location",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Policy",
+			Name: "policy",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Media",
+			Name: "media",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Network",
+			Name: "network",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "AuditEventAgentNetwork",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PurposeOfUse",
+			Name: "purposeOfUse",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -5354,6 +5360,9 @@ func (r AuditEventAgentNetwork) ToString(explicit bool) (fhirpath.String, bool, 
 func (r AuditEventAgentNetwork) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventAgentNetwork to Integer")
 }
+func (r AuditEventAgentNetwork) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventAgentNetwork to Long")
+}
 func (r AuditEventAgentNetwork) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventAgentNetwork to Decimal")
 }
@@ -5369,7 +5378,7 @@ func (r AuditEventAgentNetwork) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r AuditEventAgentNetwork) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventAgentNetwork to Quantity")
 }
-func (r AuditEventAgentNetwork) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEventAgentNetwork) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEventAgentNetwork
 	switch other := other.(type) {
 	case AuditEventAgentNetwork:
@@ -5385,7 +5394,7 @@ func (r AuditEventAgentNetwork) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEventAgentNetwork) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventAgentNetwork) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEventAgentNetwork)
 	if !ok {
 		return false
@@ -5402,35 +5411,35 @@ func (r AuditEventAgentNetwork) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Address",
+			Name: "address",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
@@ -5482,6 +5491,9 @@ func (r AuditEventSource) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r AuditEventSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventSource to Integer")
 }
+func (r AuditEventSource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventSource to Long")
+}
 func (r AuditEventSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventSource to Decimal")
 }
@@ -5497,7 +5509,7 @@ func (r AuditEventSource) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r AuditEventSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventSource to Quantity")
 }
-func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEventSource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEventSource
 	switch other := other.(type) {
 	case AuditEventSource:
@@ -5513,7 +5525,7 @@ func (r AuditEventSource) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEventSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventSource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEventSource)
 	if !ok {
 		return false
@@ -5530,42 +5542,42 @@ func (r AuditEventSource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Site",
+			Name: "site",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Observer",
+			Name: "observer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
@@ -5649,6 +5661,9 @@ func (r AuditEventEntity) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r AuditEventEntity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventEntity to Integer")
 }
+func (r AuditEventEntity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventEntity to Long")
+}
 func (r AuditEventEntity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntity to Decimal")
 }
@@ -5664,7 +5679,7 @@ func (r AuditEventEntity) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r AuditEventEntity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventEntity to Quantity")
 }
-func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEventEntity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEventEntity
 	switch other := other.(type) {
 	case AuditEventEntity:
@@ -5680,7 +5695,7 @@ func (r AuditEventEntity) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEventEntity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventEntity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEventEntity)
 	if !ok {
 		return false
@@ -5697,84 +5712,84 @@ func (r AuditEventEntity) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "What",
+			Name: "what",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Lifecycle",
+			Name: "lifecycle",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabel",
+			Name: "securityLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Query",
+			Name: "query",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Base64Binary",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Detail",
+			Name: "detail",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AuditEventEntityDetail",
@@ -5819,6 +5834,9 @@ func (r AuditEventEntityDetail) ToString(explicit bool) (fhirpath.String, bool, 
 func (r AuditEventEntityDetail) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AuditEventEntityDetail to Integer")
 }
+func (r AuditEventEntityDetail) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AuditEventEntityDetail to Long")
+}
 func (r AuditEventEntityDetail) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AuditEventEntityDetail to Decimal")
 }
@@ -5834,7 +5852,7 @@ func (r AuditEventEntityDetail) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r AuditEventEntityDetail) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AuditEventEntityDetail to Quantity")
 }
-func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AuditEventEntityDetail) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AuditEventEntityDetail
 	switch other := other.(type) {
 	case AuditEventEntityDetail:
@@ -5850,7 +5868,7 @@ func (r AuditEventEntityDetail) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AuditEventEntityDetail) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AuditEventEntityDetail)
 	if !ok {
 		return false
@@ -5867,39 +5885,39 @@ func (r AuditEventEntityDetail) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "AuditEventEntityDetail",

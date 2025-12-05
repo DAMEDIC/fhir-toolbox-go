@@ -480,6 +480,9 @@ func (r Contributor) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Contributor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Contributor to Integer")
 }
+func (r Contributor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Contributor to Long")
+}
 func (r Contributor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Contributor to Decimal")
 }
@@ -495,7 +498,7 @@ func (r Contributor) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) 
 func (r Contributor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Contributor to Quantity")
 }
-func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Contributor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Contributor
 	switch other := other.(type) {
 	case Contributor:
@@ -511,7 +514,7 @@ func (r Contributor) Equal(other fhirpath.Element, _noReverseTypeConversion ...b
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Contributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Contributor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Contributor)
 	if !ok {
 		return false
@@ -524,39 +527,39 @@ func (r Contributor) Equivalent(other fhirpath.Element, _noReverseTypeConversion
 func (r Contributor) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",

@@ -12525,6 +12525,9 @@ func (r StructureMap) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r StructureMap) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMap to Integer")
 }
+func (r StructureMap) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMap to Long")
+}
 func (r StructureMap) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMap to Decimal")
 }
@@ -12540,7 +12543,7 @@ func (r StructureMap) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r StructureMap) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMap to Quantity")
 }
-func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMap) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMap
 	switch other := other.(type) {
 	case StructureMap:
@@ -12556,7 +12559,7 @@ func (r StructureMap) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMap) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMap) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMap)
 	if !ok {
 		return false
@@ -12573,182 +12576,182 @@ func (r StructureMap) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Structure",
+			Name: "structure",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapStructure",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Import",
+			Name: "import",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Group",
+			Name: "group",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroup",
@@ -12803,6 +12806,9 @@ func (r StructureMapStructure) ToString(explicit bool) (fhirpath.String, bool, e
 func (r StructureMapStructure) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapStructure to Integer")
 }
+func (r StructureMapStructure) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapStructure to Long")
+}
 func (r StructureMapStructure) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapStructure to Decimal")
 }
@@ -12818,7 +12824,7 @@ func (r StructureMapStructure) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r StructureMapStructure) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapStructure to Quantity")
 }
-func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapStructure) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapStructure
 	switch other := other.(type) {
 	case StructureMapStructure:
@@ -12834,7 +12840,7 @@ func (r StructureMapStructure) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapStructure) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapStructure) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapStructure)
 	if !ok {
 		return false
@@ -12851,49 +12857,49 @@ func (r StructureMapStructure) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mode",
+			Name: "mode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Alias",
+			Name: "alias",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -12958,6 +12964,9 @@ func (r StructureMapGroup) ToString(explicit bool) (fhirpath.String, bool, error
 func (r StructureMapGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroup to Integer")
 }
+func (r StructureMapGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroup to Long")
+}
 func (r StructureMapGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroup to Decimal")
 }
@@ -12973,7 +12982,7 @@ func (r StructureMapGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r StructureMapGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroup to Quantity")
 }
-func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroup
 	switch other := other.(type) {
 	case StructureMapGroup:
@@ -12989,7 +12998,7 @@ func (r StructureMapGroup) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroup)
 	if !ok {
 		return false
@@ -13006,63 +13015,63 @@ func (r StructureMapGroup) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extends",
+			Name: "extends",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeMode",
+			Name: "typeMode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Input",
+			Name: "input",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupInput",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Rule",
+			Name: "rule",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRule",
@@ -13117,6 +13126,9 @@ func (r StructureMapGroupInput) ToString(explicit bool) (fhirpath.String, bool, 
 func (r StructureMapGroupInput) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupInput to Integer")
 }
+func (r StructureMapGroupInput) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupInput to Long")
+}
 func (r StructureMapGroupInput) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupInput to Decimal")
 }
@@ -13132,7 +13144,7 @@ func (r StructureMapGroupInput) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r StructureMapGroupInput) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupInput to Quantity")
 }
-func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupInput) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupInput
 	switch other := other.(type) {
 	case StructureMapGroupInput:
@@ -13148,7 +13160,7 @@ func (r StructureMapGroupInput) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupInput) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupInput) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupInput)
 	if !ok {
 		return false
@@ -13165,49 +13177,49 @@ func (r StructureMapGroupInput) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Mode",
+			Name: "mode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -13274,6 +13286,9 @@ func (r StructureMapGroupRule) ToString(explicit bool) (fhirpath.String, bool, e
 func (r StructureMapGroupRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRule to Integer")
 }
+func (r StructureMapGroupRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRule to Long")
+}
 func (r StructureMapGroupRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRule to Decimal")
 }
@@ -13289,7 +13304,7 @@ func (r StructureMapGroupRule) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r StructureMapGroupRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRule to Quantity")
 }
-func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupRule) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupRule
 	switch other := other.(type) {
 	case StructureMapGroupRule:
@@ -13305,7 +13320,7 @@ func (r StructureMapGroupRule) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRule) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupRule)
 	if !ok {
 		return false
@@ -13322,63 +13337,63 @@ func (r StructureMapGroupRule) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRuleSource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRuleTarget",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Rule",
+			Name: "rule",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRule",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Dependent",
+			Name: "dependent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRuleDependent",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Documentation",
+			Name: "documentation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -13470,6 +13485,9 @@ func (r StructureMapGroupRuleSource) ToString(explicit bool) (fhirpath.String, b
 func (r StructureMapGroupRuleSource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleSource to Integer")
 }
+func (r StructureMapGroupRuleSource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleSource to Long")
+}
 func (r StructureMapGroupRuleSource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleSource to Decimal")
 }
@@ -13485,7 +13503,7 @@ func (r StructureMapGroupRuleSource) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r StructureMapGroupRuleSource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleSource to Quantity")
 }
-func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupRuleSource
 	switch other := other.(type) {
 	case StructureMapGroupRuleSource:
@@ -13501,7 +13519,7 @@ func (r StructureMapGroupRuleSource) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleSource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupRuleSource)
 	if !ok {
 		return false
@@ -13518,98 +13536,98 @@ func (r StructureMapGroupRuleSource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Min",
+			Name: "min",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Max",
+			Name: "max",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DefaultValue",
+			Name: "defaultValue",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Element",
+			Name: "element",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ListMode",
+			Name: "listMode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Variable",
+			Name: "variable",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Check",
+			Name: "check",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LogMessage",
+			Name: "logMessage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -13688,6 +13706,9 @@ func (r StructureMapGroupRuleTarget) ToString(explicit bool) (fhirpath.String, b
 func (r StructureMapGroupRuleTarget) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleTarget to Integer")
 }
+func (r StructureMapGroupRuleTarget) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleTarget to Long")
+}
 func (r StructureMapGroupRuleTarget) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Decimal")
 }
@@ -13703,7 +13724,7 @@ func (r StructureMapGroupRuleTarget) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r StructureMapGroupRuleTarget) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleTarget to Quantity")
 }
-func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupRuleTarget
 	switch other := other.(type) {
 	case StructureMapGroupRuleTarget:
@@ -13719,7 +13740,7 @@ func (r StructureMapGroupRuleTarget) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleTarget) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupRuleTarget)
 	if !ok {
 		return false
@@ -13736,77 +13757,77 @@ func (r StructureMapGroupRuleTarget) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContextType",
+			Name: "contextType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Element",
+			Name: "element",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Variable",
+			Name: "variable",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ListMode",
+			Name: "listMode",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ListRuleId",
+			Name: "listRuleId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Transform",
+			Name: "transform",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parameter",
+			Name: "parameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "StructureMapGroupRuleTargetParameter",
@@ -13848,6 +13869,9 @@ func (r StructureMapGroupRuleTargetParameter) ToString(explicit bool) (fhirpath.
 func (r StructureMapGroupRuleTargetParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Integer")
 }
+func (r StructureMapGroupRuleTargetParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Long")
+}
 func (r StructureMapGroupRuleTargetParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Decimal")
 }
@@ -13863,7 +13887,7 @@ func (r StructureMapGroupRuleTargetParameter) ToDateTime(explicit bool) (fhirpat
 func (r StructureMapGroupRuleTargetParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleTargetParameter to Quantity")
 }
-func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupRuleTargetParameter
 	switch other := other.(type) {
 	case StructureMapGroupRuleTargetParameter:
@@ -13879,7 +13903,7 @@ func (r StructureMapGroupRuleTargetParameter) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleTargetParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupRuleTargetParameter)
 	if !ok {
 		return false
@@ -13896,32 +13920,32 @@ func (r StructureMapGroupRuleTargetParameter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "StructureMapGroupRuleTargetParameter",
@@ -13964,6 +13988,9 @@ func (r StructureMapGroupRuleDependent) ToString(explicit bool) (fhirpath.String
 func (r StructureMapGroupRuleDependent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert StructureMapGroupRuleDependent to Integer")
 }
+func (r StructureMapGroupRuleDependent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert StructureMapGroupRuleDependent to Long")
+}
 func (r StructureMapGroupRuleDependent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Decimal")
 }
@@ -13979,7 +14006,7 @@ func (r StructureMapGroupRuleDependent) ToDateTime(explicit bool) (fhirpath.Date
 func (r StructureMapGroupRuleDependent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert StructureMapGroupRuleDependent to Quantity")
 }
-func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *StructureMapGroupRuleDependent
 	switch other := other.(type) {
 	case StructureMapGroupRuleDependent:
@@ -13995,7 +14022,7 @@ func (r StructureMapGroupRuleDependent) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r StructureMapGroupRuleDependent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(StructureMapGroupRuleDependent)
 	if !ok {
 		return false
@@ -14012,35 +14039,35 @@ func (r StructureMapGroupRuleDependent) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Variable",
+			Name: "variable",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",

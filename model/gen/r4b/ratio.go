@@ -352,6 +352,9 @@ func (r Ratio) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Ratio) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Ratio to Integer")
 }
+func (r Ratio) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Ratio to Long")
+}
 func (r Ratio) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Ratio to Decimal")
 }
@@ -367,7 +370,7 @@ func (r Ratio) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Ratio) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Ratio to Quantity")
 }
-func (r Ratio) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Ratio) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Ratio
 	switch other := other.(type) {
 	case Ratio:
@@ -383,7 +386,7 @@ func (r Ratio) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Ratio) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Ratio) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Ratio)
 	if !ok {
 		return false
@@ -396,32 +399,32 @@ func (r Ratio) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bo
 func (r Ratio) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Numerator",
+			Name: "numerator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Denominator",
+			Name: "denominator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",

@@ -1703,6 +1703,9 @@ func (r MedicinalProductContraindication) ToString(explicit bool) (fhirpath.Stri
 func (r MedicinalProductContraindication) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductContraindication to Integer")
 }
+func (r MedicinalProductContraindication) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductContraindication to Long")
+}
 func (r MedicinalProductContraindication) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductContraindication to Decimal")
 }
@@ -1718,7 +1721,7 @@ func (r MedicinalProductContraindication) ToDateTime(explicit bool) (fhirpath.Da
 func (r MedicinalProductContraindication) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductContraindication to Quantity")
 }
-func (r MedicinalProductContraindication) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductContraindication) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductContraindication
 	switch other := other.(type) {
 	case MedicinalProductContraindication:
@@ -1734,7 +1737,7 @@ func (r MedicinalProductContraindication) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductContraindication) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductContraindication) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductContraindication)
 	if !ok {
 		return false
@@ -1751,105 +1754,105 @@ func (r MedicinalProductContraindication) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Disease",
+			Name: "disease",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DiseaseStatus",
+			Name: "diseaseStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Comorbidity",
+			Name: "comorbidity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TherapeuticIndication",
+			Name: "therapeuticIndication",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OtherTherapy",
+			Name: "otherTherapy",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MedicinalProductContraindicationOtherTherapy",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Population",
+			Name: "population",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Population",
@@ -1894,6 +1897,9 @@ func (r MedicinalProductContraindicationOtherTherapy) ToString(explicit bool) (f
 func (r MedicinalProductContraindicationOtherTherapy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Integer")
 }
+func (r MedicinalProductContraindicationOtherTherapy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Long")
+}
 func (r MedicinalProductContraindicationOtherTherapy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Decimal")
 }
@@ -1909,7 +1915,7 @@ func (r MedicinalProductContraindicationOtherTherapy) ToDateTime(explicit bool) 
 func (r MedicinalProductContraindicationOtherTherapy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductContraindicationOtherTherapy to Quantity")
 }
-func (r MedicinalProductContraindicationOtherTherapy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductContraindicationOtherTherapy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductContraindicationOtherTherapy
 	switch other := other.(type) {
 	case MedicinalProductContraindicationOtherTherapy:
@@ -1925,7 +1931,7 @@ func (r MedicinalProductContraindicationOtherTherapy) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductContraindicationOtherTherapy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductContraindicationOtherTherapy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductContraindicationOtherTherapy)
 	if !ok {
 		return false
@@ -1942,39 +1948,39 @@ func (r MedicinalProductContraindicationOtherTherapy) TypeInfo() fhirpath.TypeIn
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TherapyRelationshipType",
+			Name: "therapyRelationshipType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Medication",
+			Name: "medication",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "MedicinalProductContraindicationOtherTherapy",

@@ -16317,6 +16317,9 @@ func (r Contract) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Contract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Contract to Integer")
 }
+func (r Contract) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Contract to Long")
+}
 func (r Contract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Contract to Decimal")
 }
@@ -16332,7 +16335,7 @@ func (r Contract) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Contract) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Contract to Quantity")
 }
-func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Contract) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Contract
 	switch other := other.(type) {
 	case Contract:
@@ -16348,7 +16351,7 @@ func (r Contract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Contract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Contract) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Contract)
 	if !ok {
 		return false
@@ -16365,291 +16368,291 @@ func (r Contract) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LegalState",
+			Name: "legalState",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesCanonical",
+			Name: "instantiatesCanonical",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InstantiatesUri",
+			Name: "instantiatesUri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContentDerivative",
+			Name: "contentDerivative",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issued",
+			Name: "issued",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Applies",
+			Name: "applies",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExpirationType",
+			Name: "expirationType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Authority",
+			Name: "authority",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Domain",
+			Name: "domain",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Site",
+			Name: "site",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subtitle",
+			Name: "subtitle",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Alias",
+			Name: "alias",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Scope",
+			Name: "scope",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Topic",
+			Name: "topic",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubType",
+			Name: "subType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContentDefinition",
+			Name: "contentDefinition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ContractContentDefinition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Term",
+			Name: "term",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTerm",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportingInfo",
+			Name: "supportingInfo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelevantHistory",
+			Name: "relevantHistory",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Signer",
+			Name: "signer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractSigner",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Friendly",
+			Name: "friendly",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractFriendly",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Legal",
+			Name: "legal",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractLegal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Rule",
+			Name: "rule",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractRule",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LegallyBinding",
+			Name: "legallyBinding",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "Contract",
@@ -16710,6 +16713,9 @@ func (r ContractContentDefinition) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractContentDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractContentDefinition to Integer")
 }
+func (r ContractContentDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractContentDefinition to Long")
+}
 func (r ContractContentDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractContentDefinition to Decimal")
 }
@@ -16725,7 +16731,7 @@ func (r ContractContentDefinition) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractContentDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractContentDefinition to Quantity")
 }
-func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractContentDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractContentDefinition
 	switch other := other.(type) {
 	case ContractContentDefinition:
@@ -16741,7 +16747,7 @@ func (r ContractContentDefinition) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractContentDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractContentDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractContentDefinition)
 	if !ok {
 		return false
@@ -16758,63 +16764,63 @@ func (r ContractContentDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubType",
+			Name: "subType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationDate",
+			Name: "publicationDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationStatus",
+			Name: "publicationStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -16911,6 +16917,9 @@ func (r ContractTerm) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractTerm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTerm to Integer")
 }
+func (r ContractTerm) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTerm to Long")
+}
 func (r ContractTerm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTerm to Decimal")
 }
@@ -16926,7 +16935,7 @@ func (r ContractTerm) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ContractTerm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTerm to Quantity")
 }
-func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTerm) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTerm
 	switch other := other.(type) {
 	case ContractTerm:
@@ -16942,7 +16951,7 @@ func (r ContractTerm) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTerm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTerm) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTerm)
 	if !ok {
 		return false
@@ -16959,105 +16968,105 @@ func (r ContractTerm) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issued",
+			Name: "issued",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Applies",
+			Name: "applies",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Topic",
+			Name: "topic",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Type",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "CodeableConcept",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "SubType",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "subType",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "CodeableConcept",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabel",
+			Name: "securityLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermSecurityLabel",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Offer",
+			Name: "offer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ContractTermOffer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Asset",
+			Name: "asset",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermAsset",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermAction",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Group",
+			Name: "group",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTerm",
@@ -17114,6 +17123,9 @@ func (r ContractTermSecurityLabel) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractTermSecurityLabel) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermSecurityLabel to Integer")
 }
+func (r ContractTermSecurityLabel) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermSecurityLabel to Long")
+}
 func (r ContractTermSecurityLabel) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermSecurityLabel to Decimal")
 }
@@ -17129,7 +17141,7 @@ func (r ContractTermSecurityLabel) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractTermSecurityLabel) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermSecurityLabel to Quantity")
 }
-func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermSecurityLabel) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermSecurityLabel
 	switch other := other.(type) {
 	case ContractTermSecurityLabel:
@@ -17145,7 +17157,7 @@ func (r ContractTermSecurityLabel) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermSecurityLabel) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermSecurityLabel)
 	if !ok {
 		return false
@@ -17162,49 +17174,49 @@ func (r ContractTermSecurityLabel) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Number",
+			Name: "number",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UnsignedInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classification",
+			Name: "classification",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Category",
+			Name: "category",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Control",
+			Name: "control",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
@@ -17293,6 +17305,9 @@ func (r ContractTermOffer) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ContractTermOffer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOffer to Integer")
 }
+func (r ContractTermOffer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOffer to Long")
+}
 func (r ContractTermOffer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOffer to Decimal")
 }
@@ -17308,7 +17323,7 @@ func (r ContractTermOffer) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ContractTermOffer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOffer to Quantity")
 }
-func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOffer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOffer
 	switch other := other.(type) {
 	case ContractTermOffer:
@@ -17324,7 +17339,7 @@ func (r ContractTermOffer) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOffer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOffer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOffer)
 	if !ok {
 		return false
@@ -17341,91 +17356,91 @@ func (r ContractTermOffer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Party",
+			Name: "party",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermOfferParty",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Topic",
+			Name: "topic",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Decision",
+			Name: "decision",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DecisionMode",
+			Name: "decisionMode",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Answer",
+			Name: "answer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermOfferAnswer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabelNumber",
+			Name: "securityLabelNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UnsignedInt",
@@ -17472,6 +17487,9 @@ func (r ContractTermOfferParty) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ContractTermOfferParty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOfferParty to Integer")
 }
+func (r ContractTermOfferParty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOfferParty to Long")
+}
 func (r ContractTermOfferParty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferParty to Decimal")
 }
@@ -17487,7 +17505,7 @@ func (r ContractTermOfferParty) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ContractTermOfferParty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferParty to Quantity")
 }
-func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOfferParty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOfferParty
 	switch other := other.(type) {
 	case ContractTermOfferParty:
@@ -17503,7 +17521,7 @@ func (r ContractTermOfferParty) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOfferParty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferParty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOfferParty)
 	if !ok {
 		return false
@@ -17520,35 +17538,35 @@ func (r ContractTermOfferParty) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -17590,6 +17608,9 @@ func (r ContractTermOfferAnswer) ToString(explicit bool) (fhirpath.String, bool,
 func (r ContractTermOfferAnswer) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermOfferAnswer to Integer")
 }
+func (r ContractTermOfferAnswer) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermOfferAnswer to Long")
+}
 func (r ContractTermOfferAnswer) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermOfferAnswer to Decimal")
 }
@@ -17605,7 +17626,7 @@ func (r ContractTermOfferAnswer) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ContractTermOfferAnswer) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermOfferAnswer to Quantity")
 }
-func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermOfferAnswer) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermOfferAnswer
 	switch other := other.(type) {
 	case ContractTermOfferAnswer:
@@ -17621,7 +17642,7 @@ func (r ContractTermOfferAnswer) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermOfferAnswer) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermOfferAnswer)
 	if !ok {
 		return false
@@ -17638,32 +17659,32 @@ func (r ContractTermOfferAnswer) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ContractTermOfferAnswer",
@@ -17773,6 +17794,9 @@ func (r ContractTermAsset) ToString(explicit bool) (fhirpath.String, bool, error
 func (r ContractTermAsset) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAsset to Integer")
 }
+func (r ContractTermAsset) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAsset to Long")
+}
 func (r ContractTermAsset) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAsset to Decimal")
 }
@@ -17788,7 +17812,7 @@ func (r ContractTermAsset) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r ContractTermAsset) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAsset to Quantity")
 }
-func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAsset) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAsset
 	switch other := other.(type) {
 	case ContractTermAsset:
@@ -17804,7 +17828,7 @@ func (r ContractTermAsset) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAsset) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAsset) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAsset)
 	if !ok {
 		return false
@@ -17821,126 +17845,126 @@ func (r ContractTermAsset) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Scope",
+			Name: "scope",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TypeReference",
+			Name: "typeReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subtype",
+			Name: "subtype",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Relationship",
+			Name: "relationship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermAssetContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Condition",
+			Name: "condition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PeriodType",
+			Name: "periodType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UsePeriod",
+			Name: "usePeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Answer",
+			Name: "answer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermOfferAnswer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabelNumber",
+			Name: "securityLabelNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UnsignedInt",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValuedItem",
+			Name: "valuedItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermAssetValuedItem",
@@ -17994,6 +18018,9 @@ func (r ContractTermAssetContext) ToString(explicit bool) (fhirpath.String, bool
 func (r ContractTermAssetContext) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAssetContext to Integer")
 }
+func (r ContractTermAssetContext) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAssetContext to Long")
+}
 func (r ContractTermAssetContext) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetContext to Decimal")
 }
@@ -18009,7 +18036,7 @@ func (r ContractTermAssetContext) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r ContractTermAssetContext) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetContext to Quantity")
 }
-func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAssetContext) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAssetContext
 	switch other := other.(type) {
 	case ContractTermAssetContext:
@@ -18025,7 +18052,7 @@ func (r ContractTermAssetContext) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAssetContext) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetContext) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAssetContext)
 	if !ok {
 		return false
@@ -18042,42 +18069,42 @@ func (r ContractTermAssetContext) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -18186,6 +18213,9 @@ func (r ContractTermAssetValuedItem) ToString(explicit bool) (fhirpath.String, b
 func (r ContractTermAssetValuedItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAssetValuedItem to Integer")
 }
+func (r ContractTermAssetValuedItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAssetValuedItem to Long")
+}
 func (r ContractTermAssetValuedItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAssetValuedItem to Decimal")
 }
@@ -18201,7 +18231,7 @@ func (r ContractTermAssetValuedItem) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ContractTermAssetValuedItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAssetValuedItem to Quantity")
 }
-func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAssetValuedItem
 	switch other := other.(type) {
 	case ContractTermAssetValuedItem:
@@ -18217,7 +18247,7 @@ func (r ContractTermAssetValuedItem) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAssetValuedItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAssetValuedItem)
 	if !ok {
 		return false
@@ -18234,119 +18264,119 @@ func (r ContractTermAssetValuedItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Entity",
+			Name: "entity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EffectiveTime",
+			Name: "effectiveTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UnitPrice",
+			Name: "unitPrice",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Money",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Factor",
+			Name: "factor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Points",
+			Name: "points",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Net",
+			Name: "net",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Money",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Payment",
+			Name: "payment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PaymentDate",
+			Name: "paymentDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Responsible",
+			Name: "responsible",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Recipient",
+			Name: "recipient",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabelNumber",
+			Name: "securityLabelNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UnsignedInt",
@@ -18474,6 +18504,9 @@ func (r ContractTermAction) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r ContractTermAction) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermAction to Integer")
 }
+func (r ContractTermAction) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermAction to Long")
+}
 func (r ContractTermAction) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermAction to Decimal")
 }
@@ -18489,7 +18522,7 @@ func (r ContractTermAction) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r ContractTermAction) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermAction to Quantity")
 }
-func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermAction) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermAction
 	switch other := other.(type) {
 	case ContractTermAction:
@@ -18505,7 +18538,7 @@ func (r ContractTermAction) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermAction) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermAction) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermAction)
 	if !ok {
 		return false
@@ -18522,154 +18555,154 @@ func (r ContractTermAction) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DoNotPerform",
+			Name: "doNotPerform",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContractTermActionSubject",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Intent",
+			Name: "intent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LinkId",
+			Name: "linkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Context",
+			Name: "context",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContextLinkId",
+			Name: "contextLinkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Occurrence",
+			Name: "occurrence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Requester",
+			Name: "requester",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequesterLinkId",
+			Name: "requesterLinkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PerformerType",
+			Name: "performerType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PerformerRole",
+			Name: "performerRole",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Performer",
+			Name: "performer",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PerformerLinkId",
+			Name: "performerLinkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reason",
+			Name: "reason",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableReference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReasonLinkId",
+			Name: "reasonLinkId",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SecurityLabelNumber",
+			Name: "securityLabelNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UnsignedInt",
@@ -18718,6 +18751,9 @@ func (r ContractTermActionSubject) ToString(explicit bool) (fhirpath.String, boo
 func (r ContractTermActionSubject) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractTermActionSubject to Integer")
 }
+func (r ContractTermActionSubject) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractTermActionSubject to Long")
+}
 func (r ContractTermActionSubject) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractTermActionSubject to Decimal")
 }
@@ -18733,7 +18769,7 @@ func (r ContractTermActionSubject) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ContractTermActionSubject) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractTermActionSubject to Quantity")
 }
-func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractTermActionSubject) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractTermActionSubject
 	switch other := other.(type) {
 	case ContractTermActionSubject:
@@ -18749,7 +18785,7 @@ func (r ContractTermActionSubject) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractTermActionSubject) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractTermActionSubject) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractTermActionSubject)
 	if !ok {
 		return false
@@ -18766,35 +18802,35 @@ func (r ContractTermActionSubject) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -18844,6 +18880,9 @@ func (r ContractSigner) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractSigner) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractSigner to Integer")
 }
+func (r ContractSigner) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractSigner to Long")
+}
 func (r ContractSigner) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractSigner to Decimal")
 }
@@ -18859,7 +18898,7 @@ func (r ContractSigner) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r ContractSigner) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractSigner to Quantity")
 }
-func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractSigner) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractSigner
 	switch other := other.(type) {
 	case ContractSigner:
@@ -18875,7 +18914,7 @@ func (r ContractSigner) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractSigner) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractSigner) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractSigner)
 	if !ok {
 		return false
@@ -18892,42 +18931,42 @@ func (r ContractSigner) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Party",
+			Name: "party",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Signature",
+			Name: "signature",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Signature",
@@ -18969,6 +19008,9 @@ func (r ContractFriendly) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r ContractFriendly) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractFriendly to Integer")
 }
+func (r ContractFriendly) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractFriendly to Long")
+}
 func (r ContractFriendly) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractFriendly to Decimal")
 }
@@ -18984,7 +19026,7 @@ func (r ContractFriendly) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r ContractFriendly) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractFriendly to Quantity")
 }
-func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractFriendly) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractFriendly
 	switch other := other.(type) {
 	case ContractFriendly:
@@ -19000,7 +19042,7 @@ func (r ContractFriendly) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractFriendly) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractFriendly) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractFriendly)
 	if !ok {
 		return false
@@ -19017,32 +19059,32 @@ func (r ContractFriendly) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Content",
+			Name: "content",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ContractFriendly",
@@ -19080,6 +19122,9 @@ func (r ContractLegal) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractLegal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractLegal to Integer")
 }
+func (r ContractLegal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractLegal to Long")
+}
 func (r ContractLegal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractLegal to Decimal")
 }
@@ -19095,7 +19140,7 @@ func (r ContractLegal) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r ContractLegal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractLegal to Quantity")
 }
-func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractLegal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractLegal
 	switch other := other.(type) {
 	case ContractLegal:
@@ -19111,7 +19156,7 @@ func (r ContractLegal) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractLegal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractLegal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractLegal)
 	if !ok {
 		return false
@@ -19128,32 +19173,32 @@ func (r ContractLegal) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Content",
+			Name: "content",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ContractLegal",
@@ -19191,6 +19236,9 @@ func (r ContractRule) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r ContractRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ContractRule to Integer")
 }
+func (r ContractRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ContractRule to Long")
+}
 func (r ContractRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ContractRule to Decimal")
 }
@@ -19206,7 +19254,7 @@ func (r ContractRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r ContractRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ContractRule to Quantity")
 }
-func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ContractRule) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ContractRule
 	switch other := other.(type) {
 	case ContractRule:
@@ -19222,7 +19270,7 @@ func (r ContractRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ContractRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ContractRule) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ContractRule)
 	if !ok {
 		return false
@@ -19239,32 +19287,32 @@ func (r ContractRule) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Content",
+			Name: "content",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "ContractRule",

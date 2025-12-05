@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/parser/gen"
+	parser "github.com/DAMEDIC/fhir-toolbox-go/fhirpath/internal/parser"
 	"github.com/antlr4-go/antlr/v4"
 	"github.com/cockroachdb/apd/v3"
 )
@@ -16,12 +16,24 @@ import (
 // Expression represents a parsed FHIRPath expression that can be evaluated against a FHIR resource.
 // Expressions are created using the Parse or MustParse functions.
 type Expression struct {
-	tree parser.IExpressionContext
+	tree          parser.IExpressionContext
+	sortDirection sortDirection
 }
+
+type sortDirection uint8
+
+const (
+	sortDirectionNone sortDirection = iota
+	sortDirectionAsc
+	sortDirectionDesc
+)
 
 // String returns the string representation of the expression.
 // This is useful for debugging or displaying the expression.
 func (e Expression) String() string {
+	if e.tree == nil {
+		return ""
+	}
 	return e.tree.GetText()
 }
 
@@ -39,7 +51,7 @@ func Parse(expr string) (Expression, error) {
 	if err != nil {
 		return Expression{}, err
 	}
-	return Expression{tree}, nil
+	return Expression{tree: tree}, nil
 }
 
 // MustParse parses a FHIRPath expression string and returns an Expression object.
@@ -130,10 +142,14 @@ func parse(expr string) (parser.IExpressionContext, error) {
 //	}
 //	fmt.Println(result) // Output: [Donald]
 func Evaluate(ctx context.Context, target Element, expr Expression) (Collection, error) {
-	ctx = WithEnv(ctx, "context", target)
-	ctx = WithEnv(ctx, "ucum", String("http://unitsofmeasure.org"))
-	ctx = WithEnv(ctx, "loinc", String("http://loinc.org"))
-	ctx = WithEnv(ctx, "sct", String("http://snomed.info/sct"))
+	ctx = withEvaluationInstant(ctx)
+	for name, value := range systemVariables {
+		if name == "context" {
+			ctx = WithEnv(ctx, name, Collection{target})
+		} else {
+			ctx = WithEnv(ctx, name, value)
+		}
+	}
 
 	result, _, err := evalExpression(
 		ctx,
@@ -159,8 +175,6 @@ func evalExpression(
 	case *parser.TermExpressionContext:
 		return evalTerm(ctx, root, target, inputOrdered, t.Term(), isRoot)
 	case *parser.InvocationExpressionContext:
-		ctx, _ = withNewEnvStackFrame(ctx)
-
 		expr, ordered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(), isRoot)
 		if err != nil {
 			return nil, false, err
@@ -261,6 +275,12 @@ func evalExpression(
 			return nil, false, err
 		}
 
+		if len(expr) == 0 {
+			// FHIRPath requires single-input
+			// operators to return { } when invoked on an empty collection.
+			// The HL7 test suite exercises this with Observation.issued is instant.
+			return nil, true, nil
+		}
 		if len(expr) != 1 {
 			return nil, false, fmt.Errorf("expected single input element")
 		}
@@ -287,11 +307,16 @@ func evalExpression(
 		return nil, false, nil
 
 	case *parser.UnionExpressionContext:
-		left, leftOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(0), isRoot)
+		// Each branch of a union gets its own environment stack frame
+		// This ensures that variables defined on one side don't affect the other
+		// We create fresh contexts for both sides here since they're separate evaluation trees
+		leftCtx, _ := withNewEnvStackFrame(ctx)
+		left, leftOrdered, err := evalExpression(leftCtx, root, target, inputOrdered, t.Expression(0), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
-		right, rightOrdered, err := evalExpression(ctx, root, target, inputOrdered, t.Expression(1), isRoot)
+		rightCtx, _ := withNewEnvStackFrame(ctx)
+		right, rightOrdered, err := evalExpression(rightCtx, root, target, inputOrdered, t.Expression(1), isRoot)
 		if err != nil {
 			return nil, false, err
 		}
@@ -558,8 +583,18 @@ func evalLiteral(
 			return Collection{Decimal{Value: d}}, true, err
 		}
 
-		i, err := strconv.Atoi(s)
-		return Collection{Integer(i)}, true, err
+		val, err := strconv.ParseInt(s, 10, 32)
+		if err != nil {
+			return nil, false, err
+		}
+		return Collection{Integer(val)}, true, nil
+	case *parser.LongNumberLiteralContext:
+		value := strings.TrimSuffix(s, "L")
+		v, err := strconv.ParseInt(value, 10, 64)
+		if err != nil {
+			return nil, false, err
+		}
+		return Collection{Long(v)}, true, nil
 	case *parser.DateLiteralContext:
 		d, err := ParseDate(s)
 		return Collection{d}, true, err
@@ -579,7 +614,14 @@ func evalLiteral(
 
 type envKey struct{}
 
-func WithEnv(ctx context.Context, name string, value Element) context.Context {
+var systemVariables = map[string]Collection{
+	"context": nil,
+	"ucum":    Collection{String("http://unitsofmeasure.org")},
+	"loinc":   Collection{String("http://loinc.org")},
+	"sct":     Collection{String("http://snomed.info/sct")},
+}
+
+func WithEnv(ctx context.Context, name string, value Collection) context.Context {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
 		ctx, frame = withNewEnvStackFrame(ctx)
@@ -588,23 +630,27 @@ func WithEnv(ctx context.Context, name string, value Element) context.Context {
 	return ctx
 }
 
-func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Element) {
+func withNewEnvStackFrame(ctx context.Context) (context.Context, map[string]Collection) {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
-		frame = map[string]Element{}
+		frame = make(map[string]Collection, len(systemVariables))
+		for name, value := range systemVariables {
+			frame[name] = value
+		}
 	}
-	return context.WithValue(ctx, envKey{}, maps.Clone(frame)), frame
+	clonedFrame := maps.Clone(frame)
+	return context.WithValue(ctx, envKey{}, clonedFrame), clonedFrame
 }
 
-func envStackFrame(ctx context.Context) (map[string]Element, bool) {
-	val, ok := ctx.Value(envKey{}).(map[string]Element)
+func envStackFrame(ctx context.Context) (map[string]Collection, bool) {
+	val, ok := ctx.Value(envKey{}).(map[string]Collection)
 	if !ok {
 		return nil, false
 	}
 	return val, true
 }
 
-func envValue(ctx context.Context, name string) (Element, bool) {
+func envValue(ctx context.Context, name string) (Collection, bool) {
 	frame, ok := envStackFrame(ctx)
 	if !ok {
 		return nil, false
@@ -622,7 +668,7 @@ func evalExternalConstant(
 	if !ok {
 		return nil, false, fmt.Errorf("environment variable %q undefined", name)
 	}
-	return Collection{value}, true, nil
+	return value, true, nil
 }
 
 func Singleton[T Element](c Collection) (v T, ok bool, err error) {

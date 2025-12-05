@@ -9035,6 +9035,9 @@ func (r ImplementationGuide) ToString(explicit bool) (fhirpath.String, bool, err
 func (r ImplementationGuide) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuide to Integer")
 }
+func (r ImplementationGuide) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuide to Long")
+}
 func (r ImplementationGuide) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuide to Decimal")
 }
@@ -9050,7 +9053,7 @@ func (r ImplementationGuide) ToDateTime(explicit bool) (fhirpath.DateTime, bool,
 func (r ImplementationGuide) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuide to Quantity")
 }
-func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuide) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuide
 	switch other := other.(type) {
 	case ImplementationGuide:
@@ -9066,7 +9069,7 @@ func (r ImplementationGuide) Equal(other fhirpath.Element, _noReverseTypeConvers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuide) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuide) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuide)
 	if !ok {
 		return false
@@ -9083,196 +9086,196 @@ func (r ImplementationGuide) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PackageId",
+			Name: "packageId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "License",
+			Name: "license",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FhirVersion",
+			Name: "fhirVersion",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DependsOn",
+			Name: "dependsOn",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDependsOn",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Global",
+			Name: "global",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideGlobal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Definition",
+			Name: "definition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ImplementationGuideDefinition",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manifest",
+			Name: "manifest",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ImplementationGuideManifest",
@@ -9324,6 +9327,9 @@ func (r ImplementationGuideDependsOn) ToString(explicit bool) (fhirpath.String, 
 func (r ImplementationGuideDependsOn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDependsOn to Integer")
 }
+func (r ImplementationGuideDependsOn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDependsOn to Long")
+}
 func (r ImplementationGuideDependsOn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDependsOn to Decimal")
 }
@@ -9339,7 +9345,7 @@ func (r ImplementationGuideDependsOn) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r ImplementationGuideDependsOn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDependsOn to Quantity")
 }
-func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDependsOn
 	switch other := other.(type) {
 	case ImplementationGuideDependsOn:
@@ -9355,7 +9361,7 @@ func (r ImplementationGuideDependsOn) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDependsOn) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDependsOn)
 	if !ok {
 		return false
@@ -9372,42 +9378,42 @@ func (r ImplementationGuideDependsOn) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Uri",
+			Name: "uri",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PackageId",
+			Name: "packageId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -9452,6 +9458,9 @@ func (r ImplementationGuideGlobal) ToString(explicit bool) (fhirpath.String, boo
 func (r ImplementationGuideGlobal) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideGlobal to Integer")
 }
+func (r ImplementationGuideGlobal) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideGlobal to Long")
+}
 func (r ImplementationGuideGlobal) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideGlobal to Decimal")
 }
@@ -9467,7 +9476,7 @@ func (r ImplementationGuideGlobal) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r ImplementationGuideGlobal) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideGlobal to Quantity")
 }
-func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideGlobal) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideGlobal
 	switch other := other.(type) {
 	case ImplementationGuideGlobal:
@@ -9483,7 +9492,7 @@ func (r ImplementationGuideGlobal) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideGlobal) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideGlobal)
 	if !ok {
 		return false
@@ -9500,35 +9509,35 @@ func (r ImplementationGuideGlobal) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Profile",
+			Name: "profile",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
@@ -9592,6 +9601,9 @@ func (r ImplementationGuideDefinition) ToString(explicit bool) (fhirpath.String,
 func (r ImplementationGuideDefinition) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinition to Integer")
 }
+func (r ImplementationGuideDefinition) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinition to Long")
+}
 func (r ImplementationGuideDefinition) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinition to Decimal")
 }
@@ -9607,7 +9619,7 @@ func (r ImplementationGuideDefinition) ToDateTime(explicit bool) (fhirpath.DateT
 func (r ImplementationGuideDefinition) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinition to Quantity")
 }
-func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinition) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinition
 	switch other := other.(type) {
 	case ImplementationGuideDefinition:
@@ -9623,7 +9635,7 @@ func (r ImplementationGuideDefinition) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinition) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinition)
 	if !ok {
 		return false
@@ -9640,56 +9652,56 @@ func (r ImplementationGuideDefinition) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Grouping",
+			Name: "grouping",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDefinitionGrouping",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDefinitionResource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Page",
+			Name: "page",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ImplementationGuideDefinitionPage",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parameter",
+			Name: "parameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDefinitionParameter",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Template",
+			Name: "template",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDefinitionTemplate",
@@ -9736,6 +9748,9 @@ func (r ImplementationGuideDefinitionGrouping) ToString(explicit bool) (fhirpath
 func (r ImplementationGuideDefinitionGrouping) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Integer")
 }
+func (r ImplementationGuideDefinitionGrouping) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Long")
+}
 func (r ImplementationGuideDefinitionGrouping) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Decimal")
 }
@@ -9751,7 +9766,7 @@ func (r ImplementationGuideDefinitionGrouping) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionGrouping) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionGrouping to Quantity")
 }
-func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionGrouping
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionGrouping:
@@ -9767,7 +9782,7 @@ func (r ImplementationGuideDefinitionGrouping) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionGrouping) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionGrouping)
 	if !ok {
 		return false
@@ -9784,35 +9799,35 @@ func (r ImplementationGuideDefinitionGrouping) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -9879,6 +9894,9 @@ func (r ImplementationGuideDefinitionResource) ToString(explicit bool) (fhirpath
 func (r ImplementationGuideDefinitionResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionResource to Integer")
 }
+func (r ImplementationGuideDefinitionResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionResource to Long")
+}
 func (r ImplementationGuideDefinitionResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Decimal")
 }
@@ -9894,7 +9912,7 @@ func (r ImplementationGuideDefinitionResource) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionResource to Quantity")
 }
-func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionResource
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionResource:
@@ -9910,7 +9928,7 @@ func (r ImplementationGuideDefinitionResource) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionResource)
 	if !ok {
 		return false
@@ -9927,63 +9945,63 @@ func (r ImplementationGuideDefinitionResource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FhirVersion",
+			Name: "fhirVersion",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Example",
+			Name: "example",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "GroupingId",
+			Name: "groupingId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
@@ -10036,6 +10054,9 @@ func (r ImplementationGuideDefinitionPage) ToString(explicit bool) (fhirpath.Str
 func (r ImplementationGuideDefinitionPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionPage to Integer")
 }
+func (r ImplementationGuideDefinitionPage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionPage to Long")
+}
 func (r ImplementationGuideDefinitionPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Decimal")
 }
@@ -10051,7 +10072,7 @@ func (r ImplementationGuideDefinitionPage) ToDateTime(explicit bool) (fhirpath.D
 func (r ImplementationGuideDefinitionPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionPage to Quantity")
 }
-func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionPage
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionPage:
@@ -10067,7 +10088,7 @@ func (r ImplementationGuideDefinitionPage) Equal(other fhirpath.Element, _noReve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionPage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionPage)
 	if !ok {
 		return false
@@ -10084,49 +10105,49 @@ func (r ImplementationGuideDefinitionPage) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Generation",
+			Name: "generation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Page",
+			Name: "page",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideDefinitionPage",
@@ -10171,6 +10192,9 @@ func (r ImplementationGuideDefinitionParameter) ToString(explicit bool) (fhirpat
 func (r ImplementationGuideDefinitionParameter) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Integer")
 }
+func (r ImplementationGuideDefinitionParameter) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionParameter to Long")
+}
 func (r ImplementationGuideDefinitionParameter) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Decimal")
 }
@@ -10186,7 +10210,7 @@ func (r ImplementationGuideDefinitionParameter) ToDateTime(explicit bool) (fhirp
 func (r ImplementationGuideDefinitionParameter) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionParameter to Quantity")
 }
-func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionParameter
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionParameter:
@@ -10202,7 +10226,7 @@ func (r ImplementationGuideDefinitionParameter) Equal(other fhirpath.Element, _n
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionParameter) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionParameter)
 	if !ok {
 		return false
@@ -10219,35 +10243,35 @@ func (r ImplementationGuideDefinitionParameter) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -10297,6 +10321,9 @@ func (r ImplementationGuideDefinitionTemplate) ToString(explicit bool) (fhirpath
 func (r ImplementationGuideDefinitionTemplate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Integer")
 }
+func (r ImplementationGuideDefinitionTemplate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Long")
+}
 func (r ImplementationGuideDefinitionTemplate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Decimal")
 }
@@ -10312,7 +10339,7 @@ func (r ImplementationGuideDefinitionTemplate) ToDateTime(explicit bool) (fhirpa
 func (r ImplementationGuideDefinitionTemplate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideDefinitionTemplate to Quantity")
 }
-func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideDefinitionTemplate
 	switch other := other.(type) {
 	case ImplementationGuideDefinitionTemplate:
@@ -10328,7 +10355,7 @@ func (r ImplementationGuideDefinitionTemplate) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideDefinitionTemplate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideDefinitionTemplate)
 	if !ok {
 		return false
@@ -10345,42 +10372,42 @@ func (r ImplementationGuideDefinitionTemplate) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Scope",
+			Name: "scope",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -10444,6 +10471,9 @@ func (r ImplementationGuideManifest) ToString(explicit bool) (fhirpath.String, b
 func (r ImplementationGuideManifest) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifest to Integer")
 }
+func (r ImplementationGuideManifest) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifest to Long")
+}
 func (r ImplementationGuideManifest) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifest to Decimal")
 }
@@ -10459,7 +10489,7 @@ func (r ImplementationGuideManifest) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r ImplementationGuideManifest) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifest to Quantity")
 }
-func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifest) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifest
 	switch other := other.(type) {
 	case ImplementationGuideManifest:
@@ -10475,7 +10505,7 @@ func (r ImplementationGuideManifest) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifest) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifest)
 	if !ok {
 		return false
@@ -10492,56 +10522,56 @@ func (r ImplementationGuideManifest) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Rendering",
+			Name: "rendering",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Url",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideManifestResource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Page",
+			Name: "page",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ImplementationGuideManifestPage",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Image",
+			Name: "image",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Other",
+			Name: "other",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
@@ -10593,6 +10623,9 @@ func (r ImplementationGuideManifestResource) ToString(explicit bool) (fhirpath.S
 func (r ImplementationGuideManifestResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifestResource to Integer")
 }
+func (r ImplementationGuideManifestResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifestResource to Long")
+}
 func (r ImplementationGuideManifestResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestResource to Decimal")
 }
@@ -10608,7 +10641,7 @@ func (r ImplementationGuideManifestResource) ToDateTime(explicit bool) (fhirpath
 func (r ImplementationGuideManifestResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestResource to Quantity")
 }
-func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifestResource
 	switch other := other.(type) {
 	case ImplementationGuideManifestResource:
@@ -10624,7 +10657,7 @@ func (r ImplementationGuideManifestResource) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifestResource)
 	if !ok {
 		return false
@@ -10641,42 +10674,42 @@ func (r ImplementationGuideManifestResource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Example",
+			Name: "example",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "RelativePath",
+			Name: "relativePath",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Url",
@@ -10728,6 +10761,9 @@ func (r ImplementationGuideManifestPage) ToString(explicit bool) (fhirpath.Strin
 func (r ImplementationGuideManifestPage) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ImplementationGuideManifestPage to Integer")
 }
+func (r ImplementationGuideManifestPage) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ImplementationGuideManifestPage to Long")
+}
 func (r ImplementationGuideManifestPage) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ImplementationGuideManifestPage to Decimal")
 }
@@ -10743,7 +10779,7 @@ func (r ImplementationGuideManifestPage) ToDateTime(explicit bool) (fhirpath.Dat
 func (r ImplementationGuideManifestPage) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ImplementationGuideManifestPage to Quantity")
 }
-func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ImplementationGuideManifestPage
 	switch other := other.(type) {
 	case ImplementationGuideManifestPage:
@@ -10759,7 +10795,7 @@ func (r ImplementationGuideManifestPage) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ImplementationGuideManifestPage) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ImplementationGuideManifestPage)
 	if !ok {
 		return false
@@ -10776,42 +10812,42 @@ func (r ImplementationGuideManifestPage) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Anchor",
+			Name: "anchor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",

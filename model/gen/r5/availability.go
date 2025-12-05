@@ -1353,6 +1353,9 @@ func (r Availability) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Availability) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Availability to Integer")
 }
+func (r Availability) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Availability to Long")
+}
 func (r Availability) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Availability to Decimal")
 }
@@ -1368,7 +1371,7 @@ func (r Availability) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error)
 func (r Availability) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Availability to Quantity")
 }
-func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Availability) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Availability
 	switch other := other.(type) {
 	case Availability:
@@ -1384,7 +1387,7 @@ func (r Availability) Equal(other fhirpath.Element, _noReverseTypeConversion ...
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Availability) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Availability) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Availability)
 	if !ok {
 		return false
@@ -1401,28 +1404,28 @@ func (r Availability) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableTime",
+			Name: "availableTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AvailabilityAvailableTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NotAvailableTime",
+			Name: "notAvailableTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "AvailabilityNotAvailableTime",
@@ -1476,6 +1479,9 @@ func (r AvailabilityAvailableTime) ToString(explicit bool) (fhirpath.String, boo
 func (r AvailabilityAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AvailabilityAvailableTime to Integer")
 }
+func (r AvailabilityAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AvailabilityAvailableTime to Long")
+}
 func (r AvailabilityAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityAvailableTime to Decimal")
 }
@@ -1491,7 +1497,7 @@ func (r AvailabilityAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r AvailabilityAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityAvailableTime to Quantity")
 }
-func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AvailabilityAvailableTime) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AvailabilityAvailableTime
 	switch other := other.(type) {
 	case AvailabilityAvailableTime:
@@ -1507,7 +1513,7 @@ func (r AvailabilityAvailableTime) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityAvailableTime) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AvailabilityAvailableTime)
 	if !ok {
 		return false
@@ -1524,42 +1530,42 @@ func (r AvailabilityAvailableTime) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DaysOfWeek",
+			Name: "daysOfWeek",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AllDay",
+			Name: "allDay",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableStartTime",
+			Name: "availableStartTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AvailableEndTime",
+			Name: "availableEndTime",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Time",
@@ -1603,6 +1609,9 @@ func (r AvailabilityNotAvailableTime) ToString(explicit bool) (fhirpath.String, 
 func (r AvailabilityNotAvailableTime) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert AvailabilityNotAvailableTime to Integer")
 }
+func (r AvailabilityNotAvailableTime) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert AvailabilityNotAvailableTime to Long")
+}
 func (r AvailabilityNotAvailableTime) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Decimal")
 }
@@ -1618,7 +1627,7 @@ func (r AvailabilityNotAvailableTime) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r AvailabilityNotAvailableTime) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert AvailabilityNotAvailableTime to Quantity")
 }
-func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element) (bool, bool) {
 	var o *AvailabilityNotAvailableTime
 	switch other := other.(type) {
 	case AvailabilityNotAvailableTime:
@@ -1634,7 +1643,7 @@ func (r AvailabilityNotAvailableTime) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r AvailabilityNotAvailableTime) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(AvailabilityNotAvailableTime)
 	if !ok {
 		return false
@@ -1651,28 +1660,28 @@ func (r AvailabilityNotAvailableTime) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "During",
+			Name: "during",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",

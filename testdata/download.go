@@ -11,8 +11,9 @@ import (
 )
 
 const (
-	examplesURL      = "http://hl7.org/fhir/%v/%v"
-	fhirPathTestsURL = "https://hl7.org/fhirpath/N1/tests.zip"
+	examplesURL             = "http://hl7.org/fhir/%v/%v"
+	fhirPathTestsRepoZipURL = "https://codeload.github.com/FHIR/fhir-test-cases/zip/refs/heads/master"
+	fhirPathTestsZipName    = "fhir-test-cases.zip"
 )
 
 func formatFilename(format string) string {
@@ -74,9 +75,10 @@ func fhirPathTestsFilePath() string {
 	if err != nil {
 		log.Panic(err)
 	}
-	return filepath.Join(dir, "tests.zip")
+	return filepath.Join(dir, fhirPathTestsZipName)
 }
-func downloadFHRIPathTests() string {
+
+func downloadFHIRPathTests() string {
 	zip := fhirPathTestsFilePath()
 
 	if _, err := os.Stat(zip); err == nil {
@@ -85,11 +87,15 @@ func downloadFHRIPathTests() string {
 	}
 
 	log.Println("Downloading FHIRPath tests...")
-	resp, err := http.Get(fhirPathTestsURL)
+	resp, err := http.Get(fhirPathTestsRepoZipURL)
 	if err != nil {
 		log.Fatalf("Error downloading FHIRPath tests")
 	}
 	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		log.Fatalf("Unexpected status downloading FHIRPath tests: %s", resp.Status)
+	}
 
 	bytes, err := io.ReadAll(resp.Body)
 	if err != nil {

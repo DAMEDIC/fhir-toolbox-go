@@ -4226,6 +4226,9 @@ func (r MeasureReport) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r MeasureReport) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReport to Integer")
 }
+func (r MeasureReport) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReport to Long")
+}
 func (r MeasureReport) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReport to Decimal")
 }
@@ -4241,7 +4244,7 @@ func (r MeasureReport) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error
 func (r MeasureReport) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReport to Quantity")
 }
-func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReport) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReport
 	switch other := other.(type) {
 	case MeasureReport:
@@ -4257,7 +4260,7 @@ func (r MeasureReport) Equal(other fhirpath.Element, _noReverseTypeConversion ..
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReport) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReport) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReport)
 	if !ok {
 		return false
@@ -4274,133 +4277,133 @@ func (r MeasureReport) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Measure",
+			Name: "measure",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reporter",
+			Name: "reporter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImprovementNotation",
+			Name: "improvementNotation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Group",
+			Name: "group",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroup",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EvaluatedResource",
+			Name: "evaluatedResource",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -4459,6 +4462,9 @@ func (r MeasureReportGroup) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r MeasureReportGroup) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroup to Integer")
 }
+func (r MeasureReportGroup) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroup to Long")
+}
 func (r MeasureReportGroup) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroup to Decimal")
 }
@@ -4474,7 +4480,7 @@ func (r MeasureReportGroup) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r MeasureReportGroup) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroup to Quantity")
 }
-func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroup) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroup
 	switch other := other.(type) {
 	case MeasureReportGroup:
@@ -4490,7 +4496,7 @@ func (r MeasureReportGroup) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroup) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroup) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroup)
 	if !ok {
 		return false
@@ -4507,49 +4513,49 @@ func (r MeasureReportGroup) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Population",
+			Name: "population",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroupPopulation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MeasureScore",
+			Name: "measureScore",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Stratifier",
+			Name: "stratifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroupStratifier",
@@ -4603,6 +4609,9 @@ func (r MeasureReportGroupPopulation) ToString(explicit bool) (fhirpath.String, 
 func (r MeasureReportGroupPopulation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupPopulation to Integer")
 }
+func (r MeasureReportGroupPopulation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupPopulation to Long")
+}
 func (r MeasureReportGroupPopulation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupPopulation to Decimal")
 }
@@ -4618,7 +4627,7 @@ func (r MeasureReportGroupPopulation) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MeasureReportGroupPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupPopulation to Quantity")
 }
-func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupPopulation:
@@ -4634,7 +4643,7 @@ func (r MeasureReportGroupPopulation) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupPopulation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupPopulation)
 	if !ok {
 		return false
@@ -4651,42 +4660,42 @@ func (r MeasureReportGroupPopulation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Count",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubjectResults",
+			Name: "subjectResults",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -4735,6 +4744,9 @@ func (r MeasureReportGroupStratifier) ToString(explicit bool) (fhirpath.String, 
 func (r MeasureReportGroupStratifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifier to Integer")
 }
+func (r MeasureReportGroupStratifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifier to Long")
+}
 func (r MeasureReportGroupStratifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifier to Decimal")
 }
@@ -4750,7 +4762,7 @@ func (r MeasureReportGroupStratifier) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r MeasureReportGroupStratifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifier to Quantity")
 }
-func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifier
 	switch other := other.(type) {
 	case MeasureReportGroupStratifier:
@@ -4766,7 +4778,7 @@ func (r MeasureReportGroupStratifier) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifier)
 	if !ok {
 		return false
@@ -4783,35 +4795,35 @@ func (r MeasureReportGroupStratifier) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Stratum",
+			Name: "stratum",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroupStratifierStratum",
@@ -4870,6 +4882,9 @@ func (r MeasureReportGroupStratifierStratum) ToString(explicit bool) (fhirpath.S
 func (r MeasureReportGroupStratifierStratum) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Integer")
 }
+func (r MeasureReportGroupStratifierStratum) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratum to Long")
+}
 func (r MeasureReportGroupStratifierStratum) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Decimal")
 }
@@ -4885,7 +4900,7 @@ func (r MeasureReportGroupStratifierStratum) ToDateTime(explicit bool) (fhirpath
 func (r MeasureReportGroupStratifierStratum) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratum to Quantity")
 }
-func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratum
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratum:
@@ -4901,7 +4916,7 @@ func (r MeasureReportGroupStratifierStratum) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratum) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratum)
 	if !ok {
 		return false
@@ -4918,49 +4933,49 @@ func (r MeasureReportGroupStratifierStratum) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Component",
+			Name: "component",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroupStratifierStratumComponent",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Population",
+			Name: "population",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MeasureReportGroupStratifierStratumPopulation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MeasureScore",
+			Name: "measureScore",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
@@ -5005,6 +5020,9 @@ func (r MeasureReportGroupStratifierStratumComponent) ToString(explicit bool) (f
 func (r MeasureReportGroupStratifierStratumComponent) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Integer")
 }
+func (r MeasureReportGroupStratifierStratumComponent) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Long")
+}
 func (r MeasureReportGroupStratifierStratumComponent) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Decimal")
 }
@@ -5020,7 +5038,7 @@ func (r MeasureReportGroupStratifierStratumComponent) ToDateTime(explicit bool) 
 func (r MeasureReportGroupStratifierStratumComponent) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumComponent to Quantity")
 }
-func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratumComponent
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumComponent:
@@ -5036,7 +5054,7 @@ func (r MeasureReportGroupStratifierStratumComponent) Equal(other fhirpath.Eleme
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratumComponent) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratumComponent)
 	if !ok {
 		return false
@@ -5053,35 +5071,35 @@ func (r MeasureReportGroupStratifierStratumComponent) TypeInfo() fhirpath.TypeIn
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
@@ -5135,6 +5153,9 @@ func (r MeasureReportGroupStratifierStratumPopulation) ToString(explicit bool) (
 func (r MeasureReportGroupStratifierStratumPopulation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Integer")
 }
+func (r MeasureReportGroupStratifierStratumPopulation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Long")
+}
 func (r MeasureReportGroupStratifierStratumPopulation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Decimal")
 }
@@ -5150,7 +5171,7 @@ func (r MeasureReportGroupStratifierStratumPopulation) ToDateTime(explicit bool)
 func (r MeasureReportGroupStratifierStratumPopulation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MeasureReportGroupStratifierStratumPopulation to Quantity")
 }
-func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MeasureReportGroupStratifierStratumPopulation
 	switch other := other.(type) {
 	case MeasureReportGroupStratifierStratumPopulation:
@@ -5166,7 +5187,7 @@ func (r MeasureReportGroupStratifierStratumPopulation) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MeasureReportGroupStratifierStratumPopulation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MeasureReportGroupStratifierStratumPopulation)
 	if !ok {
 		return false
@@ -5183,42 +5204,42 @@ func (r MeasureReportGroupStratifierStratumPopulation) TypeInfo() fhirpath.TypeI
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Count",
+			Name: "count",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SubjectResults",
+			Name: "subjectResults",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",

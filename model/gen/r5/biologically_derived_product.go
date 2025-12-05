@@ -3228,6 +3228,9 @@ func (r BiologicallyDerivedProduct) ToString(explicit bool) (fhirpath.String, bo
 func (r BiologicallyDerivedProduct) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProduct to Integer")
 }
+func (r BiologicallyDerivedProduct) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProduct to Long")
+}
 func (r BiologicallyDerivedProduct) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProduct to Decimal")
 }
@@ -3243,7 +3246,7 @@ func (r BiologicallyDerivedProduct) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r BiologicallyDerivedProduct) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProduct to Quantity")
 }
-func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProduct
 	switch other := other.(type) {
 	case BiologicallyDerivedProduct:
@@ -3259,7 +3262,7 @@ func (r BiologicallyDerivedProduct) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProduct) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProduct)
 	if !ok {
 		return false
@@ -3276,147 +3279,147 @@ func (r BiologicallyDerivedProduct) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductCategory",
+			Name: "productCategory",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductCode",
+			Name: "productCode",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Parent",
+			Name: "parent",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Request",
+			Name: "request",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BiologicalSourceEvent",
+			Name: "biologicalSourceEvent",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProcessingFacility",
+			Name: "processingFacility",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Division",
+			Name: "division",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProductStatus",
+			Name: "productStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ExpirationDate",
+			Name: "expirationDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collection",
+			Name: "collection",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "BiologicallyDerivedProductCollection",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StorageTempRequirements",
+			Name: "storageTempRequirements",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Range",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Property",
+			Name: "property",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "BiologicallyDerivedProductProperty",
@@ -3470,6 +3473,9 @@ func (r BiologicallyDerivedProductCollection) ToString(explicit bool) (fhirpath.
 func (r BiologicallyDerivedProductCollection) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductCollection to Integer")
 }
+func (r BiologicallyDerivedProductCollection) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductCollection to Long")
+}
 func (r BiologicallyDerivedProductCollection) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductCollection to Decimal")
 }
@@ -3485,7 +3491,7 @@ func (r BiologicallyDerivedProductCollection) ToDateTime(explicit bool) (fhirpat
 func (r BiologicallyDerivedProductCollection) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductCollection to Quantity")
 }
-func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductCollection
 	switch other := other.(type) {
 	case BiologicallyDerivedProductCollection:
@@ -3501,7 +3507,7 @@ func (r BiologicallyDerivedProductCollection) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductCollection) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductCollection)
 	if !ok {
 		return false
@@ -3518,46 +3524,46 @@ func (r BiologicallyDerivedProductCollection) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collector",
+			Name: "collector",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Collected",
+			Name: "collected",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "BiologicallyDerivedProductCollection",
@@ -3598,6 +3604,9 @@ func (r BiologicallyDerivedProductProperty) ToString(explicit bool) (fhirpath.St
 func (r BiologicallyDerivedProductProperty) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert BiologicallyDerivedProductProperty to Integer")
 }
+func (r BiologicallyDerivedProductProperty) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert BiologicallyDerivedProductProperty to Long")
+}
 func (r BiologicallyDerivedProductProperty) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert BiologicallyDerivedProductProperty to Decimal")
 }
@@ -3613,7 +3622,7 @@ func (r BiologicallyDerivedProductProperty) ToDateTime(explicit bool) (fhirpath.
 func (r BiologicallyDerivedProductProperty) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert BiologicallyDerivedProductProperty to Quantity")
 }
-func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element) (bool, bool) {
 	var o *BiologicallyDerivedProductProperty
 	switch other := other.(type) {
 	case BiologicallyDerivedProductProperty:
@@ -3629,7 +3638,7 @@ func (r BiologicallyDerivedProductProperty) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r BiologicallyDerivedProductProperty) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r BiologicallyDerivedProductProperty) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(BiologicallyDerivedProductProperty)
 	if !ok {
 		return false
@@ -3646,39 +3655,39 @@ func (r BiologicallyDerivedProductProperty) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}},
 		Name:      "BiologicallyDerivedProductProperty",

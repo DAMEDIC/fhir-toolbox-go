@@ -14059,6 +14059,9 @@ func (r Citation) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Citation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Citation to Integer")
 }
+func (r Citation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Citation to Long")
+}
 func (r Citation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Citation to Decimal")
 }
@@ -14074,7 +14077,7 @@ func (r Citation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Citation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Citation to Quantity")
 }
-func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Citation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Citation
 	switch other := other.(type) {
 	case Citation:
@@ -14090,7 +14093,7 @@ func (r Citation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Citation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Citation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Citation)
 	if !ok {
 		return false
@@ -14107,273 +14110,273 @@ func (r Citation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionAlgorithm",
+			Name: "versionAlgorithm",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Name",
-			Type: fhirpath.TypeSpecifier{
-				List:      false,
-				Name:      "String",
-				Namespace: "FHIR",
-			},
-		}, {
-			Name: "Title",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "title",
+			Type: fhirpath.TypeSpecifier{
+				List:      false,
+				Name:      "String",
+				Namespace: "FHIR",
+			},
+		}, {
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CopyrightLabel",
+			Name: "copyrightLabel",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ApprovalDate",
+			Name: "approvalDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastReviewDate",
+			Name: "lastReviewDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EffectivePeriod",
+			Name: "effectivePeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Editor",
+			Name: "editor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reviewer",
+			Name: "reviewer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Endorser",
+			Name: "endorser",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Summary",
+			Name: "summary",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationSummary",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classification",
+			Name: "classification",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationClassification",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CurrentState",
+			Name: "currentState",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StatusDate",
+			Name: "statusDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationStatusDate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedArtifact",
+			Name: "relatedArtifact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "RelatedArtifact",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CitedArtifact",
+			Name: "citedArtifact",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CitationCitedArtifact",
@@ -14420,6 +14423,9 @@ func (r CitationSummary) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r CitationSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationSummary to Integer")
 }
+func (r CitationSummary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationSummary to Long")
+}
 func (r CitationSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationSummary to Decimal")
 }
@@ -14435,7 +14441,7 @@ func (r CitationSummary) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r CitationSummary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationSummary to Quantity")
 }
-func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationSummary) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationSummary
 	switch other := other.(type) {
 	case CitationSummary:
@@ -14451,7 +14457,7 @@ func (r CitationSummary) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationSummary) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationSummary)
 	if !ok {
 		return false
@@ -14468,35 +14474,35 @@ func (r CitationSummary) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Style",
+			Name: "style",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -14545,6 +14551,9 @@ func (r CitationClassification) ToString(explicit bool) (fhirpath.String, bool, 
 func (r CitationClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationClassification to Integer")
 }
+func (r CitationClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationClassification to Long")
+}
 func (r CitationClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationClassification to Decimal")
 }
@@ -14560,7 +14569,7 @@ func (r CitationClassification) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r CitationClassification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationClassification to Quantity")
 }
-func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationClassification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationClassification
 	switch other := other.(type) {
 	case CitationClassification:
@@ -14576,7 +14585,7 @@ func (r CitationClassification) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationClassification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationClassification)
 	if !ok {
 		return false
@@ -14593,35 +14602,35 @@ func (r CitationClassification) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classifier",
+			Name: "classifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -14671,6 +14680,9 @@ func (r CitationStatusDate) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r CitationStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationStatusDate to Integer")
 }
+func (r CitationStatusDate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationStatusDate to Long")
+}
 func (r CitationStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationStatusDate to Decimal")
 }
@@ -14686,7 +14698,7 @@ func (r CitationStatusDate) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r CitationStatusDate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationStatusDate to Quantity")
 }
-func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationStatusDate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationStatusDate
 	switch other := other.(type) {
 	case CitationStatusDate:
@@ -14702,7 +14714,7 @@ func (r CitationStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationStatusDate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationStatusDate)
 	if !ok {
 		return false
@@ -14719,42 +14731,42 @@ func (r CitationStatusDate) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Activity",
+			Name: "activity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actual",
+			Name: "actual",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
@@ -14868,6 +14880,9 @@ func (r CitationCitedArtifact) ToString(explicit bool) (fhirpath.String, bool, e
 func (r CitationCitedArtifact) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifact to Integer")
 }
+func (r CitationCitedArtifact) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifact to Long")
+}
 func (r CitationCitedArtifact) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifact to Decimal")
 }
@@ -14883,7 +14898,7 @@ func (r CitationCitedArtifact) ToDateTime(explicit bool) (fhirpath.DateTime, boo
 func (r CitationCitedArtifact) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifact to Quantity")
 }
-func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifact) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifact
 	switch other := other.(type) {
 	case CitationCitedArtifact:
@@ -14899,7 +14914,7 @@ func (r CitationCitedArtifact) Equal(other fhirpath.Element, _noReverseTypeConve
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifact) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifact) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifact)
 	if !ok {
 		return false
@@ -14916,126 +14931,126 @@ func (r CitationCitedArtifact) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatedIdentifier",
+			Name: "relatedIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DateAccessed",
+			Name: "dateAccessed",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CitationCitedArtifactVersion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CurrentState",
+			Name: "currentState",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StatusDate",
+			Name: "statusDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactStatusDate",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactTitle",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Abstract",
+			Name: "abstract",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactAbstract",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Part",
+			Name: "part",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CitationCitedArtifactPart",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RelatesTo",
+			Name: "relatesTo",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactRelatesTo",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationForm",
+			Name: "publicationForm",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactPublicationForm",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "WebLocation",
+			Name: "webLocation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactWebLocation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classification",
+			Name: "classification",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactClassification",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contributorship",
+			Name: "contributorship",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CitationCitedArtifactContributorship",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Note",
+			Name: "note",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Annotation",
@@ -15082,6 +15097,9 @@ func (r CitationCitedArtifactVersion) ToString(explicit bool) (fhirpath.String, 
 func (r CitationCitedArtifactVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactVersion to Integer")
 }
+func (r CitationCitedArtifactVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactVersion to Long")
+}
 func (r CitationCitedArtifactVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactVersion to Decimal")
 }
@@ -15097,7 +15115,7 @@ func (r CitationCitedArtifactVersion) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r CitationCitedArtifactVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactVersion to Quantity")
 }
-func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactVersion
 	switch other := other.(type) {
 	case CitationCitedArtifactVersion:
@@ -15113,7 +15131,7 @@ func (r CitationCitedArtifactVersion) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactVersion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactVersion)
 	if !ok {
 		return false
@@ -15130,35 +15148,35 @@ func (r CitationCitedArtifactVersion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BaseCitation",
+			Name: "baseCitation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -15208,6 +15226,9 @@ func (r CitationCitedArtifactStatusDate) ToString(explicit bool) (fhirpath.Strin
 func (r CitationCitedArtifactStatusDate) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactStatusDate to Integer")
 }
+func (r CitationCitedArtifactStatusDate) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactStatusDate to Long")
+}
 func (r CitationCitedArtifactStatusDate) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Decimal")
 }
@@ -15223,7 +15244,7 @@ func (r CitationCitedArtifactStatusDate) ToDateTime(explicit bool) (fhirpath.Dat
 func (r CitationCitedArtifactStatusDate) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactStatusDate to Quantity")
 }
-func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactStatusDate
 	switch other := other.(type) {
 	case CitationCitedArtifactStatusDate:
@@ -15239,7 +15260,7 @@ func (r CitationCitedArtifactStatusDate) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactStatusDate) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactStatusDate)
 	if !ok {
 		return false
@@ -15256,42 +15277,42 @@ func (r CitationCitedArtifactStatusDate) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Activity",
+			Name: "activity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actual",
+			Name: "actual",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
@@ -15343,6 +15364,9 @@ func (r CitationCitedArtifactTitle) ToString(explicit bool) (fhirpath.String, bo
 func (r CitationCitedArtifactTitle) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactTitle to Integer")
 }
+func (r CitationCitedArtifactTitle) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactTitle to Long")
+}
 func (r CitationCitedArtifactTitle) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactTitle to Decimal")
 }
@@ -15358,7 +15382,7 @@ func (r CitationCitedArtifactTitle) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r CitationCitedArtifactTitle) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactTitle to Quantity")
 }
-func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactTitle
 	switch other := other.(type) {
 	case CitationCitedArtifactTitle:
@@ -15374,7 +15398,7 @@ func (r CitationCitedArtifactTitle) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactTitle) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactTitle)
 	if !ok {
 		return false
@@ -15391,42 +15415,42 @@ func (r CitationCitedArtifactTitle) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -15483,6 +15507,9 @@ func (r CitationCitedArtifactAbstract) ToString(explicit bool) (fhirpath.String,
 func (r CitationCitedArtifactAbstract) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactAbstract to Integer")
 }
+func (r CitationCitedArtifactAbstract) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactAbstract to Long")
+}
 func (r CitationCitedArtifactAbstract) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Decimal")
 }
@@ -15498,7 +15525,7 @@ func (r CitationCitedArtifactAbstract) ToDateTime(explicit bool) (fhirpath.DateT
 func (r CitationCitedArtifactAbstract) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactAbstract to Quantity")
 }
-func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactAbstract
 	switch other := other.(type) {
 	case CitationCitedArtifactAbstract:
@@ -15514,7 +15541,7 @@ func (r CitationCitedArtifactAbstract) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactAbstract) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactAbstract)
 	if !ok {
 		return false
@@ -15531,49 +15558,49 @@ func (r CitationCitedArtifactAbstract) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -15627,6 +15654,9 @@ func (r CitationCitedArtifactPart) ToString(explicit bool) (fhirpath.String, boo
 func (r CitationCitedArtifactPart) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPart to Integer")
 }
+func (r CitationCitedArtifactPart) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPart to Long")
+}
 func (r CitationCitedArtifactPart) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPart to Decimal")
 }
@@ -15642,7 +15672,7 @@ func (r CitationCitedArtifactPart) ToDateTime(explicit bool) (fhirpath.DateTime,
 func (r CitationCitedArtifactPart) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPart to Quantity")
 }
-func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactPart) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactPart
 	switch other := other.(type) {
 	case CitationCitedArtifactPart:
@@ -15658,7 +15688,7 @@ func (r CitationCitedArtifactPart) Equal(other fhirpath.Element, _noReverseTypeC
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPart) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactPart)
 	if !ok {
 		return false
@@ -15675,42 +15705,42 @@ func (r CitationCitedArtifactPart) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BaseCitation",
+			Name: "baseCitation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -15787,6 +15817,9 @@ func (r CitationCitedArtifactRelatesTo) ToString(explicit bool) (fhirpath.String
 func (r CitationCitedArtifactRelatesTo) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Integer")
 }
+func (r CitationCitedArtifactRelatesTo) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactRelatesTo to Long")
+}
 func (r CitationCitedArtifactRelatesTo) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Decimal")
 }
@@ -15802,7 +15835,7 @@ func (r CitationCitedArtifactRelatesTo) ToDateTime(explicit bool) (fhirpath.Date
 func (r CitationCitedArtifactRelatesTo) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactRelatesTo to Quantity")
 }
-func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactRelatesTo
 	switch other := other.(type) {
 	case CitationCitedArtifactRelatesTo:
@@ -15818,7 +15851,7 @@ func (r CitationCitedArtifactRelatesTo) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactRelatesTo) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactRelatesTo)
 	if !ok {
 		return false
@@ -15835,77 +15868,77 @@ func (r CitationCitedArtifactRelatesTo) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classifier",
+			Name: "classifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Label",
+			Name: "label",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Citation",
+			Name: "citation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Document",
+			Name: "document",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Attachment",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceReference",
+			Name: "resourceReference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -16019,6 +16052,9 @@ func (r CitationCitedArtifactPublicationForm) ToString(explicit bool) (fhirpath.
 func (r CitationCitedArtifactPublicationForm) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Integer")
 }
+func (r CitationCitedArtifactPublicationForm) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationForm to Long")
+}
 func (r CitationCitedArtifactPublicationForm) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Decimal")
 }
@@ -16034,7 +16070,7 @@ func (r CitationCitedArtifactPublicationForm) ToDateTime(explicit bool) (fhirpat
 func (r CitationCitedArtifactPublicationForm) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationForm to Quantity")
 }
-func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactPublicationForm
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationForm:
@@ -16050,7 +16086,7 @@ func (r CitationCitedArtifactPublicationForm) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationForm) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactPublicationForm)
 	if !ok {
 		return false
@@ -16067,126 +16103,126 @@ func (r CitationCitedArtifactPublicationForm) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublishedIn",
+			Name: "publishedIn",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CitationCitedArtifactPublicationFormPublishedIn",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CitedMedium",
+			Name: "citedMedium",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Volume",
+			Name: "volume",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Issue",
+			Name: "issue",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ArticleDate",
+			Name: "articleDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationDateText",
+			Name: "publicationDateText",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublicationDateSeason",
+			Name: "publicationDateSeason",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastRevisionDate",
+			Name: "lastRevisionDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AccessionNumber",
+			Name: "accessionNumber",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PageString",
+			Name: "pageString",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FirstPage",
+			Name: "firstPage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastPage",
+			Name: "lastPage",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PageCount",
+			Name: "pageCount",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -16250,6 +16286,9 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) ToString(explicit bool)
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Integer")
 }
+func (r CitationCitedArtifactPublicationFormPublishedIn) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Long")
+}
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Decimal")
 }
@@ -16265,7 +16304,7 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) ToDateTime(explicit boo
 func (r CitationCitedArtifactPublicationFormPublishedIn) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactPublicationFormPublishedIn to Quantity")
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactPublicationFormPublishedIn
 	switch other := other.(type) {
 	case CitationCitedArtifactPublicationFormPublishedIn:
@@ -16281,7 +16320,7 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) Equal(other fhirpath.El
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactPublicationFormPublishedIn) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactPublicationFormPublishedIn)
 	if !ok {
 		return false
@@ -16298,56 +16337,56 @@ func (r CitationCitedArtifactPublicationFormPublishedIn) TypeInfo() fhirpath.Typ
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PublisherLocation",
+			Name: "publisherLocation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -16396,6 +16435,9 @@ func (r CitationCitedArtifactWebLocation) ToString(explicit bool) (fhirpath.Stri
 func (r CitationCitedArtifactWebLocation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactWebLocation to Integer")
 }
+func (r CitationCitedArtifactWebLocation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactWebLocation to Long")
+}
 func (r CitationCitedArtifactWebLocation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Decimal")
 }
@@ -16411,7 +16453,7 @@ func (r CitationCitedArtifactWebLocation) ToDateTime(explicit bool) (fhirpath.Da
 func (r CitationCitedArtifactWebLocation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactWebLocation to Quantity")
 }
-func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactWebLocation
 	switch other := other.(type) {
 	case CitationCitedArtifactWebLocation:
@@ -16427,7 +16469,7 @@ func (r CitationCitedArtifactWebLocation) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactWebLocation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactWebLocation)
 	if !ok {
 		return false
@@ -16444,35 +16486,35 @@ func (r CitationCitedArtifactWebLocation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classifier",
+			Name: "classifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -16526,6 +16568,9 @@ func (r CitationCitedArtifactClassification) ToString(explicit bool) (fhirpath.S
 func (r CitationCitedArtifactClassification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactClassification to Integer")
 }
+func (r CitationCitedArtifactClassification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactClassification to Long")
+}
 func (r CitationCitedArtifactClassification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactClassification to Decimal")
 }
@@ -16541,7 +16586,7 @@ func (r CitationCitedArtifactClassification) ToDateTime(explicit bool) (fhirpath
 func (r CitationCitedArtifactClassification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactClassification to Quantity")
 }
-func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactClassification
 	switch other := other.(type) {
 	case CitationCitedArtifactClassification:
@@ -16557,7 +16602,7 @@ func (r CitationCitedArtifactClassification) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactClassification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactClassification)
 	if !ok {
 		return false
@@ -16574,42 +16619,42 @@ func (r CitationCitedArtifactClassification) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Classifier",
+			Name: "classifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ArtifactAssessment",
+			Name: "artifactAssessment",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -16663,6 +16708,9 @@ func (r CitationCitedArtifactContributorship) ToString(explicit bool) (fhirpath.
 func (r CitationCitedArtifactContributorship) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorship to Integer")
 }
+func (r CitationCitedArtifactContributorship) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorship to Long")
+}
 func (r CitationCitedArtifactContributorship) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Decimal")
 }
@@ -16678,7 +16726,7 @@ func (r CitationCitedArtifactContributorship) ToDateTime(explicit bool) (fhirpat
 func (r CitationCitedArtifactContributorship) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorship to Quantity")
 }
-func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactContributorship
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorship:
@@ -16694,7 +16742,7 @@ func (r CitationCitedArtifactContributorship) Equal(other fhirpath.Element, _noR
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorship) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactContributorship)
 	if !ok {
 		return false
@@ -16711,42 +16759,42 @@ func (r CitationCitedArtifactContributorship) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Complete",
+			Name: "complete",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Entry",
+			Name: "entry",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactContributorshipEntry",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Summary",
+			Name: "summary",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactContributorshipSummary",
@@ -16823,6 +16871,9 @@ func (r CitationCitedArtifactContributorshipEntry) ToString(explicit bool) (fhir
 func (r CitationCitedArtifactContributorshipEntry) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Integer")
 }
+func (r CitationCitedArtifactContributorshipEntry) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Long")
+}
 func (r CitationCitedArtifactContributorshipEntry) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Decimal")
 }
@@ -16838,7 +16889,7 @@ func (r CitationCitedArtifactContributorshipEntry) ToDateTime(explicit bool) (fh
 func (r CitationCitedArtifactContributorshipEntry) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntry to Quantity")
 }
-func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipEntry
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntry:
@@ -16854,7 +16905,7 @@ func (r CitationCitedArtifactContributorshipEntry) Equal(other fhirpath.Element,
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipEntry) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactContributorshipEntry)
 	if !ok {
 		return false
@@ -16871,77 +16922,77 @@ func (r CitationCitedArtifactContributorshipEntry) TypeInfo() fhirpath.TypeInfo 
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contributor",
+			Name: "contributor",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ForenameInitials",
+			Name: "forenameInitials",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Affiliation",
+			Name: "affiliation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContributionType",
+			Name: "contributionType",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Role",
+			Name: "role",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContributionInstance",
+			Name: "contributionInstance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CitationCitedArtifactContributorshipEntryContributionInstance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CorrespondingContact",
+			Name: "correspondingContact",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RankingOrder",
+			Name: "rankingOrder",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PositiveInt",
@@ -16988,6 +17039,9 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToString(
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Integer")
 }
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Long")
+}
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Decimal")
 }
@@ -17003,7 +17057,7 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToDateTim
 func (r CitationCitedArtifactContributorshipEntryContributionInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipEntryContributionInstance to Quantity")
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipEntryContributionInstance
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipEntryContributionInstance:
@@ -17019,7 +17073,7 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equal(oth
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipEntryContributionInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactContributorshipEntryContributionInstance)
 	if !ok {
 		return false
@@ -17036,35 +17090,35 @@ func (r CitationCitedArtifactContributorshipEntryContributionInstance) TypeInfo(
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Time",
+			Name: "time",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
@@ -17121,6 +17175,9 @@ func (r CitationCitedArtifactContributorshipSummary) ToString(explicit bool) (fh
 func (r CitationCitedArtifactContributorshipSummary) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Integer")
 }
+func (r CitationCitedArtifactContributorshipSummary) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Long")
+}
 func (r CitationCitedArtifactContributorshipSummary) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Decimal")
 }
@@ -17136,7 +17193,7 @@ func (r CitationCitedArtifactContributorshipSummary) ToDateTime(explicit bool) (
 func (r CitationCitedArtifactContributorshipSummary) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CitationCitedArtifactContributorshipSummary to Quantity")
 }
-func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CitationCitedArtifactContributorshipSummary
 	switch other := other.(type) {
 	case CitationCitedArtifactContributorshipSummary:
@@ -17152,7 +17209,7 @@ func (r CitationCitedArtifactContributorshipSummary) Equal(other fhirpath.Elemen
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CitationCitedArtifactContributorshipSummary) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CitationCitedArtifactContributorshipSummary)
 	if !ok {
 		return false
@@ -17169,49 +17226,49 @@ func (r CitationCitedArtifactContributorshipSummary) TypeInfo() fhirpath.TypeInf
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Style",
+			Name: "style",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Source",
+			Name: "source",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",

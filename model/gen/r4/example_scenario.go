@@ -7041,6 +7041,9 @@ func (r ExampleScenario) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r ExampleScenario) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenario to Integer")
 }
+func (r ExampleScenario) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenario to Long")
+}
 func (r ExampleScenario) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenario to Decimal")
 }
@@ -7056,7 +7059,7 @@ func (r ExampleScenario) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r ExampleScenario) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenario to Quantity")
 }
-func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenario) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenario
 	switch other := other.(type) {
 	case ExampleScenario:
@@ -7072,7 +7075,7 @@ func (r ExampleScenario) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenario) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenario) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenario)
 	if !ok {
 		return false
@@ -7089,175 +7092,175 @@ func (r ExampleScenario) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioActor",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Instance",
+			Name: "instance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioInstance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Process",
+			Name: "process",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioProcess",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Workflow",
+			Name: "workflow",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
@@ -7312,6 +7315,9 @@ func (r ExampleScenarioActor) ToString(explicit bool) (fhirpath.String, bool, er
 func (r ExampleScenarioActor) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioActor to Integer")
 }
+func (r ExampleScenarioActor) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioActor to Long")
+}
 func (r ExampleScenarioActor) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioActor to Decimal")
 }
@@ -7327,7 +7333,7 @@ func (r ExampleScenarioActor) ToDateTime(explicit bool) (fhirpath.DateTime, bool
 func (r ExampleScenarioActor) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioActor to Quantity")
 }
-func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioActor) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioActor
 	switch other := other.(type) {
 	case ExampleScenarioActor:
@@ -7343,7 +7349,7 @@ func (r ExampleScenarioActor) Equal(other fhirpath.Element, _noReverseTypeConver
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioActor) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioActor) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioActor)
 	if !ok {
 		return false
@@ -7360,49 +7366,49 @@ func (r ExampleScenarioActor) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ActorId",
+			Name: "actorId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -7467,6 +7473,9 @@ func (r ExampleScenarioInstance) ToString(explicit bool) (fhirpath.String, bool,
 func (r ExampleScenarioInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstance to Integer")
 }
+func (r ExampleScenarioInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstance to Long")
+}
 func (r ExampleScenarioInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstance to Decimal")
 }
@@ -7482,7 +7491,7 @@ func (r ExampleScenarioInstance) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r ExampleScenarioInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstance to Quantity")
 }
-func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstance:
@@ -7498,7 +7507,7 @@ func (r ExampleScenarioInstance) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstance)
 	if !ok {
 		return false
@@ -7515,63 +7524,63 @@ func (r ExampleScenarioInstance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceId",
+			Name: "resourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceType",
+			Name: "resourceType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioInstanceVersion",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ContainedInstance",
+			Name: "containedInstance",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioInstanceContainedInstance",
@@ -7616,6 +7625,9 @@ func (r ExampleScenarioInstanceVersion) ToString(explicit bool) (fhirpath.String
 func (r ExampleScenarioInstanceVersion) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstanceVersion to Integer")
 }
+func (r ExampleScenarioInstanceVersion) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstanceVersion to Long")
+}
 func (r ExampleScenarioInstanceVersion) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstanceVersion to Decimal")
 }
@@ -7631,7 +7643,7 @@ func (r ExampleScenarioInstanceVersion) ToDateTime(explicit bool) (fhirpath.Date
 func (r ExampleScenarioInstanceVersion) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstanceVersion to Quantity")
 }
-func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstanceVersion
 	switch other := other.(type) {
 	case ExampleScenarioInstanceVersion:
@@ -7647,7 +7659,7 @@ func (r ExampleScenarioInstanceVersion) Equal(other fhirpath.Element, _noReverse
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstanceVersion) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstanceVersion)
 	if !ok {
 		return false
@@ -7664,35 +7676,35 @@ func (r ExampleScenarioInstanceVersion) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionId",
+			Name: "versionId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
@@ -7739,6 +7751,9 @@ func (r ExampleScenarioInstanceContainedInstance) ToString(explicit bool) (fhirp
 func (r ExampleScenarioInstanceContainedInstance) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Integer")
 }
+func (r ExampleScenarioInstanceContainedInstance) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Long")
+}
 func (r ExampleScenarioInstanceContainedInstance) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Decimal")
 }
@@ -7754,7 +7769,7 @@ func (r ExampleScenarioInstanceContainedInstance) ToDateTime(explicit bool) (fhi
 func (r ExampleScenarioInstanceContainedInstance) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioInstanceContainedInstance to Quantity")
 }
-func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioInstanceContainedInstance
 	switch other := other.(type) {
 	case ExampleScenarioInstanceContainedInstance:
@@ -7770,7 +7785,7 @@ func (r ExampleScenarioInstanceContainedInstance) Equal(other fhirpath.Element, 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioInstanceContainedInstance) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioInstanceContainedInstance)
 	if !ok {
 		return false
@@ -7787,35 +7802,35 @@ func (r ExampleScenarioInstanceContainedInstance) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceId",
+			Name: "resourceId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "VersionId",
+			Name: "versionId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -7877,6 +7892,9 @@ func (r ExampleScenarioProcess) ToString(explicit bool) (fhirpath.String, bool, 
 func (r ExampleScenarioProcess) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcess to Integer")
 }
+func (r ExampleScenarioProcess) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcess to Long")
+}
 func (r ExampleScenarioProcess) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcess to Decimal")
 }
@@ -7892,7 +7910,7 @@ func (r ExampleScenarioProcess) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r ExampleScenarioProcess) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcess to Quantity")
 }
-func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcess) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcess
 	switch other := other.(type) {
 	case ExampleScenarioProcess:
@@ -7908,7 +7926,7 @@ func (r ExampleScenarioProcess) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcess) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcess)
 	if !ok {
 		return false
@@ -7925,56 +7943,56 @@ func (r ExampleScenarioProcess) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PreConditions",
+			Name: "preConditions",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PostConditions",
+			Name: "postConditions",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Step",
+			Name: "step",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioProcessStep",
@@ -8033,6 +8051,9 @@ func (r ExampleScenarioProcessStep) ToString(explicit bool) (fhirpath.String, bo
 func (r ExampleScenarioProcessStep) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStep to Integer")
 }
+func (r ExampleScenarioProcessStep) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStep to Long")
+}
 func (r ExampleScenarioProcessStep) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStep to Decimal")
 }
@@ -8048,7 +8069,7 @@ func (r ExampleScenarioProcessStep) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r ExampleScenarioProcessStep) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStep to Quantity")
 }
-func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStep
 	switch other := other.(type) {
 	case ExampleScenarioProcessStep:
@@ -8064,7 +8085,7 @@ func (r ExampleScenarioProcessStep) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStep) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStep)
 	if !ok {
 		return false
@@ -8081,49 +8102,49 @@ func (r ExampleScenarioProcessStep) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Process",
+			Name: "process",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioProcess",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Pause",
+			Name: "pause",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Operation",
+			Name: "operation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ExampleScenarioProcessStepOperation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Alternative",
+			Name: "alternative",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioProcessStepAlternative",
@@ -8210,6 +8231,9 @@ func (r ExampleScenarioProcessStepOperation) ToString(explicit bool) (fhirpath.S
 func (r ExampleScenarioProcessStepOperation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Integer")
 }
+func (r ExampleScenarioProcessStepOperation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStepOperation to Long")
+}
 func (r ExampleScenarioProcessStepOperation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Decimal")
 }
@@ -8225,7 +8249,7 @@ func (r ExampleScenarioProcessStepOperation) ToDateTime(explicit bool) (fhirpath
 func (r ExampleScenarioProcessStepOperation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStepOperation to Quantity")
 }
-func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStepOperation
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepOperation:
@@ -8241,7 +8265,7 @@ func (r ExampleScenarioProcessStepOperation) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStepOperation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStepOperation)
 	if !ok {
 		return false
@@ -8258,91 +8282,91 @@ func (r ExampleScenarioProcessStepOperation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Number",
+			Name: "number",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Name",
+			Name: "name",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Initiator",
+			Name: "initiator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Receiver",
+			Name: "receiver",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "InitiatorActive",
+			Name: "initiatorActive",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ReceiverActive",
+			Name: "receiverActive",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Request",
+			Name: "request",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ExampleScenarioInstanceContainedInstance",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Response",
+			Name: "response",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ExampleScenarioInstanceContainedInstance",
@@ -8394,6 +8418,9 @@ func (r ExampleScenarioProcessStepAlternative) ToString(explicit bool) (fhirpath
 func (r ExampleScenarioProcessStepAlternative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Integer")
 }
+func (r ExampleScenarioProcessStepAlternative) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Long")
+}
 func (r ExampleScenarioProcessStepAlternative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Decimal")
 }
@@ -8409,7 +8436,7 @@ func (r ExampleScenarioProcessStepAlternative) ToDateTime(explicit bool) (fhirpa
 func (r ExampleScenarioProcessStepAlternative) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert ExampleScenarioProcessStepAlternative to Quantity")
 }
-func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element) (bool, bool) {
 	var o *ExampleScenarioProcessStepAlternative
 	switch other := other.(type) {
 	case ExampleScenarioProcessStepAlternative:
@@ -8425,7 +8452,7 @@ func (r ExampleScenarioProcessStepAlternative) Equal(other fhirpath.Element, _no
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r ExampleScenarioProcessStepAlternative) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(ExampleScenarioProcessStepAlternative)
 	if !ok {
 		return false
@@ -8442,42 +8469,42 @@ func (r ExampleScenarioProcessStepAlternative) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Step",
+			Name: "step",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ExampleScenarioProcessStep",

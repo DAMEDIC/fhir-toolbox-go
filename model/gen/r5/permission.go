@@ -3792,6 +3792,9 @@ func (r Permission) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Permission) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Permission to Integer")
 }
+func (r Permission) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Permission to Long")
+}
 func (r Permission) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Permission to Decimal")
 }
@@ -3807,7 +3810,7 @@ func (r Permission) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Permission) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Permission to Quantity")
 }
-func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Permission) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Permission
 	switch other := other.(type) {
 	case Permission:
@@ -3823,7 +3826,7 @@ func (r Permission) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Permission) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Permission) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Permission)
 	if !ok {
 		return false
@@ -3840,105 +3843,105 @@ func (r Permission) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Asserter",
+			Name: "asserter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Validity",
+			Name: "validity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Justification",
+			Name: "justification",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "PermissionJustification",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Combining",
+			Name: "combining",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Rule",
+			Name: "rule",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PermissionRule",
@@ -3987,6 +3990,9 @@ func (r PermissionJustification) ToString(explicit bool) (fhirpath.String, bool,
 func (r PermissionJustification) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionJustification to Integer")
 }
+func (r PermissionJustification) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionJustification to Long")
+}
 func (r PermissionJustification) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionJustification to Decimal")
 }
@@ -4002,7 +4008,7 @@ func (r PermissionJustification) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r PermissionJustification) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionJustification to Quantity")
 }
-func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PermissionJustification) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PermissionJustification
 	switch other := other.(type) {
 	case PermissionJustification:
@@ -4018,7 +4024,7 @@ func (r PermissionJustification) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PermissionJustification) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionJustification) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PermissionJustification)
 	if !ok {
 		return false
@@ -4035,35 +4041,35 @@ func (r PermissionJustification) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Basis",
+			Name: "basis",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Evidence",
+			Name: "evidence",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
@@ -4122,6 +4128,9 @@ func (r PermissionRule) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r PermissionRule) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRule to Integer")
 }
+func (r PermissionRule) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRule to Long")
+}
 func (r PermissionRule) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRule to Decimal")
 }
@@ -4137,7 +4146,7 @@ func (r PermissionRule) ToDateTime(explicit bool) (fhirpath.DateTime, bool, erro
 func (r PermissionRule) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRule to Quantity")
 }
-func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PermissionRule) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PermissionRule
 	switch other := other.(type) {
 	case PermissionRule:
@@ -4153,7 +4162,7 @@ func (r PermissionRule) Equal(other fhirpath.Element, _noReverseTypeConversion .
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PermissionRule) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRule) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PermissionRule)
 	if !ok {
 		return false
@@ -4170,49 +4179,49 @@ func (r PermissionRule) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Data",
+			Name: "data",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PermissionRuleData",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Activity",
+			Name: "activity",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PermissionRuleActivity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Limit",
+			Name: "limit",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -4271,6 +4280,9 @@ func (r PermissionRuleData) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r PermissionRuleData) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleData to Integer")
 }
+func (r PermissionRuleData) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleData to Long")
+}
 func (r PermissionRuleData) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleData to Decimal")
 }
@@ -4286,7 +4298,7 @@ func (r PermissionRuleData) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r PermissionRuleData) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleData to Quantity")
 }
-func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PermissionRuleData) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PermissionRuleData
 	switch other := other.(type) {
 	case PermissionRuleData:
@@ -4302,7 +4314,7 @@ func (r PermissionRuleData) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PermissionRuleData) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleData) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PermissionRuleData)
 	if !ok {
 		return false
@@ -4319,49 +4331,49 @@ func (r PermissionRuleData) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "PermissionRuleDataResource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Security",
+			Name: "security",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Period",
+			Name: "period",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Expression",
+			Name: "expression",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Expression",
@@ -4406,6 +4418,9 @@ func (r PermissionRuleDataResource) ToString(explicit bool) (fhirpath.String, bo
 func (r PermissionRuleDataResource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleDataResource to Integer")
 }
+func (r PermissionRuleDataResource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleDataResource to Long")
+}
 func (r PermissionRuleDataResource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleDataResource to Decimal")
 }
@@ -4421,7 +4436,7 @@ func (r PermissionRuleDataResource) ToDateTime(explicit bool) (fhirpath.DateTime
 func (r PermissionRuleDataResource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleDataResource to Quantity")
 }
-func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PermissionRuleDataResource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PermissionRuleDataResource
 	switch other := other.(type) {
 	case PermissionRuleDataResource:
@@ -4437,7 +4452,7 @@ func (r PermissionRuleDataResource) Equal(other fhirpath.Element, _noReverseType
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleDataResource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PermissionRuleDataResource)
 	if !ok {
 		return false
@@ -4454,35 +4469,35 @@ func (r PermissionRuleDataResource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meaning",
+			Name: "meaning",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
@@ -4536,6 +4551,9 @@ func (r PermissionRuleActivity) ToString(explicit bool) (fhirpath.String, bool, 
 func (r PermissionRuleActivity) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert PermissionRuleActivity to Integer")
 }
+func (r PermissionRuleActivity) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert PermissionRuleActivity to Long")
+}
 func (r PermissionRuleActivity) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert PermissionRuleActivity to Decimal")
 }
@@ -4551,7 +4569,7 @@ func (r PermissionRuleActivity) ToDateTime(explicit bool) (fhirpath.DateTime, bo
 func (r PermissionRuleActivity) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert PermissionRuleActivity to Quantity")
 }
-func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r PermissionRuleActivity) Equal(other fhirpath.Element) (bool, bool) {
 	var o *PermissionRuleActivity
 	switch other := other.(type) {
 	case PermissionRuleActivity:
@@ -4567,7 +4585,7 @@ func (r PermissionRuleActivity) Equal(other fhirpath.Element, _noReverseTypeConv
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r PermissionRuleActivity) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r PermissionRuleActivity) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(PermissionRuleActivity)
 	if !ok {
 		return false
@@ -4584,42 +4602,42 @@ func (r PermissionRuleActivity) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Actor",
+			Name: "actor",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Action",
+			Name: "action",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",

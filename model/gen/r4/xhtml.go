@@ -50,6 +50,10 @@ func (r Xhtml) MarshalJSON() ([]byte, error) {
 	return b.Bytes(), nil
 }
 func (r *Xhtml) UnmarshalJSON(b []byte) error {
+	if string(b) == "null" {
+		*r = Xhtml{}
+		return nil
+	}
 	var v string
 	if err := json.Unmarshal(b, &v); err != nil {
 		return err
@@ -120,6 +124,9 @@ func (r Xhtml) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Xhtml) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Xhtml to Integer")
 }
+func (r Xhtml) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Xhtml to Long")
+}
 func (r Xhtml) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Xhtml to Decimal")
 }
@@ -135,25 +142,31 @@ func (r Xhtml) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Xhtml) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Xhtml to Quantity")
 }
-func (r Xhtml) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Xhtml) HasValue() bool {
+	return r.Value != ""
+}
+func (r Xhtml) Equal(other fhirpath.Element) (bool, bool) {
 	o, ok := other.(Xhtml)
 	if !ok {
 		return false, true
 	}
 	return r.Value == o.Value, true
 }
-func (r Xhtml) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
-	eq, ok := r.Equal(other)
-	return eq && ok
+func (r Xhtml) Equivalent(other fhirpath.Element) bool {
+	o, ok := other.(Xhtml)
+	if !ok {
+		return false
+	}
+	return r.Value == o.Value
 }
 func (r Xhtml) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "PrimitiveType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",

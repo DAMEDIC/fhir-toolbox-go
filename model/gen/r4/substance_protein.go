@@ -1900,6 +1900,9 @@ func (r SubstanceProtein) ToString(explicit bool) (fhirpath.String, bool, error)
 func (r SubstanceProtein) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceProtein to Integer")
 }
+func (r SubstanceProtein) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceProtein to Long")
+}
 func (r SubstanceProtein) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProtein to Decimal")
 }
@@ -1915,7 +1918,7 @@ func (r SubstanceProtein) ToDateTime(explicit bool) (fhirpath.DateTime, bool, er
 func (r SubstanceProtein) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProtein to Quantity")
 }
-func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceProtein) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceProtein
 	switch other := other.(type) {
 	case SubstanceProtein:
@@ -1931,7 +1934,7 @@ func (r SubstanceProtein) Equal(other fhirpath.Element, _noReverseTypeConversion
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceProtein) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProtein) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceProtein)
 	if !ok {
 		return false
@@ -1948,84 +1951,84 @@ func (r SubstanceProtein) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SequenceType",
+			Name: "sequenceType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NumberOfSubunits",
+			Name: "numberOfSubunits",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DisulfideLinkage",
+			Name: "disulfideLinkage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subunit",
+			Name: "subunit",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SubstanceProteinSubunit",
@@ -2104,6 +2107,9 @@ func (r SubstanceProteinSubunit) ToString(explicit bool) (fhirpath.String, bool,
 func (r SubstanceProteinSubunit) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubstanceProteinSubunit to Integer")
 }
+func (r SubstanceProteinSubunit) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubstanceProteinSubunit to Long")
+}
 func (r SubstanceProteinSubunit) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubstanceProteinSubunit to Decimal")
 }
@@ -2119,7 +2125,7 @@ func (r SubstanceProteinSubunit) ToDateTime(explicit bool) (fhirpath.DateTime, b
 func (r SubstanceProteinSubunit) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubstanceProteinSubunit to Quantity")
 }
-func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubstanceProteinSubunit) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubstanceProteinSubunit
 	switch other := other.(type) {
 	case SubstanceProteinSubunit:
@@ -2135,7 +2141,7 @@ func (r SubstanceProteinSubunit) Equal(other fhirpath.Element, _noReverseTypeCon
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubstanceProteinSubunit) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubstanceProteinSubunit)
 	if !ok {
 		return false
@@ -2152,77 +2158,77 @@ func (r SubstanceProteinSubunit) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subunit",
+			Name: "subunit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Sequence",
+			Name: "sequence",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Length",
+			Name: "length",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Integer",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SequenceAttachment",
+			Name: "sequenceAttachment",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Attachment",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NTerminalModificationId",
+			Name: "nTerminalModificationId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NTerminalModification",
+			Name: "nTerminalModification",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CTerminalModificationId",
+			Name: "cTerminalModificationId",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CTerminalModification",
+			Name: "cTerminalModification",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

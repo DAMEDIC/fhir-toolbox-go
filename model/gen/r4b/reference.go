@@ -544,6 +544,9 @@ func (r Reference) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Reference) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Reference to Integer")
 }
+func (r Reference) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Reference to Long")
+}
 func (r Reference) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Reference to Decimal")
 }
@@ -559,7 +562,7 @@ func (r Reference) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Reference) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Reference to Quantity")
 }
-func (r Reference) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Reference) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Reference
 	switch other := other.(type) {
 	case Reference:
@@ -575,7 +578,7 @@ func (r Reference) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Reference) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Reference) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Reference)
 	if !ok {
 		return false
@@ -588,46 +591,46 @@ func (r Reference) Equivalent(other fhirpath.Element, _noReverseTypeConversion .
 func (r Reference) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Reference",
+			Name: "reference",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Display",
+			Name: "display",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

@@ -397,6 +397,9 @@ func (r Narrative) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Narrative) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Narrative to Integer")
 }
+func (r Narrative) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Narrative to Long")
+}
 func (r Narrative) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Narrative to Decimal")
 }
@@ -412,7 +415,7 @@ func (r Narrative) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Narrative) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Narrative to Quantity")
 }
-func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Narrative) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Narrative
 	switch other := other.(type) {
 	case Narrative:
@@ -428,7 +431,7 @@ func (r Narrative) Equal(other fhirpath.Element, _noReverseTypeConversion ...boo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Narrative) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Narrative) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Narrative)
 	if !ok {
 		return false
@@ -445,28 +448,28 @@ func (r Narrative) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Div",
+			Name: "div",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Xhtml",

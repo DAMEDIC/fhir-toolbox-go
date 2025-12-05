@@ -421,6 +421,9 @@ func (r CodeableConcept) ToString(explicit bool) (fhirpath.String, bool, error) 
 func (r CodeableConcept) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert CodeableConcept to Integer")
 }
+func (r CodeableConcept) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert CodeableConcept to Long")
+}
 func (r CodeableConcept) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert CodeableConcept to Decimal")
 }
@@ -436,7 +439,7 @@ func (r CodeableConcept) ToDateTime(explicit bool) (fhirpath.DateTime, bool, err
 func (r CodeableConcept) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert CodeableConcept to Quantity")
 }
-func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r CodeableConcept) Equal(other fhirpath.Element) (bool, bool) {
 	var o *CodeableConcept
 	switch other := other.(type) {
 	case CodeableConcept:
@@ -452,7 +455,7 @@ func (r CodeableConcept) Equal(other fhirpath.Element, _noReverseTypeConversion 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r CodeableConcept) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r CodeableConcept) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(CodeableConcept)
 	if !ok {
 		return false
@@ -474,28 +477,28 @@ func (r CodeableConcept) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Coding",
+			Name: "coding",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Coding",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",

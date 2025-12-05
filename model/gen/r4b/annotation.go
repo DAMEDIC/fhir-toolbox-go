@@ -611,6 +611,9 @@ func (r Annotation) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Annotation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Annotation to Integer")
 }
+func (r Annotation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Annotation to Long")
+}
 func (r Annotation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Annotation to Decimal")
 }
@@ -626,7 +629,7 @@ func (r Annotation) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Annotation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Annotation to Quantity")
 }
-func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Annotation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Annotation
 	switch other := other.(type) {
 	case Annotation:
@@ -642,7 +645,7 @@ func (r Annotation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Annotation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Annotation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Annotation)
 	if !ok {
 		return false
@@ -655,39 +658,39 @@ func (r Annotation) Equivalent(other fhirpath.Element, _noReverseTypeConversion 
 func (r Annotation) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Element",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Author",
+			Name: "author",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
-				Name:      "PrimitiveElement",
-				Namespace: "FHIR",
+				Name:      "Any",
+				Namespace: "System",
 			},
 		}, {
-			Name: "Time",
+			Name: "time",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",

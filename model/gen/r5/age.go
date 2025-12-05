@@ -655,6 +655,9 @@ func (r Age) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Age) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Age to Integer")
 }
+func (r Age) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Age to Long")
+}
 func (r Age) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Age to Decimal")
 }
@@ -670,7 +673,7 @@ func (r Age) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Age) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Age to Quantity")
 }
-func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Age) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Age
 	switch other := other.(type) {
 	case Age:
@@ -686,7 +689,7 @@ func (r Age) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Age) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Age)
 	if !ok {
 		return false
@@ -699,53 +702,53 @@ func (r Age) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool
 func (r Age) TypeInfo() fhirpath.TypeInfo {
 	return fhirpath.ClassInfo{
 		BaseType: fhirpath.TypeSpecifier{
-			Name:      "DataType",
+			Name:      "Quantity",
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Value",
+			Name: "value",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Decimal",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Comparator",
+			Name: "comparator",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Unit",
+			Name: "unit",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "System",
+			Name: "system",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Code",
+			Name: "code",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",

@@ -18,6 +18,7 @@ type Struct struct {
 	IsResource       bool
 	IsDomainResource bool
 	IsPrimitive      bool
+	BaseType         string // Base type name from FHIR spec's baseDefinition field
 	Fields           []StructField
 	DocComment       string
 }

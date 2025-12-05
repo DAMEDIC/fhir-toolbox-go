@@ -418,6 +418,9 @@ func (r Period) ToString(explicit bool) (fhirpath.String, bool, error) {
 func (r Period) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert Period to Integer")
 }
+func (r Period) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert Period to Long")
+}
 func (r Period) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert Period to Decimal")
 }
@@ -433,7 +436,7 @@ func (r Period) ToDateTime(explicit bool) (fhirpath.DateTime, bool, error) {
 func (r Period) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert Period to Quantity")
 }
-func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r Period) Equal(other fhirpath.Element) (bool, bool) {
 	var o *Period
 	switch other := other.(type) {
 	case Period:
@@ -449,7 +452,7 @@ func (r Period) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) 
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r Period) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r Period) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(Period)
 	if !ok {
 		return false
@@ -466,28 +469,28 @@ func (r Period) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Start",
+			Name: "start",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "End",
+			Name: "end",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",

@@ -5785,6 +5785,9 @@ func (r SubscriptionTopic) ToString(explicit bool) (fhirpath.String, bool, error
 func (r SubscriptionTopic) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopic to Integer")
 }
+func (r SubscriptionTopic) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopic to Long")
+}
 func (r SubscriptionTopic) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopic to Decimal")
 }
@@ -5800,7 +5803,7 @@ func (r SubscriptionTopic) ToDateTime(explicit bool) (fhirpath.DateTime, bool, e
 func (r SubscriptionTopic) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopic to Quantity")
 }
-func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopic) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopic
 	switch other := other.(type) {
 	case SubscriptionTopic:
@@ -5816,7 +5819,7 @@ func (r SubscriptionTopic) Equal(other fhirpath.Element, _noReverseTypeConversio
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopic) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopic) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopic)
 	if !ok {
 		return false
@@ -5833,210 +5836,210 @@ func (r SubscriptionTopic) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Url",
+			Name: "url",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Version",
+			Name: "version",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Title",
+			Name: "title",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "DerivedFrom",
+			Name: "derivedFrom",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Canonical",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Experimental",
+			Name: "experimental",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Publisher",
+			Name: "publisher",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contact",
+			Name: "contact",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ContactDetail",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "UseContext",
+			Name: "useContext",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "UsageContext",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Jurisdiction",
+			Name: "jurisdiction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Purpose",
+			Name: "purpose",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Copyright",
+			Name: "copyright",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ApprovalDate",
+			Name: "approvalDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastReviewDate",
+			Name: "lastReviewDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EffectivePeriod",
+			Name: "effectivePeriod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Period",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResourceTrigger",
+			Name: "resourceTrigger",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SubscriptionTopicResourceTrigger",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "EventTrigger",
+			Name: "eventTrigger",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SubscriptionTopicEventTrigger",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CanFilterBy",
+			Name: "canFilterBy",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SubscriptionTopicCanFilterBy",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NotificationShape",
+			Name: "notificationShape",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "SubscriptionTopicNotificationShape",
@@ -6098,6 +6101,9 @@ func (r SubscriptionTopicResourceTrigger) ToString(explicit bool) (fhirpath.Stri
 func (r SubscriptionTopicResourceTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Integer")
 }
+func (r SubscriptionTopicResourceTrigger) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicResourceTrigger to Long")
+}
 func (r SubscriptionTopicResourceTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Decimal")
 }
@@ -6113,7 +6119,7 @@ func (r SubscriptionTopicResourceTrigger) ToDateTime(explicit bool) (fhirpath.Da
 func (r SubscriptionTopicResourceTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTrigger to Quantity")
 }
-func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicResourceTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTrigger:
@@ -6129,7 +6135,7 @@ func (r SubscriptionTopicResourceTrigger) Equal(other fhirpath.Element, _noRever
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTrigger) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicResourceTrigger)
 	if !ok {
 		return false
@@ -6146,56 +6152,56 @@ func (r SubscriptionTopicResourceTrigger) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SupportedInteraction",
+			Name: "supportedInteraction",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "QueryCriteria",
+			Name: "queryCriteria",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "SubscriptionTopicResourceTriggerQueryCriteria",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FhirPathCriteria",
+			Name: "fhirPathCriteria",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
@@ -6259,6 +6265,9 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) ToString(explicit bool) (
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Integer")
 }
+func (r SubscriptionTopicResourceTriggerQueryCriteria) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Long")
+}
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Decimal")
 }
@@ -6274,7 +6283,7 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) ToDateTime(explicit bool)
 func (r SubscriptionTopicResourceTriggerQueryCriteria) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicResourceTriggerQueryCriteria to Quantity")
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicResourceTriggerQueryCriteria
 	switch other := other.(type) {
 	case SubscriptionTopicResourceTriggerQueryCriteria:
@@ -6290,7 +6299,7 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) Equal(other fhirpath.Elem
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicResourceTriggerQueryCriteria) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicResourceTriggerQueryCriteria)
 	if !ok {
 		return false
@@ -6307,56 +6316,56 @@ func (r SubscriptionTopicResourceTriggerQueryCriteria) TypeInfo() fhirpath.TypeI
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Previous",
+			Name: "previous",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResultForCreate",
+			Name: "resultForCreate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Current",
+			Name: "current",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ResultForDelete",
+			Name: "resultForDelete",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RequireBoth",
+			Name: "requireBoth",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Boolean",
@@ -6406,6 +6415,9 @@ func (r SubscriptionTopicEventTrigger) ToString(explicit bool) (fhirpath.String,
 func (r SubscriptionTopicEventTrigger) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicEventTrigger to Integer")
 }
+func (r SubscriptionTopicEventTrigger) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicEventTrigger to Long")
+}
 func (r SubscriptionTopicEventTrigger) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Decimal")
 }
@@ -6421,7 +6433,7 @@ func (r SubscriptionTopicEventTrigger) ToDateTime(explicit bool) (fhirpath.DateT
 func (r SubscriptionTopicEventTrigger) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicEventTrigger to Quantity")
 }
-func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicEventTrigger
 	switch other := other.(type) {
 	case SubscriptionTopicEventTrigger:
@@ -6437,7 +6449,7 @@ func (r SubscriptionTopicEventTrigger) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicEventTrigger) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicEventTrigger)
 	if !ok {
 		return false
@@ -6454,42 +6466,42 @@ func (r SubscriptionTopicEventTrigger) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Event",
+			Name: "event",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
@@ -6551,6 +6563,9 @@ func (r SubscriptionTopicCanFilterBy) ToString(explicit bool) (fhirpath.String, 
 func (r SubscriptionTopicCanFilterBy) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Integer")
 }
+func (r SubscriptionTopicCanFilterBy) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicCanFilterBy to Long")
+}
 func (r SubscriptionTopicCanFilterBy) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Decimal")
 }
@@ -6566,7 +6581,7 @@ func (r SubscriptionTopicCanFilterBy) ToDateTime(explicit bool) (fhirpath.DateTi
 func (r SubscriptionTopicCanFilterBy) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicCanFilterBy to Quantity")
 }
-func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicCanFilterBy
 	switch other := other.(type) {
 	case SubscriptionTopicCanFilterBy:
@@ -6582,7 +6597,7 @@ func (r SubscriptionTopicCanFilterBy) Equal(other fhirpath.Element, _noReverseTy
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicCanFilterBy) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicCanFilterBy)
 	if !ok {
 		return false
@@ -6599,56 +6614,56 @@ func (r SubscriptionTopicCanFilterBy) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Markdown",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FilterParameter",
+			Name: "filterParameter",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FilterDefinition",
+			Name: "filterDefinition",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Modifier",
+			Name: "modifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Code",
@@ -6700,6 +6715,9 @@ func (r SubscriptionTopicNotificationShape) ToString(explicit bool) (fhirpath.St
 func (r SubscriptionTopicNotificationShape) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert SubscriptionTopicNotificationShape to Integer")
 }
+func (r SubscriptionTopicNotificationShape) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert SubscriptionTopicNotificationShape to Long")
+}
 func (r SubscriptionTopicNotificationShape) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Decimal")
 }
@@ -6715,7 +6733,7 @@ func (r SubscriptionTopicNotificationShape) ToDateTime(explicit bool) (fhirpath.
 func (r SubscriptionTopicNotificationShape) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert SubscriptionTopicNotificationShape to Quantity")
 }
-func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element) (bool, bool) {
 	var o *SubscriptionTopicNotificationShape
 	switch other := other.(type) {
 	case SubscriptionTopicNotificationShape:
@@ -6731,7 +6749,7 @@ func (r SubscriptionTopicNotificationShape) Equal(other fhirpath.Element, _noRev
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r SubscriptionTopicNotificationShape) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(SubscriptionTopicNotificationShape)
 	if !ok {
 		return false
@@ -6748,42 +6766,42 @@ func (r SubscriptionTopicNotificationShape) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Resource",
+			Name: "resource",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Include",
+			Name: "include",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "RevInclude",
+			Name: "revInclude",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",

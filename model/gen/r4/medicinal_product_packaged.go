@@ -2856,6 +2856,9 @@ func (r MedicinalProductPackaged) ToString(explicit bool) (fhirpath.String, bool
 func (r MedicinalProductPackaged) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackaged to Integer")
 }
+func (r MedicinalProductPackaged) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackaged to Long")
+}
 func (r MedicinalProductPackaged) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackaged to Decimal")
 }
@@ -2871,7 +2874,7 @@ func (r MedicinalProductPackaged) ToDateTime(explicit bool) (fhirpath.DateTime, 
 func (r MedicinalProductPackaged) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackaged to Quantity")
 }
-func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackaged) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackaged
 	switch other := other.(type) {
 	case MedicinalProductPackaged:
@@ -2887,7 +2890,7 @@ func (r MedicinalProductPackaged) Equal(other fhirpath.Element, _noReverseTypeCo
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackaged) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackaged)
 	if !ok {
 		return false
@@ -2904,119 +2907,119 @@ func (r MedicinalProductPackaged) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Subject",
+			Name: "subject",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Description",
+			Name: "description",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LegalStatusOfSupply",
+			Name: "legalStatusOfSupply",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MarketingStatus",
+			Name: "marketingStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MarketingStatus",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "MarketingAuthorization",
+			Name: "marketingAuthorization",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manufacturer",
+			Name: "manufacturer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "BatchIdentifier",
+			Name: "batchIdentifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MedicinalProductPackagedBatchIdentifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PackageItem",
+			Name: "packageItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MedicinalProductPackagedPackageItem",
@@ -3063,6 +3066,9 @@ func (r MedicinalProductPackagedBatchIdentifier) ToString(explicit bool) (fhirpa
 func (r MedicinalProductPackagedBatchIdentifier) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Integer")
 }
+func (r MedicinalProductPackagedBatchIdentifier) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Long")
+}
 func (r MedicinalProductPackagedBatchIdentifier) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Decimal")
 }
@@ -3078,7 +3084,7 @@ func (r MedicinalProductPackagedBatchIdentifier) ToDateTime(explicit bool) (fhir
 func (r MedicinalProductPackagedBatchIdentifier) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackagedBatchIdentifier to Quantity")
 }
-func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackagedBatchIdentifier
 	switch other := other.(type) {
 	case MedicinalProductPackagedBatchIdentifier:
@@ -3094,7 +3100,7 @@ func (r MedicinalProductPackagedBatchIdentifier) Equal(other fhirpath.Element, _
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackagedBatchIdentifier) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackagedBatchIdentifier)
 	if !ok {
 		return false
@@ -3111,35 +3117,35 @@ func (r MedicinalProductPackagedBatchIdentifier) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OuterPackaging",
+			Name: "outerPackaging",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImmediatePackaging",
+			Name: "immediatePackaging",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Identifier",
@@ -3234,6 +3240,9 @@ func (r MedicinalProductPackagedPackageItem) ToString(explicit bool) (fhirpath.S
 func (r MedicinalProductPackagedPackageItem) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Integer")
 }
+func (r MedicinalProductPackagedPackageItem) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert MedicinalProductPackagedPackageItem to Long")
+}
 func (r MedicinalProductPackagedPackageItem) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Decimal")
 }
@@ -3249,7 +3258,7 @@ func (r MedicinalProductPackagedPackageItem) ToDateTime(explicit bool) (fhirpath
 func (r MedicinalProductPackagedPackageItem) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert MedicinalProductPackagedPackageItem to Quantity")
 }
-func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element) (bool, bool) {
 	var o *MedicinalProductPackagedPackageItem
 	switch other := other.(type) {
 	case MedicinalProductPackagedPackageItem:
@@ -3265,7 +3274,7 @@ func (r MedicinalProductPackagedPackageItem) Equal(other fhirpath.Element, _noRe
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r MedicinalProductPackagedPackageItem) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(MedicinalProductPackagedPackageItem)
 	if !ok {
 		return false
@@ -3282,105 +3291,105 @@ func (r MedicinalProductPackagedPackageItem) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Identifier",
+			Name: "identifier",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Identifier",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Quantity",
+			Name: "quantity",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Quantity",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Material",
+			Name: "material",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AlternateMaterial",
+			Name: "alternateMaterial",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Device",
+			Name: "device",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ManufacturedItem",
+			Name: "manufacturedItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PackageItem",
+			Name: "packageItem",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "MedicinalProductPackagedPackageItem",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PhysicalCharacteristics",
+			Name: "physicalCharacteristics",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "ProdCharacteristic",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OtherCharacteristics",
+			Name: "otherCharacteristics",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ShelfLifeStorage",
+			Name: "shelfLifeStorage",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "ProductShelfLife",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Manufacturer",
+			Name: "manufacturer",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",

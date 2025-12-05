@@ -3644,6 +3644,9 @@ func (r VerificationResult) ToString(explicit bool) (fhirpath.String, bool, erro
 func (r VerificationResult) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResult to Integer")
 }
+func (r VerificationResult) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResult to Long")
+}
 func (r VerificationResult) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResult to Decimal")
 }
@@ -3659,7 +3662,7 @@ func (r VerificationResult) ToDateTime(explicit bool) (fhirpath.DateTime, bool, 
 func (r VerificationResult) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResult to Quantity")
 }
-func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResult) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResult
 	switch other := other.(type) {
 	case VerificationResult:
@@ -3675,7 +3678,7 @@ func (r VerificationResult) Equal(other fhirpath.Element, _noReverseTypeConversi
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResult) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResult) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResult)
 	if !ok {
 		return false
@@ -3692,154 +3695,154 @@ func (r VerificationResult) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Id",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Meta",
+			Name: "meta",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Meta",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ImplicitRules",
+			Name: "implicitRules",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Uri",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Language",
+			Name: "language",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Text",
+			Name: "text",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Narrative",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Contained",
+			Name: "contained",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Target",
+			Name: "target",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "TargetLocation",
+			Name: "targetLocation",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Need",
+			Name: "need",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Status",
+			Name: "status",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Code",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "StatusDate",
+			Name: "statusDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidationType",
+			Name: "validationType",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidationProcess",
+			Name: "validationProcess",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Frequency",
+			Name: "frequency",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Timing",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "LastPerformed",
+			Name: "lastPerformed",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "NextScheduled",
+			Name: "nextScheduled",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "FailureAction",
+			Name: "failureAction",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PrimarySource",
+			Name: "primarySource",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "VerificationResultPrimarySource",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Attestation",
+			Name: "attestation",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "VerificationResultAttestation",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Validator",
+			Name: "validator",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "VerificationResultValidator",
@@ -3913,6 +3916,9 @@ func (r VerificationResultPrimarySource) ToString(explicit bool) (fhirpath.Strin
 func (r VerificationResultPrimarySource) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultPrimarySource to Integer")
 }
+func (r VerificationResultPrimarySource) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultPrimarySource to Long")
+}
 func (r VerificationResultPrimarySource) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultPrimarySource to Decimal")
 }
@@ -3928,7 +3934,7 @@ func (r VerificationResultPrimarySource) ToDateTime(explicit bool) (fhirpath.Dat
 func (r VerificationResultPrimarySource) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultPrimarySource to Quantity")
 }
-func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultPrimarySource) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultPrimarySource
 	switch other := other.(type) {
 	case VerificationResultPrimarySource:
@@ -3944,7 +3950,7 @@ func (r VerificationResultPrimarySource) Equal(other fhirpath.Element, _noRevers
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultPrimarySource) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultPrimarySource)
 	if !ok {
 		return false
@@ -3961,70 +3967,70 @@ func (r VerificationResultPrimarySource) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Who",
+			Name: "who",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Type",
+			Name: "type",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CommunicationMethod",
+			Name: "communicationMethod",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidationStatus",
+			Name: "validationStatus",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ValidationDate",
+			Name: "validationDate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "DateTime",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CanPushUpdates",
+			Name: "canPushUpdates",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "PushTypeAvailable",
+			Name: "pushTypeAvailable",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "CodeableConcept",
@@ -4103,6 +4109,9 @@ func (r VerificationResultAttestation) ToString(explicit bool) (fhirpath.String,
 func (r VerificationResultAttestation) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultAttestation to Integer")
 }
+func (r VerificationResultAttestation) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultAttestation to Long")
+}
 func (r VerificationResultAttestation) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultAttestation to Decimal")
 }
@@ -4118,7 +4127,7 @@ func (r VerificationResultAttestation) ToDateTime(explicit bool) (fhirpath.DateT
 func (r VerificationResultAttestation) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultAttestation to Quantity")
 }
-func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultAttestation) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultAttestation
 	switch other := other.(type) {
 	case VerificationResultAttestation:
@@ -4134,7 +4143,7 @@ func (r VerificationResultAttestation) Equal(other fhirpath.Element, _noReverseT
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultAttestation) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultAttestation) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultAttestation)
 	if !ok {
 		return false
@@ -4151,77 +4160,77 @@ func (r VerificationResultAttestation) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Who",
+			Name: "who",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "OnBehalfOf",
+			Name: "onBehalfOf",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "CommunicationMethod",
+			Name: "communicationMethod",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "CodeableConcept",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Date",
+			Name: "date",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Date",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceIdentityCertificate",
+			Name: "sourceIdentityCertificate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProxyIdentityCertificate",
+			Name: "proxyIdentityCertificate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ProxySignature",
+			Name: "proxySignature",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Signature",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "SourceSignature",
+			Name: "sourceSignature",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Signature",
@@ -4273,6 +4282,9 @@ func (r VerificationResultValidator) ToString(explicit bool) (fhirpath.String, b
 func (r VerificationResultValidator) ToInteger(explicit bool) (fhirpath.Integer, bool, error) {
 	return 0, false, errors.New("can not convert VerificationResultValidator to Integer")
 }
+func (r VerificationResultValidator) ToLong(explicit bool) (fhirpath.Long, bool, error) {
+	return fhirpath.Long(0), false, errors.New("can not convert VerificationResultValidator to Long")
+}
 func (r VerificationResultValidator) ToDecimal(explicit bool) (fhirpath.Decimal, bool, error) {
 	return fhirpath.Decimal{}, false, errors.New("can not convert VerificationResultValidator to Decimal")
 }
@@ -4288,7 +4300,7 @@ func (r VerificationResultValidator) ToDateTime(explicit bool) (fhirpath.DateTim
 func (r VerificationResultValidator) ToQuantity(explicit bool) (fhirpath.Quantity, bool, error) {
 	return fhirpath.Quantity{}, false, errors.New("can not convert VerificationResultValidator to Quantity")
 }
-func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTypeConversion ...bool) (bool, bool) {
+func (r VerificationResultValidator) Equal(other fhirpath.Element) (bool, bool) {
 	var o *VerificationResultValidator
 	switch other := other.(type) {
 	case VerificationResultValidator:
@@ -4304,7 +4316,7 @@ func (r VerificationResultValidator) Equal(other fhirpath.Element, _noReverseTyp
 	eq, ok := r.Children().Equal(o.Children())
 	return eq && ok, true
 }
-func (r VerificationResultValidator) Equivalent(other fhirpath.Element, _noReverseTypeConversion ...bool) bool {
+func (r VerificationResultValidator) Equivalent(other fhirpath.Element) bool {
 	o, ok := other.(VerificationResultValidator)
 	if !ok {
 		return false
@@ -4321,42 +4333,42 @@ func (r VerificationResultValidator) TypeInfo() fhirpath.TypeInfo {
 			Namespace: "FHIR",
 		},
 		Element: []fhirpath.ClassInfoElement{{
-			Name: "Id",
+			Name: "id",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "string",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Extension",
+			Name: "extension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "ModifierExtension",
+			Name: "modifierExtension",
 			Type: fhirpath.TypeSpecifier{
 				List:      true,
 				Name:      "Extension",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "Organization",
+			Name: "organization",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Reference",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "IdentityCertificate",
+			Name: "identityCertificate",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "String",
 				Namespace: "FHIR",
 			},
 		}, {
-			Name: "AttestationSignature",
+			Name: "attestationSignature",
 			Type: fhirpath.TypeSpecifier{
 				List:      false,
 				Name:      "Signature",
